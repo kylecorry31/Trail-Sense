@@ -145,7 +145,7 @@ class OfflineMapService internal constructor(
             try {
                 files.save(map.imageFile.path, warped, recycleOnSave = true)
             } catch (e: IOException) {
-                getAppService<Logger>().error("MapService", "Failed to save warped map", e)
+                getAppService<Logger>().error(TAG, "Failed to save warped map (${bitmap.width}x${bitmap.height})", e)
                 return null
             }
 
@@ -291,5 +291,9 @@ class OfflineMapService internal constructor(
 
             else -> error("Unexpected map subclass")
         } as T
+    }
+
+    companion object {
+        private const val TAG = "OfflineMapService"
     }
 }

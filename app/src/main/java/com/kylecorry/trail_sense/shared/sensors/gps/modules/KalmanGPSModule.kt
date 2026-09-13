@@ -66,7 +66,7 @@ class KalmanGPSModule(
             restore(previousData)
         }
         if (needsReset(previousData, newData)) {
-            logger.debug(
+            logger.info(
                 TAG,
                 "Kalman filter reset: fix time moved backward " +
                     "(new: ${newData.eventTimeElapsedNanos}, previous: ${previousData.eventTimeElapsedNanos}, filter: $timeElapsedNanos)"

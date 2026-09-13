@@ -89,6 +89,7 @@ open class TileMapLayer<T : TileSource>(
     private val clipPath = Path()
     protected var layerPreferences: Bundle = Bundle()
     private var featureId: String? = null
+    private var wasOverTileLimit = false
 
     private val loadTimer = CoroutineTimer(
         scope = CoroutineScope(tileLoadDispatcher),
@@ -212,9 +213,17 @@ open class TileMapLayer<T : TileSource>(
                 isHighDetailMode = map.isHighDetailMode,
                 context = context
             )
-        } else if (desiredTiles.size > MAX_TILES) {
-            getAppService<Logger>().warn("TileLoader", "Too many tiles to load: ${desiredTiles.size}")
         }
+
+        // This runs every frame, so only log when the limit is first exceeded
+        val isOverTileLimit = desiredTiles.size > MAX_TILES
+        if (isOverTileLimit && !wasOverTileLimit) {
+            getAppService<Logger>().debug(
+                TAG,
+                "Too many tiles to load for $layerId: ${desiredTiles.size} > $MAX_TILES (z${desiredTiles.firstOrNull()?.z})"
+            )
+        }
+        wasOverTileLimit = isOverTileLimit
 
         getTilesToRender(desiredTiles).forEach { renderTile ->
             renderTile.imageTile.withImage { bitmap ->
@@ -562,6 +571,7 @@ open class TileMapLayer<T : TileSource>(
 
     companion object {
         const val MAX_TILES = 150
+        private const val TAG = "TileMapLayer"
         private const val TILE_BORDER_PIXELS = 2
         private val maxConcurrentLoads = minOf(4, Runtime.getRuntime().availableProcessors())
         private val tileLoadDispatcher = CustomDispatchers.newFixedThreadDispatcher(

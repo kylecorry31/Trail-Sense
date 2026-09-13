@@ -19,12 +19,13 @@ class Logger(context: Context) {
     private val queue = ConcurrentLinkedQueue<String>()
     private val runner = CoroutineQueueRunner()
     private val onLogReported = Subscription<Unit>()
+    private val fileLock = Any()
 
     @Suppress("TooGenericExceptionCaught")
     private suspend fun writeToFile() {
         runner.enqueue {
             try {
-                writeQueuedLogs()
+                onIO { writeQueuedLogs() }
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -35,13 +36,17 @@ class Logger(context: Context) {
         }
     }
 
-    private suspend fun writeQueuedLogs() {
-        val file = files.getFile(LOG_FILE_NAME, true)
-        val newLogs = mutableListOf<String>()
-        while (queue.isNotEmpty()) {
-            queue.poll()?.let { newLogs.add(it) }
-        }
-        onIO {
+    private fun writeQueuedLogs() {
+        synchronized(fileLock) {
+            val newLogs = mutableListOf<String>()
+            while (queue.isNotEmpty()) {
+                queue.poll()?.let { newLogs.add(it) }
+            }
+            if (newLogs.isEmpty()) {
+                return
+            }
+
+            val file = files.getFile(LOG_FILE_NAME, true)
             if (file.length() > MAX_LOG_LENGTH) {
                 // Clear some room
                 val tempFile = files.getFile("log_temp.txt", true)
@@ -61,6 +66,15 @@ class Logger(context: Context) {
 
     init {
         onLogReported.subscribe { writeToFile() }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    fun flush() {
+        try {
+            writeQueuedLogs()
+        } catch (e: Exception) {
+            Log.e(TAG, "Unable to write to the log file", e)
+        }
     }
 
     fun getLogFile(): File {

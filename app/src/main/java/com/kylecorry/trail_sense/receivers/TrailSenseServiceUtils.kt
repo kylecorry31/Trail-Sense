@@ -1,8 +1,11 @@
 package com.kylecorry.trail_sense.receivers
 
 import android.content.Context
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.tiles.TileManager
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.widgets.WidgetManager
 import kotlinx.coroutines.CoroutineScope
@@ -11,6 +14,7 @@ import kotlinx.coroutines.launch
 
 object TrailSenseServiceUtils {
 
+    private const val TAG = "TrailSenseServiceUtils"
     private val coroutineScope = CoroutineScope(Dispatchers.Default)
 
     fun restartServices(
@@ -26,7 +30,9 @@ object TrailSenseServiceUtils {
                 }
 
                 val tools = Tools.getTools(appContext, false)
-                tools.flatMap { it.services }.forEach {
+                val services = tools.flatMap { it.services }
+                logServiceStates(services, isInBackground)
+                services.forEach {
                     it.restart()
                 }
 
@@ -41,6 +47,16 @@ object TrailSenseServiceUtils {
                 onComplete()
             }
         }
+    }
+
+    private fun logServiceStates(services: List<ToolService>, isInBackground: Boolean) {
+        val enabled = services.filter { it.isEnabled() }
+        val (blocked, unblocked) = enabled.partition { it.isBlocked() }
+        getAppService<Logger>().info(
+            TAG,
+            "Restarting services (background: $isInBackground), enabled: ${unblocked.joinToString { it.id }}, " +
+                "blocked: ${blocked.joinToString { it.id }}"
+        )
     }
 
     /**

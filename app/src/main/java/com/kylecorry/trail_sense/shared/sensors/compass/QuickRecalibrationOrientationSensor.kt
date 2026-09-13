@@ -98,7 +98,7 @@ class QuickRecalibrationOrientationSensor(
             } else {
                 if (System.currentTimeMillis() - lastThresholdTime > resetTimeMillis) {
                     if (verbose) {
-                        getAppService<Logger>().debug(javaClass.simpleName, "Recalibrating", writeToFile = false)
+                        getAppService<Logger>().debug(TAG, "Recalibrating", writeToFile = false)
                     }
                     recalibrate()
                     lastThresholdTime = 0L
@@ -110,7 +110,7 @@ class QuickRecalibrationOrientationSensor(
 
         if (verbose && System.currentTimeMillis() - lastLogTime > 500) {
             getAppService<Logger>().debug(
-                javaClass.simpleName,
+                TAG,
                 "Diff: ${
                     DecimalFormatter.format(
                         angularMagnitude,
@@ -140,5 +140,7 @@ class QuickRecalibrationOrientationSensor(
         }
     }
 
-
+    companion object {
+        private const val TAG = "QuickRecalibrationOrientationSensor"
+    }
 }

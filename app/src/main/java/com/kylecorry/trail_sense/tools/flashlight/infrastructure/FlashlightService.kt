@@ -10,7 +10,9 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import java.time.Duration
@@ -48,6 +50,7 @@ class FlashlightService : AndromedaService() {
     }
 
     override fun onDestroy() {
+        getAppService<Logger>().info(TAG, "Stopped")
         flashlight.stopSystemMonitor()
         topic.unsubscribe(this::onStateChanged)
         offTimer.stop()
@@ -57,6 +60,7 @@ class FlashlightService : AndromedaService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        getAppService<Logger>().info(TAG, "Started (restarted by system: ${intent == null})")
         flashlight.startSystemMonitor()
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, getNotification())
         topic.subscribe(this::onStateChanged)
@@ -103,6 +107,7 @@ class FlashlightService : AndromedaService() {
     companion object {
         const val CHANNEL_ID = "Flashlight"
         const val NOTIFICATION_ID = 983589
+        private const val TAG = "FlashlightService"
         private const val NOTIFICATION_GROUP_FLASHLIGHT = "trail_sense_flashlight"
 
         fun intent(context: Context): Intent {

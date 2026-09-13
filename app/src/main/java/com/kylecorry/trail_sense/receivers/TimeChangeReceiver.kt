@@ -15,7 +15,7 @@ class TimeChangeReceiver : BroadcastReceiver() {
             Intent.ACTION_DATE_CHANGED
         )
         if (validIntentActions.contains(intent?.action) && context != null) {
-            getAppService<Logger>().debug("TimeChangeReceiver", "Time changed")
+            getAppService<Logger>().info("TimeChangeReceiver", "${intent?.action}, restarting services")
             val pendingResult = goAsync()
             TrailSenseServiceUtils.restartServices(
                 context,

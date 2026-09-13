@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ContourGeoJsonSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
@@ -51,6 +52,10 @@ class PreferenceMigrator private constructor() {
     fun migrate(context: Context) {
         synchronized(lock) {
             val prefs = PreferencesSubsystem.getInstance(context).preferences
+            val startVersion = prefs.getInt(VERSION_KEY) ?: 0
+            if (startVersion < version) {
+                getAppService<Logger>().info(TAG, "Migrating preferences from version $startVersion to $version")
+            }
             migrate(prefs) { migration -> migration.action(context, prefs) }
         }
     }
@@ -76,6 +81,7 @@ class PreferenceMigrator private constructor() {
         private val staticLock = Any()
 
         internal const val VERSION_KEY = "pref_version"
+        private const val TAG = "PreferenceMigrator"
 
         internal const val LEGACY_LAST_KALMAN_VARIANCE = "last_kalman_variance"
         internal const val LEGACY_LAST_KALMAN_VELOCITY_VARIANCE = "last_kalman_velocity_variance"

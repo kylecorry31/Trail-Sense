@@ -10,10 +10,13 @@ import com.kylecorry.andromeda.background.OneTimeTaskSchedulerFactory
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
@@ -61,6 +64,7 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
 
     companion object {
 
+        private const val TAG = "TurnBackAlarmReceiver"
         private const val PI_ID = 238094
         private const val TURN_BACK_NOTIFICATION_ID = 2390423
         const val NOTIFICATION_CHANNEL_ID = "Turn back"
@@ -81,6 +85,10 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
 
             val scheduler = scheduler(context)
             scheduler.once(turnBackTime)
+            getAppService<Logger>().info(
+                TAG,
+                "Scheduled turn back alert at $turnBackTime (exact: ${Permissions.canScheduleExactAlarms(context)})"
+            )
         }
 
         fun stop(context: Context) {

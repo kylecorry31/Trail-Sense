@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.permissions.canStartLocationForegroundService
+import com.kylecorry.trail_sense.shared.permissions.isAppForeground
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -93,7 +94,11 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
 
         if (!hasPermissions(context)) {
             ServiceRestartAlerter(context).alert()
-            getAppService<Logger>().warn("WeatherUpdateScheduler", "Cannot start weather monitoring")
+            getAppService<Logger>().warn(
+                TAG,
+                "Cannot start weather monitoring: has location permission but cannot start a location foreground service " +
+                    "(app in foreground: ${isAppForeground()}, background location: ${Permissions.isBackgroundLocationEnabled(context)})"
+            )
             return
         }
 
@@ -128,5 +133,9 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
 
     protected fun finalize() {
         sharedPreferences.onChange.unsubscribe(this::onPreferencesChanged)
+    }
+
+    companion object {
+        private const val TAG = "WeatherMonitorToolService"
     }
 }

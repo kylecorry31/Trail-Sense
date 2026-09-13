@@ -10,12 +10,14 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginDao
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginEntity
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationDao
 import com.kylecorry.trail_sense.plugins.infrastructure.persistence.PluginRegistrationEntity
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelDao
 import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelEntity
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileDao
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileEntity
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReadingEntity
@@ -100,6 +102,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun stepTrackerDao(): StepTrackerDao
 
     companion object {
+        private const val TAG = "AppDatabase"
 
         // For Singleton instantiation
         @Volatile
@@ -120,6 +123,17 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun createCheckpoint(context: Context) {
             getInstance(context).query(SimpleSQLiteQuery("pragma wal_checkpoint(full)"))
+        }
+
+        private fun withLogging(vararg migrations: Migration): Array<Migration> {
+            return migrations.map { migration ->
+                object : Migration(migration.startVersion, migration.endVersion) {
+                    override fun migrate(db: SupportSQLiteDatabase) {
+                        getAppService<Logger>().info(TAG, "Migrating database from version $startVersion to $endVersion")
+                        migration.migrate(db)
+                    }
+                }
+            }.toTypedArray()
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
@@ -591,7 +605,7 @@ abstract class AppDatabase : RoomDatabase() {
             }
 
             return Room.databaseBuilder(context, AppDatabase::class.java, "trail_sense")
-                .addMigrations(
+                .addMigrations(*withLogging(
                     MIGRATION_1_2,
                     MIGRATION_2_3,
                     MIGRATION_3_4,
@@ -652,7 +666,7 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_58_59,
                     MIGRATION_59_60,
                     MIGRATION_60_61
-                )
+                ))
                 // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()
                 .build()

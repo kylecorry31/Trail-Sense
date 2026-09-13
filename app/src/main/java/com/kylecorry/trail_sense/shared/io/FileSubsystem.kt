@@ -213,13 +213,18 @@ class FileSubsystem private constructor(private val context: Context) {
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            getAppService<Logger>().error("FileSubsystem", "Error thrown while checking if file can be read", e)
             val packageName = if (e is SecurityException) {
                 // Format: com.android.externalstorage has no access
                 val regex = Regex("""([\w.]+) has no access""")
                 regex.find(e.message.orEmpty())?.groupValues?.get(1)
             } else {
                 null
+            }
+
+            if (e is SecurityException) {
+                getAppService<Logger>().warn(TAG, "No read access to file (denied by: $packageName)")
+            } else {
+                getAppService<Logger>().error(TAG, "Error thrown while checking if file can be read", e)
             }
 
             return CanReadResult(false, packageName)
@@ -289,6 +294,7 @@ class FileSubsystem private constructor(private val context: Context) {
     }
 
     companion object {
+        private const val TAG = "FileSubsystem"
         const val SCHEME_CONTENT = "content://"
         const val SCHEME_ASSETS = "android-assets://"
         private const val TEMP_DIR = "tmp"

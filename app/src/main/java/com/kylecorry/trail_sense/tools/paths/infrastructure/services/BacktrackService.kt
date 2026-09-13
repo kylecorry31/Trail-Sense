@@ -12,8 +12,10 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.time.FlowableTimer
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSSourceSelector
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
@@ -38,8 +40,11 @@ class BacktrackService :
                 GPSSourceSelector(this).getSource(useCache = false) == GPSSource.Device
 
         if (!canWakeWithLocationUpdates) {
+            getAppService<Logger>().info(TAG, "Using a coroutine timer (keep awake: ${prefs.backtrackKeepDeviceAwake})")
             return CoroutineTimer { action() }
         }
+
+        getAppService<Logger>().info(TAG, "Using location updates as the timer")
 
         return FlowableTimer({ periodMillis ->
             // This intentionally does not use the CustomGPS because it only needs to use the GPS as a wakeup source
@@ -80,6 +85,10 @@ class BacktrackService :
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        getAppService<Logger>().info(
+            TAG,
+            "Started (period: $period, keep awake: ${prefs.backtrackKeepDeviceAwake}, restarted by system: ${intent == null})"
+        )
         isRunning = true
         return tryStartForegroundOrNotify {
             super.onStartCommand(intent, flags, startId)
@@ -87,6 +96,7 @@ class BacktrackService :
     }
 
     override fun onDestroy() {
+        getAppService<Logger>().info(TAG, "Stopped")
         isRunning = false
         stopService(true)
         super.onDestroy()
@@ -94,6 +104,7 @@ class BacktrackService :
 
     companion object {
         const val FOREGROUND_CHANNEL_ID = "Backtrack"
+        private const val TAG = "BacktrackService"
 
         var isRunning = false
             private set(value) {

@@ -72,10 +72,9 @@ class TimeoutGPSModule(
         timeoutToken = null
         timeout = null
 
-        logger.debug(TAG, "Timed out after ${TIMEOUT_DURATION.seconds}s")
-        logger.debug(
+        logger.info(
             TAG,
-            "Keeping a reading from ${data.age(timeProvider).toMillis()}ms ago"
+            "Timed out after ${TIMEOUT_DURATION.seconds}s, keeping a reading from ${data.age(timeProvider).toMillis()}ms ago"
         )
         return true
     }

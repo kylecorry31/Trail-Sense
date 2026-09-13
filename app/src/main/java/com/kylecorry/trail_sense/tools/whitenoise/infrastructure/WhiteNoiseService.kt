@@ -10,7 +10,9 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.withId
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -28,6 +30,7 @@ class WhiteNoiseService : AndromedaService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        getAppService<Logger>().info(TAG, "Started (restarted by system: ${intent == null})")
         return tryStartForegroundOrNotify {
             super.onStartCommand(intent, flags, startId)
             isRunning = true
@@ -60,6 +63,7 @@ class WhiteNoiseService : AndromedaService() {
     }
 
     override fun onDestroy() {
+        getAppService<Logger>().info(TAG, "Stopped")
         offTimer.stop()
         isRunning = false
         soundPlayer?.fadeOff(true)
@@ -71,6 +75,7 @@ class WhiteNoiseService : AndromedaService() {
 
     companion object {
         const val NOTIFICATION_ID = 9874333
+        private const val TAG = "WhiteNoiseService"
         const val NOTIFICATION_CHANNEL_ID = "white_noise"
         const val CACHE_KEY_OFF_TIME = "cache_white_noise_off_at"
 

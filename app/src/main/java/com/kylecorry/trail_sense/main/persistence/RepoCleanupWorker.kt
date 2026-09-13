@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.main.persistence
 
 import android.content.Context
+import android.os.SystemClock
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.kylecorry.andromeda.background.IPeriodicTaskScheduler
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -26,35 +28,52 @@ class RepoCleanupWorker(
 ) :
     CoroutineWorker(context, params) {
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
 
-        getAppService<Logger>().debug("RepoCleanupWorker", "Cleaning up repositories")
+        val logger = getAppService<Logger>()
+        val start = SystemClock.elapsedRealtime()
 
-        val cleanables: List<ICleanable> = listOf(
-            PathService.getInstance(context),
-            WeatherRepo.getInstance(context),
-            CloudRepo.getInstance(context),
-            LightningRepo.getInstance(context),
-            DEMRepo.getInstance(),
-            NavigationBearingService.getInstance(context),
-            CachedTileRepo.getInstance(context),
-            getAppService<StepTrackerService>()
+        // Named explicitly because class names are obfuscated in release builds
+        val cleanables: List<Pair<String, ICleanable>> = listOf(
+            "PathService" to PathService.getInstance(context),
+            "WeatherRepo" to WeatherRepo.getInstance(context),
+            "CloudRepo" to CloudRepo.getInstance(context),
+            "LightningRepo" to LightningRepo.getInstance(context),
+            "DEMRepo" to DEMRepo.getInstance(),
+            "NavigationBearingService" to NavigationBearingService.getInstance(context),
+            "CachedTileRepo" to CachedTileRepo.getInstance(context),
+            "StepTrackerService" to getAppService<StepTrackerService>()
         )
 
-        for (repo in cleanables) {
-            repo.clean()
+        // One failing cleanup should not prevent the rest from running
+        var failures = 0
+        for ((name, repo) in cleanables) {
+            try {
+                repo.clean()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                failures++
+                logger.error(TAG, "Unable to clean $name", e)
+            }
         }
 
         getAppService<OfflineMapService>().cleanup()
         DeleteTempFilesCommand(context).execute()
 
-        getAppService<Logger>().debug("RepoCleanupWorker", "Finished cleaning up repositories")
+        logger.info(
+            TAG,
+            "Cleaned up repositories in ${SystemClock.elapsedRealtime() - start}ms with $failures failures"
+        )
 
         Result.success()
     }
 
 
     companion object {
+        private const val TAG = "RepoCleanupWorker"
+
         fun scheduler(context: Context): IPeriodicTaskScheduler {
             return TaskSchedulerFactory(context.applicationContext).interval(
                 RepoCleanupWorker::class.java,

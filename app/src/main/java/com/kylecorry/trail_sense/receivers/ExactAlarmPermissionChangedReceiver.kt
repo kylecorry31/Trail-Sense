@@ -10,7 +10,10 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 class ExactAlarmPermissionChangedReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent?.action == AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED && context != null) {
-            getAppService<Logger>().debug("ExactAlarmPermissionChangedReceiver", "Exact alarm permission changed")
+            getAppService<Logger>().info(
+                "ExactAlarmPermissionChangedReceiver",
+                "Exact alarm permission changed, restarting services"
+            )
             RestartServicesCommand(context, true).execute()
         }
     }

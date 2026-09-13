@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -72,6 +73,7 @@ class StepCounterService : AndromedaService() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        getAppService<Logger>().info(TAG, "Started (restarted by system: ${intent == null})")
         return tryStartForegroundOrNotify {
             val flag = super.onStartCommand(intent, flags, startId)
             isRunning = true
@@ -98,6 +100,7 @@ class StepCounterService : AndromedaService() {
     }
 
     override fun onDestroy() {
+        getAppService<Logger>().info(TAG, "Stopped")
         isRunning = false
         pedometer.stop(this::onPedometer)
         stopService(true)
@@ -142,6 +145,7 @@ class StepCounterService : AndromedaService() {
     companion object {
         const val CHANNEL_ID = "pedometer"
         const val NOTIFICATION_ID = 1279812
+        private const val TAG = "StepCounterService"
         private const val NOTIFICATION_GROUP_PEDOMETER = "trail_sense_pedometer"
 
         var isRunning = false

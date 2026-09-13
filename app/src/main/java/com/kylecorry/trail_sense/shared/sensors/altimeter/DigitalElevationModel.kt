@@ -24,6 +24,10 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
                 val fixTimeElapsedNanos = gps.eventTimeElapsedNanos
                 val fixTime = gps.eventTime
                 demAltitude = DEM.getElevation(location).elevation
+                if (isLookupFailing) {
+                    isLookupFailing = false
+                    getAppService<Logger>().info(TAG, "DEM elevation lookup recovered")
+                }
                 demEventTimeElapsedNanos = fixTimeElapsedNanos
                 demEventTime = fixTime
                 onMain {
@@ -32,7 +36,11 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
                     }
                 }
             } catch (e: Exception) {
-                getAppService<Logger>().error("DigitalElevationModel", "Unable to get DEM elevation", e)
+                // Lookups run on every GPS update, so only log the first failure until one succeeds
+                if (!isLookupFailing) {
+                    isLookupFailing = true
+                    getAppService<Logger>().error(TAG, "Unable to get DEM elevation", e)
+                }
             }
         }
     }
@@ -40,6 +48,7 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
     private var demAltitude: Float? = null
     private var demEventTimeElapsedNanos: Long? = null
     private var demEventTime: Instant? = null
+    private var isLookupFailing = false
 
     private fun onUpdate(): Boolean {
         updateTask.start()
@@ -87,4 +96,8 @@ class DigitalElevationModel(private val gps: IGPS) : AbstractSensor(),
         set(_) {}
     override val speed: Speed
         get() = gps.speed
+
+    companion object {
+        private const val TAG = "DigitalElevationModel"
+    }
 }

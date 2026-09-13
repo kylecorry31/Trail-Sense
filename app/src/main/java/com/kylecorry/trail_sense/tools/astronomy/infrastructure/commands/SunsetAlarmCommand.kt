@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
+import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
@@ -33,12 +34,10 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
     private val alertWindow = Duration.ofMinutes(20)
 
     override suspend fun execute() = onDefault {
-        getAppService<Logger>().info(TAG, "Started")
-
         val now = ZonedDateTime.now()
 
         if (location.location == Coordinate.zero) {
-            setAlarm(now.plusDays(1))
+            setAlarm(now.plusDays(1), "no location available")
             return@onDefault
         }
 
@@ -56,7 +55,8 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
                     // Missed the sunset, schedule the alarm for tomorrow
                     setAlarm(
                         tomorrowSunset?.minus(alertDuration)
-                            ?: todaySunset.plusDays(1)
+                            ?: todaySunset.plusDays(1),
+                        "past today's sunset at ${todaySunset.toInstant()}"
                     )
                 }
 
@@ -65,18 +65,22 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
                     sendNotification(todaySunset)
                     setAlarm(
                         tomorrowSunset?.minus(alertDuration)
-                            ?: todaySunset.plusDays(1)
+                            ?: todaySunset.plusDays(1),
+                        "within alert window for today's sunset at ${todaySunset.toInstant()}"
                     )
                 }
 
                 else -> { // Before the alert window
                     // Schedule alarm for sunset
-                    setAlarm(todaySunset.minus(alertDuration))
+                    setAlarm(
+                        todaySunset.minus(alertDuration),
+                        "before alert window for today's sunset at ${todaySunset.toInstant()}"
+                    )
                 }
             }
         } else {
             // There isn't a sunset today, schedule it for tomorrow
-            setAlarm(tomorrowSunset?.minus(alertDuration) ?: now.plusDays(1))
+            setAlarm(tomorrowSunset?.minus(alertDuration) ?: now.plusDays(1), "no sunset today")
         }
     }
 
@@ -95,6 +99,7 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
 
         val lastSentDate = userPrefs.astronomy.sunsetAlertLastSent
         if (LocalDate.now() == lastSentDate) {
+            getAppService<Logger>().info(TAG, "Sunset alert already sent today")
             return
         }
 
@@ -127,14 +132,18 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
         )
 
         DependencyRegistry.get<NotificationSubsystem>().send(NOTIFICATION_ID, notification)
+        getAppService<Logger>().info(TAG, "Sunset alert sent")
     }
 
-    private fun setAlarm(time: ZonedDateTime) {
+    private fun setAlarm(time: ZonedDateTime, reason: String) {
         val scheduler = SunsetAlarmReceiver.scheduler(context)
         scheduler.cancel()
         val instant = time.toInstant()
         scheduler.once(instant)
-        getAppService<Logger>().info(TAG, "Scheduled next run at $instant")
+        getAppService<Logger>().info(
+            TAG,
+            "Scheduled next run at $instant (exact: ${Permissions.canScheduleExactAlarms(context)}): $reason"
+        )
     }
 
     companion object {

@@ -123,7 +123,7 @@ inline fun tryStartForegroundOrNotify(context: Context, action: () -> Unit) {
     } catch (e: Exception) {
         if (isForegroundServiceStartError(e)) {
             ServiceRestartAlerter(context.applicationContext).alert()
-            getAppService<Logger>().warn("tryStartForegroundOrNotify", "Cannot start service", e)
+            getAppService<Logger>().warn("ForegroundService", "Cannot start foreground service", e)
         } else {
             throw e
         }
@@ -138,7 +138,7 @@ inline fun Service.tryStartForegroundOrNotify(action: () -> Int): Int {
         if (!isForegroundServiceStartError(e)) {
             throw e
         }
-        getAppService<Logger>().warn("tryStartForegroundOrNotify", "Cannot start service", e)
+        getAppService<Logger>().warn("ForegroundService", "Cannot start ${javaClass.simpleName} in the foreground", e)
         ServiceRestartAlerter(this).alert()
         stopSelf()
         Service.START_NOT_STICKY

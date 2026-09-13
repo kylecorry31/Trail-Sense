@@ -5,9 +5,11 @@ import androidx.core.app.NotificationCompat
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 
@@ -35,6 +37,7 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
         )
         DependencyRegistry.get<NotificationSubsystem>()
             .send(STORM_ALERT_NOTIFICATION_ID, notification)
+        getAppService<Logger>().info(TAG, "Storm alert sent")
     }
 
     override fun dismiss() {
@@ -45,6 +48,7 @@ class StormAlerter(private val context: Context) : IDismissibleAlerter {
         private const val STORM_ALERT_NOTIFICATION_ID = 74309823
         const val STORM_CHANNEL_ID = "Alerts"
         private const val NOTIFICATION_GROUP_STORM = "trail_sense_storm"
+        private const val TAG = "StormAlerter"
 
     }
 }

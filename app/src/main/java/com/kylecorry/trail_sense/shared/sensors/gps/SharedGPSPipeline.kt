@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.AccuracyFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
@@ -12,7 +14,10 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -> Unit) -> GPSPipeline) {
+internal class SharedGPSPipeline(
+    private val logger: Logger = getAppService(),
+    private val factory: (suspend (() -> Boolean) -> Unit) -> GPSPipeline
+) {
     private var pipeline = factory(::onTimeout)
     private val consumers = mutableMapOf<Any, () -> Unit>()
     private val mutex = Mutex()
@@ -37,6 +42,7 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
 
     suspend fun start(consumer: Any, notifyTimeout: () -> Unit = {}) = mutex.withLock {
         if (consumers.putIfAbsent(consumer, notifyTimeout) == null && consumers.size == 1) {
+            logger.info(TAG, "Started")
             lastInput = null
             pipeline.start()
             latest = snapshot()
@@ -45,6 +51,7 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
 
     suspend fun stop(consumer: Any) = mutex.withLock {
         if (consumers.remove(consumer) != null && consumers.isEmpty()) {
+            logger.info(TAG, "Stopped")
             pipeline.stop()
         }
     }
@@ -81,6 +88,8 @@ internal class SharedGPSPipeline(private val factory: (suspend (() -> Boolean) -
     private fun snapshot() = ModularGPSData().also { pipeline.reading.copyInto(it) }
 
     companion object {
+        private const val TAG = "SharedGPSPipeline"
+
         @Volatile
         private var instance: SharedGPSPipeline? = null
 

@@ -18,9 +18,11 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.climate.infrastructure.ClimateSubsystem
@@ -263,6 +265,10 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
             val maxPeriod = prefs.weather.weatherUpdateFrequency.dividedBy(3)
 
             if (last != null && Duration.between(last, Instant.now()).abs() < maxPeriod) {
+                getAppService<Logger>().info(
+                    TAG,
+                    "Skipping weather reading, last reading was at $last (minimum spacing: $maxPeriod)"
+                )
                 // Still send out the weather alerts, just don't log a new reading
                 SendWeatherAlertsCommand(context).execute(getWeather())
                 return@onDefault
@@ -401,6 +407,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
     companion object {
+        private const val TAG = "WeatherSubsystem"
+
         @SuppressLint("StaticFieldLeak")
         private var instance: WeatherSubsystem? = null
 

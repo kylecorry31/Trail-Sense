@@ -116,7 +116,11 @@ internal class OfflineMapImporter(
         try {
             files.save(filename, bp, recycleOnSave = true)
         } catch (e: IOException) {
-            getAppService<Logger>().error(TAG, "Failed to save image", e)
+            getAppService<Logger>().error(
+                TAG,
+                "Failed to save rendered PDF image (${bp.width}x${bp.height}, ${describeSource(request.uri)})",
+                e
+            )
             return Result.Err(CreateOfflineMapError.UnableToCopy)
         }
 
@@ -158,7 +162,7 @@ internal class OfflineMapImporter(
 
     private suspend fun importTrailMap(request: CreateOfflineMapRequest): Result<TrailMap, CreateOfflineMapError> {
         if (!MapsforgeAdapter.isMapsforgeMap(request.uri)) {
-            getAppService<Logger>().error(TAG, "Invalid extension")
+            getAppService<Logger>().warn(TAG, "Not a Mapsforge map (${describeSource(request.uri)})")
             return Result.Err(CreateOfflineMapError.InvalidMapFile)
         }
         var hasPersistentAccess = false
@@ -174,14 +178,21 @@ internal class OfflineMapImporter(
             if (hasPersistentAccess) {
                 request.uri.toString()
             } else {
-                getAppService<Logger>().error(TAG, "Unable to obtain persistent access")
+                getAppService<Logger>().warn(
+                    TAG,
+                    "Unable to obtain persistent access to trail map (${describeSource(request.uri)})"
+                )
                 return Result.Err(CreateOfflineMapError.AccessDenied)
             }
         }
 
         val info = MapsforgeAdapter.getMapInfo(path)
         if (info == null) {
-            getAppService<Logger>().error(TAG, "Map file is invalid")
+            getAppService<Logger>().warn(
+                TAG,
+                "Unable to read Mapsforge map info (${describeSource(request.uri)}, " +
+                    "size: ${files.size(path)} bytes, copied: ${prefs.photoMaps.copyTrailMapsToAppStorage})"
+            )
             if (hasPersistentAccess) {
                 files.releasePersistentAccess(request.uri)
             }
@@ -209,6 +220,13 @@ internal class OfflineMapImporter(
             files.copyToLocal(uri, OFFLINE_MAPS_DIRECTORY, "${UUID.randomUUID()}.$extension")
                 ?: return null
         return files.getLocalPath(saved)
+    }
+
+    private fun describeSource(uri: Uri): String {
+        val extension = files.getFileName(uri, withExtension = true, fallbackToPathName = true)
+            ?.substringAfterLast('.', "")
+            ?.lowercase()
+        return "MIME type: ${files.getMimeType(uri)}, extension: $extension"
     }
 
     private fun getMimeTypeFromExtension(uri: Uri): String? {

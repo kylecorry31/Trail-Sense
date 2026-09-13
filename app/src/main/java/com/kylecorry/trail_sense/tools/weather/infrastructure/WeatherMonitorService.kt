@@ -9,8 +9,10 @@ import com.kylecorry.andromeda.background.TaskSchedulerFactory
 import com.kylecorry.andromeda.background.services.ForegroundInfo
 import com.kylecorry.andromeda.background.services.IntervalService
 import com.kylecorry.andromeda.permissions.Permissions
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.permissions.canStartLocationForegroundService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
@@ -49,6 +51,7 @@ class WeatherMonitorService :
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        getAppService<Logger>().info(TAG, "Started (period: $period, restarted by system: ${intent == null})")
         isRunning = true
         return tryStartForegroundOrNotify {
             super.onStartCommand(intent, flags, startId)
@@ -56,6 +59,7 @@ class WeatherMonitorService :
     }
 
     override fun onDestroy() {
+        getAppService<Logger>().info(TAG, "Stopped")
         isRunning = false
         stopService(true)
         super.onDestroy()
@@ -64,6 +68,7 @@ class WeatherMonitorService :
     companion object {
 
         const val WEATHER_NOTIFICATION_ID = 1
+        private const val TAG = "WeatherMonitorService"
 
         var isRunning = false
             private set

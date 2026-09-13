@@ -11,9 +11,11 @@ import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.extensions.tryStartForegroundOrNotify
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.tools.waterpurification.WaterBoilTimerToolRegistration
@@ -42,6 +44,7 @@ class WaterPurificationTimerService : AndromedaService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         seconds = intent?.extras?.getLong(KEY_SECONDS, DEFAULT_SECONDS) ?: DEFAULT_SECONDS
+        getAppService<Logger>().info(TAG, "Started (duration: ${seconds}s, restarted by system: ${intent == null})")
         return tryStartForegroundOrNotify {
             super.onStartCommand(intent, flags, startId)
             startTimer(seconds)
@@ -50,6 +53,7 @@ class WaterPurificationTimerService : AndromedaService() {
     }
 
     override fun onDestroy() {
+        getAppService<Logger>().info(TAG, "Stopped (completed: $done)")
         timer?.cancel()
         if (!done) {
             Notify.cancel(this, NOTIFICATION_ID)
@@ -127,6 +131,7 @@ class WaterPurificationTimerService : AndromedaService() {
 
         const val CHANNEL_ID = "Water_Boil_Timer"
         const val NOTIFICATION_ID = 57293759
+        private const val TAG = "WaterPurificationTimerService"
         private const val ONE_SECOND = 1000L
         private const val KEY_SECONDS = "seconds"
         private const val DEFAULT_SECONDS = 60L

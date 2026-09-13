@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.main.errors
 
 import android.content.Intent
 import com.kylecorry.andromeda.core.tryOrDefault
+import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.exceptions.AggregateBugReportGenerator
 import com.kylecorry.andromeda.exceptions.AndroidDetailsBugReportGenerator
 import com.kylecorry.andromeda.exceptions.AppDetailsBugReportGenerator
@@ -11,6 +12,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.findNavController
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.diagnostics.infrastructure.DiagnosticsLogConfig
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -41,6 +43,9 @@ class TrailSenseExceptionHandler(
     }
 
     override fun handleException(throwable: Throwable, details: String): Boolean {
+        tryOrNothing {
+            getAppService<Logger>().flush()
+        }
         return tryOrDefault(false) {
             try {
                 val prefs = getAppService<PreferencesSubsystem>().preferences
