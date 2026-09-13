@@ -592,8 +592,16 @@ fun ReactiveComponent.useTimer(
     actionBehavior: TimerActionBehavior = TimerActionBehavior.Wait,
     runnable: suspend () -> Unit
 ) {
+    val runnableRef = useRef(runnable)
+
+    useEffect(runnable) {
+        runnableRef.current = runnable
+    }
+
     val timer = useMemo {
-        CoroutineTimer(scope, observeOn, actionBehavior, runnable)
+        CoroutineTimer(scope, observeOn, actionBehavior) {
+            runnableRef.current()
+        }
     }
 
     useResumeEffect(timer, interval) {
