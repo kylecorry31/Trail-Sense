@@ -482,8 +482,6 @@
     <string name="coordinates_tab">Coordenadas</string>
     <string name="distance">Distância</string>
     <string name="convert">Converter</string>
-    <string name="pref_nmea_elevation_summary">Utilizar NMEA (satélite) para corrigir altitudes, ao invés do modelo integrado</string>
-    <string name="pref_nmea_elevation_title">Correção de altitude NMEA</string>
     <string name="pref_barometer_info_summary">A pressão pode ser diferente da pressão das estações próximas</string>
     <string name="battery_history">Histórico da bateria - últimos %s</string>
     <string name="weather_monitor">Monitoramento do clima</string>

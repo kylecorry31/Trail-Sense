@@ -539,7 +539,6 @@
     <string name="network_5g">5G</string>
     <string name="network_3g">3G</string>
     <string name="set">הגדר</string>
-    <string name="pref_nmea_elevation_title">היסט גובה NMEA</string>
     <string name="location_mocked">שימוש במיקום מזויף</string>
     <string name="distance_from_flashlight">מרחק מהטלפון לפנס</string>
     <string name="pref_backtrack_save_cell_title">הקלטת אות סלולרי</string>
@@ -610,7 +609,6 @@
     <string name="weather_monitor">מוניטור מזג אוויר</string>
     <string name="temperature_history">היסטוריית טמפרטורה - אחרונה %s</string>
     <string name="pref_barometer_info_summary">הלחץ עשוי להיות שונה מזה של תחנות סמוכות</string>
-    <string name="pref_nmea_elevation_summary">שימוש ב-NMEA (לוויין) לתיקון גבהים במקום המודל המובנה</string>
     <string name="preview">תצוגה מקדימה</string>
     <string name="pref_navigation_lock_screen_presence_title">הצג במסך הנעילה בזמן הניווט</string>
     <string name="pref_cell_signal_refresh_cache_summary">מאלץ טעינת עוצמת האות העדכנית ביותר</string>

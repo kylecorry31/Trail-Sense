@@ -19,7 +19,6 @@ class ModularGPSData(
     override var location: Coordinate = Coordinate.zero,
     override var verticalAccuracy: Float? = null,
     override var horizontalAccuracy: Float? = null,
-    override var mslAltitude: Float? = null,
     override var bearing: Bearing? = null,
     override var rawBearing: Float? = null,
     override var bearingAccuracy: Float? = null,
@@ -36,6 +35,8 @@ class ModularGPSData(
     // Internal filter uncertainty - replace this with a custom data property (map) later
     var kalmanState: GPSKalmanState? = null
     var speedSource: SpeedSource = SpeedSource.Unknown
+
+    override val mslAltitude: Float? = null
 
     val id: Long
         get() = eventTimeElapsedNanos
@@ -74,7 +75,6 @@ class ModularGPSData(
         other.location = location
         other.verticalAccuracy = verticalAccuracy
         other.horizontalAccuracy = horizontalAccuracy
-        other.mslAltitude = mslAltitude
         other.bearing = bearing
         other.rawBearing = rawBearing
         other.bearingAccuracy = bearingAccuracy
@@ -96,7 +96,6 @@ class ModularGPSData(
         location = gps.location
         verticalAccuracy = gps.verticalAccuracy
         horizontalAccuracy = gps.horizontalAccuracy
-        mslAltitude = gps.mslAltitude
         bearing = gps.bearing
         rawBearing = gps.rawBearing
         bearingAccuracy = gps.bearingAccuracy

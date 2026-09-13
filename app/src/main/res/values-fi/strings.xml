@@ -268,7 +268,6 @@
     <string name="disclaimer_estimated_tide_title">Arvioitu vuorovesi</string>
     <string name="horizon">Horisontti</string>
     <string name="reset_distance_title">Nollataanko etäisyys\?</string>
-    <string name="pref_nmea_elevation_title">NMEA-korkeuskorjaukset</string>
     <string name="could_not_triangulate">Ei voitu kolmiomitata</string>
     <string name="pip_notification_scheduled">Ilmoitus ajoitettu ajalle %s</string>
     <string name="restore_failure_newer_version">Tämä varmuuskopio luotiin %s:n uudemmalla versiolla. Päivitä sovellus ja yritä uudelleen.</string>
@@ -734,7 +733,6 @@
     <string name="data_source">Lähde: %s</string>
     <string name="pack_sort_percent_low_to_high">Pakattu prosentti (pienestä korkeaan)</string>
     <string name="high_pressure_system_description">Liitetään hyvään säähän, selkeisiin taivaisiin ja viileämpiin lämpötiloihin.</string>
-    <string name="pref_nmea_elevation_summary">Käytä NMEA (satelliitti) korkeuksien korjaamiseen sisäisen mallin sijaan</string>
     <string name="hygiene">Hygienia</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d reittipiste poistettu</item>

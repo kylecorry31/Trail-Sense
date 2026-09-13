@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.GeoidService
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import java.time.Instant
@@ -9,14 +8,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
 class MeanSeaLevelGPSModuleTest {
-    private val prefs = mock<IGPSPreferences>()
     private val lookups = mutableListOf<Coordinate>()
     private val module = MeanSeaLevelGPSModule(
-        prefs,
         geoidService = object : GeoidService {
             override suspend fun getGeoid(location: Coordinate): Float {
                 lookups.add(location)
@@ -30,10 +25,9 @@ class MeanSeaLevelGPSModuleTest {
     )
     private val previous = ModularGPSData(altitude = 50f, eventTime = Instant.EPOCH)
 
-    private fun reading(msl: Float? = null) = ModularGPSData(
+    private fun reading() = ModularGPSData(
         location = Coordinate(42.0, -72.0),
         altitude = 100f,
-        mslAltitude = msl,
         eventTime = Instant.EPOCH.plusSeconds(1),
         eventTimeElapsedNanos = 1_000_000_000
     )
@@ -42,7 +36,7 @@ class MeanSeaLevelGPSModuleTest {
     fun awaitsGeoidForNewCellBeforeApplyingAltitude() = runBlocking<Unit> {
         val requested = kotlinx.coroutines.CompletableDeferred<Unit>()
         val offset = kotlinx.coroutines.CompletableDeferred<Float>()
-        val module = MeanSeaLevelGPSModule(prefs, object : GeoidService {
+        val module = MeanSeaLevelGPSModule(object : GeoidService {
             override suspend fun getGeoid(location: Coordinate): Float {
                 if (location.longitude == -72.0) return 25f
                 requested.complete(Unit)
@@ -84,47 +78,10 @@ class MeanSeaLevelGPSModuleTest {
     }
 
     @Test
-    fun prefersNmeaAltitudeWhenEnabled() = runBlocking<Unit> {
-        whenever(prefs.useNMEA).thenReturn(true)
-        val candidate = reading(80f)
-        module.update(previous, candidate)
-        assertEquals(80f, candidate.altitude)
-        assertEquals(80f, candidate.mslAltitude)
-        assertTrue(lookups.isEmpty())
-    }
-
-    @Test
-    fun retainsLastNmeaOffsetWhenLaterReadingOmitsIt() = runBlocking<Unit> {
-        whenever(prefs.useNMEA).thenReturn(true)
-        module.update(previous, reading(80f))
-        val candidate = reading().apply { altitude = 120f }
-        module.update(previous, candidate)
-        assertEquals(100f, candidate.altitude)
-        assertTrue(lookups.isEmpty())
-    }
-
-    @Test
-    fun fallsBackToGeoidWhenNmeaOffsetIsZero() = runBlocking<Unit> {
-        whenever(prefs.useNMEA).thenReturn(true)
-        val candidate = reading(100f)
-        module.update(previous, candidate)
-        assertEquals(75f, candidate.altitude)
-        assertEquals(1, lookups.size)
-    }
-
-    @Test
     fun doesNotCorrectTheAltitudeOfARepeatedFix() = runBlocking<Unit> {
         val candidate = reading().apply { eventTimeElapsedNanos = previous.eventTimeElapsedNanos }
         assertTrue(module.update(previous, candidate))
         assertEquals(100f, candidate.altitude)
         assertTrue(lookups.isEmpty())
-    }
-
-    @Test
-    fun ignoresNmeaOffsetWhenDisabled() = runBlocking<Unit> {
-        val candidate = reading(80f)
-        module.update(previous, candidate)
-        assertEquals(75f, candidate.altitude)
-        assertEquals(1, lookups.size)
     }
 }

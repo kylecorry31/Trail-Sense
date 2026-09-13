@@ -29,7 +29,6 @@ class SameFixGPSModuleTest {
         location = Coordinate(1.0, 2.0),
         horizontalAccuracy = 3f,
         verticalAccuracy = 4f,
-        mslAltitude = 5f,
         bearing = Bearing.from(10f),
         rawBearing = 10f,
         bearingAccuracy = 6f,
@@ -51,7 +50,6 @@ class SameFixGPSModuleTest {
         location = Coordinate(3.0, 4.0),
         horizontalAccuracy = 12f,
         verticalAccuracy = 13f,
-        mslAltitude = 14f,
         bearing = Bearing.from(20f),
         rawBearing = 20f,
         bearingAccuracy = 15f,
@@ -72,10 +70,9 @@ class SameFixGPSModuleTest {
         }
         assertTrue(module.update(previous, candidate))
 
-        // The satellite and NMEA fields are kept
+        // The satellite fields are kept
         assertEquals(11, candidate.satellites)
         assertEquals(emptyList<Any>(), candidate.satelliteDetails)
-        assertEquals(14f, candidate.mslAltitude)
 
         assertEquals(previous.location, candidate.location)
         assertEquals(previous.altitude, candidate.altitude)

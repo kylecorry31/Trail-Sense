@@ -495,8 +495,6 @@
     <string name="pref_barometer_info_summary">大气压强可能与附近气象站的大气压强不同</string>
     <string name="battery_history">历史电量 — 过去 %s</string>
     <string name="no_data">无数据</string>
-    <string name="pref_nmea_elevation_title">NMEA 海拔高度修正</string>
-    <string name="pref_nmea_elevation_summary">使用 NMEA（卫星）而不是内置模型来修正海拔高度</string>
     <string name="moved_to">已移动到 %s</string>
     <string name="move">移动</string>
     <string name="no_groups">无群组</string>

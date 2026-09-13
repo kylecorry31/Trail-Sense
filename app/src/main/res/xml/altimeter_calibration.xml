@@ -75,14 +75,6 @@
             app:iconSpaceReserved="false"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_nmea_elevation_summary"
-            android:title="@string/pref_nmea_elevation_title"
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_nmea_altitude"
-            app:singleLineTitle="false" />
-
         <Preference
             android:key="@string/pref_altimeter_clear_cache_holder"
             android:title="@string/reset_calibration"

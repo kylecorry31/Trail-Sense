@@ -500,8 +500,6 @@
     <string name="backtrack">Tilbakesporing</string>
     <string name="qr_code">QR-kode</string>
     <string name="pref_experimental_metal_direction_title">Vis retning til metall</string>
-    <string name="pref_nmea_elevation_summary">Bruk NMEA (satellitt) for å korrigere høyde, heller enn innebygd modell</string>
-    <string name="pref_nmea_elevation_title">NMEA-høydekorrigering</string>
     <string name="pref_backtrack_save_cell_title">Registrer mobiltelefonsignal</string>
     <string name="pref_backtrack_save_cell_summary">Registrerer mobiltelefonsignal på rutepunktet. Bruker ikke Internett.</string>
     <string name="pack_sort_weight_high_to_low">Vekt (høy til lav)</string>

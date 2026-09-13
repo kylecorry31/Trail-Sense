@@ -622,8 +622,6 @@
     <string name="humidity_history">Luftfuktighetshistorik – senaste %s</string>
     <string name="temperature_history">Temperaturhistorik – senaste %s</string>
     <string name="pref_barometer_info_summary">Trycket kan skilja sig från närliggande stationers värden</string>
-    <string name="pref_nmea_elevation_title">NMEA-korrigering av höjd</string>
-    <string name="pref_nmea_elevation_summary">Använd NMEA (satellitdata) för att korrigera höjder i stället för den inbyggda modellen</string>
     <string name="convert">Konvertera</string>
     <string name="distance">Avstånd</string>
     <string name="coordinates_tab">Koordinater</string>

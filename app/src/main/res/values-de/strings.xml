@@ -500,8 +500,6 @@
     <string name="whistle_signal_where_are_you">Wo bist du\?</string>
     <string name="noon">Mittag</string>
     <string name="weather_monitor">Wettermonitor</string>
-    <string name="pref_nmea_elevation_summary">Verwenden Sie NMEA (Satellit) zur Korrektur von Höhen anstelle des integrierten Modells</string>
-    <string name="pref_nmea_elevation_title">NMEA-Höhenkorrektur</string>
     <string name="pref_barometer_info_summary">Der Druck könnte von dem von benachbarten Stationen abweichen</string>
     <string name="battery_history">Batterienutzung - letzte %s</string>
     <string name="no_data">Keine Daten</string>

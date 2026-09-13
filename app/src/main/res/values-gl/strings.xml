@@ -525,8 +525,6 @@
     <string name="humidity_history">Historial de humidade - últimos %s</string>
     <string name="temperature_history">Historial de temperatura - últimos %s</string>
     <string name="pref_barometer_info_summary">A presión pode ser diferente da das estacións próximas</string>
-    <string name="pref_nmea_elevation_title">Corrección de elevación NMEA</string>
-    <string name="pref_nmea_elevation_summary">Usa NMEA (satélite) para corrixir elevacións, en lugar do modelo integrado</string>
     <string name="convert">Converter</string>
     <string name="distance">Distancia</string>
     <string name="coordinates_tab">Coordenadas</string>

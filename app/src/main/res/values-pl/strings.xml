@@ -447,7 +447,6 @@
     <string name="weather_monitor">Monitorowanie pogody</string>
     <string name="no_data">Brak danych</string>
     <string name="backtrack">Szlak powrotny</string>
-    <string name="pref_nmea_elevation_title">Przesunięcie wysokości NMEA</string>
     <string name="solid">Stały</string>
     <string name="arrow">Strzałka</string>
     <string name="dotted">Kropkowany</string>
@@ -484,7 +483,6 @@
     <string name="pref_cell_signal_refresh_cache_summary">Wymuś wczytanie aktualnych danych mocy sygnału</string>
     <string name="pref_cell_signal_refresh_cache_title">Odśwież pamięć podręczną sygnału</string>
     <string name="pref_navigation_lock_screen_presence_title">Pokaż na ekranie blokady podczas nawigacji</string>
-    <string name="pref_nmea_elevation_summary">Użyj NMEA (satelita) do korekty wysokości, zamiast wbudowanego modelu</string>
     <string name="pref_barometer_info_summary">Ciśnienie może różnić się od podanego w pobliskich stacjach</string>
     <string name="battery_history">Historia baterii - ostatnio %s</string>
     <string name="pref_show_last_signal_beacon_summary">Tworzy punkt nawigacyjny dla ostatniej lokalizacji sygnału komórkowego</string>

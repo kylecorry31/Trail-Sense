@@ -475,8 +475,6 @@
     <string name="hygrometer">Higrometre</string>
     <string name="barometer">Barometre</string>
     <string name="network_no_signal">Sinyal yok</string>
-    <string name="pref_nmea_elevation_summary">Yükseklikleri düzeltmek için yerleşik model yerine NMEA (uydu) kullan</string>
-    <string name="pref_nmea_elevation_title">NMEA yükseklik düzeltmesi</string>
     <string name="pref_barometer_info_summary">Basınç, yakındaki istasyonlardan farklı olabilir</string>
     <string name="battery_history">Pil geçmişi - son %s</string>
     <string name="no_data">Veri yok</string>

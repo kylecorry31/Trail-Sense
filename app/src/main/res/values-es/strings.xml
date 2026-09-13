@@ -522,7 +522,6 @@
     <string name="pref_show_nearest_tide_title">Mostrar marea más cercana</string>
     <string name="weather_monitoring_disabled">Seguimiento meteorológico deshabilitado</string>
     <string name="precipitation_drizzle">Llovizna</string>
-    <string name="pref_nmea_elevation_summary">Usa NMEA (satélite) para corregir las elevaciones en lugar del modelo incorporado</string>
     <string name="duration">Duracion</string>
     <string name="closest">Mas cercano</string>
     <string name="importing">Importando</string>
@@ -554,7 +553,6 @@
     <string name="weight_per_item">Peso por objeto</string>
     <string name="sun">Sol</string>
     <string name="pref_barometer_info_summary">La presión puede diferir de la de las estaciones cercanas</string>
-    <string name="pref_nmea_elevation_title">Corrección de elevación NMEA</string>
     <string name="convert">Convertir</string>
     <string name="coordinates_tab">Coordenadas</string>
     <string name="no_groups">Sin grupos</string>

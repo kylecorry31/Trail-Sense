@@ -442,8 +442,6 @@
     <string name="elevation_history_length">Longueur de l’historique d’altitude</string>
     <string name="camera">Caméra</string>
     <string name="dashed">Tirets</string>
-    <string name="pref_nmea_elevation_summary">Utiliser les données NMEA (satellite) pour corriger les altitudes, plutôt que le modèle intégré</string>
-    <string name="pref_nmea_elevation_title">Correction d\'élévation NMEA</string>
     <string name="sensor_gyroscope">Gyroscope</string>
     <string name="gallon_format">%s gal</string>
     <string name="pounds">Livres</string>

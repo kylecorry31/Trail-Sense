@@ -81,14 +81,17 @@ class CustomGPS(
         get() = data.eventTimeElapsedNanos
         set(_) {}
 
-    override val mslAltitude: Float?
-        get() = data.mslAltitude
+    override val mslAltitude: Float? = null
 
     val isTimedOut: Boolean
         get() = consumer.reading.isTimedOut
 
     private val baseGPS: ISatelliteGPS by lazy {
-        GPS(context.applicationContext, LocationRequestConfig(frequency = gpsFrequency))
+        GPS(
+            context.applicationContext,
+            LocationRequestConfig(frequency = gpsFrequency),
+            listenToNmea = false
+        )
     }
     private val mainHandler = Handler(Looper.getMainLooper())
     private val timeProvider = SystemTimeProvider()

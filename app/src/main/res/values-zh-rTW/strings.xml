@@ -420,7 +420,6 @@
     <string name="weather_monitor">天氣監測器</string>
     <string name="whistle_signal_come_here">過來這裏</string>
     <string name="humidity_history">濕度歷史記錄—過去 %s</string>
-    <string name="pref_nmea_elevation_summary">使用 NMEA（衛星）來校正海拔，而不是內建模型</string>
     <plurals name="number_days">
         <item quantity="other">%d 天</item>
     </plurals>
@@ -502,7 +501,6 @@
     <string name="activity_recognition_permission_denied">體能活動權限被拒絕，無法開啟計步器功能。你可以在設定中啟用它。</string>
     <string name="temperature_history">溫度歷史記錄—過去 %s</string>
     <string name="pref_barometer_info_summary">氣壓可能與附近的監測站不同</string>
-    <string name="pref_nmea_elevation_title">NMEA 海拔校正</string>
     <string name="pref_auto_low_power_summary">當你的電池電量低時</string>
     <string name="time">時間</string>
     <string name="desired_amount">所需數量</string>

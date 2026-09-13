@@ -355,7 +355,6 @@
     <string name="whistle_signal_come_here">Kom her</string>
     <string name="weather_monitor">Vejrmonitor</string>
     <string name="humidity_history">Fugtighedshistorik - sidste %s</string>
-    <string name="pref_nmea_elevation_summary">Bruger NMEA korrektioner til højdekonvertering</string>
     <string name="preview">Forhåndsvisning</string>
     <string name="yards_format">%s yd</string>
     <string name="pref_auto_low_power_title">Automatisk strømbesparelse</string>
@@ -715,7 +714,6 @@
     <string name="whistle_signal_where_are_you">Hvor er du\?</string>
     <string name="battery_history">Batterihistorik - sidste %s</string>
     <string name="temperature_history">Temperaturhistorik - sidste %s</string>
-    <string name="pref_nmea_elevation_title">NMEA højdekorrektioner</string>
     <string name="convert">Konverter</string>
     <string name="pref_cell_signal_refresh_cache_title">Opdater signalcache</string>
     <string name="import_map">Importer kort</string>

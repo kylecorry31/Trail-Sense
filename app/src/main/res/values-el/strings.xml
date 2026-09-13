@@ -707,7 +707,6 @@
     <string name="path_exported">Η διαδρομή εξήχθη</string>
     <string name="autofill">Αυτόματη συμπλήρωση</string>
     <string name="power_saving_mode_resolution">Απενεργοποίηση λειτουργίας εξοικονόμησης ενέργειας</string>
-    <string name="pref_nmea_elevation_title">Διόρθωση υψομέτρου NMEA</string>
     <plurals name="number_days">
         <item quantity="one">%d ημέρα</item>
         <item quantity="other">%d ημέρες</item>
@@ -752,7 +751,6 @@
     <string name="auto">Αυτόματα</string>
     <string name="no_clouds">Ανέφελος Ουρανός</string>
     <string name="precipitation_snow">Χιονόπτωση</string>
-    <string name="pref_nmea_elevation_summary">Χρήση NMEA (δορυφόρος) για τη διόρθωση υψομέτρων, αντί για το ενσωματωμένο πρότυπο</string>
     <string name="gps_unavailable_resolution">Ενεργοποιήστε την τοποθεσία ή αλλάξτε την πηγή της τοποθεσίας σας σε \"Μόνο στη Συσκευή\" ή \"Υψηλή Ακρίβεια\"</string>
     <string name="whistle_signal_acknowledged">Έγινε αντιληπτό</string>
     <string name="pref_cell_signal_refresh_cache_title">Ανανέωση κρυφής μνήμης του σήματος δικτύου κινητής τηλεφωνίας</string>

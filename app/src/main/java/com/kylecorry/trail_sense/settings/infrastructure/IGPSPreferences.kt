@@ -7,7 +7,6 @@ interface IGPSPreferences {
     var useAutoLocation: Boolean
     val accuracyFilter: GPSAccuracyFilter
     val smoothing: Int
-    val useNMEA: Boolean
     var locationOverride: Coordinate
     val hasLocationOverride: Boolean
 }

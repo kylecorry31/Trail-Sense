@@ -782,8 +782,6 @@
     <string name="whistle_signal_come_here">இங்கே வாருங்கள்</string>
     <string name="weather_monitor">வானிலை மானிட்டர்</string>
     <string name="pref_barometer_info_summary">அழுத்தம் அருகிலுள்ள நிலையங்களிலிருந்து வேறுபடலாம்</string>
-    <string name="pref_nmea_elevation_title">NMEA உயர திருத்தம்</string>
-    <string name="pref_nmea_elevation_summary">உள்ளமைக்கப்பட்ட மாதிரியைக் காட்டிலும் உயரங்களை சரிசெய்ய NMEA (செயற்கைக்கோள்) ஐப் பயன்படுத்தவும்</string>
     <string name="convert">மாற்றவும்</string>
     <string name="distance">தூரம்</string>
     <string name="coordinates_tab">ஒருங்கிணைப்புகள்</string>

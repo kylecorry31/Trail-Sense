@@ -25,12 +25,6 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
     override val smoothing: Int
         get() = (cache.getInt(getString(R.string.pref_gps_smoothing)) ?: 0).coerceIn(0, 100)
 
-    override val useNMEA by BooleanPreference(
-        cache,
-        getString(R.string.pref_nmea_altitude),
-        false
-    )
-
     override var locationOverride: Coordinate
         get() {
             val latStr = cache.getString(getString(R.string.pref_latitude_override)) ?: "0.0"

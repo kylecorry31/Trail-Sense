@@ -177,7 +177,6 @@
     <string name="dashed">Szaggatott</string>
     <string name="battery_warning">Akkumerülési figyelmeztetés</string>
     <string name="activity_recognition_permission_denied">Testmozgáshoz való hozzáférés megtagadva, a lépésszámláló funkciókat nem lehet bekapcsolni. A beállításokban engedélyezheted.</string>
-    <string name="pref_nmea_elevation_summary">NMEA (műhold) használata a magasság korrigálásához, a beépített modell helyett</string>
     <string name="no_groups">Nincsenek csoportok</string>
     <string name="move">Áthelyezés</string>
     <string name="map_perspective_instructions">Rajzold körbe a térképet</string>
@@ -695,7 +694,6 @@
     <string name="weather_monitor">Időjárás megfigyelő</string>
     <string name="convert">Átalakítás</string>
     <string name="pref_barometer_info_summary">A nyomás eltérhet a közeli állomásokétól</string>
-    <string name="pref_nmea_elevation_title">NMEA magasságkorrekció</string>
     <string name="distance">Távolság</string>
     <string name="pref_navigation_lock_screen_presence_title">Mutatás a zárolt képernyőn navigálás közben</string>
     <string name="pref_cell_signal_refresh_cache_summary">Kényszeríti a legfrissebb térerőadat betöltését</string>

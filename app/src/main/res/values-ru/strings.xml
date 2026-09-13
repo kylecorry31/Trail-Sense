@@ -529,8 +529,6 @@
     <string name="coordinates_tab">Координаты</string>
     <string name="distance">Расстояние</string>
     <string name="convert">Конвертировать</string>
-    <string name="pref_nmea_elevation_summary">Использовать NMEA (спутник) для коректировки высоты вместо встроеной модели</string>
-    <string name="pref_nmea_elevation_title">Смещение высоты по NMEA</string>
     <string name="pref_barometer_info_summary">Давление может отличаться от давления на близлежащих станциях</string>
     <string name="battery_history">История батареи - последняя %s</string>
     <string name="weather_monitor">Монитор погоды</string>

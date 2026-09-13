@@ -113,7 +113,6 @@ class CacheGPSModule(
         data.quality = Quality.Unknown
         data.satellites = null
         data.satelliteDetails = null
-        data.mslAltitude = null
         data.bearingAccuracy = null
         data.speedAccuracy = null
     }

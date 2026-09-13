@@ -508,8 +508,6 @@
     <string name="whistle_signal_where_are_you">Де ви\?</string>
     <string name="noon">Полудень</string>
     <string name="weather_monitor">Відстеження погоди</string>
-    <string name="pref_nmea_elevation_summary">Використовує NMEA (супутник) для корекції висот, а не вбудовану модель</string>
-    <string name="pref_nmea_elevation_title">Корекція висоти NMEA</string>
     <string name="pref_barometer_info_summary">Тиск може відрізнятися від тиску сусідніх станцій</string>
     <string name="battery_history">Історія батареї - остан. %s</string>
     <string name="no_data">Немає даних</string>

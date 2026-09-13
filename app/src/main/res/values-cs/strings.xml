@@ -529,8 +529,6 @@
     <string name="activity_recognition_permission_denied">Povolení k pohybové aktivitě bylo zamítnuto, nelze zapnout funkce, které používají krokoměr. Můžete je povolit v nastavení.</string>
     <string name="whistle_signal_come_here">Pojďte sem</string>
     <string name="pref_barometer_info_summary">Tlak se může lišit od tlaku okolních stanic</string>
-    <string name="pref_nmea_elevation_title">Oprava nadmořské výšky NMEA</string>
-    <string name="pref_nmea_elevation_summary">Použít NMEA (satelit) pro opravu výšek namísto vestavěného modelu</string>
     <string name="convert">Převést</string>
     <string name="distance">Vzdálenost</string>
     <string name="move">Přesunout</string>

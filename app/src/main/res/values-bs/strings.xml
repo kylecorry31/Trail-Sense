@@ -426,8 +426,6 @@
     <string name="pref_open_source_licenses_title">Dozvole</string>
     <string name="pref_sunset_alert_time_title">Vrijeme upozorenja za zalazak sunca</string>
     <string name="pref_center_sun_and_moon_title">Nek bude sunce/mjesec centriran</string>
-    <string name="pref_nmea_elevation_summary">Koristi NMEA pomake za pretvaranje visine</string>
-    <string name="pref_nmea_elevation_title">NMEA pomake nadmorske visine</string>
     <string name="sun_moon_compass_when_up">Kad je gore</string>
     <string name="always">Uvijek</string>
     <string name="pref_weather_update_frequency_title">Učestalost ažuriranja vremena</string>
