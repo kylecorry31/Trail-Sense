@@ -16,7 +16,10 @@ class CachedAltimeter(context: Context, private val updateFrequency: Long = 20L)
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val userPrefs by lazy { UserPreferences(context) }
-    private val intervalometer = CoroutineTimer { notifyListeners() }
+    private val intervalometer = CoroutineTimer {
+        setEventTimeToNow()
+        notifyListeners()
+    }
 
     override val altitude: Float
         get() = cache.getFloat(CachingAltimeterWrapper.LAST_ALTITUDE_KEY)

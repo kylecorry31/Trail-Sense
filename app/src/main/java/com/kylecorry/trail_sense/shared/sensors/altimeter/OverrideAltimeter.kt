@@ -15,7 +15,10 @@ class OverrideAltimeter(context: Context, private val updateFrequency: Long = 20
     private var gotReading = true
 
     private val userPrefs by lazy { UserPreferences(context) }
-    private val intervalometer = CoroutineTimer { notifyListeners() }
+    private val intervalometer = CoroutineTimer {
+        setEventTimeToNow()
+        notifyListeners()
+    }
 
     override val altitude: Float
         get() = userPrefs.altitudeOverride
