@@ -1,5 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.trail_sense.main.getAppService
@@ -7,8 +9,7 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
-import java.time.Duration
-import java.time.Instant
+import com.kylecorry.trail_sense.shared.sensors.gps.age
 
 /**
  * Calls onTimeout when accepted updates stop arriving.
@@ -17,7 +18,8 @@ import java.time.Instant
 class TimeoutGPSModule(
     private val onTimeout: suspend (() -> Boolean) -> Unit,
     private val logger: Logger = getAppService(),
-    private val timerFactory: (suspend () -> Unit) -> ITimer = { action -> CoroutineTimer { action() } }
+    private val timerFactory: (suspend () -> Unit) -> ITimer = { action -> CoroutineTimer { action() } },
+    private val timeProvider: TimeProvider = SystemTimeProvider()
 ) : GPSModule {
 
     private var timeout: ITimer? = null
@@ -71,7 +73,7 @@ class TimeoutGPSModule(
         logger.debug(TAG, "Timed out after ${TIMEOUT_DURATION.seconds}s")
         logger.debug(
             TAG,
-            "Keeping a reading from ${Duration.between(data.eventTime, Instant.now()).toMillis()}ms ago"
+            "Keeping a reading from ${data.age(timeProvider).toMillis()}ms ago"
         )
         return true
     }

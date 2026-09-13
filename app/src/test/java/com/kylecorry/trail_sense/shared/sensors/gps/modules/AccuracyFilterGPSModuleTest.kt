@@ -5,7 +5,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
-import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -24,13 +23,15 @@ class AccuracyFilterGPSModuleTest {
         override fun currentTimeMillis() = nowMillis
     }
     private val module = AccuracyFilterGPSModule(prefs, mock(), timeProvider)
-    private val previous = ModularGPSData(eventTime = Instant.EPOCH)
+    private val previous = ModularGPSData(eventTimeElapsedNanos = 0L)
     private val moderateWait = GPSAccuracyFilter.Moderate.maxAccuracyWait!!.toMillis()
     private val highWait = GPSAccuracyFilter.High.maxAccuracyWait!!.toMillis()
 
+    private fun secondsToNanos(seconds: Long) = seconds * 1_000_000_000L
+
     private fun reading(accuracy: Float?) = ModularGPSData(
         location = Coordinate(1.0, 1.0), hasValidReading = true, horizontalAccuracy = accuracy,
-        eventTime = previous.eventTime.plusSeconds(1)
+        eventTimeElapsedNanos = previous.eventTimeElapsedNanos + secondsToNanos(1)
     )
 
     @Test
@@ -43,19 +44,19 @@ class AccuracyFilterGPSModuleTest {
         // The pipeline reuses its candidate, so retaining the reference is insufficient.
         best.location = Coordinate(4.0, 5.0)
         best.horizontalAccuracy = 100f
-        best.eventTime = best.eventTime.plusSeconds(1)
+        best.eventTimeElapsedNanos = best.eventTimeElapsedNanos + secondsToNanos(1)
         nowMillis = moderateWait
         assertTrue(module.update(previous, best))
         assertEquals(Coordinate(2.0, 3.0), best.location)
         assertEquals(20f, best.horizontalAccuracy)
         assertEquals(123f, best.altitude)
-        assertEquals(Instant.EPOCH.plusSeconds(1), best.eventTime)
-        assertEquals(Instant.EPOCH, previous.eventTime)
+        assertEquals(secondsToNanos(1), best.eventTimeElapsedNanos)
+        assertEquals(0L, previous.eventTimeElapsedNanos)
 
         // Until a fix lands the filter stands aside instead of re-offering the selected one.
-        val retry = reading(80f).apply { eventTime = Instant.EPOCH.plusSeconds(3) }
+        val retry = reading(80f).apply { eventTimeElapsedNanos = secondsToNanos(3) }
         assertTrue(module.update(previous, retry))
-        assertEquals(Instant.EPOCH.plusSeconds(3), retry.eventTime)
+        assertEquals(secondsToNanos(3), retry.eventTimeElapsedNanos)
         assertEquals(Coordinate(1.0, 1.0), retry.location)
 
         best.copyInto(previous)
@@ -72,7 +73,7 @@ class AccuracyFilterGPSModuleTest {
         val arrival = { seconds: Long ->
             reading(80f).apply {
                 location = Coordinate(4.0, 5.0)
-                eventTime = Instant.EPOCH.plusSeconds(seconds)
+                eventTimeElapsedNanos = secondsToNanos(seconds)
             }
         }
 
@@ -98,7 +99,7 @@ class AccuracyFilterGPSModuleTest {
 
         val stale = reading(80f).apply {
             location = Coordinate(4.0, 5.0)
-            eventTime = Instant.EPOCH.plusSeconds(7)
+            eventTimeElapsedNanos = secondsToNanos(7)
         }
         nowMillis = moderateWait
         assertTrue(module.update(previous, stale))
@@ -107,7 +108,7 @@ class AccuracyFilterGPSModuleTest {
         // The chosen fix reaches the pipeline once; later readings pass through as themselves.
         val retry = reading(90f).apply {
             location = Coordinate(6.0, 7.0)
-            eventTime = Instant.EPOCH.plusSeconds(8)
+            eventTimeElapsedNanos = secondsToNanos(8)
         }
         assertTrue(module.update(previous, retry))
         assertEquals(Coordinate(6.0, 7.0), retry.location)
@@ -119,11 +120,11 @@ class AccuracyFilterGPSModuleTest {
         assertFalse(module.update(previous, reading(100f)))
         nowMillis = 2_000L
         assertFalse(module.update(previous, reading(30f)))
-        val latest = reading(30f).apply { eventTime = Instant.EPOCH.plusSeconds(3) }
+        val latest = reading(30f).apply { eventTimeElapsedNanos = secondsToNanos(3) }
         nowMillis = moderateWait
         assertTrue(module.update(previous, latest))
         assertEquals(30f, latest.horizontalAccuracy)
-        assertEquals(Instant.EPOCH.plusSeconds(3), latest.eventTime)
+        assertEquals(secondsToNanos(3), latest.eventTimeElapsedNanos)
     }
 
     @Test
@@ -153,9 +154,9 @@ class AccuracyFilterGPSModuleTest {
 
     @Test
     fun cachedFixesDoNotStartTheAccuracyWait() = runBlocking<Unit> {
-        previous.eventTime = Instant.EPOCH.plusSeconds(10)
-        val older = reading(100f).apply { eventTime = previous.eventTime.minusSeconds(1) }
-        val cached = reading(100f).apply { eventTime = previous.eventTime }
+        previous.eventTimeElapsedNanos = secondsToNanos(10)
+        val older = reading(100f).apply { eventTimeElapsedNanos = previous.eventTimeElapsedNanos - secondsToNanos(1) }
+        val cached = reading(100f).apply { eventTimeElapsedNanos = previous.eventTimeElapsedNanos }
         assertTrue(module.update(previous, older))
         nowMillis = 5_000L
         assertTrue(module.update(previous, cached))
@@ -172,28 +173,28 @@ class AccuracyFilterGPSModuleTest {
 
     @Test
     fun fallbackStaysOpenUntilThePipelineAcceptsTheFirstAllowedFixOrNewer() = runBlocking<Unit> {
-        previous.eventTime = Instant.EPOCH
-        val first = reading(100f).apply { eventTime = Instant.EPOCH.plusSeconds(1) }
+        previous.eventTimeElapsedNanos = 0L
+        val first = reading(100f).apply { eventTimeElapsedNanos = secondsToNanos(1) }
         assertFalse(module.update(previous, first))
         nowMillis = moderateWait
         assertTrue(module.update(previous, first))
-        val newer = reading(100f).apply { eventTime = Instant.EPOCH.plusSeconds(2) }
+        val newer = reading(100f).apply { eventTimeElapsedNanos = secondsToNanos(2) }
         nowMillis += 1_000L
         assertTrue(module.update(previous, newer))
-        assertEquals(Instant.EPOCH.plusSeconds(2), newer.eventTime)
-        previous.eventTime = first.eventTime
-        newer.eventTime = first.eventTime.plusSeconds(1)
+        assertEquals(secondsToNanos(2), newer.eventTimeElapsedNanos)
+        previous.eventTimeElapsedNanos = first.eventTimeElapsedNanos
+        newer.eventTimeElapsedNanos = first.eventTimeElapsedNanos + secondsToNanos(1)
         assertFalse(module.update(previous, newer))
         nowMillis += moderateWait
         assertTrue(module.update(previous, newer))
-        previous.eventTime = newer.eventTime.plusSeconds(1)
+        previous.eventTimeElapsedNanos = newer.eventTimeElapsedNanos + secondsToNanos(1)
         assertTrue(module.update(previous, newer))
     }
 
     @Test
     fun lifecyclePreservesPendingFallbackUntilAccepted() = runBlocking<Unit> {
-        previous.eventTime = Instant.EPOCH
-        val candidate = reading(100f).apply { eventTime = Instant.EPOCH.plusSeconds(1) }
+        previous.eventTimeElapsedNanos = 0L
+        val candidate = reading(100f).apply { eventTimeElapsedNanos = secondsToNanos(1) }
         assertFalse(module.update(previous, candidate))
         nowMillis = moderateWait
         assertTrue(module.update(previous, candidate))

@@ -1,10 +1,13 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
+import android.content.Context
+import android.provider.Settings
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.andromeda.json.JsonConvert
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.luna.hooks.MemoizedValue
-import com.kylecorry.sol.time.Time.isInPast
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
@@ -31,15 +34,22 @@ data class GPSCacheData(
     val horizontalAccuracy: Float? = null,
     val verticalAccuracy: Float? = null,
     val kalmanState: GPSKalmanState? = null,
-    val speedSource: Long? = null
+    val speedSource: Long? = null,
+    val elapsedRealtimeNanos: Long? = null,
+    val bootCount: Int? = null,
+    val bootTimeMillis: Long? = null
 ) : ProguardIgnore
 
 /**
  * Persists accepted readings so the last known location survives a restart.
  */
 class CacheGPSModule(
-    private val cache: IPreferences = getAppService<PreferencesSubsystem>().preferences
+    private val cache: IPreferences = getAppService<PreferencesSubsystem>().preferences,
+    private val timeProvider: TimeProvider = SystemTimeProvider(),
+    getBootCount: () -> Int? = { readBootCount(getAppService()) }
 ) : GPSModule {
+
+    private val bootCount by lazy(getBootCount)
 
     override suspend fun initialize(data: ModularGPSData): Boolean {
         if (!hasNewerReading(data)) {
@@ -61,7 +71,10 @@ class CacheGPSModule(
             horizontalAccuracy = newData.horizontalAccuracy,
             verticalAccuracy = newData.verticalAccuracy,
             kalmanState = newData.kalmanState,
-            speedSource = newData.speedSource.id
+            speedSource = newData.speedSource.id,
+            elapsedRealtimeNanos = newData.eventTimeElapsedNanos,
+            bootCount = bootCount,
+            bootTimeMillis = getBootTimeMillis()
         )
         cache.putString(LAST_GPS, JsonConvert.toJson(data))
         return true
@@ -72,12 +85,12 @@ class CacheGPSModule(
      * newer reading than the given data.
      */
     fun hasNewerReading(data: ModularGPSData): Boolean {
-        val cacheTime = Instant.ofEpochMilli(getCachedData(cache)?.updateTimeMillis ?: 0L)
-        return cacheTime > data.eventTime && cacheTime.isInPast()
+        val cachedElapsedNanos = getCurrentBootCachedData()?.elapsedRealtimeNanos ?: return false
+        return data.location == Coordinate.zero || cachedElapsedNanos > data.eventTimeElapsedNanos
     }
 
     fun restore(data: ModularGPSData) {
-        val cached = getCachedData(cache)
+        val cached = getCurrentBootCachedData()
         data.kalmanState = cached?.kalmanState
         data.location = Coordinate(
             cached?.latitude ?: 0.0,
@@ -87,6 +100,7 @@ class CacheGPSModule(
         data.speed =
             Speed.from(cached?.speed ?: 0f, DistanceUnits.Meters, TimeUnits.Seconds)
         data.eventTime = Instant.ofEpochMilli(cached?.updateTimeMillis ?: 0L)
+        data.eventTimeElapsedNanos = cached?.elapsedRealtimeNanos ?: 0L
         data.speedSource = cached?.speedSource?.let { SpeedSource.entries.withId(it) }
             ?: SpeedSource.Unknown
         data.horizontalAccuracy = cached?.horizontalAccuracy
@@ -102,11 +116,48 @@ class CacheGPSModule(
         data.mslAltitude = null
         data.bearingAccuracy = null
         data.speedAccuracy = null
-        data.eventTimeElapsedNanos = 0L
+    }
+
+    private fun getCurrentBootCachedData(): GPSCacheData? {
+        val cached = getCachedData(cache) ?: return null
+        val nowElapsedNanos = getElapsedRealtimeNanos()
+        val cachedElapsedNanos = cached.elapsedRealtimeNanos
+        val isSameBoot = if (bootCount != null && cached.bootCount != null) {
+            cached.bootCount == bootCount
+        } else {
+            cached.bootTimeMillis?.let {
+                kotlin.math.abs(it - getBootTimeMillis()) <= BOOT_TIME_TOLERANCE_MILLIS
+            } == true
+        }
+        val isCurrentBoot = cachedElapsedNanos != null &&
+            isSameBoot &&
+            cachedElapsedNanos <= nowElapsedNanos
+        if (isCurrentBoot) {
+            return cached
+        }
+
+        val ageMillis = timeProvider.currentTimeMillis() - cached.updateTimeMillis
+        val updated = cached.copy(
+            elapsedRealtimeNanos = nowElapsedNanos - ageMillis.coerceAtLeast(0L) * NANOS_PER_MILLI,
+            bootCount = bootCount,
+            bootTimeMillis = getBootTimeMillis()
+        )
+        cache.putString(LAST_GPS, JsonConvert.toJson(updated))
+        return updated
+    }
+
+    private fun getElapsedRealtimeNanos(): Long {
+        return timeProvider.elapsedRealtime() * NANOS_PER_MILLI
+    }
+
+    private fun getBootTimeMillis(): Long {
+        return timeProvider.currentTimeMillis() - timeProvider.elapsedRealtime()
     }
 
     companion object {
         const val LAST_GPS = "last_gps"
+        private const val NANOS_PER_MILLI = 1_000_000L
+        private const val BOOT_TIME_TOLERANCE_MILLIS = 60_000L
 
         private val cacheParser = MemoizedValue<GPSCacheData?>()
 
@@ -115,6 +166,11 @@ class CacheGPSModule(
                 val cache = getAppService<PreferencesSubsystem>().preferences
                 cache.remove(LAST_GPS)
             }
+        }
+
+        private fun readBootCount(context: Context): Int? {
+            return Settings.Global.getInt(context.contentResolver, Settings.Global.BOOT_COUNT, -1)
+                .takeIf { it >= 0 }
         }
 
         fun getCachedData(cache: IPreferences): GPSCacheData? {

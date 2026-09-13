@@ -17,6 +17,7 @@ class SpeedGPSModuleTest {
 
     private fun reading(millis: Long, longitude: Double = 1.0, speed: Float = 0f) = ModularGPSData(
         location = Coordinate(1.0, longitude), eventTime = Instant.EPOCH.plusMillis(millis),
+        eventTimeElapsedNanos = millis * 1_000_000,
         horizontalAccuracy = 1f,
         speed = Speed.from(speed, DistanceUnits.Meters, TimeUnits.Seconds)
     )
@@ -54,6 +55,18 @@ class SpeedGPSModuleTest {
         assertNull(candidate.speedAccuracy)
         assertEquals(0f, previous.speed.value)
         assertEquals(Coordinate.zero, previous.location)
+    }
+
+    @Test
+    fun estimatesSpeedFromElapsedTime() = runBlocking<Unit> {
+        module.update(previous, reading(0))
+        // The fix time says 10 seconds passed, but only 5 seconds have elapsed
+        val candidate = reading(5000, 1.001).apply {
+            eventTime = Instant.EPOCH.plusSeconds(10)
+            speedAccuracy = 0.2f
+        }
+        module.update(previous, candidate)
+        assertTrue(candidate.speed.value in 20f..24f)
     }
 
     @Test

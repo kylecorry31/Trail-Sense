@@ -6,15 +6,13 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import java.time.Duration
-import java.time.Instant
 
 object SpeedEstimator {
 
     fun calculate(
         lastLocation: ApproximateCoordinate,
         newLocation: ApproximateCoordinate,
-        lastTime: Instant,
-        newTime: Instant
+        time: Duration
     ): Speed {
         // If the location is unset, the speed is zero
         if (lastLocation.coordinate == Coordinate.zero || newLocation.coordinate == Coordinate.zero) {
@@ -22,8 +20,6 @@ object SpeedEstimator {
         }
 
         val distance = lastLocation.coordinate.distanceTo(newLocation.coordinate)
-        val time = Duration.between(lastTime, newTime)
-
         // If the time is zero, the speed is zero
         if (time.isZero || time.isNegative) {
             return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)

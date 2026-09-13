@@ -7,12 +7,12 @@ import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
+import com.kylecorry.trail_sense.shared.sensors.gps.durationSince
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
-import java.time.Duration
-import java.time.Instant
 
 class SpeedGPSModule : GPSModule {
-    private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Instant>>(10)
+    // Location and fix elapsed realtime nanos
+    private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Long>>(10)
 
     override suspend fun update(
         previousData: ModularGPSData,
@@ -35,16 +35,15 @@ class SpeedGPSModule : GPSModule {
             newData.speed = SpeedEstimator.calculate(
                 oldestLocation.first,
                 currentLocation,
-                oldestLocation.second,
-                newData.eventTime
+                newData.durationSince(oldestLocation.second)
             )
             newData.speedSource = SpeedSource.PositionDerived
             newData.speedAccuracy = null
         }
 
         // Add to location history every second
-        if (locations.isEmpty() || Duration.between(locations.last().second, newData.eventTime).seconds >= 1) {
-            locationHistory.add(currentLocation to newData.eventTime)
+        if (locations.isEmpty() || newData.durationSince(locations.last().second).seconds >= 1) {
+            locationHistory.add(currentLocation to newData.eventTimeElapsedNanos)
         }
 
         return true

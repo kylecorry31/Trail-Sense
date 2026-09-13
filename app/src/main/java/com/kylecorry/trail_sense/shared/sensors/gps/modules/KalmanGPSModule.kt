@@ -15,8 +15,8 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SpeedSource
+import com.kylecorry.trail_sense.shared.sensors.gps.durationSince
 import java.time.Duration
-import java.time.Instant
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.max
@@ -31,7 +31,7 @@ class KalmanGPSModule(
     private var filter: KalmanFilter? = null
     private var reference = Coordinate.zero
     private var reportedAccuracy = DEFAULT_ACCURACY
-    private var time: Instant? = null
+    private var timeElapsedNanos: Long? = null
     private val transition = Matrix.identity(STATE_SIZE)
     private val processNoise = Matrix.zeros(STATE_SIZE, STATE_SIZE)
     private val fullObservation = Matrix.identity(STATE_SIZE)
@@ -61,7 +61,7 @@ class KalmanGPSModule(
             newData.horizontalAccuracy = previousData.horizontalAccuracy
             return true
         }
-        val hasNewerPrevious = time?.let { previousData.eventTime > it } == true
+        val hasNewerPrevious = timeElapsedNanos?.let { previousData.durationSince(it) > Duration.ZERO } == true
         if (shouldRestore(previousData, newData, hasNewerPrevious)) {
             restore(previousData)
         }
@@ -69,24 +69,24 @@ class KalmanGPSModule(
             logger.debug(
                 TAG,
                 "Kalman filter reset: fix time moved backward " +
-                    "(new: ${newData.eventTime}, previous: ${previousData.eventTime}, filter: $time)"
+                    "(new: ${newData.eventTimeElapsedNanos}, previous: ${previousData.eventTimeElapsedNanos}, filter: $timeElapsedNanos)"
             )
             reset()
         }
 
-        val lastTime = time
+        val lastTime = timeElapsedNanos
         val sameFix = lastTime != null &&
-            (newData.eventTime <= previousData.eventTime || lastTime.toEpochMilli() == newData.id)
+            (newData.durationSince(previousData) <= Duration.ZERO || lastTime == newData.id)
         if (!sameFix) {
             if (filter == null) {
                 restore(newData)
             } else if (lastTime != null) {
-                val dt = Duration.between(lastTime, newData.eventTime)
+                val dt = newData.durationSince(lastTime)
                     .let { it.seconds + it.nano / 1_000_000_000.0 }.toFloat()
                 predict(dt, smoothing)
                 correct(newData)
                 rebaseIfNeeded()
-                time = newData.eventTime
+                timeElapsedNanos = newData.eventTimeElapsedNanos
             }
         }
 
@@ -172,7 +172,7 @@ class KalmanGPSModule(
                 }
             }
             reportedAccuracy = getAccuracy(data)
-            time = data.eventTime
+            timeElapsedNanos = data.eventTimeElapsedNanos
             return
         }
         reference = data.location
@@ -190,7 +190,7 @@ class KalmanGPSModule(
             }
         }
         reportedAccuracy = accuracy
-        time = data.eventTime
+        timeElapsedNanos = data.eventTimeElapsedNanos
     }
 
     private fun snapshot(kalman: KalmanFilter): GPSKalmanState {
@@ -259,9 +259,10 @@ class KalmanGPSModule(
     }
 
     private fun needsReset(previous: ModularGPSData, next: ModularGPSData): Boolean {
-        if (next.eventTime < previous.eventTime) return true
-        val lastTime = time ?: return false
-        return next.eventTime > previous.eventTime && next.eventTime < lastTime
+        val sincePrevious = next.durationSince(previous)
+        if (sincePrevious.isNegative) return true
+        val lastTime = timeElapsedNanos ?: return false
+        return sincePrevious > Duration.ZERO && next.durationSince(lastTime).isNegative
     }
 
     private fun shouldRestore(
@@ -271,14 +272,14 @@ class KalmanGPSModule(
     ): Boolean {
         val needsState = filter == null || hasNewerPrevious
         val hasPreviousFix = previous.location != Coordinate.zero
-        return needsState && hasPreviousFix && previous.eventTime <= next.eventTime
+        return needsState && hasPreviousFix && !next.durationSince(previous).isNegative
     }
 
     private fun reset() {
         filter = null
         reference = Coordinate.zero
         reportedAccuracy = DEFAULT_ACCURACY
-        time = null
+        timeElapsedNanos = null
     }
 
     private data class VelocityMeasurement(val east: Float, val north: Float, val variance: Float)

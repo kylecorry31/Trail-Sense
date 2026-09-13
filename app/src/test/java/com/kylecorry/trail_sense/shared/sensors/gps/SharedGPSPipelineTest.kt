@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
@@ -25,21 +26,29 @@ import org.mockito.kotlin.whenever
 
 class SharedGPSPipelineTest {
     private val cache = InMemoryPreferences()
+    // The device booted at the epoch
+    private val timeProvider = object : TimeProvider {
+        override fun elapsedRealtime() = 1_000_000_000L
+        override fun currentTimeMillis() = 1_000_000_000L
+    }
     private val prefs = mock<IGPSPreferences> {
         on { smoothing }.thenReturn(100)
     }
     private val shared = SharedGPSPipeline {
         GPSPipeline(
             listOf(
-                BadReadingFilterGPSModule(mock()),
+                BadReadingFilterGPSModule(mock(), timeProvider),
                 KalmanGPSModule(prefs, mock()),
-                CacheGPSModule(cache)
+                cacheModule()
             )
         )
     }
 
+    private fun cacheModule() = CacheGPSModule(cache, timeProvider) { 1 }
+
     private fun reading(seconds: Long, longitude: Double = 1.0) = ModularGPSData(
         location = Coordinate(1.0, longitude), eventTime = Instant.EPOCH.plusSeconds(seconds),
+        eventTimeElapsedNanos = seconds * 1_000_000_000,
         horizontalAccuracy = 10f, hasValidReading = true
     )
 
@@ -125,7 +134,7 @@ class SharedGPSPipelineTest {
                         return true
                     }
                 },
-                TimeoutGPSModule(notifyTimeout, mock(), { fireTimeout = it; mock() })
+                TimeoutGPSModule(notifyTimeout, mock(), { fireTimeout = it; mock() }, timeProvider)
             ))
         }
         val first = Consumer(pipeline)
@@ -160,7 +169,7 @@ class SharedGPSPipelineTest {
     fun timeoutFromClearedPipelineCannotExpireItsReplacement() = runBlocking<Unit> {
         lateinit var fireTimeout: suspend () -> Unit
         val pipeline = SharedGPSPipeline { notifyTimeout ->
-            GPSPipeline(listOf(TimeoutGPSModule(notifyTimeout, mock(), { fireTimeout = it; mock() })))
+            GPSPipeline(listOf(TimeoutGPSModule(notifyTimeout, mock(), { fireTimeout = it; mock() }, timeProvider)))
         }
         val consumer = Consumer(pipeline)
         consumer.consumer.start()
@@ -187,15 +196,15 @@ class SharedGPSPipelineTest {
             repeat(5) { shared.update(source) }
             assertEquals(continuous.reading.location, shared.reading.location)
             val restored = ModularGPSData()
-            CacheGPSModule(cache).restore(restored)
+            cacheModule().restore(restored)
             assertEquals(continuous.reading.kalmanState, restored.kalmanState)
         }
     }
 
     @Test
     fun startingDoesNotDeliverTheRestoredCache() = runBlocking<Unit> {
-        CacheGPSModule(cache).update(ModularGPSData(), reading(10))
-        val pipeline = SharedGPSPipeline { GPSPipeline(listOf(CacheGPSModule(cache))) }
+        cacheModule().update(ModularGPSData(), reading(10))
+        val pipeline = SharedGPSPipeline { GPSPipeline(listOf(cacheModule())) }
         val consumer = Consumer(pipeline).consumer
         // The cache is available to the consumer, it just isn't delivered as if it were a new fix
         assertFalse(consumer.start())
@@ -223,21 +232,21 @@ class SharedGPSPipelineTest {
 
     @Test
     fun cachedFixIsRestoredBeforeAnyConsumerStarts() = runBlocking<Unit> {
-        CacheGPSModule(cache).update(ModularGPSData(), reading(10))
-        val pipeline = SharedGPSPipeline { GPSPipeline(listOf(CacheGPSModule(cache))) }
+        cacheModule().update(ModularGPSData(), reading(10))
+        val pipeline = SharedGPSPipeline { GPSPipeline(listOf(cacheModule())) }
         assertEquals(reading(10).location, pipeline.reading.location)
         assertEquals(reading(10).eventTime, pipeline.reading.eventTime)
     }
 
     @Test
     fun rejectedUpdateKeepsRestoredCacheWithoutDelivering() = runBlocking<Unit> {
-        CacheGPSModule(cache).update(ModularGPSData(), reading(10))
+        cacheModule().update(ModularGPSData(), reading(10))
         val pipeline = SharedGPSPipeline {
             GPSPipeline(listOf(
                 object : GPSModule {
                     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData) = false
                 },
-                CacheGPSModule(cache)
+                cacheModule()
             ))
         }
         val restored = pipeline.reading
@@ -269,9 +278,10 @@ class SharedGPSPipelineTest {
         val pipeline = SharedGPSPipeline { notifyTimeout ->
             GPSPipeline(listOf(
                 TimeoutGPSModule(
-                notifyTimeout, logger = mock(),
-                timerFactory = { fireTimeout = it; timer }
-            )))
+                    notifyTimeout, logger = mock(),
+                    timerFactory = { fireTimeout = it; timer },
+                    timeProvider = timeProvider
+                )))
         }
         val fast = Consumer(pipeline)
         val slow = Consumer(pipeline)
@@ -350,7 +360,7 @@ class SharedGPSPipelineTest {
     @Test
     fun smoothingPreferenceChangesApplyToExistingPipeline() = runBlocking<Unit> {
         val pipeline = SharedGPSPipeline {
-            GPSPipeline(listOf(KalmanGPSModule(prefs, mock()), CacheGPSModule(cache)))
+            GPSPipeline(listOf(KalmanGPSModule(prefs, mock()), cacheModule()))
         }
         pipeline.update(reading(1))
         pipeline.update(reading(2, 1.001))
@@ -359,7 +369,7 @@ class SharedGPSPipelineTest {
         pipeline.update(reading(3, 1.002))
         assertEquals(reading(3, 1.002).location, pipeline.reading.location)
         val restored = ModularGPSData()
-        CacheGPSModule(cache).restore(restored)
+        cacheModule().restore(restored)
         assertNull(restored.kalmanState)
         whenever(prefs.smoothing).thenReturn(100)
         pipeline.update(reading(4, 1.003))
@@ -382,7 +392,7 @@ class SharedGPSPipelineTest {
             tasks.forEach { it.get(5, TimeUnit.SECONDS) }
             assertEquals(reading(40).eventTime, shared.reading.eventTime)
             val restored = ModularGPSData()
-            CacheGPSModule(cache).restore(restored)
+            cacheModule().restore(restored)
             assertEquals(shared.reading.eventTime, restored.eventTime)
             assertEquals(shared.reading.location, restored.location)
             assertNotNull(restored.kalmanState)

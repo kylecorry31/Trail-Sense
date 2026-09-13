@@ -38,7 +38,7 @@ class ModularGPSData(
     var speedSource: SpeedSource = SpeedSource.Unknown
 
     val id: Long
-        get() = eventTime.toEpochMilli()
+        get() = eventTimeElapsedNanos
 
     // This is a data holder, so it never emits
     override val flow: Flow<Unit> = emptyFlow()

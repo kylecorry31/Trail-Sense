@@ -34,7 +34,8 @@ class MeanSeaLevelGPSModuleTest {
         location = Coordinate(42.0, -72.0),
         altitude = 100f,
         mslAltitude = msl,
-        eventTime = Instant.EPOCH.plusSeconds(1)
+        eventTime = Instant.EPOCH.plusSeconds(1),
+        eventTimeElapsedNanos = 1_000_000_000
     )
 
     @Test
@@ -113,7 +114,7 @@ class MeanSeaLevelGPSModuleTest {
 
     @Test
     fun doesNotCorrectTheAltitudeOfARepeatedFix() = runBlocking<Unit> {
-        val candidate = reading().apply { eventTime = previous.eventTime }
+        val candidate = reading().apply { eventTimeElapsedNanos = previous.eventTimeElapsedNanos }
         assertTrue(module.update(previous, candidate))
         assertEquals(100f, candidate.altitude)
         assertTrue(lookups.isEmpty())

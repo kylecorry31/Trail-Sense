@@ -68,6 +68,7 @@ class SameFixGPSModuleTest {
     fun restoresFixFieldsWhenTheFixRepeats() = runBlocking<Unit> {
         val candidate = reading(1).apply {
             satelliteDetails = emptyList()
+            eventTimeElapsedNanos = previous.eventTimeElapsedNanos
         }
         assertTrue(module.update(previous, candidate))
 

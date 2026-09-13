@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -19,16 +20,22 @@ import org.mockito.kotlin.mock
 
 class GPSPipelineTest {
     private val preferences = InMemoryPreferences()
+    // The device booted at the epoch
+    private val timeProvider = object : TimeProvider {
+        override fun elapsedRealtime() = 1_000_000_000L
+        override fun currentTimeMillis() = 1_000_000_000L
+    }
     private val prefs = mock<IGPSPreferences> {
         on { smoothing }.thenReturn(100)
     }
 
     private suspend fun pipeline(vararg modules: GPSModule) =
-        GPSPipeline(modules.toList() + CacheGPSModule(preferences)).also { it.reinitialize() }
+        GPSPipeline(modules.toList() + CacheGPSModule(preferences, timeProvider) { 1 }).also { it.reinitialize() }
 
     private fun reading(seconds: Long, longitude: Double = 1.0) = ModularGPSData(
         location = Coordinate(1.0, longitude),
         eventTime = Instant.EPOCH.plusSeconds(seconds),
+        eventTimeElapsedNanos = seconds * 1_000_000_000,
         horizontalAccuracy = 10f,
         hasValidReading = true
     )
@@ -77,7 +84,7 @@ class GPSPipelineTest {
 
     @Test
     fun rejectedZeroLocationDoesNotOverwriteTheLastFix() = runBlocking<Unit> {
-        val pipeline = GPSPipeline(listOf(BadReadingFilterGPSModule(mock())))
+        val pipeline = GPSPipeline(listOf(BadReadingFilterGPSModule(mock(), timeProvider)))
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(1)))
         val zeroed = reading(2).also { it.location = Coordinate.zero }
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(zeroed))
@@ -237,7 +244,8 @@ class GPSPipelineTest {
                 }
             },
             logger = mock(),
-            timerFactory = { fireTimeout = it; mock() }
+            timerFactory = { fireTimeout = it; mock() },
+            timeProvider = timeProvider
         )
         pipeline = pipeline(module { _, next -> next.hasValidReading }, timeout)
         pipeline.start()
@@ -264,7 +272,7 @@ class GPSPipelineTest {
     @Test
     fun rejectedReadingDoesNotChangeSmoothingOrCache() = runBlocking<Unit> {
         val pipeline = pipeline(
-            BadReadingFilterGPSModule(mock()),
+            BadReadingFilterGPSModule(mock(), timeProvider),
             KalmanGPSModule(prefs, mock())
         )
         pipeline.update(reading(1))

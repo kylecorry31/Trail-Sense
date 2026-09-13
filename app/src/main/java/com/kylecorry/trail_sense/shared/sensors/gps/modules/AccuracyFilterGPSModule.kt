@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
+import com.kylecorry.trail_sense.shared.sensors.gps.durationSince
 import java.time.Duration
 
 /**
@@ -36,7 +37,7 @@ class AccuracyFilterGPSModule(
     }
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
-        if (newData.eventTime <= previousData.eventTime) return true
+        if (newData.durationSince(previousData) <= Duration.ZERO) return true
 
         val filter = prefs.accuracyFilter
         val minAccuracy = filter.minAccuracy
@@ -58,13 +59,13 @@ class AccuracyFilterGPSModule(
         }
 
         // Discard the retained fix once the pipeline has accepted it or a newer fix.
-        if (bestReading?.eventTime?.let { it <= previousData.eventTime } == true) {
+        if (bestReading?.let { it.durationSince(previousData) <= Duration.ZERO } == true) {
             bestReading = null
         }
 
         // Only consider a recent best reading
         bestReading = bestReading?.takeIf {
-            Duration.between(it.eventTime, newData.eventTime) <= MAX_RETAINED_FIX_AGE
+            newData.durationSince(it) <= MAX_RETAINED_FIX_AGE
         }
         val best = bestReading
         if (best == null || accuracy <= (best.horizontalAccuracy ?: Float.POSITIVE_INFINITY)) {
@@ -78,7 +79,7 @@ class AccuracyFilterGPSModule(
                 previousId = previousData.id
             )
         ) {
-            val ageMillis = Duration.between(candidate.eventTime, newData.eventTime).toMillis()
+            val ageMillis = newData.durationSince(candidate).toMillis()
             candidate.copyInto(newData)
             logger.debug(
                 TAG,

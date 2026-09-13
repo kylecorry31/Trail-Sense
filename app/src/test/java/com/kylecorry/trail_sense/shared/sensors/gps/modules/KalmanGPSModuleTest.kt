@@ -186,7 +186,7 @@ class KalmanGPSModuleTest {
 
     @Test
     fun initializesFromCachedPreviousReading() = runBlocking<Unit> {
-        val cached = reading(1).apply { eventTimeElapsedNanos = 0L }
+        val cached = reading(1)
         val next = reading(2, 1.001)
         module.update(cached, next)
 
@@ -202,7 +202,7 @@ class KalmanGPSModuleTest {
 
     @Test
     fun cachedFixIsNotFilteredAgain() = runBlocking<Unit> {
-        val cached = reading(1).apply { eventTimeElapsedNanos = 0L }
+        val cached = reading(1)
         val duplicate = reading(1, 1.001).apply { eventTime = eventTime.plusNanos(123456) }
         module.update(cached, duplicate)
         assertEquals(cached.location, duplicate.location)
@@ -271,14 +271,6 @@ class KalmanGPSModuleTest {
             assertEquals(next.horizontalAccuracy, duplicate.horizontalAccuracy)
             assertEquals(next.kalmanState, duplicate.kalmanState)
         }
-    }
-
-    @Test
-    fun deduplicatesByTimeWhenElapsedTimeIsUnavailable() = runBlocking<Unit> {
-        module.update(previous, reading(1).apply { eventTimeElapsedNanos = 0L })
-        val duplicate = reading(1).apply { eventTimeElapsedNanos = 0L }
-        module.update(previous, duplicate)
-        assertEquals(10f, duplicate.horizontalAccuracy)
     }
 
     @Test
@@ -358,21 +350,34 @@ class KalmanGPSModuleTest {
     }
 
     @Test
-    fun usesTimeEvenWhenElapsedTimeMovesBackward() = runBlocking<Unit> {
-        module.update(previous, reading(1))
-        val next = reading(2, 1.001).apply { eventTimeElapsedNanos = 0 }
-        module.update(previous, next)
-        assertTrue(next.location.longitude > 1.0 && next.location.longitude < 1.001)
-        assertEquals(10f, next.horizontalAccuracy)
+    fun predictsUsingElapsedTimeWhenFixTimeDisagrees() = runBlocking<Unit> {
+        fun moving(seconds: Long) = reading(seconds).apply {
+            rawBearing = 90f
+            speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
+            speedAccuracy = 0.1f
+            bearingAccuracy = 1f
+        }
+
+        val first = moving(1)
+        module.update(previous, first)
+        // The fix time jumps forward, but only 2 seconds have elapsed
+        val next = moving(3).apply {
+            eventTime = eventTime.plusSeconds(60)
+            location = first.location.plus(Distance.meters(20f), Bearing.from(90f))
+        }
+        val expected = moving(3).apply { location = next.location }
+        KalmanGPSModule(prefs, mock()).also { it.update(previous, moving(1)) }.update(first, expected)
+        module.update(first, next)
+        assertEquals(expected.location, next.location)
+        assertEquals(expected.kalmanState, next.kalmanState)
     }
 
     @Test
-    fun deduplicatesTimeEvenWhenElapsedTimeChanges() = runBlocking<Unit> {
+    fun repeatedFixTimeWithNewElapsedTimeIsANewMeasurement() = runBlocking<Unit> {
         module.update(previous, reading(1))
         val next = reading(1, 1.001).apply { eventTimeElapsedNanos = 2_000_000_000 }
         module.update(previous, next)
-        assertEquals(Coordinate(1.0, 1.0), next.location)
-        assertEquals(10f, next.horizontalAccuracy)
+        assertTrue(next.location.longitude > 1.0 && next.location.longitude < 1.001)
     }
 
     @Test

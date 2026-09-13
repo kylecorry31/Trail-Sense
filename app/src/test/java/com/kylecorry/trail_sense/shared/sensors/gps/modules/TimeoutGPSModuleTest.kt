@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
+import com.kylecorry.andromeda.core.time.TimeProvider
 import com.kylecorry.luna.time.ITimer
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
@@ -13,6 +14,10 @@ import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 
 class TimeoutGPSModuleTest {
+    private val timeProvider = object : TimeProvider {
+        override fun elapsedRealtime() = 0L
+        override fun currentTimeMillis() = 0L
+    }
     private val timer = mock<ITimer>()
     private lateinit var fireTimeout: suspend () -> Unit
     private val data = ModularGPSData(eventTime = Instant.EPOCH)
@@ -25,7 +30,8 @@ class TimeoutGPSModuleTest {
             }
         },
         logger = mock(),
-        timerFactory = { fireTimeout = it; timer }
+        timerFactory = { fireTimeout = it; timer },
+        timeProvider = timeProvider
     )
 
     private fun timedOut() = data.isTimedOut
@@ -54,7 +60,8 @@ class TimeoutGPSModuleTest {
         val timeoutModule = TimeoutGPSModule(
             onTimeout = { acceptTimeout -> accepted = acceptTimeout() },
             logger = mock(),
-            timerFactory = { fireTimeout = it; timer }
+            timerFactory = { fireTimeout = it; timer },
+            timeProvider = timeProvider
         )
         timeoutModule.start(data)
         fireTimeout()
@@ -76,7 +83,7 @@ class TimeoutGPSModuleTest {
     fun acceptedUpdateClearsTimeoutAndReschedulesWhileStarted() = runBlocking<Unit> {
         module.start(data)
         fireTimeout()
-        assertTrue(accept(ModularGPSData()))
+        assertTrue(accept(ModularGPSData(eventTimeElapsedNanos = 1L)))
         assertFalse(data.isTimedOut)
         verify(timer, times(2)).once(SensorService.GPS_READ_TIMEOUT)
         assertEquals(1, notifications.size)
@@ -92,7 +99,7 @@ class TimeoutGPSModuleTest {
     @Test
     fun secondaryUpdatesDoNotPostponeTimeoutOrClearTimedOutState() = runBlocking<Unit> {
         module.start(data)
-        val duplicate = ModularGPSData(eventTime = data.eventTime.plusNanos(123456), satellites = 6)
+        val duplicate = ModularGPSData(eventTimeElapsedNanos = data.eventTimeElapsedNanos, satellites = 6)
         repeat(20) {
             assertTrue(accept(duplicate))
         }
@@ -104,7 +111,7 @@ class TimeoutGPSModuleTest {
         assertTrue(data.isTimedOut)
         verify(timer).once(SensorService.GPS_READ_TIMEOUT)
 
-        accept(ModularGPSData(eventTime = data.eventTime.plusSeconds(1)))
+        accept(ModularGPSData(eventTimeElapsedNanos = data.eventTimeElapsedNanos + 1_000_000_000))
         assertFalse(data.isTimedOut)
         verify(timer, times(2)).once(SensorService.GPS_READ_TIMEOUT)
     }
@@ -126,7 +133,7 @@ class TimeoutGPSModuleTest {
     fun supersededCallbackCannotExpireANewFix() = runBlocking<Unit> {
         module.start(data)
         val oldTimeout = fireTimeout
-        assertTrue(accept(ModularGPSData(eventTime = Instant.EPOCH.plusSeconds(1))))
+        assertTrue(accept(ModularGPSData(eventTimeElapsedNanos = 1_000_000_000)))
         oldTimeout()
         assertFalse(data.isTimedOut)
         assertTrue(notifications.isEmpty())
