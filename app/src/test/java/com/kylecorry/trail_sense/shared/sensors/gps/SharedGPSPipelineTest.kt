@@ -61,6 +61,73 @@ class SharedGPSPipelineTest {
     }
 
     @Test
+    fun startupConsidersOnlyRecentNewerFixes() = runBlocking<Unit> {
+        val cases = listOf(
+            999_994L to 999_994L,
+            999_994L to 999_995L,
+            999_994L to 999_999L,
+            999_994L to 1_000_000L,
+            999_994L to 1_000_001L,
+            999_999L to 999_998L,
+            999_999L to 999_999L
+        )
+        for ((previous, seconds) in cases) {
+            val inputs = mutableListOf<Long>()
+            val pipeline = SharedGPSPipeline(mock(), timeProvider) {
+                GPSPipeline(listOf(object : GPSModule {
+                    override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
+                        inputs.add(newData.eventTimeElapsedNanos)
+                        return true
+                    }
+                }))
+            }
+            val first = Consumer(pipeline).consumer
+            first.start()
+            first.update(reading(previous))
+            inputs.clear()
+            val second = Consumer(pipeline).consumer
+            val accepted = seconds in 999_995L..1_000_000L && seconds > previous
+            assertEquals(accepted, second.start(reading(seconds)), "Startup fix at $seconds")
+            assertEquals(if (accepted) listOf(reading(seconds).eventTimeElapsedNanos) else emptyList<Long>(), inputs)
+            val expected = reading(if (accepted) seconds else previous)
+            assertEquals(expected.eventTimeElapsedNanos, second.reading.eventTimeElapsedNanos)
+            assertFalse(second.update(expected))
+            second.stop()
+            first.stop()
+        }
+    }
+
+    @Test
+    fun startupWithoutLocationAcceptsBaseReadingButOnlyNotifiesForRecentNewerFixes() = runBlocking<Unit> {
+        for (seconds in listOf(0L, 999_994L, 999_995L, 1_000_000L)) {
+            val pipeline = SharedGPSPipeline(mock(), timeProvider) { GPSPipeline(emptyList()) }
+            val consumer = Consumer(pipeline).consumer
+            val initial = reading(seconds)
+            assertEquals(seconds >= 999_995L, consumer.start(initial), "Startup fix at $seconds")
+            assertEquals(initial.location, consumer.reading.location)
+            assertEquals(initial.eventTimeElapsedNanos, consumer.reading.eventTimeElapsedNanos)
+            assertFalse(consumer.update(initial))
+            consumer.stop()
+        }
+    }
+
+    @Test
+    fun startupFixStillPassesThroughFilters() = runBlocking<Unit> {
+        val pipeline = SharedGPSPipeline(mock(), timeProvider) {
+            GPSPipeline(listOf(object : GPSModule {
+                override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData) = false
+            }))
+        }
+        val consumer = Consumer(pipeline).consumer
+        assertFalse(consumer.start(reading(999_994)))
+        assertEquals(Coordinate.zero, consumer.reading.location)
+        consumer.stop()
+        assertFalse(consumer.start(reading(999_999)))
+        assertEquals(Coordinate.zero, consumer.reading.location)
+        consumer.stop()
+    }
+
+    @Test
     fun suspendingModuleSerializesConsumers() = runBlocking<Unit> {
         val entered = kotlinx.coroutines.CompletableDeferred<Unit>()
         val resume = kotlinx.coroutines.CompletableDeferred<Unit>()

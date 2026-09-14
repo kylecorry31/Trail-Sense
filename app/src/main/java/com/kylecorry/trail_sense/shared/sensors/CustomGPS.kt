@@ -1,12 +1,11 @@
 package com.kylecorry.trail_sense.shared.sensors
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.LocationRequestConfig
@@ -19,8 +18,6 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipelineConsumer
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
 import com.kylecorry.trail_sense.shared.sensors.gps.age
-import kotlinx.coroutines.NonCancellable
-import kotlinx.coroutines.withContext
 import java.time.Duration
 import java.time.Instant
 
@@ -103,23 +100,26 @@ class CustomGPS(
         get() = consumer.reading
 
     private val updates = Subscription<ModularGPSData>(
-        replay = 1, // Replay is temporary until the luna onSubscription change is in place to avoid missed readings
-        onStart = { withContext(NonCancellable) { if (consumer.start()) notifyListenersOnMain() } },
-        onStop = { withContext(NonCancellable) { consumer.stop() } }
+        onStart = {
+            baseGPS.start(this@CustomGPS::onLocationUpdate)
+            val startupReading = ModularGPSData().also { it.populateFromGPS(baseGPS) }
+            if (consumer.start(startupReading)) notifyListenersOnMain()
+        },
+        onStop = {
+            baseGPS.stop(this@CustomGPS::onLocationUpdate)
+            consumer.stop()
+        }
     )
 
-    @SuppressLint("MissingPermission")
     override fun startImpl() {
         if (!GPS.isAvailable(context)) {
             return
         }
 
         updates.subscribe(this::updateGPSData)
-        baseGPS.start(this::onLocationUpdate)
     }
 
     override fun stopImpl() {
-        baseGPS.stop(this::onLocationUpdate)
         updates.unsubscribe(this::updateGPSData)
     }
 

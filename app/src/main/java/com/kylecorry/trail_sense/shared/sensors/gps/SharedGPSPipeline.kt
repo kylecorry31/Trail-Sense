@@ -1,5 +1,8 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
+import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.core.time.TimeProvider
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.AccuracyFilterGPSModule
@@ -13,9 +16,11 @@ import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import java.time.Duration
 
 internal class SharedGPSPipeline(
     private val logger: Logger = getAppService(),
+    private val timeProvider: TimeProvider = SystemTimeProvider(),
     private val factory: (suspend (() -> Boolean) -> Unit) -> GPSPipeline
 ) {
     private var pipeline = factory(::onTimeout)
@@ -40,13 +45,24 @@ internal class SharedGPSPipeline(
     val isTimedOut: Boolean
         get() = latest.isTimedOut
 
-    suspend fun start(consumer: Any, notifyTimeout: () -> Unit = {}) = mutex.withLock {
+    suspend fun start(
+        consumer: Any,
+        notifyTimeout: () -> Unit = {},
+        initialReading: ModularGPSData? = null
+    ): Boolean = mutex.withLock {
         if (consumers.putIfAbsent(consumer, notifyTimeout) == null && consumers.size == 1) {
             logger.info(TAG, "Started")
             lastInput = null
             pipeline.start()
             latest = snapshot()
         }
+        if (initialReading == null) return@withLock false
+        val shouldNotify = initialReading.age(timeProvider) in Duration.ZERO..STARTUP_READING_THRESHOLD &&
+            initialReading.eventTimeElapsedNanos > latest.eventTimeElapsedNanos
+        if (shouldNotify || latest.location == Coordinate.zero) {
+            return@withLock updateLocked(initialReading) != null && shouldNotify
+        }
+        false
     }
 
     suspend fun stop(consumer: Any) = mutex.withLock {
@@ -57,10 +73,14 @@ internal class SharedGPSPipeline(
     }
 
     suspend fun update(gps: ModularGPSData): ModularGPSData? = mutex.withLock {
+        updateLocked(gps)
+    }
+
+    private suspend fun updateLocked(gps: ModularGPSData): ModularGPSData? {
         lastInput = ModularGPSData().also { gps.copyInto(it) }
-        if (pipeline.update(gps) == GPSUpdateResult.Rejected) return@withLock null
+        if (pipeline.update(gps) == GPSUpdateResult.Rejected) return null
         latest = snapshot()
-        latest
+        return latest
     }
 
     suspend fun clearCache(clear: () -> Unit) = mutex.withLock {
@@ -89,6 +109,7 @@ internal class SharedGPSPipeline(
 
     companion object {
         private const val TAG = "SharedGPSPipeline"
+        private val STARTUP_READING_THRESHOLD = Duration.ofSeconds(5)
 
         @Volatile
         private var instance: SharedGPSPipeline? = null
