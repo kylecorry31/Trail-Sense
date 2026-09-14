@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.logging.Logger
+import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSKalmanState
 import com.kylecorry.trail_sense.shared.sensors.gps.KalmanFilter
@@ -74,6 +75,8 @@ class KalmanGPSModule(
             reset()
         }
 
+        val rawLocation = newData.location
+        val rawAccuracy = newData.horizontalAccuracy
         val lastTime = timeElapsedNanos
         val sameFix = lastTime != null &&
             (newData.durationSince(previousData) <= Duration.ZERO || lastTime == newData.id)
@@ -94,6 +97,19 @@ class KalmanGPSModule(
             newData.location = fromLocal(it.Xk_k[POSITION_EAST, 0], it.Xk_k[POSITION_NORTH, 0])
             newData.kalmanState = snapshot(it)
             newData.horizontalAccuracy = reportedAccuracy
+        }
+        val adjustment = rawLocation.distanceTo(newData.location)
+        if (adjustment >= LARGE_ADJUSTMENT_METERS) {
+            val elapsedSeconds = lastTime?.let { newData.durationSince(it).toMillis() / 1000f }
+            logger.debug(
+                TAG,
+                "Large adjustment: ${adjustment.safeRoundPlaces(1)}m from raw " +
+                    "(smoothing: $smoothing%, elapsed: ${elapsedSeconds?.safeRoundPlaces(1)}s, " +
+                    "speed: ${newData.speed.value.safeRoundPlaces(1)} m/s, " +
+                    "bearing: ${newData.rawBearing?.safeRoundPlaces(1)}°, " +
+                    "accuracy: ${rawAccuracy?.safeRoundPlaces(1)}m -> " +
+                    "${newData.horizontalAccuracy?.safeRoundPlaces(1)}m)"
+            )
         }
         return true
     }
@@ -299,5 +315,6 @@ class KalmanGPSModule(
         private const val NOISE_AT_BALANCED_SMOOTHING = 0.1f
         private const val NOISE_AT_FULL_SMOOTHING = 0.01f
         private const val MAX_REFERENCE_DISTANCE = 200f
+        private const val LARGE_ADJUSTMENT_METERS = 25f
     }
 }
