@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
 
 class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreferences {
 
@@ -24,6 +25,13 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
 
     override val smoothing: Int
         get() = (cache.getInt(getString(R.string.pref_gps_smoothing)) ?: 0).coerceIn(0, 100)
+
+    override val powerMode by StringEnumPreference(
+        cache,
+        getString(R.string.pref_gps_power_usage),
+        GPSPowerMode.entries.associateBy { it.id.toString() },
+        GPSPowerMode.High
+    )
 
     override var locationOverride: Coordinate
         get() {

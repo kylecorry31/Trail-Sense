@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.sense.location.GPS
+import com.kylecorry.andromeda.sense.location.GPSPowerUsage
 import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.LocationRequestConfig
 import com.kylecorry.andromeda.sense.location.Satellite
@@ -18,6 +19,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipelineConsumer
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
 import com.kylecorry.trail_sense.shared.sensors.gps.age
+import com.kylecorry.trail_sense.shared.UserPreferences
 import java.time.Duration
 import java.time.Instant
 
@@ -83,9 +85,10 @@ class CustomGPS(
         get() = consumer.reading.isTimedOut
 
     private val baseGPS: ISatelliteGPS by lazy {
+        val powerUsage = UserPreferences(context).gps.powerMode.powerUsage ?: GPSPowerUsage.High
         GPS(
             context.applicationContext,
-            LocationRequestConfig(frequency = gpsFrequency),
+            LocationRequestConfig(frequency = gpsFrequency, powerUsage = powerUsage),
             listenToNmea = false
         )
     }

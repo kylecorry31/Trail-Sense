@@ -5,6 +5,8 @@ The Backtrack feature can be used to automatically record a path while you hike.
 
 To change the recording frequency, tap the time under the Backtrack label at the bottom-left and enter a new interval.
 
+When 'Keep device awake' is disabled, Backtrack uses the GPS to wake your phone and record a point. You can control the power hint for these updates with Settings > Paths > 'Backtrack GPS power usage'. The default, 'Inherit from GPS settings', uses Settings > Sensors > GPS > 'GPS power usage'. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce the accuracy of the recorded path.
+
 Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Navigation > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
 
 By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Paths > 'Backtrack history'. You can choose to keep a Backtrack path forever by tapping the menu button on the Backtrack path row and selecting 'Keep forever'.

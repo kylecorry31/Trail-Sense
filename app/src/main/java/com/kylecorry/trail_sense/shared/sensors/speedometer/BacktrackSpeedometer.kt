@@ -32,7 +32,7 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
     }
 
     override val hasValidReading: Boolean
-        get() = prefs.backtrackEnabled && _speed != null
+        get() = prefs.paths.backtrackEnabled && _speed != null
 
     override val speed: Speed
         get() = _speed ?: Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)

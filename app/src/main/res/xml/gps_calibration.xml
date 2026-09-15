@@ -13,33 +13,6 @@
             app:key="@string/pref_holder_location"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_auto_location"
-            app:singleLineTitle="false"
-            app:title="@string/pref_auto_location_title" />
-
-        <SeekBarPreference
-            android:max="100"
-            android:dependency="@string/pref_auto_location"
-            app:min="0"
-            app:defaultValue="0"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_gps_smoothing"
-            app:seekBarIncrement="1"
-            app:singleLineTitle="false"
-            app:title="@string/smoothing" />
-
-        <ListPreference
-            app:defaultValue="2"
-            app:iconSpaceReserved="false"
-            android:dependency="@string/pref_auto_location"
-            app:key="@string/pref_gps_accuracy_requirement"
-            app:singleLineTitle="false"
-            app:title="@string/pref_gps_accuracy_requirement_title"
-            app:useSimpleSummaryProvider="true" />
-
         <Preference
             android:title="@string/request_permission"
             app:iconSpaceReserved="false"
@@ -47,18 +20,53 @@
             app:key="@string/pref_gps_request_permission"
             app:singleLineTitle="false" />
 
-        <Preference
-            android:title="@string/clear_cache"
-            android:dependency="@string/pref_auto_location"
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_gps_clear_cache"
-            app:singleLineTitle="false" />
+            app:key="@string/pref_auto_location"
+            app:singleLineTitle="false"
+            app:title="@string/pref_auto_location_title" />
 
         <com.kylecorry.trail_sense.shared.views.CoordinatePreference
             app:iconSpaceReserved="false"
             app:key="@string/pref_gps_override">
         </com.kylecorry.trail_sense.shared.views.CoordinatePreference>
 
+        <ListPreference
+            android:dependency="@string/pref_auto_location"
+            app:defaultValue="4"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_power_usage"
+            app:singleLineTitle="false"
+            app:title="@string/pref_gps_power_usage_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:dependency="@string/pref_auto_location"
+            app:defaultValue="2"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_accuracy_requirement"
+            app:singleLineTitle="false"
+            app:title="@string/pref_gps_accuracy_requirement_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <SeekBarPreference
+            android:dependency="@string/pref_auto_location"
+            android:max="100"
+            app:defaultValue="0"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_smoothing"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:singleLineTitle="false"
+            app:title="@string/smoothing" />
+
+        <Preference
+            android:title="@string/clear_cache"
+            android:dependency="@string/pref_auto_location"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_gps_clear_cache"
+            app:singleLineTitle="false" />
 
     </PreferenceCategory>
 

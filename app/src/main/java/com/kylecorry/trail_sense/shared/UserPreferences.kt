@@ -50,6 +50,7 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuidePref
 import com.kylecorry.trail_sense.tools.map.infrastructure.MapPreferences
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapPreferences
+import com.kylecorry.trail_sense.tools.paths.infrastructure.PathsPreferences
 import com.kylecorry.trail_sense.tools.ruler.infrastructure.RulerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.ToolSortType
@@ -94,6 +95,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val bubbleLevel by lazy { BubbleLevelPreferences(context) }
     val fieldGuide by lazy { FieldGuidePreferences(context) }
     val gps by lazy { GPSPreferences(context) }
+    val paths by lazy { PathsPreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)
 
@@ -338,34 +340,6 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
 
     val odometerDistanceThreshold: Distance
         get() = Distance.meters(15f)
-
-    var backtrackEnabled: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_backtrack_enabled)) ?: false
-        set(value) = cache.putBoolean(
-            context.getString(R.string.pref_backtrack_enabled),
-            value
-        )
-
-    var backtrackSaveCellHistory by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_backtrack_save_cell),
-        true
-    )
-
-    val backtrackKeepDeviceAwake by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_backtrack_keep_awake),
-        false
-    )
-
-    var backtrackRecordFrequency: Duration
-        get() {
-            return cache.getDuration(getString(R.string.pref_backtrack_frequency))
-                ?: Duration.ofMinutes(1)
-        }
-        set(value) {
-            cache.putDuration(getString(R.string.pref_backtrack_frequency), value)
-        }
 
     var isLowPowerModeOn: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_low_power_mode)) ?: false

@@ -33,14 +33,14 @@ class BacktrackService :
         get() = 7238542
 
     override val holdWakelockWhenBelowThreshold: Boolean
-        get() = prefs.backtrackKeepDeviceAwake
+        get() = prefs.paths.backtrackKeepDeviceAwake
 
     override fun getNonWorkerTimer(action: suspend () -> Unit): ITimer {
-        val canWakeWithLocationUpdates = !prefs.backtrackKeepDeviceAwake &&
+        val canWakeWithLocationUpdates = !prefs.paths.backtrackKeepDeviceAwake &&
                 GPSSourceSelector(this).getSource(useCache = false) == GPSSource.Device
 
         if (!canWakeWithLocationUpdates) {
-            getAppService<Logger>().info(TAG, "Using a coroutine timer (keep awake: ${prefs.backtrackKeepDeviceAwake})")
+            getAppService<Logger>().info(TAG, "Using a coroutine timer (keep awake: ${prefs.paths.backtrackKeepDeviceAwake})")
             return CoroutineTimer { action() }
         }
 
@@ -51,7 +51,10 @@ class BacktrackService :
             // This has the side effect of warming up the GPS for backtrack
             GPS(
                 this,
-                LocationRequestConfig(frequency = Duration.ofMillis(periodMillis)),
+                LocationRequestConfig(
+                    frequency = Duration.ofMillis(periodMillis),
+                    powerUsage = prefs.paths.backtrackGPSPowerUsage
+                ),
                 listenToNmea = false,
                 listenToGnssStatusChanges = false
             )
@@ -68,7 +71,7 @@ class BacktrackService :
 
 
     override val period: Duration
-        get() = prefs.backtrackRecordFrequency
+        get() = prefs.paths.backtrackRecordFrequency
 
     private val recordLock = Mutex()
 
@@ -87,7 +90,7 @@ class BacktrackService :
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         getAppService<Logger>().info(
             TAG,
-            "Started (period: $period, keep awake: ${prefs.backtrackKeepDeviceAwake}, restarted by system: ${intent == null})"
+            "Started (period: $period, keep awake: ${prefs.paths.backtrackKeepDeviceAwake}, restarted by system: ${intent == null})"
         )
         isRunning = true
         return tryStartForegroundOrNotify {

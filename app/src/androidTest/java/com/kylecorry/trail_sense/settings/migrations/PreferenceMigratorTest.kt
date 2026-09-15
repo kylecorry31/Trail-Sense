@@ -162,7 +162,7 @@ class PreferenceMigratorTest {
         migrate(8)
 
         val userPrefs = UserPreferences(context)
-        assertEquals(Duration.ofMinutes(30), userPrefs.backtrackRecordFrequency)
+        assertEquals(Duration.ofMinutes(30), userPrefs.paths.backtrackRecordFrequency)
         assertEquals(Duration.ofMinutes(45), userPrefs.weather.weatherUpdateFrequency)
     }
 

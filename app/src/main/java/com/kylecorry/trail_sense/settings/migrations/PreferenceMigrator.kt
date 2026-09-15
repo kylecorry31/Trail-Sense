@@ -158,7 +158,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(8, 9) { context, prefs ->
                 val userPrefs = UserPreferences(context)
                 prefs.getString("pref_backtrack_frequency")?.toLongOrNull()?.let {
-                    userPrefs.backtrackRecordFrequency = Duration.ofMinutes(it)
+                    userPrefs.paths.backtrackRecordFrequency = Duration.ofMinutes(it)
                 }
                 prefs.getString("pref_weather_update_frequency")?.toLongOrNull()?.let {
                     userPrefs.weather.weatherUpdateFrequency = Duration.ofMinutes(it)

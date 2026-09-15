@@ -14,7 +14,7 @@ object BacktrackScheduler {
 
     suspend fun restart(context: Context) {
         val prefs = UserPreferences(context)
-        if (prefs.backtrackEnabled) {
+        if (prefs.paths.backtrackEnabled) {
             stop(context)
             start(context, false)
         }

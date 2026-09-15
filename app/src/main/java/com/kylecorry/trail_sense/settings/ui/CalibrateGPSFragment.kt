@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
@@ -62,6 +63,15 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
         clearCacheBtn = preference(R.string.pref_gps_clear_cache)
         accuracyFilterList = list(R.string.pref_gps_accuracy_requirement)!!
+        list(R.string.pref_gps_power_usage)?.apply {
+            val names = mapOf(
+                GPSPowerMode.Low to getString(R.string.gps_power_usage_low),
+                GPSPowerMode.Balanced to getString(R.string.gps_power_usage_balanced),
+                GPSPowerMode.High to getString(R.string.gps_power_usage_high)
+            )
+            entries = names.values.toTypedArray()
+            entryValues = names.keys.map { it.id.toString() }.toTypedArray()
+        }
         seekBar(R.string.pref_gps_smoothing)?.apply {
             summary = formatService.formatPercentage(prefs.gps.smoothing.toFloat())
             setOnPreferenceChangeListener { _, newValue ->

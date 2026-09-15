@@ -21,14 +21,14 @@ class ChangeBacktrackFrequencyCommand(
         val title = context.getString(R.string.pref_backtrack_frequency_title)
         CustomUiUtils.pickDuration(
             context,
-            prefs.backtrackRecordFrequency,
+            prefs.paths.backtrackRecordFrequency,
             title,
             context.getString(R.string.actual_frequency_disclaimer),
             hint = context.getString(R.string.frequency),
             showSeconds = true
         ) {
             if (it != null && !it.isZero) {
-                prefs.backtrackRecordFrequency = it
+                prefs.paths.backtrackRecordFrequency = it
                 onChange(it)
                 scope.launch {
                     BacktrackScheduler.restart(context)

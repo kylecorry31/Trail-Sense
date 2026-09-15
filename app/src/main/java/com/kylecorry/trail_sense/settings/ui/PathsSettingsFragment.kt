@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
@@ -69,16 +70,36 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        switch(R.string.pref_backtrack_keep_awake)?.setOnPreferenceChangeListener { _, _ ->
+        switch(R.string.pref_backtrack_keep_awake)?.setOnPreferenceChangeListener { _, newValue ->
+            val keepAwake = newValue as Boolean
+            list(R.string.pref_backtrack_gps_power_usage)?.isVisible = !keepAwake
             lifecycleScope.launch {
                 BacktrackScheduler.restart(requireContext())
             }
             true
         }
 
+        list(R.string.pref_backtrack_gps_power_usage)?.apply {
+            val names = mapOf(
+                GPSPowerMode.Inherit to getString(R.string.gps_power_usage_inherit),
+                GPSPowerMode.Low to getString(R.string.gps_power_usage_low),
+                GPSPowerMode.Balanced to getString(R.string.gps_power_usage_balanced),
+                GPSPowerMode.High to getString(R.string.gps_power_usage_high)
+            )
+            entries = names.values.toTypedArray()
+            entryValues = names.keys.map { it.id.toString() }.toTypedArray()
+            isVisible = !prefs.paths.backtrackKeepDeviceAwake
+            setOnPreferenceChangeListener { _, _ ->
+                lifecycleScope.launch {
+                    BacktrackScheduler.restart(requireContext())
+                }
+                true
+            }
+        }
+
         val prefBacktrackInterval = preference(R.string.pref_backtrack_interval)
         prefBacktrackInterval?.summary =
-            formatService.formatDuration(prefs.backtrackRecordFrequency, includeSeconds = true)
+            formatService.formatDuration(prefs.paths.backtrackRecordFrequency, includeSeconds = true)
 
         prefBacktrackInterval?.setOnPreferenceClickListener {
             ChangeBacktrackFrequencyCommand(requireContext(), lifecycleScope) {

@@ -42,7 +42,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
     }
 
     override fun getFrequency(): Duration {
-        return prefs.backtrackRecordFrequency
+        return prefs.paths.backtrackRecordFrequency
     }
 
     override fun isRunning(): Boolean {
@@ -50,7 +50,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
     }
 
     override fun isEnabled(): Boolean {
-        return prefs.backtrackEnabled
+        return prefs.paths.backtrackEnabled
     }
 
     override fun isBlocked(): Boolean {
@@ -68,7 +68,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
             return
         }
 
-        prefs.backtrackEnabled = true
+        prefs.paths.backtrackEnabled = true
         Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED)
         if (!isBlocked()) {
             start(true)
@@ -76,7 +76,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun disable() {
-        prefs.backtrackEnabled = false
+        prefs.paths.backtrackEnabled = false
         Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED)
         stop()
     }
@@ -118,7 +118,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
             Tools.broadcast(
                 PathsToolRegistration.BROADCAST_BACKTRACK_FREQUENCY_CHANGED,
                 Bundle().apply {
-                    putLong(PathsToolRegistration.BROADCAST_PARAM_BACKTRACK_FREQUENCY, prefs.backtrackRecordFrequency.toMillis())
+                    putLong(PathsToolRegistration.BROADCAST_PARAM_BACKTRACK_FREQUENCY, prefs.paths.backtrackRecordFrequency.toMillis())
                 }
             )
         }
