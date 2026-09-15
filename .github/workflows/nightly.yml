@@ -88,6 +88,5 @@ jobs:
               ./nightly-release/Trail-Sense-Nightly-Release.apk \
               --repo "$REPO" \
               --title "Trail Sense Nightly $(date -u +'%Y-%m-%d')" \
-              --notes "Automatically generated Trail Sense nightly build." \
-              --prerelease
+              --notes "Automatically generated Trail Sense nightly build."
           fi
