@@ -1660,4 +1660,10 @@
     <string name="pref_backtrack_keep_awake_title">Apparaat wakker houden</string>
     <string name="pref_backtrack_keep_awake_summary">Bij een frequentie van minder dan 15 minuten</string>
     <string name="battery_deep_sleep">Diepe slaap: %1$s (duur: %2$s)</string>
+    <string name="gps_power_usage_low">Batterijbesparend</string>
+    <string name="gps_power_usage_balanced">Gebalanceerd</string>
+    <string name="gps_power_usage_high">Hoge nauwkeurigheid</string>
+    <string name="pref_backtrack_gps_power_usage_title">GPS-batterijverbruik voor Terugweg</string>
+    <string name="gps_power_usage_inherit">Hetzelfde als GPS-instellingen</string>
+    <string name="pref_gps_power_usage_title">GPS-batterijverbruik</string>
 </resources>
