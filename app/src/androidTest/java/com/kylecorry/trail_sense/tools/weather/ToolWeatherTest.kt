@@ -44,7 +44,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         }
 
         // Wait for a pressure reading
-        hasText(string(R.string.pressure))
+        scrollUntil { hasText(string(R.string.pressure)) }
         hasText(Regex("\\d+(\\.\\d+)? in"))
 
         // Historic temperature
