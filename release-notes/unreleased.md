@@ -1,0 +1,14 @@
+- Removed NMEA altitude correction setting in favor of built-in model
+- Added GPS power usage hint preferences
+- Backtrack no longer keeps the device awake by default
+- Changed default backtrack frequency to 1 minute
+- Changed default weather monitor frequency to 30 minutes
+- Added percent of time the device was in deep sleep on battery tool
+- Improved GPS reading rejection
+- Added GPS smoothing percentage to GPS settings
+- Added timeout to location and elevation pickers
+- Increased GPS timeout to 30 seconds
+- Improved GPS performance
+- Added GPS accuracy filter to GPS settings (default to low)
+- Dropped support for Android 6
+- Fixed clock tool's GPS time on devices running Android 7, 8, and 9
