@@ -1673,4 +1673,12 @@
     <string name="pref_backtrack_keep_awake_summary">Lorsque la fréquence est inférieure à 15 minutes</string>
     <string name="pref_backtrack_keep_awake_title">Maintenir l\'appareil actif</string>
     <string name="battery_deep_sleep">Veille profonde : %1$s (last %2$s)</string>
+    <string name="replace_elevations">Remplacer les élévations</string>
+    <string name="replace_elevations_confirmation">Faut-il remplacer toutes les altitudes des chemins par celles du modèle numérique d\'altitude ?</string>
+    <string name="pref_gps_power_usage_title">Consommation d\'énergie du GPS</string>
+    <string name="pref_backtrack_gps_power_usage_title">Consommation électrique du GPS Backtrack</string>
+    <string name="gps_power_usage_low">Économie de batterie</string>
+    <string name="gps_power_usage_balanced">Équilibré</string>
+    <string name="gps_power_usage_high">Haute précision</string>
+    <string name="gps_power_usage_inherit">Hériter des paramètres GPS</string>
 </resources>
