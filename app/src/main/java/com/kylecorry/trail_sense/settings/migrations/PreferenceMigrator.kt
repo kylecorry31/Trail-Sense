@@ -23,6 +23,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.GPSCacheData
 import com.kylecorry.trail_sense.shared.sensors.providers.CompassProvider
@@ -94,7 +95,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
-        internal const val version = 36
+        internal const val version = 37
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -559,6 +560,16 @@ class PreferenceMigrator private constructor() {
                 if (prefs.contains(weatherMonitorEnabledKey) && !prefs.contains(weatherFrequencyKey)) {
                     prefs.putDuration(weatherFrequencyKey, Duration.ofMinutes(15))
                 }
+            },
+            PreferenceMigration(36, 37) { context, prefs ->
+                val key = context.getString(R.string.pref_auto_location)
+                val source = if (prefs.getBoolean(key) == false) {
+                    GPSLocationSource.Manual
+                } else {
+                    GPSLocationSource.GPS
+                }
+                prefs.remove(key)
+                prefs.putString(key, source.id)
             }
         )
 

@@ -43,6 +43,7 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.Configurabl
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayers
 import com.kylecorry.trail_sense.shared.navigation.NavControllerAppNavigation
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
@@ -399,7 +400,7 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         // Update action button visibility
         binding.navigate.isVisible = !shouldCalculateMyLocation
-        binding.updateGpsOverride.isVisible = !prefs.gps.useAutoLocation && shouldCalculateMyLocation
+        binding.updateGpsOverride.isVisible = prefs.gps.locationSource == GPSLocationSource.Manual && shouldCalculateMyLocation
 
         updateMap()
         updateDistances()

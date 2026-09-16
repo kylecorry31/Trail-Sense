@@ -31,6 +31,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.packageName
 import com.kylecorry.trail_sense.test_utils.views.childWithIndex
@@ -159,7 +160,7 @@ object TestUtils {
 
     fun setLocationOverride(coordinate: Coordinate) {
         val prefs = UserPreferences(context)
-        prefs.gps.useAutoLocation = false
+        prefs.gps.locationSource = GPSLocationSource.Manual
         prefs.gps.locationOverride = coordinate
     }
 

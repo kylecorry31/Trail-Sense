@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPref
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.GPSCacheData
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
@@ -502,6 +503,26 @@ class PreferenceMigratorTest {
             PreferenceMigrator.LEGACY_LAST_HORIZONTAL_ACCURACY,
             PreferenceMigrator.LEGACY_LAST_VERTICAL_ACCURACY
         ).forEach { assertFalse(prefs.contains(it)) }
+    }
+
+    @Test
+    fun migration36To37ConvertsAutomaticLocationToGpsSource() {
+        val key = context.getString(R.string.pref_auto_location)
+        prefs.putBoolean(key, true)
+
+        migrate(36)
+
+        assertEquals(GPSLocationSource.GPS.id, prefs.getString(key))
+    }
+
+    @Test
+    fun migration36To37ConvertsDisabledAutomaticLocationToManualSource() {
+        val key = context.getString(R.string.pref_auto_location)
+        prefs.putBoolean(key, false)
+
+        migrate(36)
+
+        assertEquals(GPSLocationSource.Manual.id, prefs.getString(key))
     }
 
     private fun migrate(fromVersion: Int) {

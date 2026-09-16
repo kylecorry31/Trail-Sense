@@ -23,7 +23,7 @@ class GPSSourceSelector(context: Context) {
     fun getSource(useCache: Boolean): GPSSource {
         val hasPermission = Permissions.canGetFineLocation(context)
 
-        if (!userPrefs.gps.useAutoLocation || (!hasPermission && userPrefs.gps.hasLocationOverride)) {
+        if (userPrefs.gps.locationSource == GPSLocationSource.Manual || (!hasPermission && userPrefs.gps.hasLocationOverride)) {
             return GPSSource.Override
         }
 

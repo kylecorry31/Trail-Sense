@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import java.time.Duration
@@ -90,7 +91,7 @@ class LocationSubsystem private constructor(private val context: Context) {
     }
 
     private fun isGPSOverridden(): Boolean {
-        return !userPrefs.gps.useAutoLocation || !sensorService.hasLocationPermission()
+        return userPrefs.gps.locationSource == GPSLocationSource.Manual || !sensorService.hasLocationPermission()
     }
 
     companion object {

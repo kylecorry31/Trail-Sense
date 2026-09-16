@@ -1,19 +1,20 @@
 package com.kylecorry.trail_sense.settings.infrastructure
 
 import android.content.Context
-import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
 
 class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreferences {
 
-    override var useAutoLocation by BooleanPreference(
+    override var locationSource by StringEnumPreference(
         cache,
         getString(R.string.pref_auto_location),
-        true
+        GPSLocationSource.entries.associateBy { it.id },
+        GPSLocationSource.GPS
     )
 
     override val accuracyFilter by StringEnumPreference(

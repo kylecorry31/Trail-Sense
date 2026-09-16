@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
-import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -18,6 +17,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
@@ -33,7 +33,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private val throttle = Throttle(20)
 
     private lateinit var locationTxt: Preference
-    private lateinit var autoLocationSwitch: SwitchPreferenceCompat
+    private lateinit var locationSourceList: ListPreference
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
     private lateinit var accuracyFilterList: ListPreference
@@ -58,11 +58,17 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private fun bindPreferences() {
         locationTxt = findPreference(getString(R.string.pref_holder_location))!!
-        autoLocationSwitch = findPreference(getString(R.string.pref_auto_location))!!
+        locationSourceList = list(R.string.pref_auto_location)!!
         permissionBtn = findPreference(getString(R.string.pref_gps_request_permission))!!
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
         clearCacheBtn = preference(R.string.pref_gps_clear_cache)
         accuracyFilterList = list(R.string.pref_gps_accuracy_requirement)!!
+        val locationSources = mapOf(
+            GPSLocationSource.GPS to getString(R.string.gps),
+            GPSLocationSource.Manual to getString(R.string.manual)
+        )
+        locationSourceList.entries = locationSources.values.toTypedArray()
+        locationSourceList.entryValues = locationSources.keys.map { it.id }.toTypedArray()
         list(R.string.pref_gps_power_usage)?.apply {
             val names = mapOf(
                 GPSPowerMode.Low to getString(R.string.gps_power_usage_low),
@@ -90,11 +96,14 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
             update()
         }
 
-        autoLocationSwitch.setOnPreferenceClickListener {
-            locationOverridePref.isEnabled = isLocationOverrideEnabled()
+        locationSourceList.setOnPreferenceChangeListener { _, newValue ->
+            val source = GPSLocationSource.entries.first { it.id == newValue }
+            prefs.gps.locationSource = source
+            locationSourceList.value = source.id
+            locationOverridePref.isVisible = isLocationOverrideEnabled()
             resetGPS()
             update()
-            true
+            false
         }
 
         permissionBtn.setOnPreferenceClickListener {
@@ -181,7 +190,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private fun isLocationOverrideEnabled(): Boolean {
         // Either there are no other options for GPS or auto location is off
-        return !isAutoGPSPreferenceEnabled() || !prefs.gps.useAutoLocation
+        return !isAutoGPSPreferenceEnabled() || prefs.gps.locationSource == GPSLocationSource.Manual
     }
 
     private fun isAutoGPSPreferenceEnabled(): Boolean {
@@ -220,8 +229,13 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
 
         permissionBtn.isVisible = !isAutoGPSPreferenceEnabled()
-        autoLocationSwitch.isEnabled = isAutoGPSPreferenceEnabled()
-        locationOverridePref.isEnabled = isLocationOverrideEnabled()
+        locationSourceList.isEnabled = isAutoGPSPreferenceEnabled()
+        locationOverridePref.isVisible = isLocationOverrideEnabled()
+        val gpsSettingsEnabled = isAutoGPSPreferenceEnabled() && prefs.gps.locationSource == GPSLocationSource.GPS
+        list(R.string.pref_gps_power_usage)?.isVisible = gpsSettingsEnabled
+        accuracyFilterList.isVisible = gpsSettingsEnabled
+        seekBar(R.string.pref_gps_smoothing)?.isVisible = gpsSettingsEnabled
+        clearCacheBtn?.isVisible = gpsSettingsEnabled
 
         locationTxt.summary = formatService.formatLocation(gps.location)
     }

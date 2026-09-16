@@ -11,6 +11,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -38,7 +39,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
         }
 
         // The location is overridden
-        if (!prefs.gps.useAutoLocation || !sensorService.hasLocationPermission()) {
+        if (prefs.gps.locationSource == GPSLocationSource.Manual || !sensorService.hasLocationPermission()) {
             issues.add(
                 ToolDiagnosticResult(
                     LOCATION_OVERRIDDEN,
@@ -70,7 +71,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
         }
 
         // Location is disabled
-        if (prefs.gps.useAutoLocation &&
+        if (prefs.gps.locationSource == GPSLocationSource.GPS &&
             sensorService.hasLocationPermission() &&
             !GPS.isAvailable(context)
         ) {

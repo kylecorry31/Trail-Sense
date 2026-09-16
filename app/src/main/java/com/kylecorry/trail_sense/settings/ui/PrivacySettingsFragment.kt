@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 
 class PrivacySettingsFragment : AndromedaPreferenceFragment() {
 
@@ -36,7 +37,7 @@ class PrivacySettingsFragment : AndromedaPreferenceFragment() {
     }
 
     private fun isLocationMocked(): Boolean {
-        return !prefs.gps.useAutoLocation || !SensorService(requireContext()).hasLocationPermission()
+        return prefs.gps.locationSource == GPSLocationSource.Manual || !SensorService(requireContext()).hasLocationPermission()
     }
 
 }
