@@ -43,21 +43,45 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: ${{ matrix.api-level == 24 && 'x86' || 'x86_64' }}
+          target: default
+          profile: small_phone
+          cores: 4
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
           script: |
             adb logcat -c
             touch app/emulator.log
             chmod 777 app/emulator.log
             adb logcat >> app/emulator.log &
+            logcat_pid=$!
+            adb shell wm size
+            adb shell wm density
+            set +e
             ./gradlew connectedCheck
+            test_exit_code=$?
+            kill "$logcat_pid"
+            wait "$logcat_pid" 2>/dev/null
+            set -e
+            if [ "$test_exit_code" -ne 0 ]; then
+              {
+                echo "## Android test failures (API $API_LEVEL)"
+                echo '```text'
+                grep -E ' E (TestRunner|RetryTestRule):' app/emulator.log || true
+                echo '```'
+              } >> "$GITHUB_STEP_SUMMARY"
+            fi
+            exit "$test_exit_code"
         env:
           API_LEVEL: ${{ matrix.api-level }}
 
       - name: Upload Test Results
+        if: always()
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: logs
-          path: app/emulator.log
+          name: android-test-results-api-${{ matrix.api-level }}
+          path: |
+            app/emulator.log
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/
       
       - name: Raise error on test failure
         if: steps.testing.outcome != 'success'

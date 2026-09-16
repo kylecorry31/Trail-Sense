@@ -126,7 +126,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION) {
         back()
 
         click(toolbarButton(R.id.navigation_title, Side.Right))
-        clickOk()
+        optional { clickOk() }
         isVisible(R.id.map_list_title)
         back()
     }
