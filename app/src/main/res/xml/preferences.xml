@@ -7,6 +7,10 @@
         app:title="@string/general">
 
         <Preference
+            app:icon="@drawable/ic_theme"
+            app:key="@string/pref_theme_settings"
+            app:title="@string/pref_theme_title" />
+        <Preference
             app:icon="@drawable/ruler"
             app:key="@string/pref_unit_settings"
             app:title="@string/units" />
@@ -16,29 +20,25 @@
             app:key="@string/pref_sensor_settings"
             app:title="@string/sensors" />
         <Preference
-            app:icon="@drawable/ic_theme"
-            app:key="@string/pref_theme_settings"
-            app:title="@string/pref_theme_title" />
-        <Preference
             app:icon="@drawable/ic_visible"
             app:key="@string/pref_privacy_settings"
             app:title="@string/privacy" />
         <Preference
-            app:icon="@drawable/ic_alert"
-            app:key="@string/pref_error_settings"
-            app:title="@string/errors" />
-        <Preference
-            app:icon="@drawable/ic_experimental"
-            app:key="@string/pref_experimental_settings"
-            app:title="@string/experimental" />
+            app:key="@string/pref_backup_settings"
+            app:title="@string/backup_restore"
+            app:icon="@drawable/backup_restore" />
         <Preference
             app:icon="@drawable/apps"
             app:key="@string/pref_plugins_settings"
             app:title="@string/plugins" />
         <Preference
-            app:key="@string/pref_backup_settings"
-            app:title="@string/backup_restore"
-            app:icon="@drawable/backup_restore" />
+            app:icon="@drawable/ic_experimental"
+            app:key="@string/pref_experimental_settings"
+            app:title="@string/experimental" />
+        <Preference
+            app:icon="@drawable/ic_alert"
+            app:key="@string/pref_error_settings"
+            app:title="@string/errors" />
     </PreferenceCategory>
 
     <PreferenceCategory

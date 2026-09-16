@@ -46,6 +46,13 @@
             app:title="@string/weight"
             app:useSimpleSummaryProvider="true" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/coordinates_tab">
+
         <ListPreference
             app:defaultValue="dd"
             app:entries="@array/coordinate_format_entries"
@@ -65,6 +72,13 @@
             app:singleLineTitle="false"
             app:title="@string/pref_map_url_source_title"
             app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/time">
 
         <SwitchPreferenceCompat
             app:defaultValue="false"

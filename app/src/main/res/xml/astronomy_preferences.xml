@@ -29,6 +29,21 @@
             app:singleLineTitle="false"
             app:title="@string/pref_show_astronomy_bands_title" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_start_camera_in_3d_view_summary"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_start_camera_in_3d_view"
+            app:singleLineTitle="false"
+            app:title="@string/pref_start_camera_in_3d_view_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/quick_actions">
+
         <ListPreference
             app:defaultValue="1"
             app:iconSpaceReserved="false"
@@ -44,14 +59,6 @@
             app:singleLineTitle="false"
             app:title="@string/right_quick_action"
             app:useSimpleSummaryProvider="true" />
-
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_start_camera_in_3d_view_summary"
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_start_camera_in_3d_view"
-            app:singleLineTitle="false"
-            app:title="@string/pref_start_camera_in_3d_view_title" />
 
     </PreferenceCategory>
 

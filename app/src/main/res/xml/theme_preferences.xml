@@ -31,12 +31,20 @@
             app:singleLineTitle="false"
             app:title="@string/compass_dynamic_colors" />
 
-        <ListPreference
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_night_mode_fullscreen_summary"
+            app:defaultValue="false"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_default_widget_theme"
+            app:key="@string/pref_night_mode_fullscreen"
             app:singleLineTitle="false"
-            app:title="@string/default_widget_theme"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/pref_night_mode_fullscreen_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/general">
 
         <SwitchPreferenceCompat
             app:defaultValue="false"
@@ -52,13 +60,19 @@
             app:singleLineTitle="false"
             app:title="@string/pref_show_all_bottom_navigation_labels" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/pref_night_mode_fullscreen_summary"
-            app:defaultValue="false"
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/widgets">
+
+        <ListPreference
             app:iconSpaceReserved="false"
-            app:key="@string/pref_night_mode_fullscreen"
+            app:key="@string/pref_default_widget_theme"
             app:singleLineTitle="false"
-            app:title="@string/pref_night_mode_fullscreen_title" />
+            app:title="@string/default_widget_theme"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 </PreferenceScreen>

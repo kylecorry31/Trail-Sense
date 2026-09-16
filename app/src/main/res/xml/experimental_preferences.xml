@@ -5,7 +5,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/experimental">
+        app:title="@string/tools">
 
         <SwitchPreferenceCompat
             android:summary="@string/tool_metal_detector_title"
@@ -17,18 +17,34 @@
             app:title="@string/pref_experimental_metal_direction_title" />
 
         <SwitchPreferenceCompat
+            android:summary="@string/tool_cliff_height_description"
+            app:defaultValue="false"
+            app:disableDependentsState="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_cliff_height_enabled"
+            app:singleLineTitle="false"
+            app:title="@string/tool_cliff_height_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/maps">
+
+        <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"
             app:key="@string/pref_large_tile_cache"
             app:singleLineTitle="false"
             app:title="@string/pref_large_tile_cache_title" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_plugins_enabled"
-            app:singleLineTitle="false"
-            app:title="@string/plugins" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/camera">
 
         <SwitchPreferenceCompat
             android:summary="@string/camera"
@@ -39,29 +55,12 @@
             app:singleLineTitle="false"
             app:title="@string/zero_shutter_lag" />
 
-        <SwitchPreferenceCompat
-            android:summary="@string/tool_cliff_height_description"
-            app:defaultValue="false"
-            app:disableDependentsState="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_cliff_height_enabled"
-            app:singleLineTitle="false"
-            app:title="@string/tool_cliff_height_title" />
+    </PreferenceCategory>
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_widget_icon_compatibility"
-            app:singleLineTitle="false"
-            app:summary="@string/widget_icon_compatibility_mode_summary"
-            app:title="@string/widget_icon_compatibility_mode" />
-
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_use_legacy_file_picker"
-            app:singleLineTitle="false"
-            app:title="@string/use_legacy_file_picker" />
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/weather">
 
         <ListPreference
             app:defaultValue="1"
@@ -78,6 +77,35 @@
             app:singleLineTitle="false"
             app:summary="@string/weather"
             app:title="@string/show_pressure_forecast" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        app:title="@string/system">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_plugins_enabled"
+            app:singleLineTitle="false"
+            app:title="@string/plugins" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_widget_icon_compatibility"
+            app:singleLineTitle="false"
+            app:summary="@string/widget_icon_compatibility_mode_summary"
+            app:title="@string/widget_icon_compatibility_mode" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_use_legacy_file_picker"
+            app:singleLineTitle="false"
+            app:title="@string/use_legacy_file_picker" />
 
         <ListPreference
             app:defaultValue="1"
