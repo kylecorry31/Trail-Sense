@@ -1666,4 +1666,6 @@
     <string name="pref_backtrack_gps_power_usage_title">GPS-batterijverbruik voor Terugweg</string>
     <string name="gps_power_usage_inherit">Hetzelfde als GPS-instellingen</string>
     <string name="pref_gps_power_usage_title">GPS-batterijverbruik</string>
+    <string name="replace_elevations_confirmation">Alle padhoogtes vervangen met behulp van het digitale hoogtemodel?</string>
+    <string name="replace_elevations">Hoogtes vervangen</string>
 </resources>
