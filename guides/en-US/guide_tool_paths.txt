@@ -68,6 +68,9 @@ Once the path has been simplified, it is not possible to undo the simplification
 
 You can choose to automatically simplify paths imported from a GPX file by enabling Settings > Paths > 'Simplify paths on import'.
 
+## Replace path elevations
+To replace all elevations on a path using the digital elevation model (DEM), open the path, tap the menu button in the top-right corner of the screen, and select 'Replace elevations'. If it is taking too long to load (ex. too many points), you can cancel and your path will be unmodified.
+
 ## Navigate to a path
 You can navigate to the nearest point on a path by opening the path and tapping the 'Navigate' button at the bottom. This will open the navigation tool with the path as the destination. Alternatively, you can tap the menu button on the path row you want to navigate to and then select 'Navigate'.
 

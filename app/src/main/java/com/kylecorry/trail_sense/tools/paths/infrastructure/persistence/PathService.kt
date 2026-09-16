@@ -233,6 +233,12 @@ class PathService(
         updatePathMetadata(pathId)
     }
 
+    override suspend fun replaceWaypoints(points: List<PathPoint>) {
+        waypointLock.withLock {
+            waypointRepo.addAll(points)
+        }
+    }
+
     override suspend fun addWaypoint(point: PathPoint): Long {
         waypointLock.withLock {
             if (point.id != 0L) {

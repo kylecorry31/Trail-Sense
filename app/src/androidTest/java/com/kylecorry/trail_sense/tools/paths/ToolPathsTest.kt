@@ -291,6 +291,12 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS) {
 //        hasText("1")
         back()
 
+    // Replace elevations
+    click(toolbarButton(R.id.path_title, Side.Right))
+    click(string(R.string.replace_elevations))
+    hasText(string(R.string.replace_elevations_confirmation))
+    back(false)
+
         // Simplify
         click(toolbarButton(R.id.path_title, Side.Right))
         click("Simplify")

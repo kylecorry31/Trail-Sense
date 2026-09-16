@@ -7,6 +7,7 @@ import android.graphics.Path
 import android.os.Build
 import android.view.Gravity
 import android.widget.FrameLayout
+import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.loadingindicator.LoadingIndicator
 import com.kylecorry.andromeda.alerts.Alerts
@@ -29,6 +30,69 @@ inline fun Alerts.withCancelableLoading(
         action()
     } finally {
         loadingAlert.dismiss()
+    }
+}
+
+inline fun Alerts.withCancelableProgress(
+    context: Context,
+    title: String,
+    cancelText: CharSequence = context.getString(android.R.string.cancel),
+    noinline onCancel: () -> Unit,
+    action: ((Float) -> Unit) -> Unit
+) {
+    val (progressAlert, setProgress) = cancelableProgress(
+        context,
+        title,
+        cancelText,
+        onCancel
+    )
+    try {
+        action(setProgress)
+    } finally {
+        progressAlert.dismiss()
+    }
+}
+
+fun Alerts.cancelableProgress(
+    context: Context,
+    title: String,
+    cancelText: CharSequence = context.getString(android.R.string.cancel),
+    onCanceled: (() -> Unit)? = null
+): Pair<AlertDialog, (Float) -> Unit> {
+    val progress = ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal).apply {
+        max = 100
+    }
+    val margin = Resources.dp(context, 24f).toInt()
+    val view = FrameLayout(context).apply {
+        addView(
+            progress,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                marginStart = margin
+                marginEnd = margin
+                topMargin = margin
+                bottomMargin = margin
+            }
+        )
+    }
+    val dialog = dialog(
+        context,
+        title,
+        contentView = view,
+        okText = null,
+        cancelText = cancelText,
+        cancelOnOutsideTouch = false
+    ) { cancelled ->
+        if (cancelled) {
+            onCanceled?.invoke()
+        }
+    }
+    return dialog to { value ->
+        progress.post {
+            progress.progress = (value.coerceIn(0f, 1f) * progress.max).toInt()
+        }
     }
 }
 

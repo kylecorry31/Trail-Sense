@@ -57,6 +57,8 @@
     <string name="direction_south_west">SW</string>
     <string name="increase">+</string>
     <string name="elevation_diff_format">%1$s%2$s</string>
+    <string name="replace_elevations">Replace elevations</string>
+    <string name="replace_elevations_confirmation">Replace all path elevations using the digital elevation model?</string>
     <string name="degree_format">%.0f°</string>
     <string name="degree">%s°</string>
     <string name="precise_percent_format">%s%%</string>

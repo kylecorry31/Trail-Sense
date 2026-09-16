@@ -83,6 +83,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.MoveIPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.NavigateToPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.NavigateToPointCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathCommand
+import com.kylecorry.trail_sense.tools.paths.ui.commands.ReplacePathElevationsCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.SimplifyPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.TogglePathVisibilityCommand
 import kotlinx.coroutines.launch
@@ -407,6 +408,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             PathAction.ToggleVisibility,
             PathAction.Export,
             PathAction.Simplify,
+            PathAction.ReplaceElevations,
             PathAction.ViewPoints
         )
 
@@ -419,6 +421,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 ),
                 getString(R.string.export),
                 getString(R.string.simplify),
+                getString(R.string.replace_elevations),
                 getString(R.string.points)
             )
         ) {
@@ -428,6 +431,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 PathAction.Keep -> keepPath(path)
                 PathAction.ToggleVisibility -> togglePathVisibility(path)
                 PathAction.Simplify -> simplifyPath(path)
+                PathAction.ReplaceElevations -> replaceElevations(path)
                 PathAction.ViewPoints -> viewPoints()
                 else -> {
                     // Do nothing
@@ -439,6 +443,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun simplifyPath(path: Path) {
         val command = SimplifyPathCommand(requireContext(), this, pathService)
+        command.execute(path)
+    }
+
+    private fun replaceElevations(path: Path) {
+        val command = ReplacePathElevationsCommand(requireContext(), this, pathService)
         command.execute(path)
     }
 
