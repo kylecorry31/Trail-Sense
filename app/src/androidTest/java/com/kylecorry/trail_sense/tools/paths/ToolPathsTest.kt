@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths
 
 import androidx.test.uiautomator.Direction
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
@@ -30,7 +31,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
 
-class ToolPathsTest : ToolTestBase(Tools.PATHS) {
+class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
     @Test
     fun verifyBasicFunctionality() {
         hasText(R.id.paths_title, string(R.string.paths))
