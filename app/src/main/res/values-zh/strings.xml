@@ -1647,4 +1647,6 @@
     <string name="gps_power_usage_balanced">平衡</string>
     <string name="gps_power_usage_high">高精度</string>
     <string name="gps_power_usage_inherit">从 GPS 设置继承</string>
+    <string name="replace_elevations">替换海拔</string>
+    <string name="replace_elevations_confirmation">使用数字高程模型替换所有路径海拔？</string>
 </resources>
