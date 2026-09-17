@@ -51,7 +51,7 @@ adb -s "$selected_device" install --no-streaming -r -t "$app_apk"
 adb -s "$selected_device" install --no-streaming -r -t "$test_apk"
 
 instrumentation_args=(-w)
-if [ "$#" -ge 1 ]; then
+if [ "$#" -ge 1 ] && [ -n "$1" ]; then
   instrumentation_args+=(-e class "$1")
 fi
 
