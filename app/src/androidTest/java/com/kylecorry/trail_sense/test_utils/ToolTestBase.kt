@@ -124,9 +124,6 @@ open class ToolTestBase(
 
     @After
     fun tearDown() {
-        if (this::scenario.isInitialized) {
-            scenario.close()
-        }
         TestUtils.unmute(volume)
         TestUtils.stopListeningForCameraUsage()
         TestUtils.stopListeningForTorchUsage()
@@ -134,6 +131,9 @@ open class ToolTestBase(
             if (TestUtils.isTorchOn) {
                 Torch(context).off()
             }
+        }
+        if (this::scenario.isInitialized) {
+            TestUtils.finishCurrentActivity()
         }
     }
 }
