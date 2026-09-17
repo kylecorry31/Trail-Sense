@@ -14,8 +14,6 @@ import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
-import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
-import androidx.test.runner.lifecycle.Stage
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
@@ -180,16 +178,6 @@ object TestUtils {
 
     fun closeApp(packageName: String) {
         runShellCommand("am force-stop $packageName")
-    }
-
-    fun finishCurrentActivity() {
-        InstrumentationRegistry.getInstrumentation().runOnMainSync {
-            ActivityLifecycleMonitorRegistry.getInstance()
-                .getActivitiesInStage(Stage.RESUMED)
-                .filterIsInstance<MainActivity>()
-                .firstOrNull()
-                ?.finishAndRemoveTask()
-        }
     }
 
     fun launchApp(packageName: String) {

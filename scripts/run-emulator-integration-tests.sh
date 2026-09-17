@@ -50,7 +50,7 @@ test_apk="app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
 adb -s "$selected_device" install --no-streaming -r -t "$app_apk"
 adb -s "$selected_device" install --no-streaming -r -t "$test_apk"
 
-instrumentation_args=(-w -r)
+instrumentation_args=(-w)
 if [ "$#" -ge 1 ]; then
   instrumentation_args+=(-e class "$1")
 fi
@@ -59,7 +59,7 @@ results_file="$(mktemp)"
 trap 'rm -f "$results_file"' EXIT
 
 set +e
-timeout "${timeout_seconds}s" adb -s "$selected_device" shell am instrument \
+timeout --foreground "${timeout_seconds}s" adb -s "$selected_device" shell am instrument \
   "${instrumentation_args[@]}" "$test_runner" | tee "$results_file"
 instrumentation_status="${PIPESTATUS[0]}"
 set -e

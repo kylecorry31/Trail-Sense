@@ -52,24 +52,7 @@ jobs:
             touch app/emulator.log
             chmod 777 app/emulator.log
             adb logcat >> app/emulator.log &
-            logcat_pid=$!
-            adb shell wm size
-            adb shell wm density
-            set +e
-            ./gradlew connectedCheck
-            test_exit_code=$?
-            kill "$logcat_pid"
-            wait "$logcat_pid" 2>/dev/null
-            set -e
-            if [ "$test_exit_code" -ne 0 ]; then
-              {
-                echo "## Android test failures (API $API_LEVEL)"
-                echo '```text'
-                grep -E ' E (TestRunner|RetryTestRule):' app/emulator.log || true
-                echo '```'
-              } >> "$GITHUB_STEP_SUMMARY"
-            fi
-            exit "$test_exit_code"
+            ./scripts/run-emulator-integration-tests.sh "" 3600
         env:
           API_LEVEL: ${{ matrix.api-level }}
 

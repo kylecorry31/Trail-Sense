@@ -132,8 +132,5 @@ open class ToolTestBase(
                 Torch(context).off()
             }
         }
-        if (this::scenario.isInitialized) {
-            TestUtils.finishCurrentActivity()
-        }
     }
 }

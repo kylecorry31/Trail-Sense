@@ -4,6 +4,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
@@ -12,6 +13,10 @@ class ToolLightMeterTest : ToolTestBase(Tools.LIGHT_METER) {
 
     @Test
     fun verifyBasicFunctionality() {
+        if (!Tools.isToolAvailable(TestUtils.context, Tools.LIGHT_METER)) {
+            return
+        }
+
         hasText(R.id.light_title, Regex("\\d+ lx"))
 
         // Enter the distance
