@@ -807,7 +807,7 @@
     <string name="average_speed_pedometer">Gemiddelde snelheid (stappenteller)</string>
     <string name="average_speed_backtrack">Gemiddelde snelheid (terugweg)</string>
     <string name="reset_distance_title">Afstand opnieuw instellen\?</string>
-    <string name="navigating_to_nearest_path_point">Vind de weg naar het dichtstbijzijnde punt op pad</string>
+    <string name="navigate_back_onto_path">Vind de weg naar het dichtstbijzijnde punt op pad</string>
     <string name="pref_start_on_boot_title">Aanzetten bij opstarten toestel</string>
     <string name="bearing">Peiling</string>
     <plurals name="paths_imported">

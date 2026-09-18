@@ -856,7 +856,7 @@
 \n- Et bien plus encore !</string>
     <string name="distance_alert">Distance d\'alerte</string>
     <string name="current_speed_gps">Vitesse actuelle (GPS)</string>
-    <string name="navigating_to_nearest_path_point">Navigation jusqu’au point de cheminement le plus proche</string>
+    <string name="navigate_back_onto_path">Navigation jusqu’au point de cheminement le plus proche</string>
     <string name="estimate_step_length">Estimer la longueur de foulée</string>
     <string name="tide_semidiurnal">Semi diurne</string>
     <string name="ascent">Ascension</string>

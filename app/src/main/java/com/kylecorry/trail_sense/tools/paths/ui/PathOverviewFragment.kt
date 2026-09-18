@@ -34,6 +34,8 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
 import com.kylecorry.trail_sense.shared.FormatService
@@ -131,7 +133,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val layer = ConfigurableGeoJsonLayer()
     private val myLocationLayer =
         GeoJsonLayer(MyLocationGeoJsonSource(), MyLocationGeoJsonSource.SOURCE_ID)
-    private val paceFactor = 1.75f
+    private val paceFactor = HikingService.DEFAULT_PACE_FACTOR
 
     private var isFullscreen = false
 
@@ -241,7 +243,8 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
 
         binding.navigateBtn.setOnClickListener {
-            navigateToNearestPathPoint()
+            PathNavigationPicker.show(requireContext(), waypoints,
+                onFollow = { followPath(it) }, onNearestPoint = { navigateToNearestPathPoint() })
         }
 
         binding.pathTitle.rightButton.setOnClickListener {
@@ -692,6 +695,31 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun navigateToWaypoint(point: PathPoint) {
+        PathNavigationPicker.showToPoint(requireContext(),
+            onFollow = { followPath(destinationPointId = point.id) },
+            onDirect = { navigateDirectlyToWaypoint(point) })
+    }
+
+    private fun followPath(
+        mode: PathNavigationMode = PathNavigationMode.TO_END,
+        destinationPointId: Long? = null
+    ) {
+        val selectedPath = path ?: return
+        if (waypoints.isEmpty()) return
+        inBackground {
+            Alerts.withLoading(requireContext(), getString(R.string.loading)) {
+                val navigator = Navigator.getInstance(requireContext())
+                onDefault {
+                    navigator.navigateAlongPath(
+                        selectedPath, pathService.getWaypoints(selectedPath.id), mode, destinationPointId
+                    )
+                }
+            }
+            onMain { findNavController().navigate(R.id.action_navigation) }
+        }
+    }
+
+    private fun navigateDirectlyToWaypoint(point: PathPoint) {
         val path = path ?: return
         val command = NavigateToPointCommand(
             this,
@@ -713,7 +741,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             beaconNavigator
         )
 
-        toast(getString(R.string.navigating_to_nearest_path_point))
+        toast(getString(R.string.navigate_back_onto_path))
 
         inBackground {
             command.execute(path, points)

@@ -447,6 +447,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         effect(
             "selected_beacon",
             destination,
+            gps.location,
+            speedometer.speed.value,
+            altimeter.altitude,
+            declination,
             compass.rawBearing.safeRoundToInt(),
             lifecycleHookTrigger.onResume()
         ) {

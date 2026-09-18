@@ -3,8 +3,16 @@ package com.kylecorry.trail_sense.tools.navigation.domain
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 
 sealed class Destination {
+    class Path(
+        val path: com.kylecorry.trail_sense.tools.paths.domain.Path,
+        points: List<PathPoint>
+    ) : Destination() {
+        val route = PathRoute(points)
+    }
+
     class Bearing(
         val bearing: com.kylecorry.sol.units.Bearing,
         val isTrueNorth: Boolean,

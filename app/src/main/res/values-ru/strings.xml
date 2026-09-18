@@ -864,7 +864,7 @@
     <string name="current_speed_pedometer">Текущая скорость (шагомер)</string>
     <string name="average_speed_backtrack">Средняя скорость (история маршрута)</string>
     <string name="reset_distance_title">Сбросить расстояние\?</string>
-    <string name="navigating_to_nearest_path_point">Навигация к ближайшей точке маршрута</string>
+    <string name="navigate_back_onto_path">Навигация к ближайшей точке маршрута</string>
     <string name="beacons">Ориентиры</string>
     <string name="move_to">Перейти к</string>
     <string name="pref_start_on_boot_title">Запуск при включении</string>

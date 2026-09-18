@@ -817,7 +817,7 @@
     <string name="current_speed_gps">Geçerli hız (GPS)</string>
     <string name="reset_distance_title">Mesafe sıfırlansın mı\?</string>
     <string name="pref_start_on_boot_title">Önyüklemede başlat</string>
-    <string name="navigating_to_nearest_path_point">En yakın yol noktasına git</string>
+    <string name="navigate_back_onto_path">En yakın yol noktasına git</string>
     <string name="beacons">İşaretler</string>
     <string name="imperial_gallons">İngiliz galon</string>
     <string name="saving">Kaydet</string>

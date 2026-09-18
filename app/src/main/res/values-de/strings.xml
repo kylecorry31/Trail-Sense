@@ -849,7 +849,7 @@
     <string name="reset_distance_title">Distanz zurücksetzen\?</string>
     <string name="move_to">Verschieben nach</string>
     <string name="pref_start_on_boot_title">Beim Anschalten App starten</string>
-    <string name="navigating_to_nearest_path_point">Navigiere zum nächsten Pfadpunkt</string>
+    <string name="navigate_back_onto_path">Navigiere zum nächsten Pfadpunkt</string>
     <string name="beacons">Wegpunkte</string>
     <string name="bearing">Peilung</string>
     <string name="square">Quadrat</string>

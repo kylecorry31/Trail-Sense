@@ -830,7 +830,7 @@
     <string name="average_speed_pedometer">Velocidade media (podómetro)</string>
     <string name="average_speed_backtrack">Velocidade media (Recuar)</string>
     <string name="reset_distance_title">Restablecer distancia?</string>
-    <string name="navigating_to_nearest_path_point">Navegando ata o punto de ruta máis próxima</string>
+    <string name="navigate_back_onto_path">Navegando ata o punto de ruta máis próxima</string>
     <string name="beacons">Balizas</string>
     <string name="pref_start_on_boot_title">Comezar ao arrancar</string>
     <string name="pref_enable_analog_title">reloxo analóxico</string>

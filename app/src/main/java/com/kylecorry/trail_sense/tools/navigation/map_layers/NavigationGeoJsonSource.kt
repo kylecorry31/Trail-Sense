@@ -50,6 +50,10 @@ class NavigationGeoJsonSource : GeoJsonSource {
         destination: Destination
     ): List<MappablePath> {
         return when (destination) {
+            is Destination.Path -> listOf(
+                MappablePath(-1, destination.route.navigate(myLocation).remainingRoute,
+                    destination.path.style.color, LineStyle.Arrow, 1.5f)
+            )
             is Destination.Beacon -> createBeaconPath(myLocation, destination)
             is Destination.Bearing -> createBearingPath(myLocation, destination)
         }

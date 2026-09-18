@@ -839,7 +839,7 @@
     <string name="average_speed">Kecepatan rata-rata</string>
     <string name="pref_only_navigate_path_points_title">Hanya navigasikan ke titik yang direkam</string>
     <string name="average_speed_backtrack">Kecepatan rata-rata (Mundur)</string>
-    <string name="navigating_to_nearest_path_point">Menavigasi ke titik jalur terdekat</string>
+    <string name="navigate_back_onto_path">Menavigasi ke titik jalur terdekat</string>
     <string name="beacons">Suar</string>
     <string name="pref_start_on_boot_title">Mulai saat menyala</string>
     <string name="map_exported">Peta yang diekspor</string>

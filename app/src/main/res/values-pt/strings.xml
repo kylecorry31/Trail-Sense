@@ -790,7 +790,7 @@
     <string name="tide_deleted">A maré foi eliminada</string>
     <string name="estimated">Estimado</string>
     <string name="tide_table">Tabela de marés</string>
-    <string name="navigating_to_nearest_path_point">Navegando até ao ponto mais próximo do caminho</string>
+    <string name="navigate_back_onto_path">Navegando até ao ponto mais próximo do caminho</string>
     <string name="beacons">Alfinetes</string>
     <string name="instructions">Instruções</string>
     <string name="compass_accuracy">Precisão da bússola</string>

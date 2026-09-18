@@ -182,7 +182,7 @@
     <string name="on">Aktiv</string>
     <string name="pref_show_nearest_tide_title">Vis nærmeste tidevand</string>
     <string name="step_length_walk">Gå i en lige linje, tryk på stop når du er færdig</string>
-    <string name="navigating_to_nearest_path_point">Navigerer til nærmeste stipunkt</string>
+    <string name="navigate_back_onto_path">Navigerer til nærmeste stipunkt</string>
     <string name="done">Færdig</string>
     <string name="descent">Nedstigning</string>
     <string name="next_24_hours">Næste 24 timer</string>

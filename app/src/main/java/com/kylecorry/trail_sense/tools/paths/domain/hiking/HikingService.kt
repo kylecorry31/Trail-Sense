@@ -61,12 +61,57 @@ class HikingService : IHikingService {
         }
     }
 
+    fun getElevations(path: List<PathPoint>): FloatArray {
+        val elevations = FloatArray(path.size)
+        var firstElevationIndex = -1
+        for (i in path.indices) {
+            if (firstElevationIndex == -1 && path[i].elevation != null) {
+                firstElevationIndex = i
+            }
+            elevations[i] = path[i].elevation ?: elevations.getOrElse(i - 1) { 0f }
+        }
+        if (firstElevationIndex == -1) {
+            return FloatArray(path.size)
+        }
+
+        // Fill the missing elevations prior to the first known elevation with the first known elevation
+        for (i in 0 until firstElevationIndex) {
+            elevations[i] = elevations[firstElevationIndex]
+        }
+        return elevations
+    }
+
     override fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
-        val elevations =
-            path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
-        val gain = Geography.getElevationGain(elevations)
-        val loss = Geography.getElevationLoss(elevations)
-        return loss to gain
+        val elevations = getElevations(path)
+        val (losses, gains) = getCumulativeElevationLossGain(elevations)
+        return Distance.meters(losses.lastOrNull() ?: 0f) to Distance.meters(gains.lastOrNull() ?: 0f)
+    }
+
+    fun getCumulativeElevationLossGain(path: List<PathPoint>): Pair<FloatArray, FloatArray> {
+        val elevations = getElevations(path)
+        return getCumulativeElevationLossGain(elevations)
+    }
+
+    fun getCumulativeElevationLossGain(elevations: FloatArray): Pair<FloatArray, FloatArray> {
+        if (elevations.isEmpty()) {
+            return FloatArray(0) to FloatArray(0)
+        }
+        val gains = FloatArray(elevations.size)
+        val losses = FloatArray(elevations.size)
+
+        for (i in 1..<elevations.size) {
+            val current = elevations[i]
+            val last = elevations[i - 1]
+            val change = current - last
+            gains[i] = gains[i - 1]
+            losses[i] = losses[i - 1]
+            if (change > 0) {
+                gains[i] = change + gains[i - 1]
+            } else if (change < 0) {
+                losses[i] = change + losses[i - 1]
+            }
+        }
+        return losses to gains
     }
 
     override fun getSlopes(path: List<PathPoint>): List<Triple<PathPoint, PathPoint, Float>> {
@@ -87,15 +132,19 @@ class HikingService : IHikingService {
         path: List<PathPoint>,
         pace: Speed
     ): Duration {
-        val speed = pace.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value
-        val gain = getElevationGain(path).meters().value
+        val gain = getElevationGain(path)
+        val distance = Geography.getPathDistance(path.map { it.coordinate })
+        return getHikingDuration(distance, gain, pace)
+    }
 
-        val distance = Geography.getPathDistance(path.map { it.coordinate }).meters().value
-
-        val scarfs = distance + 7.92f * gain
-
-        return Duration.ofSeconds((scarfs / speed).toLong())
-
+    fun getHikingDuration(
+        distance: Distance,
+        elevationGain: Distance,
+        speed: Speed
+    ): Duration {
+        val speedValue = speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value.coerceAtLeast(0.1f)
+        val scarfs = distance.meters().value + 7.92f * elevationGain.meters().value
+        return Duration.ofSeconds((scarfs / speedValue).toLong())
     }
 
     override fun getHikingDuration(
@@ -113,5 +162,7 @@ class HikingService : IHikingService {
         return Geography.getElevationGain(elevations)
     }
 
-
+    companion object {
+        const val DEFAULT_PACE_FACTOR = 1.75f
+    }
 }

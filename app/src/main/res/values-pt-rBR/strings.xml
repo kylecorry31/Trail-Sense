@@ -810,7 +810,7 @@
     <string name="current_speed_gps">Velocidade atual (GPS)</string>
     <string name="average_speed_pedometer">Velocidade média (Pedômetro)</string>
     <string name="average_speed_backtrack">Velocidade média (Recuar)</string>
-    <string name="navigating_to_nearest_path_point">Navegando até o ponto mais próximo do percurso</string>
+    <string name="navigate_back_onto_path">Navegando até o ponto mais próximo do percurso</string>
     <string name="beacons">Pontos de orientação</string>
     <string name="pref_start_on_boot_title">Executar ao iniciar</string>
     <string name="duration_second_format">%ds</string>

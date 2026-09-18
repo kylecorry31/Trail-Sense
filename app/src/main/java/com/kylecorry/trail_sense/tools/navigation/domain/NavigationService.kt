@@ -42,12 +42,13 @@ class NavigationService {
         speed: Float,
         to: Beacon
     ): Duration {
-        val adjustedSpeed =
-            if (speed < 3) clamp(speed, 0.89408f, 1.78816f) else speed
-
-        val time = scarfsDistance(location, to.coordinate, elevation, to.elevation) / adjustedSpeed
+        val time = scarfsDistance(location, to.coordinate, elevation, to.elevation) / getHikingSpeed(speed)
 
         return Duration.ofSeconds(time.toLong())
+    }
+
+    fun getHikingSpeed(speed: Float): Float {
+        return if (speed < 3) clamp(speed, 0.89408f, 1.78816f) else speed
     }
 
     private fun scarfsDistance(

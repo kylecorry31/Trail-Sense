@@ -763,7 +763,7 @@
     <string name="pref_barometer_info_summary">氣壓同附近嘅監測站可能有所出入</string>
     <string name="sleep_timer">睡眠計時器</string>
     <string name="pref_navigation_lock_screen_presence_title">定向時喺鎖定畫面擺出嚟</string>
-    <string name="navigating_to_nearest_path_point">定向緊去路徑最就近嗰點</string>
+    <string name="navigate_back_onto_path">定向緊去路徑最就近嗰點</string>
     <string name="pref_only_navigate_path_points_title">淨係定向去紀錄咗嘅點</string>
     <string name="backtrack">踏雪留蹤</string>
     <string name="backtrack_notification_channel_description">踏雪留蹤定位更新</string>

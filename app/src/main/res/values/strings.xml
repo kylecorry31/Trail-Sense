@@ -1168,7 +1168,6 @@
     <string name="average_speed_pedometer">Average speed (Pedometer)</string>
     <string name="average_speed_backtrack">Average speed (Backtrack)</string>
     <string name="reset_distance_title">Reset distance?</string>
-    <string name="navigating_to_nearest_path_point">Navigating to nearest path point</string>
     <string name="beacons">Beacons</string>
     <string name="pref_start_on_boot" translatable="false">pref_start_on_boot</string>
     <string name="pref_start_on_boot_title">Start on boot</string>
@@ -2047,4 +2046,11 @@
     <!--The last updated time for weather readings-->
     <string name="last_updated">Last updated</string>
     <string name="pref_gps_smoothing" translatable="false">pref_gps_smoothing</string>
+    <string name="path_navigation_follow">Follow to end</string>
+    <string name="path_navigation_reverse">Follow to start</string>
+    <string name="path_navigation_loop">Follow full loop</string>
+    <string name="path_navigation_reverse_loop">Follow full loop in reverse</string>
+    <string name="path_navigation_to_point">Follow path to this point</string>
+    <string name="path_navigation_direct">Navigate directly</string>
+    <string name="navigate_back_onto_path">Navigate back onto path</string>
 </resources>

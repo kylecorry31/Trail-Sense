@@ -744,7 +744,7 @@
     <string name="exporting_map">Izvozi se karta</string>
     <string name="estimated">Procijenjeno</string>
     <string name="distance_alert">Upozorenje na daljinu</string>
-    <string name="navigating_to_nearest_path_point">Naviguje se do najbliže tačke putanje</string>
+    <string name="navigate_back_onto_path">Naviguje se do najbliže tačke putanje</string>
     <string name="pref_start_on_boot_title">Počnite pri pokretanju</string>
     <string name="warning">Upozorenje</string>
     <string name="night">Noć</string>

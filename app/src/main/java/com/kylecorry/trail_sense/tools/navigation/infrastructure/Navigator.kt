@@ -21,6 +21,9 @@ import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
+import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
+import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,8 +90,21 @@ class Navigator private constructor(context: Context) {
         }
     }
 
-    val destination2 = bearingDestination.combine(beaconDestination) { bearing, beacon ->
-        beacon ?: bearing
+    private val pathNavigator = PathNavigator(context)
+
+    val destination2 = combine(bearingDestination, beaconDestination, pathNavigator.destination) { bearing, beacon, path ->
+        path ?: beacon ?: bearing
+    }
+
+    suspend fun navigateAlongPath(
+        path: Path,
+        points: List<PathPoint>,
+        mode: PathNavigationMode = PathNavigationMode.TO_END,
+        destinationPointId: Long? = null
+    ) {
+        cancelBeaconNavigation()
+        clearBearing()
+        pathNavigator.navigate(path, points, mode, destinationPointId)
     }
 
     private val listenTask = BackgroundTask {
@@ -126,6 +142,7 @@ class Navigator private constructor(context: Context) {
     }
 
     fun navigateTo(beaconId: Long) {
+        pathNavigator.cancel()
         prefs.putLong(DESTINATION_ID_KEY, beaconId)
         _destinationId.update { beaconId }
         _forceUpdate.update { it -> it + 1 }
@@ -138,6 +155,7 @@ class Navigator private constructor(context: Context) {
     }
 
     suspend fun cancelAllNavigation() {
+        pathNavigator.cancel()
         cancelBeaconNavigation()
         clearBearing()
     }
@@ -152,19 +170,21 @@ class Navigator private constructor(context: Context) {
     }
 
     fun isNavigating(): Boolean {
-        return getDestinationId() != null
+        return pathNavigator.isNavigating() || getDestinationId() != null
     }
 
     // TODO: Replace isNavigating with this
     suspend fun isNavigating2(): Boolean {
-        return getDestination() != null && bearings.isNavigating()
+        return getDestination2() != null
     }
 
     suspend fun getDestination2(): Destination? {
+        pathNavigator.awaitRestore()
         return destination2.firstOrNull()
     }
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
+        pathNavigator.cancel()
         val navigationBearing = NavigationBearing(
             0,
             bearing,
@@ -186,6 +206,11 @@ class Navigator private constructor(context: Context) {
         val useTrueNorth = userPrefs.compass.useTrueNorth
 
         return when (destination) {
+            is Destination.Path -> fromTrueNorth(
+                myLocation.bearingTo(destination.route.navigate(myLocation).target),
+                useTrueNorth,
+                getDeclination(myLocation)
+            )
             is Destination.Beacon -> {
                 fromTrueNorth(
                     myLocation.bearingTo(destination.beacon.coordinate),

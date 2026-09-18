@@ -413,7 +413,7 @@
     <string name="grant_permission">Myönnä %s käyttöoikeus</string>
     <string name="whistle_signal_where_are_you">Missä sinä olet\?</string>
     <string name="exporting_map">Karttaa viedään</string>
-    <string name="navigating_to_nearest_path_point">Navigoiminen lähimpään polkupisteeseen</string>
+    <string name="navigate_back_onto_path">Navigoiminen lähimpään polkupisteeseen</string>
     <string name="packing_lists">Pakkauslistat</string>
     <string name="change_resolution">Muuta resoluutiota</string>
     <string name="low_power_mode_on_message">Virransäästötila päällä, jotkin ominaisuudet saattavat olla poissa käytöstä.</string>

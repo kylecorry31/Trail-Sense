@@ -204,7 +204,7 @@
     <string name="steps">צעדים</string>
     <string name="remove_distance_alert">להסיר את התראת המרחק (%s)\?</string>
     <string name="distance_alert">התראת מרחק</string>
-    <string name="navigating_to_nearest_path_point">ניווט לנקודת הנתיב הקרובה ביותר</string>
+    <string name="navigate_back_onto_path">ניווט לנקודת הנתיב הקרובה ביותר</string>
     <string name="step_length_walk">יש ללכת בקו ישר, בסיום יש ללחוץ על עצור</string>
     <string name="current_speed">מהירות נוכחית</string>
     <string name="current_speed_pedometer">מהירות נוכחית (מד צעדים)</string>

@@ -782,7 +782,7 @@
     <string name="estimate_step_length">Υπολογισμός μήκους βηματισμού</string>
     <string name="difficulty">Βαθμός δυσκολίας</string>
     <string name="exporting_map">Ο χάρτης εξάγεται</string>
-    <string name="navigating_to_nearest_path_point">Πλοήγηση στον πλησιέστερο δείκτη στη διαδρομή</string>
+    <string name="navigate_back_onto_path">Πλοήγηση στον πλησιέστερο δείκτη στη διαδρομή</string>
     <string name="pref_only_navigate_path_points_title">Πλοήγηση μόνο προς καταχωρημένα σημεία</string>
     <string name="current_speed_gps">Τρέχουσα ταχύτητα (GPS)</string>
     <string name="waypoint">Σημείο διαδρομής</string>

@@ -751,7 +751,7 @@
     <string name="calibrate_new_tide">Kalibrere til et nytt tidevann\?</string>
     <string name="pref_show_nearest_tide_title">Vis nærmeste tidevann</string>
     <string name="tide_deleted">Tidevann slettet</string>
-    <string name="navigating_to_nearest_path_point">Navigerer til nærmeste stipunkt</string>
+    <string name="navigate_back_onto_path">Navigerer til nærmeste stipunkt</string>
     <string name="beacons">Navigeringsmarkører</string>
     <string name="pref_start_on_boot_title">Start ved enhetsoppstart</string>
     <string name="error">Feil</string>

@@ -929,7 +929,7 @@
     <string name="current_speed_gps">Velocità attuale (GPS)</string>
     <string name="average_speed_pedometer">Velocità media (Pedometro)</string>
     <string name="reset_distance_title">Azzerare la distanza\?</string>
-    <string name="navigating_to_nearest_path_point">Navigazione verso il punto del percorso più vicino</string>
+    <string name="navigate_back_onto_path">Navigazione verso il punto del percorso più vicino</string>
     <string name="done">Fatto</string>
     <string name="tide_semidiurnal">Semidiurna</string>
     <string name="path_slope_moderate">Moderata</string>

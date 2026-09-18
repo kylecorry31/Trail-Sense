@@ -95,7 +95,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
-        internal const val version = 37
+        internal const val version = 38
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -570,6 +570,29 @@ class PreferenceMigrator private constructor() {
                 }
                 prefs.remove(key)
                 prefs.putString(key, source.id)
+            },
+            PreferenceMigration(37, 38) { _, _ ->
+                val repo = getAppService<MapLayerPreferenceRepo>()
+                repo.addLayerInBestPosition(
+                    NavigationToolRegistration.MAP_ID,
+                    NavigationGeoJsonSource.SOURCE_ID,
+                    listOf(
+                        BaseMapTileSource.SOURCE_ID,
+                        ElevationMapTileSource.SOURCE_ID,
+                        TrailMapsTileSource.SOURCE_ID,
+                        HillshadeMapTileSource.SOURCE_ID,
+                        AspectMapTileSource.SOURCE_ID,
+                        SlopeMapTileSource.SOURCE_ID,
+                        PhotoMapTileSource.SOURCE_ID,
+                        ContourGeoJsonSource.SOURCE_ID,
+                        NavigationGeoJsonSource.SOURCE_ID,
+                        CellTowerGeoJsonSource.SOURCE_ID,
+                        TideGeoJsonSource.SOURCE_ID,
+                        PathGeoJsonSource.SOURCE_ID,
+                        BeaconGeoJsonSource.SOURCE_ID,
+                        MyLocationGeoJsonSource.SOURCE_ID
+                    )
+                )
             }
         )
 

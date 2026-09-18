@@ -582,7 +582,7 @@
         <item quantity="other">%d 個停駐點將會被刪除</item>
     </plurals>
     <string name="qr_text_too_long">文字太長，QR 圖碼被截斷</string>
-    <string name="navigating_to_nearest_path_point">導航至最近的路線點</string>
+    <string name="navigate_back_onto_path">導航至最近的路線點</string>
     <string name="warning">警告</string>
     <string name="pref_start_on_boot_title">開機時啟動</string>
     <string name="ascent">上坡</string>

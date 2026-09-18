@@ -883,7 +883,7 @@
     <string name="temporary">Dočasná</string>
     <string name="importing">Importuji</string>
     <string name="sort_by">Seřadit: %s</string>
-    <string name="navigating_to_nearest_path_point">Navigace k nejbližšímu bodu cesty</string>
+    <string name="navigate_back_onto_path">Navigace k nejbližšímu bodu cesty</string>
     <string name="pref_start_on_boot_title">Spustit při zapnutí</string>
     <string name="pref_only_navigate_path_points_title">Navigace pouze k zaznamenaným bodům</string>
     <plurals name="waypoints_deleted">

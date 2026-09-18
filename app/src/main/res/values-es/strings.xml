@@ -821,7 +821,7 @@
     <string name="current_speed_gps">Velocidad actual (GPS)</string>
     <string name="average_speed_pedometer">Velocidad media (Podómetro)</string>
     <string name="average_speed_backtrack">Velocidad media (Retroceder)</string>
-    <string name="navigating_to_nearest_path_point">Navegando al punto más cercano de la ruta</string>
+    <string name="navigate_back_onto_path">Navegando al punto más cercano de la ruta</string>
     <string name="average_speed">Velocidad media</string>
     <string name="allow_ignore_battery_restrictions_instructions">La eliminación de las restricciones de batería para Trail Sense puede mejorar la precisión.\n\nEn la mayoría de los dispositivos, haz clic en \'%s\', luego cambia a todas las aplicaciones y apaga la optimización de la batería para Trail Sense.\n\nVisita [Don\'t kill my app](https://dontkillmyapp.com/) para obtener instrucciones específicas del dispositivo.</string>
     <string name="point">Punto</string>

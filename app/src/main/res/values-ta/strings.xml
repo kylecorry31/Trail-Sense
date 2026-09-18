@@ -1006,7 +1006,7 @@
     <string name="average_speed_pedometer">சராசரி விரைவு (பெடோமீட்டர்)</string>
     <string name="average_speed_backtrack">சராசரி விரைவு (பின்னடைவு)</string>
     <string name="reset_distance_title">தூரத்தை மீட்டமைக்கவா?</string>
-    <string name="navigating_to_nearest_path_point">அருகிலுள்ள பாதை புள்ளிக்கு செல்லவும்</string>
+    <string name="navigate_back_onto_path">அருகிலுள்ள பாதை புள்ளிக்கு செல்லவும்</string>
     <string name="pref_start_on_boot_title">துவக்கத்தில் தொடங்கவும்</string>
     <string name="error">பிழை</string>
     <string name="warning">எச்சரிக்கை</string>

@@ -58,4 +58,12 @@ internal class NavigationServiceTest {
         assertEquals(127L, linearEta.toMinutes())
         assertEquals(47L, linearEtaDownhill.toMinutes())
     }
+
+    @Test
+    fun hikingSpeedIsClampedToAReasonableRange() {
+        assertEquals(0.89408f, service.getHikingSpeed(0.5f), 0.00001f)
+        assertEquals(1.5f, service.getHikingSpeed(1.5f), 0.00001f)
+        assertEquals(1.78816f, service.getHikingSpeed(2f), 0.00001f)
+        assertEquals(3f, service.getHikingSpeed(3f), 0.00001f)
+    }
 }

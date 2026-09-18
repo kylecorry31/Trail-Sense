@@ -728,7 +728,7 @@
     <string name="warning">Figyelmeztetés</string>
     <string name="current_speed_gps">Jelenlegi sebesség (GPS)</string>
     <string name="average_speed_backtrack">Átlagsebesség (Visszakövetés)</string>
-    <string name="navigating_to_nearest_path_point">Navigálás a legközelebbi ösvény ponthoz</string>
+    <string name="navigate_back_onto_path">Navigálás a legközelebbi ösvény ponthoz</string>
     <string name="point_added">Pont hozzáadva az ösvényhez</string>
     <string name="access_background_location_rationale">A Trail Sense helyadatokat használ a háttérben a tengerszinti nyomás kalibrálásához és a pontosabb naplemente-figyelmeztetéshez. [Adatvédelmi Irányelvek Megtekintése](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="onboarding_explore">- Gyalogtúrához, hátizsákos túrához, kempingezéshez és geocachinghez tervezve

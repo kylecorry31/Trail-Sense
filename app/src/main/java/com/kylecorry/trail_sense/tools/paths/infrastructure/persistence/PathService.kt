@@ -3,14 +3,12 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
 import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.andromeda.preferences.IPreferences
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.math.filters.RDPFilter
 import com.kylecorry.sol.science.geography.Geography
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.grouping.count.GroupCounter
@@ -26,12 +24,12 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
 import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathSimplificationQuality
+import com.kylecorry.trail_sense.tools.paths.domain.PathSimplifier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Instant
 import java.util.stream.Collectors
-import kotlin.math.absoluteValue
 
 class PathService(
     private val pathRepo: PathRepo,
@@ -177,21 +175,8 @@ class PathService(
     }
 
     override suspend fun simplifyPath(path: Long, quality: PathSimplificationQuality): Int {
-        val epsilon = when (quality) {
-            PathSimplificationQuality.Low -> 8f
-            PathSimplificationQuality.Medium -> 4f
-            PathSimplificationQuality.High -> 2f
-        }
-        val filter = RDPFilter<PathPoint>(epsilon) { point, start, end ->
-            Geography.getCrossTrackDistance(
-                point.coordinate,
-                start.coordinate,
-                end.coordinate
-            ).value.absoluteValue
-        }
-
         val points = getWaypoints(path).sortedBy { it.id }.toMutableList()
-        val toKeep = filter.filter(points).toSet()
+        val toKeep = PathSimplifier.simplify(points, quality).toSet()
 
         val numDeleted = points.size - toKeep.size
 
