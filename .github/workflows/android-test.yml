@@ -10,9 +10,6 @@ on:
 jobs:
   android_test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        api-level: [36]
     steps:
       - uses: actions/checkout@v7.0.0
         with:
@@ -26,7 +23,7 @@ jobs:
           java-version: 17
 
       - name: Make gradlew executable
-        run: chmod +x gradlew ./scripts/run-emulator-android-test.sh
+        run: chmod +x gradlew
 
       - name: Enable KVM group perms
         run: |
@@ -37,32 +34,13 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6.2.0
 
       - name: Run Tests
-        id: testing
-        uses: reactivecircus/android-emulator-runner@v2.37.0
-        continue-on-error: true
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          target: google_apis
-          profile: small_phone
-          cores: 4
-          disk-size: 4096M
-          ram-size: 2048M
-          heap-size: 1024M
-          force-avd-creation: true
-          emulator-options: -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect -no-snapshot-load -no-snapshot-save
-          script: ./scripts/run-emulator-android-test.sh
+        run: ./gradlew smallPhoneApi36DebugAndroidTest
 
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: android-test-results-api-${{ matrix.api-level }}
+          name: android-test-results-api-36
           path: |
-            app/emulator.log
             app/build/reports/androidTests/
             app/build/outputs/androidTest-results/
-      
-      - name: Raise error on test failure
-        if: steps.testing.outcome != 'success'
-        run: exit 1
