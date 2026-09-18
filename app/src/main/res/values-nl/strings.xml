@@ -1668,4 +1668,10 @@
     <string name="pref_gps_power_usage_title">GPS-batterijverbruik</string>
     <string name="replace_elevations_confirmation">Alle padhoogtes vervangen met behulp van het digitale hoogtemodel?</string>
     <string name="replace_elevations">Hoogtes vervangen</string>
+    <string name="path_navigation_follow">Volg naar einde</string>
+    <string name="path_navigation_reverse">Volg naar begin</string>
+    <string name="path_navigation_loop">Volg hele route</string>
+    <string name="path_navigation_reverse_loop">Volg hele route in omgekeerde richting</string>
+    <string name="path_navigation_to_point">Volg pad tot dit punt</string>
+    <string name="path_navigation_direct">Direct navigeren</string>
 </resources>
