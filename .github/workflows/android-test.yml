@@ -52,6 +52,13 @@ jobs:
             touch app/emulator.log
             chmod 777 app/emulator.log
             adb logcat >> app/emulator.log &
+            ./scripts/run-emulator-gps.sh &
+            gps_pid=$!
+            cleanup() {
+              kill "$gps_pid" 2>/dev/null || true
+              wait "$gps_pid" 2>/dev/null || true
+            }
+            trap cleanup EXIT
             ./scripts/run-emulator-integration-tests.sh "" 3600
         env:
           API_LEVEL: ${{ matrix.api-level }}
