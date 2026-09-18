@@ -42,7 +42,7 @@ jobs:
         continue-on-error: true
         with:
           api-level: ${{ matrix.api-level }}
-          arch: ${{ matrix.api-level == 24 && 'x86' || 'x86_64' }}
+          arch: x86_64
           target: default
           profile: small_phone
           cores: 4

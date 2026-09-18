@@ -43,7 +43,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2.37.0
         with:
           api-level: ${{ matrix.api-level }}
-          arch: ${{ matrix.api-level == 24 && 'x86' || 'x86_64' }}
+          arch: x86_64
           target: default
           profile: small_phone
           cores: 4
