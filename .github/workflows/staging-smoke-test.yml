@@ -49,14 +49,7 @@ jobs:
           cores: 4
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
           script: |
-            ./scripts/run-emulator-gps.sh &
-            gps_pid=$!
-            cleanup() {
-              kill "$gps_pid" 2>/dev/null || true
-              wait "$gps_pid" 2>/dev/null || true
-            }
-            trap cleanup EXIT
-            ./scripts/run-staging-smoke-test.sh
+            ./scripts/run-emulator-gps.sh & gps_pid=$!; trap 'kill "$gps_pid" 2>/dev/null || true; wait "$gps_pid" 2>/dev/null || true' EXIT; ./scripts/run-staging-smoke-test.sh
 
       - name: Upload Test Results
         if: always()
