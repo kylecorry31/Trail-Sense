@@ -47,4 +47,9 @@ if [ "$#" -ge 1 ] && [ -n "$1" ]; then
   gradle_args+=("-Pandroid.testInstrumentationRunnerArguments.class=$1")
 fi
 
-ANDROID_SERIAL="$selected_device" timeout --foreground "${timeout_seconds}s" ./gradlew "${gradle_args[@]}"
+logcat_start_time="$(adb -s "$selected_device" shell 'date "+%m-%d %H:%M:%S.000"' | tr -d '\r')"
+adb -s "$selected_device" logcat -T "$logcat_start_time" -v brief TestRunner:I '*:S' &
+logcat_pid=$!
+trap 'kill "$logcat_pid" 2>/dev/null || true' EXIT
+
+ANDROID_SERIAL="$selected_device" timeout --foreground "${timeout_seconds}s" ./gradlew --console=plain --quiet "${gradle_args[@]}"
