@@ -68,6 +68,6 @@ if [ "$instrumentation_status" -ne 0 ]; then
   exit "$instrumentation_status"
 fi
 
-if grep -qE 'FAILURES!!!|INSTRUMENTATION_FAILED|INSTRUMENTATION_RESULT: shortMsg=' "$results_file"; then
+if grep -qE 'FAILURES!!!|INSTRUMENTATION_ABORTED|INSTRUMENTATION_FAILED|INSTRUMENTATION_RESULT: shortMsg=' "$results_file"; then
   exit 1
 fi
