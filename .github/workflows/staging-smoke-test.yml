@@ -44,7 +44,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
-          target: default
+          target: google_apis
           profile: small_phone
           cores: 4
           disk-size: 4096M
