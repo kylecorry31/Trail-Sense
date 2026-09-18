@@ -255,6 +255,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
             click("Navigate")
         }
 
+        click(string(R.string.path_navigation_follow))
         clickOk()
         isVisible(R.id.navigation_title)
         hasText("Test Path")
