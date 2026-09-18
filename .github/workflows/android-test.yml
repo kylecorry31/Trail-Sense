@@ -48,8 +48,6 @@ jobs:
           cores: 4
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
           script: ./scripts/run-emulator-android-test.sh
-        env:
-          API_LEVEL: ${{ matrix.api-level }}
 
       - name: Upload Test Results
         if: always()

@@ -186,7 +186,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_RECORD_SIGHTING))
         input(R.id.search, "A Test")
-        click("A Test")
+        click("A Test", exact = true, index = 1)
 
         hasText("Created", waitForTime = GPS_WAIT_FOR_TIMEOUT)
         click("View")
