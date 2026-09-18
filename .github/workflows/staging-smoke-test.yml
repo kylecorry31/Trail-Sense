@@ -10,9 +10,6 @@ on:
 jobs:
   staging_smoke_test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        api-level: [36]
 
     steps:
       - uses: actions/checkout@v7.0.0
@@ -26,8 +23,8 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
-      - name: Make scripts executable
-        run: chmod +x ./gradlew ./scripts/run-emulator-staging-smoke-test.sh
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Enable KVM group perms
         run: |
@@ -38,29 +35,15 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6.2.0
 
       - name: Run staging smoke test
-        id: testing
-        continue-on-error: true
-        uses: reactivecircus/android-emulator-runner@v2.37.0
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          target: google_apis
-          profile: small_phone
-          cores: 4
-          disk-size: 4096M
-          ram-size: 2048M
-          heap-size: 1024M
-          force-avd-creation: true
-          emulator-options: -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect -no-snapshot-load -no-snapshot-save
-          script: ./scripts/run-emulator-staging-smoke-test.sh
+        run: >
+          ./gradlew smallPhoneApi36DebugAndroidTest
+          -Pandroid.testInstrumentationRunnerArguments.class=com.kylecorry.trail_sense.SmokeTest#smokeTest
 
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: logs-api-${{ matrix.api-level }}
-          path: app/emulator.log
-
-      - name: Raise error on test failure
-        if: steps.testing.outcome != 'success'
-        run: exit 1
+          name: staging-smoke-test-results-api-36
+          path: |
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/

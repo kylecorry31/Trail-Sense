@@ -104,6 +104,15 @@ android {
     }
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
+        managedDevices {
+            localDevices {
+                create("smallPhoneApi36") {
+                    device = "Small Phone"
+                    apiLevel = 36
+                    systemImageSource = "aosp-atd"
+                }
+            }
+        }
         unitTests.all {
             it.useJUnitPlatform()
         }
