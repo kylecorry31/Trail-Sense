@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils.clearAppData
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
+import com.kylecorry.trail_sense.test_utils.TestUtils.finishCurrentActivity
 import com.kylecorry.trail_sense.test_utils.TestUtils.grantPermission
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.After
@@ -131,6 +132,9 @@ open class ToolTestBase(
             if (TestUtils.isTorchOn) {
                 Torch(context).off()
             }
+        }
+        if (this::scenario.isInitialized) {
+            finishCurrentActivity()
         }
     }
 }

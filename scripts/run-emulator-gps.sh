@@ -45,6 +45,6 @@ cleanup() {
 trap cleanup INT TERM
 
 while true; do
-  adb -s "$selected_device" emu geo fix "$longitude" "$latitude" "$altitude"
+  adb -s "$selected_device" emu geo fix "$longitude" "$latitude" "$altitude" >/dev/null
   sleep "$interval_seconds"
 done

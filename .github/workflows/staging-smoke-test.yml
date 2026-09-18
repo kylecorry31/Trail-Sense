@@ -27,7 +27,7 @@ jobs:
           java-version: 17
 
       - name: Make scripts executable
-        run: chmod +x ./gradlew ./scripts/run-staging-smoke-test.sh
+        run: chmod +x ./gradlew ./scripts/run-emulator-staging-smoke-test.sh
 
       - name: Enable KVM group perms
         run: |
@@ -48,8 +48,7 @@ jobs:
           profile: small_phone
           cores: 4
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
-          script: |
-            ./scripts/run-emulator-gps.sh & gps_pid=$!; trap 'kill "$gps_pid" 2>/dev/null || true; wait "$gps_pid" 2>/dev/null || true' EXIT; ./scripts/run-staging-smoke-test.sh
+          script: ./scripts/run-emulator-staging-smoke-test.sh
 
       - name: Upload Test Results
         if: always()

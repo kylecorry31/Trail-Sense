@@ -26,7 +26,7 @@ jobs:
           java-version: 17
 
       - name: Make gradlew executable
-        run: chmod +x gradlew
+        run: chmod +x gradlew ./scripts/run-emulator-android-test.sh
 
       - name: Enable KVM group perms
         run: |
@@ -47,12 +47,7 @@ jobs:
           profile: small_phone
           cores: 4
           emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back emulated -camera-front emulated -gpu swiftshader_indirect
-          script: |
-            adb logcat -c
-            touch app/emulator.log
-            chmod 777 app/emulator.log
-            adb logcat >> app/emulator.log &
-            ./scripts/run-emulator-gps.sh & gps_pid=$!; trap 'kill "$gps_pid" 2>/dev/null || true; wait "$gps_pid" 2>/dev/null || true' EXIT; ./scripts/run-emulator-integration-tests.sh "" 3600
+          script: ./scripts/run-emulator-android-test.sh
         env:
           API_LEVEL: ${{ matrix.api-level }}
 
