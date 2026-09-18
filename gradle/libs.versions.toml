@@ -2,6 +2,7 @@
 androidApplication = "9.4.0"
 androidXTest = "1.7.0"
 androidXTestRunner = "1.7.0"
+androidXTestOrchestrator = "1.6.1"
 androidXTestUiAutomator = "2.4.0"
 androidXArchCore = "2.2.0"
 androidXCoreRemoteViews = "1.1.0"
@@ -37,6 +38,7 @@ preferenceKtx = "1.2.1"
 
 [libraries]
 androidx-test-core = { module = "androidx.test:core", version.ref = "androidXTest" }
+androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.ref = "androidXTestOrchestrator" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidXTestRunner" }
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidXTest" }
 androidx-test-uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "androidXTestUiAutomator" }

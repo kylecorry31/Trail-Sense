@@ -42,32 +42,9 @@ gradle_args=(assembleDebug assembleDebugAndroidTest)
 
 ANDROID_SERIAL="$selected_device" ./gradlew "${gradle_args[@]}"
 
-test_package="com.kylecorry.trail_sense.test"
-test_runner="$test_package/androidx.test.runner.AndroidJUnitRunner"
-app_apk="app/build/outputs/apk/debug/app-debug.apk"
-test_apk="app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
-
-adb -s "$selected_device" install --no-streaming -r -t "$app_apk"
-adb -s "$selected_device" install --no-streaming -r -t "$test_apk"
-
-instrumentation_args=(-w)
+gradle_args=(connectedDebugAndroidTest)
 if [ "$#" -ge 1 ] && [ -n "$1" ]; then
-  instrumentation_args+=(-e class "$1")
+  gradle_args+=("-Pandroid.testInstrumentationRunnerArguments.class=$1")
 fi
 
-results_file="$(mktemp)"
-trap 'rm -f "$results_file"' EXIT
-
-set +e
-timeout --foreground "${timeout_seconds}s" adb -s "$selected_device" shell am instrument \
-  "${instrumentation_args[@]}" "$test_runner" | tee "$results_file"
-instrumentation_status="${PIPESTATUS[0]}"
-set -e
-
-if [ "$instrumentation_status" -ne 0 ]; then
-  exit "$instrumentation_status"
-fi
-
-if grep -qE 'FAILURES!!!|INSTRUMENTATION_ABORTED|INSTRUMENTATION_FAILED|INSTRUMENTATION_RESULT: shortMsg=' "$results_file"; then
-  exit 1
-fi
+ANDROID_SERIAL="$selected_device" timeout --foreground "${timeout_seconds}s" ./gradlew "${gradle_args[@]}"
