@@ -1641,4 +1641,18 @@
     <string name="battery_deep_sleep">深度睡眠：%1$s（持續：%2$s）</string>
     <string name="pref_backtrack_keep_awake_summary">頻率低於 15 分鐘時</string>
     <string name="pref_backtrack_keep_awake_title">保持裝置喚醒</string>
+    <string name="replace_elevations">替換海拔</string>
+    <string name="replace_elevations_confirmation">使用數位海拔模型替換所有路線海拔？</string>
+    <string name="pref_gps_power_usage_title">GPS 耗電量</string>
+    <string name="pref_backtrack_gps_power_usage_title">Backtrack GPS 耗電量</string>
+    <string name="gps_power_usage_low">省電</string>
+    <string name="gps_power_usage_balanced">平衡</string>
+    <string name="gps_power_usage_high">高準確度</string>
+    <string name="gps_power_usage_inherit">沿用 GPS 設定</string>
+    <string name="path_navigation_follow">追蹤至終點</string>
+    <string name="path_navigation_reverse">追蹤至起點</string>
+    <string name="path_navigation_loop">追蹤完整循環</string>
+    <string name="path_navigation_reverse_loop">反向追蹤完整循環</string>
+    <string name="path_navigation_to_point">追蹤路徑至此點</string>
+    <string name="path_navigation_direct">直達導航</string>
 </resources>
