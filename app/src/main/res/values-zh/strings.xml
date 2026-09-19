@@ -1649,4 +1649,10 @@
     <string name="gps_power_usage_inherit">从 GPS 设置继承</string>
     <string name="replace_elevations">替换海拔</string>
     <string name="replace_elevations_confirmation">使用数字高程模型替换所有路径海拔？</string>
+    <string name="path_navigation_follow">起点到终点</string>
+    <string name="path_navigation_reverse">终点到起点</string>
+    <string name="path_navigation_loop">绕圈</string>
+    <string name="path_navigation_reverse_loop">反向绕圈</string>
+    <string name="path_navigation_to_point">到这个点</string>
+    <string name="path_navigation_direct">直接导航</string>
 </resources>
