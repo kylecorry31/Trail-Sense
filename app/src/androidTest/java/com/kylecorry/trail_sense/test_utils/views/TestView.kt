@@ -42,6 +42,30 @@ fun viewWithText(
     return view(if (contains) By.textContains(text) else By.text(text), index)
 }
 
+fun viewWithTextAndChild(
+    text: String,
+    @IdRes childId: Int,
+    contains: Boolean = false,
+    index: Int = 0
+): TestView {
+    val textSelector = if (contains) By.textContains(text) else By.text(text)
+    val children = device.findObjects(textSelector)
+        .mapNotNull { obj ->
+            var parent = obj.parent
+            var child: UiObject2? = null
+            while (parent != null && child == null) {
+                child = parent.findObjects(byResId(childId)).firstOrNull()
+                parent = parent.parent
+            }
+            child
+        }
+    val obj = children.getOrNull(index)
+        ?: throw AssertionError(
+            "View not found: child $childId in row containing text '$text', index: $index"
+        )
+    return TestView(obj)
+}
+
 fun viewWithHint(
     text: String,
     contains: Boolean = false,

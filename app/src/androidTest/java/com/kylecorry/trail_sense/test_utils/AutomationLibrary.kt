@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.test_utils
 
+import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.test.uiautomator.Direction
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithHint
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
+import com.kylecorry.trail_sense.test_utils.views.viewWithTextAndChild
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 
@@ -287,6 +289,26 @@ object AutomationLibrary {
                 xPercent,
                 yPercent
             )
+        }
+    }
+
+    fun click(
+        text: String,
+        @IdRes childId: Int,
+        index: Int = 0,
+        holdDuration: Long? = null,
+        exact: Boolean = false,
+        xPercent: Float? = null,
+        yPercent: Float? = null,
+        waitForTime: Long? = null
+    ) {
+        waitFor(resolveWaitForTime(waitForTime)) {
+            viewWithTextAndChild(
+                text,
+                childId,
+                index = index,
+                contains = !exact
+            ).click(holdDuration, xPercent, yPercent)
         }
     }
 
