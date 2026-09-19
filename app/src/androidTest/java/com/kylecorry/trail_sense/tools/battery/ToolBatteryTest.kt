@@ -30,7 +30,7 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         isChecked(R.id.low_power_mode_switch)
 
         // Stop the battery log
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click("Battery log", childId = com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
         not { hasText("Battery log") }
 
         scrollUntil {
@@ -56,9 +56,11 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
             "Other tips"
         )
 
-        // Open battery settings
-        click(toolbarButton(R.id.battery_title, Side.Right))
-        hasText("Battery")
+        // Open battery settings (not available on all system images)
+        optional {
+            click(toolbarButton(R.id.battery_title, Side.Right))
+            hasText("Battery")
+        }
     }
 
     private fun hasListItems(vararg items: String) {
