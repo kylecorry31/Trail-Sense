@@ -575,7 +575,12 @@
     <string name="how">How</string>
     <string name="clouds">Clouds</string>
     <string name="pref_gps_accuracy_requirement" translatable="false">pref_gps_accuracy_requirement</string>
+    <string name="pref_gps_accuracy_meters" translatable="false">pref_gps_accuracy_meters</string>
+    <string name="pref_gps_accuracy_wait_seconds" translatable="false">pref_gps_accuracy_wait_seconds</string>
     <string name="pref_gps_accuracy_requirement_title">Accuracy filter</string>
+    <string name="gps_accuracy_filter_summary">%1$s accuracy, wait up to %2$s</string>
+    <string name="gps_accuracy_target">Accuracy: %1$s</string>
+    <string name="gps_accuracy_wait">Maximum wait: %1$s</string>
     <string name="cirrus">Cirrus</string>
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="cirrostratus">Cirrostratus</string>

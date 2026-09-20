@@ -1,9 +1,12 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -11,6 +14,7 @@ import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -23,7 +27,10 @@ import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import com.kylecorry.trail_sense.shared.views.CoordinatePreference
+import com.kylecorry.trail_sense.shared.views.Slider
 import kotlinx.coroutines.launch
+import java.time.Duration
+import kotlin.math.roundToInt
 
 
 class CalibrateGPSFragment : AndromedaPreferenceFragment() {
@@ -36,7 +43,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private lateinit var locationSourceList: ListPreference
     private lateinit var permissionBtn: Preference
     private lateinit var locationOverridePref: CoordinatePreference
-    private lateinit var accuracyFilterList: ListPreference
+    private lateinit var accuracyFilterPreference: Preference
     private var clearCacheBtn: Preference? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
@@ -62,7 +69,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         permissionBtn = findPreference(getString(R.string.pref_gps_request_permission))!!
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
         clearCacheBtn = preference(R.string.pref_gps_clear_cache)
-        accuracyFilterList = list(R.string.pref_gps_accuracy_requirement)!!
+        accuracyFilterPreference = findPreference(getString(R.string.pref_gps_accuracy_requirement))!!
         val locationSources = mapOf(
             GPSLocationSource.GPS to getString(R.string.gps),
             GPSLocationSource.Manual to getString(R.string.manual)
@@ -85,7 +92,11 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
                 true
             }
         }
-        setAccuracyFilterEntries()
+        updateAccuracyFilterSummary()
+        accuracyFilterPreference.setOnPreferenceClickListener {
+            showAccuracyFilterDialog()
+            true
+        }
         locationOverridePref.setGPS(realGps)
         locationOverridePref.setLocation(prefs.gps.locationOverride)
         locationOverridePref.setTitle(getString(R.string.pref_gps_override_title))
@@ -121,15 +132,84 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         update()
     }
 
-    private fun setAccuracyFilterEntries() {
-        val names = mapOf(
-            GPSAccuracyFilter.None to getString(R.string.none),
-            GPSAccuracyFilter.Low to getString(R.string.low),
-            GPSAccuracyFilter.Moderate to getString(R.string.moderate),
-            GPSAccuracyFilter.High to getString(R.string.high)
+    private fun showAccuracyFilterDialog() {
+        val view = View.inflate(requireContext(), R.layout.view_gps_accuracy_filter, null)
+        val accuracyLabel = view.findViewById<TextView>(R.id.accuracy_label)
+        val waitLabel = view.findViewById<TextView>(R.id.wait_label)
+        val accuracySlider = view.findViewById<Slider>(R.id.accuracy_slider)
+        val waitSlider = view.findViewById<Slider>(R.id.wait_slider)
+        val current = prefs.gps.accuracyFilter
+        val distanceUnits = prefs.baseDistanceUnits
+        val minimumAccuracy = Distance.meters(GPSAccuracyFilter.MIN_ACCURACY_METERS.toFloat())
+            .convertTo(distanceUnits).value.roundToInt()
+        val maximumAccuracy = Distance.meters(GPSAccuracyFilter.MAX_ACCURACY_METERS.toFloat())
+            .convertTo(distanceUnits).value.roundToInt()
+
+        var accuracy = Distance.meters(
+            current.minAccuracy ?: GPSAccuracyFilter.Default.minAccuracy!!
+        ).convertTo(distanceUnits).value.roundToInt().coerceIn(minimumAccuracy, maximumAccuracy)
+        var wait = current.maxAccuracyWait?.seconds?.toInt()
+            ?: GPSAccuracyFilter.Default.maxAccuracyWait!!.seconds.toInt()
+
+        accuracySlider.valueFrom = minimumAccuracy.toFloat()
+        accuracySlider.valueTo = maximumAccuracy.toFloat()
+        accuracySlider.stepSize = 1f
+        accuracySlider.value = accuracy.toFloat()
+        accuracySlider.addOnChangeListener { _, value, _ ->
+            accuracy = value.toInt()
+            accuracyLabel.text = getString(
+                R.string.gps_accuracy_target,
+                formatService.formatDistance(Distance.from(accuracy.toFloat(), distanceUnits))
+            )
+        }
+
+        waitSlider.valueFrom = GPSAccuracyFilter.MIN_WAIT_SECONDS.toFloat()
+        waitSlider.valueTo = GPSAccuracyFilter.MAX_WAIT_SECONDS.toFloat()
+        waitSlider.stepSize = 1f
+        waitSlider.value = wait.toFloat()
+        waitSlider.addOnChangeListener { _, value, _ ->
+            wait = value.toInt()
+            waitLabel.text = getString(
+                R.string.gps_accuracy_wait,
+                formatService.formatDuration(Duration.ofSeconds(wait.toLong()), includeSeconds = true)
+            )
+        }
+
+        accuracyLabel.text = getString(
+            R.string.gps_accuracy_target,
+            formatService.formatDistance(Distance.from(accuracy.toFloat(), distanceUnits))
         )
-        accuracyFilterList.entries = names.values.toTypedArray()
-        accuracyFilterList.entryValues = names.keys.map { it.id.toString() }.toTypedArray()
+        waitLabel.text = getString(
+            R.string.gps_accuracy_wait,
+            formatService.formatDuration(Duration.ofSeconds(wait.toLong()), includeSeconds = true)
+        )
+
+        Alerts.dialog(
+            requireContext(),
+            getString(R.string.pref_gps_accuracy_requirement_title),
+            contentView = view
+        ) { cancelled ->
+            if (!cancelled) {
+                val accuracyMeters = Distance.from(accuracy.toFloat(), distanceUnits).meters().value
+                prefs.gps.accuracyFilter = GPSAccuracyFilter.custom(accuracyMeters, wait)
+                updateAccuracyFilterSummary()
+            }
+        }
+    }
+
+    private fun updateAccuracyFilterSummary() {
+        val filter = prefs.gps.accuracyFilter
+        val accuracy = filter.minAccuracy
+        val wait = filter.maxAccuracyWait
+        accuracyFilterPreference.summary = if (accuracy == null || wait == null) {
+            getString(R.string.none)
+        } else {
+            getString(
+                R.string.gps_accuracy_filter_summary,
+                formatService.formatElevation(Distance.meters(accuracy)),
+                formatService.formatDuration(wait, includeSeconds = true)
+            )
+        }
     }
 
     override fun onResume() {
@@ -233,7 +313,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         locationOverridePref.isVisible = isLocationOverrideEnabled()
         val gpsSettingsEnabled = isAutoGPSPreferenceEnabled() && prefs.gps.locationSource == GPSLocationSource.GPS
         list(R.string.pref_gps_power_usage)?.isVisible = gpsSettingsEnabled
-        accuracyFilterList.isVisible = gpsSettingsEnabled
+        accuracyFilterPreference.isVisible = gpsSettingsEnabled
         seekBar(R.string.pref_gps_smoothing)?.isVisible = gpsSettingsEnabled
         clearCacheBtn?.isVisible = gpsSettingsEnabled
 

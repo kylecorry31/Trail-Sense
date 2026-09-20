@@ -7,7 +7,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
 
 interface IGPSPreferences {
     var locationSource: GPSLocationSource
-    val accuracyFilter: GPSAccuracyFilter
+    var accuracyFilter: GPSAccuracyFilter
     val smoothing: Int
     val powerMode: GPSPowerMode
     var locationOverride: Coordinate

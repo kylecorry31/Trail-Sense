@@ -17,12 +17,40 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
         GPSLocationSource.GPS
     )
 
-    override val accuracyFilter by StringEnumPreference(
-        cache,
-        getString(R.string.pref_gps_accuracy_requirement),
-        GPSAccuracyFilter.entries.associateBy { it.id.toString() },
-        GPSAccuracyFilter.Low
-    )
+    override var accuracyFilter: GPSAccuracyFilter
+        get() {
+            val accuracy = cache.getFloat(getString(R.string.pref_gps_accuracy_meters))
+                ?: GPSAccuracyFilter.Default.minAccuracy!!
+            val wait = cache.getInt(getString(R.string.pref_gps_accuracy_wait_seconds))
+                ?: GPSAccuracyFilter.Default.maxAccuracyWait!!.seconds.toInt()
+            if (accuracy <= 0 || wait <= 0) {
+                return GPSAccuracyFilter.None
+            }
+            return GPSAccuracyFilter.custom(accuracy, wait)
+        }
+        set(value) {
+            if (value.minAccuracy == null || value.maxAccuracyWait == null) {
+                cache.putFloat(getString(R.string.pref_gps_accuracy_meters), 0f)
+                cache.putInt(getString(R.string.pref_gps_accuracy_wait_seconds), 0)
+                return
+            }
+            val accuracy = value.minAccuracy
+            val wait = value.maxAccuracyWait.seconds.toInt()
+            cache.putFloat(
+                getString(R.string.pref_gps_accuracy_meters),
+                accuracy.coerceIn(
+                    GPSAccuracyFilter.MIN_ACCURACY_METERS.toFloat(),
+                    GPSAccuracyFilter.MAX_ACCURACY_METERS.toFloat()
+                )
+            )
+            cache.putInt(
+                getString(R.string.pref_gps_accuracy_wait_seconds),
+                wait.coerceIn(
+                    GPSAccuracyFilter.MIN_WAIT_SECONDS,
+                    GPSAccuracyFilter.MAX_WAIT_SECONDS
+                )
+            )
+        }
 
     override val smoothing: Int
         get() = (cache.getInt(getString(R.string.pref_gps_smoothing)) ?: 0).coerceIn(0, 100)

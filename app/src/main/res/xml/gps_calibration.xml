@@ -41,13 +41,11 @@
             app:title="@string/pref_gps_power_usage_title"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:defaultValue="2"
+        <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_gps_accuracy_requirement"
             app:singleLineTitle="false"
-            app:title="@string/pref_gps_accuracy_requirement_title"
-            app:useSimpleSummaryProvider="true" />
+            app:title="@string/pref_gps_accuracy_requirement_title" />
 
         <SeekBarPreference
             android:max="100"

@@ -50,7 +50,7 @@ GPS settings can be found in Trail Sense Settings > Sensors > GPS. If your phone
 
 ### GPS settings
 - **Smoothing**: Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. The default is 50%. Higher values can delay responses to changes in movement.
-- **Accuracy filter**: Controls how much reported GPS accuracy is preferred before a reading is accepted. None does not filter based on accuracy, Low (the default) prefers accuracy of 30 meters or better, Moderate prefers accuracy of 16 meters or better, and High prefers accuracy of 8 meters or better. If the preferred accuracy is not available, Trail Sense accepts the best available reading after a short wait.
+- **Accuracy filter**: Choose the reported GPS accuracy you prefer before a reading is accepted and the maximum amount of time Trail Sense should wait for it. If the preferred accuracy is not available within that time, Trail Sense accepts the best available recent reading.
 - **GPS power usage**: Controls the power hint for GPS updates. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce location accuracy.
 - **Clear cache**: Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using this option.
 
