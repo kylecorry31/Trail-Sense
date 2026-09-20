@@ -1655,4 +1655,7 @@
     <string name="path_navigation_reverse_loop">反向绕圈</string>
     <string name="path_navigation_to_point">到这个点</string>
     <string name="path_navigation_direct">直接导航</string>
+    <string name="gps_accuracy_filter_summary">%1$s 精度，最多等 %2$s</string>
+    <string name="gps_accuracy_target">精度：%1$s</string>
+    <string name="gps_accuracy_wait">最多等待：%1$s</string>
 </resources>
