@@ -3,16 +3,13 @@ package com.kylecorry.trail_sense.tools.signal_finder.ui
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.text.method.LinkMovementMethodCompat
-import androidx.lifecycle.Observer
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellSignal
-import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geofence
@@ -27,6 +24,7 @@ import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useGPSLocation
 import com.kylecorry.trail_sense.shared.extensions.useMainActivity
 import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useTopicWhileResumed
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.Toolbar
@@ -144,32 +142,13 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
 
     private fun useCellSignals(vararg values: Any?): List<CellSignal> {
         val cellSignal = useCellSignalSensor(false, *values)
-        val (signals, setSignals) = useState<List<CellSignal>>(emptyList())
-        val owner = useLifecycleOwner()
-
-        useEffectWithCleanup(cellSignal, owner) {
-            val liveData = cellSignal.asLiveData()
-            val observer = object : Observer<ICellSignalSensor?> {
-                override fun onChanged(value: ICellSignalSensor?) {
-                    if (value == null) {
-                        return
-                    }
-                    setSignals(
-                        cellSignal.signals.sortedWith(
-                            compareByDescending<CellSignal> { signal -> signal.isRegistered }
-                                .thenByDescending { signal -> signal.strength }
-                                .thenByDescending { signal -> signal.id }
-                        )
-                    )
-                }
-            }
-            liveData.observe(owner, observer)
-            return@useEffectWithCleanup {
-                liveData.removeObserver(observer)
-            }
+        return useTopicWhileResumed(cellSignal, emptyList(), *values) {
+            cellSignal.signals.sortedWith(
+                compareByDescending<CellSignal> { signal -> signal.isRegistered }
+                    .thenByDescending { signal -> signal.strength }
+                    .thenByDescending { signal -> signal.id }
+            )
         }
-
-        return signals
     }
 
     private fun updateLocationPermissionError(

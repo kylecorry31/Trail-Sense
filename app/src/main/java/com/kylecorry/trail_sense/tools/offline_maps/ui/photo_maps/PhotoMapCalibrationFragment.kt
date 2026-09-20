@@ -14,7 +14,7 @@ import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.math.MathExtensions.roundNearestAngle
 import com.kylecorry.sol.math.trigonometry.Trigonometry
@@ -88,14 +88,14 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.calibrationMap.userLocationAccuracy =
             gps.horizontalAccuracy?.let { Distance.meters(it) }
 
-        observe(gps) {
+        observeTopicWhileResumed(gps) {
             binding.calibrationMap.userLocation = gps.location
             binding.calibrationMap.userLocationAccuracy =
                 gps.horizontalAccuracy?.let { Distance.meters(it) }
             compass.declination = declinationStrategy.getDeclination()
         }
 
-        observe(compass) {
+        observeTopicWhileResumed(compass) {
             binding.calibrationMap.userAzimuth = compass.bearing
         }
     }

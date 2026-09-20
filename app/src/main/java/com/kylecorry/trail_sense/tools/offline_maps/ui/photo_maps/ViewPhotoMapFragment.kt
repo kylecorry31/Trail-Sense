@@ -11,7 +11,6 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.torch.ScreenTorch
@@ -32,6 +31,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
@@ -117,7 +117,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observe(gps) {
+        observeTopicWhileResumed(gps) {
             binding.map.userLocation = gps.location
             binding.map.userLocationAccuracy = gps.horizontalAccuracy?.let { Distance.meters(it) }
             updateDestination()
@@ -126,8 +126,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
             }
         }
-        observe(altimeter) { updateDestination() }
-        observe(compass) {
+        observeTopicWhileResumed(altimeter) { updateDestination() }
+        observeTopicWhileResumed(compass) {
             compass.declination = Geophysics.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
             binding.map.userAzimuth = compass.bearing

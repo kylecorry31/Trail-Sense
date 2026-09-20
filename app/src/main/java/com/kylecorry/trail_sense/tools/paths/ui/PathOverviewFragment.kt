@@ -34,6 +34,7 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
@@ -284,7 +285,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             onWaypointsChanged(it)
         }
 
-        observe(gps) {
+        observeTopicWhileResumed(gps) {
             updateDeclination()
             binding.pathImage.userLocation = gps.location
             binding.pathImage.userLocationAccuracy =
@@ -292,7 +293,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             onPathChanged()
         }
 
-        observe(compass) {
+        observeTopicWhileResumed(compass) {
             binding.pathImage.userAzimuth = compass.bearing
         }
 

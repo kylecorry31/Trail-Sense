@@ -13,7 +13,7 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.shared.extensions.flatten
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
@@ -217,7 +217,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
         if (beaconId != null) {
             loadBeacon(beaconId!!)
         }
-        observe(gps) {
+        observeTopicWhileResumed(gps) {
             val beacon = beacon
             if (isBound && beacon != null) {
                 val distance = Distance.meters(beacon.coordinate.distanceTo(gps.location))
@@ -239,4 +239,3 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
         return FragmentBeaconDetailsBinding.inflate(layoutInflater, container, false)
     }
 }
-

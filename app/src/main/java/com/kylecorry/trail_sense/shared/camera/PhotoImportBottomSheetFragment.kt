@@ -24,7 +24,7 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
@@ -46,7 +46,7 @@ class PhotoImportBottomSheetFragment(
 
         val orientationSensor = SensorService(requireContext()).getDeviceOrientationSensor()
         orientation = DeviceOrientation.Orientation.Portrait
-        observe(orientationSensor) {
+        observeTopicWhileResumed(orientationSensor) {
             val newOrientation = orientationSensor.orientation
             if (newOrientation == DeviceOrientation.Orientation.Landscape || newOrientation == DeviceOrientation.Orientation.LandscapeInverse) {
                 orientation = newOrientation

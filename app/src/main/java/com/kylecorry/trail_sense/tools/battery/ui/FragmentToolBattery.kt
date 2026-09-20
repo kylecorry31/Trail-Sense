@@ -13,7 +13,6 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
-import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.views.list.AndromedaListView
 import com.kylecorry.andromeda.views.list.ListItem
 import com.kylecorry.trail_sense.shared.views.Toolbar
@@ -27,6 +26,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useLiveData
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useTimer
+import com.kylecorry.trail_sense.shared.extensions.useTopicWhileResumed
 import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.views.ProgressBar
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
@@ -116,7 +116,7 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             setChargeMethod(battery.chargingMethod)
         }
 
-        useTopic(battery) {
+        useTopicWhileResumed(battery, Unit) {
             triggerBatteryUpdate()
         }
 

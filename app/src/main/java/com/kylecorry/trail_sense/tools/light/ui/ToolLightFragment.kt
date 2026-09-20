@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.sol.science.optics.Optics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolLightBinding
@@ -30,7 +30,7 @@ class ToolLightFragment : BoundFragment<FragmentToolLightBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observe(lightSensor) { updateLight() }
+        observeTopicWhileResumed(lightSensor) { updateLight() }
 
         binding.resetBtn.setOnClickListener {
             maxLux = 0f

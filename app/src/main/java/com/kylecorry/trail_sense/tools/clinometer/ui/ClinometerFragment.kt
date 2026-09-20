@@ -15,7 +15,7 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
 import com.kylecorry.andromeda.sense.clinometer.IClinometer
@@ -137,9 +137,9 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
 
         binding.arView.bind(binding.camera)
 
-        observe(sideClinometer) { updateUI() }
-        observe(cameraClinometer) { updateUI() }
-        observe(deviceOrientation) { updateUI() }
+        observeTopicWhileResumed(sideClinometer) { updateUI() }
+        observeTopicWhileResumed(cameraClinometer) { updateUI() }
+        observeTopicWhileResumed(deviceOrientation) { updateUI() }
     }
 
     private fun startSideClinometer() {

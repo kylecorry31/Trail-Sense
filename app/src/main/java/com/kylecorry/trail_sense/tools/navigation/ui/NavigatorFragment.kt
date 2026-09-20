@@ -19,7 +19,6 @@ import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.interval
-import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
@@ -44,6 +43,7 @@ import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBotto
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
 import com.kylecorry.trail_sense.shared.openTool
+import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.Share
@@ -225,11 +225,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             updateNearbyBeacons()
         }
 
-        observe(compass) { }
-        observe(clinometer) { }
-        observe(altimeter) { }
-        observe(gps) { }
-        observe(speedometer) { }
+        observeTopicWhileResumed(compass) { }
+        observeTopicWhileResumed(clinometer) { }
+        observeTopicWhileResumed(altimeter) { }
+        observeTopicWhileResumed(gps) { }
+        observeTopicWhileResumed(speedometer) { }
 
         binding.navigationTitle.subtitle.setOnLongClickListener {
             Share.shareLocation(
