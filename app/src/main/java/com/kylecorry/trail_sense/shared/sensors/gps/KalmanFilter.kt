@@ -3,9 +3,9 @@ package com.kylecorry.trail_sense.shared.sensors.gps
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.algebra.add
 import com.kylecorry.sol.math.algebra.dot
-import com.kylecorry.sol.math.algebra.inverse
 import com.kylecorry.sol.math.algebra.subtract
 import com.kylecorry.sol.math.algebra.transpose
+import kotlin.math.sqrt
 
 internal class KalmanFilter(
     private val stateSize: Int,
@@ -73,7 +73,7 @@ internal class KalmanFilter(
         }
     }
 
-    fun update() {
+    fun update(): Boolean {
         //Yk = Zk - Hk*Xk|k-1
         Yk = Zk.subtract(H.dot(Xk_km1))
 
@@ -83,7 +83,7 @@ internal class KalmanFilter(
         Sk = R.add(H.dot(pk_km1DotHkt))
 
         //Kk = Pk|k-1*Hk(t)*Sk(inv)
-        K = pk_km1DotHkt.dot(Sk.inverse())
+        K = solveGain(pk_km1DotHkt) ?: return false
 
         //xk|k = xk|k-1 + Kk*Yk
         Xk_k = Xk_km1.add(K.dot(Yk))
@@ -92,9 +92,53 @@ internal class KalmanFilter(
         val correction = identity.subtract(K.dot(H))
         Pk_k = correction.dot(Pk_km1).dot(correction.transpose())
             .add(K.dot(R).dot(K.transpose()))
+        // Ensure Pk_k is symmetric after floating point math
+        for (row in 0 until stateSize) {
+            for (column in 0 until row) {
+                val average = (Pk_k[row, column].toDouble() + Pk_k[column, row]) / 2
+                Pk_k[row, column] = average.toFloat()
+                Pk_k[column, row] = average.toFloat()
+            }
+        }
 
         // This is not used yet
         //Yk|k = Zk - Hk*Xk|k
 //        Yk_k = Zk.subtract(H.dot(Xk_k))
+        return true
+    }
+
+    // Computes the Kalman gain by solving Sk * Kᵀ = crossCovarianceᵀ using
+    // Cholesky decomposition and Double-precision forward/back substitution,
+    // avoiding an explicit inverse. Returns null if factorization or solving fails.
+    private fun solveGain(crossCovariance: Matrix): Matrix? {
+        val size = Sk.rows()
+        val lower = Array(size) { DoubleArray(size) }
+        for (row in 0 until size) {
+            for (column in 0..row) {
+                var value = (Sk[row, column].toDouble() + Sk[column, row]) / 2
+                for (k in 0 until column) {
+                    value -= lower[row][k] * lower[column][k]
+                }
+                if (!value.isFinite() || (row == column && value <= 0)) return null
+                lower[row][column] = if (row == column) sqrt(value) else value / lower[column][column]
+            }
+        }
+        val gain = Matrix.zeros(stateSize, size)
+        for (state in 0 until stateSize) {
+            val solution = DoubleArray(size)
+            for (row in 0 until size) {
+                var value = crossCovariance[state, row].toDouble()
+                for (column in 0 until row) value -= lower[row][column] * solution[column]
+                solution[row] = value / lower[row][row]
+            }
+            for (row in size - 1 downTo 0) {
+                var value = solution[row]
+                for (column in row + 1 until size) value -= lower[column][row] * solution[column]
+                solution[row] = value / lower[row][row]
+                gain[state, row] = solution[row].toFloat()
+                if (!gain[state, row].isFinite()) return null
+            }
+        }
+        return gain
     }
 }

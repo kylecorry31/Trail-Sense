@@ -13,10 +13,73 @@ import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
+import org.junit.jupiter.params.provider.CsvSource
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 class KalmanGPSModuleTest {
+    @Test
+    fun horizontalConfidenceRadiusIsConvertedToPerAxisVariance() = runBlocking<Unit> {
+        val first = reading(1)
+        module.update(previous, first)
+        // A 10 m circle contains 68% of a 2D Gaussian with sigma about 6.624 m.
+        val variance = 100.0 / (-2 * kotlin.math.ln(0.32))
+        assertEquals(variance, first.kalmanState!!.covariance[0][0].toDouble(), 0.0001)
+        assertEquals(variance, first.kalmanState!!.covariance[1][1].toDouble(), 0.0001)
+        assertEquals(10f, first.horizontalAccuracy)
+
+        val next = reading(2)
+        module.update(first, next)
+        val predictedVariance = variance + 9.0 + 0.05 / 3
+        val expectedVariance = 1 / (1 / predictedVariance + 1 / variance)
+        assertEquals(expectedVariance, next.kalmanState!!.covariance[0][0].toDouble(), 0.0001)
+        assertEquals(expectedVariance, next.kalmanState!!.covariance[1][1].toDouble(), 0.0001)
+        assertEquals(10f, next.horizontalAccuracy)
+    }
+
+    @ParameterizedTest
+    @CsvSource("50,1", "100,1", "50,5", "100,5", "50,15", "100,15")
+    fun followsHikingStopsRestartsAndSwitchbacks(smoothing: Int, interval: Long) = runBlocking<Unit> {
+        whenever(prefs.smoothing).thenReturn(smoothing)
+        val origin = Coordinate(1.0, 1.0)
+        for (withVelocity in listOf(false, true)) {
+            val filter = KalmanGPSModule(prefs, mock())
+            var last = previous
+            for (seconds in 0L..240L step interval) {
+                val east = when {
+                    seconds <= 60 -> seconds * 1.4f
+                    seconds <= 90 -> 84f
+                    seconds <= 150 -> 84f - (seconds - 90) * 1.4f
+                    else -> 0f
+                }
+                val north = if (seconds > 150) (seconds - 150) * 1.4f else 0f
+                val truth = origin.plus(Distance.meters(east), Bearing.from(90f))
+                    .plus(Distance.meters(north), Bearing.from(0f))
+                val next = reading(seconds + 1).apply {
+                    location = truth
+                    horizontalAccuracy = 20f
+                    if (withVelocity) {
+                        speed = Speed.from(if (seconds in 60L..89L) 0f else 1.4f,
+                            DistanceUnits.Meters, TimeUnits.Seconds)
+                        rawBearing = when {
+                            seconds < 90 -> 90f
+                            seconds < 150 -> 270f
+                            else -> 0f
+                        }
+                        speedAccuracy = 0.3f
+                        bearingAccuracy = 15f
+                    }
+                }
+                filter.update(last, next)
+                assertTrue(truth.distanceTo(next.location) < 10f,
+                    "time: $seconds, velocity: $withVelocity, error: ${truth.distanceTo(next.location)}")
+                last = next
+            }
+        }
+    }
+
     private val prefs = mock<IGPSPreferences> {
         on { smoothing }.thenReturn(100)
     }
@@ -438,8 +501,10 @@ class KalmanGPSModuleTest {
         assertTrue(expected.location.distanceTo(next.location) < 0.01f)
     }
 
-    @Test
-    fun reducesStationaryNoiseAtOneHertz() = runBlocking<Unit> {
+    @ParameterizedTest
+    @ValueSource(ints = [50, 100])
+    fun reducesStationaryNoiseAtOneHertz(smoothing: Int) = runBlocking<Unit> {
+        whenever(prefs.smoothing).thenReturn(smoothing)
         val truth = Coordinate(1.0, 1.0)
         val random = java.util.Random(42)
         var rawSquaredError = 0.0
@@ -447,10 +512,7 @@ class KalmanGPSModuleTest {
         val last = ModularGPSData(eventTime = Instant.EPOCH)
         repeat(300) { index ->
             val next = reading(index.toLong() + 1).apply {
-                location = truth.plus(
-                    Distance.meters((random.nextGaussian() * 10).toFloat()),
-                    Bearing.from(random.nextFloat() * 360)
-                )
+                location = noisyLocation(truth, random, 10f)
             }
             val rawError = truth.distanceTo(next.location).toDouble()
             module.update(last, next)
@@ -502,11 +564,168 @@ class KalmanGPSModuleTest {
     }
 
     @Test
+    fun longGapDiscardsOldMotionAndMatchesFreshFilter() = runBlocking<Unit> {
+        for (gap in listOf(120L, 900L, 3600L, 86400L, 365L * 86400)) {
+            val filter = KalmanGPSModule(prefs, mock())
+            val first = reading(1).apply {
+                speed = Speed.from(30f, DistanceUnits.Meters, TimeUnits.Seconds)
+                rawBearing = 90f
+                speedAccuracy = 0.1f
+            }
+            filter.update(previous, first)
+            val sparse = reading(1 + gap, -75.0).apply { horizontalAccuracy = 250f }
+            val fresh = KalmanGPSModule(prefs, mock())
+            val expected = reading(1 + gap, -75.0).apply { horizontalAccuracy = 250f }
+            fresh.update(previous, expected)
+            filter.update(first, sparse)
+            assertEquals(expected.location, sparse.location, "gap: $gap")
+            assertEquals(expected.kalmanState, sparse.kalmanState, "gap: $gap")
+            val next = reading(2 + gap, -74.9999)
+            val expectedNext = reading(2 + gap, -74.9999)
+            fresh.update(expected, expectedNext)
+            filter.update(sparse, next)
+            assertEquals(expectedNext.kalmanState, next.kalmanState, "gap: $gap")
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = [50, 100])
+    fun tracksNoisyWalkingWithIrregularFixIntervals(smoothing: Int) = runBlocking<Unit> {
+        whenever(prefs.smoothing).thenReturn(smoothing)
+        val origin = Coordinate(1.0, 1.0)
+        val random = java.util.Random(27)
+        var last = previous
+        var elapsed = 0.0
+        var rawSquaredError = 0.0
+        var filteredSquaredError = 0.0
+        val intervals = listOf(0.25, 1.0, 2.0, 5.0, 15.0)
+        repeat(400) { index ->
+            elapsed += intervals[index % intervals.size]
+            val truth = origin.plus(Distance.meters((elapsed * 1.4).toFloat()), Bearing.from(70f))
+            val next = reading(index + 1L).apply {
+                eventTimeElapsedNanos = (elapsed * 1_000_000_000).toLong()
+                location = noisyLocation(truth, random, 10f)
+                speedSource = SpeedSource.Unknown
+            }
+            val rawError = truth.distanceTo(next.location).toDouble()
+            module.update(last, next)
+            if (index > 30) {
+                rawSquaredError += rawError * rawError
+                val filteredError = truth.distanceTo(next.location).toDouble()
+                filteredSquaredError += filteredError * filteredError
+            }
+            last = next
+        }
+        assertTrue(filteredSquaredError < rawSquaredError * 0.8,
+            "filtered: $filteredSquaredError, raw: $rawSquaredError")
+    }
+
+    @ParameterizedTest
+    @ValueSource(floats = [Float.MIN_VALUE, Float.MAX_VALUE, 0f, -1f, Float.NaN, Float.POSITIVE_INFINITY])
+    fun extremePositionUncertaintyDoesNotPoisonLaterFixes(accuracy: Float) = runBlocking<Unit> {
+        val first = reading(1).apply { horizontalAccuracy = accuracy }
+        module.update(previous, first)
+        val next = reading(2, 1.0001).apply { horizontalAccuracy = accuracy }
+        module.update(first, next)
+        val final = reading(3, 1.0002)
+        val measured = final.location
+        module.update(next, final)
+        assertTrue(final.location.distanceTo(measured) < 20f)
+        for (fix in listOf(first, next, final)) {
+            assertTrue(fix.location.latitude.isFinite())
+            assertTrue(fix.location.longitude.isFinite())
+            assertTrue(fix.horizontalAccuracy!! > 0f && fix.horizontalAccuracy!!.isFinite())
+            val state = requireNotNull(fix.kalmanState)
+            assertTrue(state.state.all { it.isFinite() })
+            assertTrue(state.covariance.flatten().all { it.isFinite() })
+            for (row in state.covariance.indices) {
+                assertTrue(state.covariance[row][row] >= 0f)
+                for (column in state.covariance.indices) {
+                    assertEquals(state.covariance[row][column], state.covariance[column][row])
+                }
+            }
+        }
+    }
+
+    @Test
+    fun overflowingVelocityUncertaintyIsIgnoredDuringInitializationAndCorrection() = runBlocking<Unit> {
+        val expectedModule = KalmanGPSModule(prefs, mock())
+        var last = previous
+        var expectedLast = previous
+        for (seconds in 1L..3L) {
+            val next = reading(seconds).apply {
+                speed = Speed.from(10f, DistanceUnits.Meters, TimeUnits.Seconds)
+                rawBearing = 90f
+                speedAccuracy = Float.MAX_VALUE
+            }
+            val expected = reading(seconds).apply { speedSource = SpeedSource.Unknown }
+            module.update(last, next)
+            expectedModule.update(expectedLast, expected)
+            assertEquals(expected.location, next.location)
+            assertEquals(expected.kalmanState, next.kalmanState)
+            last = next
+            expectedLast = expected
+        }
+    }
+
+    @Test
     fun handlesAntimeridianAndInvalidAccuracy() = runBlocking<Unit> {
         module.update(previous, reading(1, 179.999))
         val next = reading(2, -179.999).apply { horizontalAccuracy = Float.NaN }
         module.update(previous, next)
         assertTrue(kotlin.math.abs(next.location.longitude) > 179.99)
         assertTrue(next.horizontalAccuracy!!.isFinite())
+    }
+
+    private fun noisyLocation(truth: Coordinate, random: java.util.Random, accuracy: Float): Coordinate {
+        val sigma = accuracy / kotlin.math.sqrt(-2 * kotlin.math.ln(0.32))
+        val east = random.nextGaussian() * sigma
+        val north = random.nextGaussian() * sigma
+        return truth.plus(
+            Distance.meters(kotlin.math.hypot(east, north).toFloat()),
+            Bearing.from(Math.toDegrees(kotlin.math.atan2(east, north)).toFloat())
+        )
+    }
+
+    @ParameterizedTest
+    @CsvSource("50,1", "100,1", "50,5", "100,5", "50,15", "100,15")
+    fun reducesErrorOnNoisyHikingRouteWithStopsAndReversals(smoothing: Int, interval: Long) = runBlocking<Unit> {
+        whenever(prefs.smoothing).thenReturn(smoothing)
+        val origin = Coordinate(1.0, 1.0)
+        var rawSquaredError = 0.0
+        var filteredSquaredError = 0.0
+        for (seed in listOf(17L, 42L, 91L)) {
+            val random = java.util.Random(seed)
+            val filter = KalmanGPSModule(prefs, mock())
+            var last = previous
+            for (seconds in 0L..1200L step interval) {
+                val phase = seconds % 180
+                val east = when {
+                    phase < 60 -> phase * 1.4f
+                    phase < 90 -> 84f
+                    phase < 150 -> 84f - (phase - 90) * 1.4f
+                    else -> 0f
+                }
+                val truth = origin.plus(Distance.meters(east), Bearing.from(90f))
+                val next = reading(seconds + 1).apply {
+                    horizontalAccuracy = 10f
+                    location = noisyLocation(truth, random, 10f)
+                    speedSource = SpeedSource.Unknown
+                }
+                val rawError = truth.distanceTo(next.location).toDouble()
+                filter.update(last, next)
+                if (seconds > 180) {
+                    rawSquaredError += rawError * rawError
+                    val error = truth.distanceTo(next.location).toDouble()
+                    filteredSquaredError += error * error
+                }
+                last = next
+            }
+        }
+        // Frequent fixes should substantially reduce noise. Sparse fixes should
+        // still improve total error without introducing excessive turn lag.
+        val maximumRatio = if (interval == 1L) 0.75 else 1.0
+        assertTrue(filteredSquaredError < rawSquaredError * maximumRatio,
+            "filtered/raw squared error: ${filteredSquaredError / rawSquaredError}")
     }
 }

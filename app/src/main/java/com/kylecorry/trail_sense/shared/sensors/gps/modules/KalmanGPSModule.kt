@@ -86,9 +86,15 @@ class KalmanGPSModule(
             } else if (lastTime != null) {
                 val dt = newData.durationSince(lastTime)
                     .let { it.seconds + it.nano / 1_000_000_000.0 }.toFloat()
-                predict(dt, smoothing)
-                correct(newData)
-                rebaseIfNeeded()
+                if (dt >= MAX_PREDICTION_SECONDS) {
+                    // Motion before a long outage says little about motion now. Start
+                    // with the new fix rather than extrapolating stale velocity.
+                    restore(newData, useSavedState = false)
+                } else {
+                    predict(dt, smoothing)
+                    correct(newData)
+                    rebaseIfNeeded()
+                }
                 timeElapsedNanos = newData.eventTimeElapsedNanos
             }
         }
@@ -119,13 +125,11 @@ class KalmanGPSModule(
         transition[POSITION_EAST, VELOCITY_EAST] = dt
         transition[POSITION_NORTH, VELOCITY_NORTH] = dt
         kalman.F = transition
-        val accelerationNoise = if (smoothing <= 50) {
-            NOISE_AT_NO_SMOOTHING * (NOISE_AT_BALANCED_SMOOTHING / NOISE_AT_NO_SMOOTHING)
-                .pow(smoothing / 50f)
-        } else {
-            NOISE_AT_BALANCED_SMOOTHING * (NOISE_AT_FULL_SMOOTHING / NOISE_AT_BALANCED_SMOOTHING)
-                .pow((smoothing - 50) / 50f)
-        }
+        // Continuous acceleration noise density (m²/s³), not acceleration variance.
+        // The ratio makes low percentages approach raw fixes while retaining a
+        // motion-noise floor at 100% for hiking stops and switchbacks.
+        val responsiveness = (100 - smoothing) / smoothing.toFloat()
+        val accelerationNoise = MIN_ACCELERATION_NOISE + ACCELERATION_NOISE_SCALE * responsiveness.pow(2)
         val dt2 = dt * dt
         val dt3 = dt2 * dt
         processNoise[POSITION_EAST, POSITION_EAST] = accelerationNoise * dt3 / 3f
@@ -143,7 +147,7 @@ class KalmanGPSModule(
     private fun correct(data: ModularGPSData) {
         val kalman = filter ?: return
         val accuracy = getAccuracy(data)
-        val positionVariance = accuracy * accuracy
+        val positionVariance = accuracy * accuracy / HORIZONTAL_CONFIDENCE_FACTOR
         val position = toLocal(data.location)
         val velocity = getVelocity(data)
         if (velocity != null) {
@@ -167,18 +171,21 @@ class KalmanGPSModule(
             kalman.Zk = positionMeasurement
             kalman.R = positionMeasurementNoise
         }
-        kalman.update()
+        if (!kalman.update()) {
+            restore(data, useSavedState = false)
+            return
+        }
         val posteriorAccuracy = sqrt(
             max(
                 kalman.Pk_k[POSITION_EAST, POSITION_EAST],
                 kalman.Pk_k[POSITION_NORTH, POSITION_NORTH]
-            ).coerceAtLeast(0f)
+            ).coerceAtLeast(0f) * HORIZONTAL_CONFIDENCE_FACTOR
         )
         reportedAccuracy = max(accuracy, posteriorAccuracy)
     }
 
-    private fun restore(data: ModularGPSData) {
-        val saved = data.kalmanState?.takeIf { isValid(it) }
+    private fun restore(data: ModularGPSData, useSavedState: Boolean = true) {
+        val saved = data.kalmanState?.takeIf { useSavedState && isValid(it) }
         if (saved != null) {
             reference = Coordinate(saved.referenceLatitude, saved.referenceLongitude)
             filter = KalmanFilter(STATE_SIZE, STATE_SIZE, CONTROL_SIZE).apply {
@@ -193,7 +200,7 @@ class KalmanGPSModule(
         }
         reference = data.location
         val accuracy = getAccuracy(data)
-        val positionVariance = accuracy * accuracy
+        val positionVariance = accuracy * accuracy / HORIZONTAL_CONFIDENCE_FACTOR
         val velocity = getVelocity(data)
         val velocityVariance = velocity?.variance ?: DEFAULT_VELOCITY_VARIANCE
         filter = KalmanFilter(STATE_SIZE, STATE_SIZE, CONTROL_SIZE).apply {
@@ -241,15 +248,18 @@ class KalmanGPSModule(
             ?.coerceAtMost(90f) ?: 30f
         val radians = Math.toRadians(direction.toDouble())
         val lateralError = speed * sin(Math.toRadians(directionError.toDouble())).toFloat()
+        val variance = (speedError * speedError + lateralError * lateralError)
+            .takeIf { it.isFinite() }?.coerceAtLeast(0.01f) ?: return null
         return VelocityMeasurement(
             speed * sin(radians).toFloat(),
             speed * cos(radians).toFloat(),
-            (speedError * speedError + lateralError * lateralError).coerceAtLeast(0.01f)
+            variance
         )
     }
 
     private fun getAccuracy(data: ModularGPSData): Float =
-        data.horizontalAccuracy?.takeIf { it.isFinite() && it > 0f } ?: DEFAULT_ACCURACY
+        data.horizontalAccuracy?.takeIf { it > 0f && (it * it).isFinite() }
+            ?.coerceAtLeast(0.1f) ?: DEFAULT_ACCURACY
 
     private fun toLocal(location: Coordinate): Pair<Float, Float> {
         val distance = reference.distanceTo(location)
@@ -311,10 +321,13 @@ class KalmanGPSModule(
         private const val VELOCITY_NORTH = 3
         private const val DEFAULT_ACCURACY = 50f
         private const val DEFAULT_VELOCITY_VARIANCE = 9f
-        private const val NOISE_AT_NO_SMOOTHING = 10_000f
-        private const val NOISE_AT_BALANCED_SMOOTHING = 0.1f
-        private const val NOISE_AT_FULL_SMOOTHING = 0.01f
+        // Android accuracy is a 68% horizontal radius. For isotropic Gaussian
+        // errors, radius² = -2 ln(1 - 0.68) * per-axis variance.
+        private const val HORIZONTAL_CONFIDENCE_FACTOR = 2.2788686f
+        private const val MIN_ACCELERATION_NOISE = 0.05f
+        private const val ACCELERATION_NOISE_SCALE = 0.2f
         private const val MAX_REFERENCE_DISTANCE = 200f
+        private const val MAX_PREDICTION_SECONDS = 120f
         private const val LARGE_ADJUSTMENT_METERS = 25f
     }
 }
