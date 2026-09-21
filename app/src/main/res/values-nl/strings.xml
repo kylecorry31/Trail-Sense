@@ -1674,4 +1674,7 @@
     <string name="path_navigation_reverse_loop">Volg hele route in omgekeerde richting</string>
     <string name="path_navigation_to_point">Volg pad tot dit punt</string>
     <string name="path_navigation_direct">Direct navigeren</string>
+    <string name="gps_accuracy_filter_summary">%1$s nauwkeurigheid, wacht %2$s</string>
+    <string name="gps_accuracy_target">Nauwkeurigheid: %1$s</string>
+    <string name="gps_accuracy_wait">Maximale wachttijd: %1$s</string>
 </resources>
