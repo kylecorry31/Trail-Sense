@@ -19,6 +19,57 @@ class PathRouteTest {
     )
 
     @Test
+    fun `missed corner advances on sparse and densely sampled paths`() {
+        for (samplesPerSegment in listOf(1, 20)) {
+            val coordinates = (0 until samplesPerSegment).map {
+                Coordinate(0.0, 0.004 * it / samplesPerSegment)
+            } + (0..samplesPerSegment).map {
+                Coordinate(0.004 * it / samplesPerSegment, 0.004)
+            }
+            val path = coordinates.mapIndexed { index, coordinate ->
+                PathPoint(index.toLong(), 1, coordinate, 0f)
+            }
+            val route = PathRoute(path)
+            route.navigate(coordinates.first())
+            val location = Coordinate(0.003, 0.004)
+            val guidance = route.navigate(location)
+            assertEquals(0f, guidance.offRoute, 5f)
+            assertTrue(guidance.target.latitude > location.latitude)
+            assertEquals(location.distanceTo(coordinates.last()), guidance.remainingDistance, 5f)
+        }
+    }
+
+    @Test
+    fun `shortcut past a corner advances from restored progress`() {
+        val path = listOf(Coordinate(0.0, 0.0), Coordinate(0.0, 0.004), Coordinate(0.004, 0.004))
+            .mapIndexed { index, coordinate -> PathPoint(index.toLong(), 1, coordinate, 0f) }
+        val route = PathRoute(path)
+        route.restoreProgress(0.125f, Coordinate(0.0, 0.001))
+        val location = Coordinate(0.002, 0.0039)
+        val guidance = route.navigate(location)
+        assertEquals(path.last().coordinate, guidance.target)
+        assertTrue(guidance.offRoute < 15f)
+        assertEquals(
+            guidance.offRoute + Coordinate(0.002, 0.004).distanceTo(path.last().coordinate),
+            guidance.remainingDistance,
+            1f
+        )
+    }
+
+    @Test
+    fun `nearby return leg does not skip a long outbound segment`() {
+        val path = listOf(
+            Coordinate(0.0, 0.0), Coordinate(0.0, 0.01),
+            Coordinate(0.0001, 0.01), Coordinate(0.0001, 0.0)
+        ).mapIndexed { index, coordinate -> PathPoint(index.toLong(), 1, coordinate, 0f) }
+        val route = PathRoute(path)
+        route.navigate(path.first().coordinate)
+        val guidance = route.navigate(Coordinate(0.0001, 0.001))
+        assertEquals(path[1].coordinate, guidance.target)
+        assertFalse(guidance.arrived)
+    }
+
+    @Test
     fun `progress is a fraction of cumulative distance with unequal segments`() {
         val path = points.take(2) + points.last().copy(coordinate = Coordinate(0.003, 0.001))
         val route = PathRoute(path)

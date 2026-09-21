@@ -121,7 +121,10 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         val previousDistance = previousProgress * cumulativeDistances.last()
         for (i in 0 until points.lastIndex) {
             val lower = maxOf(cumulativeDistances[i], previousDistance - movement - PROGRESS_TOLERANCE_METERS)
-            val upper = minOf(cumulativeDistances[i + 1], previousDistance + movement + PROGRESS_TOLERANCE_METERS)
+            val upper = minOf(
+                cumulativeDistances[i + 1],
+                previousDistance + movement * FORWARD_PROGRESS_MULTIPLIER + PROGRESS_TOLERANCE_METERS
+            )
             if (cumulativeDistances[i + 1] == cumulativeDistances[i] || lower > upper) {
                 continue
             }
@@ -155,6 +158,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     )
 
     private companion object {
+        const val FORWARD_PROGRESS_MULTIPLIER = 2f
         const val PROGRESS_TOLERANCE_METERS = 15f
         const val MATCH_TOLERANCE_METERS = 1f
         const val LOOKAHEAD_METERS = 10f
