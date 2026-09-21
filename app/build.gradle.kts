@@ -109,7 +109,7 @@ android {
                 create("smallPhoneApi36") {
                     device = "Small Phone"
                     apiLevel = 36
-                    systemImageSource = "aosp-atd"
+                    systemImageSource = "google"
                 }
             }
         }
