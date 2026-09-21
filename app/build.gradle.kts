@@ -107,7 +107,7 @@ android {
         managedDevices {
             localDevices {
                 create("smallPhoneApi36") {
-                    device = "Small Phone"
+                    device = "Pixel 2"
                     apiLevel = 36
                     systemImageSource = "google"
                 }
