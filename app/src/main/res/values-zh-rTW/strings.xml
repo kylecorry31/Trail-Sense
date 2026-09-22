@@ -1655,4 +1655,7 @@
     <string name="path_navigation_reverse_loop">反向追蹤完整循環</string>
     <string name="path_navigation_to_point">追蹤路徑至此點</string>
     <string name="path_navigation_direct">直達導航</string>
+    <string name="gps_accuracy_filter_summary">準確度 %1$s，最多等待 %2$s</string>
+    <string name="gps_accuracy_target">準確度：%1$s</string>
+    <string name="gps_accuracy_wait">最久等待：%1$s</string>
 </resources>
