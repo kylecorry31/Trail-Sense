@@ -148,6 +148,10 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         return circularBitmap
     }
 
+    override suspend fun cleanup() {
+        bitmapCache.clear()
+    }
+
     private fun cropToCircle(source: Bitmap, size: Int): Bitmap {
         val output = createBitmap(size, size)
         val canvas = Canvas(output)
@@ -159,7 +163,10 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         val scaledSource = source.scale(size, size)
         canvas.drawBitmap(scaledSource, 0f, 0f, paint)
-        scaledSource.recycle()
+        if (scaledSource !== source) {
+            scaledSource.recycle()
+        }
+        source.recycle()
 
         return output
     }

@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.navigation.ui
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.andromeda.core.tryOrNothing
 
 class DrawerBitmapLoader(private val drawer: ICanvasDrawer) {
 
@@ -24,13 +23,8 @@ class DrawerBitmapLoader(private val drawer: ICanvasDrawer) {
     }
 
     fun clear() {
-        tryOrNothing {
-            synchronized(lock) {
-                for (icon in icons) {
-                    icon.value.recycle()
-                }
-                icons.clear()
-            }
+        synchronized(lock) {
+            icons.clear()
         }
     }
 

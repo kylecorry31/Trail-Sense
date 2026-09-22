@@ -339,6 +339,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         super.onPause()
         binding.camera.stop()
         binding.arView.stop()
+        astronomyLayer.pause()
         setTimeOverride(null)
         binding.timeSheet.hide()
         pathLayerManager?.stop()

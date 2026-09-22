@@ -21,6 +21,8 @@ class ARMarkerLayer(
         synchronized(lock) {
             this.markers.clear()
             this.markers.addAll(markers)
+            renderedMarkers = emptyList()
+            potentialFocusPoints.clear()
         }
     }
 
@@ -33,6 +35,8 @@ class ARMarkerLayer(
     fun clearMarkers() {
         synchronized(lock) {
             markers.clear()
+            renderedMarkers = emptyList()
+            potentialFocusPoints.clear()
         }
     }
 

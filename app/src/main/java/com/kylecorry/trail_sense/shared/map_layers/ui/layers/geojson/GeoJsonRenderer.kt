@@ -97,5 +97,11 @@ class GeoJsonRenderer : IGeoJsonRenderer {
         pointRenderer.setSelectedFeature(featureId)
     }
 
+    fun clear() {
+        pointRenderer.clear()
+        lineStringRenderer.setFeatures(emptyList())
+        polygonRenderer.setFeatures(emptyList())
+    }
+
 
 }

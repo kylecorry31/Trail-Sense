@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
 import androidx.core.graphics.drawable.toBitmap
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.core.tryOrNothing
 
 class BitmapLoader(private val context: Context) {
 
@@ -30,12 +29,7 @@ class BitmapLoader(private val context: Context) {
     }
 
     fun clear() {
-        tryOrNothing {
-            for (icon in icons) {
-                icon.value.recycle()
-            }
-            icons.clear()
-        }
+        icons.clear()
     }
 
 }

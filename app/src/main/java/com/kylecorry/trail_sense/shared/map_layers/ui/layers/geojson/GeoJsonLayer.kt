@@ -39,6 +39,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     private val refreshBroadcasts: List<String> = emptyList()
 ) : IAsyncLayer {
     val renderer = GeoJsonRenderer()
+    @Volatile private var isStopped = false
     private var isInvalid = true
     private var updateListener: (() -> Unit)? = null
     private val sourceCleanupTask = BackgroundTask {
@@ -103,6 +104,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
                     source.load(context, bounds, zoomLevel, params) ?: GeoJsonFeatureCollection(
                         emptyList()
                     )
+                if (isStopped) return@addTask
                 renderer.setGeoJsonObject(obj)
                 isLoaded = true
             } catch (e: CancellationException) {
@@ -149,6 +151,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
+        if (isStopped) return
         isWidget = map.isWidget
         renderer.draw(context, drawer, map)
         taskRunner.scheduleUpdate(
@@ -194,6 +197,8 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun start() {
+        isStopped = false
+        invalidate()
         Tools.subscribe(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
@@ -205,6 +210,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     }
 
     override fun stop() {
+        isStopped = true
         Tools.unsubscribe(
             MapToolRegistration.BROADCAST_GEOJSON_FEATURE_SELECTION_CHANGED,
             this::onSelectionBroadcast
@@ -214,7 +220,10 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         }
         refreshTimer?.stop()
         taskRunner.stop()
+        renderer.clear()
         sourceCleanupTask.start()
+        isInvalid = true
+        isLoaded = false
     }
 
     private fun onSelectionBroadcast(bundle: Bundle) {

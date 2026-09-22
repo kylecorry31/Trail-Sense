@@ -4,6 +4,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.AttributeSet
 import androidx.annotation.DrawableRes
+import androidx.core.view.doOnAttach
+import androidx.core.view.doOnDetach
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -13,6 +19,7 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
 abstract class BaseCompassView : CanvasView, ICompassView {
 
     private val bitmapLoader by lazy { BitmapLoader(context) }
+    private var lifecycleOwner: LifecycleOwner? = null
     protected val prefs by lazy { UserPreferences(context) }
 
     override var compassCenter: Coordinate = Coordinate.zero
@@ -46,6 +53,21 @@ abstract class BaseCompassView : CanvasView, ICompassView {
     init {
         runEveryCycle = false
         setupAfterVisible = true
+        doOnAttach {
+            lifecycleOwner = findViewTreeLifecycleOwner()
+            lifecycleOwner?.lifecycle?.addObserver(lifecycleObserver)
+        }
+        doOnDetach {
+            lifecycleOwner?.lifecycle?.removeObserver(lifecycleObserver)
+            lifecycleOwner = null
+            bitmapLoader.clear()
+        }
+    }
+
+    private val lifecycleObserver = LifecycleEventObserver { _, event ->
+        if (event == Lifecycle.Event.ON_PAUSE) {
+            bitmapLoader.clear()
+        }
     }
 
     override var azimuth: Float = 0f
@@ -53,10 +75,6 @@ abstract class BaseCompassView : CanvasView, ICompassView {
             field = value
             invalidate()
         }
-
-    protected open fun finalize() {
-        bitmapLoader.clear()
-    }
 
     protected fun getBitmap(@DrawableRes id: Int, size: Int): Bitmap {
         return bitmapLoader.load(id, size)

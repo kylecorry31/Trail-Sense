@@ -292,8 +292,10 @@ class GeoJsonPointRenderer : FeatureRenderer() {
         return cachedBounds
     }
 
-    protected fun finalize() {
-        bitmapLoader?.clear()
+    fun clear() {
+        markers = emptyList()
+        super.setFeatures(emptyList())
+        featuresChanged = true
         bitmapLoader = null
     }
 

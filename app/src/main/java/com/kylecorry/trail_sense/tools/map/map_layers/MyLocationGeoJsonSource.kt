@@ -125,6 +125,10 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         return bitmap
     }
 
+    override suspend fun cleanup() {
+        arrowBitmap = null
+    }
+
     companion object {
         const val SOURCE_ID = "my_location"
         const val SHOW_ACCURACY = "show_accuracy"

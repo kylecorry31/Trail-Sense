@@ -8,6 +8,7 @@ import android.widget.CheckBox
 import android.widget.LinearLayout
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -112,8 +113,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             astronomyCompassLayer,
             requireContext(),
             userPrefs,
-            gps
-        ) { declination }
+            gps,
+            { declination },
+            { lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) }
+        )
     }
 
     private val loadBeaconsRunner = CoroutineQueueRunner()
@@ -388,6 +391,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onPause() {
         super.onPause()
+        astronomyCompassLayer.clearMarkers()
         loadBeaconsRunner.cancel()
         errors.reset()
         layerSheet?.setOnDismissListener(null)

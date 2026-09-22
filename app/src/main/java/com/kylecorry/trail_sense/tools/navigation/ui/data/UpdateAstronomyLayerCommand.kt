@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.navigation.ui.data
 
 import android.content.Context
 import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.trail_sense.R
@@ -18,7 +19,8 @@ class UpdateAstronomyLayerCommand(
     private val context: Context,
     private val prefs: UserPreferences,
     private val gps: IGPS,
-    private val declination: () -> Float
+    private val declination: () -> Float,
+    private val isActive: () -> Boolean
 ) : CoroutineCommand {
     override suspend fun execute() = onDefault {
         val markers = mutableListOf<IMappableReferencePoint>()
@@ -76,7 +78,11 @@ class UpdateAstronomyLayerCommand(
             }
         }
 
-        layer.setMarkers(markers)
+        onMain {
+            if (isActive()) {
+                layer.setMarkers(markers)
+            }
+        }
     }
 
     private fun fromTrueNorth(bearing: Float): Float {

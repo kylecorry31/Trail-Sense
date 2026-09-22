@@ -81,6 +81,7 @@ class ARAstronomyLayer(
 
     private val hooks = Hooks()
     private val triggers = HookTriggers()
+    @Volatile private var generation = 0
 
     private val updateFrequency = Duration.ofMinutes(1)
     private val updateDistance = Distance.meters(1000f)
@@ -95,6 +96,7 @@ class ARAstronomyLayer(
 
         hooks.effect(
             "positions",
+            generation,
             timeOverride,
             triggers.frequency("positions", updateFrequency),
             triggers.distance("positions", location, updateDistance, highAccuracy = false)
@@ -176,8 +178,10 @@ class ARAstronomyLayer(
         location: Coordinate,
         time: ZonedDateTime
     ) {
+        val updateGeneration = generation
         scope.launch {
             runner.enqueue {
+                if (updateGeneration != generation) return@enqueue
                 if (bitmapLoader == null) {
                     bitmapLoader = DrawerBitmapLoader(drawer)
                 }
@@ -273,6 +277,10 @@ class ARAstronomyLayer(
                 val sunAltitude = sunPosition.altitude
                 val sunAzimuth = sunPosition.azimuth.value
 
+                updateStarLayer(location, time)
+                updatePlanetLayer(location, time, drawer)
+                updateMeteorShowerLayer(location, time, drawer)
+
                 val phase = astro.getMoonPhase(time)
                 val moonImageSize = drawer.dp(24f).toInt()
                 val moonTilt = astro.getMoonTilt(location, time)
@@ -338,9 +346,7 @@ class ARAstronomyLayer(
                     )
                 }
 
-                updateStarLayer(location, time)
-                updatePlanetLayer(location, time, drawer)
-                updateMeteorShowerLayer(location, time, drawer)
+                if (updateGeneration != generation) return@enqueue
 
                 lineLayer.setLines(sunLines + moonLines)
                 sunLayer.setMarkers(sunPointsToDraw.flatten())
@@ -351,6 +357,15 @@ class ARAstronomyLayer(
                 currentMoonLayer.setMarkers(listOf(moon))
             }
         }
+    }
+
+    fun pause() {
+        generation++
+        runner.cancel()
+        currentMoonLayer.clearMarkers()
+        planetLayer.clearMarkers()
+        meteorShowerLayer.clearMarkers()
+        bitmapLoader = null
     }
 
     private suspend fun updateStarLayer(location: Coordinate, time: ZonedDateTime) = onDefault {
