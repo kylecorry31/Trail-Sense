@@ -1687,4 +1687,9 @@
     <string name="path_navigation_reverse_loop">Suivre le circuit complet dans le sens inverse</string>
     <string name="path_navigation_to_point">Suivre le chemin jusqu\'à ce point</string>
     <string name="path_navigation_direct">Accéder directement</string>
+    <string name="pref_backtrack_min_distance_title">Distance minimale entre deux points</string>
+    <string name="pref_backtrack_min_distance_summary">Les points situés à une distance inférieure à celle-ci par rapport au point précédent ne sont pas enregistrés. Définissez cette valeur sur 0 pour enregistrer tous les points.</string>
+    <string name="gps_accuracy_filter_summary">Précision de %1$s, délai maximal de %2$s</string>
+    <string name="gps_accuracy_target">Précision : %1$s</string>
+    <string name="gps_accuracy_wait">Durée d\'attente maximale : %1$s</string>
 </resources>
