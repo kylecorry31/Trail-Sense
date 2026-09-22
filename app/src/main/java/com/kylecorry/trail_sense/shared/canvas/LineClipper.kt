@@ -171,13 +171,19 @@ class LineClipper {
 
         // Both are out, but may intersect
         if (intersection.size == 2) {
-            lines.add(intersection[0].x - origin.x)
-            lines.add(intersection[0].y - origin.y)
-            lines.add(intersection[1].x - origin.x)
-            lines.add(intersection[1].y - origin.y)
+            val first = if (start.squaredDistanceTo(intersection[0]) <= start.squaredDistanceTo(intersection[1])) {
+                0
+            } else {
+                1
+            }
+            val second = 1 - first
+            lines.add(intersection[first].x - origin.x)
+            lines.add(intersection[first].y - origin.y)
+            lines.add(intersection[second].x - origin.x)
+            lines.add(intersection[second].y - origin.y)
             if (zOutput != null) {
-                val t1 = interpolationAmount(start, end, intersection[0])
-                val t2 = interpolationAmount(start, end, intersection[1])
+                val t1 = interpolationAmount(start, end, intersection[first])
+                val t2 = interpolationAmount(start, end, intersection[second])
                 zOutput.add(interpolateZ(startZ, endZ, t1))
                 zOutput.add(interpolateZ(startZ, endZ, t2))
             }

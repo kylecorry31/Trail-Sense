@@ -77,6 +77,13 @@ class LineClipperTest {
     }
 
     @Test
+    fun preservesDirectionOfLinesThatPassThroughTheBoundsInReverse() {
+        val lines = clip(listOf(PixelCoordinate(150f, 50f), PixelCoordinate(-50f, 50f)))
+
+        assertLines(listOf(100f, 50f, 0f, 50f), lines)
+    }
+
+    @Test
     fun skipsRepeatedPoints() {
         val lines = clip(
             listOf(
@@ -110,15 +117,11 @@ class LineClipperTest {
         assertLines(emptyList(), clip(points, preventLineWrapping = true))
     }
 
-    /**
-     * When both ends are outside, the clipped segment is ordered by the bounds' edges rather than
-     * by the direction of travel.
-     */
     @Test
     fun keepsWrappingLinesByDefault() {
         val points = listOf(PixelCoordinate(300f, 50f), PixelCoordinate(-200f, 50f))
 
-        assertLines(listOf(0f, 50f, 100f, 50f), clip(points))
+        assertLines(listOf(100f, 50f, 0f, 50f), clip(points))
     }
 
     @Test
@@ -158,6 +161,19 @@ class LineClipperTest {
         )
 
         assertLines(listOf(0f, 5f), zOutput)
+    }
+
+    @Test
+    fun interpolatesZValuesInTravelDirectionWhenBothEndsAreClipped() {
+        val zOutput = mutableListOf<Float>()
+        val lines = clip(
+            listOf(PixelCoordinate(150f, 50f), PixelCoordinate(-50f, 50f)),
+            zValues = listOf(0f, 20f),
+            zOutput = zOutput
+        )
+
+        assertLines(listOf(100f, 50f, 0f, 50f), lines)
+        assertLines(listOf(5f, 15f), zOutput)
     }
 
     private fun clip(
