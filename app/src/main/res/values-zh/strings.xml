@@ -1658,4 +1658,6 @@
     <string name="gps_accuracy_filter_summary">%1$s 精度，最多等 %2$s</string>
     <string name="gps_accuracy_target">精度：%1$s</string>
     <string name="gps_accuracy_wait">最多等待：%1$s</string>
+    <string name="pref_backtrack_min_distance_title">点之间的最短距离</string>
+    <string name="pref_backtrack_min_distance_summary">不会记录与先前点之间的距离小于该值的点。设为 0 记录每个点。</string>
 </resources>
