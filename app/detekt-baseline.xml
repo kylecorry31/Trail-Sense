@@ -238,6 +238,7 @@
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onUpdate</ID>
     <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onViewCreated</ID>
     <ID>LongMethod:PathOverviewFragment.kt:PathOverviewFragment$override fun onViewCreated</ID>
+    <ID>LongMethod:PathsSettingsFragment.kt:PathsSettingsFragment$override fun onCreatePreferences</ID>
     <ID>LongMethod:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$override fun onCreatePreferences</ID>
     <ID>LongMethod:TileLoader.kt:TileLoader$private fun fillNeighborPixels</ID>
     <ID>LongMethod:WeatherSettingsFragment.kt:WeatherSettingsFragment$override fun onCreatePreferences</ID>
