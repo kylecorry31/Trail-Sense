@@ -54,8 +54,11 @@
             app:key="@string/pref_gps_smoothing"
             app:min="0"
             app:seekBarIncrement="1"
+            app:showSeekBarValue="true"
             app:singleLineTitle="false"
-            app:title="@string/smoothing" />
+            app:summary="@string/smoothing_summary"
+            app:title="@string/smoothing"
+            app:updatesContinuously="true" />
 
         <Preference
             android:title="@string/clear_cache"

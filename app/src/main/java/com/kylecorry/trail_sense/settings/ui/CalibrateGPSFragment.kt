@@ -85,13 +85,6 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
             entries = names.values.toTypedArray()
             entryValues = names.keys.map { it.id.toString() }.toTypedArray()
         }
-        seekBar(R.string.pref_gps_smoothing)?.apply {
-            summary = formatService.formatPercentage(prefs.gps.smoothing.toFloat())
-            setOnPreferenceChangeListener { _, newValue ->
-                summary = formatService.formatPercentage((newValue as Int).toFloat())
-                true
-            }
-        }
         updateAccuracyFilterSummary()
         accuracyFilterPreference.setOnPreferenceClickListener {
             showAccuracyFilterDialog()
