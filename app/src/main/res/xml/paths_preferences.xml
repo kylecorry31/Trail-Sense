@@ -21,6 +21,13 @@
 
         <Preference
             app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_min_distance_holder"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_backtrack_min_distance_summary"
+            app:title="@string/pref_backtrack_min_distance_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_history_days"
             app:singleLineTitle="false"
             app:title="@string/pref_backtrack_history_days_title" />

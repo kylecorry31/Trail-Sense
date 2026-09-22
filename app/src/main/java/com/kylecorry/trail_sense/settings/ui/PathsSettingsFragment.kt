@@ -6,10 +6,14 @@ import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
@@ -108,6 +112,20 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
             }.execute()
             true
         }
+
+        setupDistanceSetting(
+            getString(R.string.pref_backtrack_min_distance_holder),
+            {
+                prefs.paths.backtrackMinimumDistance
+                    .convertTo(prefs.baseDistanceUnits)
+                    .toRelativeDistance()
+            },
+            { distance ->
+                prefs.paths.backtrackMinimumDistance = distance ?: Distance.meters(0f)
+            },
+            DistanceUtils.hikingDistanceUnits,
+            description = getString(R.string.pref_backtrack_min_distance_summary)
+        )
 
         val prefBacktrackPathColor = preference(R.string.pref_backtrack_path_color)
         prefBacktrackPathColor?.icon?.setTint(

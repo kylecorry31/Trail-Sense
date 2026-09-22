@@ -213,8 +213,10 @@ def main():
                 since, until = session[1], session[2]
                 print(f"Last backtrack session (path {path_id}) for {args.package}, {format_time(since)} to {format_time(until)}")
                 print(f"Window for the other debugging scripts: {format_window_arguments(since, until)}")
+            minimum_distance = preferences.get("pref_backtrack_min_distance")
             print(
                 f"Settings: interval {format_duration(interval)}, "
+                f"minimum distance {minimum_distance + ' m' if minimum_distance else '10 m (default)'}, "
                 f"keep device awake {'on' if preferences.get('pref_backtrack_keep_awake') == 'true' else 'off'}, "
                 f"backtrack currently {'on' if preferences.get('pref_backtrack_enabled') == 'true' else 'off'}"
             )

@@ -205,6 +205,10 @@ class PathService(
         return waypointRepo.getAllInPaths(listOf(path))
     }
 
+    override suspend fun getLastWaypoint(path: Long): PathPoint? {
+        return waypointRepo.getLastInPath(path)
+    }
+
     override fun getWaypointsLive(path: Long): LiveData<List<PathPoint>> {
         return waypointRepo.getAllInPathLive(path)
     }

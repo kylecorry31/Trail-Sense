@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.shared.sensors.MockCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.age
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.ShouldRecordBacktrackPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import java.time.Instant
@@ -43,12 +44,17 @@ class BacktrackCommand(
         val start = SystemClock.elapsedRealtime()
         updateSensors()
         val point = recordWaypoint()
+        val outcome = if (point == null) "Skipped" else "Recorded"
         getAppService<Logger>().info(
             TAG,
-            "Recorded ${if (pathId == 0L) "backtrack" else "path $pathId"} point in ${SystemClock.elapsedRealtime() - start}ms " +
+            "$outcome ${if (pathId == 0L) "backtrack" else "path $pathId"} point in ${SystemClock.elapsedRealtime() - start}ms " +
                 "(GPS: ${gps.hasValidReading}, Altitude: ${altimeter.hasValidReading}, " +
                 "Cell Signal: ${if (cellSignalSensor is MockCellSignalSensor) "N/A" else cellSignalSensor.hasValidReading})"
         )
+        if (point == null) {
+            showNotification()
+            return@onDefault
+        }
         CreateLastSignalBeaconCommand(context).execute(point)
         showNotification()
     }
@@ -83,7 +89,7 @@ class BacktrackCommand(
     }
 
 
-    private suspend fun recordWaypoint(): PathPoint {
+    private suspend fun recordWaypoint(): PathPoint? {
         return onIO {
             val waypoint = PathPoint(
                 0,
@@ -95,12 +101,22 @@ class BacktrackCommand(
             )
 
             if (pathId == 0L) {
+                if (!isFarEnoughFromPreviousPoint(waypoint)) {
+                    return@onIO null
+                }
                 pathService.addBacktrackPoint(waypoint)
             } else {
                 pathService.addWaypoint(waypoint)
             }
             waypoint
         }
+    }
+
+    private suspend fun isFarEnoughFromPreviousPoint(waypoint: PathPoint): Boolean {
+        val minimum = prefs.paths.backtrackMinimumDistance
+        val backtrackPathId = pathService.getBacktrackPathId() ?: return true
+        val previous = pathService.getLastWaypoint(backtrackPathId)
+        return ShouldRecordBacktrackPoint(minimum).isSatisfiedBy(previous, waypoint)
     }
 
     companion object {

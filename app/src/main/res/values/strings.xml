@@ -548,6 +548,10 @@
     <string name="pref_backtrack_enabled_summary">Record location history</string>
     <string name="pref_backtrack_frequency" translatable="false">pref_backtrack_frequency_seconds</string>
     <string name="pref_backtrack_frequency_title">Backtrack interval</string>
+    <string name="pref_backtrack_min_distance" translatable="false">pref_backtrack_min_distance</string>
+    <string name="pref_backtrack_min_distance_holder" translatable="false">pref_backtrack_min_distance_holder</string>
+    <string name="pref_backtrack_min_distance_title">Minimum distance between points</string>
+    <string name="pref_backtrack_min_distance_summary">Points closer than this to the previous point are not recorded. Set to 0 to record every point.</string>
     <string name="location_input_help_title">Supported location formats</string>
     <string name="location_input_help">Decimal degrees (ex. 1.00, -2.00)\n\nDegrees decimal minutes (ex. 1°23.12\'N, 3°12.1\'W)\n\nDegrees minutes seconds (ex. 1°23\'12.1\"N, 3°12\'1.2\"W)\n\nUTM (ex. 03T 12345E 67890N)\n\nMGRS (ex. 27PXM 09601 05579)\n\nUSNG (ex. 14S NJ 39521 41744)\n\nOSGB (ex. TG 51409 13177)</string>
     <string name="coordinate_input_invalid_location">Invalid location</string>

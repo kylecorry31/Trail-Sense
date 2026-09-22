@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.location.GPSPowerUsage
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.GPSPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -49,4 +50,21 @@ class PathsPreferences(private val context: Context) {
         set(value) {
             cache.putDuration(context.getString(R.string.pref_backtrack_frequency), value)
         }
+
+    var backtrackMinimumDistance: Distance
+        get() {
+            val meters = cache.getFloat(context.getString(R.string.pref_backtrack_min_distance))
+                ?: DEFAULT_BACKTRACK_MIN_DISTANCE_METERS
+            return Distance.meters(meters)
+        }
+        set(value) {
+            cache.putFloat(
+                context.getString(R.string.pref_backtrack_min_distance),
+                value.meters().value
+            )
+        }
+
+    companion object {
+        const val DEFAULT_BACKTRACK_MIN_DISTANCE_METERS = 10f
+    }
 }
