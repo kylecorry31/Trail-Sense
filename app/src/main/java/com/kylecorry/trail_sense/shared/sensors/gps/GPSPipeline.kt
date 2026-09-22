@@ -1,11 +1,15 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.logging.Logger
 import java.time.Instant
+import kotlinx.coroutines.CancellationException
 
 /** Callers must serialize lifecycle and update calls, including across suspension points. */
 class GPSPipeline(
     private val modules: List<GPSModule>,
+    private val logger: () -> Logger = { getAppService() }
 ) {
     private val data = ModularGPSData(eventTime = Instant.EPOCH)
     private val candidate = ModularGPSData()
@@ -38,11 +42,21 @@ class GPSPipeline(
         modules.forEach { it.stop(data) }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     suspend fun update(gps: ModularGPSData): GPSUpdateResult {
         ensureInitialized()
         candidate.populateFromGPS(gps)
 
-        if (modules.any { !it.update(data, candidate) }) {
+        if (modules.any { module ->
+                try {
+                    !module.update(data, candidate)
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (e: Exception) {
+                    logger().error(TAG, "${module.javaClass.name} failed to update GPS", e)
+                    false
+                }
+            }) {
             return GPSUpdateResult.Rejected
         }
 
@@ -53,5 +67,9 @@ class GPSPipeline(
         val isSameReading = candidate.id == data.id
         candidate.copyInto(data)
         return if (isSameReading) GPSUpdateResult.SameFixUpdated else GPSUpdateResult.NewFixAccepted
+    }
+
+    companion object {
+        private const val TAG = "GPSPipeline"
     }
 }

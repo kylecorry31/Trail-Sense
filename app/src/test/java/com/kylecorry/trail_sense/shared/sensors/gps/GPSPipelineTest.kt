@@ -7,6 +7,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
@@ -14,9 +15,13 @@ import com.kylecorry.trail_sense.shared.sensors.gps.modules.SameFixGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.TimeoutGPSModule
 import java.time.Instant
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CancellationException
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.eq
+import org.mockito.kotlin.same
+import org.mockito.kotlin.verify
 
 class GPSPipelineTest {
     private val preferences = InMemoryPreferences()
@@ -151,6 +156,41 @@ class GPSPipelineTest {
 
         reject = false
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(3)))
+    }
+
+    @Test
+    fun moduleExceptionIsLoggedAndLaterModulesStillRun() = runBlocking<Unit> {
+        val logger = mock<Logger>()
+        val failure = IllegalStateException("module failed")
+        var laterCalls = 0
+        val failingModule = module { _, _ -> throw failure }
+        val pipeline = GPSPipeline(
+            listOf(failingModule, module { _, next ->
+                laterCalls++
+                next.altitude = 42f
+                true
+            }),
+            { logger }
+        )
+
+        assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(1)))
+        assertEquals(1, laterCalls)
+        assertEquals(42f, pipeline.reading.altitude)
+        verify(logger).error(
+            eq("GPSPipeline"),
+            eq("${failingModule.javaClass.name} failed to update GPS"),
+            same(failure)
+        )
+    }
+
+    @Test
+    fun moduleCancellationIsPropagated() = runBlocking<Unit> {
+        val cancellation = CancellationException("cancelled")
+        val pipeline = GPSPipeline(listOf(module { _, _ -> throw cancellation }))
+
+        assertThrows(CancellationException::class.java) {
+            runBlocking { pipeline.update(reading(1)) }
+        }
     }
 
     @Test
