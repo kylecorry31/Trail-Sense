@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.core.time.TimeProvider
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -48,6 +49,8 @@ class AccuracyFilterGPSModule(
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
         if (newData.durationSince(previousData) <= Duration.ZERO) return true
+
+        if (previousData.location == Coordinate.zero) return true
 
         if (previousData.isTimedOut) {
             logAccepted("timed out", newData)

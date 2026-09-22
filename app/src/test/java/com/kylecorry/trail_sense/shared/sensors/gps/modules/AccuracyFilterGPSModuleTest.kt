@@ -25,7 +25,7 @@ class AccuracyFilterGPSModuleTest {
         override fun currentTimeMillis() = nowMillis
     }
     private val module = AccuracyFilterGPSModule(prefs, mock(), timeProvider)
-    private val previous = ModularGPSData(eventTimeElapsedNanos = 0L)
+    private val previous = ModularGPSData(location = Coordinate(0.5, 0.5), eventTimeElapsedNanos = 0L)
     private val accuracyWait = configuredFilter.maxAccuracyWait!!.toMillis()
 
     private fun secondsToNanos(seconds: Long) = seconds * 1_000_000_000L
@@ -34,6 +34,13 @@ class AccuracyFilterGPSModuleTest {
         location = Coordinate(1.0, 1.0), hasValidReading = true, horizontalAccuracy = accuracy,
         eventTimeElapsedNanos = previous.eventTimeElapsedNanos + secondsToNanos(1)
     )
+
+    @Test
+    fun acceptsInaccurateReadingWhenThereIsNoPreviousLocation() = runBlocking<Unit> {
+        val empty = ModularGPSData(eventTimeElapsedNanos = 0L)
+        assertTrue(module.update(empty, reading(100f)))
+        assertFalse(module.update(previous, reading(100f)))
+    }
 
     @Test
     fun timeoutReturnsASnapshotOfTheMostAccurateFix() = runBlocking<Unit> {
@@ -348,6 +355,6 @@ class AccuracyFilterGPSModuleTest {
         assertFalse(module.update(previous, candidate))
         assertTrue(previous.horizontalAccuracy == null)
         assertTrue(candidate.horizontalAccuracy == 17f)
-        assertTrue(previous.location == Coordinate.zero)
+        assertTrue(previous.location == Coordinate(0.5, 0.5))
     }
 }

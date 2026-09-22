@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.IGPSPreferences
 import com.kylecorry.trail_sense.settings.migrations.InMemoryPreferences
 import com.kylecorry.trail_sense.shared.GeoidService
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.gps.modules.AccuracyFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.BadReadingFilterGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.KalmanGPSModule
@@ -26,6 +27,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
+import java.time.Duration
 
 class SharedGPSPipelineTest {
     private val cache = InMemoryPreferences()
@@ -109,6 +111,30 @@ class SharedGPSPipelineTest {
             assertFalse(consumer.update(initial))
             consumer.stop()
         }
+    }
+
+    @Test
+    fun startupPrepopulatesAnInaccurateBaseFixWithoutNotifying() = runBlocking<Unit> {
+        val preferences = mock<IGPSPreferences> {
+            on { accuracyFilter }.thenReturn(GPSAccuracyFilter(16f, Duration.ofSeconds(8)))
+        }
+        val pipeline = SharedGPSPipeline(mock(), timeProvider) {
+            GPSPipeline(listOf(
+                BadReadingFilterGPSModule(mock(), timeProvider),
+                AccuracyFilterGPSModule(preferences, mock(), timeProvider)
+            ))
+        }
+        val consumer = Consumer(pipeline)
+        val baseFix = reading(999_994).apply { horizontalAccuracy = 100f }
+
+        assertFalse(consumer.consumer.start(baseFix))
+        assertEquals(baseFix.location, consumer.consumer.reading.location)
+        assertEquals(baseFix.eventTimeElapsedNanos, consumer.consumer.reading.eventTimeElapsedNanos)
+        assertEquals(0, consumer.notifications)
+
+        assertFalse(consumer.consumer.update(reading(999_995).apply { horizontalAccuracy = 100f }))
+        assertEquals(baseFix.eventTimeElapsedNanos, consumer.consumer.reading.eventTimeElapsedNanos)
+        consumer.consumer.stop()
     }
 
     @Test
