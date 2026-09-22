@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.commands
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.commands.generic.CoroutineValueCommand
+import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
@@ -19,7 +20,7 @@ class CreatePathCommand(
             0,
             name,
             prefs.defaultPathStyle,
-            PathMetadata.Companion.empty
+            PathMetadata.empty
         )
 
         val newPathId = pathService.addPath(newPath)
@@ -28,7 +29,8 @@ class CreatePathCommand(
             if (it.latitude.isNaN() || it.longitude.isNaN()) {
                 return@mapNotNull null
             }
-            PathPoint(0, newPathId, it)
+            val elevation = DEM.getElevation(it).elevation
+            PathPoint(0, newPathId, it, elevation)
         }
 
         pathService.addWaypointsToPath(waypoints, newPathId)
