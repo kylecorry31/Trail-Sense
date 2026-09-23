@@ -1677,4 +1677,6 @@
     <string name="gps_accuracy_filter_summary">%1$s nauwkeurigheid, wacht %2$s</string>
     <string name="gps_accuracy_target">Nauwkeurigheid: %1$s</string>
     <string name="gps_accuracy_wait">Maximale wachttijd: %1$s</string>
+    <string name="pref_backtrack_min_distance_title">Minimumafstand tussen punten</string>
+    <string name="pref_backtrack_min_distance_summary">Punten die zich dichterbij het vorige punt bevinden worden niet opgenomen. Stel in op 0 om alle punten op te nemen.</string>
 </resources>
