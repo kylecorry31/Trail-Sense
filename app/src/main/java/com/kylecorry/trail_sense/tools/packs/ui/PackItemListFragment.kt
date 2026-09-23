@@ -174,9 +174,17 @@ class PackItemListFragment : BoundFragment<FragmentItemListBinding>() {
     }
 
     private fun deleteItem(item: PackItem) {
-        inBackground {
-            withContext(Dispatchers.IO) {
-                itemRepo.deleteItem(item)
+        Alerts.dialog(
+            requireContext(),
+            getString(R.string.delete_packing_list_item),
+            item.name
+        ) { cancelled ->
+            if (!cancelled) {
+                inBackground {
+                    withContext(Dispatchers.IO) {
+                        itemRepo.deleteItem(item)
+                    }
+                }
             }
         }
     }

@@ -921,6 +921,7 @@
     <string name="new_packing_list">New packing list</string>
     <string name="packing_list_optional">Optional</string>
     <string name="delete_pack">Delete pack?</string>
+    <string name="delete_packing_list_item">Delete item?</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="coordinate_format_osgb">OSGB</string>
     <string name="sort">Sort</string>
