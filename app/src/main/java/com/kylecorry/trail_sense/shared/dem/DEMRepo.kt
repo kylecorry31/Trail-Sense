@@ -23,7 +23,7 @@ class DEMRepo private constructor() : ICleanable {
             val expectedVersion = database.digitalElevationModelDao().getVersion()
             val versionFile = files.get("dem/version.txt")
             val actualVersion = if (versionFile.exists()) versionFile.readText().trim() else null
-            if (actualVersion == null || actualVersion != expectedVersion) {
+            if (actualVersion != expectedVersion) {
                 database.digitalElevationModelDao().deleteAll()
                 if (files.getDirectory("dem").exists()) {
                     getAppService<Logger>().info(
@@ -32,6 +32,11 @@ class DEMRepo private constructor() : ICleanable {
                     )
                     files.getDirectory("dem").deleteRecursively()
                 }
+                prefs.altimeter.isDigitalElevationModelLoaded = false
+                removed = true
+            }
+
+            if (actualVersion == null && prefs.altimeter.isDigitalElevationModelLoaded) {
                 prefs.altimeter.isDigitalElevationModelLoaded = false
                 removed = true
             }

@@ -335,6 +335,8 @@ object DEM {
 
     fun invalidateCache() {
         cache = GeospatialCache(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
+        pixelCache = MemoryLRUCache(1)
+        tileCache = MemoryLRUCache(16)
         cachedSources = null
         cachedHasWaterMask = false
         cachedIsExternal = null

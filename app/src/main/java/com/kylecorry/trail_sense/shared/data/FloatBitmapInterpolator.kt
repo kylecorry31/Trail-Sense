@@ -9,6 +9,11 @@ class FloatBitmapInterpolator(
     private val interpolationOrder: Int,
     private val pixelProvider: CrossBoundaryPixelProvider? = null
 ) {
+    private val smoothInterpolator = when (interpolationOrder) {
+        2 -> BicubicInterpolator()
+        1 -> BilinearInterpolator()
+        else -> null
+    }
 
     suspend fun getValue(
         bitmap: FloatBitmap,
@@ -45,11 +50,8 @@ class FloatBitmapInterpolator(
         channel: Int
     ): Float {
         val pixelProvider = pixelProvider ?: return fallbackInterpolate(localPixel, bitmap, channel)
-        val interpolator = when (interpolationOrder) {
-            2 -> BicubicInterpolator()
-            1 -> BilinearInterpolator()
-            else -> NearestInterpolator(max(bitmap.width, bitmap.height))
-        }
+        val interpolator = smoothInterpolator
+            ?: NearestInterpolator(max(bitmap.width, bitmap.height))
 
         return interpolator.interpolate(localPixel) { x, y ->
             val value = bitmap.getOrNull(x, y, channel)
@@ -68,12 +70,14 @@ class FloatBitmapInterpolator(
         bitmap: FloatBitmap,
         channel: Int
     ): Float {
-        return listOfNotNull(
-            if (interpolationOrder == 2) BicubicInterpolator() else null,
-            if (interpolationOrder == 1) BilinearInterpolator() else null,
-            NearestInterpolator(max(bitmap.width, bitmap.height))
-        ).firstNotNullOfOrNull {
-            it.interpolate(localPixel) { x, y -> bitmap.getOrNull(x, y, channel) }
+        val value = smoothInterpolator?.interpolate(localPixel) { x, y ->
+            bitmap.getOrNull(x, y, channel)
+        }
+        if (value != null) {
+            return value
+        }
+        return NearestInterpolator(max(bitmap.width, bitmap.height)).interpolate(localPixel) { x, y ->
+            bitmap.getOrNull(x, y, channel)
         } ?: 0f
     }
 }
