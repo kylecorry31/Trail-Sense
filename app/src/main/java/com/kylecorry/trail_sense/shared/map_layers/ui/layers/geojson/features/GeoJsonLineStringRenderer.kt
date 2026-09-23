@@ -30,7 +30,6 @@ import com.kylecorry.trail_sense.shared.extensions.getName
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 import com.kylecorry.trail_sense.tools.paths.ui.drawing.PathLineDrawerFactory
@@ -50,9 +49,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
     private var filterEpsilon = 0f
     private var reducedPaths = emptyList<PrecomputedLineString>()
     private val lock = Any()
-    private val matrix = Matrix()
-    private val src = FloatArray(8)
-    private val dst = FloatArray(8)
+    private val transform = GeoJsonRenderTransform()
     private val labelPoint = FloatArray(2)
 
     init {
@@ -123,6 +120,18 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             viewBounds.bottom - margin
         )
 
+        val projectedNW = projection.toPixels(bounds.northWest)
+        val projectedNE = projection.toPixels(bounds.northEast)
+        val projectedSE = projection.toPixels(bounds.southEast)
+        val projectedSW = projection.toPixels(bounds.southWest)
+
+        val projectedCorners = floatArrayOf(
+            projectedNW.x, projectedNW.y,
+            projectedNE.x, projectedNE.y,
+            projectedSE.x, projectedSE.y,
+            projectedSW.x, projectedSW.y
+        )
+
         val precomputed = features.mapNotNull {
             val geometry = it.geometry as GeoJsonLineString
             val line = geometry.line
@@ -158,18 +167,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             } else {
                 emptyList()
             }
-
-            val projectedNW = projection.toPixels(bounds.northWest)
-            val projectedNE = projection.toPixels(bounds.northEast)
-            val projectedSE = projection.toPixels(bounds.southEast)
-            val projectedSW = projection.toPixels(bounds.southWest)
-
-            val projectedCorners = floatArrayOf(
-                projectedNW.x, projectedNW.y,
-                projectedNE.x, projectedNE.y,
-                projectedSE.x, projectedSE.y,
-                projectedSW.x, projectedSW.y
-            )
 
             PrecomputedLineString(
                 it,
@@ -250,52 +247,15 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         // Paths were originally 6px, so convert that to the default dp size
         val dpScale = 6f / drawer.dp(DEFAULT_LINE_STRING_STROKE_WEIGHT_DP)
         synchronized(lock) {
+            val projection = map.mapProjection
             for (path in reducedPaths) {
                 if (path.line.isEmpty()) {
                     continue
                 }
 
-                val currentNW = map.toPixel(path.referenceBounds.northWest)
-                val currentNE = map.toPixel(path.referenceBounds.northEast)
-                val currentSE = map.toPixel(path.referenceBounds.southEast)
-                val currentSW = map.toPixel(path.referenceBounds.southWest)
-
-                // Source points (precomputed relative to origin)
-                // NW
-                src[0] = path.projectedCorners[0]
-                src[1] = path.projectedCorners[1]
-                // NE
-                src[2] = path.projectedCorners[2]
-                src[3] = path.projectedCorners[3]
-                // SE
-                src[4] = path.projectedCorners[4]
-                src[5] = path.projectedCorners[5]
-                // SW
-                src[6] = path.projectedCorners[6]
-                src[7] = path.projectedCorners[7]
-
-                // Destination points (current screen coordinates)
-                // NW
-                dst[0] = currentNW.x
-                dst[1] = currentNW.y
-                // NE
-                dst[2] = currentNE.x
-                dst[3] = currentNE.y
-                // SE
-                dst[4] = currentSE.x
-                dst[5] = currentSE.y
-                // SW
-                dst[6] = currentSW.x
-                dst[7] = currentSW.y
-
-                matrix.setPolyToPoly(src, 0, dst, 0, 4)
-
-                // Calculate scale from matrix
-                val matrixValues = FloatArray(9)
-                matrix.getValues(matrixValues)
-                val scaleX = matrixValues[Matrix.MSCALE_X]
-                val skewY = matrixValues[Matrix.MSKEW_Y]
-                val relativeScale = kotlin.math.sqrt(scaleX * scaleX + skewY * skewY)
+                transform.update(projection, path.referenceBounds, path.projectedCorners)
+                val matrix = transform.matrix
+                val relativeScale = transform.scale
 
                 val pathDrawer = factory.create(path.lineStyle)
 

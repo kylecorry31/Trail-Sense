@@ -56,7 +56,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private val lookupMatrix = Matrix()
 
     override val layerManager = MapViewLayerManager {
-        post { invalidate() }
+        postInvalidateOnAnimation()
     }
     private val hooks = Hooks()
 
@@ -99,7 +99,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override val mapBounds: CoordinateBounds
         get() = hooks.memo(
             "bounds",
-            this@MapView.resolutionPixels, mapCenter, width, height, mapAzimuth != 0f
+            this@MapView.resolutionPixels, mapCenter, width, height, mapAzimuth != 0f,
+            projection, metersPerProjectedUnit, latitudeScaleFactor
         ) {
             // Increase size to account for 45 degree rotation
             var rotated = Rectangle(
@@ -231,13 +232,11 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         get() = hooks.memo(
             "mapProjection",
             mapCenter,
-            mapCenterPixels,
             projection,
-            equatorialResolutionPixels,
+            scale,
             width,
             height,
-            zoom,
-            resolution,
+            useDensityPixelsForZoom,
             metersPerProjectedUnit,
             latitudeScaleFactor
         ) {

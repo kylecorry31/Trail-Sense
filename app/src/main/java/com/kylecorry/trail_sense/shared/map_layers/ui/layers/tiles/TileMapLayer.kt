@@ -90,6 +90,11 @@ open class TileMapLayer<T : TileSource>(
     protected var layerPreferences: Bundle = Bundle()
     private var featureId: String? = null
     private var wasOverTileLimit = false
+    private val visibleTiles = VisibleTileCache(MAX_TILES)
+    private var lastDesiredTiles: List<Tile>? = null
+    private var renderedProjection: IMapViewProjection? = null
+    private val projectedTiles = mutableMapOf<Tile, Array<PixelCoordinate>>()
+    private var hasFadingTiles = false
 
     private val loadTimer = CoroutineTimer(
         scope = CoroutineScope(tileLoadDispatcher),
@@ -195,12 +200,16 @@ open class TileMapLayer<T : TileSource>(
     private fun renderTiles(context: Context, canvas: Canvas, map: IMapView) {
         val bounds = map.mapBounds
         val projection = map.mapProjection
-        val desiredTiles = getTiles(
-            bounds,
-            projection
-        )
-
-        queue.setDesiredTiles(desiredTiles)
+        val desiredTiles = visibleTiles.get(bounds, projection.zoom.roundToInt(), zoomOffset)
+        if (projection !== renderedProjection || projectedTiles.size > MAX_TILES * 2) {
+            projectedTiles.clear()
+            renderedProjection = projection
+        }
+        hasFadingTiles = false
+        if (desiredTiles !== lastDesiredTiles) {
+            queue.setDesiredTiles(desiredTiles)
+            lastDesiredTiles = desiredTiles
+        }
         if (desiredTiles.size <= MAX_TILES &&
             (desiredTiles.firstOrNull()?.z ?: 0) >= (minZoomLevel ?: 0)
         ) {
@@ -243,6 +252,9 @@ open class TileMapLayer<T : TileSource>(
                     }
                 }
             }
+        }
+        if (hasFadingTiles) {
+            notifyListeners()
         }
     }
 
@@ -350,11 +362,11 @@ open class TileMapLayer<T : TileSource>(
         bitmap: Bitmap
     ) {
         val tile = imageTile.tile
-        val bounds = tile.getBounds()
-        val topLeftPixel = projection.toPixels(bounds.northWest)
-        val topRightPixel = projection.toPixels(bounds.northEast)
-        val bottomRightPixel = projection.toPixels(bounds.southEast)
-        val bottomLeftPixel = projection.toPixels(bounds.southWest)
+        val corners = getProjectedCorners(tile, projection)
+        val topLeftPixel = corners[0]
+        val topRightPixel = corners[1]
+        val bottomRightPixel = corners[2]
+        val bottomLeftPixel = corners[3]
 
         if (isTooSmall(topLeftPixel, topRightPixel, bottomLeftPixel, bottomRightPixel)) {
             return
@@ -428,7 +440,7 @@ open class TileMapLayer<T : TileSource>(
             tilePaint.alpha = imageTile.getAlpha()
             // There are still tiles being faded in, so keep re-rendering the map
             if (tilePaint.alpha != 255) {
-                notifyListeners()
+                hasFadingTiles = true
             }
 
             drawBitmap(bitmap, srcRect, destRect, tilePaint)
@@ -444,11 +456,11 @@ open class TileMapLayer<T : TileSource>(
         bitmap: Bitmap,
         clipTile: Tile
     ) {
-        val clipBounds = clipTile.getBounds()
-        val clipTopLeft = projection.toPixels(clipBounds.northWest)
-        val clipTopRight = projection.toPixels(clipBounds.northEast)
-        val clipBottomRight = projection.toPixels(clipBounds.southEast)
-        val clipBottomLeft = projection.toPixels(clipBounds.southWest)
+        val corners = getProjectedCorners(clipTile, projection)
+        val clipTopLeft = corners[0]
+        val clipTopRight = corners[1]
+        val clipBottomRight = corners[2]
+        val clipBottomLeft = corners[3]
 
         canvas.withSave {
             clipPath.rewind()
@@ -462,15 +474,17 @@ open class TileMapLayer<T : TileSource>(
         }
     }
 
-    private fun getTiles(bounds: CoordinateBounds, projection: IMapViewProjection): List<Tile> {
-        val zoom = projection.zoom.roundToInt()
-        var adjustedOffset = zoomOffset + 1
-        var tiles: List<Tile>
-        do {
-            adjustedOffset--
-            tiles = TileMath.getTiles(bounds, (zoom + adjustedOffset).coerceAtMost(20))
-        } while (tiles.size > MAX_TILES && (zoom + adjustedOffset) > 1)
-        return tiles
+    private fun getProjectedCorners(
+        tile: Tile,
+        projection: IMapViewProjection
+    ): Array<PixelCoordinate> = projectedTiles.getOrPut(tile) {
+        val bounds = tile.getBounds()
+        arrayOf(
+            projection.toPixels(bounds.northWest),
+            projection.toPixels(bounds.northEast),
+            projection.toPixels(bounds.southEast),
+            projection.toPixels(bounds.southWest)
+        )
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
@@ -504,6 +518,8 @@ open class TileMapLayer<T : TileSource>(
         taskRunner.stop()
         loader?.clearCache()
         loader = null
+        projectedTiles.clear()
+        renderedProjection = null
         queue.clear()
         // TODO: This isn't the ideal place to do cleanup since garbage can build up. Likely need some sort of LRU cache for all intermediates.
         sourceCleanupTask.start()

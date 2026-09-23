@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.Matrix
 import android.graphics.Path
 import androidx.core.graphics.withMatrix
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
@@ -27,7 +26,6 @@ import com.kylecorry.trail_sense.shared.extensions.getStrokeColor
 import com.kylecorry.trail_sense.shared.extensions.getStrokeWeight
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlin.math.absoluteValue
 
 class GeoJsonPolygonRenderer : FeatureRenderer() {
@@ -38,9 +36,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
     private var polygons = listOf<PrecomputedPolygon>()
     private val lock = Any()
     private var updateListener: (() -> Unit)? = null
-    private val matrix = Matrix()
-    private val src = FloatArray(8)
-    private val dst = FloatArray(8)
+    private val transform = GeoJsonRenderTransform()
 
     init {
         setRunInBackgroundWhenChanged(this::renderFeaturesInBackground)
@@ -145,39 +141,13 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
         drawer.noPathEffect()
 
         synchronized(lock) {
+            val projection = map.mapProjection
             for (polygon in polygons) {
                 val path = polygon.path
 
-                val currentNW = map.toPixel(polygon.referenceBounds.northWest)
-                val currentNE = map.toPixel(polygon.referenceBounds.northEast)
-                val currentSE = map.toPixel(polygon.referenceBounds.southEast)
-                val currentSW = map.toPixel(polygon.referenceBounds.southWest)
-
-                // Source points (precomputed projected corners)
-                System.arraycopy(polygon.projectedCorners, 0, src, 0, 8)
-
-                // Destination points (current screen coordinates)
-                // NW
-                dst[0] = currentNW.x
-                dst[1] = currentNW.y
-                // NE
-                dst[2] = currentNE.x
-                dst[3] = currentNE.y
-                // SE
-                dst[4] = currentSE.x
-                dst[5] = currentSE.y
-                // SW
-                dst[6] = currentSW.x
-                dst[7] = currentSW.y
-
-                matrix.setPolyToPoly(src, 0, dst, 0, 4)
-
-                // Calculate scale from matrix
-                val matrixValues = FloatArray(9)
-                matrix.getValues(matrixValues)
-                val scaleX = matrixValues[Matrix.MSCALE_X]
-                val skewY = matrixValues[Matrix.MSKEW_Y]
-                val relativeScale = kotlin.math.sqrt(scaleX * scaleX + skewY * skewY)
+                transform.update(projection, polygon.referenceBounds, polygon.projectedCorners)
+                val matrix = transform.matrix
+                val relativeScale = transform.scale
 
                 drawer.canvas.withMatrix(matrix) {
 
