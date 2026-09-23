@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.andromeda.core.sensors.IGPS
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
@@ -21,7 +21,7 @@ class ModularGPSDataTest {
     @Test
     fun marksExternalGPSAsProvider() {
         val source = ModularGPSData()
-        val gps = mock<ISatelliteGPS>(defaultAnswer = org.mockito.AdditionalAnswers.delegatesTo(source))
+        val gps = mock<IGPS>(defaultAnswer = org.mockito.AdditionalAnswers.delegatesTo(source))
         val data = ModularGPSData().apply { speedSource = SpeedSource.PositionDerived }
         data.populateFromGPS(gps)
         assertEquals(SpeedSource.Provider, data.speedSource)

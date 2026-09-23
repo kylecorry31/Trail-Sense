@@ -3,7 +3,7 @@ package com.kylecorry.trail_sense.tools.diagnostics.status
 import android.content.Context
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.sense.location.GPS
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
+import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService

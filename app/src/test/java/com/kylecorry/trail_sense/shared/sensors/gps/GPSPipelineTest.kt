@@ -104,7 +104,6 @@ class GPSPipelineTest {
         val pipeline = GPSPipeline(listOf(module { _, next ->
             if (next.eventTime == reading(1).eventTime) {
                 next.altitude = 123f
-                next.satellites = 9
                 next.rawBearing = 90f
                 next.speedSource = SpeedSource.PositionDerived
                 false
@@ -116,7 +115,6 @@ class GPSPipelineTest {
         assertEquals(Instant.EPOCH, pipeline.reading.eventTime)
         assertEquals(GPSUpdateResult.NewFixAccepted, pipeline.update(reading(2)))
         assertEquals(0f, pipeline.reading.altitude)
-        assertNull(pipeline.reading.satellites)
         assertNull(pipeline.reading.rawBearing)
         assertEquals(SpeedSource.Unknown, pipeline.reading.speedSource)
     }
@@ -199,25 +197,19 @@ class GPSPipelineTest {
         pipeline.update(reading(1))
         val duplicate = reading(1).apply {
             eventTime = eventTime.plusNanos(123456)
-            satellites = 8
             altitude = 20f
         }
         assertEquals(GPSUpdateResult.SameFixUpdated, pipeline.update(duplicate))
-        assertEquals(8, pipeline.reading.satellites)
         assertEquals(20f, pipeline.reading.altitude)
         assertEquals(20f, pipeline().reading.altitude)
     }
 
     @Test
-    fun sameFixOnlyUpdatesSatelliteFieldsWhenRestoringRepeatedFixes() = runBlocking<Unit> {
+    fun sameFixRestoresAcceptedFieldsWhenRepeatingFixes() = runBlocking<Unit> {
         val pipeline = pipeline(SameFixGPSModule())
         pipeline.update(reading(1))
-        val duplicate = reading(1, 2.0).apply {
-            satellites = 8
-            altitude = 20f
-        }
+        val duplicate = reading(1, 2.0).apply { altitude = 20f }
         assertEquals(GPSUpdateResult.SameFixUpdated, pipeline.update(duplicate))
-        assertEquals(8, pipeline.reading.satellites)
         assertEquals(reading(1).location, pipeline.reading.location)
         assertEquals(0f, pipeline.reading.altitude)
     }
@@ -294,10 +286,9 @@ class GPSPipelineTest {
         assertTrue(pipeline.reading.isTimedOut)
         assertEquals(listOf(true), notifications)
 
-        source = reading(1).apply { satellites = 8 }
+        source = reading(1)
         assertEquals(GPSUpdateResult.SameFixUpdated, pipeline.update(source))
         assertTrue(pipeline.reading.isTimedOut)
-        assertEquals(8, pipeline.reading.satellites)
 
         source = reading(2).apply { hasValidReading = false }
         assertEquals(GPSUpdateResult.Rejected, pipeline.update(source))

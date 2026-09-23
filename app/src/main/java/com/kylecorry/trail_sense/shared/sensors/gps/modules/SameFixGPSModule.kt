@@ -4,10 +4,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 
-/**
- * Restores the values already published for a fix when it is seen again. The GPS reports satellite
- * updates using the last fix, and those readings must not be reprocessed by the modules which follow.
- */
+/** Restores the values already published for a fix when it is seen again. */
 class SameFixGPSModule : GPSModule {
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
@@ -15,14 +12,7 @@ class SameFixGPSModule : GPSModule {
             return true
         }
 
-        // Satellites come from a listener which runs independently of a fix
-        val satellites = newData.satellites
-        val satelliteDetails = newData.satelliteDetails
-
         previousData.copyInto(newData)
-
-        newData.satellites = satellites
-        newData.satelliteDetails = satelliteDetails
 
         return true
     }

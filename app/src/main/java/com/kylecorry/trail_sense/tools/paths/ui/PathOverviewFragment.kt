@@ -11,12 +11,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.luna.concurrency.onDefault
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.luna.time.CoroutineTimer
-import com.kylecorry.luna.time.Throttle
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.fragments.BoundFragment
@@ -26,6 +21,11 @@ import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.statistics.Statistics
@@ -34,7 +34,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
@@ -285,7 +284,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             onWaypointsChanged(it)
         }
 
-        observeTopicWhileResumed(gps) {
+        observe(gps) {
             updateDeclination()
             binding.pathImage.userLocation = gps.location
             binding.pathImage.userLocationAccuracy =
@@ -293,7 +292,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             onPathChanged()
         }
 
-        observeTopicWhileResumed(compass) {
+        observe(compass) {
             binding.pathImage.userAzimuth = compass.bearing
         }
 

@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
@@ -25,15 +24,13 @@ import com.kylecorry.andromeda.fragments.LifecycleHookTrigger
 import com.kylecorry.andromeda.fragments.ReactiveAndromedaFragment
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
-import com.kylecorry.andromeda.fragments.useFlow
-import com.kylecorry.andromeda.fragments.observeFlow
+import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.time.TimerActionBehavior
-import com.kylecorry.luna.topics.ITopic
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
@@ -57,8 +54,6 @@ import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import java.time.Duration
 import java.util.UUID
 import kotlin.coroutines.CoroutineContext
@@ -106,28 +101,8 @@ fun ReactiveAndromedaFragment.useGPSLocation(
     frequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY
 ): Pair<Coordinate, Float?> {
     val gps = useGPSSensor(frequency)
-    return useTopicWhileResumed(gps, gps.location to gps.horizontalAccuracy) {
+    return useTopic(gps, gps.location to gps.horizontalAccuracy) {
         it.location to it.horizontalAccuracy
-    }
-}
-
-fun <T : ITopic, V> ReactiveComponent.useTopicWhileResumed(
-    topic: T,
-    default: V,
-    vararg values: Any?,
-    mapper: (T) -> V
-): V {
-    val flow = useMemo(topic, *values) {
-        topic.flow
-            .map { mapper(topic) }
-            .onStart { emit(mapper(topic)) }
-    }
-    return useFlow(flow, topic, state = BackgroundMinimumState.Resumed) ?: default
-}
-
-fun Fragment.observeTopicWhileResumed(topic: ITopic, listener: suspend () -> Unit) {
-    observeFlow(topic.flow, BackgroundMinimumState.Resumed) {
-        listener()
     }
 }
 
@@ -168,18 +143,18 @@ fun ReactiveAndromedaFragment.useNavigationSensors(
     val declination = useMemo(gps.location) { declinationProvider.getDeclination() }
     useEffect(compass, declination) { compass.declination = if (trueNorth) declination else 0f }
 
-    val (location, locationAccuracy, gpsSpeed) = useTopicWhileResumed(
+    val (location, locationAccuracy, gpsSpeed) = useTopic(
         gps,
         defaultGpsReading
     ) {
         Triple(gps.location, gps.horizontalAccuracy?.let { Distance.meters(it) }, gps.speed)
     }
 
-    val speed = useTopicWhileResumed(speedometer, defaultSpeedReading) {
+    val speed = useTopic(speedometer, defaultSpeedReading) {
         speedometer.speed
     }
 
-    val (elevation, elevationAccuracy) = useTopicWhileResumed(
+    val (elevation, elevationAccuracy) = useTopic(
         altimeter,
         defaultElevationReading
     ) {
@@ -190,7 +165,7 @@ fun ReactiveAndromedaFragment.useNavigationSensors(
         }
     }
 
-    val bearing = useTopicWhileResumed(compass, defaultCompassReading) {
+    val bearing = useTopic(compass, defaultCompassReading) {
         compass.bearing
     }
 

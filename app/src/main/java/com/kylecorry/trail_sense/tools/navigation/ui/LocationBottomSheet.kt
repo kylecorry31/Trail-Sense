@@ -10,8 +10,8 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentLocationBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils

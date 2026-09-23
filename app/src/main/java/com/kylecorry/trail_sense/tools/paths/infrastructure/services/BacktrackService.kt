@@ -54,9 +54,7 @@ class BacktrackService :
                 LocationRequestConfig(
                     frequency = Duration.ofMillis(periodMillis),
                     powerUsage = prefs.paths.backtrackGPSPowerUsage
-                ),
-                listenToNmea = false,
-                listenToGnssStatusChanges = false
+                )
             )
         }, action = action)
     }

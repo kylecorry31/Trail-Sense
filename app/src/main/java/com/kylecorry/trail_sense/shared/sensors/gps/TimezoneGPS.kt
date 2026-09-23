@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import android.os.SystemClock
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.time.Time

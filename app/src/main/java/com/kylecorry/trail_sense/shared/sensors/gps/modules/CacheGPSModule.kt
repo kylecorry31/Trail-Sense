@@ -111,8 +111,6 @@ class CacheGPSModule(
 
         // The cache doesn't record these
         data.quality = Quality.Unknown
-        data.satellites = null
-        data.satelliteDetails = null
         data.bearingAccuracy = null
         data.speedAccuracy = null
     }

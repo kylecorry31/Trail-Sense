@@ -99,7 +99,7 @@ class TimeoutGPSModuleTest {
     @Test
     fun secondaryUpdatesDoNotPostponeTimeoutOrClearTimedOutState() = runBlocking<Unit> {
         module.start(data)
-        val duplicate = ModularGPSData(eventTimeElapsedNanos = data.eventTimeElapsedNanos, satellites = 6)
+        val duplicate = ModularGPSData(eventTimeElapsedNanos = data.eventTimeElapsedNanos)
         repeat(20) {
             assertTrue(accept(duplicate))
         }

@@ -19,13 +19,13 @@ import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.exifinterface.media.ExifInterface
 import com.kylecorry.andromeda.camera.ImageCaptureSettings
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.fragments.BoundFullscreenDialogFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
+import com.kylecorry.luna.concurrency.onIO
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.databinding.FragmentPhotoImportSheetBinding
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -46,7 +46,7 @@ class PhotoImportBottomSheetFragment(
 
         val orientationSensor = SensorService(requireContext()).getDeviceOrientationSensor()
         orientation = DeviceOrientation.Orientation.Portrait
-        observeTopicWhileResumed(orientationSensor) {
+        observe(orientationSensor) {
             val newOrientation = orientationSensor.orientation
             if (newOrientation == DeviceOrientation.Orientation.Landscape || newOrientation == DeviceOrientation.Orientation.LandscapeInverse) {
                 orientation = newOrientation

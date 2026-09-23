@@ -24,7 +24,6 @@ import com.kylecorry.andromeda.sense.light.ILightSensor
 import com.kylecorry.andromeda.sense.light.LightSensor
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.IGPS
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.filters.GPSGaussianAltitudeFilter
 import com.kylecorry.andromeda.sense.location.filters.GPSPassThroughAltitudeFilter
 import com.kylecorry.andromeda.sense.magnetometer.IMagnetometer
@@ -44,6 +43,7 @@ import com.kylecorry.andromeda.signal.CellSignalSensor
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.sol.math.filters.LowPassFilter
 import com.kylecorry.sol.units.Pressure
+import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem

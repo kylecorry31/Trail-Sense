@@ -2,13 +2,13 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
 import android.os.SystemClock
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.IntervalSensor
 import com.kylecorry.trail_sense.shared.sensors.gps.InactiveGPS

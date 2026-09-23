@@ -151,14 +151,11 @@ class CacheGPSModuleTest {
     fun restoreClearsFieldsThatAreNotPersisted() = runBlocking<Unit> {
         module.update(previous, reading())
         val restored = ModularGPSData(
-            satellites = 8, satelliteDetails = emptyList(),
             rawBearing = 20f, bearing = Bearing.from(20f), bearingAccuracy = 1f,
             speedAccuracy = 2f, eventTimeElapsedNanos = 123L
         )
         module.restore(restored)
         assertEquals(Quality.Unknown, restored.quality)
-        assertNull(restored.satellites)
-        assertNull(restored.satelliteDetails)
         assertNull(restored.rawBearing)
         assertNull(restored.bearing)
         assertNull(restored.bearingAccuracy)

@@ -11,7 +11,7 @@ import com.kylecorry.andromeda.core.math.DecimalFormatter
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.pedometer.Pedometer
 import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.luna.concurrency.onMain
@@ -84,9 +84,9 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         setupDistanceAlertButton()
         setupHourlyStepsDatePicker()
         setupPedometerSessionsButton()
-        observeTopicWhileResumed(averageSpeedometer) { onUpdate() }
+        observe(averageSpeedometer) { onUpdate() }
 
-        observeTopicWhileResumed(instantSpeedometer) { onUpdate() }
+        observe(instantSpeedometer) { onUpdate() }
 
         pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
 

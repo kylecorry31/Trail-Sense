@@ -8,6 +8,7 @@ import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
+import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.markdown.MarkdownService
 import com.kylecorry.andromeda.signal.CellSignal
 import com.kylecorry.andromeda.views.list.AndromedaListView
@@ -24,7 +25,6 @@ import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useGPSLocation
 import com.kylecorry.trail_sense.shared.extensions.useMainActivity
 import com.kylecorry.trail_sense.shared.extensions.useNavController
-import com.kylecorry.trail_sense.shared.extensions.useTopicWhileResumed
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.views.Toolbar
@@ -142,7 +142,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
 
     private fun useCellSignals(vararg values: Any?): List<CellSignal> {
         val cellSignal = useCellSignalSensor(false, *values)
-        return useTopicWhileResumed(cellSignal, emptyList(), *values) {
+        return useTopic(cellSignal, emptyList(), values = values) {
             cellSignal.signals.sortedWith(
                 compareByDescending<CellSignal> { signal -> signal.isRegistered }
                     .thenByDescending { signal -> signal.strength }

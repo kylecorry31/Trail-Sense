@@ -1,8 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.gps
 
 import com.kylecorry.andromeda.core.sensors.Quality
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
-import com.kylecorry.andromeda.sense.location.Satellite
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.luna.topics.Subscriber
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -14,8 +13,6 @@ import kotlinx.coroutines.flow.emptyFlow
 import java.time.Instant
 
 class ModularGPSData(
-    override var satellites: Int? = null,
-    override var satelliteDetails: List<Satellite>? = null,
     override var location: Coordinate = Coordinate.zero,
     override var verticalAccuracy: Float? = null,
     override var horizontalAccuracy: Float? = null,
@@ -30,7 +27,7 @@ class ModularGPSData(
     override var eventTime: Instant = Instant.now(),
     override var speed: Speed = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds),
     @Volatile var isTimedOut: Boolean = false
-) : ISatelliteGPS {
+) : IGPS {
 
     // Internal filter uncertainty - replace this with a custom data property (map) later
     var kalmanState: GPSKalmanState? = null
@@ -70,8 +67,6 @@ class ModularGPSData(
 
     fun copyInto(other: ModularGPSData) {
         other.kalmanState = kalmanState
-        other.satellites = satellites
-        other.satelliteDetails = satelliteDetails
         other.location = location
         other.verticalAccuracy = verticalAccuracy
         other.horizontalAccuracy = horizontalAccuracy
@@ -89,10 +84,8 @@ class ModularGPSData(
         other.isTimedOut = isTimedOut
     }
 
-    fun populateFromGPS(gps: ISatelliteGPS) {
+    fun populateFromGPS(gps: IGPS) {
         kalmanState = null
-        satellites = gps.satellites
-        satelliteDetails = gps.satelliteDetails
         location = gps.location
         verticalAccuracy = gps.verticalAccuracy
         horizontalAccuracy = gps.horizontalAccuracy

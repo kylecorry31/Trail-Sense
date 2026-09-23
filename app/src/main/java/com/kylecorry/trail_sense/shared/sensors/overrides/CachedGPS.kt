@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Bearing
@@ -10,6 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
+import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule

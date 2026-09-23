@@ -25,7 +25,6 @@ class SameFixGPSModuleTest {
     )
 
     private val previous = ModularGPSData(
-        satellites = 4,
         location = Coordinate(1.0, 2.0),
         horizontalAccuracy = 3f,
         verticalAccuracy = 4f,
@@ -46,7 +45,6 @@ class SameFixGPSModuleTest {
     }
 
     private fun reading(seconds: Long) = ModularGPSData(
-        satellites = 11,
         location = Coordinate(3.0, 4.0),
         horizontalAccuracy = 12f,
         verticalAccuracy = 13f,
@@ -65,14 +63,9 @@ class SameFixGPSModuleTest {
     @Test
     fun restoresFixFieldsWhenTheFixRepeats() = runBlocking<Unit> {
         val candidate = reading(1).apply {
-            satelliteDetails = emptyList()
             eventTimeElapsedNanos = previous.eventTimeElapsedNanos
         }
         assertTrue(module.update(previous, candidate))
-
-        // The satellite fields are kept
-        assertEquals(11, candidate.satellites)
-        assertEquals(emptyList<Any>(), candidate.satelliteDetails)
 
         assertEquals(previous.location, candidate.location)
         assertEquals(previous.altitude, candidate.altitude)

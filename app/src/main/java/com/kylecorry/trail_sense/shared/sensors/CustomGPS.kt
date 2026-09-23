@@ -6,15 +6,16 @@ import android.os.Looper
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.time.SystemTimeProvider
+import com.kylecorry.andromeda.sense.location.GNSSSatelliteStatusSensor
 import com.kylecorry.andromeda.sense.location.GPS
 import com.kylecorry.andromeda.sense.location.GPSPowerUsage
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.sense.location.LocationRequestConfig
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.luna.subscriptions.generic.Subscription
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Speed
+import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPipelineConsumer
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.SharedGPSPipeline
@@ -32,8 +33,11 @@ class CustomGPS(
     override val hasValidReading: Boolean
         get() = hadRecentValidReading()
 
+    @Volatile
+    private var satelliteCount: Int? = null
+
     override val satellites: Int?
-        get() = data.satellites
+        get() = satelliteCount
 
     override val quality: Quality
         get() {
@@ -47,8 +51,12 @@ class CustomGPS(
         }
     override val rawBearing: Float?
         get() = data.rawBearing
+
+    @Volatile
+    private var currentSatelliteDetails: List<Satellite>? = null
+
     override val satelliteDetails: List<Satellite>?
-        get() = data.satelliteDetails
+        get() = currentSatelliteDetails
 
     override val horizontalAccuracy: Float?
         get() = data.horizontalAccuracy
@@ -84,13 +92,15 @@ class CustomGPS(
     val isTimedOut: Boolean
         get() = consumer.reading.isTimedOut
 
-    private val baseGPS: ISatelliteGPS by lazy {
+    private val baseGPS: GPS by lazy {
         val powerUsage = UserPreferences(context).gps.powerMode.powerUsage ?: GPSPowerUsage.High
         GPS(
             context.applicationContext,
-            LocationRequestConfig(frequency = gpsFrequency, powerUsage = powerUsage),
-            listenToNmea = false
+            LocationRequestConfig(frequency = gpsFrequency, powerUsage = powerUsage)
         )
+    }
+    private val satelliteStatusSensor by lazy {
+        GNSSSatelliteStatusSensor(context.applicationContext)
     }
     private val mainHandler = Handler(Looper.getMainLooper())
     private val timeProvider = SystemTimeProvider()
@@ -99,17 +109,20 @@ class CustomGPS(
         this::notifyListenersOnMain
     )
 
-    private val data: ISatelliteGPS
+    private val data: ModularGPSData
         get() = consumer.reading
 
     private val updates = Subscription<ModularGPSData>(
         onStart = {
             baseGPS.start(this@CustomGPS::onLocationUpdate)
+            satelliteStatusSensor.start(this@CustomGPS::onGnssStatusUpdate)
+            updateSatelliteStatus()
             val startupReading = ModularGPSData().also { it.populateFromGPS(baseGPS) }
             if (consumer.start(startupReading)) notifyListenersOnMain()
         },
         onStop = {
             baseGPS.stop(this@CustomGPS::onLocationUpdate)
+            satelliteStatusSensor.stop(this@CustomGPS::onGnssStatusUpdate)
             consumer.stop()
         }
     )
@@ -129,6 +142,16 @@ class CustomGPS(
     private fun onLocationUpdate(): Boolean {
         updates.publish(ModularGPSData().also { it.populateFromGPS(baseGPS) })
         return true
+    }
+
+    private fun onGnssStatusUpdate(): Boolean {
+        updateSatelliteStatus()
+        return true
+    }
+
+    private fun updateSatelliteStatus() {
+        satelliteCount = satelliteStatusSensor.satellites
+        currentSatelliteDetails = satelliteStatusSensor.satelliteDetails
     }
 
     private suspend fun updateGPSData(reading: ModularGPSData) {

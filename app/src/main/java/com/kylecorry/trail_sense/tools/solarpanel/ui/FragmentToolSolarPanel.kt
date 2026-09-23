@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.sense.level.Level
 import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.units.Bearing
@@ -74,8 +74,8 @@ class FragmentToolSolarPanel : BoundFragment<FragmentToolSolarPanelBinding>() {
             cancelText = null
         )
 
-        observeTopicWhileResumed(compass) {}
-        observeTopicWhileResumed(orientation) {}
+        observe(compass) {}
+        observe(orientation) {}
 
         scheduleUpdates(INTERVAL_30_FPS)
         throttleUpdates(16)

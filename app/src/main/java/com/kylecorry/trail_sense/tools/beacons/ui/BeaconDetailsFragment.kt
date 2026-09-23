@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.shared.extensions.flatten
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
-import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentBeaconDetailsBinding
@@ -217,7 +217,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
         if (beaconId != null) {
             loadBeacon(beaconId!!)
         }
-        observeTopicWhileResumed(gps) {
+        observe(gps) {
             val beacon = beacon
             if (isBound && beacon != null) {
                 val distance = Distance.meters(beacon.coordinate.distanceTo(gps.location))

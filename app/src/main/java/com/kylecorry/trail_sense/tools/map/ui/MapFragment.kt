@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.map.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -19,7 +20,6 @@ import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.andromeda.sense.location.ISatelliteGPS
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance

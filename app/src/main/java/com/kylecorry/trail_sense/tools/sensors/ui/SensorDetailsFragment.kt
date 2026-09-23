@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.battery.BatteryHealth
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.list.ListView
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.altitude.BarometricAltimeter
@@ -34,7 +35,6 @@ import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.extensions.observeTopicWhileResumed
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
@@ -106,20 +106,20 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
 
         sensorListView.addLineSeparator()
 
-        observeTopicWhileResumed(cachedGPS) { updateGPSCache() }
-        observeTopicWhileResumed(cachedAltimeter) { updateAltimeterCache() }
-        observeTopicWhileResumed(gps) { updateGPS() }
-        observeTopicWhileResumed(compass) { updateCompass() }
-        observeTopicWhileResumed(barometer) { updateBarometer() }
-        observeTopicWhileResumed(altimeter) { updateAltimeter() }
-        observeTopicWhileResumed(thermometer) { updateThermometer() }
-        observeTopicWhileResumed(hygrometer) { updateHygrometer() }
-        observeTopicWhileResumed(gravity) { updateGravity() }
-        observeTopicWhileResumed(accelerometer) { updateAccelerometer() }
-        observeTopicWhileResumed(cellSignal) { updateCellSignal() }
-        observeTopicWhileResumed(magnetometer) { updateMagnetometer() }
-        observeTopicWhileResumed(battery) { updateBattery() }
-        observeTopicWhileResumed(gyroscope) { updateGyro() }
+        observe(cachedGPS) { updateGPSCache() }
+        observe(cachedAltimeter) { updateAltimeterCache() }
+        observe(gps) { updateGPS() }
+        observe(compass) { updateCompass() }
+        observe(barometer) { updateBarometer() }
+        observe(altimeter) { updateAltimeter() }
+        observe(thermometer) { updateThermometer() }
+        observe(hygrometer) { updateHygrometer() }
+        observe(gravity) { updateGravity() }
+        observe(accelerometer) { updateAccelerometer() }
+        observe(cellSignal) { updateCellSignal() }
+        observe(magnetometer) { updateMagnetometer() }
+        observe(battery) { updateBattery() }
+        observe(gyroscope) { updateGyro() }
 
         if (!Sensors.hasCompass(requireContext())) {
             sensorDetailsMap["compass"] = SensorDetails(
