@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
-// Last ID: 71
+// Last ID: 72
 enum class BeaconIcon(
     override val id: Long,
     @DrawableRes val icon: Int,
@@ -89,6 +89,7 @@ enum class BeaconIcon(
 
     // Other
     Alert(13, R.drawable.ic_alert_simple),
+    Flag(72, R.drawable.flag),
     Information(14, R.drawable.ic_help_simple),
     Map(15, R.drawable.maps),
     Sign(35, R.drawable.ic_sign),

@@ -60,6 +60,7 @@ import com.kylecorry.trail_sense.shared.toRelativeDistance
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.IBeaconNavigator
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -593,6 +594,31 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 strokeColor = Color.TRANSPARENT
             )
         }
+        val endpointFeatures = listOfNotNull(
+            waypoints.minByOrNull { it.id }?.let {
+                GeoJsonFeature.point(
+                    it.coordinate,
+                    id = "path-start-${path.id}",
+                    color = path.style.color,
+                    strokeColor = Color.WHITE,
+                    strokeWeight = 1f,
+                    size = 8f
+                )
+            },
+            waypoints.maxByOrNull { it.id }?.let {
+                GeoJsonFeature.point(
+                    it.coordinate,
+                    id = "path-end-${path.id}",
+                    color = Color.WHITE,
+                    icon = BeaconIcon.Flag.id,
+                    iconColor = path.style.color,
+                    strokeColor = path.style.color,
+                    strokeWeight = 1f,
+                    size = 12f,
+                    iconSize = 8f
+                )
+            }
+        )
 
         val pathFeature = GeoJsonFeature.lineString(
             waypoints.map { it.coordinate },
@@ -602,7 +628,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             color = path.style.color
         )
 
-        layer.setData(GeoJsonFeatureCollection(waypointFeatures + pathFeature))
+        layer.setData(GeoJsonFeatureCollection(waypointFeatures + endpointFeatures + pathFeature))
     }
 
     private fun updateDeclination() {

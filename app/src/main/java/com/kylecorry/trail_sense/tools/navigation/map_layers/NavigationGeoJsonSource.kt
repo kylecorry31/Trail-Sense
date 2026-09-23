@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.map_layers
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
@@ -11,8 +12,11 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.lineString
+import com.kylecorry.trail_sense.shared.extensions.point
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
@@ -31,18 +35,45 @@ class NavigationGeoJsonSource : GeoJsonSource {
     ): GeoJsonObject? {
         val myLocation = locationSubsystem.location
         val destination = navigator.getDestination2() ?: return null
-
         val paths = createPath(myLocation, destination)
+        val showEndpoints = params.getPreferences().getBoolean(SHOW_ENDPOINTS, false)
 
-        return GeoJsonFeatureCollection(paths.map {
+        return GeoJsonFeatureCollection(paths.flatMap { createFeatures(it, showEndpoints) })
+    }
+
+    private fun createFeatures(path: MappablePath, showEndpoints: Boolean): List<GeoJsonFeature> {
+        return listOfNotNull(
             GeoJsonFeature.lineString(
-                it.points,
-                it.id,
-                lineStyle = it.style,
-                color = it.color,
-                thicknessScale = it.thicknessScale
-            )
-        })
+                path.points,
+                path.id,
+                lineStyle = path.style,
+                color = path.color,
+                thicknessScale = path.thicknessScale
+            ),
+            if (showEndpoints) path.points.firstOrNull()?.let {
+                GeoJsonFeature.point(
+                    it,
+                    id = "navigation-start-${path.id}",
+                    color = path.color,
+                    strokeColor = Color.WHITE,
+                    strokeWeight = 1f,
+                    size = 8f
+                )
+            } else null,
+            if (showEndpoints) path.points.lastOrNull()?.let {
+                GeoJsonFeature.point(
+                    it,
+                    id = "navigation-end-${path.id}",
+                    color = Color.WHITE,
+                    icon = BeaconIcon.Flag.id,
+                    iconColor = path.color,
+                    strokeColor = path.color,
+                    strokeWeight = 1f,
+                    size = 12f,
+                    iconSize = 8f
+                )
+            } else null
+        )
     }
 
     private fun createPath(
@@ -107,5 +138,6 @@ class NavigationGeoJsonSource : GeoJsonSource {
 
     companion object {
         const val SOURCE_ID = "navigation"
+        const val SHOW_ENDPOINTS = "show_endpoints"
     }
 }

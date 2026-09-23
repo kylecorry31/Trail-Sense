@@ -53,6 +53,12 @@ object NavigationToolRegistration : ToolRegistration {
                                 context.getString(R.string.color_white) to PathBackgroundColor.White.id.toString(),
                             ),
                             defaultValue = PathBackgroundColor.None.id.toString(),
+                        ),
+                        MapLayerPreference(
+                            id = NavigationGeoJsonSource.SHOW_ENDPOINTS,
+                            title = context.getString(R.string.map_layer_navigation_show_endpoints),
+                            type = MapLayerPreferenceType.Switch,
+                            defaultValue = false
                         )
                     ),
                     geoJsonSource = ::NavigationGeoJsonSource,
