@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles
 
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertSame
@@ -13,19 +14,19 @@ class VisibleTileCacheTest {
         val cache = VisibleTileCache(150)
         val bounds = CoordinateBounds(42.0, -71.0, 41.9, -71.1)
         val tiles = cache.get(bounds, 12, 0)
-        assertEquals(TileMath.getTiles(bounds, 12), tiles)
+        assertTileCoordinatesEqual(TileMath.getTiles(bounds, 12), tiles)
         assertSame(tiles, cache.get(bounds.copy(), 12, 0))
-        assertEquals(TileMath.getTiles(bounds, 13), cache.get(bounds, 13, 0))
-        assertEquals(TileMath.getTiles(bounds, 11), cache.get(bounds, 12, -1))
+        assertTileCoordinatesEqual(TileMath.getTiles(bounds, 13), cache.get(bounds, 13, 0))
+        assertTileCoordinatesEqual(TileMath.getTiles(bounds, 11), cache.get(bounds, 12, -1))
         val moved = CoordinateBounds(43.0, -70.0, 42.9, -70.1)
-        assertEquals(TileMath.getTiles(moved, 12), cache.get(moved, 12, 0))
+        assertTileCoordinatesEqual(TileMath.getTiles(moved, 12), cache.get(moved, 12, 0))
     }
 
     @Test
     fun preservesAntimeridianTiles() {
         val cache = VisibleTileCache(150)
         val bounds = CoordinateBounds(1.0, -179.0, -1.0, 179.0)
-        assertEquals(TileMath.getTiles(bounds, 5), cache.get(bounds, 5, 0))
+        assertTileCoordinatesEqual(TileMath.getTiles(bounds, 5), cache.get(bounds, 5, 0))
     }
 
     @Test
@@ -36,7 +37,11 @@ class VisibleTileCacheTest {
         assertTrue(tiles.isNotEmpty())
         assertTrue(tiles.size <= 10)
         assertTrue(tiles.first().z < 12)
-        assertEquals(TileMath.getTiles(bounds, tiles.first().z), tiles)
+        assertTileCoordinatesEqual(TileMath.getTiles(bounds, tiles.first().z), tiles)
         assertSame(tiles, cache.get(bounds, 12, 0))
+    }
+
+    private fun assertTileCoordinatesEqual(expected: List<Tile>, actual: List<Tile>) {
+        assertEquals(expected.map { Triple(it.x, it.y, it.z) }, actual.map { Triple(it.x, it.y, it.z) })
     }
 }
