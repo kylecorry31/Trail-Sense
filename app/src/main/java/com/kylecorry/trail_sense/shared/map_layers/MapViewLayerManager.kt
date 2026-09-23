@@ -13,6 +13,14 @@ import java.time.Instant
 
 class MapViewLayerManager(private val invalidateView: () -> Unit) {
 
+    var revision: Long = 0
+        private set
+
+    private fun onContentChanged() {
+        revision++
+        invalidateView()
+    }
+
     private var layers = listOf<ILayer>()
     private var onGeoJsonFeatureClickListener: OnGeoJsonFeatureClickListener? = null
 
@@ -25,6 +33,7 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
 
 
     fun invalidate() {
+        revision++
         layers.forEach {
             try {
                 it.invalidate()
@@ -36,10 +45,12 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
     }
 
     fun addLayer(layer: ILayer) {
+        revision++
         layers = layers + layer
     }
 
     fun removeLayer(layer: ILayer) {
+        revision++
         if (layer is IAsyncLayer) {
             layer.setHasUpdateListener(null)
         }
@@ -52,7 +63,7 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
 
         this.layers = layers.toList()
         this.layers.filterIsInstance<IAsyncLayer>()
-            .forEach { it.setHasUpdateListener { invalidateView() } }
+            .forEach { it.setHasUpdateListener { onContentChanged() } }
         this.layers.filter { it is GeoJsonLayer<*> }
             .forEach {
                 (it as GeoJsonLayer<*>).setOnFeatureClickListener(
@@ -60,7 +71,7 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 )
             }
 
-        invalidateView()
+        onContentChanged()
     }
 
     fun getLayers(): List<ILayer> {
@@ -76,7 +87,7 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 // TODO: ERROR HANDLING
             }
         }
-        invalidateView()
+        onContentChanged()
     }
 
     fun stop() {
@@ -133,6 +144,7 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
     }
 
     fun setTime(time: Instant?) {
+        revision++
         layers.forEach {
             if (it.isTimeDependent) {
                 it.setTime(time)

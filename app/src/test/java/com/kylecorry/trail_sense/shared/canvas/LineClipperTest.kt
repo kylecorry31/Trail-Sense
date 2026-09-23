@@ -13,6 +13,22 @@ class LineClipperTest {
     private val bounds = Rectangle(0f, 100f, 100f, 0f)
 
     @Test
+    fun keepsContoursAboveTheOriginalViewportInATranslatedTexture() {
+        val output = mutableListOf<Float>()
+        clipper.clip(listOf(PixelCoordinate(20f, -700f), PixelCoordinate(80f, -600f)),
+            Rectangle(0f, 1600f, 400f, -800f), output)
+        assertLines(listOf(20f, -700f, 80f, -600f), output)
+    }
+
+    @Test
+    fun clipsAgainstTranslatedTopEdge() {
+        val output = mutableListOf<Float>()
+        clipper.clip(listOf(PixelCoordinate(50f, -1000f), PixelCoordinate(50f, -600f)),
+            Rectangle(0f, 1600f, 400f, -800f), output)
+        assertLines(listOf(50f, -800f, 50f, -600f), output)
+    }
+
+    @Test
     fun producesNoLinesForFewerThanTwoPoints() {
         assertLines(emptyList(), clip(emptyList()))
         assertLines(emptyList(), clip(listOf(PixelCoordinate(10f, 10f))))

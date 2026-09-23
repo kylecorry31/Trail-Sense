@@ -43,9 +43,6 @@ import com.kylecorry.trail_sense.tools.navigation.ui.markers.TextMapMarker
 
 class GeoJsonPointRenderer : FeatureRenderer() {
 
-    private var lastHeight = 0
-    private var lastWidth = 0
-    private var cachedBounds = Rectangle(0f, 0f, 0f, 0f)
     private var markers = listOf<MapMarker>()
     private var showLabels = false
 
@@ -236,7 +233,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
         val bounds = getBounds(drawer)
         markers.forEach {
             val anchor = map.toPixel(it.location ?: map.userLocation)
-            if (bounds.contains(anchor.toVector2(bounds.top))) {
+            if (bounds.contains(anchor.toVector2(bounds.top + bounds.bottom))) {
                 it.draw(
                     drawer,
                     anchor,
@@ -282,14 +279,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     }
 
     private fun getBounds(drawer: ICanvasDrawer): Rectangle {
-        if (drawer.canvas.height != lastHeight || drawer.canvas.width != lastWidth) {
-            lastHeight = drawer.canvas.height
-            lastWidth = drawer.canvas.width
-            // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
-            // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
-            cachedBounds = drawer.getBounds(45f)
-        }
-        return cachedBounds
+        return drawer.getBounds()
     }
 
     fun clear() {

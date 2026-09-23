@@ -71,6 +71,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val attributionView = useView<TextView>(R.id.map_attribution)
         val timeSheet = useView<DateTimeSliderSheet>(R.id.time_sheet)
         val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.sensor_status_badges)
+        useEffect(mapView) {
+            mapView.isTiltEnabled = true
+        }
         val (mapTime, setMapTime) = useState<Instant?>(null)
         val (hasTimeDependentLayers, setHasTimeDependentLayers) = useState(false)
 

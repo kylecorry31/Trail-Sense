@@ -156,7 +156,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         renderer.draw(context, drawer, map)
         taskRunner.scheduleUpdate(
             context,
-            drawer.getBounds(45f),
+            drawer.getBounds(),
             map.mapBounds,
             map.mapProjection,
             isInvalid

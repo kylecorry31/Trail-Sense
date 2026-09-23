@@ -26,7 +26,7 @@ class LineClipper {
         zOutput: MutableList<Float>? = null
     ) {
         // TODO: Is this allocation needed? What if the bounds were flipped?
-        val vectors = pixels.map { it.toVector2(bounds.top) }
+        val vectors = pixels.map { it.toVector2(bounds.top + bounds.bottom) }
 
         if (isOutOfBounds(vectors, bounds)) {
             return
@@ -135,7 +135,7 @@ class LineClipper {
 
         val intersection =
             Geometry.getIntersection(startVector, endVector, bounds)
-                .map { it.toPixelCoordinate(bounds.top) }
+                .map { it.toPixelCoordinate(bounds.top + bounds.bottom) }
 
         // A is in, B is not
         if (bounds.contains(startVector)) {

@@ -87,19 +87,16 @@ fun View.getViewBounds(rotation: Float = 0f): Rectangle {
     return rectangle
 }
 
+/** Bounds in the same local coordinates used to project and clip map geometry. */
 fun ICanvasDrawer.getBounds(rotation: Float = 0f): Rectangle {
+    val clip = canvas.clipBounds
     val rectangle = Rectangle(
-        0f,
-        canvas.height.toFloat(),
-        canvas.width.toFloat(),
-        0f,
+        clip.left.toFloat(),
+        clip.bottom.toFloat(),
+        clip.right.toFloat(),
+        clip.top.toFloat(),
     )
-
-    if (rotation != 0f) {
-        return rectangle.rotate(rotation)
-    }
-
-    return rectangle
+    return if (rotation != 0f) rectangle.rotate(rotation) else rectangle
 }
 
 fun Enum<*>.readableName(): String {

@@ -87,6 +87,7 @@ open class TileMapLayer<T : TileSource>(
     private val srcRect = Rect()
     private val destRect = Rect()
     private val clipPath = Path()
+    private val viewportRect = Rect()
     protected var layerPreferences: Bundle = Bundle()
     private var featureId: String? = null
     private var wasOverTileLimit = false
@@ -340,19 +341,20 @@ open class TileMapLayer<T : TileSource>(
         topRight: PixelCoordinate,
         bottomLeft: PixelCoordinate,
         bottomRight: PixelCoordinate,
-        canvasWidth: Int,
-        canvasHeight: Int
+        canvas: Canvas
     ): Boolean {
-        val buffer = canvasHeight.coerceAtLeast(canvasWidth) * 2
+        // Use map coordinates even when drawing into a reduced-resolution terrain texture.
+        canvas.getClipBounds(viewportRect)
+        val buffer = viewportRect.height().coerceAtLeast(viewportRect.width()) * 2
         val minX = minOf(topLeft.x, bottomLeft.x)
         val maxX = maxOf(topRight.x, bottomRight.x)
         val minY = minOf(topLeft.y, topRight.y)
         val maxY = maxOf(bottomLeft.y, bottomRight.y)
 
-        return maxX < -buffer ||
-                minX > canvasWidth + buffer ||
-                maxY < -buffer ||
-                minY > canvasHeight + buffer
+        return maxX < viewportRect.left - buffer ||
+                minX > viewportRect.right + buffer ||
+                maxY < viewportRect.top - buffer ||
+                minY > viewportRect.bottom + buffer
     }
 
     private fun renderTile(
@@ -377,8 +379,7 @@ open class TileMapLayer<T : TileSource>(
                 topRightPixel,
                 bottomLeftPixel,
                 bottomRightPixel,
-                canvas.width,
-                canvas.height
+                canvas
             )
         ) {
             return

@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
+import android.view.ViewConfiguration
 import android.widget.OverScroller
 import com.kylecorry.andromeda.canvas.CanvasView
 import com.kylecorry.andromeda.core.units.PixelCoordinate
@@ -32,13 +33,35 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import kotlin.math.absoluteValue
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.hypot
 
 
 class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(context, attrs),
     IMapView {
     override var isWidget: Boolean = false
+    private var terrainRenderer: MapTerrainRenderer? = null
+    var isTiltEnabled = false
+    var tiltDegrees = 0f
+        set(value) {
+            val newValue = value.coerceIn(0f, TerrainMesh.MAX_TILT_DEGREES)
+            if (field == newValue) return
+            val was3D = field > 0f
+            field = newValue
+            scroller.forceFinished(true)
+            if (was3D != is3D) {
+                if (!is3D) {
+                    terrainRenderer?.close()
+                    terrainRenderer = null
+                }
+                layerManager.invalidate()
+            }
+            invalidate()
+        }
+    val is3D: Boolean
+        get() = tiltDegrees > 0f
     var isInteractive = true
     var isPanEnabled = true
     var isZoomEnabled = true
@@ -99,8 +122,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override val mapBounds: CoordinateBounds
         get() = hooks.memo(
             "bounds",
-            this@MapView.resolutionPixels, mapCenter, width, height, mapAzimuth != 0f,
-            projection, metersPerProjectedUnit, latitudeScaleFactor
+            this@MapView.resolutionPixels, mapCenter, width, height,
+            if (is3D) mapAzimuth else mapAzimuth != 0f,
+            projection, metersPerProjectedUnit, latitudeScaleFactor, is3D,
+            terrainRenderer?.groundHeight, terrainRenderer?.groundWidth
         ) {
             // Increase size to account for 45 degree rotation
             var rotated = Rectangle(
@@ -110,16 +135,34 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                 0f,
             )
 
-            if (mapAzimuth != 0f) {
-                rotated = rotated.rotate(45f)
+            val corners = if (is3D) {
+                // Only load tiles covering the visible tilted surface, including its rotation.
+                val groundHeight = terrainRenderer?.groundHeight ?: height * 3f
+                val groundWidth = terrainRenderer?.groundWidth
+                    ?: TerrainMesh.groundWidth(width.toFloat(), height.toFloat(), groundHeight,
+                        TerrainMesh.MAX_TILT_DEGREES)
+                val top = (height - groundHeight) / 2f
+                val bottom = (height + groundHeight) / 2f
+                val left = (width - groundWidth) / 2f
+                val right = (width + groundWidth) / 2f
+                listOf(left to top, right to top,
+                    left to bottom, right to bottom).map { (x, y) ->
+                    val dx = x - width / 2f
+                    val dy = y - height / 2f
+                    toCoordinate(PixelCoordinate(
+                        dx * cosDegrees(mapAzimuth) - dy * sinDegrees(mapAzimuth) + width / 2f,
+                        dx * sinDegrees(mapAzimuth) + dy * cosDegrees(mapAzimuth) + height / 2f
+                    ))
+                }
+            } else {
+                if (mapAzimuth != 0f) rotated = rotated.rotate(45f)
+                listOf(
+                    toCoordinate(PixelCoordinate(rotated.left, rotated.bottom)),
+                    toCoordinate(PixelCoordinate(rotated.right, rotated.bottom)),
+                    toCoordinate(PixelCoordinate(rotated.left, rotated.top)),
+                    toCoordinate(PixelCoordinate(rotated.right, rotated.top))
+                )
             }
-
-            val corners = listOf(
-                toCoordinate(PixelCoordinate(rotated.left, rotated.bottom)),
-                toCoordinate(PixelCoordinate(rotated.right, rotated.bottom)),
-                toCoordinate(PixelCoordinate(rotated.left, rotated.top)),
-                toCoordinate(PixelCoordinate(rotated.right, rotated.top))
-            )
             val bounds = CoordinateBounds.from(corners)
             bounds.copy(
                 north = bounds.north.coerceIn(-85.0, 85.0),
@@ -307,6 +350,12 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         this@MapView.layerManager.invalidate()
     }
 
+    override fun onDetachedFromWindow() {
+        terrainRenderer?.close()
+        terrainRenderer = null
+        super.onDetachedFromWindow()
+    }
+
     override fun setup() {
         if (!isScaleExplicitlySet) {
             recenter()
@@ -337,8 +386,17 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
         push()
-        drawer.rotate(-mapAzimuth)
-        drawLayers()
+        if (is3D) {
+            if (scale != lastScale) {
+                lastScale = scale
+                layerManager.invalidate()
+            }
+            val renderer = terrainRenderer ?: MapTerrainRenderer(this).also { terrainRenderer = it }
+            renderer.draw(drawer.canvas)
+        } else {
+            drawer.rotate(-mapAzimuth)
+            drawLayers()
+        }
         pop()
         pop()
         layerManager.drawOverlay(context, this, this)
@@ -433,6 +491,15 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         mapCenter = toCoordinate(newPoint)
     }
 
+    private fun panPixels(distanceX: Float, distanceY: Float) {
+        if (!isPanEnabled) return
+        val angle = mapAzimuth
+        val groundY = if (is3D) distanceY / cosDegrees(tiltDegrees) else distanceY
+        val dx = distanceX * cosDegrees(angle) - groundY * sinDegrees(angle)
+        val dy = distanceX * sinDegrees(angle) + groundY * cosDegrees(angle)
+        translatePixels(dx, dy)
+    }
+
     private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
         override fun onScroll(
@@ -441,12 +508,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             distanceX: Float,
             distanceY: Float
         ): Boolean {
-            if (isPanEnabled) {
-                val angle = mapAzimuth
-                val dx = distanceX * cosDegrees(angle) - distanceY * sinDegrees(angle)
-                val dy = distanceX * sinDegrees(angle) + distanceY * cosDegrees(angle)
-                translatePixels(dx, dy)
-            }
+            panPixels(distanceX, distanceY)
             return true
         }
 
@@ -456,7 +518,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
         override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-            val pixel = unrotated(PixelCoordinate(e.x, e.y))
+            val pixel = unrotated(PixelCoordinate(e.x, e.y)) ?: return false
             layerManager.onClick(this@MapView, this@MapView, pixel)
             onSingleTapCallback?.invoke(toCoordinate(pixel))
             return super.onSingleTapConfirmed(e)
@@ -468,7 +530,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             velocityX: Float,
             velocityY: Float
         ): Boolean {
-            if (isPanEnabled && isFlingEnabled) {
+            if (isPanEnabled && isFlingEnabled && !is3D) {
                 val angle = mapAzimuth
                 val vx = velocityX * cosDegrees(angle) - velocityY * sinDegrees(angle)
                 val vy = velocityX * sinDegrees(angle) + velocityY * cosDegrees(angle)
@@ -492,7 +554,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
             if (isScaling) return
 
-            val pixel = unrotated(PixelCoordinate(e.x, e.y))
+            val pixel = unrotated(PixelCoordinate(e.x, e.y)) ?: return
             val location = toCoordinate(pixel)
             onLongPressCallback?.invoke(location)
         }
@@ -506,6 +568,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
         override fun onScale(detector: ScaleGestureDetector): Boolean {
+            if (multiGesture != MultiGesture.PINCH) return true
             zoomWithFocus(detector.scaleFactor, PixelCoordinate(detector.focusX, detector.focusY))
             return true
         }
@@ -520,7 +583,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         if (!isZoomEnabled) return
 
         // Calculate the focus coordinate before zooming
-        val unrotatedFocus = unrotated(focus)
+        val unrotatedFocus = unrotated(focus) ?: return
         val focusCoordinate = toCoordinate(unrotatedFocus)
 
         zoom(scaleFactor)
@@ -536,20 +599,83 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     private val gestureDetector = GestureDetector(context, mGestureListener)
     private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
+    private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop.toFloat()
+    private enum class MultiGesture { NONE, UNDECIDED, TILT, PINCH }
+    private var multiGesture = MultiGesture.NONE
+    private var initialFocusX = 0f
+    private var initialFocusY = 0f
+    private var previousFocusX = 0f
+    private var previousFocusY = 0f
+    private var initialSpan = 0f
+
+    private fun handleTwoFingerGesture(event: MotionEvent) {
+        val focusX = (event.getX(0) + event.getX(1)) / 2f
+        val focusY = (event.getY(0) + event.getY(1)) / 2f
+        val span = hypot(event.getX(0) - event.getX(1), event.getY(0) - event.getY(1))
+        if (multiGesture == MultiGesture.UNDECIDED) {
+            val vertical = focusY - initialFocusY
+            val horizontal = focusX - initialFocusX
+            val spanChange = span - initialSpan
+            val verticalMovement = abs(vertical) > touchSlop
+            val isTwoFingerScroll = abs(vertical) > abs(horizontal) * 1.2f &&
+                abs(vertical) > abs(spanChange) * 3f
+            if (abs(spanChange) > touchSlop) {
+                multiGesture = MultiGesture.PINCH
+            } else if (isTiltEnabled && verticalMovement && isTwoFingerScroll) {
+                multiGesture = MultiGesture.TILT
+            } else if (abs(horizontal) > touchSlop || (!isTiltEnabled && verticalMovement)) {
+                multiGesture = MultiGesture.PINCH
+            }
+        }
+        if (multiGesture == MultiGesture.TILT && height > 0) {
+            tiltDegrees -= (focusY - previousFocusY) / height * 90f
+        } else if (multiGesture == MultiGesture.PINCH) {
+            panPixels(previousFocusX - focusX, previousFocusY - focusY)
+        }
+        previousFocusX = focusX
+        previousFocusY = focusY
+    }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (isInteractive) {
-            if (event.actionMasked == MotionEvent.ACTION_DOWN) {
-                scroller.forceFinished(true)
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> scroller.forceFinished(true)
+                MotionEvent.ACTION_POINTER_DOWN -> {
+                    if (event.pointerCount == 2) {
+                        multiGesture = MultiGesture.UNDECIDED
+                        initialFocusX = (event.getX(0) + event.getX(1)) / 2f
+                        initialFocusY = (event.getY(0) + event.getY(1)) / 2f
+                        previousFocusX = initialFocusX
+                        previousFocusY = initialFocusY
+                        initialSpan = hypot(event.getX(0) - event.getX(1), event.getY(0) - event.getY(1))
+                        val cancel = MotionEvent.obtain(event)
+                        cancel.action = MotionEvent.ACTION_CANCEL
+                        gestureDetector.onTouchEvent(cancel)
+                        cancel.recycle()
+                    } else {
+                        multiGesture = MultiGesture.PINCH
+                    }
+                }
+                MotionEvent.ACTION_MOVE -> if (event.pointerCount == 2 && multiGesture != MultiGesture.NONE) {
+                    handleTwoFingerGesture(event)
+                }
             }
             mScaleDetector.onTouchEvent(event)
-            gestureDetector.onTouchEvent(event)
+            if (multiGesture == MultiGesture.NONE) gestureDetector.onTouchEvent(event)
+            if (event.actionMasked == MotionEvent.ACTION_UP || event.actionMasked == MotionEvent.ACTION_CANCEL) {
+                multiGesture = MultiGesture.NONE
+            }
         }
         return true
     }
 
-    private fun unrotated(pixel: PixelCoordinate): PixelCoordinate {
-        val point = PointF(pixel.x, pixel.y)
+    private fun unrotated(pixel: PixelCoordinate): PixelCoordinate? {
+        val ground = if (is3D) {
+            terrainRenderer?.toMap(Vector2(pixel.x, pixel.y)) ?: return null
+        } else {
+            Vector2(pixel.x, pixel.y)
+        }
+        val point = PointF(ground.x, ground.y)
         return transform(point, invert = true, inPlace = true) {
             postRotate(-mapAzimuth, width / 2f, height / 2f)
         }.let { PixelCoordinate(it.x, it.y) }

@@ -32,12 +32,28 @@ import kotlinx.coroutines.sync.withLock
 
 object DEM {
 
-    private class ElevationBitmap(
+    internal class ElevationBitmap(
         val data: FloatBitmap,
         val latitudes: DoubleArray,
         val longitudes: DoubleArray,
         val hasWaterMask: Boolean = false
-    )
+    ) {
+        fun sample(location: Coordinate): Float? {
+            if (latitudes.size < 2 || longitudes.size < 2) return null
+            val latitudeStep = latitudes[1] - latitudes[0]
+            val longitudeStep = (longitudes[1] - longitudes[0] + 360) % 360
+            val x = ((location.longitude - longitudes[0] + 360) % 360) / longitudeStep
+            val y = (location.latitude - latitudes[0]) / latitudeStep
+            if (x !in 0.0..(data.width - 1).toDouble() || y !in 0.0..(data.height - 1).toDouble()) return null
+            val left = x.toInt().coerceAtMost(data.width - 2)
+            val bottom = y.toInt().coerceAtMost(data.height - 2)
+            val fx = (x - left).toFloat()
+            val fy = (y - bottom).toFloat()
+            val a = data.get(left, bottom, 0) * (1 - fx) + data.get(left + 1, bottom, 0) * fx
+            val b = data.get(left, bottom + 1, 0) * (1 - fx) + data.get(left + 1, bottom + 1, 0) * fx
+            return (a * (1 - fy) + b * fy).takeIf { it.isFinite() }
+        }
+    }
 
     private const val CACHE_DISTANCE = 10f
     private const val CACHE_SIZE = 500
@@ -72,7 +88,7 @@ object DEM {
         }
     }
 
-    private suspend fun getElevations(
+    internal suspend fun getElevations(
         bounds: CoordinateBounds,
         resolution: Double,
         isTile: Boolean = false,

@@ -59,7 +59,7 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
         if (backgroundAction != null) {
             taskRunner.scheduleUpdate(
                 context,
-                drawer.getBounds(45f), // TODO: Cache this
+                drawer.getBounds(), // TODO: Cache this
                 map.mapBounds,
                 map.mapProjection,
                 isInvalid,
