@@ -1587,4 +1587,27 @@
         <item quantity="other">Laitteen kello on %d sekuntia edellä</item>
     </plurals>
     <string name="bubble_level_angles">X: %1$s\nY: %2$s\nKulma: %3$s</string>
+    <string name="replace_elevations">Korvaa korkeudet</string>
+    <string name="replace_elevations_confirmation">Korvataanko kaikki polkujen korkeudet käyttäen digitaalista korkeusmallia?</string>
+    <string name="battery_deep_sleep">Syvää unta: %1$s (viimeisimmästä %2$s:sta)</string>
+    <string name="pref_backtrack_min_distance_title">Minimietäisyys pisteiden välillä</string>
+    <string name="pref_backtrack_min_distance_summary">Tätä lähempänä toisistaan olevat pisteet jätetään tallentamatta. Aseta 0:aan tallentaaksesi jokaisen pisteen.</string>
+    <string name="pref_gps_accuracy_requirement_title">Tarkkuussuodatin</string>
+    <string name="gps_accuracy_filter_summary">%1$s tarkkuus, odota enintään %2$s</string>
+    <string name="gps_accuracy_target">Tarkkuus: %1$s</string>
+    <string name="gps_accuracy_wait">Suurin odotusaika: %1$s</string>
+    <string name="pref_gps_power_usage_title">GPS:n virrankäyttö</string>
+    <string name="pref_backtrack_gps_power_usage_title">Reitintallennuksen GPS:n virrankäyttö</string>
+    <string name="gps_power_usage_low">Virransäästö</string>
+    <string name="gps_power_usage_balanced">Tasapainotettu</string>
+    <string name="gps_power_usage_high">Suuri tarkkuus</string>
+    <string name="gps_power_usage_inherit">Hae GPS:n asetuksista</string>
+    <string name="pref_backtrack_keep_awake_summary">Kun alle 15:n minuutin taajuus</string>
+    <string name="pref_backtrack_keep_awake_title">Pidä laite hereillä</string>
+    <string name="path_navigation_follow">Seuraa loppuun</string>
+    <string name="path_navigation_reverse">Seuraa alkuun</string>
+    <string name="path_navigation_loop">Seuraa koko kierros</string>
+    <string name="path_navigation_reverse_loop">Seuraa koko kierros takaperin</string>
+    <string name="path_navigation_to_point">Seuraa polkua tähän pisteeseen</string>
+    <string name="path_navigation_direct">Suunnista suoraan</string>
 </resources>
