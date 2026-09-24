@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
+import kotlinx.coroutines.CancellationException
 import java.util.concurrent.locks.ReentrantReadWriteLock
 import kotlin.concurrent.write
 
@@ -11,6 +12,7 @@ class ImageTile(
     state: TileState = TileState.Idle,
     private val shouldFadeIn: Boolean = true,
     val owner: String = "",
+    private val errorRetryDelayMillis: Long = 10_000L,
     loadFunction: (suspend () -> Bitmap?)?
 ) {
 
@@ -23,6 +25,15 @@ class ImageTile(
     @Volatile
     var state: TileState = state
         private set
+
+    @Volatile
+    internal var retryAfterMillis = 0L
+        private set
+
+    fun isLoadable(): Boolean {
+        return state == TileState.Idle || state == TileState.Stale ||
+                (state == TileState.Error && System.currentTimeMillis() >= retryAfterMillis)
+    }
 
     @Volatile
     var loadingStartTime: Long? = null
@@ -83,6 +94,11 @@ class ImageTile(
                 hasImage = image != null
             }
             wasSuccess = true
+        } catch (e: CancellationException) {
+            synchronized(stateLock) {
+                state = TileState.Stale
+            }
+            throw e
         } catch (e: Throwable) {
             e.printStackTrace()
             imageLock.write {
@@ -97,6 +113,9 @@ class ImageTile(
         synchronized(stateLock) {
             if (state == TileState.Stale) {
                 return
+            }
+            if (!wasSuccess) {
+                retryAfterMillis = System.currentTimeMillis() + errorRetryDelayMillis
             }
             state = when {
                 wasSuccess && hasImage -> TileState.Loaded

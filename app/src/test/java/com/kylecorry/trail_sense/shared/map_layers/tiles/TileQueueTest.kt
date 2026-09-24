@@ -144,4 +144,55 @@ internal class TileQueueTest {
         assertEquals(mockBitmap, image)
         assertEquals(TileState.Loaded, imageTile.state)
     }
+
+    @Test
+    fun retriesFailedTile() = runBlocking {
+        val tile = Tile(0, 0, 1)
+        val image = mock<Bitmap>()
+        var attempts = 0
+        val imageTile = ImageTile(
+            key = "retry-tile",
+            tile = tile,
+            loadFunction = {
+                attempts++
+                if (attempts == 1) throw IllegalStateException("Temporary load failure")
+                image
+            },
+            errorRetryDelayMillis = 0
+        )
+        tileQueue.setMapProjection(mockProjection)
+        tileQueue.setDesiredTiles(listOf(tile))
+
+        tileQueue.enqueue(imageTile)
+        tileQueue.load(1)
+        assertEquals(TileState.Error, imageTile.state)
+
+        tileQueue.load(1)
+        assertEquals(2, attempts)
+        assertEquals(TileState.Loaded, imageTile.state)
+    }
+
+    @Test
+    fun waitsBeforeRetryingFailedTile() = runBlocking {
+        val tile = Tile(0, 0, 1)
+        var attempts = 0
+        val imageTile = ImageTile(
+            key = "delayed-retry-tile",
+            tile = tile,
+            errorRetryDelayMillis = 10_000,
+            loadFunction = {
+                attempts++
+                throw IllegalStateException("Temporary load failure")
+            }
+        )
+        tileQueue.setMapProjection(mockProjection)
+        tileQueue.setDesiredTiles(listOf(tile))
+
+        tileQueue.enqueue(imageTile)
+        tileQueue.load(1)
+        tileQueue.load(1)
+
+        assertEquals(1, attempts)
+        assertEquals(1, tileQueue.count())
+    }
 }

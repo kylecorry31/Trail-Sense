@@ -6,7 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Dither
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.ui.colormaps.RgbInterpolationColorMap
 import com.kylecorry.sol.math.MathExtensions.toDegrees
@@ -84,7 +84,7 @@ class AspectMapTileSource : TileSource {
                 false
             )
             colorMap.getColor(aspect / 360f)
-        }.applyOperationsOrNull(
+        }.applyOperations(
             Dither(Bitmap.Config.RGB_565)
         )
     }

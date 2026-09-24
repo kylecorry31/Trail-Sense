@@ -1,15 +1,29 @@
 package com.kylecorry.trail_sense.shared.map_layers.tiles
 
 import android.graphics.Bitmap
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.mock
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 internal class ImageTileTest {
+
+    @Test
+    fun cancellationLeavesTileRetryable() {
+        val tile = ImageTile("cancelled", Tile(0, 0, 1)) {
+            throw CancellationException()
+        }
+
+        assertThrows<CancellationException> { runBlocking { tile.load() } }
+        assertEquals(TileState.Stale, tile.state)
+        assertTrue(tile.isLoadable())
+    }
 
     @Test
     fun neighborImageReadsDoNotDeadlockWhileBothTilesReload() {

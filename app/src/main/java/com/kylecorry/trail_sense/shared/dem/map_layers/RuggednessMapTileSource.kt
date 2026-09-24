@@ -6,7 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Dither
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.RuggednessDefaultColorMap
 import com.kylecorry.trail_sense.shared.dem.getCellSizeX
@@ -66,7 +66,7 @@ class RuggednessMapTileSource : TileSource {
 
             val ruggedness = sqrt(sum)
             colorMap.getRuggednessColor(ruggedness)
-        }.applyOperationsOrNull(
+        }.applyOperations(
             Dither(Bitmap.Config.RGB_565)
         )
     }

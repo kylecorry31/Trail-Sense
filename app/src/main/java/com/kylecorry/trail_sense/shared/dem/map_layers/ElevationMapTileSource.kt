@@ -5,7 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Dither
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorMapFactory
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
@@ -49,7 +49,7 @@ class ElevationMapTileSource : TileSource {
             inlandWaterColor = INLAND_WATER_COLOR
         ) { x, y, getElevation ->
             colorScale.getElevationColor(getElevation(x, y))
-        }.applyOperationsOrNull(
+        }.applyOperations(
             Dither(Bitmap.Config.RGB_565)
         )
     }

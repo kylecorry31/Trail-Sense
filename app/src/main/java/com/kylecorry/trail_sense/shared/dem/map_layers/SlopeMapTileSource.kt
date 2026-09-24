@@ -8,7 +8,7 @@ import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Conditional
 import com.kylecorry.andromeda.bitmaps.operations.Dither
 import com.kylecorry.andromeda.bitmaps.operations.ReplaceColor
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.dem.colors.SlopeColorMapFactory
@@ -86,7 +86,7 @@ class SlopeMapTileSource : TileSource {
             }
 
             colorMap.getSlopeColor(actualDegrees)
-        }.applyOperationsOrNull(
+        }.applyOperations(
             Conditional(
                 !hideFlatGround,
                 Dither(Bitmap.Config.RGB_565)

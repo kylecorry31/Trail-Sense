@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.operations.Dither
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.sol.math.MathExtensions.toRadians
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.astronomy.Astronomy
@@ -99,7 +99,7 @@ class HillshadeMapTileSource : TileSource {
 
             val gray = hillshade.toInt().coerceIn(0, 255)
             Color.rgb(gray, gray, gray)
-        }.applyOperationsOrNull(
+        }.applyOperations(
             Dither(Bitmap.Config.RGB_565)
         )
     }

@@ -12,7 +12,7 @@ import android.os.Bundle
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
 import com.kylecorry.andromeda.bitmaps.operations.Pad
 import com.kylecorry.andromeda.bitmaps.operations.Resize
-import com.kylecorry.andromeda.bitmaps.operations.applyOperationsOrNull
+import com.kylecorry.andromeda.bitmaps.operations.applyOperations
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.trail_sense.main.getAppService
@@ -151,7 +151,7 @@ class TileLoader(
         } else {
             sourceSelector.loadTile(context, tile, params)
         }
-        return existing?.applyOperationsOrNull(
+        return existing?.applyOperations(
             Resize(
                 tile.size,
                 exact = false
