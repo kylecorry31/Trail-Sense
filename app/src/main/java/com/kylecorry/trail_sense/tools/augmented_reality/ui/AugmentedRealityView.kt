@@ -54,6 +54,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.ARPoint
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import kotlinx.coroutines.Dispatchers
+import kotlin.math.abs
 import kotlin.math.atan2
 
 // TODO: Notify location change
@@ -446,7 +447,12 @@ class AugmentedRealityView : CanvasView {
      * @return The pixel size
      */
     fun sizeToPixel(angularSize: Float): Float {
-        return (width / fov.width) * angularSize
+        val rect = previewRect ?: RectF(0f, 0f, width.toFloat(), height.toFloat())
+        val mapper = getMapper()
+        val halfAngle = angularSize / 2f
+        val left = mapper.getPixel(-halfAngle, 0f, rect, fov)
+        val right = mapper.getPixel(halfAngle, 0f, rect, fov)
+        return abs(right.x - left.x)
     }
 
     /**
@@ -472,7 +478,7 @@ class AugmentedRealityView : CanvasView {
             rotationMatrix,
             previewRect ?: RectF(0f, 0f, width.toFloat(), height.toFloat()),
             fov,
-            if (camera?.isStarted == true) cameraMapper ?: defaultMapper else defaultMapper
+            getMapper()
         )
         return PixelCoordinate(screenPixel.x - x, screenPixel.y - y)
     }
@@ -488,7 +494,7 @@ class AugmentedRealityView : CanvasView {
             rotationMatrixOverride ?: rotationMatrix,
             rect,
             fov,
-            if (camera?.isStarted == true) cameraMapper ?: defaultMapper else defaultMapper
+            getMapper()
         )
 
         return AugmentedRealityCoordinate(coordinate, isTrueNorth)
@@ -602,6 +608,14 @@ class AugmentedRealityView : CanvasView {
     fun resetCalibration() {
         calibrationBearingOffset = 0f
         orientationSensor = geomagneticOrientationSensor
+    }
+
+    private fun getMapper(): CameraAnglePixelMapper {
+        return if (camera?.isStarted == true) {
+            cameraMapper ?: defaultMapper
+        } else {
+            defaultMapper
+        }
     }
 
     private fun syncWithCamera() {
