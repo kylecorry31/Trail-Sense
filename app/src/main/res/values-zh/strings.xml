@@ -1660,4 +1660,6 @@
     <string name="gps_accuracy_wait">最多等待：%1$s</string>
     <string name="pref_backtrack_min_distance_title">点之间的最短距离</string>
     <string name="pref_backtrack_min_distance_summary">不会记录与先前点之间的距离小于该值的点。设为 0 记录每个点。</string>
+    <string name="delete_packing_list_item">删除项目?</string>
+    <string name="map_layer_navigation_show_endpoints">显示起点和终点</string>
 </resources>
