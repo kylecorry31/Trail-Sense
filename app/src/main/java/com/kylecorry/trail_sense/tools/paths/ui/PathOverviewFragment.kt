@@ -290,7 +290,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             binding.pathImage.userLocation = gps.location
             binding.pathImage.userLocationAccuracy =
                 gps.horizontalAccuracy?.let { Distance.meters(it) }
-            onPathChanged()
         }
 
         observe(compass) {

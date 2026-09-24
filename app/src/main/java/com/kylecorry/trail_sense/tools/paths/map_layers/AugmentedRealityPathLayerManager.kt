@@ -75,9 +75,9 @@ class AugmentedRealityPathLayerManager(
     }
 
     private fun onPathsChanged(paths: List<Path>, points: Map<Long, List<PathPoint>>) {
+        val pathsById = paths.associateBy { it.id }
         val mappablePaths = points.mapNotNull {
-            val path =
-                paths.firstOrNull { p -> p.id == it.key } ?: return@mapNotNull null
+            val path = pathsById[it.key] ?: return@mapNotNull null
 
             val correctedPoints = if (shouldCorrectElevations) {
                 hikingService.correctElevations(it.value.sortedBy { it.id }).reversed()

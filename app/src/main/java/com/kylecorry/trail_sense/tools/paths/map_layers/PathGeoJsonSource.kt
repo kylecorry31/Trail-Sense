@@ -20,6 +20,7 @@ class PathGeoJsonSource : GeoJsonSource {
     private val pathService = DependencyRegistry.get<PathService>()
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()
+    private var pathsById = emptyMap<Long, Path>()
     private var lastChangeKey = 0
     private var loaded = false
 
@@ -37,16 +38,15 @@ class PathGeoJsonSource : GeoJsonSource {
         // If paths haven't been loaded yet, load them
         if (paths.isEmpty()) {
             paths = pathService.getPaths().first().filter { it.style.visible }
+            pathsById = paths.associateBy { it.id }
         }
 
         pathLoader.update(paths, bounds, bounds, !loaded)
         loaded = true
 
         val points = pathLoader.getPointsWithBacktrack(context)
-
         val mappablePaths = points.mapNotNull {
-            val path =
-                paths.firstOrNull { p -> p.id == it.key } ?: return@mapNotNull null
+            val path = pathsById[it.key] ?: return@mapNotNull null
 
             it.value.asMappable(context, path)
         }
@@ -66,6 +66,7 @@ class PathGeoJsonSource : GeoJsonSource {
     private fun reload() {
         loaded = false
         paths = emptyList()
+        pathsById = emptyMap()
     }
 
     companion object {

@@ -17,16 +17,19 @@ class PathLoader(private val pathService: IPathService) {
 
     val points: MutableMap<Long, List<PathPoint>> = mutableMapOf()
     val pointsLock = Mutex()
+    private val updateLock = Mutex()
 
     suspend fun getPointsWithBacktrack(context: Context): Map<Long, List<PathPoint>> = onIO {
+        val currentBacktrackPathId = pathService.getBacktrackPathId()
+        if (currentBacktrackPathId == null || !BacktrackScheduler.isOn(context)) {
+            return@onIO pointsLock.withLock { points.toMap() }
+        }
+
         val locationSubsystem = LocationSubsystem.getInstance(context)
         val location = locationSubsystem.location
         val altitude = locationSubsystem.elevation
-
-        val isTracking = BacktrackScheduler.isOn(context)
-        val currentBacktrackPathId = pathService.getBacktrackPathId()
         pointsLock.withLock {
-            if (currentBacktrackPathId == null) {
+            if (!points.containsKey(currentBacktrackPathId)) {
                 return@onIO points.toMap()
             }
             val point = PathPoint(
@@ -38,7 +41,7 @@ class PathLoader(private val pathService: IPathService) {
             )
 
             points.mapValues { entry ->
-                if (isTracking && entry.key == currentBacktrackPathId) {
+                if (entry.key == currentBacktrackPathId) {
                     listOf(point) + entry.value
                 } else {
                     entry.value
@@ -53,30 +56,37 @@ class PathLoader(private val pathService: IPathService) {
         unload: CoordinateBounds,
         reload: Boolean = false
     ) = onIO {
-        val backtrackId = pathService.getBacktrackPathId()
-        val shouldLoad = ShouldLoadPathSpecification(load, backtrackId)
-        val shouldUnload = ShouldUnloadPathSpecification(unload, backtrackId)
+        updateLock.withLock {
+            val backtrackId = pathService.getBacktrackPathId()
+            val shouldLoad = ShouldLoadPathSpecification(load, backtrackId)
+            val shouldUnload = ShouldUnloadPathSpecification(unload, backtrackId)
 
-        val toLoad = mutableListOf<Long>()
+            val visibleIds = paths.map { it.id }.toSet()
+            val toUnload = mutableListOf<Long>()
+            val toLoad = pointsLock.withLock {
+                val ids = mutableListOf<Long>()
+                for (path in paths) {
+                    val isLoaded = points.containsKey(path.id)
+                    val unloadPath = !reload && isLoaded && shouldUnload.isSatisfiedBy(path)
+                    if (unloadPath) {
+                        toUnload.add(path.id)
+                    }
 
-        pointsLock.withLock {
-            for (path in paths) {
-                if (!reload && points.containsKey(path.id)) {
-                    if (shouldUnload.isSatisfiedBy(path)) {
-                        points.remove(path.id)
+                    val loadPath = reload || !isLoaded
+                    if (loadPath && shouldLoad.isSatisfiedBy(path)) {
+                        ids.add(path.id)
                     }
                 }
-
-                if (reload || !points.containsKey(path.id)) {
-                    if (shouldLoad.isSatisfiedBy(path)) {
-                        toLoad.add(path.id)
-                    }
-                }
+                ids
             }
 
             val loaded =
                 pathService.getWaypoints(toLoad).mapValues { it.value.sortedByDescending { it.id } }
-            points.putAll(loaded)
+            pointsLock.withLock {
+                points.keys.retainAll(visibleIds)
+                toUnload.forEach { points.remove(it) }
+                points.putAll(loaded)
+            }
         }
     }
 
