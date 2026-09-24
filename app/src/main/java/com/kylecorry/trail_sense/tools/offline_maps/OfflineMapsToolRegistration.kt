@@ -28,6 +28,12 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiag
 
 object OfflineMapsToolRegistration : ToolRegistration {
 
+    private val mapRefreshBroadcasts = listOf(
+        BROADCAST_OFFLINE_MAP_CHANGED,
+        BROADCAST_OFFLINE_MAP_ADDED,
+        BROADCAST_OFFLINE_MAP_DELETED
+    )
+
     private val importMapIntentHandler = ToolIntentHandler { activity, intent ->
         val validTypes = listOf("image/", "application/pdf")
         if (!validTypes.any { intent.type?.startsWith(it) == true }) {
@@ -105,6 +111,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
                     ),
                     tileSource = ::PhotoMapTileSource,
                     minZoomLevel = 4,
+                    refreshBroadcasts = mapRefreshBroadcasts,
                     cacheKeys = listOf(
                         PhotoMapTileSource.LOAD_PDFS
                     )
@@ -123,6 +130,7 @@ object OfflineMapsToolRegistration : ToolRegistration {
                         )
                     ),
                     tileSource = ::TrailMapsTileSource,
+                    refreshBroadcasts = mapRefreshBroadcasts,
                     attributionLoader = {
                         val attributions = getAppService<OfflineMapService>().getVisibleTrailMapAttributions()
 

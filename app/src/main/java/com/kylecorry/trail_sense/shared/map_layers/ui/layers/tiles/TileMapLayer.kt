@@ -527,6 +527,7 @@ open class TileMapLayer<T : TileSource>(
 
     fun refresh() {
         refreshTime()
+        source.invalidate()
         loadTimer.stop()
         queue.clear()
         loader?.invalidateCache()

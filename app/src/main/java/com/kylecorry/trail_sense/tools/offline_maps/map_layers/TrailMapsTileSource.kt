@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.kylecorry.luna.cache.MemoryCachedValue
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.cache.InvalidatableCachedValue
 import com.kylecorry.trail_sense.shared.concurrency.CustomDispatchers
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
@@ -24,6 +25,7 @@ class TrailMapsTileSource : TileSource {
     @Volatile
     private var rendererHolder: MapsforgeRendererHolder? = null
     private val rendererMutex = Mutex()
+    private val mapsCache = InvalidatableCachedValue<Long?, List<TrailMap>>()
     private val service = getAppService<OfflineMapService>()
     private val dispatcher = MemoryCachedValue<ExecutorCoroutineDispatcher>(cleanup = {
         it.cancel()
@@ -37,7 +39,7 @@ class TrailMapsTileSource : TileSource {
     ): Bitmap? = onDefault {
         val featureId = params.getString(MapLayerParams.PARAM_FEATURE_ID)?.toLongOrNull()
         val highDetailMode = params.getBoolean(MapLayerParams.PARAM_HIGH_DETAIL_MODE, false)
-        val maps = service.getRenderableTrailMaps(featureId)
+        val maps = getOrLoadMaps(featureId)
         if (maps.isEmpty()) {
             return@onDefault null
         }
@@ -48,8 +50,19 @@ class TrailMapsTileSource : TileSource {
     }
 
     override suspend fun cleanup() {
+        invalidate()
         clearRenderer()
         dispatcher.reset()
+    }
+
+    override fun invalidate() {
+        mapsCache.invalidate()
+    }
+
+    private suspend fun getOrLoadMaps(featureId: Long?): List<TrailMap> {
+        return mapsCache.getOrLoad(featureId) {
+            service.getRenderableTrailMaps(featureId)
+        }
     }
 
     private suspend fun getOrCreateDispatcher(): ExecutorCoroutineDispatcher {
@@ -84,7 +97,7 @@ class TrailMapsTileSource : TileSource {
         highDetailMode: Boolean
     ): MapsforgeRendererKey {
         return MapsforgeRendererKey(
-            maps.map { it.id },
+            maps,
             highDetailMode
         )
     }
@@ -95,7 +108,7 @@ class TrailMapsTileSource : TileSource {
     )
 
     private data class MapsforgeRendererKey(
-        val mapIds: List<Long>,
+        val maps: List<TrailMap>,
         val highDetailMode: Boolean
     )
 
