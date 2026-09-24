@@ -20,11 +20,8 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentPhotoMapsViewBinding
 import com.kylecorry.trail_sense.main.getAppService
@@ -33,6 +30,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
@@ -41,6 +39,7 @@ import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
+import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
@@ -48,9 +47,9 @@ import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Dispatchers
@@ -63,6 +62,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val gps by lazy { sensorService.getGPS() }
     private val altimeter by lazy { sensorService.getAltimeter() }
     private val compass by lazy { sensorService.getCompass(delay = SensorService.FAST_MOTION_SENSOR_DELAY) }
+    private val declinationProvider by lazy { GPSDeclinationStrategy(gps) }
     private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val service = getAppService<OfflineMapService>()
@@ -118,6 +118,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observe(gps) {
+            compass.declination = declinationProvider.getDeclination()
             binding.map.userLocation = gps.location
             binding.map.userLocationAccuracy = gps.horizontalAccuracy?.let { Distance.meters(it) }
             updateDestination()
@@ -128,7 +129,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         }
         observe(altimeter) { updateDestination() }
         observe(compass) {
-            compass.declination = Geophysics.getGeomagneticDeclination(gps.location, gps.altitude)
             val bearing = compass.rawBearing
             binding.map.userAzimuth = compass.bearing
             if (mapLockMode == MapLockMode.Compass) {
