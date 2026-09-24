@@ -2,13 +2,10 @@ package com.kylecorry.trail_sense.tools.augmented_reality.domain.mapper
 
 import android.graphics.RectF
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.sol.math.MathExtensions.toRadians
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.optics.Optics
-import kotlin.math.cos
-import kotlin.math.sin
 
 /**
  * A camera angle pixel mapper that uses a perspective projection to map angles to pixels.
@@ -43,7 +40,7 @@ class SimplePerspectiveCameraAnglePixelMapper : CameraAnglePixelMapper {
         fieldOfView: Size,
         distance: Float?
     ): PixelCoordinate {
-        val world = toCartesian(angleX, angleY, distance ?: 1f)
+        val world = CameraAnglePixelMapper.toCartesian(angleX, angleY, distance ?: 1f)
         return getPixel(world, imageRect, fieldOfView)
     }
 
@@ -65,22 +62,4 @@ class SimplePerspectiveCameraAnglePixelMapper : CameraAnglePixelMapper {
         return PixelCoordinate(screenX, screenY)
     }
 
-    private fun toCartesian(
-        bearing: Float,
-        altitude: Float,
-        radius: Float
-    ): Vector3 {
-        val altitudeRad = altitude.toRadians()
-        val bearingRad = bearing.toRadians()
-        val cosAltitude = cos(altitudeRad)
-        val sinAltitude = sin(altitudeRad)
-        val cosBearing = cos(bearingRad)
-        val sinBearing = sin(bearingRad)
-
-        // X and Y are flipped
-        val x = sinBearing * cosAltitude * radius
-        val y = cosBearing * sinAltitude * radius
-        val z = cosBearing * cosAltitude * radius
-        return Vector3(x, y, z)
-    }
 }
