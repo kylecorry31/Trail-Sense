@@ -31,7 +31,7 @@ class ARMarker(
         val angularDiameter = point.getAngularDiameter(view)
         val diameter = view.sizeToPixel(angularDiameter)
         return PixelCircle(
-            view.toPixel(coordinates),
+            view.toPixel(coordinates, nanIfBehindCamera = true),
             diameter / 2f
         )
     }

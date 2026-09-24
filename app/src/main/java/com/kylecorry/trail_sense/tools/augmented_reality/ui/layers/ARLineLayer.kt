@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.luna.cache.ObjectPool
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.extensions.drawLines
 import com.kylecorry.trail_sense.shared.getViewBounds
@@ -43,8 +42,9 @@ class ARLineLayer(
             lines.toList()
         }
 
-        val rendered = currentLines.map {
-            it to render(it.points.map { it.getAugmentedRealityCoordinate(view) }, view)
+        val rendered = currentLines.mapNotNull {
+            val pixels = render(it.points.map { point -> point.getAugmentedRealityCoordinate(view) }, view)
+            if (pixels.isEmpty()) null else it to pixels
         }
 
         val newPaths = if (renderWithPaths) rendered.map {
