@@ -1472,7 +1472,7 @@
     <string name="draw_accurate_shadows">Nauwkeurige schaduwen weergeven</string>
     <string name="attribution">Dank aan</string>
     <string name="map_attribution_format">Kaartdata © %s</string>
-    <string name="show_modeled_tides">Gemodelleerde getijden aan de kustlijn tonen</string>
+    <string name="show_modeled_tides">Gemodelleerde getijden aan kustlijn weergeven</string>
     <string name="map_layer_base_map_description">Gekleurde wereldkaart in lage resolutie</string>
     <string name="map_layer_elevation_description">Kleurgecodeerde hoogtes uit het digitale hoogtemodel</string>
     <string name="map_layer_hillshade_description">Gekleurd terrein om hoogteverschillen te visualiseren</string>
@@ -1505,7 +1505,7 @@
     <string name="map_layer_field_guide_sightings_description">Je veldgidswaarnemingen</string>
     <string name="sighting_label">Waarneming %s</string>
     <string name="show_on_map">Bekijk op kaart</string>
-    <string name="show_images">Afbeeldingen tonen</string>
+    <string name="show_images">Afbeeldingen weergeven</string>
     <string name="pref_high_detail_mode_title">Hoge detailmodus</string>
     <string name="pref_high_detail_mode_summary">Laadt meer tegels voor een hogere kwaliteit. Gebruikt meer geheugen.</string>
     <string name="multi_direction_shading">Multidirectionele schaduw</string>
@@ -1679,4 +1679,6 @@
     <string name="gps_accuracy_wait">Maximale wachttijd: %1$s</string>
     <string name="pref_backtrack_min_distance_title">Minimumafstand tussen punten</string>
     <string name="pref_backtrack_min_distance_summary">Punten die zich dichterbij het vorige punt bevinden worden niet opgenomen. Stel in op 0 om alle punten op te nemen.</string>
+    <string name="delete_packing_list_item">Voorwerp verwijderen?</string>
+    <string name="map_layer_navigation_show_endpoints">Begin- en eindpunten weergeven</string>
 </resources>
