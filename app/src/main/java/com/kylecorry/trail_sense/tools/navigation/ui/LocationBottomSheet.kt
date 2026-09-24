@@ -78,7 +78,8 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
     override fun onResume() {
         super.onResume()
-        intervalometer.interval(100)
+        updateUI()
+        intervalometer.interval(1000)
     }
 
     override fun onPause() {

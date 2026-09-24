@@ -99,6 +99,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var beacons: Collection<Beacon> = listOf()
+    @Volatile
     private var nearbyBeacons: List<Beacon> = listOf()
 
     private var destination: Destination? = null
@@ -189,13 +190,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             ) { results ->
                 diagnosticResults = diagnosticResults + (index to results.map { it.id })
             }
-        }
-
-        // Register timers
-
-        // TODO: This shouldn't be needed - layers can be updated when the data changes
-        interval(200) {
-            updateCompassLayers()
         }
 
         binding.linearCompass.setCompassLayers(
@@ -445,6 +439,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         if (!isBound) {
             return
+        }
+
+        effect("compass_layers", destination, gps.location, nearbyBeacons, lifecycleHookTrigger.onResume()) {
+            updateCompassLayers()
         }
 
         // TODO: Move selected beacon updating to a coroutine
