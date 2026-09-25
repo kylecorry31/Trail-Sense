@@ -170,11 +170,7 @@ class CustomGPS(
     }
 
     private fun notifyListenersOnMain() {
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            notifyListeners()
-        } else {
-            mainHandler.post { notifyListeners() }
-        }
+        mainHandler.post { notifyListeners() }
     }
 
     private fun hadRecentValidReading(): Boolean {
