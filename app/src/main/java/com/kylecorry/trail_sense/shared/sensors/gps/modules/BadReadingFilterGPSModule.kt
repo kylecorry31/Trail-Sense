@@ -26,7 +26,7 @@ class BadReadingFilterGPSModule(
         }
 
         if (previousData.location == Coordinate.zero) {
-            logAcceptedReading("no previous reading", previousData, newData)
+            logger.debug(TAG, "Accepted: no previous reading, ${describeNewReading(previousData, newData)}")
             return true
         }
 
@@ -41,33 +41,11 @@ class BadReadingFilterGPSModule(
 
         // The new reading is older than the current one, so reject it
         if (newData.durationSince(previousData).isNegative) {
-            logRejectedReading("older", previousData, newData)
+            logger.debug(TAG, "Rejected: older, ${describeNewReading(previousData, newData)}")
             return false
         }
 
         return true
-    }
-
-    private fun logRejectedReading(
-        reason: String,
-        previousData: ModularGPSData,
-        newData: ModularGPSData
-    ) {
-        logger.debug(
-            TAG,
-            "Rejected: $reason, ${describeNewReading(previousData, newData)}"
-        )
-    }
-
-    private fun logAcceptedReading(
-        reason: String,
-        previousData: ModularGPSData,
-        newData: ModularGPSData
-    ) {
-        logger.debug(
-            TAG,
-            "Accepted: $reason, ${describeNewReading(previousData, newData)}"
-        )
     }
 
     private fun describeNewReading(

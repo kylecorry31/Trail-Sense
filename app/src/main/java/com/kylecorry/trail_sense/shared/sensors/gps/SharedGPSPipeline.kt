@@ -77,7 +77,8 @@ internal class SharedGPSPipeline(
     }
 
     private suspend fun updateLocked(gps: ModularGPSData): ModularGPSData? {
-        lastInput = ModularGPSData().also { gps.copyInto(it) }
+        val retainedInput = lastInput ?: ModularGPSData().also { lastInput = it }
+        gps.copyInto(retainedInput)
         if (pipeline.update(gps) == GPSUpdateResult.Rejected) return null
         latest = snapshot()
         return latest

@@ -87,10 +87,12 @@ class AccuracyFilterGPSModule(
             newData.durationSince(it) <= MAX_RETAINED_FIX_AGE
         }
         val best = bestReading
-        if (best == null || accuracy <= (best.horizontalAccuracy ?: Float.POSITIVE_INFINITY)) {
-            bestReading = ModularGPSData().also { newData.copyInto(it) }
+        val candidate = if (best == null || accuracy <= (best.horizontalAccuracy ?: Float.POSITIVE_INFINITY)) {
+            ModularGPSData().also { newData.copyInto(it) }
+        } else {
+            best
         }
-        val candidate = bestReading ?: return false
+        bestReading = candidate
 
         val maxAccuracyWait = filter.maxAccuracyWait
         if (maxAccuracyWait != null && breaker.tripIfTimedOut(

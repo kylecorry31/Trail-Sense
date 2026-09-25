@@ -125,7 +125,7 @@ class CustomGPS(
             logger.debug(TAG, "Started GPS $id ($tag, ${gpsFrequency.toMillis()}ms)")
             satelliteStatusSensor.start(this@CustomGPS::onGnssStatusUpdate)
             updateSatelliteStatus()
-            val startupReading = ModularGPSData().also { it.populateFromGPS(baseGPS) }
+            val startupReading = readBaseGPS()
             if (consumer.start(startupReading)) notifyListenersOnMain()
         },
         onStop = {
@@ -149,9 +149,11 @@ class CustomGPS(
     }
 
     private fun onLocationUpdate(): Boolean {
-        updates.publish(ModularGPSData().also { it.populateFromGPS(baseGPS) })
+        updates.publish(readBaseGPS())
         return true
     }
+
+    private fun readBaseGPS() = ModularGPSData().also { it.populateFromGPS(baseGPS) }
 
     private fun onGnssStatusUpdate(): Boolean {
         updateSatelliteStatus()
