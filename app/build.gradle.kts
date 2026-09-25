@@ -237,9 +237,9 @@ dependencies {
     androidTestImplementation(libs.androidx.test.arch.core)
     androidTestImplementation(libs.work.testing)
     debugImplementation(libs.androidx.fragment.testing.manifest)
-    testImplementation(libs.junit.platform.runner)
     testImplementation(libs.junit.jupiter.api)
     testImplementation(libs.junit.jupiter.params)
     testRuntimeOnly(libs.junit.jupiter.engine)
+    testRuntimeOnly(libs.junit.platform.launcher)
     testImplementation(libs.mockito.kotlin)
 }

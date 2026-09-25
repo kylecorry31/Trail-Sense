@@ -6,8 +6,8 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.mock
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -20,7 +20,7 @@ internal class ImageTileTest {
             throw CancellationException()
         }
 
-        assertThrows<CancellationException> { runBlocking { tile.load() } }
+        assertThrows(CancellationException::class.java) { runBlocking { tile.load() } }
         assertEquals(TileState.Stale, tile.state)
         assertTrue(tile.isLoadable())
     }

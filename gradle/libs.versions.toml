@@ -18,8 +18,7 @@ flexbox = "3.0.0"
 fragment = "1.9.1"
 gridlayout = "1.1.0"
 documentfile = "1.1.0"
-junitJupiter = "5.14.4"
-junitPlatformRunner = "1.14.4"
+junitJupiter = "6.1.3"
 junitVersion = "1.3.0"
 junit = "4.13.2"
 kotlinxCoroutinesAndroid = "1.11.0"
@@ -96,7 +95,7 @@ gridlayout = { module = "androidx.gridlayout:gridlayout", version.ref = "gridlay
 junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junitJupiter" }
 junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
-junit-platform-runner = { module = "org.junit.platform:junit-platform-runner", version.ref = "junitPlatformRunner" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitJupiter" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
