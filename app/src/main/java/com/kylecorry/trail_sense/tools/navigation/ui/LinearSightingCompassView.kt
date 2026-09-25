@@ -140,7 +140,6 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             }
             isStarted = true
             setSightingCompass(showSightingCompass)
-            updateTimer.interval(20)
         }
     }
 
@@ -154,6 +153,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             }
             isStarted = false
             sightingCompass.stop()
+            binding.linearCompass.range = 180f
             binding.sightingCompassBtn.isChecked = false
             updateTimer.stop()
         }
@@ -163,15 +163,23 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
         showSightingCompass = shouldShow
         if (!shouldShow) {
             sightingCompass.stop()
+            binding.linearCompass.range = 180f
+            updateTimer.stop()
             binding.sightingCompassBtn.isChecked = false
         } else if (!sightingCompass.isRunning()) {
             binding.sightingCompassBtn.isChecked = true
             val fragment = findFragment<AndromedaFragment>()
             fragment.requestCamera { hasPermission ->
-                if (hasPermission) {
+                if (hasPermission && isStarted) {
                     sightingCompass.start()
+                    sightingCompass.update()
+                    if (sightingCompass.isRunning()) {
+                        updateTimer.interval(250)
+                    }
                 } else {
-                    fragment.alertNoCameraPermission()
+                    if (!hasPermission) {
+                        fragment.alertNoCameraPermission()
+                    }
                     setSightingCompass(false)
                 }
             }
