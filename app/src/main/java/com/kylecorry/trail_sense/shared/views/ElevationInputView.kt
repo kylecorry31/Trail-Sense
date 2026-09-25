@@ -34,7 +34,7 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
     private val sensorService by lazy { SensorService(getContext()) }
-    private val altimeter by lazy { sensorService.getAltimeter() }
+    private val altimeter by lazy { sensorService.getAltimeter(tag = "ElevationInputView") }
     private val location by lazy { LocationSubsystem.getInstance(getContext()) }
     private val formatter by lazy { FormatService.getInstance(getContext()) }
 

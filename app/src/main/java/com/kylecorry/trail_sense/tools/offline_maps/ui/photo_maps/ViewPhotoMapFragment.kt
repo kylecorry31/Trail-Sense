@@ -59,8 +59,8 @@ import kotlin.math.roundToInt
 class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS() }
-    private val altimeter by lazy { sensorService.getAltimeter() }
+    private val gps by lazy { sensorService.getGPS(tag = "ViewPhotoMapFragment") }
+    private val altimeter by lazy { sensorService.getAltimeter(tag = "ViewPhotoMapFragment") }
     private val compass by lazy { sensorService.getCompass(delay = SensorService.FAST_MOTION_SENSOR_DELAY) }
     private val declinationProvider by lazy { GPSDeclinationStrategy(gps) }
     private val hasCompass by lazy { sensorService.hasCompass() }

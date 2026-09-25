@@ -58,7 +58,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         setIconColor(Resources.androidTextColorSecondary(requireContext()))
         wasUsingRealGPS = shouldUseRealGPS()
         wasUsingCachedGPS = shouldUseCachedGPS()
-        gps = sensorService.getGPS()
+        gps = sensorService.getGPS(tag = "CalibrateGPSFragment")
         realGps = getRealGPS()
         bindPreferences()
     }
@@ -221,7 +221,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private fun resetGPS() {
         stopGPS()
-        gps = sensorService.getGPS()
+        gps = sensorService.getGPS(tag = "CalibrateGPSFragment")
         startGPS()
     }
 
@@ -248,7 +248,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     private fun getRealGPS(): IGPS {
         return when {
             shouldUseRealGPS() -> {
-                CustomGPS(requireContext())
+                CustomGPS(requireContext(), tag = "CalibrateGPSFragment")
             }
 
             shouldUseCachedGPS() -> {

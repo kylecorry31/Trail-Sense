@@ -30,7 +30,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
-    private val altimeter by lazy { sensorService.getAltimeter() }
+    private val altimeter by lazy { sensorService.getAltimeter(tag = "WaterPurificationFragment") }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private var duration: Duration? = null
     private val waterService = WaterService()

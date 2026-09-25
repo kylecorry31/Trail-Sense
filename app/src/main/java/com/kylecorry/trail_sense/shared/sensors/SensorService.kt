@@ -85,12 +85,13 @@ class SensorService(ctx: Context) {
 
     fun getGPS(
         frequency: Duration = DEFAULT_GPS_FREQUENCY,
-        useCache: Boolean = false
+        useCache: Boolean = false,
+        tag: String? = null
     ): ISatelliteGPS {
         return when (gpsSourceSelector.getSource(useCache)) {
             GPSSource.Override -> OverrideGPS(context, frequency.toMillis())
             GPSSource.Timezone -> TimezoneGPS(frequency.toMillis())
-            GPSSource.Device -> CustomGPS(context, frequency)
+            GPSSource.Device -> CustomGPS(context, frequency, tag)
             GPSSource.Cache -> CachedGPS(context, frequency.toMillis())
         }
     }
@@ -123,10 +124,10 @@ class SensorService(ctx: Context) {
         }
     }
 
-    fun getSpeedometer(gps: IGPS? = null): ISpeedometer {
+    fun getSpeedometer(gps: IGPS? = null, tag: String? = null): ISpeedometer {
         return when (userPrefs.navigation.speedometerMode) {
             NavigationPreferences.SpeedometerMode.Backtrack -> BacktrackSpeedometer(context)
-            NavigationPreferences.SpeedometerMode.GPS -> gps ?: getGPS()
+            NavigationPreferences.SpeedometerMode.GPS -> gps ?: getGPS(tag = tag)
             NavigationPreferences.SpeedometerMode.CurrentPace -> CurrentPaceSpeedometer(
                 getPedometer(), StepLengthPaceCalculator(userPrefs.pedometer.stepLength)
             )
@@ -139,7 +140,7 @@ class SensorService(ctx: Context) {
         }
     }
 
-    private fun getGPSAltimeter(gps: IGPS? = null, frequency: Duration): IAltimeter {
+    private fun getGPSAltimeter(gps: IGPS? = null, frequency: Duration, tag: String?): IAltimeter {
         val mode = userPrefs.altimeterMode
 
         if (mode == UserPreferences.AltimeterMode.Override) {
@@ -149,31 +150,32 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            val actualGPS = gps ?: getGPS(frequency)
+            val actualGPS = gps ?: getGPS(frequency, tag = tag)
 
             if (mode.usesDem) {
-                return getDigitalElevationModel(gps, frequency)
+                return getDigitalElevationModel(gps, frequency, tag)
             }
 
             return actualGPS
         }
     }
 
-    private fun getDigitalElevationModel(gps: IGPS? = null, frequency: Duration): IGPS {
+    private fun getDigitalElevationModel(gps: IGPS? = null, frequency: Duration, tag: String?): IGPS {
         return DigitalElevationModel(
-            gps ?: getGPS(frequency)
+            gps ?: getGPS(frequency, tag = tag)
         )
     }
 
     fun getAltimeter(
         preferGPS: Boolean = false,
         gps: IGPS? = null,
-        frequency: Duration = DEFAULT_GPS_FREQUENCY
+        frequency: Duration = DEFAULT_GPS_FREQUENCY,
+        tag: String? = null
     ): IAltimeter {
         if (preferGPS) {
             return CachingAltimeterWrapper(
                 context, GaussianAltimeterWrapper(
-                    getGPSAltimeter(gps, frequency), userPrefs.altimeterSamples
+                    getGPSAltimeter(gps, frequency, tag), userPrefs.altimeterSamples
                 )
             )
         }
@@ -192,7 +194,7 @@ class SensorService(ctx: Context) {
                 )
             )
         } else if (mode == UserPreferences.AltimeterMode.DigitalElevationModel) {
-            return CachingAltimeterWrapper(context, getDigitalElevationModel(gps, frequency))
+            return CachingAltimeterWrapper(context, getDigitalElevationModel(gps, frequency, tag))
         } else {
             if (!GPS.isAvailable(context)) {
                 if (mode == UserPreferences.AltimeterMode.GPSBarometer && hasBarometer) {
@@ -207,9 +209,9 @@ class SensorService(ctx: Context) {
                 return CachedAltimeter(context)
             }
 
-            var gps = gps ?: getGPS(frequency)
+            var gps = gps ?: getGPS(frequency, tag = tag)
             if (mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer) {
-                gps = getDigitalElevationModel(gps, frequency)
+                gps = getDigitalElevationModel(gps, frequency, tag)
             }
 
             return if ((mode == UserPreferences.AltimeterMode.GPSBarometer || mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer) && hasBarometer) {

@@ -77,7 +77,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     private val compass by lazy {
         sensorService.getCompass(orientation, SensorService.FAST_MOTION_SENSOR_DELAY)
     }
-    private val gps by lazy { sensorService.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY) }
+    private val gps by lazy { sensorService.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY, tag = "NavigatorFragment") }
     private val clinometer by lazy { Clinometer(orientation, isAugmentedReality = true) }
     private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
     private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }

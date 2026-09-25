@@ -66,7 +66,7 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     // Sensors
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS() }
+    private val gps by lazy { sensorService.getGPS(tag = "PhotoMapCalibrationFragment") }
     private val compass by lazy { sensorService.getCompass() }
 
     private val declinationStrategy by lazy {

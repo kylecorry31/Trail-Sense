@@ -43,7 +43,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
     private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val gps by lazy { SensorService(requireContext()).getGPS() }
+    private val gps by lazy { SensorService(requireContext()).getGPS(tag = "BeaconDetailsFragment") }
     private val weather by lazy { WeatherSubsystem.getInstance(requireContext()) }
     private val tides by lazy { TidesSubsystem.getInstance(requireContext()) }
     private val tideFormatter by lazy { TideFormatter(requireContext()) }

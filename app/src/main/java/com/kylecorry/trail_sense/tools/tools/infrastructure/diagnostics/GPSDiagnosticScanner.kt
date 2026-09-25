@@ -96,7 +96,7 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
     }
 
     override fun fullScan(context: Context): Flow<List<ToolDiagnosticResult>> {
-        val gps = this.gps ?: SensorService(context).getGPS()
+        val gps = this.gps ?: SensorService(context).getGPS(tag = "GPSDiagnosticScanner")
         return gps.flow.map {
             val issues = mutableListOf<ToolDiagnosticResult>()
 

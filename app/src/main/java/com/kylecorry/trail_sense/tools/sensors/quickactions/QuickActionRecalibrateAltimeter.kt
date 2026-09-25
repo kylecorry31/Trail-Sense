@@ -69,7 +69,7 @@ class QuickActionRecalibrateAltimeter(btn: QuickActionButtonView, fragment: Frag
             UserPreferences.AltimeterMode.DigitalElevationModelBarometer -> {
                 fragment.inBackground {
                     val sensorService = SensorService(fragment.requireContext())
-                    val altimeter = sensorService.getAltimeter()
+                    val altimeter = sensorService.getAltimeter(tag = "QuickActionRecalibrateAltimeter")
 
                     val job = launch {
                         FusedAltimeter.clearCachedCalibration(

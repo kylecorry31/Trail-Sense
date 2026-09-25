@@ -8,7 +8,7 @@ class StepLengthEstimatorFactory(context: Context) {
     private val sensors = SensorService(context)
 
     fun getEstimator(): IStepLengthEstimator {
-        return EndPointStepLengthEstimator(sensors.getGPS(), sensors.getPedometer())
+        return EndPointStepLengthEstimator(sensors.getGPS(tag = "StepLengthEstimatorFactory"), sensors.getPedometer())
     }
 
 }

@@ -95,7 +95,7 @@ class AugmentedRealityView : CanvasView {
     private var customOrientationSensor: IOrientationSensor? = null
     private val hasGyro = Sensors.hasGyroscope(context)
     var orientationSensor = geomagneticOrientationSensor
-    val gps = sensors.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY)
+    val gps = sensors.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY, tag = "AugmentedRealityView")
     private val altimeter = sensors.getAltimeter(gps = gps)
     private val declinationProvider = DeclinationFactory().getDeclinationStrategy(
         userPrefs,

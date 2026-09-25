@@ -71,12 +71,12 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private val gyroscope by lazy { sensorService.getGyroscope() }
     private val thermometer by lazy { sensorService.getThermometer() }
     private val cellSignal by lazy { sensorService.getCellSignal() }
-    private val gps by lazy { sensorService.getGPS() }
+    private val gps by lazy { sensorService.getGPS(tag = "SensorDetailsFragment") }
 
     // Virtual sensors
     private val gravity by lazy { sensorService.getGravity() }
     private val compass by lazy { sensorService.getCompass() }
-    private val altimeter by lazy { sensorService.getAltimeter() }
+    private val altimeter by lazy { sensorService.getAltimeter(tag = "SensorDetailsFragment") }
 
     // Cache
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }

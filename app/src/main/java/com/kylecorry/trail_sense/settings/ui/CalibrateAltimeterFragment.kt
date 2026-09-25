@@ -94,9 +94,9 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         prefs = UserPreferences(requireContext())
         sensorService = SensorService(requireContext())
 
-        gps = CustomGPS(requireContext().applicationContext)
+        gps = CustomGPS(requireContext().applicationContext, tag = "CalibrateAltimeterFragment")
         barometer = sensorService.getBarometer()
-        altimeter = sensorService.getAltimeter()
+        altimeter = sensorService.getAltimeter(tag = "CalibrateAltimeterFragment")
 
         distanceUnits = prefs.baseDistanceUnits
 
@@ -251,7 +251,7 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
     private fun restartAltimeter() {
         stopAltimeter()
-        altimeter = sensorService.getAltimeter()
+        altimeter = sensorService.getAltimeter(tag = "CalibrateAltimeterFragment")
         startAltimeter()
     }
 

@@ -100,7 +100,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private val throttle = Throttle(20)
 
     private val sensorService by lazy { SensorService(requireContext()) }
-    private val gps by lazy { sensorService.getGPS() }
+    private val gps by lazy { sensorService.getGPS(tag = "PathOverviewFragment") }
     private val compass by lazy { sensorService.getCompass() }
     private val declinationProvider by lazy {
         DeclinationFactory().getDeclinationStrategy(

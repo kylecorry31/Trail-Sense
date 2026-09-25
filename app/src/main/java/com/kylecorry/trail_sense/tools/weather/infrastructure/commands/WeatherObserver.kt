@@ -30,12 +30,13 @@ internal class WeatherObserver(
     private val altimeter by lazy {
         sensorService.getAltimeter(
             preferGPS = true,
-            frequency = SensorService.SINGLE_FIX_GPS_FREQUENCY
+            frequency = SensorService.SINGLE_FIX_GPS_FREQUENCY,
+            tag = "WeatherObserver"
         )
     }
     private val altimeterAsGPS by lazy { sensorService.getGPSFromAltimeter(altimeter) }
     private val gps: IGPS by lazy {
-        altimeterAsGPS ?: sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
+        altimeterAsGPS ?: sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = "WeatherObserver")
     }
     private val barometer by lazy { sensorService.getBarometer(false) }
     private val thermometer by lazy { sensorService.getThermometer() }

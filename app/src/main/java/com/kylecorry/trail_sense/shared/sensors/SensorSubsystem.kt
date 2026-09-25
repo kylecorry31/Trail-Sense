@@ -80,7 +80,7 @@ class SensorSubsystem private constructor(private val context: Context) {
             return lastKnownLocation
         }
 
-        val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
+        val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = "SensorSubsystem.getLocation")
 
         readAll(
             listOf(gps),
@@ -106,7 +106,7 @@ class SensorSubsystem private constructor(private val context: Context) {
         }
 
         val altimeter =
-            sensorService.getAltimeter(frequency = SensorService.SINGLE_FIX_GPS_FREQUENCY)
+            sensorService.getAltimeter(frequency = SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = "SensorSubsystem.getElevation")
 
         readAll(
             listOf(altimeter),
@@ -131,7 +131,7 @@ class SensorSubsystem private constructor(private val context: Context) {
             return lastKnownLocation to lastKnownElevation
         }
 
-        val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY)
+        val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = "SensorSubsystem.getLocationAndElevation")
         val altimeter = sensorService.getAltimeter(gps = gps)
 
         readAll(
