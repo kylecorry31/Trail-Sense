@@ -24,7 +24,7 @@ import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.io.IntentUriPicker
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
-import com.kylecorry.trail_sense.tools.clouds.domain.classification.SoftmaxCloudClassifier
+import com.kylecorry.trail_sense.tools.clouds.domain.classification.CloudCNNClassifier
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.CloudDetailsService
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
@@ -93,7 +93,7 @@ class CloudFragment : BoundFragment<FragmentToolCloudsBinding>() {
                 inBackground {
                     val uri = CustomUiUtils.takePhoto(
                         this@CloudFragment,
-                        Size(SoftmaxCloudClassifier.IMAGE_SIZE, SoftmaxCloudClassifier.IMAGE_SIZE)
+                        Size(CloudCNNClassifier.IMAGE_SIZE, CloudCNNClassifier.IMAGE_SIZE)
                     )
                     uri?.let {
                         findNavController().navigate(

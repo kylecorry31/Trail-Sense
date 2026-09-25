@@ -1,53 +1,36 @@
 package com.kylecorry.trail_sense.tools.clouds
 
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.files.AssetFileSystem
-import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.tools.clouds.domain.classification.SoftmaxCloudClassifier
+import com.kylecorry.trail_sense.tools.clouds.domain.classification.CloudCNNClassifier
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class CloudClassifierTest {
 
-//    @Test
-    fun classifyCloudImage() = runBlocking {
-        // Load images
-        val context = InstrumentationRegistry.getInstrumentation().context
-        val assetFiles = AssetFileSystem(context)
+    @Test
+    fun classifierLoadsWebpWeightsAndReturnsProbabilities(): Unit = runBlocking {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        val assetFiles = AssetFileSystem(instrumentation.context)
+        val file = assetFiles.list("clouds/cumulus").first()
+        val original: Bitmap = assetFiles.stream("clouds/cumulus/$file").use {
+            BitmapFactory.decodeStream(it)
+        } ?: error("Unable to decode cloud test image")
+        val bitmap = original.resizeExact(CloudCNNClassifier.IMAGE_SIZE, CloudCNNClassifier.IMAGE_SIZE)
+        original.recycle()
 
-        var correct = 0
-        var total = 0
-        for (genus in CloudGenus.entries) {
-            val files = assetFiles.list("clouds/${genus.name.lowercase()}")
-            for (file in files) {
-                val size = SoftmaxCloudClassifier.IMAGE_SIZE
-                val original = assetFiles.stream("clouds/${genus.name.lowercase()}/$file").use {
-                    BitmapFactory.decodeStream(it)
-                }
-                val bitmap = original.resizeExact(size, size)
-                original.recycle()
+        val results = CloudCNNClassifier(instrumentation.targetContext).classify(bitmap)
+        bitmap.recycle()
 
-                // Calculate training data
-                val classifier = SoftmaxCloudClassifier()
-                val classification = classifier.classify(bitmap)
-
-                val actual = classification.maxBy { it.confidence }.value
-
-                if (genus == actual) {
-                    correct++
-                }
-
-                total++
-
-                bitmap.recycle()
-            }
-        }
-
-        println("Accuracy: ${correct.toFloat() / total}")
-        assertTrue(correct.toFloat() / total > 0.6f)
+        assertEquals(CloudCNNClassifier.CLOUD_GENUSES.size + 1, results.size)
+        assertTrue(results.all { it.confidence.isFinite() && it.confidence in 0f..1f })
+        assertEquals(1f, results.sumOf { it.confidence.toDouble() }.toFloat(), 0.0001f)
+        assertTrue(results.any { it.value == null })
     }
 
 }

@@ -30,8 +30,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.DebugCloudCommand
 import com.kylecorry.trail_sense.shared.io.DeleteTempFilesCommand
 import com.kylecorry.trail_sense.tools.clouds.domain.classification.ClassificationResult
-import com.kylecorry.trail_sense.tools.clouds.domain.classification.ICloudClassifier
-import com.kylecorry.trail_sense.tools.clouds.domain.classification.SoftmaxCloudClassifier
+import com.kylecorry.trail_sense.tools.clouds.domain.classification.CloudCNNClassifier
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudObservation
 import com.kylecorry.trail_sense.tools.clouds.infrastructure.persistence.CloudRepo
 import java.time.Instant
@@ -40,7 +39,9 @@ import kotlin.math.abs
 class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
 
     private var image: Bitmap? = null
-    private var classifier: ICloudClassifier = SoftmaxCloudClassifier(this::debugLogFeatures)
+    private val classifier by lazy {
+        CloudCNNClassifier(requireContext(), this::debugLogPredictions)
+    }
     private var selection: List<CloudSelection> = emptyList()
     private val repo by lazy { CloudRepo.getInstance(requireContext()) }
     private var time = Instant.now()
@@ -140,8 +141,8 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
     }
 
-    private fun debugLogFeatures(features: List<Float>) {
-        DebugCloudCommand(requireContext(), features).execute()
+    private fun debugLogPredictions(predictions: List<Float>) {
+        DebugCloudCommand(requireContext(), predictions).execute()
     }
 
     private fun analyze() {
@@ -176,12 +177,12 @@ class CloudResultsFragment : BoundFragment<FragmentCloudResultsBinding>() {
         }
         val full = BitmapUtils.decodeBitmapScaled(
             path,
-            SoftmaxCloudClassifier.IMAGE_SIZE,
-            SoftmaxCloudClassifier.IMAGE_SIZE
+            CloudCNNClassifier.IMAGE_SIZE,
+            CloudCNNClassifier.IMAGE_SIZE
         ) ?: return@onIO null
         val bmp = full.resizeExact(
-            SoftmaxCloudClassifier.IMAGE_SIZE,
-            SoftmaxCloudClassifier.IMAGE_SIZE
+            CloudCNNClassifier.IMAGE_SIZE,
+            CloudCNNClassifier.IMAGE_SIZE
         )
         full.recycle()
         val rotated = bmp.rotate(rotation.toFloat())

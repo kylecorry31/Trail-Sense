@@ -1,2 +1,2 @@
-SET mypath=%~dp0
-adb pull sdcard/Documents/clouds.csv %mypath%..\app\src\data\clouds.csv
+@echo off
+python "%~dp0experiments\cloud_cnn.py" %*
