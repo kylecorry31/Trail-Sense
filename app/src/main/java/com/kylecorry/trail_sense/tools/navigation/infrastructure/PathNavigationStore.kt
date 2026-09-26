@@ -21,6 +21,8 @@ class PathNavigationStore(context: Context) {
     private var active: Destination.Path? = null
     private var revision = 0L
 
+    fun hasSavedRoute(): Boolean = prefs.getString(ROUTE_KEY) != null
+
     @Synchronized
     fun save(
         path: Path,

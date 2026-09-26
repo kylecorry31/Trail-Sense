@@ -16,18 +16,25 @@ import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class PathNavigator(context: Context) {
     private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
     private val store = PathNavigationStore(context)
     private val destinationState = MutableStateFlow<Destination.Path?>(null)
+    private val restoringState = MutableStateFlow(store.hasSavedRoute())
+    val isRestoring = restoringState.asStateFlow()
     private val restoreLock = Any()
     private var restoreCancelled = false
     private val restoreTask = CoroutineScope(Dispatchers.Default).launch(start = CoroutineStart.LAZY) {
-        val restored = store.restore()
-        synchronized(restoreLock) {
-            if (!restoreCancelled) destinationState.value = restored
+        try {
+            val restored = store.restore()
+            synchronized(restoreLock) {
+                if (!restoreCancelled) destinationState.value = restored
+            }
+        } finally {
+            restoringState.value = false
         }
     }
 
@@ -62,6 +69,7 @@ class PathNavigator(context: Context) {
         synchronized(restoreLock) {
             restoreCancelled = true
             restoreTask.cancel()
+            restoringState.value = false
             store.clear()
             destinationState.value = null
         }

@@ -91,6 +91,7 @@ class Navigator private constructor(context: Context) {
     }
 
     private val pathNavigator = PathNavigator(context)
+    val isRestoringRoute = pathNavigator.isRestoring
 
     val destination2 = combine(bearingDestination, beaconDestination, pathNavigator.destination) { bearing, beacon, path ->
         path ?: beacon ?: bearing

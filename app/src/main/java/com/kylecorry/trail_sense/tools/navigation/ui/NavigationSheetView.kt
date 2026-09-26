@@ -33,6 +33,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZonedDateTime
@@ -55,6 +56,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private var isNavigating: Boolean = false
     private var sensorValues: NavigationSensorValues? = null
     private var useTrueNorthOverride: Boolean? = null
+    private var restoringJob: Job? = null
 
     // VIEWS
     private val toolbar: Toolbar
@@ -74,6 +76,21 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         toolbar.leftButton.flatten()
     }
 
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        restoringJob = CoroutineScope(Dispatchers.Main.immediate).launch {
+            navigator.isRestoringRoute.collect {
+                updateNavigation()
+            }
+        }
+    }
+
+    override fun onDetachedFromWindow() {
+        restoringJob?.cancel()
+        restoringJob = null
+        super.onDetachedFromWindow()
+    }
 
     // TODO: Listen for navigation and automatically hide/show with override ability (for navigation tool)
     fun hide() {
@@ -140,6 +157,20 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private fun updateNavigation() {
         val values = sensorValues
         val destination = destination
+        if (navigator.isRestoringRoute.value) {
+            isVisible = true
+            toolbar.title.text = context.getString(R.string.loading)
+            toolbar.title.setOnClickListener(null)
+            toolbar.subtitle.setOnClickListener(null)
+            toolbar.subtitle.isVisible = false
+            toolbar.leftButton.isVisible = false
+            toolbar.rightButton.isVisible = false
+            distanceDataView.isVisible = false
+            bearingDataView.isVisible = false
+            elevationDataView.isVisible = false
+            etaDataView.isVisible = false
+            return
+        }
         if (destination == null || values == null) {
             isVisible = false
             return
