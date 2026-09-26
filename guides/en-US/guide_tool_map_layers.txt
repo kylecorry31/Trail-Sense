@@ -137,6 +137,11 @@ This layer shows visible beacons. You can add new beacons in the Beacons tool. Y
 ## Navigation
 This layer draws a line between your location and the destination point you are navigating to.
 
+Settings:
+
+- **Show start and end points**: If enabled, the start and end points of the navigation path will be displayed on the map (solid circle for start, flag in a circle for end).
+- **Background color**: The background color to render behind the navigation path for increased visibility.
+
 ## Tides
 This layer shows visible tides (time dependent). You can add new tides in the Tides tool.
 

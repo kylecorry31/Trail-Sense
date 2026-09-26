@@ -48,6 +48,8 @@ To view a path, tap the path in the list. This will open the path details page. 
 - **Elevation chart**: A chart showing the path's elevation over distance. Tap a point on the chart to select it.
 - **Points**: To see the list of points in the path, tap the menu button in the top-right and select 'Points'. Tap a point to select it. Tap the menu button on a point to navigate to it, create a beacon for it, or delete it.
 
+The start of the path is indicated with a solid circle and the end of the path is indicated with a flag in a circle.
+
 ## Path styles
 Adjust the path's appearance by opening it and selecting the line style or line color from the dropdowns at the top of the screen. Change the appearance of the path's points by selecting the point style from the dropdown on the top-right. Choose between the following point styles:
 
