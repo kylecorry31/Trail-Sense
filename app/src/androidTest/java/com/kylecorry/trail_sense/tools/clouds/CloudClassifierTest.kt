@@ -27,10 +27,10 @@ class CloudClassifierTest {
         val results = CloudCNNClassifier(instrumentation.targetContext).classify(bitmap)
         bitmap.recycle()
 
-        assertEquals(CloudCNNClassifier.CLOUD_GENUSES.size + 1, results.size)
+        assertEquals(CloudCNNClassifier.CLOUD_GENUSES.size, results.size)
         assertTrue(results.all { it.confidence.isFinite() && it.confidence in 0f..1f })
         assertEquals(1f, results.sumOf { it.confidence.toDouble() }.toFloat(), 0.0001f)
-        assertTrue(results.any { it.value == null })
+        assertTrue(results.all { it.value != null })
     }
 
 }

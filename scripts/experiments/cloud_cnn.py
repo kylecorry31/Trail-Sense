@@ -1,7 +1,10 @@
 import argparse
+import copy
+import json
 import math
 import os
 import struct
+import zipfile
 from pathlib import Path
 
 import numpy as np
@@ -9,29 +12,22 @@ import torch
 from PIL import Image
 from torch import nn
 from torch.nn import functional as F
+from torch.nn.utils.fusion import fuse_conv_bn_eval
 
 
-INPUT_SIZE = 16
+INPUT_SIZE = 128
 INPUT_CHANNELS = 3
-OUTPUTS = 11
-CONV1_CHANNELS = 12
-CONV2_CHANNELS = 12
-KERNEL_SIZE = 3
-CONV1_SIZE = INPUT_SIZE - KERNEL_SIZE + 1
-POOL1_SIZE = CONV1_SIZE // 2
-CONV2_SIZE = POOL1_SIZE - KERNEL_SIZE + 1
-POOL2_SIZE = CONV2_SIZE // 2
-WEIGHT_COUNT = (
-    CONV1_CHANNELS * INPUT_CHANNELS * KERNEL_SIZE * KERNEL_SIZE
-    + CONV1_CHANNELS
-    + CONV2_CHANNELS * CONV1_CHANNELS * KERNEL_SIZE * KERNEL_SIZE
-    + CONV2_CHANNELS
-    + OUTPUTS * CONV2_CHANNELS
-    + OUTPUTS
-)
+OUTPUTS = 10
+# Input channels, output channels, kernel size, stride, groups.
+CONVOLUTIONS = ((3, 8, 3, 2, 1), (8, 12, 3, 2, 1),
+                (12, 20, 3, 2, 1), (20, 32, 3, 2, 1))
+FEATURE_CHANNELS = CONVOLUTIONS[-1][1]
+WEIGHT_COUNT = sum(outputs * (inputs // groups) * kernel ** 2 + outputs
+                   for inputs, outputs, kernel, _, groups in CONVOLUTIONS)
+WEIGHT_COUNT += OUTPUTS * FEATURE_CHANNELS * 2 + OUTPUTS
 MODEL_MAGIC = b"TSCL"
-MODEL_VERSION = 1
-BATCH_SIZE = 1
+MODEL_VERSION = 3
+BATCH_SIZE = 32
 
 CLASS_NAMES = [
     "cirrus",
@@ -44,51 +40,66 @@ CLASS_NAMES = [
     "cumulus",
     "stratus",
     "cumulonimbus",
-    "clear",
 ]
+
+
+# CCSN's Ct category is excluded: the output contains only the ten cloud genera.
+CCSN_CLASSES = ("Ci", "Cc", "Cs", "As", "Ac", "Ns", "Sc", "Cu", "St", "Cb")
 
 
 class CloudCNN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(INPUT_CHANNELS, CONV1_CHANNELS, KERNEL_SIZE)
-        self.conv2 = nn.Conv2d(CONV1_CHANNELS, CONV2_CHANNELS, KERNEL_SIZE)
-        self.classifier = nn.Linear(CONV2_CHANNELS, OUTPUTS)
-        for layer in (self.conv1, self.conv2, self.classifier):
-            fan_in, _ = nn.init._calculate_fan_in_and_fan_out(layer.weight)
-            limit = math.sqrt(6 / fan_in)
-            nn.init.uniform_(layer.weight, -limit, limit)
-            nn.init.zeros_(layer.bias)
+        layers = []
+        for inputs, outputs, kernel, stride, groups in CONVOLUTIONS:
+            layers.extend([
+                nn.Conv2d(inputs, outputs, kernel, stride=stride, padding=kernel // 2,
+                          groups=groups, bias=False),
+                nn.BatchNorm2d(outputs),
+                nn.ReLU(),
+            ])
+        self.features = nn.Sequential(*layers)
+        self.classifier = nn.Linear(FEATURE_CHANNELS * 2, OUTPUTS)
 
     def forward(self, images):
-        values = F.max_pool2d(F.relu(self.conv1(images)), kernel_size=2, stride=2)
-        values = F.max_pool2d(F.relu(self.conv2(values)), kernel_size=2, stride=2)
-        values = values.mean(dim=(2, 3))
-        return self.classifier(values)
+        values = self.features(images)
+        features = torch.cat((values.mean(dim=(2, 3)), values.amax(dim=(2, 3))), dim=1)
+        # CrossEntropyLoss consumes logits; inference applies softmax.
+        return self.classifier(features)
 
 
-def load_dataset(dataset_dir):
+def inference_model(model):
+    # Folding removes batch normalization's inference operations and parameters.
+    result = copy.deepcopy(model).eval()
+    layers = list(result.features)
+    result.features = nn.Sequential(*[
+        layer
+        for index in range(0, len(layers), 3)
+        for layer in (fuse_conv_bn_eval(layers[index], layers[index + 1]), nn.ReLU())
+    ])
+    return result
+
+
+def load_dataset(dataset_path, input_size=INPUT_SIZE):
     inputs = []
     labels = []
-    for label, class_name in enumerate(CLASS_NAMES):
-        class_dir = dataset_dir / class_name
-        image_paths = sorted(
-            path
-            for path in class_dir.iterdir()
-            if path.is_file() and path.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}
-        )
-        if not image_paths:
-            raise ValueError(f"No training images found for class '{class_name}'")
-
-        for image_path in image_paths:
-            with Image.open(image_path) as image:
-                image = image.convert("RGB").resize(
-                    (INPUT_SIZE, INPUT_SIZE), Image.Resampling.BILINEAR
-                )
-                pixels = np.asarray(image, dtype=np.float32) / 255.0
-                inputs.append(pixels.transpose(2, 0, 1))
-                labels.append(label)
-
+    with zipfile.ZipFile(dataset_path) as archive:
+        for label, category in enumerate(CCSN_CLASSES):
+            paths = sorted(name for name in archive.namelist()
+                           if name.startswith(f"CCSN_v2/{category}/")
+                           and Path(name).suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}
+                           and not Path(name).name.startswith("._"))
+            if not paths:
+                raise ValueError(f"No training images found for class '{CLASS_NAMES[label]}'")
+            print(f"{CLASS_NAMES[label]}: {len(paths)} images")
+            for path in paths:
+                with archive.open(path) as stream, Image.open(stream) as image:
+                    image = image.convert("RGB").resize(
+                        (input_size, input_size), Image.Resampling.BILINEAR
+                    )
+                    pixels = np.asarray(image, dtype=np.float32) / 255.0
+                    inputs.append(pixels.transpose(2, 0, 1))
+                    labels.append(label)
     return np.asarray(inputs, dtype=np.float32), np.asarray(labels, dtype=np.int64)
 
 
@@ -101,47 +112,88 @@ def predict(image, model):
     return probabilities[0].cpu().numpy()
 
 
-def train(inputs, labels, epochs, learning_rate, seed):
+def augment(images):
+    batch = images.clone()
+    count = len(batch)
+    flips = torch.rand(count) < 0.5
+    batch[flips] = batch[flips].flip(-1)
+    # A translated, rotated crop retaining 70-100% of the image's width/height.
+    angle = (torch.rand(count) - 0.5) * 0.5
+    scale = 0.7 + 0.3 * torch.rand(count)
+    transform = torch.zeros(count, 2, 3)
+    transform[:, 0, 0] = scale * angle.cos()
+    transform[:, 1, 1] = scale * angle.cos()
+    transform[:, 0, 1] = -scale * angle.sin()
+    transform[:, 1, 0] = scale * angle.sin()
+    transform[:, :, 2] = (torch.rand(count, 2) - 0.5) * 0.2
+    grid = F.affine_grid(transform, batch.shape, align_corners=False)
+    batch = F.grid_sample(batch, grid, align_corners=False, padding_mode="border")
+    mean = batch.mean(dim=(2, 3), keepdim=True)
+    batch = (batch - mean) * (0.8 + 0.4 * torch.rand(count, 1, 1, 1)) + mean
+    batch *= 0.8 + 0.4 * torch.rand(count, 1, 1, 1)
+    return (batch + torch.randn_like(batch) * 0.015).clamp(0, 1)
+
+
+def evaluate(model, inputs, labels):
+    model.eval()
+    tensor = torch.from_numpy(np.ascontiguousarray(inputs))
+    with torch.no_grad():
+        logits = torch.cat([model(tensor[start:start + BATCH_SIZE])
+                            for start in range(0, len(tensor), BATCH_SIZE)])
+    predictions = logits.argmax(dim=1).numpy()
+    confusion = np.zeros((OUTPUTS, OUTPUTS), dtype=np.int64)
+    np.add.at(confusion, (labels, predictions), 1)
+    return float(np.mean(predictions == labels)), confusion
+
+
+def train(inputs, labels, epochs, learning_rate, seed, validation=None, stop_epoch=None):
     torch.manual_seed(seed)
     random = np.random.default_rng(seed)
     model = CloudCNN()
-    class_counts = np.bincount(labels, minlength=OUTPUTS)
-    represented_classes = np.count_nonzero(class_counts)
-    class_weights = np.ones(OUTPUTS, dtype=np.float32)
-    for label, count in enumerate(class_counts):
-        if count:
-            class_weights[label] = np.clip(
-                math.sqrt(len(labels) / (represented_classes * count)), 0.5, 4.0
-            )
-
-    class_weight_tensor = torch.from_numpy(class_weights)
-    criterion = nn.CrossEntropyLoss(reduction="none")
-    optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0.01)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
+        optimizer, epochs, eta_min=learning_rate / 30
+    )
     input_tensor = torch.from_numpy(np.ascontiguousarray(inputs))
     label_tensor = torch.from_numpy(labels.astype(np.int64, copy=False))
+    best_accuracy = -1.0
+    best_epoch = 0
+    best_state = None
+    history = []
+    training_epochs = epochs if stop_epoch is None else stop_epoch
 
-    for epoch in range(epochs):
+    for epoch in range(training_epochs):
         model.train()
         order = random.permutation(len(labels))
         total_loss = 0.0
         for start in range(0, len(order), BATCH_SIZE):
-            indexes = torch.from_numpy(order[start : start + BATCH_SIZE].copy())
-            batch = input_tensor[indexes].clone()
+            indexes = torch.from_numpy(order[start:start + BATCH_SIZE].copy())
+            batch = augment(input_tensor[indexes])
             batch_labels = label_tensor[indexes]
-            flips = torch.rand(batch.shape[0]) < 0.5
-            batch[flips] = batch[flips].flip(-1)
-
             optimizer.zero_grad(set_to_none=True)
-            loss = criterion(model(batch), batch_labels)
-            loss = (loss * class_weight_tensor[batch_labels]).mean()
+            loss = F.cross_entropy(model(batch), batch_labels, label_smoothing=0.05)
             loss.backward()
             optimizer.step()
             total_loss += loss.item() * len(batch_labels)
+        scheduler.step()
 
-        report_interval = max(1, epochs // 10)
-        if (epoch + 1) % report_interval == 0 or epoch == 0 or epoch + 1 == epochs:
-            print(f"Epoch {epoch + 1}/{epochs}: loss={total_loss / len(labels):.4f}")
-    return model
+        if (epoch + 1) % 10 == 0 or epoch + 1 == training_epochs:
+            record = {"epoch": epoch + 1, "loss": total_loss / len(labels)}
+            message = f"Epoch {epoch + 1}/{training_epochs}: loss={record['loss']:.4f}"
+            if validation is not None:
+                accuracy, _ = evaluate(model, *validation)
+                record["validation_accuracy"] = accuracy
+                message += f", validation accuracy={accuracy:.4f}"
+                if accuracy > best_accuracy:
+                    best_accuracy = accuracy
+                    best_epoch = epoch + 1
+                    best_state = copy.deepcopy(model.state_dict())
+            history.append(record)
+            print(message, flush=True)
+
+    if best_state is not None:
+        model.load_state_dict(best_state)
+    return model, best_epoch if validation is not None else training_epochs, history
 
 
 def split_dataset(labels, seed):
@@ -160,14 +212,7 @@ def split_dataset(labels, seed):
 
 
 def flatten_weights(model):
-    parameters = (
-        model.conv1.weight,
-        model.conv1.bias,
-        model.conv2.weight,
-        model.conv2.bias,
-        model.classifier.weight,
-        model.classifier.bias,
-    )
+    parameters = inference_model(model).parameters()
     values = np.concatenate(
         [parameter.detach().cpu().numpy().astype("<f4", copy=False).reshape(-1) for parameter in parameters]
     )
@@ -195,38 +240,52 @@ def save_weights_webp(weights, output):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--epochs", type=int, default=800)
-    parser.add_argument("--learning-rate", type=float, default=0.005)
+    parser.add_argument("--epochs", type=int, default=120)
+    parser.add_argument("--learning-rate", type=float, default=0.003)
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument(
         "--dataset",
         type=Path,
-        default=Path(__file__).resolve().parents[2] / "app/src/androidTest/assets/clouds",
+        default=Path(__file__).resolve().parents[2] / "CCSN.zip",
     )
     parser.add_argument(
         "--output",
         type=Path,
         default=Path(__file__).resolve().parents[2] / "app/src/main/assets/cloud_cnn_weights.webp",
     )
+    parser.add_argument("--report", type=Path, help="Optional JSON training/validation report")
     args = parser.parse_args()
+    if args.epochs <= 0 or args.learning_rate <= 0:
+        parser.error("epochs and learning-rate must be positive")
 
-    torch.set_num_threads(1)
+    torch.set_num_threads(2)
     inputs, labels = load_dataset(args.dataset)
     train_indexes, validation_indexes = split_dataset(labels, args.seed)
-    validation_model = train(
-        inputs[train_indexes],
-        labels[train_indexes],
-        args.epochs,
-        args.learning_rate,
-        args.seed,
+    validation_model, best_epoch, history = train(
+        inputs[train_indexes], labels[train_indexes], args.epochs,
+        args.learning_rate, args.seed,
+        validation=(inputs[validation_indexes], labels[validation_indexes]),
     )
-    correct = sum(
-        int(np.argmax(predict(inputs[index], validation_model)) == labels[index])
-        for index in validation_indexes
+    accuracy, confusion = evaluate(
+        validation_model, inputs[validation_indexes], labels[validation_indexes]
     )
-    print(f"Validation accuracy: {correct / len(validation_indexes):.3f}")
-
-    final_model = train(inputs, labels, args.epochs, args.learning_rate, args.seed)
+    print(f"Best validation accuracy: {accuracy:.4f} (epoch {best_epoch})")
+    # Use the selected duration while preserving the validation run's LR schedule.
+    final_model, _, _ = train(
+        inputs, labels, args.epochs, args.learning_rate, args.seed, stop_epoch=best_epoch
+    )
+    if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        args.report.write_text(json.dumps({
+            "seed": args.seed, "epochs": args.epochs, "learning_rate": args.learning_rate,
+            "selected_epoch": best_epoch, "validation_accuracy": accuracy,
+            "training_images": len(train_indexes), "validation_images": len(validation_indexes),
+            "deployment_images": len(labels), "classes": CLASS_NAMES,
+            "confusion_matrix": confusion.tolist(), "history": history,
+            "input_size": INPUT_SIZE, "exported_parameters": WEIGHT_COUNT,
+            "convolutions": CONVOLUTIONS,
+            "balanced_accuracy": float(np.mean(confusion.diagonal() / confusion.sum(axis=1))),
+        }, indent=2) + "\n")
     os.makedirs(args.output.parent, exist_ok=True)
     save_weights_webp(flatten_weights(final_model), args.output)
     print(f"Saved {WEIGHT_COUNT} lossless WebP weights to {args.output}")

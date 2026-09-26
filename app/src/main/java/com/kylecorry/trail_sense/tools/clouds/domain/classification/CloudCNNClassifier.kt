@@ -20,17 +20,15 @@ class CloudCNNClassifier(
         val predictions = network.probabilities(bitmapToInput(bitmap)).toList()
         onPredictionsCalculated(predictions)
 
-        return (CLOUD_GENUSES.mapIndexed { index, genus ->
+        return CLOUD_GENUSES.mapIndexed { index, genus ->
             ClassificationResult<CloudGenus?>(genus, predictions[index])
-        } + ClassificationResult<CloudGenus?>(null, predictions[CLEAR_CLASS_INDEX]))
-            .sortedByDescending { it.confidence }
+        }.sortedByDescending { it.confidence }
     }
 
     companion object {
         const val IMAGE_SIZE = 400
-        const val CLEAR_CLASS_INDEX = 10
         private const val WEIGHTS_ASSET = "cloud_cnn_weights.webp"
-        private const val MODEL_VERSION = 1
+        private const val MODEL_VERSION = 3
         private val MODEL_MAGIC = byteArrayOf(0x54, 0x53, 0x43, 0x4c)
 
         val CLOUD_GENUSES = listOf(

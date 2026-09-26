@@ -11,7 +11,7 @@ class DebugCloudCommand(
 ) : DebugCommand() {
 
     override fun executeDebug() {
-        val header = listOf(CloudCNNClassifier.CLOUD_GENUSES.map { it.name } + "CLEAR")
+        val header = listOf(CloudCNNClassifier.CLOUD_GENUSES.map { it.name })
         val data = header + listOf(features)
 
         FileSubsystem.getInstance(context).writeDebug(

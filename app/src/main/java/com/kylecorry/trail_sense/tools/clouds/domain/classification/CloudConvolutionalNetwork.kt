@@ -5,151 +5,116 @@ import kotlin.math.exp
 class CloudConvolutionalNetwork private constructor(private val weights: FloatArray) {
 
     fun probabilities(input: FloatArray): FloatArray {
-        return forward(input)
-    }
-
-    private fun forward(input: FloatArray): FloatArray {
         require(input.size == INPUT_SIZE * INPUT_SIZE * INPUT_CHANNELS)
-
-        val conv1 = FloatArray(CONV1_CHANNELS * CONV1_SIZE * CONV1_SIZE)
-        for (outputChannel in 0 until CONV1_CHANNELS) {
-            for (y in 0 until CONV1_SIZE) {
-                for (x in 0 until CONV1_SIZE) {
-                    var value = weights[CONV1_BIASES_OFFSET + outputChannel]
-                    for (inputChannel in 0 until INPUT_CHANNELS) {
-                        for (kernelY in 0 until KERNEL_SIZE) {
-                            for (kernelX in 0 until KERNEL_SIZE) {
-                                val inputIndex =
-                                    (inputChannel * INPUT_SIZE + y + kernelY) * INPUT_SIZE + x + kernelX
-                                val weightIndex =
-                                    conv1WeightIndex(outputChannel, inputChannel, kernelY, kernelX)
-                                value += input[inputIndex] * weights[weightIndex]
-                            }
-                        }
-                    }
-                    conv1[(outputChannel * CONV1_SIZE + y) * CONV1_SIZE + x] = value.coerceAtLeast(0f)
-                }
-            }
+        var values = input
+        var size = INPUT_SIZE
+        for (layer in layers) {
+            values = convolve(values, size, layer)
+            size = (size + 2 * layer.padding - layer.kernel) / layer.stride + 1
         }
 
-        val pool1 = FloatArray(CONV1_CHANNELS * POOL1_SIZE * POOL1_SIZE)
-        maxPool(conv1, CONV1_CHANNELS, CONV1_SIZE, pool1)
-
-        val conv2 = FloatArray(CONV2_CHANNELS * CONV2_SIZE * CONV2_SIZE)
-        for (outputChannel in 0 until CONV2_CHANNELS) {
-            for (y in 0 until CONV2_SIZE) {
-                for (x in 0 until CONV2_SIZE) {
-                    var value = weights[CONV2_BIASES_OFFSET + outputChannel]
-                    for (inputChannel in 0 until CONV1_CHANNELS) {
-                        for (kernelY in 0 until KERNEL_SIZE) {
-                            for (kernelX in 0 until KERNEL_SIZE) {
-                                val inputIndex =
-                                    (inputChannel * POOL1_SIZE + y + kernelY) * POOL1_SIZE + x + kernelX
-                                val weightIndex =
-                                    conv2WeightIndex(outputChannel, inputChannel, kernelY, kernelX)
-                                value += pool1[inputIndex] * weights[weightIndex]
-                            }
-                        }
-                    }
-                    conv2[(outputChannel * CONV2_SIZE + y) * CONV2_SIZE + x] = value.coerceAtLeast(0f)
-                }
+        val area = size * size
+        // Mean captures broad coverage; max retains localized cloud features.
+        val features = FloatArray(FEATURE_COUNT)
+        for (channel in 0 until FINAL_CHANNELS) {
+            var sum = 0f
+            var maximum = Float.NEGATIVE_INFINITY
+            for (pixel in 0 until area) {
+                val value = values[channel * area + pixel]
+                sum += value
+                maximum = maxOf(maximum, value)
             }
+            features[channel] = sum / area
+            features[FINAL_CHANNELS + channel] = maximum
         }
-
-        val pool2 = FloatArray(CONV2_CHANNELS * POOL2_SIZE * POOL2_SIZE)
-        maxPool(conv2, CONV2_CHANNELS, CONV2_SIZE, pool2)
-
-        val features = FloatArray(CONV2_CHANNELS)
-        for (channel in 0 until CONV2_CHANNELS) {
-            for (y in 0 until POOL2_SIZE) {
-                for (x in 0 until POOL2_SIZE) {
-                    features[channel] +=
-                        pool2[(channel * POOL2_SIZE + y) * POOL2_SIZE + x] / POOL2_AREA
-                }
-            }
-        }
-
-        val logits = FloatArray(OUTPUTS)
-        for (output in 0 until OUTPUTS) {
+        val logits = FloatArray(OUTPUTS) { output ->
             var value = weights[DENSE_BIASES_OFFSET + output]
-            for (channel in 0 until CONV2_CHANNELS) {
-                value += weights[DENSE_WEIGHTS_OFFSET + output * CONV2_CHANNELS + channel] *
+            for (channel in features.indices) {
+                value += weights[DENSE_WEIGHTS_OFFSET + output * FEATURE_COUNT + channel] *
                     features[channel]
             }
-            logits[output] = value
+            value
         }
-
-        val maxLogit = logits.maxOrNull() ?: 0f
-        val probabilities = FloatArray(OUTPUTS) { exp(logits[it] - maxLogit) }
-        val sum = probabilities.sum().coerceAtLeast(1e-12f)
-        for (index in probabilities.indices) {
-            probabilities[index] /= sum
-        }
-
-        return probabilities
+        val maximum = logits.maxOrNull() ?: 0f
+        val probabilities = FloatArray(OUTPUTS) { exp(logits[it] - maximum) }
+        val sum = probabilities.sum()
+        return FloatArray(OUTPUTS) { probabilities[it] / sum }
     }
 
-    private fun maxPool(
-        input: FloatArray,
-        channels: Int,
-        inputSize: Int,
-        output: FloatArray
-    ) {
-        val outputSize = inputSize / 2
-        for (channel in 0 until channels) {
+    private fun convolve(input: FloatArray, size: Int, layer: Layer): FloatArray {
+        val outputSize = (size + 2 * layer.padding - layer.kernel) / layer.stride + 1
+        val output = FloatArray(layer.outputs * outputSize * outputSize)
+        for (channel in 0 until layer.outputs) {
             for (y in 0 until outputSize) {
                 for (x in 0 until outputSize) {
-                    var maxIndex = (channel * inputSize + y * 2) * inputSize + x * 2
-                    for (dy in 0..1) {
-                        for (dx in 0..1) {
-                            val index = (channel * inputSize + y * 2 + dy) * inputSize + x * 2 + dx
-                            if (input[index] > input[maxIndex]) {
-                                maxIndex = index
-                            }
-                        }
-                    }
-                    val outputIndex = (channel * outputSize + y) * outputSize + x
-                    output[outputIndex] = input[maxIndex]
+                    val value = convolvePixel(input, size, layer, channel, y, x)
+                    output[(channel * outputSize + y) * outputSize + x] =
+                        value.coerceAtLeast(0f)
                 }
             }
         }
+        return output
     }
 
-    private fun conv1WeightIndex(output: Int, input: Int, y: Int, x: Int): Int {
-        return CONV1_WEIGHTS_OFFSET + ((output * INPUT_CHANNELS + input) * KERNEL_SIZE + y) *
-            KERNEL_SIZE + x
+    private fun convolvePixel(
+        input: FloatArray,
+        size: Int,
+        layer: Layer,
+        channel: Int,
+        y: Int,
+        x: Int
+    ): Float {
+        val channelsPerOutput = layer.inputs
+        val biasOffset = layer.offset + layer.outputs * channelsPerOutput * layer.kernel * layer.kernel
+        var value = weights[biasOffset + channel]
+        for (inputChannel in 0 until channelsPerOutput) {
+            for (ky in 0 until layer.kernel) {
+                val iy = y * layer.stride + ky - layer.padding
+                if (iy !in 0 until size) continue
+                for (kx in 0 until layer.kernel) {
+                    val ix = x * layer.stride + kx - layer.padding
+                    if (ix !in 0 until size) continue
+                    val weightIndex = layer.offset +
+                        ((channel * channelsPerOutput + inputChannel) * layer.kernel + ky) *
+                        layer.kernel + kx
+                    value += input[(inputChannel * size + iy) * size + ix] * weights[weightIndex]
+                }
+            }
+        }
+        return value
     }
 
-    private fun conv2WeightIndex(output: Int, input: Int, y: Int, x: Int): Int {
-        return CONV2_WEIGHTS_OFFSET + ((output * CONV1_CHANNELS + input) * KERNEL_SIZE + y) *
-            KERNEL_SIZE + x
+    private data class Layer(
+        val inputs: Int,
+        val outputs: Int,
+        val kernel: Int,
+        val stride: Int,
+        val offset: Int
+    ) {
+        val padding = if (kernel == 3) 1 else 0
     }
 
     companion object {
-        const val INPUT_SIZE = 16
+        const val INPUT_SIZE = 128
         const val INPUT_CHANNELS = 3
-        const val OUTPUTS = 11
-        private const val KERNEL_SIZE = 3
-        private const val CONV1_CHANNELS = 12
-        private const val CONV2_CHANNELS = 12
-        private const val CONV1_SIZE = INPUT_SIZE - KERNEL_SIZE + 1
-        private const val POOL1_SIZE = CONV1_SIZE / 2
-        private const val CONV2_SIZE = POOL1_SIZE - KERNEL_SIZE + 1
-        private const val POOL2_SIZE = CONV2_SIZE / 2
-        private const val POOL2_AREA = (POOL2_SIZE * POOL2_SIZE).toFloat()
-        private const val CONV1_WEIGHTS_OFFSET = 0
-        private const val CONV1_BIASES_OFFSET = CONV1_CHANNELS * INPUT_CHANNELS * KERNEL_SIZE * KERNEL_SIZE
-        private const val CONV2_WEIGHTS_OFFSET = CONV1_BIASES_OFFSET + CONV1_CHANNELS
-        private const val CONV2_BIASES_OFFSET =
-            CONV2_WEIGHTS_OFFSET + CONV2_CHANNELS * CONV1_CHANNELS * KERNEL_SIZE * KERNEL_SIZE
-        private const val DENSE_WEIGHTS_OFFSET = CONV2_BIASES_OFFSET + CONV2_CHANNELS
-        private const val DENSE_BIASES_OFFSET = DENSE_WEIGHTS_OFFSET + OUTPUTS * CONV2_CHANNELS
+        const val OUTPUTS = 10
+        private const val FINAL_CHANNELS = 32
+        private const val FEATURE_COUNT = FINAL_CHANNELS * 2
+        private const val DENSE_WEIGHTS_OFFSET = 9072
+        private const val DENSE_BIASES_OFFSET = DENSE_WEIGHTS_OFFSET + OUTPUTS * FEATURE_COUNT
         const val WEIGHT_COUNT = DENSE_BIASES_OFFSET + OUTPUTS
+
+        // Batch normalization is folded into these OIHW weights and biases by Python.
+        private val layers = listOf(
+            Layer(3, 8, 3, 2, 0),
+            Layer(8, 12, 3, 2, 224),
+            Layer(12, 20, 3, 2, 1100),
+            Layer(20, 32, 3, 2, 3280)
+        )
 
         fun fromWeights(weights: FloatArray): CloudConvolutionalNetwork {
             require(weights.size == WEIGHT_COUNT)
             return CloudConvolutionalNetwork(weights.copyOf())
         }
-
     }
 }
