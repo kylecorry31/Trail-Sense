@@ -446,7 +446,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     private fun observeNavigation() {
         observeFlow(navigator.destination2) {
-            beaconLayer.destination = (it as? Destination.Beacon)?.beacon
+            beaconLayer.destination = it as? Destination.Beacon
+            pathsLayer.destination = it as? Destination.Path
             if (mode == ARMode.Normal && it != null) {
                 guidance.setTarget(when (it) {
                     is Destination.Beacon -> BeaconGuidanceTarget(it.beacon)

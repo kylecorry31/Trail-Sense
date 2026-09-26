@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceT
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTarget
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
 import kotlin.math.hypot
 
@@ -39,7 +40,7 @@ class ARBeaconLayer(
 
     private var areBeaconsUpToDate = false
 
-    var destination: Beacon? = null
+    var destination: Destination.Beacon? = null
 
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
@@ -63,9 +64,10 @@ class ARBeaconLayer(
         val loader = _loader ?: return
 
         val beacons = this.beacons
+        val destination = this.destination?.beacon
 
         val visible =
-            hooks.memo("visible_beacons", beacons, view.location, view.altitude.safeRoundToInt()) {
+            hooks.memo("visible_beacons", beacons, destination, view.location, view.altitude.safeRoundToInt()) {
                 beacons.mapNotNull {
                     if (it.id != destination?.id && !it.visible) {
                         return@mapNotNull null

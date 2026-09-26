@@ -20,6 +20,10 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARLine
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
+import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
+import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 
 /**
@@ -62,6 +66,8 @@ class ARPathLayer(
 
     private var paths: List<IMappablePath> = listOf()
 
+    var destination: Destination.Path? = null
+
     private val hooks = Hooks()
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
@@ -84,9 +90,10 @@ class ARPathLayer(
             view.location,
             if (adjustForPathElevation) view.altitude else null,
             view.locationAccuracy,
-            paths
+            paths,
+            destination
         ) {
-            updatePaths()
+            updatePaths(getPaths(view.location))
         }
 
         lineLayer.update(drawer, view)
@@ -119,8 +126,22 @@ class ARPathLayer(
         this.paths = paths
     }
 
-    private fun updatePaths() {
-        val paths = paths
+    internal fun getPaths(location: Coordinate): List<IMappablePath> {
+        val destination = destination ?: return paths
+        val path = destination.path
+        val route = MappablePath(
+            path.id,
+            destination.route.navigate(location).remainingRoute.mapIndexed { index, coordinate ->
+                MappableLocation(index.toLong(), coordinate, path.style.color, null)
+            },
+            path.style.color,
+            LineStyle.Arrow,
+            path.name
+        )
+        return paths.filterNot { it.id == path.id } + route
+    }
+
+    private fun updatePaths(paths: List<IMappablePath>) {
         val elevation = lastElevation
 
         val points = paths.map {
