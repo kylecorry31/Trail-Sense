@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.verifyNoMoreInteractions
@@ -33,13 +34,12 @@ class BeaconGuidanceTargetCoordinatorTest {
     }
 
     @Test
-    fun switchingBeaconsCancelsPreviousNavigationFirst() {
+    fun switchingBeaconsReplacesNavigation() {
         val second = beacon.copy(id = 2)
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(BeaconGuidanceTarget(second))
         inOrder(navigator) {
             verify(navigator).navigateTo(beacon)
-            verify(navigator).cancelBeaconNavigation()
             verify(navigator).navigateTo(second)
         }
         verifyNoMoreInteractions(navigator)
@@ -56,26 +56,24 @@ class BeaconGuidanceTargetCoordinatorTest {
     }
 
     @Test
-    fun clearingBeaconCancelsNavigationOnceAndAllowsReselection() {
+    fun clearingBeaconPreservesNavigationAndAllowsReselection() {
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(null)
         coordinator.onTargetChanged(null)
+        verify(navigator).navigateTo(beacon)
+        verifyNoMoreInteractions(navigator)
+
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
-        inOrder(navigator) {
-            verify(navigator).navigateTo(beacon)
-            verify(navigator).cancelBeaconNavigation()
-            verify(navigator).navigateTo(beacon)
-        }
+        verify(navigator, times(2)).navigateTo(beacon)
         verifyNoMoreInteractions(navigator)
     }
 
     @Test
-    fun switchingToNonBeaconTargetCancelsBeaconNavigation() {
+    fun switchingToNonBeaconTargetPreservesBeaconNavigation() {
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(mock<ARGuidanceTarget>())
         coordinator.onTargetChanged(null)
         verify(navigator).navigateTo(beacon)
-        verify(navigator).cancelBeaconNavigation()
         verifyNoMoreInteractions(navigator)
     }
 }

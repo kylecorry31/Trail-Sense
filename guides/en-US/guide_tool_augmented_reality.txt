@@ -60,11 +60,13 @@ The orientation of your device is displayed at the top of the screen. This inclu
 ## Navigation
 Tap on a beacon to navigate to it.
 
-While navigating, you will see an arrow around the reticle pointing in the direction of the beacon. Move your phone toward the arrow to bring the beacon into view. When the beacon is in the reticle, the arrow will disappear.
+While navigating, you will see an arrow around the reticle pointing in the direction of your target. Move your phone toward the arrow to align the reticle with the target. When the target is in the reticle, the arrow will disappear.
 
-If beacon navigation is already active when you open the Augmented Reality tool, that beacon becomes the current target automatically.
+If beacon, path, or bearing navigation is already active when you open the Augmented Reality tool, guidance starts automatically.
 
-If you switch from a beacon target to a non-beacon target, beacon navigation is canceled.
+For path navigation, the guidance arrow points toward the next point along your route and updates as you move. For bearing navigation, it points along your selected bearing. If Settings > Navigation > 'Lock bearing to location' is enabled and the bearing has a starting location, it points toward the fixed destination instead.
+
+Switching to a non-beacon target or closing guidance with the 'X' button leaves your navigation active. Selecting a different beacon for guidance changes your navigation destination to that beacon.
 
 ## Calibration
 If the Augmented Reality tool is not aligned with the real world, you can calibrate it by tapping the compass icon in the top-left corner of the screen. This will prompt you to center either the sun or moon in the reticle and tap 'Calibrate'.

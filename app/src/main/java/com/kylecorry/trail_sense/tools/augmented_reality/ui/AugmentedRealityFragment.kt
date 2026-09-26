@@ -52,6 +52,9 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceL
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceManager
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceRefreshRequest
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTarget
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BearingGuidanceTarget
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.PathGuidanceTarget
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTargetCoordinator
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
@@ -184,12 +187,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             beaconLayer.setBeacons(it)
         }
 
-        observeFlow(navigator.destination) {
-            beaconLayer.destination = it
-            if (mode == ARMode.Normal && it != null) {
-                guidance.setTarget(BeaconGuidanceTarget(it))
-            }
-        }
+        observeNavigation()
 
         observeFlow(guidance.target) {
             beaconGuidanceCoordinator.onTargetChanged(it)
@@ -444,6 +442,22 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     private fun onPathFocused(path: IMappablePath): Boolean {
         binding.arView.focusText = path.name
         return true
+    }
+
+    private fun observeNavigation() {
+        observeFlow(navigator.destination2) {
+            beaconLayer.destination = (it as? Destination.Beacon)?.beacon
+            if (mode == ARMode.Normal && it != null) {
+                guidance.setTarget(when (it) {
+                    is Destination.Beacon -> BeaconGuidanceTarget(it.beacon)
+                    is Destination.Path -> PathGuidanceTarget(it)
+                    is Destination.Bearing -> BearingGuidanceTarget(
+                        it,
+                        userPrefs.navigation.lockBearingToLocation
+                    )
+                })
+            }
+        }
     }
 
     private fun onBeaconFocused(beacon: Beacon): Boolean {

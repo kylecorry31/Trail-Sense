@@ -11,12 +11,7 @@ class BeaconGuidanceTargetCoordinator(private val navigator: Navigator) {
             return
         }
 
-        val previousBeaconId = (lastGuidanceTarget as? BeaconGuidanceTarget)?.beacon?.id
         val newBeacon = (target as? BeaconGuidanceTarget)?.beacon
-
-        if (previousBeaconId != null && previousBeaconId != newBeacon?.id) {
-            navigator.cancelBeaconNavigation()
-        }
 
         lastGuidanceTarget = target
 
