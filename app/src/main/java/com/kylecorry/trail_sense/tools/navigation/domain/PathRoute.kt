@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlin.math.abs
 
-class PathRoute(private val pathPoints: List<PathPoint>) {
+class PathRoute(pathPoints: List<PathPoint>) {
     private val points = pathPoints.map { it.coordinate }
     private val hikingService = HikingService()
     private val cumulativeDistances = hikingService.getDistances(points).toFloatArray()

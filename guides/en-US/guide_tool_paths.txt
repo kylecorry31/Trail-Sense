@@ -73,10 +73,21 @@ You can choose to automatically simplify paths imported from a GPX file by enabl
 ## Replace path elevations
 To replace all elevations on a path using the digital elevation model (DEM), open the path, tap the menu button in the top-right corner of the screen, and select 'Replace elevations'. If it is taking too long to load (ex. too many points), you can cancel and your path will be unmodified.
 
-## Navigate to a path
-You can navigate to the nearest point on a path by opening the path and tapping the 'Navigate' button at the bottom. This will open the navigation tool with the path as the destination. Alternatively, you can tap the menu button on the path row you want to navigate to and then select 'Navigate'.
+## Navigate with a path
+To navigate with a path, open it and tap the 'Navigate' button at the bottom. You will be prompted to choose how you want to follow the path:
 
-By default, this will only navigate to recorded waypoints on the path. However, you can choose to navigate to any position on the path by disabling Settings > Paths > 'Only navigate to recorded points'. This will assume that the path is a straight line between points.
+- **Follow to end**: Follow the path from your nearest point on it to its end.
+- **Follow to start**: Follow the path from your nearest point on it to its start.
+- **Follow full loop**: Follow the entire loop from your nearest point on it to its end. This option is only available for loop paths.
+- **Follow full loop in reverse**: Follow the entire loop from your nearest point on it to its start. This option is only available for loop paths.
+- **Navigate back onto path**: Navigate to the nearest point on the path without following it. By default, this targets a recorded waypoint. To navigate to any position along the path, disable Settings > Paths > 'Only navigate to recorded points'.
+
+To navigate to a specific point on the path, select the desired waypoint and use its menu to choose 'Navigate'. You will be prompted to choose how you want to navigate there:
+
+- **Follow path to this point**: Follow the path from your nearest point on it to the selected waypoint.
+- **Navigate directly**: Navigate straight to the selected waypoint without following the path.
+
+Once you have chosen a navigation option, you will be taken to the Navigation tool and it will point you toward the next point on the path. The distance, elevation gain/loss, and ETA will be displayed.
 
 ## Path visibility
 You can choose which paths are visible on maps by tapping the eye icon on the right side of the path row. They will show up on maps that have the Paths layer enabled.

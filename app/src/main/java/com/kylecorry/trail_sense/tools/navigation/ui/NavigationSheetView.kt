@@ -179,10 +179,10 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         elevationDataView.description = "↓ $lossText"
         elevationDataView.contentDescription =
             "${context.getString(R.string.ascent)} $gainText, ${context.getString(R.string.descent)} $lossText"
-        val vector = navigationService.navigate(
-            values.location, guidance.target, values.declination, useTrueNorthOverride ?: useTrueNorth
-        )
-        updateDestinationDirection(vector.direction.value)
+        distanceDataView.isVisible = true
+        bearingDataView.isVisible = false
+        distanceDataView.description = ""
+        distanceDataView.setShowDescription(false)
         updateDestinationDistance(guidance.remainingDistance)
         toolbar.title.text = destination.path.name ?: context.getString(R.string.path)
         toolbar.subtitle.isVisible = false
@@ -297,6 +297,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         if (isTitle) {
             bearingDataView.title = value
         } else {
+            distanceDataView.setShowDescription(true)
             distanceDataView.description = value
         }
     }
