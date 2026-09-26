@@ -12,8 +12,6 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.SphericalARPoint
-import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
-import java.time.ZonedDateTime
 
 sealed interface AstronomySelection {
     data object Sun : AstronomySelection
@@ -25,20 +23,19 @@ sealed interface AstronomySelection {
 
 class AstronomyGuidanceTarget(
     private val astronomyService: AstronomyService,
-    private val selection: AstronomySelection,
-    private val getDisplayedTime: () -> ZonedDateTime
+    private val selection: AstronomySelection
 ) : ARGuidanceTarget {
-    override suspend fun refresh(view: AugmentedRealityView): ARGuidanceTargetState = onDefault {
-        val location = view.location
-        val time = getDisplayedTime()
-        val planetMapper = PlanetMapper(view.context)
+    override suspend fun refresh(request: ARGuidanceRefreshRequest): ARGuidanceTargetState = onDefault {
+        val location = request.location
+        val time = request.time
+        val planetMapper = PlanetMapper(request.context)
 
         when (selection) {
             AstronomySelection.Sun -> {
                 val position = astronomyService.getSunPosition(location, time)
                 ARGuidanceTargetState(
                     ARGuidanceDisplayState(
-                        view.context.getString(R.string.sun),
+                        request.context.getString(R.string.sun),
                         R.drawable.ic_sun
                     ),
                     SphericalARPoint(
@@ -54,12 +51,12 @@ class AstronomyGuidanceTarget(
                 val position = astronomyService.getMoonPosition(location, time)
                 ARGuidanceTargetState(
                     ARGuidanceDisplayState(
-                        view.context.getString(R.string.moon),
+                        request.context.getString(R.string.moon),
                         R.drawable.ic_moon,
-                        iconBitmap = MoonPhaseImageMapper(view.context).getPhaseImage(
+                        iconBitmap = MoonPhaseImageMapper(request.context).getPhaseImage(
                             phase.phaseAngle,
-                            Resources.dp(view.context, 24f).toInt(),
-                            Resources.dp(view.context, 24f).toInt(),
+                            Resources.dp(request.context, 24f).toInt(),
+                            Resources.dp(request.context, 24f).toInt(),
                             astronomyService.getMoonTilt(location, time)
                         )
                     ),
@@ -101,7 +98,7 @@ class AstronomyGuidanceTarget(
                 val position = astronomyService.getStarPosition(selection.star, location, time)
                 ARGuidanceTargetState(
                     ARGuidanceDisplayState(
-                        "${view.context.getString(R.string.star)}: ${selection.star.name}",
+                        "${request.context.getString(R.string.star)}: ${selection.star.name}",
                         R.drawable.ic_star
                     ),
                     SphericalARPoint(
