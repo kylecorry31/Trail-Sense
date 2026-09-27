@@ -650,7 +650,7 @@
     <string name="saved_to_note">Opgeslagen als aantekening</string>
     <string name="open">Openen</string>
     <string name="note">Aantekening</string>
-    <string name="qr_text_too_long">Tekst is te lang, QR code is afgekort</string>
+    <string name="qr_text_too_long">Tekst is te lang, QR-code is afgekort</string>
     <string name="view">Bekijken</string>
     <string name="estimated">Geschat</string>
     <string name="tide_table">Getijdetabel</string>
@@ -688,8 +688,8 @@
     <string name="compass_unavailable">Kompas niet beschikbaar</string>
     <string name="gps_unavailable">GPS niet beschikbaar</string>
     <string name="gps_timeouts">GPS-onderbrekingen</string>
-    <string name="qr_code_scanner">QR code lezer</string>
-    <string name="no_qr_code_found">Geen QR code herkend</string>
+    <string name="qr_code_scanner">QR-codelezer</string>
+    <string name="no_qr_code_found">Geen QR-code herkend</string>
     <string name="share_ellipsis">Delen…</string>
     <string name="undo">Ongedaan maken</string>
     <string name="tool_temperature_estimation_description">Voorspel de temperatuur bij een andere hoogte, windsnelheid en luchtvochtigheid</string>
