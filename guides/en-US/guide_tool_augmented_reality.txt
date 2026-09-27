@@ -59,6 +59,13 @@ A grid is displayed on the screen to help orient you. The grid is aligned with t
 ## Orientation
 The orientation of your device is displayed at the top of the screen. This includes the compass bearing and the tilt angle. The Augmented Reality tool respects the true north setting found on Settings > Sensors > Compass > True north.
 
+## Compass update frequency
+
+You can change how often the compass updates in Settings > Augmented Reality > Advanced > 'Compass update frequency'.
+
+- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
+- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
+
 ## Navigation
 Tap on a beacon to navigate to it.
 

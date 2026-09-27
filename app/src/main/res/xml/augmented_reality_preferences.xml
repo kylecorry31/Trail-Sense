@@ -112,6 +112,16 @@
         app:singleLineTitle="false"
         app:title="@string/advanced">
 
+        <ListPreference
+            app:defaultValue="fast"
+            app:entries="@array/compass_update_frequency_entries"
+            app:entryValues="@array/compass_update_frequency_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_ar_compass_update_frequency"
+            app:singleLineTitle="false"
+            app:title="@string/compass_update_frequency"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:iconSpaceReserved="false"

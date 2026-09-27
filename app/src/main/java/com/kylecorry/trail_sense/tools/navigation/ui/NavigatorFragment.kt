@@ -22,6 +22,7 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
+import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.time.CoroutineTimer
@@ -73,12 +74,9 @@ import java.time.Instant
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
-    private val orientation by lazy { sensorService.getOrientation(SensorService.FAST_MOTION_SENSOR_DELAY) }
-    private val compass by lazy {
-        sensorService.getCompass(orientation, SensorService.FAST_MOTION_SENSOR_DELAY)
-    }
+    private lateinit var compass: ICompass
     private val gps by lazy { sensorService.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY, tag = "NavigatorFragment") }
-    private val clinometer by lazy { Clinometer(orientation, isAugmentedReality = true) }
+    private lateinit var clinometer: Clinometer
     private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
     private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }
     private val declinationProvider by lazy {
@@ -173,6 +171,10 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val sensorDelay = userPrefs.navigation.compassUpdateFrequency.sensorDelay
+        val orientation = sensorService.getOrientation(sensorDelay)
+        compass = sensorService.getCompass(orientation, sensorDelay)
+        clinometer = Clinometer(orientation, isAugmentedReality = true)
         super.onViewCreated(view, savedInstanceState)
 
         observeFlow(navigator.destination2) {

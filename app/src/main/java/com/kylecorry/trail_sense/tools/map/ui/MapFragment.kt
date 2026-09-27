@@ -101,9 +101,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
+        val prefs = useService<UserPreferences>()
         val navigation = useNavigationSensors(
             trueNorth = true,
-            compassDelay = SensorService.FAST_MOTION_SENSOR_DELAY
+            compassDelay = prefs.map.compassUpdateFrequency.sensorDelay
         )
 
         // This ref is used by listeners to avoid constantly re-registering
@@ -118,7 +119,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val navigator = useService<Navigator>()
         val pathService = useService<PathService>()
         val destination = useFlow(navigator.destination2, state = BackgroundMinimumState.Resumed)
-        val prefs = useService<UserPreferences>()
         val formatter = useService<FormatService>()
         val activity = useActivity()
         val navController = useNavController()

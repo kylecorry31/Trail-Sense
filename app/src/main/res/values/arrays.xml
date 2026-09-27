@@ -206,4 +206,12 @@
         <item>stone</item>
     </string-array>
 
+    <string-array name="compass_update_frequency_entries">
+        <item>@string/compass_update_frequency_normal</item>
+        <item>@string/compass_update_frequency_fast</item>
+    </string-array>
+    <string-array name="compass_update_frequency_values" translatable="false">
+        <item>normal</item>
+        <item>fast</item>
+    </string-array>
 </resources>

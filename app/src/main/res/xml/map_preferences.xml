@@ -20,6 +20,16 @@
             app:key="@string/pref_save_map_state"
             app:singleLineTitle="false" />
 
+        <ListPreference
+            app:defaultValue="normal"
+            app:entries="@array/compass_update_frequency_entries"
+            app:entryValues="@array/compass_update_frequency_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_map_compass_update_frequency"
+            app:singleLineTitle="false"
+            app:title="@string/compass_update_frequency"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             android:summary="@string/pref_high_detail_mode_summary"
             android:title="@string/pref_high_detail_mode_title"

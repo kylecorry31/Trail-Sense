@@ -89,9 +89,11 @@ class AugmentedRealityView : CanvasView {
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private var calibrationBearingOffset: Float = 0f
-    val geomagneticOrientationSensor =
-        sensors.getOrientation(SensorService.FAST_MOTION_SENSOR_DELAY)
-    val gyroOrientationSensor = sensors.getGyroscope(SensorService.FAST_MOTION_SENSOR_DELAY)
+    private var compassSensorDelay = SensorService.MOTION_SENSOR_DELAY
+    var geomagneticOrientationSensor =
+        sensors.getOrientation(compassSensorDelay)
+        private set
+    private var gyroOrientationSensor = sensors.getGyroscope(compassSensorDelay)
     private var customOrientationSensor: IOrientationSensor? = null
     private val hasGyro = Sensors.hasGyroscope(context)
     var orientationSensor = geomagneticOrientationSensor
@@ -210,6 +212,16 @@ class AugmentedRealityView : CanvasView {
         layers.forEach {
             it.update(this, this)
         }
+    }
+
+    fun setCompassSensorDelay(sensorDelay: Int) {
+        if (compassSensorDelay == sensorDelay) return
+        geomagneticOrientationSensor.stop(this::onSensorUpdate)
+        gyroOrientationSensor.stop(this::onSensorUpdate)
+        compassSensorDelay = sensorDelay
+        geomagneticOrientationSensor = sensors.getOrientation(sensorDelay)
+        gyroOrientationSensor = sensors.getGyroscope(sensorDelay)
+        orientationSensor = geomagneticOrientationSensor
     }
 
     fun start(useGPS: Boolean = true, customOrientationSensor: IOrientationSensor? = null) {

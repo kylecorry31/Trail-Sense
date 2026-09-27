@@ -2064,4 +2064,11 @@
     <string name="path_navigation_to_point">Follow path to this point</string>
     <string name="path_navigation_direct">Navigate directly</string>
     <string name="navigate_back_onto_path">Navigate back onto path</string>
+    <string name="compass_update_frequency">Compass update frequency</string>
+    <string name="compass_update_frequency_normal">Normal</string>
+    <string name="compass_update_frequency_fast">Fast</string>
+    <string name="pref_map_compass_update_frequency" translatable="false">pref_map_compass_update_frequency</string>
+    <string name="pref_navigation_compass_update_frequency" translatable="false">pref_navigation_compass_update_frequency</string>
+    <string name="pref_photo_maps_compass_update_frequency" translatable="false">pref_photo_maps_compass_update_frequency</string>
+    <string name="pref_ar_compass_update_frequency" translatable="false">pref_ar_compass_update_frequency</string>
 </resources>

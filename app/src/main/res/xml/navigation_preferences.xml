@@ -120,6 +120,16 @@
             app:summary="@string/pref_navigation_show_azimuth_indicator_summary"
             app:title="@string/pref_navigation_show_azimuth_indicator_title" />
 
+        <ListPreference
+            app:defaultValue="normal"
+            app:entries="@array/compass_update_frequency_entries"
+            app:entryValues="@array/compass_update_frequency_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_compass_update_frequency"
+            app:singleLineTitle="false"
+            app:title="@string/compass_update_frequency"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

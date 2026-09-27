@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
@@ -61,7 +62,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(tag = "ViewPhotoMapFragment") }
     private val altimeter by lazy { sensorService.getAltimeter(tag = "ViewPhotoMapFragment") }
-    private val compass by lazy { sensorService.getCompass(delay = SensorService.FAST_MOTION_SENSOR_DELAY) }
+    private lateinit var compass: ICompass
     private val declinationProvider by lazy { GPSDeclinationStrategy(gps) }
     private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconService by lazy { BeaconService(requireContext()) }
@@ -116,6 +117,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        compass = sensorService.getCompass(delay = prefs.photoMaps.compassUpdateFrequency.sensorDelay)
         super.onViewCreated(view, savedInstanceState)
         observe(gps) {
             compass.declination = declinationProvider.getDeclination()

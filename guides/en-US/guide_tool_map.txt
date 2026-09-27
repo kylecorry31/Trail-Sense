@@ -5,6 +5,13 @@ You can drag to pan, pinch to zoom, or tap the zoom buttons in the bottom-right.
 
 Tap the GPS button in the bottom-right to center the map on your location. Tapping it again will lock both your location and orientation, while a final tap unlocks it.
 
+## Compass update frequency
+
+You can change how often the compass updates in Settings > Map > 'Compass update frequency'.
+
+- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
+- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
+
 ## Changing time
 If you have a time dependent layer enabled (like tides or solar eclipse), a clock button will appear in the top-right corner. Tap it to change the time used for these layers. Use the slider to scrub through time, or tap the time text to enter a specific time. The map will update to reflect the selected time. Tap the button again to reset to the current time.
 
