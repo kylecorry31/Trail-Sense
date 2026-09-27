@@ -114,6 +114,25 @@ class PathRouteBuilderTest {
     }
 
     @Test
+    fun `prepare preserves an out and back turnaround and its route distance`() {
+        val outAndBack = listOf(
+            PathPoint(1, 1, Coordinate(42.0, -72.0)),
+            PathPoint(2, 1, Coordinate(42.01, -72.0)),
+            PathPoint(3, 1, Coordinate(42.001, -72.0))
+        )
+
+        val prepared = PathRouteBuilder.prepare(
+            outAndBack,
+            outAndBack.first().coordinate,
+            PathNavigationMode.TO_END
+        )
+        val guidance = PathRoute(prepared).navigate(outAndBack.first().coordinate)
+
+        assertTrue(prepared.any { it.id == outAndBack[1].id })
+        assertTrue(guidance.remainingDistance > 2_000f)
+    }
+
+    @Test
     fun `single point and invalid inputs`() {
         assertEquals(points.take(1), PathRouteBuilder.build(points.take(1), location, PathNavigationMode.TO_END))
         assertThrows(IllegalArgumentException::class.java) {
