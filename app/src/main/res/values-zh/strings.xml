@@ -1662,4 +1662,7 @@
     <string name="pref_backtrack_min_distance_summary">不会记录与先前点之间的距离小于该值的点。设为 0 记录每个点。</string>
     <string name="delete_packing_list_item">删除项目?</string>
     <string name="map_layer_navigation_show_endpoints">显示起点和终点</string>
+    <string name="compass_update_frequency">指南针更新频率</string>
+    <string name="compass_update_frequency_normal">正常</string>
+    <string name="compass_update_frequency_fast">快速</string>
 </resources>
