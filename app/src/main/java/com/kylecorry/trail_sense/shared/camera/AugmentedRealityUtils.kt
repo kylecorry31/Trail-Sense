@@ -221,8 +221,9 @@ object AugmentedRealityUtils {
     fun arToEnu(ar: Vector3, rotationMatrix: FloatArray): Vector3 {
         return synchronized(worldVectorLock) {
             tempWorldVector[0] = ar.x
-            tempWorldVector[1] = ar.y
-            tempWorldVector[2] = ar.z
+            // Undo the y/z swap applied by enuToAr before inverting the rotation.
+            tempWorldVector[1] = ar.z
+            tempWorldVector[2] = ar.y
             tempWorldVector[3] = 1f
 
             // Invert the rotation matrix
