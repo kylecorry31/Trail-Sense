@@ -1681,4 +1681,7 @@
     <string name="pref_backtrack_min_distance_summary">Punten die zich dichterbij het vorige punt bevinden worden niet opgenomen. Stel in op 0 om alle punten op te nemen.</string>
     <string name="delete_packing_list_item">Voorwerp verwijderen?</string>
     <string name="map_layer_navigation_show_endpoints">Begin- en eindpunten weergeven</string>
+    <string name="compass_update_frequency_normal">Normaal</string>
+    <string name="compass_update_frequency_fast">Snel</string>
+    <string name="compass_update_frequency">Bijwerkfrequentie kompas</string>
 </resources>
