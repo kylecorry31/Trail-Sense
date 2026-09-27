@@ -1,17 +1,22 @@
 package com.kylecorry.trail_sense.tools.whitenoise.quickactions
 
-import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
+import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
+import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
 import com.kylecorry.trail_sense.tools.whitenoise.infrastructure.WhiteNoiseService
 
 class QuickActionWhiteNoise(btn: QuickActionButtonView, fragment: Fragment) :
     QuickActionButton(btn, fragment) {
 
-    private val intervalometer = CoroutineTimer {
-        setState(isOn())
+    private val stateListener: suspend (Bundle) -> Unit = {
+        onMain {
+            setState(isOn())
+        }
     }
 
     private fun isOn(): Boolean {
@@ -34,14 +39,13 @@ class QuickActionWhiteNoise(btn: QuickActionButtonView, fragment: Fragment) :
 
     override fun onResume() {
         super.onResume()
-        if (!intervalometer.isRunning()) {
-            intervalometer.interval(20)
-        }
+        setState(isOn())
+        Tools.subscribe(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_STATE_CHANGED, stateListener)
     }
 
     override fun onPause() {
         super.onPause()
-        intervalometer.stop()
+        Tools.unsubscribe(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_STATE_CHANGED, stateListener)
     }
 
     override fun onDestroy() {

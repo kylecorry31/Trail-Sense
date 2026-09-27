@@ -60,6 +60,10 @@ object WhiteNoiseToolRegistration : ToolRegistration {
             ),
             broadcasts = listOf(
                 ToolBroadcast(
+                    BROADCAST_PLAYBACK_STATE_CHANGED,
+                    "White noise playback state changed"
+                ),
+                ToolBroadcast(
                     BROADCAST_PLAYBACK_FINISHED,
                     "White noise playback finished"
                 )
@@ -76,5 +80,6 @@ object WhiteNoiseToolRegistration : ToolRegistration {
 
     const val SERVICE_WHITE_NOISE = "whitenoise-service-white-noise"
     const val NOTIFICATION_CHANNEL_GROUP_WHITE_NOISE = "white-noise"
+    const val BROADCAST_PLAYBACK_STATE_CHANGED = "whitenoise-broadcast-playback-state-changed"
     const val BROADCAST_PLAYBACK_FINISHED = "whitenoise-broadcast-playback-finished"
 }

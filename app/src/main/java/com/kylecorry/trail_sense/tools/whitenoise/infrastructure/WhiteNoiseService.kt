@@ -34,6 +34,7 @@ class WhiteNoiseService : AndromedaService() {
         return tryStartForegroundOrNotify {
             super.onStartCommand(intent, flags, startId)
             isRunning = true
+            Tools.broadcast(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_STATE_CHANGED)
             val stopAt = cache.getInstant(CACHE_KEY_OFF_TIME)
             if (stopAt != null && Instant.now() < stopAt) {
                 offTimer.once(Duration.between(Instant.now(), stopAt))
@@ -69,6 +70,7 @@ class WhiteNoiseService : AndromedaService() {
         soundPlayer?.fadeOff(true)
         stopService(true)
         clearSleepTimer(this)
+        Tools.broadcast(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_STATE_CHANGED)
         Tools.broadcast(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_FINISHED)
         super.onDestroy()
     }

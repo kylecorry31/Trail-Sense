@@ -3,8 +3,10 @@ package com.kylecorry.trail_sense.tools.whitenoise.ui
 import androidx.core.view.isVisible
 import com.google.android.material.materialswitch.MaterialSwitch
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.extensions.useToolEventListener
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.DurationInputView
@@ -18,7 +20,7 @@ import java.time.Duration
 import java.time.Instant
 
 class FragmentToolWhiteNoise :
-    TrailSenseReactiveFragment(R.layout.fragment_tool_white_noise, INTERVAL_30_FPS) {
+    TrailSenseReactiveFragment(R.layout.fragment_tool_white_noise) {
 
     override fun update() {
         // Views
@@ -44,12 +46,13 @@ class FragmentToolWhiteNoise :
             )
         }
 
+        val (isPlaying, setIsPlaying) = useState(WhiteNoiseService.isRunning)
         val (playbackJustFinished, setPlaybackJustFinished) = useState(false)
         val (isTimerRunning, setIsTimerRunning) = useState(false)
 
         // Effects
-        useEffect(whiteNoiseButtonView, WhiteNoiseService.isRunning) {
-            whiteNoiseButtonView.setState(WhiteNoiseService.isRunning)
+        useEffect(whiteNoiseButtonView, isPlaying) {
+            whiteNoiseButtonView.setState(isPlaying)
         }
 
         useEffect(soundSelectorView, soundTypes, cache) {
@@ -101,20 +104,47 @@ class FragmentToolWhiteNoise :
             }
         }
 
-        useEffect(sleepTimerPickerView, cache, isTimerRunning, runEveryCycle) {
+        useEffectWithCleanup(sleepTimerPickerView, cache, isPlaying, resetOnResume) {
             val stopTime = cache.getInstant(WhiteNoiseService.CACHE_KEY_OFF_TIME)
-            if (stopTime != null && stopTime > Instant.now()) {
-                sleepTimerPickerView.updateDuration(Duration.between(Instant.now(), stopTime))
+            val now = Instant.now()
+            if (stopTime != null && stopTime > now) {
                 setIsTimerRunning(true)
+                val updateCountdown = {
+                    val currentTime = Instant.now()
+                    if (stopTime > currentTime) {
+                        sleepTimerPickerView.updateDuration(Duration.between(currentTime, stopTime))
+                    } else {
+                        setPlaybackJustFinished(true)
+                    }
+                }
+                updateCountdown()
+
+                val timer = CoroutineTimer { updateCountdown() }
+                // Line the timer up to the second so the countdown updates in sync with the white noise timer
+                val initialDelayMillis = Duration.between(now, stopTime).toMillis() % 1000
+                timer.interval(1000, initialDelayMillis = initialDelayMillis)
+                return@useEffectWithCleanup {
+                    updateCountdown()
+                    timer.stop()
+                }
             } else if (isTimerRunning) {
                 // The timer ended while the tool was closed and the finished event was not caught
                 setIsTimerRunning(false)
                 setPlaybackJustFinished(true)
             }
+            return@useEffectWithCleanup {}
         }
 
         useToolEventListener(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_FINISHED) {
             setPlaybackJustFinished(true)
+        }
+
+        useToolEventListener(WhiteNoiseToolRegistration.BROADCAST_PLAYBACK_STATE_CHANGED) {
+            setIsPlaying(WhiteNoiseService.isRunning)
+        }
+
+        useResumeEffect {
+            setIsPlaying(WhiteNoiseService.isRunning)
         }
 
         // This intentionally clears the timer even when the user stops the playback
@@ -123,6 +153,7 @@ class FragmentToolWhiteNoise :
                 sleepTimerSwitchView.isChecked = false
                 sleepTimerPickerView.isVisible = false
                 sleepTimerPickerView.updateDuration(null)
+                setIsTimerRunning(false)
                 setPlaybackJustFinished(false)
             }
         }
