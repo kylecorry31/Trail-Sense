@@ -16,8 +16,8 @@ android {
         applicationId = "com.kylecorry.trail_sense"
         minSdk = 24
         targetSdk = 37
-        versionCode = 148
-        versionName = "8.2.0"
+        versionCode = 149
+        versionName = "8.3.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
     }
