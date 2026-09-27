@@ -1,266 +1,222 @@
 package com.kylecorry.trail_sense.tools.flashlight.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.BasicLabelFormatter
+import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.andromeda.core.system.Resources
-import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useFlow
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.luna.time.CoroutineTimer
+import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolFlashlightBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.shared.views.DialSelectView
+import com.kylecorry.trail_sense.shared.views.Slider
+import com.kylecorry.trail_sense.shared.views.TileButton
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
 import java.time.Duration
 import java.time.Instant
 
-class FragmentToolFlashlight : BoundFragment<FragmentToolFlashlightBinding>() {
-
-    private var flashlightMode = FlashlightMode.Off
-    private val haptics by lazy { HapticSubsystem.getInstance(requireContext()) }
-    private val flashlight by lazy { FlashlightSubsystem.getInstance(requireContext()) }
-    private val intervalometer = CoroutineTimer {
-        update()
-    }
-
-    private var brightness = 1f
-
-    private val switchStateTimer = CoroutineTimer {
-        turnOn()
-    }
+class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool_flashlight) {
 
     private var selectedMode = FlashlightMode.Torch
 
-    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
-    private val prefs by lazy { UserPreferences(requireContext()) }
-    private val formatter by lazy { FormatService.getInstance(requireContext()) }
-    private var maxBrightness = 1
-    private var hasBrightnessControl = false
+    override fun update() {
+        val onButton = useView<TileButton>(R.id.flashlight_on_btn)
+        val screenButton = useView<TileButton>(R.id.screen_flashlight_btn)
+        val dial = useView<DialSelectView>(R.id.flashlight_dial)
+        val indicator = useView<View>(R.id.flashlight_dial_indicator)
+        val brightnessSlider = useView<Slider>(R.id.brightness_seek)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val context = useAndroidContext()
+        val flashlight = useService<FlashlightSubsystem>()
+        val haptics = useService<HapticSubsystem>()
+        val prefs = useService<UserPreferences>()
+        val cache = useService<PreferencesSubsystem>().preferences
+        val formatter = useService<FormatService>()
+        val modeFlow = useMemo(flashlight) { flashlight.mode.replay().flow }
+        val mode = useFlow(modeFlow, state = BackgroundMinimumState.Resumed) ?: flashlight.getMode()
         val hasFlashlight = flashlight.isAvailable()
-        binding.flashlightDialIndicator.isVisible = hasFlashlight
-        binding.flashlightOnBtn.isVisible = hasFlashlight
-        binding.flashlightDial.isVisible = hasFlashlight
-
-        maxBrightness = flashlight.brightnessLevels
-        hasBrightnessControl = maxBrightness > 0
-        binding.brightnessSeek.valueFrom = 0f
-        binding.brightnessSeek.valueTo = maxBrightness.toFloat()
-        binding.brightnessSeek.stepSize = 1f
-        val basicFormatter = BasicLabelFormatter()
-        binding.brightnessSeek.setLabelFormatter {
-            basicFormatter.getFormattedValue(100 * it / maxBrightness.coerceAtLeast(1))
+        val maxBrightness = flashlight.brightnessLevels
+        val options = useMemo {
+            listOf(
+                FlashlightOption(FlashlightMode.Torch, "0"),
+                FlashlightOption(FlashlightMode.Strobe1, "1", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe2, "2", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe3, "3", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe4, "4", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe5, "5", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe6, "6", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe7, "7", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe8, "8", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe9, "9", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Strobe200, "200", requiresDisclaimer = true),
+                FlashlightOption(FlashlightMode.Sos, getString(R.string.sos))
+            )
         }
-        binding.flashlightDial.selectedColor = Resources.getPrimaryColor(requireContext())
-        updateBrightness()
-        binding.brightnessSeek.isVisible = hasBrightnessControl
-        binding.brightnessSeek.addOnChangeListener { _, value, fromUser ->
-            if (fromUser) {
-                flashlight.setBrightness(value / maxBrightness.toFloat())
-                turnOn()
+
+        useEffect(onButton, dial, indicator, hasFlashlight) {
+            onButton.isVisible = hasFlashlight
+            dial.isVisible = hasFlashlight
+            indicator.isVisible = hasFlashlight
+        }
+
+        useEffect(brightnessSlider, maxBrightness) {
+            brightnessSlider.valueFrom = 0f
+            brightnessSlider.valueTo = maxBrightness.coerceAtLeast(1).toFloat()
+            brightnessSlider.stepSize = 1f
+            val basicFormatter = BasicLabelFormatter()
+            brightnessSlider.setLabelFormatter {
+                basicFormatter.getFormattedValue(100 * it / maxBrightness.coerceAtLeast(1))
+            }
+            brightnessSlider.isVisible = maxBrightness > 0
+            val brightness = if (maxBrightness > 0) prefs.flashlight.brightness else 1f
+            brightnessSlider.value = (brightness * maxBrightness).safeRoundToInt().toFloat()
+            flashlight.setBrightness(brightness)
+        }
+
+        useEffect(brightnessSlider) {
+            brightnessSlider.addOnChangeListener { _, value, fromUser ->
+                if (fromUser && flashlight.brightnessLevels > 0) {
+                    flashlight.setBrightness(value / flashlight.brightnessLevels.toFloat())
+                    flashlight.set(selectedMode)
+                }
             }
         }
 
-        binding.flashlightOnBtn.setOnClickListener {
-            switchStateTimer.stop()
-            toggle()
+        useEffect(onButton, screenButton) {
+            onButton.setOnClickListener {
+                toggle()
+            }
+            screenButton.setOnClickListener {
+                findNavController().navigate(R.id.action_flashlight_to_screen_flashlight)
+            }
         }
 
-        binding.screenFlashlightBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_flashlight_to_screen_flashlight)
-        }
-
-        binding.flashlightDial.options = listOf(
-            0.toString(),
-            1.toString(),
-            2.toString(),
-            3.toString(),
-            4.toString(),
-            5.toString(),
-            6.toString(),
-            7.toString(),
-            8.toString(),
-            9.toString(),
-            200.toString(),
-            getString(R.string.sos)
-        )
-        binding.flashlightDial.range = 180f
-        binding.flashlightDial.alignToTop = true
-        binding.flashlightDial.background =
-            Resources.getAndroidColorAttr(requireContext(), com.google.android.material.R.attr.colorSurfaceContainer)
-        binding.flashlightDial.foreground =
-            Resources.getAndroidColorAttr(requireContext(), com.google.android.material.R.attr.colorOnSurface)
-        binding.flashlightDial.selectionChangeListener = {
-            val isStrobe = it in 1..10
-
-            if (isStrobe) {
-                CustomUiUtils.disclaimer(
-                    requireContext(),
-                    getString(R.string.strobe_warning_title),
-                    getString(R.string.strobe_warning_content),
-                    getString(R.string.pref_fine_with_strobe),
-                    considerShownIfCancelled = false,
-                ) { _, agreed ->
-                    val frequency = if (it == 10) 200 else it
-                    selectedMode = if (agreed) {
-                        getStrobeMode(frequency)
-                    } else {
-                        FlashlightMode.Torch
+        useEffect(dial, options) {
+            dial.selectedColor = Resources.getPrimaryColor(context)
+            dial.options = options.map { it.label }
+            dial.range = 180f
+            dial.alignToTop = true
+            dial.background = Resources.getAndroidColorAttr(
+                context, com.google.android.material.R.attr.colorSurfaceContainer
+            )
+            dial.foreground = Resources.getAndroidColorAttr(
+                context, com.google.android.material.R.attr.colorOnSurface
+            )
+            dial.selectionChangeListener = { index ->
+                val option = options.getOrNull(index) ?: options.first()
+                if (option.requiresDisclaimer) {
+                    CustomUiUtils.disclaimer(
+                        context,
+                        getString(R.string.strobe_warning_title),
+                        getString(R.string.strobe_warning_content),
+                        getString(R.string.pref_fine_with_strobe),
+                        considerShownIfCancelled = false,
+                    ) { _, agreed ->
+                        selectedMode = if (agreed) {
+                            option.mode
+                        } else {
+                            FlashlightMode.Torch
+                        }
+                        flashlight.set(selectedMode)
                     }
-                    turnOn()
+                } else {
+                    selectedMode = option.mode
+                    flashlight.set(selectedMode)
                 }
+            }
+        }
+
+        useResumeEffect(dial, options) {
+            selectedMode = if (flashlight.getMode() != FlashlightMode.Off) {
+                flashlight.selectedMode
             } else {
-                selectedMode = when (it) {
-                    11 -> FlashlightMode.Sos
-                    else -> FlashlightMode.Torch
+                FlashlightMode.Torch
+            }
+            val index = options.indexOfFirst { it.mode == selectedMode }
+            dial.selected = index
+            dial.scrollToOption(index)
+            dial.areHapticsEnabled = true
+        }
+
+        usePauseEffect(dial, haptics) {
+            haptics.off()
+            dial.areHapticsEnabled = false
+        }
+
+        useEffect(onButton, dial, mode) {
+            onButton.setState(mode != FlashlightMode.Off)
+            if (mode != FlashlightMode.Off) {
+                selectedMode = mode
+                val index = options.indexOfFirst { it.mode == selectedMode }
+                dial.selected = index
+                dial.scrollToOption(index)
+            }
+        }
+
+        useEffectWithCleanup(onButton, mode, resetOnResume) {
+            val updateCountdown = {
+                if (prefs.flashlight.shouldTimeout) {
+                    onButton.setText(
+                        formatter.formatDuration(
+                            getRemainingTimeout(cache, prefs),
+                            short = false,
+                            includeSeconds = true
+                        )
+                    )
+                } else {
+                    onButton.setText(null)
                 }
-                turnOn()
+            }
+            updateCountdown()
+            val timer = CoroutineTimer { updateCountdown() }
+            if (mode != FlashlightMode.Off && prefs.flashlight.shouldTimeout) {
+                // Line the timer up to the second so it better reflects the countdown
+                val initialDelayMillis = getRemainingTimeout(cache, prefs).toMillis() % 1000
+                timer.interval(1000, initialDelayMillis = initialDelayMillis)
+            }
+            return@useEffectWithCleanup { 
+                updateCountdown()
+                timer.stop()
             }
         }
     }
 
-    private fun getDialIndex(mode: FlashlightMode): Int {
-        return when (mode) {
-            FlashlightMode.Strobe1 -> 1
-            FlashlightMode.Strobe2 -> 2
-            FlashlightMode.Strobe3 -> 3
-            FlashlightMode.Strobe4 -> 4
-            FlashlightMode.Strobe5 -> 5
-            FlashlightMode.Strobe6 -> 6
-            FlashlightMode.Strobe7 -> 7
-            FlashlightMode.Strobe8 -> 8
-            FlashlightMode.Strobe9 -> 9
-            FlashlightMode.Strobe200 -> 10
-            FlashlightMode.Sos -> 11
-            else -> 0
-        }
-    }
-
-    private fun getStrobeMode(frequency: Int): FlashlightMode {
-        return when (frequency) {
-            1 -> FlashlightMode.Strobe1
-            2 -> FlashlightMode.Strobe2
-            3 -> FlashlightMode.Strobe3
-            4 -> FlashlightMode.Strobe4
-            5 -> FlashlightMode.Strobe5
-            6 -> FlashlightMode.Strobe6
-            7 -> FlashlightMode.Strobe7
-            8 -> FlashlightMode.Strobe8
-            9 -> FlashlightMode.Strobe9
-            200 -> FlashlightMode.Strobe200
-            else -> FlashlightMode.Torch
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        flashlightMode = flashlight.getMode()
-        selectedMode = if (flashlightMode != FlashlightMode.Off) {
-            flashlight.selectedMode
-        } else {
-            FlashlightMode.Torch
-        }
-        val index = getDialIndex(selectedMode)
-        binding.flashlightDial.selected = index
-        binding.flashlightDial.scrollToOption(index)
-        updateFlashlightUI()
-        intervalometer.interval(20)
-        binding.flashlightDial.areHapticsEnabled = true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        haptics.off()
-        intervalometer.stop()
-        switchStateTimer.stop()
-        binding.flashlightDial.areHapticsEnabled = false
-    }
-
-    private fun updateFlashlightUI() {
-        binding.flashlightOnBtn.setState(flashlightMode != FlashlightMode.Off)
-        updateTimer()
-    }
-
-    private fun updateBrightness(value: Float? = null) {
-        if (hasBrightnessControl) {
-            brightness = value ?: prefs.flashlight.brightness
-            binding.brightnessSeek.value = (brightness * maxBrightness).safeRoundToInt().toFloat()
-        } else {
-            brightness = 1f
-        }
-        flashlight.setBrightness(brightness)
-    }
-
-    fun toggle() {
-        haptics.click()
-        if (flashlight.getMode() != FlashlightMode.Off) {
-            turnOff()
-        } else {
-            turnOn()
-        }
-    }
-
-    private fun turnOn() {
-        flashlight.set(selectedMode)
-    }
-
-    private fun turnOff() {
-        flashlight.set(FlashlightMode.Off)
-    }
-
-    private fun update() {
-        val newMode = flashlight.getMode()
-        if (newMode != flashlightMode) {
-            flashlightMode = newMode
-            if (newMode != FlashlightMode.Off) {
-                selectedMode = newMode
-                val index = getDialIndex(selectedMode)
-                binding.flashlightDial.selected = index
-                binding.flashlightDial.scrollToOption(index)
-            }
-        }
-        updateFlashlightUI()
-    }
-
-    private fun updateTimer() {
-        if (!prefs.flashlight.shouldTimeout) {
-            binding.flashlightOnBtn.setText(null)
-            return
-        }
-
+    private fun getRemainingTimeout(cache: IPreferences, prefs: UserPreferences): Duration {
+        val now = Instant.now()
         val instant = cache.getInstant(getString(R.string.pref_flashlight_timeout_instant))
-        val duration = if (instant != null && instant.isAfter(Instant.now())) {
-            Duration.between(Instant.now(), instant)
+        return if (instant != null && instant.isAfter(now)) {
+            Duration.between(now, instant)
         } else {
             prefs.flashlight.timeout
         }
+    }
 
-        binding.flashlightOnBtn.setText(
-            formatter.formatDuration(
-                duration,
-                short = false,
-                includeSeconds = true
-            )
+    fun toggle() {
+        val flashlight = FlashlightSubsystem.getInstance(requireContext())
+        HapticSubsystem.getInstance(requireContext()).click()
+        flashlight.set(
+            if (flashlight.getMode() != FlashlightMode.Off) FlashlightMode.Off else selectedMode
         )
     }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolFlashlightBinding {
-        return FragmentToolFlashlightBinding.inflate(layoutInflater, container, false)
-    }
-
+    private data class FlashlightOption(
+        val mode: FlashlightMode,
+        val label: String,
+        val requiresDisclaimer: Boolean = false
+    )
 }

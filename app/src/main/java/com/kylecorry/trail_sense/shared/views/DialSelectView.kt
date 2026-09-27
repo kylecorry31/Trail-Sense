@@ -67,6 +67,7 @@ class DialSelectView : CanvasView {
                 Color.TRANSPARENT,
                 Shader.TileMode.CLAMP
             )
+            gradientPaint.shader = gradient
             invalidate()
         }
 

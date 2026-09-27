@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.GeoidService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.device.DeviceSubsystem
+import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
@@ -57,6 +58,7 @@ object TrailSenseServiceRegister {
         DependencyRegistry.addSingleton(LocationSubsystem.getInstance(appContext))
         DependencyRegistry.addSingleton(DeviceSubsystem(appContext))
         DependencyRegistry.addSingleton(PluginSubsystem.getInstance(appContext))
+        DependencyRegistry.addSingleton(HapticSubsystem.getInstance(appContext))
 
         // Map layers
         DependencyRegistry.addSingleton(MapLayerLoader(appContext))

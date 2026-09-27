@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.flashlight
 
 import android.content.Context
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -39,7 +40,9 @@ object FlashlightToolRegistration : ToolRegistration {
             R.drawable.flashlight,
             R.id.fragmentToolFlashlight,
             ToolCategory.Signaling,
-            initialize = { FlashlightSubsystem.getInstance(it) },
+            initialize = {
+                DependencyRegistry.addSingleton(FlashlightSubsystem.getInstance(it))
+            },
             guideId = R.raw.guide_tool_flashlight,
             settingsNavAction = R.id.flashlightSettingsFragment,
             quickActions = listOfNotNull(
@@ -75,7 +78,10 @@ object FlashlightToolRegistration : ToolRegistration {
                 )
             ),
             notificationChannelGroups = listOf(
-                ToolNotificationChannelGroup(NOTIFICATION_CHANNEL_GROUP_FLASHLIGHT, context.getString(R.string.flashlight_title))
+                ToolNotificationChannelGroup(
+                    NOTIFICATION_CHANNEL_GROUP_FLASHLIGHT,
+                    context.getString(R.string.flashlight_title)
+                )
             ),
             notificationChannels = listOf(
                 ToolNotificationChannel(
