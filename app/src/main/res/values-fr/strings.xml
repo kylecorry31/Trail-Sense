@@ -1692,4 +1692,6 @@
     <string name="gps_accuracy_filter_summary">Précision de %1$s, délai maximal de %2$s</string>
     <string name="gps_accuracy_target">Précision : %1$s</string>
     <string name="gps_accuracy_wait">Durée d\'attente maximale : %1$s</string>
+    <string name="delete_packing_list_item">Supprimer cet élément ?</string>
+    <string name="map_layer_navigation_show_endpoints">Afficher les points de début et de fin</string>
 </resources>
