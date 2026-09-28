@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
 import java.time.Duration
 
@@ -73,6 +74,7 @@ class BacktrackService :
 
     private val recordLock = Mutex()
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork() {
         if (!recordLock.tryLock()) {
             return
@@ -80,6 +82,10 @@ class BacktrackService :
 
         try {
             BacktrackCommand(this).execute()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            getAppService<Logger>().error(TAG, "Unable to record backtrack point", e)
         } finally {
             recordLock.unlock()
         }
