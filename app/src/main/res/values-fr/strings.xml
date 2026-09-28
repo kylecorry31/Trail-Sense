@@ -1694,4 +1694,7 @@
     <string name="gps_accuracy_wait">Durée d\'attente maximale : %1$s</string>
     <string name="delete_packing_list_item">Supprimer cet élément ?</string>
     <string name="map_layer_navigation_show_endpoints">Afficher les points de début et de fin</string>
+    <string name="compass_update_frequency">Fréquence de mise à jour de la boussole</string>
+    <string name="compass_update_frequency_normal">Normal</string>
+    <string name="compass_update_frequency_fast">Rapide</string>
 </resources>
