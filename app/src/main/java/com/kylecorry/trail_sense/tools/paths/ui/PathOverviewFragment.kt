@@ -25,7 +25,6 @@ import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.luna.time.CoroutineTimer
-import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.statistics.Statistics
@@ -97,7 +96,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private val prefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val throttle = Throttle(20)
+    private var pathUpdateVersion by state(0L)
 
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(tag = "PathOverviewFragment") }
@@ -489,11 +488,21 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun onPathChanged() {
-        val path = path ?: return
+        pathUpdateVersion++
+    }
 
-        if (!isBound || throttle.isThrottled()) {
+    override fun onUpdate() {
+        super.onUpdate()
+        if (!isBound) {
             return
         }
+        effect("path", pathUpdateVersion, resetOnResume) {
+            updatePathDetails()
+        }
+    }
+
+    private fun updatePathDetails() {
+        val path = path ?: return
 
         binding.pathLineStyle.text = listOf(
             getString(R.string.solid),
