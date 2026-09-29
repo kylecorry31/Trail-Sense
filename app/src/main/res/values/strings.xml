@@ -673,7 +673,7 @@
     <string name="pref_backtrack_save_cell_summary">Records cell signal at the waypoint. Does not use the Internet.</string>
     <string name="pref_backtrack_save_cell_title">Record cell signal</string>
     <string name="pref_backtrack_keep_awake_summary">When below 15 minute frequency</string>
-    <!--Keeps the CPU running in the background, not the screen on-->
+    <!-- Keeps the CPU running in the background for path recording; this does not keep the screen on. -->
     <string name="pref_backtrack_keep_awake_title">Keep device awake</string>
     <string name="pref_holder_pressure_chart" translatable="false">pref_holder_pressure_chart</string>
     <string name="location_not_set">Location not set</string>
@@ -2057,11 +2057,17 @@
     <!--The last updated time for weather readings-->
     <string name="last_updated">Last updated</string>
     <string name="pref_gps_smoothing" translatable="false">pref_gps_smoothing</string>
+    <!-- Follow the saved path in its recorded direction, from its start to its end. -->
     <string name="path_navigation_follow">Follow to end</string>
+    <!-- Follow the saved path in the opposite direction, toward its start. -->
     <string name="path_navigation_reverse">Follow to start</string>
+    <!-- For a loop path, follow the entire path and return to the starting point. -->
     <string name="path_navigation_loop">Follow full loop</string>
+    <!-- For a loop path, follow the entire path in the opposite direction and return to the starting point. -->
     <string name="path_navigation_reverse_loop">Follow full loop in reverse</string>
+    <!-- Reach the selected point by following the saved path. -->
     <string name="path_navigation_to_point">Follow path to this point</string>
+    <!-- Reach the selected point directly, without following the saved path. -->
     <string name="path_navigation_direct">Navigate directly</string>
     <string name="navigate_back_onto_path">Navigate back onto path</string>
     <string name="compass_update_frequency">Compass update frequency</string>

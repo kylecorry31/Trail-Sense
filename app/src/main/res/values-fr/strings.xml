@@ -1682,7 +1682,6 @@
     <string name="gps_power_usage_high">Haute précision</string>
     <string name="gps_power_usage_inherit">Hériter des paramètres GPS</string>
     <string name="path_navigation_follow">Suivre jusqu\'à la fin</string>
-    <string name="path_navigation_reverse">Cliquez ici pour commencer</string>
     <string name="path_navigation_loop">Suivre le circuit complet</string>
     <string name="path_navigation_reverse_loop">Suivre le circuit complet dans le sens inverse</string>
     <string name="path_navigation_to_point">Suivre le chemin jusqu\'à ce point</string>
