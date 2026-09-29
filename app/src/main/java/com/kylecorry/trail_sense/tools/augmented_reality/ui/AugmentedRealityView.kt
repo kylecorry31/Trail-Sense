@@ -642,7 +642,7 @@ class AugmentedRealityView : CanvasView {
                 val fov = camera.camera?.getPreviewFOV(false) ?: return@enqueue
                 this@AugmentedRealityView.fov = Size(fov.first, fov.second)
                 if (previewRect == null) {
-                    previewRect = camera.camera?.getPreviewRect(false)
+                    previewRect = camera.camera?.getPreviewRect(false)?.takeUnless { it.isEmpty }
                 }
                 val activeCamera = camera.camera
                 if (activeCamera !== lastActiveCamera || cameraMapper == null) {
