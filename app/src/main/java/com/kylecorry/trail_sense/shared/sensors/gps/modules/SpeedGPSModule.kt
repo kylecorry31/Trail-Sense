@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.sensors.gps.modules
 
 import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.math.RingBuffer
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
@@ -14,10 +15,18 @@ class SpeedGPSModule : GPSModule {
     // Location and fix elapsed realtime nanos
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Long>>(10)
 
+    override suspend fun stop(data: ModularGPSData) {
+        locationHistory.clear()
+    }
+
     override suspend fun update(
         previousData: ModularGPSData,
         newData: ModularGPSData
     ): Boolean {
+        if (newData.id == previousData.id && previousData.location != Coordinate.zero) {
+            return true
+        }
+
         val locations = locationHistory.toList()
 
         val currentLocation = ApproximateCoordinate.from(
@@ -28,9 +37,10 @@ class SpeedGPSModule : GPSModule {
         val oldestLocation = locations.firstOrNull()
 
         val currentSpeedAccuracy = newData.speedAccuracy
-        val shouldReplaceSpeed = currentSpeedAccuracy != null && newData.speed.value < currentSpeedAccuracy * 0.68
+        val shouldReplaceSpeed = newData.speed.value == 0f ||
+            (currentSpeedAccuracy != null && newData.speed.value < currentSpeedAccuracy * 0.68)
 
-        // If the speed is zero, estimate the speed
+        // Estimate speed when it is zero or below its accuracy threshold
         if (shouldReplaceSpeed && oldestLocation != null) {
             newData.speed = SpeedEstimator.calculate(
                 oldestLocation.first,
