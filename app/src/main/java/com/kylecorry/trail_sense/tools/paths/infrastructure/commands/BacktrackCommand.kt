@@ -80,9 +80,10 @@ class BacktrackCommand(
         if (!gps.hasValidReading || (gps as? CustomGPS)?.isTimedOut == true) {
             val reason = if (gps.hasValidReading) "timed out" else "no valid reading"
             val path = if (pathId == 0L) "backtrack" else "path $pathId"
+            val outcome = if (gps.hasValidReading) "recording" else "skipping"
             getAppService<Logger>().warn(
                 TAG,
-                "GPS did not receive a fix ($reason), recording $path point from a reading " +
+                "GPS did not receive a fix ($reason), $outcome $path point from a reading " +
                     "${gps.age(SystemTimeProvider()).seconds}s old with ${gps.horizontalAccuracy?.safeRoundPlaces(1)}m accuracy"
             )
         }
@@ -91,6 +92,10 @@ class BacktrackCommand(
 
     private suspend fun recordWaypoint(): PathPoint? {
         return onIO {
+            if (!gps.hasValidReading) {
+                return@onIO null
+            }
+
             val waypoint = PathPoint(
                 0,
                 pathId,
