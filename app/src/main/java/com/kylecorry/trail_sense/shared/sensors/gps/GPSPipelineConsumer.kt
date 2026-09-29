@@ -12,12 +12,15 @@ internal class GPSPipelineConsumer(
         get() = pipeline.reading
 
     /**
-     * @return true if a recent newer startup fix was accepted or the shared fix changed after restarting
+     * @return true if a recent newer startup fix was accepted, the shared fix changed after restarting, or the shared reading is timed out
      */
     suspend fun start(initialReading: ModularGPSData? = null): Boolean {
-        val shouldNotify = pipeline.start(this, ::onTimeout, initialReading)
+        val acceptedStartupFix = pipeline.start(this, ::onTimeout, initialReading)
         val hasDeliveredFix = deliveredId != null
-        return deliver(pipeline.reading) && (shouldNotify || hasDeliveredFix)
+        val latest = pipeline.reading
+        val hasNewFix = deliver(latest)
+        val shouldNotifyFix = hasNewFix && (acceptedStartupFix || hasDeliveredFix)
+        return shouldNotifyFix || latest.isTimedOut
     }
 
     suspend fun stop() {

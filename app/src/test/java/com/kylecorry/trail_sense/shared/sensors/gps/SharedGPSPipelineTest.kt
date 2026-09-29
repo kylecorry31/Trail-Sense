@@ -215,6 +215,31 @@ class SharedGPSPipelineTest {
     }
 
     @Test
+    fun consumersStartingAfterSharedTimeoutAreNotified() = runBlocking<Unit> {
+        for (hasFix in listOf(false, true)) {
+            lateinit var fireTimeout: suspend () -> Unit
+            val pipeline = SharedGPSPipeline(mock()) { notifyTimeout ->
+                GPSPipeline(listOf(TimeoutGPSModule(notifyTimeout, mock(), { fireTimeout = it; mock() }, timeProvider)))
+            }
+            val first = Consumer(pipeline)
+            assertFalse(first.consumer.start())
+            if (hasFix) first.consumer.update(reading(1))
+            fireTimeout()
+            assertEquals(1, first.notifications)
+
+            val second = Consumer(pipeline).consumer
+            assertTrue(second.start(), "Existing timeout with hasFix=$hasFix")
+            assertTrue(second.reading.isTimedOut)
+            if (hasFix) assertFalse(second.update(reading(1)))
+            second.stop()
+            assertTrue(second.start(), "Existing timeout after restart with hasFix=$hasFix")
+            assertEquals(1, first.notifications)
+            second.stop()
+            first.consumer.stop()
+        }
+    }
+
+    @Test
     fun timeoutQueuedDuringUpdateCannotExpireTheNewFix() = runBlocking<Unit> {
         val entered = kotlinx.coroutines.CompletableDeferred<Unit>()
         val resume = kotlinx.coroutines.CompletableDeferred<Unit>()
