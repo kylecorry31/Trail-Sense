@@ -129,10 +129,14 @@ class ARPathLayer(
     internal fun getPaths(location: Coordinate): List<IMappablePath> {
         val destination = destination ?: return paths
         val path = destination.path
+        val guidance = destination.route.navigate(location)
         val route = MappablePath(
             path.id,
-            destination.route.navigate(location).remainingRoute.mapIndexed { index, coordinate ->
-                MappableLocation(index.toLong(), coordinate, path.style.color, null)
+            guidance.remainingRoute.mapIndexed { index, point ->
+                MappableLocation(
+                    index.toLong(), point.coordinate, path.style.color, null,
+                    elevation = point.elevation
+                )
             },
             path.style.color,
             LineStyle.Arrow,

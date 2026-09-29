@@ -22,6 +22,18 @@ class ARPathLayerTest {
     })
 
     @Test
+    fun navigationPreservesElevationProfileAsRouteAdvances() {
+        layer.destination = Destination.Path(path, listOf(
+            PathPoint(1, path.id, start, 100f),
+            PathPoint(2, path.id, middle, 200f),
+            PathPoint(3, path.id, end, 150f)
+        ))
+
+        assertEquals(listOf(100f, 200f, 200f, 150f), layer.getPaths(start).single().points.map { it.elevation })
+        assertEquals(listOf(200f, 150f, 150f), layer.getPaths(middle).single().points.map { it.elevation })
+    }
+
+    @Test
     fun hiddenDestinationIsShownAndRouteAdvances() {
         layer.destination = destination
         val initial = layer.getPaths(start).single()

@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlin.math.abs
 
-class PathRoute(pathPoints: List<PathPoint>) {
+class PathRoute(private val pathPoints: List<PathPoint>) {
     private val points = pathPoints.map { it.coordinate }
     private val hikingService = HikingService()
     private val cumulativeDistances = hikingService.getDistances(points).toFloatArray()
@@ -48,12 +48,20 @@ class PathRoute(pathPoints: List<PathPoint>) {
         } else {
             getRemainingElevationLossGain(current)
         }
+        val currentElevation = getElevation(current)
         val guidance = Guidance(
             target = next.target,
             remainingDistance = remainingDistance,
             offRoute = next.offRoute,
             arrived = next.arrived,
-            remainingRoute = listOf(location, next.target) + points.drop(next.index),
+            remainingRoute = listOf(
+                PathPoint(-1, pathPoints.first().pathId, location, currentElevation),
+                if (next.offRoute > OFF_ROUTE_DISTANCE_METERS) {
+                    PathPoint(-2, pathPoints.first().pathId, next.target, currentElevation)
+                } else {
+                    pathPoints[next.index]
+                }
+            ) + pathPoints.drop(next.index),
             remainingElevationGain = remainingElevationGain,
             remainingElevationLoss = remainingElevationLoss,
         )
@@ -88,6 +96,21 @@ class PathRoute(pathPoints: List<PathPoint>) {
         )
         return Distance.meters(cumulativeElevationLoss.last() - currentLoss) to
                 Distance.meters(cumulativeElevationGain.last() - currentGain)
+    }
+
+    private fun getElevation(currentPoint: CurrentPoint): Float? {
+        val index = currentPoint.segment
+        if (index >= points.lastIndex) return pathPoints[index].elevation
+        val segmentDistance = cumulativeDistances[index + 1] - cumulativeDistances[index]
+        if (segmentDistance <= 0f) return pathPoints[index].elevation
+        val fraction = ((currentPoint.distance - cumulativeDistances[index]) / segmentDistance).coerceIn(0f, 1f)
+        if (fraction == 0f) return pathPoints[index].elevation
+        if (fraction == 1f) return pathPoints[index + 1].elevation
+        return Interpolation.lerp(
+            fraction,
+            pathPoints[index].elevation ?: return null,
+            pathPoints[index + 1].elevation ?: return null
+        )
     }
 
     private fun getProgress(distance: Float, arrived: Boolean): Float = when {
@@ -152,7 +175,7 @@ class PathRoute(pathPoints: List<PathPoint>) {
         val remainingDistance: Float,
         val offRoute: Float,
         val arrived: Boolean,
-        val remainingRoute: List<Coordinate>,
+        val remainingRoute: List<PathPoint>,
         val remainingElevationGain: Distance,
         val remainingElevationLoss: Distance
     )

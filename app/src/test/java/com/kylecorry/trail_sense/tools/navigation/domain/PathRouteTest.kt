@@ -19,6 +19,38 @@ class PathRouteTest {
     )
 
     @Test
+    fun `remaining route interpolates current and off route target elevations`() {
+        val route = PathRoute(points)
+        val location = Coordinate(0.001, 0.0005)
+        route.restoreProgress(0.25f, location)
+        val guidance = route.navigate(location)
+
+        assertEquals(50f, guidance.remainingRoute[0].elevation!!, 0.1f)
+        assertEquals(50f, guidance.remainingRoute[1].elevation!!, 0.1f)
+        assertEquals(listOf(100f, 50f), guidance.remainingRoute.map { it.elevation }.drop(2))
+        assertEquals(points.drop(1), guidance.remainingRoute.drop(2))
+    }
+
+    @Test
+    fun `remaining route preserves unknown elevations`() {
+        val route = PathRoute(points.map { it.copy(elevation = null) })
+        assertEquals(listOf(null, null, null, null), route.navigate(points.first().coordinate).remainingRoute.map { it.elevation })
+    }
+
+    @Test
+    fun `reversed route preserves elevations at repeated coordinates`() {
+        val path = (points + points.first().copy(id = 4, elevation = 75f)).reversed()
+        val guidance = PathRoute(path).navigate(path.first().coordinate)
+        assertEquals(listOf(75f, 50f, 50f, 100f, 0f), guidance.remainingRoute.map { it.elevation })
+    }
+
+    @Test
+    fun `single point route preserves elevation`() {
+        assertEquals(listOf(100f, 100f, 100f), PathRoute(listOf(points[1]))
+            .navigate(points[1].coordinate).remainingRoute.map { it.elevation })
+    }
+
+    @Test
     fun `missed corner advances on sparse and densely sampled paths`() {
         for (samplesPerSegment in listOf(1, 20)) {
             val coordinates = (0 until samplesPerSegment).map {
