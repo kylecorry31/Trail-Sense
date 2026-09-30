@@ -1,77 +1,74 @@
 package com.kylecorry.trail_sense.tools.convert.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.kylecorry.andromeda.fragments.BoundFragment
+import android.widget.Spinner
+import android.widget.TextView
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolCoordinateConvertBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useCoordinateInputView
 
-class FragmentToolCoordinateConvert : BoundFragment<FragmentToolCoordinateConvertBinding>() {
-
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
+class FragmentToolCoordinateConvert :
+    TrailSenseReactiveFragment(R.layout.fragment_tool_coordinate_convert) {
 
     private val formats = BuiltInCoordinateFormat.entries
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.toUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                update()
+    override fun update() {
+        val context = useAndroidContext()
+
+        // Views
+        val coordinateView = useCoordinateInputView(R.id.coordinate_edit, lifecycleHookTrigger)
+        val toUnitsView = useView<Spinner>(R.id.to_units)
+        val resultView = useView<TextView>(R.id.result)
+
+        // Services
+        val formatter = useService<FormatService>()
+
+        // State
+        val (coordinate, setCoordinate) = useState<Coordinate?>(coordinateView.coordinate)
+        val (formatIndex, setFormatIndex) = useState(0)
+
+        useEffect(coordinateView) {
+            setCoordinate(coordinateView.coordinate)
+            coordinateView.setOnCoordinateChangeListener {
+                setCoordinate(it)
             }
+        }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                update()
+        useEffect(toUnitsView, context, formatter) {
+            toUnitsView.adapter = ArrayAdapter(
+                context,
+                R.layout.spinner_item_plain,
+                R.id.item_name,
+                formats.map { formatter.formatCoordinateType(it) }
+            )
+            toUnitsView.prompt = getString(R.string.distance_from)
+            toUnitsView.setSelection(formatIndex)
+            toUnitsView.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    setFormatIndex(position)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    setFormatIndex(toUnitsView.selectedItemPosition)
+                }
             }
         }
 
-        binding.coordinateEdit.setOnCoordinateChangeListener {
-            update()
+        useEffect(resultView, coordinate, formatIndex, formatter) {
+            resultView.text = coordinate?.let {
+                formatter.formatLocation(it, formats[formatIndex])
+            } ?: ""
         }
-
-        val toAdapter = ArrayAdapter(
-            requireContext(),
-            R.layout.spinner_item_plain,
-            R.id.item_name,
-            formats.map { formatService.formatCoordinateType(it) })
-        binding.toUnits.prompt = getString(R.string.distance_from)
-        binding.toUnits.adapter = toAdapter
-        binding.toUnits.setSelection(0)
     }
-
-    override fun onPause() {
-        super.onPause()
-        binding.coordinateEdit.pause()
-    }
-
-
-    fun update() {
-        val coordinate = binding.coordinateEdit.coordinate
-        val to = formats[binding.toUnits.selectedItemPosition]
-
-        if (coordinate == null) {
-            binding.result.text = ""
-            return
-        }
-
-        binding.result.text = formatService.formatLocation(coordinate, to)
-    }
-
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolCoordinateConvertBinding {
-        return FragmentToolCoordinateConvertBinding.inflate(layoutInflater, container, false)
-    }
-
 }

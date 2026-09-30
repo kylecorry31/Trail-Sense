@@ -1,59 +1,57 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trail_sense.databinding.FragmentGuideListBinding
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.views.SearchView
 import com.kylecorry.trail_sense.tools.guide.domain.UserGuideCategory
 import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
 
-class GuideListFragment : BoundFragment<FragmentGuideListBinding>() {
+class GuideListFragment : TrailSenseReactiveFragment(R.layout.fragment_guide_list) {
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentGuideListBinding {
-        return FragmentGuideListBinding.inflate(layoutInflater, container, false)
-    }
+    override fun update() {
+        // Views
+        val searchView = useView<SearchView>(R.id.searchbox)
+        val listContainerView = useView<FragmentContainerView>(R.id.guide_fragment)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val fragment = GuideListPreferenceFragment()
-        val guides = Guides.guides(requireContext())
+        // State
+        val context = useAndroidContext()
+        val guides = useMemo(context) { Guides.guides(context) }
+        val (query, setQuery) = useState("")
+        val (listFragment, setListFragment) = useState<GuideListPreferenceFragment?>(null)
 
-        binding.searchbox.setOnSearchListener {
-            val newGuides = mutableListOf<UserGuideCategory>()
-
-            for (category in guides) {
-                if (category.name.contains(it, true)) {
-                    newGuides.add(category)
+        val filteredGuides = useMemo(guides, query) {
+            guides.mapNotNull { category ->
+                if (category.name.contains(query, true)) {
+                    category
                 } else {
-                    val newCategory =
-                        UserGuideCategory(category.name, category.guides.filter { guide ->
-                            guide.name.contains(it, true)
-                        })
-                    if (newCategory.guides.isNotEmpty()) {
-                        newGuides.add(newCategory)
-                    }
+                    UserGuideCategory(
+                        category.name,
+                        category.guides.filter { it.name.contains(query, true) }
+                    ).takeIf { it.guides.isNotEmpty() }
                 }
             }
-
-            fragment.updateList(newGuides)
         }
 
-        setFragment(fragment)
-        fragment.updateList(guides)
-    }
+        // Effects
+        useEffect(searchView) {
+            searchView.setOnSearchListener {
+                setQuery(it)
+            }
+        }
 
-    private fun setFragment(fragment: Fragment) {
-        val fragmentManager = childFragmentManager
-        fragmentManager.commit {
-            replace(binding.guideFragment.id, fragment)
+        // A new fragment is used for each view since the old one is destroyed with its container
+        useEffect(listContainerView) {
+            val fragment = GuideListPreferenceFragment()
+            childFragmentManager.commit {
+                replace(listContainerView.id, fragment)
+            }
+            setListFragment(fragment)
+        }
+
+        useEffect(listFragment, filteredGuides) {
+            listFragment?.updateList(filteredGuides)
         }
     }
-
 }

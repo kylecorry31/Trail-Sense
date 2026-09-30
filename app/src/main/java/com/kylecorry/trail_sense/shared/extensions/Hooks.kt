@@ -267,9 +267,12 @@ fun <T> T.useBottomSheetBackPressedCallback(
     }
 }
 
-fun <T> T.useUnsavedChangesPrompt(hasChanges: Boolean) where T : Fragment, T : ReactiveComponent {
+fun <T> T.useUnsavedChangesPrompt(
+    hasChanges: Boolean,
+    vararg values: Any?
+) where T : Fragment, T : ReactiveComponent {
     val activity = useActivity() as? FragmentActivity
-    useBackPressedCallback(hasChanges, activity) {
+    useBackPressedCallback(hasChanges, activity, *values) {
         if (hasChanges && activity != null) {
             Alerts.dialog(
                 activity,

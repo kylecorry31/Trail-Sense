@@ -1,51 +1,67 @@
 package com.kylecorry.trail_sense.tools.notes.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.lifecycle.LiveData
-import androidx.navigation.fragment.findNavController
+import android.widget.TextView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.kylecorry.andromeda.alerts.Alerts
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
+import com.kylecorry.andromeda.views.list.AndromedaListView
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolNotesBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useLiveData
+import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
 import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
-class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
+class FragmentToolNotes : TrailSenseReactiveFragment(R.layout.fragment_tool_notes) {
 
-    private val notesRepo by lazy { NoteRepo.getInstance(requireContext()) }
-    private lateinit var notesLiveData: LiveData<List<Note>>
-    private val listMapper by lazy { NoteListItemMapper(requireContext(), this::handleAction) }
+    override fun update() {
+        // Views
+        val listView = useView<AndromedaListView>(R.id.note_list)
+        val emptyTextView = useView<TextView>(R.id.notes_empty_text)
+        val addButtonView = useView<FloatingActionButton>(R.id.add_btn)
 
-    private var notes by state(emptyList<Note>())
+        // Services
+        val context = useAndroidContext()
+        val navController = useNavController()
+        val notesRepo = useMemo(context) { NoteRepo.getInstance(context) }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.noteList.emptyView = binding.notesEmptyText
-        notesLiveData = notesRepo.getNotes()
-        observe(notesLiveData) { items ->
-            notes = items
+        // State
+        val notesLiveData = useMemo(notesRepo) { notesRepo.getNotes() }
+        val notes = useLiveData(notesLiveData, emptyList()) { items ->
+            items.sortedByDescending { it.createdOn }
         }
 
-        binding.addBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate)
-        }
-    }
+        val listMapper = useMemo(context, navController, notesRepo) {
+            NoteListItemMapper(context) { note, action ->
+                when (action) {
+                    NoteAction.Edit -> navController.navigate(
+                        R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate,
+                        Bundle().apply { putLong("edit_note_id", note.id) }
+                    )
 
-    private fun handleAction(note: Note, action: NoteAction) {
-        when (action) {
-            NoteAction.Edit -> editNote(note)
-            NoteAction.Delete -> deleteNote(note)
-            NoteAction.QR -> showQR(note)
+                    NoteAction.Delete -> deleteNote(note, notesRepo)
+                    NoteAction.QR -> showQR(note)
+                }
+            }
+        }
+
+        // Effects
+        useEffect(listView, emptyTextView) {
+            listView.emptyView = emptyTextView
+        }
+
+        useEffect(listView, notes, listMapper, resetOnResume) {
+            listView.setItems(notes, listMapper)
+        }
+
+        useEffect(addButtonView, navController) {
+            addButtonView.setOnClickListener {
+                navController.navigate(R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate)
+            }
         }
     }
 
@@ -57,7 +73,7 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
         )
     }
 
-    private fun deleteNote(note: Note) {
+    private fun deleteNote(note: Note, notesRepo: NoteRepo) {
         Alerts.dialog(
             requireContext(),
             getString(R.string.delete_note_title),
@@ -69,35 +85,11 @@ class FragmentToolNotes : BoundFragment<FragmentToolNotesBinding>() {
         ) { cancelled ->
             if (!cancelled) {
                 inBackground {
-                    withContext(Dispatchers.IO) {
+                    onIO {
                         notesRepo.deleteNote(note)
                     }
                 }
             }
         }
-    }
-
-    private fun editNote(note: Note) {
-        val bundle = Bundle().apply {
-            putLong("edit_note_id", note.id)
-        }
-        findNavController().navigate(
-            R.id.action_fragmentToolNotes_to_fragmentToolNotesCreate,
-            bundle
-        )
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-        effect("notes", notes, lifecycleHookTrigger.onResume()) {
-            binding.noteList.setItems(notes.sortedByDescending { it.createdOn }, listMapper)
-        }
-    }
-
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolNotesBinding {
-        return FragmentToolNotesBinding.inflate(layoutInflater, container, false)
     }
 }

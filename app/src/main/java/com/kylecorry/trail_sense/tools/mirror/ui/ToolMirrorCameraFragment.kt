@@ -1,67 +1,45 @@
 package com.kylecorry.trail_sense.tools.mirror.ui
 
 import android.graphics.Color
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.camera.view.PreviewView
-import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.torch.ScreenTorch
-import com.kylecorry.trail_sense.databinding.FragmentToolMirrorCameraBinding
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.views.CameraView
 
-class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>() {
-    private val flashlight by lazy { ScreenTorch(requireActivity().window) }
-    private var isCameraEnabled by state(false)
-    private var wasPermissionRequested by state(false)
+class ToolMirrorCameraFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_mirror_camera) {
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater, container: ViewGroup?
-    ): FragmentToolMirrorCameraBinding {
-        return FragmentToolMirrorCameraBinding.inflate(layoutInflater, container, false)
-    }
+    override fun update() {
+        val context = useAndroidContext()
+        val cameraView = useView<CameraView>(R.id.camera)
+        val screenTorch = useMemo { ScreenTorch(requireActivity().window) }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
-        binding.camera.setShowTorch(false)
-        binding.camera.setPreviewBackgroundColor(Color.WHITE)
-    }
+        val (isCameraEnabled, setIsCameraEnabled) = useState(false)
+        val wasPermissionRequested = useRef(false)
 
-    override fun onResume() {
-        super.onResume()
-        isCameraEnabled = Permissions.isCameraEnabled(requireContext())
-        flashlight.on()
-    }
+        useEffect(cameraView) {
+            cameraView.setScaleType(PreviewView.ScaleType.FIT_CENTER)
+            cameraView.setShowTorch(false)
+            cameraView.setPreviewBackgroundColor(Color.WHITE)
+        }
 
-    override fun onPause() {
-        super.onPause()
-        stopCamera()
-        flashlight.off()
-    }
+        useResumeEffect(screenTorch) {
+            screenTorch.on()
+        }
 
-    private fun startCamera() {
-        binding.camera.start(
-            readFrames = false,
-            preferBackCamera = false,
-            shouldStabilizePreview = false
-        )
-    }
+        useResumeEffect(context) {
+            setIsCameraEnabled(Permissions.isCameraEnabled(context))
 
-    private fun stopCamera() {
-        binding.camera.stop()
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-        effect("camera_permission", wasPermissionRequested, lifecycleHookTrigger.onResume()) {
-            if (!wasPermissionRequested) {
-                wasPermissionRequested = true
+            // Only ask once so returning from the permission dialog doesn't re-prompt
+            if (!wasPermissionRequested.current) {
+                wasPermissionRequested.current = true
                 requestCamera {
-                    isCameraEnabled = it
+                    setIsCameraEnabled(it)
                     if (!it) {
                         alertNoCameraPermission()
                     }
@@ -69,12 +47,21 @@ class ToolMirrorCameraFragment : BoundFragment<FragmentToolMirrorCameraBinding>(
             }
         }
 
-        effect("camera", isCameraEnabled, lifecycleHookTrigger.onResume()) {
+        useEffect(cameraView, isCameraEnabled, resetOnResume) {
             if (isCameraEnabled) {
-                startCamera()
+                cameraView.start(
+                    readFrames = false,
+                    preferBackCamera = false,
+                    shouldStabilizePreview = false
+                )
             } else {
-                stopCamera()
+                cameraView.stop()
             }
+        }
+
+        usePauseEffect(cameraView, screenTorch) {
+            cameraView.stop()
+            screenTorch.off()
         }
     }
 }

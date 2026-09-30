@@ -1,105 +1,89 @@
 package com.kylecorry.trail_sense.tools.notes.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.fragments.inBackground
+import com.kylecorry.andromeda.fragments.useArgument
+import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.databinding.FragmentToolNotesCreateBinding
-import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useUnsavedChangesPrompt
+import com.kylecorry.trail_sense.shared.views.Notepad
+import com.kylecorry.trail_sense.shared.views.TextInputView
 import com.kylecorry.trail_sense.tools.notes.domain.Note
 import com.kylecorry.trail_sense.tools.notes.infrastructure.NoteRepo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.time.Instant
 
-class FragmentToolNotesCreate : BoundFragment<FragmentToolNotesCreateBinding>() {
+class FragmentToolNotesCreate : TrailSenseReactiveFragment(R.layout.fragment_tool_notes_create) {
 
-    private val notesRepo by lazy { NoteRepo.getInstance(requireContext()) }
+    override fun update() {
+        // Views
+        val titleView = useView<TextInputView>(R.id.title_edit)
+        val contentView = useView<Notepad>(R.id.content_edit)
+        val createButtonView = useView<FloatingActionButton>(R.id.note_create_btn)
 
-    private var editingNote: Note? = null
-    private var noteId: Long = 0L
+        // Services
+        val context = useAndroidContext()
+        val navController = useNavController()
+        val notesRepo = useMemo(context) { NoteRepo.getInstance(context) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        noteId = arguments?.getLong("edit_note_id") ?: 0L
-    }
+        // Arguments
+        val noteId = useArgument<Long>("edit_note_id") ?: 0L
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        if (noteId != 0L) {
-            loadEditingNote(noteId)
+        // State
+        val (title, setTitle) = useState(titleView.text.toString())
+        val (content, setContent) = useState(contentView.text?.toString() ?: "")
+        val editingNote = useBackgroundMemo(notesRepo, noteId) {
+            if (noteId != 0L) notesRepo.getNote(noteId) else null
         }
 
-        binding.noteCreateBtn.setOnClickListener {
-            val existingNote = editingNote
-            val title = binding.titleEdit.text.toString()
-            val content = binding.contentEdit.text.toString()
+        val hasChanges = useMemo(editingNote, title, content) {
+            val nothingEntered = editingNote == null && title.isBlank() && content.isBlank()
+            !nothingEntered && (title != editingNote?.title || content != editingNote.contents)
+        }
 
-            val note = existingNote?.copy(title = title, contents = content)
-                ?.apply { id = existingNote.id }
-                ?: Note(title, content, Instant.now().toEpochMilli())
-            inBackground {
-                onIO {
-                    notesRepo.addNote(note)
-                }
-
-                onMain {
-                    findNavController().navigateUp()
-                }
+        // Effects
+        useEffect(titleView) {
+            setTitle(titleView.text.toString())
+            titleView.setOnTextChangeListener {
+                setTitle(it?.toString() ?: "")
             }
         }
 
-        promptIfUnsavedChanges(this::hasChanges)
-    }
-
-    private fun hasChanges(): Boolean {
-        val title = binding.titleEdit.text.toString()
-        val content = binding.contentEdit.text.toString()
-        return !nothingEntered() && (title != editingNote?.title || content != editingNote?.contents)
-    }
-
-
-    private fun nothingEntered(): Boolean {
-        if (editingNote != null) {
-            return false
+        useEffect(contentView) {
+            setContent(contentView.text?.toString() ?: "")
+            contentView.addTextChangedListener {
+                setContent(it?.toString() ?: "")
+            }
         }
 
-        val title = binding.titleEdit.text.toString()
-        val content = binding.contentEdit.text.toString()
-
-        return title.isBlank() && content.isBlank()
-    }
-
-
-    private fun loadEditingNote(id: Long) {
-        inBackground {
-            withContext(Dispatchers.IO) {
-                editingNote = notesRepo.getNote(id)
+        useEffect(titleView, contentView, editingNote) {
+            editingNote?.let {
+                titleView.text = it.title ?: ""
+                contentView.setText(it.contents ?: "")
             }
+        }
 
-            withContext(Dispatchers.Main) {
-                if (isBound) {
-                    editingNote?.let {
-                        binding.titleEdit.text = it.title ?: ""
-                        binding.contentEdit.setText(it.contents ?: "")
+        useEffect(createButtonView, navController, notesRepo, editingNote, title, content) {
+            createButtonView.setOnClickListener {
+                val note = editingNote?.copy(title = title, contents = content)
+                    ?.apply { id = editingNote.id }
+                    ?: Note(title, content, Instant.now().toEpochMilli())
+                inBackground {
+                    onIO {
+                        notesRepo.addNote(note)
+                    }
+
+                    onMain {
+                        navController.navigateUp()
                     }
                 }
             }
-
         }
-    }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolNotesCreateBinding {
-        return FragmentToolNotesCreateBinding.inflate(layoutInflater, container, false)
+        useUnsavedChangesPrompt(hasChanges, resetOnResume)
     }
-
 }

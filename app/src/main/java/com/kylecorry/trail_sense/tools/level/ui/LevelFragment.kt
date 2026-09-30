@@ -1,61 +1,46 @@
 package com.kylecorry.trail_sense.tools.level.ui
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import com.kylecorry.luna.time.Throttle
-import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.sense.level.Level
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolLevelBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import kotlin.math.abs
 import kotlin.math.hypot
 
-class LevelFragment : BoundFragment<FragmentToolLevelBinding>() {
+class LevelFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_level) {
 
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val level by lazy { Level(SensorService(requireContext()).getOrientation()) }
-    private val throttle = Throttle(20)
+    override fun update() {
+        // Views
+        val titleView = useView<Toolbar>(R.id.level_title)
+        val levelView = useView<BubbleLevel>(R.id.level)
 
-    override fun onResume() {
-        super.onResume()
-        level.start(this::onLevelUpdate)
-    }
+        // Services
+        val sensors = useService<SensorService>()
+        val formatter = useService<FormatService>()
+        val level = useMemo(sensors) { Level(sensors.getOrientation()) }
 
-    override fun onPause() {
-        level.stop(this::onLevelUpdate)
-        super.onPause()
-    }
+        // State
+        val (x, y) = useTopic(level, level.x to -level.y) { it.x to -it.y }
 
-    private fun onLevelUpdate(): Boolean {
-
-        if (throttle.isThrottled()) {
-            return true
+        // View - Bubble
+        useEffect(levelView, x, y) {
+            levelView.xAngle = x
+            levelView.yAngle = y
         }
 
-        val x = level.x
-        val y = -level.y
-
-        binding.level.xAngle = x
-        binding.level.yAngle = y
-
-        val hypotenuse = hypot(x, y).coerceAtMost(90f)
-
-        binding.levelTitle.title.text = getString(
-            R.string.bubble_level_angles,
-            formatService.formatDegrees(abs(x), 1),
-            formatService.formatDegrees(abs(y), 1),
-            formatService.formatDegrees(hypotenuse, 1)
-        )
-        return true
+        // View - Title
+        useEffect(titleView, x, y) {
+            val hypotenuse = hypot(x, y).coerceAtMost(90f)
+            titleView.title.text = getString(
+                R.string.bubble_level_angles,
+                formatter.formatDegrees(abs(x), 1),
+                formatter.formatDegrees(abs(y), 1),
+                formatter.formatDegrees(hypotenuse, 1)
+            )
+        }
     }
-
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolLevelBinding {
-        return FragmentToolLevelBinding.inflate(layoutInflater, container, false)
-    }
-
 }

@@ -1,46 +1,43 @@
 package com.kylecorry.trail_sense.tools.guide.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.trail_sense.databinding.FragmentGuideBinding
+import androidx.core.widget.NestedScrollView
+import com.kylecorry.andromeda.fragments.useArgument
+import com.kylecorry.andromeda.fragments.useBackgroundEffect
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.text.TextUtils
+import com.kylecorry.trail_sense.shared.views.Toolbar
 
-class GuideFragment : BoundFragment<FragmentGuideBinding>() {
+class GuideFragment : TrailSenseReactiveFragment(R.layout.fragment_guide) {
 
-    private lateinit var name: String
+    override fun update() {
+        val context = useAndroidContext()
 
-    private var resource: Int? = null
+        // Views
+        val titleView = useView<Toolbar>(R.id.guide_name)
+        val scrollView = useView<NestedScrollView>(R.id.guide_scroll)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        name = requireArguments().getString("guide_name", "")
-        resource = requireArguments().getInt("guide_contents")
-    }
+        // Arguments
+        val name = useArgument<String>("guide_name") ?: ""
+        val resource = useArgument<Int>("guide_contents")
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.guideName.title.text = name
-        inBackground {
-            val res = resource ?: return@inBackground
-            val content = onIO {
-                TextUtils.loadTextFromResources(requireContext(), res)
-            }
-            if (isBound) {
-                binding.guideScroll.removeAllViews()
-                binding.guideScroll.addView(TextUtils.getMarkdownView(requireContext(), content))
-            }
+        // State
+        val (content, setContent) = useState<String?>(null)
+
+        useBackgroundEffect(context, resource) {
+            resource?.let { setContent(TextUtils.loadTextFromResources(context, it)) }
         }
-    }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentGuideBinding {
-        return FragmentGuideBinding.inflate(layoutInflater, container, false)
+        useEffect(titleView, name) {
+            titleView.title.text = name
+        }
+
+        useEffect(scrollView, content) {
+            if (content == null) {
+                return@useEffect
+            }
+            scrollView.removeAllViews()
+            scrollView.addView(TextUtils.getMarkdownView(context, content))
+        }
     }
 }

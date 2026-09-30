@@ -3,29 +3,22 @@ package com.kylecorry.trail_sense.tools.comms.talk.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.kylecorry.andromeda.core.system.Package
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.trail_sense.databinding.FragmentCommsPluginBinding
+import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 
-class FragmentToolLocalTalk : BoundFragment<FragmentCommsPluginBinding>() {
+class FragmentToolLocalTalk : TrailSenseReactiveFragment(R.layout.fragment_comms_plugin) {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        openApp(
-            requireContext(),
-            "com.kylecorry.trail_sense_comms",
-            "b76f32bf-6a72-4992-a741-0c9bf19ebd11"
-        )
-    }
+    override fun update() {
+        val context = useAndroidContext()
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentCommsPluginBinding {
-        return FragmentCommsPluginBinding.inflate(layoutInflater, container, false)
+        useEffect(context) {
+            openApp(
+                context,
+                "com.kylecorry.trail_sense_comms",
+                "b76f32bf-6a72-4992-a741-0c9bf19ebd11"
+            )
+        }
     }
 
     private fun openApp(context: Context, packageName: String, tool: String) {

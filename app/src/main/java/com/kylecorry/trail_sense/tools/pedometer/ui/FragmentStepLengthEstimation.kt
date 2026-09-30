@@ -1,118 +1,114 @@
 package com.kylecorry.trail_sense.tools.pedometer.ui
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.toast
-import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentStepLengthEstimationBinding
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useTrigger
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.step_length.StepLengthEstimatorFactory
 
-class FragmentStepLengthEstimation : BoundFragment<FragmentStepLengthEstimationBinding>() {
+class FragmentStepLengthEstimation :
+    TrailSenseReactiveFragment(R.layout.fragment_step_length_estimation) {
 
-    private val estimator by lazy {
-        StepLengthEstimatorFactory(requireContext()).getEstimator()
-    }
+    override fun update() {
+        // Views
+        val titleView = useView<Toolbar>(R.id.step_length_title)
+        val descriptionView = useView<TextView>(R.id.step_length_description)
+        val stepLengthButtonView = useView<Button>(R.id.step_length_btn)
+        val resetButtonView = useView<ImageButton>(R.id.reset_step_btn)
 
-    private val formatter by lazy { FormatService.getInstance(requireContext()) }
+        // Services
+        val context = useAndroidContext()
+        val formatter = useService<FormatService>()
+        val prefs = useService<UserPreferences>()
+        val estimator = useMemo(context) { StepLengthEstimatorFactory(context).getEstimator() }
 
-    private val prefs by lazy { UserPreferences(requireContext()) }
+        // State
+        val (isRunning, setIsRunning) = useState(false)
+        val (readingKey, refreshReading) = useTrigger()
+        val stepLength = useMemo(estimator, readingKey) { estimator.stepLength }
+        val hasValidReading = useMemo(estimator, readingKey) { estimator.hasValidReading }
 
-    private val units by lazy { prefs.baseDistanceUnits }
+        useEffectWithCleanup(estimator, isRunning, resetOnResume) {
+            val onStepLengthChanged = {
+                refreshReading()
+                true
+            }
+            if (isRunning) {
+                estimator.start(onStepLengthChanged)
+            }
+            return@useEffectWithCleanup {
+                estimator.stop(onStepLengthChanged)
+            }
+        }
 
-    private var isRunning = false
+        // View - Buttons
+        useEffect(stepLengthButtonView, estimator, prefs, isRunning, hasValidReading) {
+            stepLengthButtonView.setOnClickListener {
+                when {
+                    !isRunning && hasValidReading -> {
+                        prefs.pedometer.stepLength = estimator.stepLength ?: Distance.meters(0f)
+                        toast(getString(R.string.saved))
+                    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.stepLengthBtn.setOnClickListener {
-            when {
-                !isRunning && estimator.hasValidReading -> {
-                    prefs.pedometer.stepLength = estimator.stepLength ?: Distance.meters(0f)
-                    toast(getString(R.string.saved))
-                }
+                    !isRunning -> {
+                        requestActivityRecognition { hasPermission ->
+                            setIsRunning(hasPermission)
+                            if (!hasPermission) {
+                                alertNoActivityRecognitionPermission()
+                            }
+                        }
+                    }
 
-                !isRunning -> {
-                    start()
-                }
-
-                else -> {
-                    isRunning = false
-                    estimator.stop(this::onStepLengthChanged)
+                    else -> setIsRunning(false)
                 }
             }
         }
 
-        binding.resetStepBtn.setOnClickListener {
-            estimator.reset()
+        // The estimator doesn't notify listeners when reset, so refresh manually
+        useEffect(resetButtonView, estimator) {
+            resetButtonView.setOnClickListener {
+                estimator.reset()
+                refreshReading()
+            }
         }
 
-        scheduleUpdates(INTERVAL_30_FPS)
-    }
+        // View - Text
+        useEffect(resetButtonView, isRunning, stepLength) {
+            resetButtonView.isVisible = !isRunning && stepLength != null
+        }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentStepLengthEstimationBinding {
-        return FragmentStepLengthEstimationBinding.inflate(layoutInflater, container, false)
-    }
-
-    private fun onStepLengthChanged(): Boolean {
-        return true
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-
-        estimator.stepLength.let {
-            binding.resetStepBtn.isVisible = !isRunning && it != null
-            binding.stepLengthTitle.title.text = if (it != null) {
-                formatter.formatDistance(it.convertTo(units), 2, false)
+        useEffect(titleView, stepLength, prefs, formatter) {
+            titleView.title.text = if (stepLength != null) {
+                formatter.formatDistance(stepLength.convertTo(prefs.baseDistanceUnits), 2, false)
             } else {
                 getString(R.string.dash)
             }
         }
 
-        binding.stepLengthBtn.text = when {
-            !isRunning && estimator.hasValidReading -> getString(R.string.save)
-            !isRunning -> getString(R.string.start)
-            else -> getString(R.string.stop)
+        useEffect(stepLengthButtonView, isRunning, hasValidReading) {
+            stepLengthButtonView.text = when {
+                !isRunning && hasValidReading -> getString(R.string.save)
+                !isRunning -> getString(R.string.start)
+                else -> getString(R.string.stop)
+            }
         }
 
-        binding.stepLengthDescription.text = when {
-            isRunning && !estimator.hasValidReading -> getString(R.string.step_length_stand_still)
-            isRunning -> getString(R.string.step_length_walk)
-            else -> ""
-        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-        estimator.stop(this::onStepLengthChanged)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (isRunning) {
-            estimator.start(this::onStepLengthChanged)
-        }
-    }
-
-    private fun start() {
-        requestActivityRecognition { hasPermission ->
-            if (hasPermission) {
-                isRunning = true
-                estimator.start(this::onStepLengthChanged)
-            } else {
-                isRunning = false
-                alertNoActivityRecognitionPermission()
+        useEffect(descriptionView, isRunning, hasValidReading) {
+            descriptionView.text = when {
+                isRunning && !hasValidReading -> getString(R.string.step_length_stand_still)
+                isRunning -> getString(R.string.step_length_walk)
+                else -> ""
             }
         }
     }

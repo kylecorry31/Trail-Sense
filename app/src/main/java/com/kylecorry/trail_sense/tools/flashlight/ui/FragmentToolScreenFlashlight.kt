@@ -1,115 +1,109 @@
 package com.kylecorry.trail_sense.tools.flashlight.ui
 
 import android.graphics.Color
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Button
 import com.google.android.material.slider.BasicLabelFormatter
-import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolScreenFlashlightBinding
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.usePreference
+import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.views.Slider
 
-class FragmentToolScreenFlashlight : BoundFragment<FragmentToolScreenFlashlightBinding>() {
+class FragmentToolScreenFlashlight :
+    TrailSenseReactiveFragment(R.layout.fragment_tool_screen_flashlight) {
 
-    private val flashlight by lazy { ScreenTorch(requireActivity().window) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolScreenFlashlightBinding {
-        return FragmentToolScreenFlashlightBinding.inflate(layoutInflater, container, false)
-    }
+    // Held on the fragment so the volume buttons can adjust it from outside the render function
+    private var brightness by state(DEFAULT_BRIGHTNESS)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.offBtn.setOnClickListener {
-            flashlight.off()
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+    override fun update() {
+        // Views
+        val screenFlashlightView = useView<View>(R.id.screen_flashlight)
+        val redWhiteSwitcherView = useView<View>(R.id.red_white_switcher)
+        val brightnessSeekView = useView<Slider>(R.id.brightness_seek)
+        val offButtonView = useView<Button>(R.id.off_btn)
+
+        // Services
+        val screenTorch = useMemo { ScreenTorch(requireActivity().window) }
+
+        // State
+        val (savedIsRed, setIsRed) = usePreference(
+            "cache_red_light",
+            IPreferences::getBoolean,
+            IPreferences::putBoolean
+        )
+        val isRed = savedIsRed == true
+
+        useResumeEffect(cache) {
+            brightness = cache.getInt(getString(R.string.pref_screen_torch_brightness))
+                ?: DEFAULT_BRIGHTNESS
         }
 
-        if (cache.getBoolean("cache_red_light") == null) {
-            cache.putBoolean("cache_red_light", false)
+        // Light
+        useEffect(screenTorch, brightness, resetOnResume) {
+            screenTorch.on(map(brightness / 100f, 0f, 1f, 0.1f, 1f))
         }
 
-        if (cache.getBoolean("cache_red_light") == true) {
-            binding.screenFlashlight.setBackgroundColor(Color.RED)
-            binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
-        } else {
-            binding.screenFlashlight.setBackgroundColor(Color.WHITE)
-            binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
+        usePauseEffect(screenTorch) {
+            screenTorch.off()
         }
 
-        binding.redWhiteSwitcher.setOnClickListener {
-            if (cache.getBoolean("cache_red_light") == true) {
-                binding.screenFlashlight.setBackgroundColor(Color.WHITE)
-                binding.redWhiteSwitcher.setBackgroundColor(Color.RED)
-                cache.putBoolean("cache_red_light", false)
-            } else {
-                binding.screenFlashlight.setBackgroundColor(Color.RED)
-                binding.redWhiteSwitcher.setBackgroundColor(Color.WHITE)
-                cache.putBoolean("cache_red_light", true)
+        // View - Color
+        useEffect(screenFlashlightView, redWhiteSwitcherView, isRed) {
+            screenFlashlightView.setBackgroundColor(if (isRed) Color.RED else Color.WHITE)
+            redWhiteSwitcherView.setBackgroundColor(if (isRed) Color.WHITE else Color.RED)
+        }
+
+        useEffect(redWhiteSwitcherView, isRed) {
+            redWhiteSwitcherView.setOnClickListener {
+                setIsRed(!isRed)
             }
         }
 
-        binding.brightnessSeek.valueFrom = 0f
-        binding.brightnessSeek.valueTo = 100f
-        binding.brightnessSeek.setLabelFormatter(BasicLabelFormatter())
-        binding.brightnessSeek.applyThinStyling()
+        // View - Brightness
+        useEffect(brightnessSeekView) {
+            brightnessSeekView.valueFrom = 0f
+            brightnessSeekView.valueTo = 100f
+            brightnessSeekView.setLabelFormatter(BasicLabelFormatter())
+            brightnessSeekView.applyThinStyling()
+            brightnessSeekView.addOnChangeListener { _, value, isFromUser ->
+                if (isFromUser) {
+                    saveBrightness(value.toInt())
+                }
+            }
+        }
 
-        binding.brightnessSeek.addOnChangeListener { _, value, isFromUser ->
-            if (isFromUser) {
-                setBrightness(value.toInt())
+        useEffect(brightnessSeekView, brightness) {
+            brightnessSeekView.value = brightness.toFloat()
+        }
+
+        // View - Off button
+        useEffect(offButtonView, screenTorch) {
+            offButtonView.setOnClickListener {
+                screenTorch.off()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
     }
 
-    private fun turnOn() {
-        setBrightness(cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100)
-    }
-
-    private fun turnOff() {
-        flashlight.off()
-    }
-
-    private fun setBrightness(percent: Int) {
-        binding.brightnessSeek.value = percent.toFloat()
+    private fun saveBrightness(percent: Int) {
         cache.putInt(getString(R.string.pref_screen_torch_brightness), percent)
-        flashlight.on(map(percent / 100f, 0f, 1f, 0.1f, 1f))
-    }
-
-    fun increaseBrightness() {
-        val currentBrightness =
-            cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
-        setBrightness((currentBrightness + 10).coerceAtMost(100))
-    }
-
-    fun decreaseBrightness() {
-        val currentBrightness =
-            cache.getInt(getString(R.string.pref_screen_torch_brightness)) ?: 100
-        setBrightness((currentBrightness - 10).coerceAtLeast(0))
+        brightness = percent
     }
 
     fun handleVolumeButtonPress(isVolumeUp: Boolean) {
-        if (isVolumeUp) {
-            increaseBrightness()
-        } else {
-            decreaseBrightness()
-        }
+        val change = if (isVolumeUp) 10 else -10
+        saveBrightness((brightness + change).coerceIn(0, 100))
     }
 
-    override fun onResume() {
-        super.onResume()
-        turnOn()
+    private companion object {
+        const val DEFAULT_BRIGHTNESS = 100
     }
-
-    override fun onPause() {
-        super.onPause()
-        turnOff()
-    }
-
 }
