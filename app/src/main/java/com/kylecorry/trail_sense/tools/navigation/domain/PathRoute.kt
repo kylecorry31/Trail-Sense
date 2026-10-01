@@ -12,6 +12,8 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     private val points = pathPoints.map { it.coordinate }
     private val hikingService = HikingService()
     private val cumulativeDistances = hikingService.getDistances(points).toFloatArray()
+    val length: Float
+        get() = cumulativeDistances.last()
     private val cumulativeElevationLossGain = hikingService.getCumulativeElevationLossGain(pathPoints)
     private val cumulativeElevationLoss = cumulativeElevationLossGain.first
     private val cumulativeElevationGain = cumulativeElevationLossGain.second
@@ -41,7 +43,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         val remainingDistance = if (next.arrived) {
             0f
         } else {
-            next.offRoute + cumulativeDistances.last() - current.distance
+            next.offRoute + length - current.distance
         }
         val (remainingElevationLoss, remainingElevationGain) = if (next.arrived) {
             Distance.meters(0f) to Distance.meters(0f)
@@ -115,12 +117,12 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
 
     private fun getProgress(distance: Float, arrived: Boolean): Float = when {
         arrived -> 1f
-        cumulativeDistances.last() > 0f -> (distance / cumulativeDistances.last()).coerceIn(0f, 1f)
+        length > 0f -> (distance / length).coerceIn(0f, 1f)
         else -> 0f
     }
 
     private fun hasArrived(location: Coordinate, distance: Float): Boolean {
-        return cumulativeDistances.last() - distance <= ARRIVAL_RADIUS_METERS &&
+        return length - distance <= ARRIVAL_RADIUS_METERS &&
                 location.distanceTo(points.last()) <= ARRIVAL_RADIUS_METERS
     }
 
@@ -141,7 +143,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         var distance = 0f
         var bestScore = Float.POSITIVE_INFINITY
         val movement = previousLocation?.distanceTo(location) ?: 0f
-        val previousDistance = previousProgress * cumulativeDistances.last()
+        val previousDistance = previousProgress * length
         for (i in 0 until points.lastIndex) {
             val lower = maxOf(cumulativeDistances[i], previousDistance - movement - PROGRESS_TOLERANCE_METERS)
             val upper = minOf(

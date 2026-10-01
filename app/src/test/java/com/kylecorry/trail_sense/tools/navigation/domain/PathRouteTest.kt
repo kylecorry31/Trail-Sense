@@ -127,6 +127,23 @@ class PathRouteTest {
     }
 
     @Test
+    fun `progress saved as a distance locates the position on a longer route`() {
+        val route = PathRoute(points)
+        var savedProgress = 0f
+        route.onProgressChanged = { progress, _ -> savedProgress = progress }
+        val location = Coordinate(0.0, 0.0015)
+        route.navigate(points.first().coordinate)
+        route.navigate(location)
+        val savedDistance = savedProgress * route.length
+
+        val extended = PathRoute(points + PathPoint(4, 1, Coordinate(0.0, 0.004), 0f))
+        extended.restoreProgress(savedDistance / extended.length, location)
+        val guidance = extended.navigate(location)
+        assertEquals(location.distanceTo(Coordinate(0.0, 0.004)), guidance.remainingDistance, 0.5f)
+        assertEquals(points[2].coordinate, guidance.remainingRoute[1].coordinate)
+    }
+
+    @Test
     fun `remaining estimates use hiking service and include partial segment elevation`() {
         val route = PathRoute(points)
         route.navigate(points.first().coordinate)

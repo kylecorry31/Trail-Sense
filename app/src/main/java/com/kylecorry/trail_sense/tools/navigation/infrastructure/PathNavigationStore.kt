@@ -67,10 +67,14 @@ class PathNavigationStore(context: Context) {
             val destination = Destination.Path(path, route)
             progressSnapshot?.let {
                 JsonConvert.fromJson<PathNavigationProgress>(it)?.let { progress ->
-                    destination.route.restoreProgress(
-                        progress.progress,
-                        Coordinate(progress.lat, progress.lon)
-                    )
+                    // Stored as a distance because the route may be longer now (ex. an active backtrack path)
+                    val route = destination.route
+                    if (route.length > 0f) {
+                        route.restoreProgress(
+                            progress.distance / route.length,
+                            Coordinate(progress.lat, progress.lon)
+                        )
+                    }
                 }
             }
             currentCoroutineContext().ensureActive()
@@ -100,7 +104,11 @@ class PathNavigationStore(context: Context) {
         destination.route.onProgressChanged = { fraction, location ->
             synchronized(this) {
                 if (active === destination) {
-                    val progress = PathNavigationProgress(fraction, location.latitude, location.longitude)
+                    val progress = PathNavigationProgress(
+                        fraction * destination.route.length,
+                        location.latitude,
+                        location.longitude
+                    )
                     prefs.putString(PROGRESS_KEY, JsonConvert.toJson(progress))
                 }
             }
@@ -117,7 +125,7 @@ class PathNavigationStore(context: Context) {
     ) : ProguardIgnore
 
     private data class PathNavigationProgress(
-        val progress: Float,
+        val distance: Float,
         val lat: Double,
         val lon: Double
     ) : ProguardIgnore
