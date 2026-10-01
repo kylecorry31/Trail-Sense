@@ -23,6 +23,11 @@ class PathNavigationStore(context: Context) {
 
     fun hasSavedRoute(): Boolean = prefs.getString(ROUTE_KEY) != null
 
+    fun getSavedPathId(): Long? {
+        val saved = prefs.getString(ROUTE_KEY) ?: return null
+        return JsonConvert.fromJson<PathNavigationState>(saved)?.id
+    }
+
     @Synchronized
     fun save(
         path: Path,

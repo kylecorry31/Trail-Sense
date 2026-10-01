@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure.persistence
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
 import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.andromeda.preferences.IPreferences
@@ -19,6 +20,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathGroup
 import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
@@ -136,6 +138,7 @@ class PathService(
             }
         }
 
+        DependencyRegistry.get<Navigator>().cancelPathNavigation(path.id)
         waypointRepo.deleteInPath(path.id)
         pathRepo.delete(path)
     }

@@ -75,6 +75,13 @@ class PathNavigator(context: Context) {
         }
     }
 
+    fun cancel(pathId: Long) {
+        val navigatedPathId = destinationState.value?.path?.id ?: store.getSavedPathId()
+        if (navigatedPathId == pathId) {
+            cancel()
+        }
+    }
+
     fun isNavigating(): Boolean = destinationState.value != null
 
     suspend fun awaitRestore() {

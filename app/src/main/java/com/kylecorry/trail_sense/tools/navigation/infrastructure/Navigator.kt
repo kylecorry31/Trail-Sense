@@ -155,6 +155,10 @@ class Navigator private constructor(context: Context) {
         _forceUpdate.update { it -> it + 1 }
     }
 
+    fun cancelPathNavigation(pathId: Long) {
+        pathNavigator.cancel(pathId)
+    }
+
     suspend fun cancelAllNavigation() {
         pathNavigator.cancel()
         cancelBeaconNavigation()
