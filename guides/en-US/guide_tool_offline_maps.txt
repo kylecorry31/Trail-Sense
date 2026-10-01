@@ -71,6 +71,8 @@ Trail maps open in a preview viewer. You can drag to pan, pinch to zoom, or tap 
 
 By default, photo maps align with North roughly facing up so that the map is square with the screen. You can change this so the map is aligned with North facing up by disabling Settings > Offline Maps > 'Keep map facing up'.
 
+You can keep a photo map visible over your lock screen while it is open by enabling Settings > Offline Maps > 'Show on lock screen while open'.
+
 By default, Trail Sense loads more tiles for higher quality when viewing a photo map. You can disable this in Settings > Offline Maps > 'High detail mode' to reduce memory usage at the cost of lower quality.
 
 ## Compass update frequency

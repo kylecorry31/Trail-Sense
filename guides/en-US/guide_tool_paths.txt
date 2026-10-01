@@ -9,7 +9,7 @@ When 'Keep device awake' is disabled, Backtrack uses the GPS to wake your phone 
 
 To avoid recording additional points while stationary, adjust Settings > Paths > 'Minimum distance between points' to a higher value. This setting will ignore a new point if it is closer than the specified distance to the previous point.
 
-Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Navigation > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
+Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Paths > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
 
 By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Paths > 'Backtrack history'. You can choose to keep a Backtrack path forever by tapping the menu button on the Backtrack path row and selecting 'Keep forever'.
 
@@ -61,7 +61,7 @@ Adjust the path's appearance by opening it and selecting the line style or line 
 
 A key below the path map explains the colors.
 
-Set the default path styles in Settings > Paths > 'Default path style' for the line style and Settings > Navigation > 'Default path color' for the line color.
+Set the default path styles in Settings > Paths > 'Default path style' for the line style and Settings > Paths > 'Default path color' for the line color.
 
 ## Simplify a path
 Paths can be simplified to reduce the number of points in the path. This can be useful to improve the performance of the path rendering and may improve the accuracy of the path by removing GPS errors.

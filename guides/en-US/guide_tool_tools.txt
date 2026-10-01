@@ -17,7 +17,7 @@ You can also long-press on a tool to see more options:
 - **Pin/unpin**: Allows you to pin the tool to the top of the list.
 - **User guide**: Opens the user guide for the tool.
 - **Settings**: Opens the settings for the tool.
-- **Experimental**: This will show tools that are still in development. These tools may not be fully functional. You can enable experimental tools in Settings > Experimental.
+- **Experimental**: Shown for tools that are still in development. These tools may not be fully functional.
 - **Add to homescreen**: This will add a shortcut to the tool on your device's homescreen.
 
 ## Pinned tools

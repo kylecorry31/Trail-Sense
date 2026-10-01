@@ -34,6 +34,12 @@ With a packing list open, tap the item you want to edit. This will bring you to 
 
 When finished, tap the check button in the bottom-right corner to save the item.
 
+## Changing the packed amount
+Tap the menu button on the right of an item and tap 'Add' or 'Subtract' to change the packed amount by a specific number without editing the item.
+
+## Deleting items
+To delete an item, tap the menu button on the right of the item and tap 'Delete'. You will be asked to confirm before the item is deleted.
+
 ## Marking items as packed
 If you've packed an item, you can either edit it or tap the checkbox next to it to mark it as packed. This will set the packed amount to the desired amount and update the weight (if applicable).
 
@@ -64,7 +70,7 @@ You can also rename from the packing list itself by tapping the menu button on t
 
 ## Clearing packed amounts
 
-You can clear the packed amounts of all the items in a packing list by tapping the menu button on the right of the packing list and tapping 'Clear amounts'. This will set all the packed amounts to 0, but will not delete the items.
+You can clear the packed amounts of all the items in a packing list by tapping the menu button on the right of the packing list and tapping 'Clear amounts'. You can also do this from within the packing list by tapping the menu button on the top-right. This will set all the packed amounts to 0, but will not delete the items.
 
 ## Exporting a packing list
 You can export a packing list by tapping the menu button on the right of the packing list and tapping 'Export'. This will prompt you to save a .csv file to your device. This file can be imported by Trail Sense or used in the 'LighterPack' website.

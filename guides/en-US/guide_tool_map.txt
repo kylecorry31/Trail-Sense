@@ -27,7 +27,7 @@ For further details on beacons, refer to the 'Beacons' guide.
 ## Measuring distance and creating paths
 You can measure distances by tapping the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, tap the undo button in the bottom left. Cancel by tapping the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by tapping the 'Create path' button at the bottom.
 
-For a quick measurement from your location to a point, long-press that point on the map and tap 'Distance'.
+For a quick measurement from your location to a point, long-press that point on the map and tap 'Distance'. The long-press menu also shows the distance, direction, and elevation difference from your location to the point.
 
 ## Measuring elevation
 Long-press a location on the map to view the elevation (from the DEM).
@@ -51,4 +51,8 @@ The following widgets can be placed on your device's home screen or viewed in-ap
 - **Map**: Displays your map layers centered on your current location, always oriented north-up. The widget updates automatically and tapping it opens the Map tool.
 
 ## Settings
-You can change tile detail in 'Settings > Map > High detail mode' if the tiles appear blurry. This will use more memory and be slower to load.
+The following settings can be found in 'Settings > Map':
+
+- **Show on lock screen while open**: Keeps the Map tool visible over your lock screen while it is open.
+- **Remember map state**: Restores the map position, zoom, and GPS lock mode the next time you open the Map tool.
+- **High detail mode**: Loads more tiles for higher quality if the tiles appear blurry. This will use more memory and be slower to load.

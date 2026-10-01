@@ -171,9 +171,20 @@ Some tools such as Navigation and Astronomy display error banners at the top of 
 - **Location not set**: The location is mocked but has not been set (uses 0, 0).
 - **Compass accuracy**: The compass accuracy is low.
 - **GPS timeouts**: The GPS has timed out and was unable to determine your location.
+- **Location permission**: Trail Sense does not have permission to access your location.
 
 ## Experimental
 Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
+
+### Tools
+- **Show metal direction**: Shows the experimental metal direction indicator in the Metal Detector tool. This requires a compass and gyroscope. See the Metal Detector tool guide for details.
+- **Cliff Height**: Makes the Cliff Height tool available in the tool list.
+
+### Camera
+- **Zero shutter lag**: Prioritizes capture speed over image quality when taking photos within Trail Sense.
+
+### Weather
+- **Show pressure forecast on chart**: Extends the pressure chart in the Weather tool with the forecasted pressure.
 
 ### Use large tile cache
 By default, each map layer keeps a tile cache sized for the current screen. Enable this setting to let each map layer retain more tiles. This may reduce tile reloading while using maps, but it can significantly increase memory usage when several map layers are enabled.
@@ -198,6 +209,9 @@ When a map layer plugin is connected and the layer is enabled on the map, Trail 
 
 If the plugin's signature changes, it will be disconnected, and you will need to reconnect.
 
+### Widget icon compatibility mode
+Enable this if icons are missing from your widgets on some devices.
+
 ### Notification grouping
 Android 16 introduces forced notification grouping for apps. This normally puts all of Trail Sense's notifications into one group, which can be hard to read at a glance.
 
@@ -213,6 +227,7 @@ When switching to a new device or reinstalling the app, it may be helpful to bac
 - **Backup**: Creates a backup of your data and settings. This will save as a zip file which is unencrypted and contains location data, so only send it to people you trust.
 - **Restore**: Restores a backup of your data and settings. This will permanently overwrite your current data and settings. You can restore from an older version of the app, but cannot restore from a newer version.
 - **Automatic backup**: Creates a backup of your data and settings every day in the folder of your choosing. It will only keep the last 2 backups.
+- **Include trail maps in backups**: Whether Mapsforge (.map) files are included in backups. These files can be large.
 
 ## Tools
 Settings for each tool can be adjusted in the Settings > Tools section. For more information, see the guide for each tool.

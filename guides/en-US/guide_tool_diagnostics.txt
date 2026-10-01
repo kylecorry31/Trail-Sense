@@ -12,7 +12,10 @@ The diagnostics tool can detect:
 - Blocked notifications
 - Accidental location/altitude overrides
 - Restricted background access
+- Power saving mode being on
+- Missing alarms and reminders permission
+- System file picker lacking permission to access files
 - Disabled services
 
 ## Export logs
-Tap 'Export logs' to save a ZIP file containing recent crash stack traces, historical process exit reasons, and recent log output from Trail Sense (last hour).
+Tap 'Export logs' to save a ZIP file containing recent crash stack traces, historical process exit reasons, Trail Sense's own log file, and recent system log output (last hour).

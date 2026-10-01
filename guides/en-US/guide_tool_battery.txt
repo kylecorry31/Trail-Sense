@@ -21,6 +21,15 @@ By turning on 'Power saving mode', you can reduce the power consumption of Trail
 
 You can configure power saving mode to activate automatically when your battery is low by enabling 'Settings > Battery > Automatic power saving'.
 
+## Battery settings
+The following settings can be found in 'Settings > Battery':
+
+- **Power saving mode**: Turns power saving mode on or off.
+- **Automatic power saving**: Turns on power saving mode when your battery is low.
+- **Start on boot**: Whether Trail Sense's background services (such as Backtrack and Weather) restart when your device boots.
+- **System tiles**: Whether Trail Sense's quick settings tiles (Backtrack, Weather monitor, and Pedometer) are enabled. Disabling this may allow battery saver apps to completely stop Trail Sense.
+- **Battery log**: Whether the battery percentage is logged every hour to provide battery history and the time until empty.
+
 ## Services
 Running services are listed below the battery statistics. You can see how often they are running and how much impact they have on battery life. You can stop a service by tapping the 'X' button next to it.
 
