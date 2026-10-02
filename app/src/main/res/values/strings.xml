@@ -2077,4 +2077,8 @@
     <string name="pref_navigation_compass_update_frequency" translatable="false">pref_navigation_compass_update_frequency</string>
     <string name="pref_photo_maps_compass_update_frequency" translatable="false">pref_photo_maps_compass_update_frequency</string>
     <string name="pref_ar_compass_update_frequency" translatable="false">pref_ar_compass_update_frequency</string>
+    <string name="pref_ar_path_appearance" translatable="false">pref_ar_path_appearance</string>
+    <string name="ar_path_appearance">Appearance</string>
+    <string name="ar_path_appearance_ribbon">Ribbon</string>
+    <string name="ar_path_appearance_line">Line</string>
 </resources>

@@ -214,4 +214,13 @@
         <item>normal</item>
         <item>fast</item>
     </string-array>
+
+    <string-array name="ar_path_appearance_entries">
+        <item>@string/ar_path_appearance_ribbon</item>
+        <item>@string/ar_path_appearance_line</item>
+    </string-array>
+    <string-array name="ar_path_appearance_values" translatable="false">
+        <item>ribbon</item>
+        <item>line</item>
+    </string-array>
 </resources>

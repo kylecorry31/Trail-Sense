@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassUpdateFrequency
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathAppearance
 
 class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
 
@@ -63,6 +64,13 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         cache,
         context.getString(R.string.pref_show_ar_path_layer),
         true
+    )
+
+    val pathAppearance by StringEnumPreference(
+        cache,
+        context.getString(R.string.pref_ar_path_appearance),
+        ARPathAppearance.entries.associateBy { it.id },
+        ARPathAppearance.Ribbon
     )
 
     var showAstronomyLayer by BooleanPreference(

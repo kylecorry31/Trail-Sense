@@ -651,6 +651,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     }
 
     private fun updateLayerVisibility() {
+        pathsLayer.appearance = userPrefs.augmentedReality.pathAppearance
         visibleLayers = listOfNotNull(
             if (userPrefs.augmentedReality.showGridLayer) gridLayer else null,
             if (userPrefs.augmentedReality.showSatelliteLayer) satelliteLayer else null,

@@ -26,6 +26,17 @@
             app:singleLineTitle="false"
             app:title="@string/visible" />
 
+        <ListPreference
+            app:defaultValue="ribbon"
+            app:dependency="@string/pref_show_ar_path_layer"
+            app:entries="@array/ar_path_appearance_entries"
+            app:entryValues="@array/ar_path_appearance_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_ar_path_appearance"
+            app:singleLineTitle="false"
+            app:title="@string/ar_path_appearance"
+            app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

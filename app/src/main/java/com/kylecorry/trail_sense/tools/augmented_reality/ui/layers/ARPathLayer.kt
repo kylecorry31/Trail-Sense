@@ -40,6 +40,7 @@ class ARPathLayer(
 
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f, false)
+    private val ribbonLayer = ARRibbonLayer(widthMeters = 0.45f)
     private var lastElevation: Float? = null
     private var lastLocationAccuracySquared: Float? = null
 
@@ -59,7 +60,8 @@ class ARPathLayer(
     private val snapDistance = 2 * viewDistanceMeters / 3f // meters
     private val snapDistanceSquared = square(snapDistance)
 
-    private val maxElevationOffset = 5f // meters
+    // Limits how far paths can float above or below the camera
+    private val maxElevationOffset = maxOf(5f, viewDistanceMeters / 4f) // meters
     private val defaultElevationOffset = -2f // meters
 
     private var projection: IMapProjection? = null
@@ -67,6 +69,17 @@ class ARPathLayer(
     private var paths: List<IMappablePath> = listOf()
 
     var destination: Destination.Path? = null
+
+    @Volatile
+    var appearance: ARPathAppearance = ARPathAppearance.Ribbon
+
+    private val ribbonLayers = listOf<ARLayer>(ribbonLayer)
+    private val lineLayers = listOf<ARLayer>(lineLayer, markerLayer)
+    private val activeLayers: List<ARLayer>
+        get() = when (appearance) {
+            ARPathAppearance.Ribbon -> ribbonLayers
+            ARPathAppearance.Line -> lineLayers
+        }
 
     private val hooks = Hooks()
 
@@ -96,16 +109,15 @@ class ARPathLayer(
             updatePaths(getPaths(view.location))
         }
 
-        lineLayer.update(drawer, view)
-        markerLayer.update(drawer, view)
+        activeLayers.forEach { it.update(drawer, view) }
     }
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
-        lineLayer.draw(drawer, view)
-        markerLayer.draw(drawer, view)
+        activeLayers.forEach { it.draw(drawer, view) }
     }
 
     override fun invalidate() {
+        ribbonLayer.invalidate()
         lineLayer.invalidate()
         markerLayer.invalidate()
     }
@@ -119,7 +131,7 @@ class ARPathLayer(
     }
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
-        return markerLayer.onFocus(drawer, view)
+        return activeLayers.any { it.onFocus(drawer, view) }
     }
 
     fun setPaths(paths: List<IMappablePath>) {
@@ -183,21 +195,22 @@ class ARPathLayer(
                 path to ARLine(it, path.color, 4f)
             }
         }
-
-        val markers = lines.flatMap {
-            it.second.points.map { point ->
+        // Both are kept up to date so switching the appearance doesn't require reloading the paths
+        val markers = lines.flatMap { (path, line) ->
+            line.points.map { point ->
                 ARMarker(
                     point,
-                    CanvasCircle(it.second.color),
-                    onFocusedFn = {
-                        onFocus(it.first)
-                    }
+                    CanvasCircle(line.color),
+                    onFocusedFn = { onFocus(path) }
                 )
             }
         }
 
         markerLayer.setMarkers(markers)
         lineLayer.setLines(lines.map { it.second })
+        ribbonLayer.setRibbons(lines.map { (path, line) ->
+            ARRibbonLayer.Ribbon(line) { onFocus(path) }
+        })
     }
 
     private fun getNearestPoint(points: Pair<MutableList<Float>, MutableList<Float>>): NearestPoint? {
