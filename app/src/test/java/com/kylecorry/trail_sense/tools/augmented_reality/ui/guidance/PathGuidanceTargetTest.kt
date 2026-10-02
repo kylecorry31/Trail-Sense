@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import java.time.ZonedDateTime
@@ -27,8 +28,12 @@ class PathGuidanceTargetTest {
         val target = PathGuidanceTarget(destination)
         val first = target.refresh(request)
         assertEquals("Trail", first.display.name)
-        assertEquals(middle, (first.point as GeographicARPoint).location)
+        val firstLocation = (first.point as GeographicARPoint).location
+        assertEquals(25f, start.distanceTo(firstLocation), 1f)
+        assertEquals(-72.0, firstLocation.longitude, 0.00001)
         val next = target.refresh(request.copy(location = middle))
-        assertEquals(end, (next.point as GeographicARPoint).location)
+        val nextLocation = (next.point as GeographicARPoint).location
+        assertEquals(25f, middle.distanceTo(nextLocation), 1f)
+        assertTrue(nextLocation.latitude > middle.latitude)
     }
 }

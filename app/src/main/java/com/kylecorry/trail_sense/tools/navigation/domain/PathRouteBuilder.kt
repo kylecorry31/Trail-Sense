@@ -3,22 +3,20 @@ package com.kylecorry.trail_sense.tools.navigation.domain
 import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.tools.paths.domain.PathSimplificationQuality
-import com.kylecorry.trail_sense.tools.paths.domain.PathSimplifier
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
+import kotlin.math.abs
 
 object PathRouteBuilder {
+    // Locations within this distance of each other can't be told apart given typical GPS error
+    private const val GPS_NOISE_TOLERANCE_METERS = 5f
+
     fun prepare(
         points: List<PathPoint>,
         location: Coordinate,
         mode: PathNavigationMode,
         destinationPointId: Long? = null
     ): List<PathPoint> {
-        val sorted = points.sortedBy { it.id }
-        val simplified = PathSimplifier.simplify(sorted, PathSimplificationQuality.High).toSet()
-        val ordered = HikingService().correctElevations(
-            sorted.filter { it in simplified || it.id == destinationPointId }
-        )
+        val ordered = HikingService().correctElevations(points.sortedBy { it.id })
         return if (destinationPointId == null) {
             build(ordered, location, mode)
         } else {
@@ -27,66 +25,85 @@ object PathRouteBuilder {
     }
 
     fun isLoop(points: List<Coordinate>): Boolean {
-        val length = Geography.getPathDistance(points).meters().value
-        return points.size >= 3 && length > 30 &&
-            points.first().distanceTo(points.last()) <= minOf(100.0, length * 0.1)
+        return points.size >= 3 && isLoop(
+            Geography.getPathDistance(points).meters().value,
+            points.first().distanceTo(points.last())
+        )
     }
 
+    private fun isLoop(length: Float, seam: Float): Boolean {
+        return length > 30 && seam <= minOf(100f, length * 0.1f)
+    }
+
+    /**
+     * Builds the route from the location to the end of the path (or to its start if the mode is
+     * reversed).
+     *
+     * Normally this is the shortest route. In the full loop modes it is instead the way along the
+     * path, even if going the other way around the loop would be shorter. If the location is on a
+     * part of the path that overlaps another (ex. the shared start and end of a loop), it is
+     * treated as being on the earliest one.
+     */
     fun build(points: List<PathPoint>, location: Coordinate, mode: PathNavigationMode): List<PathPoint> {
         require(points.isNotEmpty())
-        val ordered = if (mode.isReversed) points.reversed() else points
-        val loop = mode.isFullLoop
-        if (ordered.size == 1) return ordered
-        val join = nearest(ordered, location)
-        return if (loop) {
-            listOf(join.point) + ordered.drop(join.segment + 1) +
-                ordered.take(join.segment + 1) + join.point
-        } else {
-            listOf(join.point) + ordered.drop(join.segment + 1)
+        if (!mode.isFullLoop) {
+            return toPoint(points, location, if (mode.isReversed) 0 else points.lastIndex)
         }
+        val ordered = if (mode.isReversed) points.reversed() else points
+        if (ordered.size == 1) return ordered
+        val join = nearJoins(ordered, location).first()
+        return listOf(join.point) + ordered.drop(join.segment + 1)
     }
 
+    /**
+     * Builds the shortest route from the location to the point at [destinationIndex]. On a loop,
+     * the route may cross the gap between the end of the path and its start.
+     */
     fun toPoint(points: List<PathPoint>, location: Coordinate, destinationIndex: Int): List<PathPoint> {
         require(destinationIndex in points.indices)
         if (points.size == 1) return points
-        val joins = joins(points, location)
-        val distance = joins.minOf { it.distance }
-        val loop = isLoop(points.map { it.coordinate })
-        return joins.asSequence().filter { it.distance <= distance + 1f }
-            .map { toPoint(points, it, destinationIndex, loop) }
-            .minBy { length(it) }
+        val lengths = PathLengths(points.map { it.coordinate })
+        val loop = points.size >= 3 && isLoop(lengths.total, lengths.seam)
+
+        // Only the lengths of the candidates are compared, since there can be many of them and each
+        // route can be as long as the whole path
+        val shortest = nearJoins(points, location)
+            .flatMap { itineraries(it, destinationIndex, points.lastIndex, loop) }
+            .minBy { lengths.of(it) }
+        return listOf(shortest.join.point) + shortest.runs.flatMap { run -> run.map { points[it] } }
     }
 
-    private fun toPoint(points: List<PathPoint>, join: Join, destinationIndex: Int, loop: Boolean): List<PathPoint> {
-        val destinationAhead = destinationIndex > join.segment
-        val direct = listOf(join.point) + if (destinationAhead) {
-            points.subList(join.segment + 1, destinationIndex + 1)
+    // The ways to get from the join to the destination. When equally long, the first is preferred.
+    private fun itineraries(join: Join, destination: Int, lastIndex: Int, loop: Boolean): List<Itinerary> {
+        val segment = join.segment
+        val destinationAhead = destination > segment
+        val direct = if (destinationAhead) {
+            listOf(segment + 1..destination)
         } else {
-            points.subList(destinationIndex, join.segment + 1).reversed()
+            listOf(segment downTo destination)
         }
-        if (!loop) return direct
-        val wrapped = listOf(join.point) + if (destinationAhead) {
-            points.take(join.segment + 1).reversed() +
-                points.drop(destinationIndex).reversed()
+        if (!loop) return listOf(Itinerary(join, direct))
+
+        val acrossSeam = if (destinationAhead) {
+            listOf(segment downTo 0, lastIndex downTo destination)
         } else {
-            points.drop(join.segment + 1) + points.take(destinationIndex + 1)
+            listOf(segment + 1..lastIndex, 0..destination)
         }
-        val candidates = if (destinationAhead) listOf(direct, wrapped) else listOf(wrapped, direct)
-        return candidates.minBy { length(it) }
+        return (if (destinationAhead) listOf(direct, acrossSeam) else listOf(acrossSeam, direct))
+            .map { Itinerary(join, it) }
     }
 
-    private fun length(points: List<PathPoint>): Float =
-        Geography.getPathDistance(points.map { it.coordinate }).meters().value
-
-    private fun nearest(points: List<PathPoint>, location: Coordinate): Join {
-        return joins(points, location).minBy { it.distance }
+    // The places on the path that are about as close as the closest one, earliest first.
+    // Overlapping parts of a path (ex. the start and end of an out and back) are indistinguishable
+    // within the GPS error, so the closest is not necessarily the right one.
+    private fun nearJoins(points: List<PathPoint>, location: Coordinate): Sequence<Join> {
+        val nearest = points.zipWithNext { a, b -> Geography.getNearestPoint(location, a.coordinate, b.coordinate) }
+        val distances = nearest.map { location.distanceTo(it) }
+        val closest = distances.min()
+        return nearest.indices.asSequence()
+            .filter { distances[it] <= closest + GPS_NOISE_TOLERANCE_METERS }
+            .map { Join(it, interpolate(points[it], points[it + 1], nearest[it])) }
     }
-
-    private fun joins(points: List<PathPoint>, location: Coordinate): List<Join> =
-        points.zipWithNext().mapIndexed { index, (a, b) ->
-            val coordinate = Geography.getNearestPoint(location, a.coordinate, b.coordinate)
-            Join(index, interpolate(a, b, coordinate), location.distanceTo(coordinate))
-        }
 
     fun interpolate(a: PathPoint, b: PathPoint, coordinate: Coordinate): PathPoint {
         val distance = a.coordinate.distanceTo(b.coordinate)
@@ -97,5 +114,32 @@ object PathRouteBuilder {
         return a.copy(coordinate = coordinate, elevation = elevation)
     }
 
-    private data class Join(val segment: Int, val point: PathPoint, val distance: Float)
+    /** A location on the path, which is [point] on the segment starting at the path point [segment]. */
+    private class Join(val segment: Int, val point: PathPoint)
+
+    /**
+     * A route that goes from the join to the first index of each run, then along the path through
+     * the indices of the run, and continues with the next run.
+     */
+    private class Itinerary(val join: Join, val runs: List<IntProgression>)
+
+    private class PathLengths(private val coordinates: List<Coordinate>) {
+        private val cumulative = HikingService().getDistances(coordinates).toFloatArray()
+        val total = cumulative.last()
+
+        /** The distance between the end of the path and its start */
+        val seam = coordinates.last().distanceTo(coordinates.first())
+
+        // Uses the cumulative distances so the route doesn't need to be built to measure it
+        fun of(itinerary: Itinerary): Float {
+            var length = 0f
+            var position = itinerary.join.point.coordinate
+            for (run in itinerary.runs) {
+                length += position.distanceTo(coordinates[run.first]) +
+                    abs(cumulative[run.last] - cumulative[run.first])
+                position = coordinates[run.last]
+            }
+            return length
+        }
+    }
 }

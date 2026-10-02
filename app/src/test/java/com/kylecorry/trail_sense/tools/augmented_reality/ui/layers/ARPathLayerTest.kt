@@ -29,8 +29,8 @@ class ARPathLayerTest {
             PathPoint(3, path.id, end, 150f)
         ))
 
-        assertEquals(listOf(100f, 200f, 200f, 150f), layer.getPaths(start).single().points.map { it.elevation })
-        assertEquals(listOf(200f, 150f, 150f), layer.getPaths(middle).single().points.map { it.elevation })
+        assertEquals(listOf(100f, 200f, 150f), layer.getPaths(start).single().points.map { it.elevation })
+        assertEquals(listOf(200f, 150f), layer.getPaths(middle).single().points.map { it.elevation })
     }
 
     @Test

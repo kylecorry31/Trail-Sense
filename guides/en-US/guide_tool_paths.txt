@@ -78,10 +78,10 @@ To replace all elevations on a path using the digital elevation model (DEM), ope
 ## Navigate with a path
 To navigate with a path, open it and tap the 'Navigate' button at the bottom. You will be prompted to choose how you want to follow the path:
 
-- **Follow to end**: Follow the path from your nearest point on it to its end.
-- **Follow to start**: Follow the path from your nearest point on it to its start.
-- **Follow full loop**: Follow the entire loop from your nearest point on it to its end. This option is only available for loop paths.
-- **Follow full loop in reverse**: Follow the entire loop from your nearest point on it to its start. This option is only available for loop paths.
+- **Follow to end**: Follow the path from your nearest point on it to its end, taking the shortest route.
+- **Follow to start**: Follow the path from your nearest point on it to its start, taking the shortest route.
+- **Follow full loop**: Follow the path from your nearest point on it to its end, even if the start is closer. This option is only available for loop paths.
+- **Follow full loop in reverse**: The same as following the full loop, but from your nearest point on the path to its start.
 - **Navigate back onto path**: Navigate to the nearest point on the path without following it. By default, this targets a recorded waypoint. To navigate to any position along the path, disable Settings > Paths > 'Only navigate to recorded points'.
 
 To navigate to a specific point on the path, select the desired waypoint and use its menu to choose 'Navigate'. You will be prompted to choose how you want to navigate there:
