@@ -1673,4 +1673,7 @@
     <string name="compass_update_frequency_normal">Normaal</string>
     <string name="compass_update_frequency_fast">Snel</string>
     <string name="compass_update_frequency">Bijwerkfrequentie kompas</string>
+    <string name="ar_path_appearance">Uiterlijk</string>
+    <string name="ar_path_appearance_line">Lijn</string>
+    <string name="ar_path_appearance_ribbon">Lint</string>
 </resources>
