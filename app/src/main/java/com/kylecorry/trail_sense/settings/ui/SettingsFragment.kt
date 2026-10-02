@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.plugins.PluginSubsystem
+import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.ui.sort.AlphabeticalToolSort
@@ -34,12 +35,19 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_diagnostics to R.id.action_settings_to_diagnostics
     )
 
+    private fun setupDebugSettings() {
+        val debugPreference = findPreference<Preference>("pref_debug_settings")
+        debugPreference?.isVisible = isDebug()
+        navigateOnClick(debugPreference, R.id.action_settings_to_debug_settings)
+    }
+
     private val plugins by lazy { getAppService<PluginSubsystem>() }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
         updatePluginSettingsVisibility()
+        setupDebugSettings()
 
         for (nav in navigationMap) {
             navigateOnClick(preference(nav.key), nav.value)

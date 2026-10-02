@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.map.ui
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
@@ -387,6 +388,16 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                             manager.setSelectedLocation(null)
                         }
                     }
+                }
+            }
+        }
+
+        useEffect(mapView, prefs) {
+            mapView.setOnSingleTapListener {
+                if (prefs.debug.tapMapToSetLocation &&
+                    prefs.gps.locationSource == GPSLocationSource.Manual
+                ) {
+                    prefs.gps.locationOverride = it
                 }
             }
         }

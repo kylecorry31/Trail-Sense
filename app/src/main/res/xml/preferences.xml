@@ -61,6 +61,12 @@
         app:singleLineTitle="false">
 
         <Preference
+            android:key="pref_debug_settings"
+            android:title="Debug"
+            app:iconSpaceReserved="false"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:key="@string/pref_diagnostics"
             android:title="@string/diagnostics"
             app:iconSpaceReserved="false"

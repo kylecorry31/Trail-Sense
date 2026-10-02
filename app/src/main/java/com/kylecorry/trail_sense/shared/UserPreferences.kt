@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.settings.infrastructure.CellSignalPreferences
 import com.kylecorry.trail_sense.tools.clinometer.infrastructure.ClinometerPreferences
 import com.kylecorry.trail_sense.tools.clock.infrastructure.ClockPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.CompassPreferences
+import com.kylecorry.trail_sense.settings.infrastructure.DebugPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ErrorPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.GPSPreferences
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightPreferenceRepo
@@ -95,6 +96,7 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val bubbleLevel by lazy { BubbleLevelPreferences(context) }
     val fieldGuide by lazy { FieldGuidePreferences(context) }
     val gps by lazy { GPSPreferences(context) }
+    val debug by lazy { DebugPreferences(context) }
     val paths by lazy { PathsPreferences(context) }
 
     private val isMetricPreferred = Resources.isMetricPreferred(context)

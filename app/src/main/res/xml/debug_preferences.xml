@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        android:summary="Tapping the map sets the manual GPS location to the tapped point"
+        android:title="Tap map to set location"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false"
+        app:key="pref_debug_tap_map_to_set_location"
+        app:singleLineTitle="false" />
+
+</PreferenceScreen>

@@ -88,6 +88,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
+            android:id="@+id/action_settings_to_debug_settings"
+            app:destination="@id/debugSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
             android:id="@+id/action_settings_to_experimental_settings"
             app:destination="@id/experimentalSettingsFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -718,6 +725,10 @@
         android:id="@+id/experimentalSettingsFragment"
         android:name="com.kylecorry.trail_sense.settings.ui.ExperimentalSettingsFragment"
         android:label="ExperimentalSettingsFragment" />
+    <fragment
+        android:id="@+id/debugSettingsFragment"
+        android:name="com.kylecorry.trail_sense.settings.ui.DebugSettingsFragment"
+        android:label="DebugSettingsFragment" />
     <fragment
         android:id="@+id/toolRulerSettingsFragment"
         android:name="com.kylecorry.trail_sense.tools.ruler.ui.ToolRulerSettingsFragment"
