@@ -126,6 +126,29 @@ object DEM {
     }
 
 
+    class ElevationGrid(
+        val width: Int,
+        val height: Int,
+        // Row-major, row 0 is the southernmost row
+        val elevations: FloatArray,
+        val latitudes: DoubleArray,
+        val longitudes: DoubleArray
+    )
+
+    suspend fun getElevationGrid(bounds: CoordinateBounds, resolution: Double): ElevationGrid =
+        onDefault {
+            val grid = getElevations(bounds, resolution, expandBy = 0)
+            val width = grid.data.width
+            val height = grid.data.height
+            val elevations = FloatArray(width * height)
+            for (y in 0 until height) {
+                for (x in 0 until width) {
+                    elevations[y * width + x] = grid.data.get(x, y, 0)
+                }
+            }
+            ElevationGrid(width, height, elevations, grid.latitudes, grid.longitudes)
+        }
+
     /**
      * Get contour lines using marching squares
      */

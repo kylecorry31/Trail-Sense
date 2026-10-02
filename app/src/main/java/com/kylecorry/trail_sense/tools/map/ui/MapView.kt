@@ -40,6 +40,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     IMapView {
     override var isWidget: Boolean = false
     var isInteractive = true
+    var drawOverlays = true
     var isPanEnabled = true
     var isZoomEnabled = true
     var isFlingEnabled = true
@@ -341,7 +342,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         drawLayers()
         pop()
         pop()
-        layerManager.drawOverlay(context, this, this)
+        if (drawOverlays) {
+            layerManager.drawOverlay(context, this, this)
+        }
     }
 
     private fun drawLayers() {

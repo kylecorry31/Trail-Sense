@@ -56,6 +56,8 @@ import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.map.ui.terrain3d.MapTerrainLoader
+import com.kylecorry.trail_sense.tools.map.ui.terrain3d.Terrain3DView
 import java.time.Instant
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
@@ -71,6 +73,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val attributionView = useView<TextView>(R.id.map_attribution)
         val timeSheet = useView<DateTimeSliderSheet>(R.id.time_sheet)
         val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.sensor_status_badges)
+        val terrainView = useView<Terrain3DView>(R.id.terrain_3d)
+        val (is3D, setIs3D) = useState(false)
         val (mapTime, setMapTime) = useState<Instant?>(null)
         val (hasTimeDependentLayers, setHasTimeDependentLayers) = useState(false)
 
@@ -102,6 +106,19 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         val prefs = useService<UserPreferences>()
+
+        useEffect(terrainView, is3D) {
+            terrainView.isVisible = is3D
+        }
+
+        useBackgroundEffect(terrainView, mapView, is3D, mapTime) {
+            if (!is3D) {
+                return@useBackgroundEffect
+            }
+            val terrain = MapTerrainLoader.load(mapView, mapTime ?: Instant.now())
+            onMain { terrainView.setTerrain(terrain) }
+        }
+
         val navigation = useNavigationSensors(
             trueNorth = true,
             compassDelay = prefs.map.compassUpdateFrequency.sensorDelay
@@ -401,12 +418,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         // Menu
-        useClickCallback(menuButton, startDistanceMeasurement) {
+        useClickCallback(menuButton, startDistanceMeasurement, is3D) {
             val actions = listOf(
                 MapAction.Measure to getString(R.string.measure),
                 MapAction.CreatePath to getString(R.string.create_path),
                 MapAction.AdjustLayers to getString(R.string.layers),
-                MapAction.Trace to getString(R.string.trace)
+                MapAction.Trace to getString(R.string.trace),
+                MapAction.Toggle3D to if (is3D) "2D" else "3D"
             )
 
             Pickers.menu(
@@ -421,6 +439,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
                     MapAction.AdjustLayers -> adjustLayers()
                     MapAction.Trace -> setLockMode(MapLockMode.Trace)
+                    MapAction.Toggle3D -> setIs3D(!is3D)
                 }
                 true
             }

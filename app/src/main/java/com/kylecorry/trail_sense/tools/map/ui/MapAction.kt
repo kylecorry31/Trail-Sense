@@ -4,5 +4,6 @@ enum class MapAction {
     Measure,
     CreatePath,
     AdjustLayers,
-    Trace
+    Trace,
+    Toggle3D
 }
