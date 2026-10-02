@@ -44,19 +44,18 @@ If you would prefer to manually set the declination, you can disable the 'Auto a
 ## Sensors > GPS
 GPS settings can be found in Trail Sense Settings > Sensors > GPS. If your phone supports it, multiple GNSS systems will be used (such as GPS, GLONASS, Galileo, and BeiDou).
 
-### Location Source
-You can choose to mock your location by disabling the 'Auto adjust location' setting. This will enable the 'Location override' setting where you can manually set your location.
+### Source
+- **GPS**: This source determines your location using your device's GPS.
+- **Manual**: This source allows you to manually set your location.
 
-When 'Auto adjust location' is enabled, the location will be determined by your device's GPS.
+### GPS settings
+- **Smoothing**: Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. The default is 50%. Higher values can delay responses to changes in movement.
+- **Accuracy filter**: Choose the reported GPS accuracy you prefer before a reading is accepted and the maximum amount of time Trail Sense should wait for it. If the preferred accuracy is not available within that time, Trail Sense accepts the best available recent reading.
+- **GPS power usage**: Controls the power hint for GPS updates. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce location accuracy.
+- **Clear cache**: Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using this option.
 
-### Smoothing
-Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. The default is 50%. Higher values can delay responses to changes in movement.
-
-### Accuracy filter
-Controls how much reported GPS accuracy is preferred before a reading is accepted. None does not filter based on accuracy, Low (the default) prefers accuracy of 30 meters or better, Moderate prefers accuracy of 16 meters or better, and High prefers accuracy of 8 meters or better. If the preferred accuracy is not available, Trail Sense accepts the best available reading after a short wait.
-
-### Cache
-Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using the 'Clear cache' option in the GPS settings.
+### Manual settings
+- **Location override**: Sets the location to use when the Manual source is selected.
 
 ## Sensors > Altimeter
 The altimeter is used to measure altitude. To adjust altimeter settings, go to Trail Sense Settings > Sensors > Altimeter.
@@ -79,7 +78,6 @@ The current elevation is displayed at the top of the altimeter settings. As you 
 
 ### GPS settings
 - **Samples**: The number of GPS samples to use when determining the altitude. A higher number will give a more accurate reading, but will take longer to calculate.
-- **NMEA elevation correction**: The elevation provided by the GPS needs to be corrected to match the actual elevation. If this setting is enabled, it will use the correction factor provided by the GPS. If it is disabled, it will use the correction factor provided by Trail Sense, which may be more accurate.
 
 ### DEM settings
 - **Digital elevation model (DEM)**: Tapping this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed. If no model is loaded, a low accuracy built-in model will be used. It is recommended to download one of the larger models if you are able to. The DEM will not be included in the backup due to the size.
@@ -173,9 +171,20 @@ Some tools such as Navigation and Astronomy display error banners at the top of 
 - **Location not set**: The location is mocked but has not been set (uses 0, 0).
 - **Compass accuracy**: The compass accuracy is low.
 - **GPS timeouts**: The GPS has timed out and was unable to determine your location.
+- **Location permission**: Trail Sense does not have permission to access your location.
 
 ## Experimental
 Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
+
+### Tools
+- **Show metal direction**: Shows the experimental metal direction indicator in the Metal Detector tool. This requires a compass and gyroscope. See the Metal Detector tool guide for details.
+- **Cliff Height**: Makes the Cliff Height tool available in the tool list.
+
+### Camera
+- **Zero shutter lag**: Prioritizes capture speed over image quality when taking photos within Trail Sense.
+
+### Weather
+- **Show pressure forecast on chart**: Extends the pressure chart in the Weather tool with the forecasted pressure.
 
 ### Use large tile cache
 By default, each map layer keeps a tile cache sized for the current screen. Enable this setting to let each map layer retain more tiles. This may reduce tile reloading while using maps, but it can significantly increase memory usage when several map layers are enabled.
@@ -200,6 +209,9 @@ When a map layer plugin is connected and the layer is enabled on the map, Trail 
 
 If the plugin's signature changes, it will be disconnected, and you will need to reconnect.
 
+### Widget icon compatibility mode
+Enable this if icons are missing from your widgets on some devices.
+
 ### Notification grouping
 Android 16 introduces forced notification grouping for apps. This normally puts all of Trail Sense's notifications into one group, which can be hard to read at a glance.
 
@@ -215,6 +227,7 @@ When switching to a new device or reinstalling the app, it may be helpful to bac
 - **Backup**: Creates a backup of your data and settings. This will save as a zip file which is unencrypted and contains location data, so only send it to people you trust.
 - **Restore**: Restores a backup of your data and settings. This will permanently overwrite your current data and settings. You can restore from an older version of the app, but cannot restore from a newer version.
 - **Automatic backup**: Creates a backup of your data and settings every day in the folder of your choosing. It will only keep the last 2 backups.
+- **Include trail maps in backups**: Whether Mapsforge (.map) files are included in backups. These files can be large.
 
 ## Tools
 Settings for each tool can be adjusted in the Settings > Tools section. For more information, see the guide for each tool.

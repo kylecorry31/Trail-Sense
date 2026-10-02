@@ -5,7 +5,11 @@ The Backtrack feature can be used to automatically record a path while you hike.
 
 To change the recording frequency, tap the time under the Backtrack label at the bottom-left and enter a new interval.
 
-Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Navigation > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
+When 'Keep device awake' is disabled, Backtrack uses the GPS to wake your phone and record a point. You can control the power hint for these updates with Settings > Paths > 'Backtrack GPS power usage'. The default, 'Inherit from GPS settings', uses Settings > Sensors > GPS > 'GPS power usage'. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce the accuracy of the recorded path.
+
+To avoid recording additional points while stationary, adjust Settings > Paths > 'Minimum distance between points' to a higher value. This setting will ignore a new point if it is closer than the specified distance to the previous point.
+
+Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Paths > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
 
 By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Paths > 'Backtrack history'. You can choose to keep a Backtrack path forever by tapping the menu button on the Backtrack path row and selecting 'Keep forever'.
 
@@ -44,6 +48,8 @@ To view a path, tap the path in the list. This will open the path details page. 
 - **Elevation chart**: A chart showing the path's elevation over distance. Tap a point on the chart to select it.
 - **Points**: To see the list of points in the path, tap the menu button in the top-right and select 'Points'. Tap a point to select it. Tap the menu button on a point to navigate to it, create a beacon for it, or delete it.
 
+The start of the path is indicated with a solid circle and the end of the path is indicated with a flag in a circle.
+
 ## Path styles
 Adjust the path's appearance by opening it and selecting the line style or line color from the dropdowns at the top of the screen. Change the appearance of the path's points by selecting the point style from the dropdown on the top-right. Choose between the following point styles:
 
@@ -55,7 +61,7 @@ Adjust the path's appearance by opening it and selecting the line style or line 
 
 A key below the path map explains the colors.
 
-Set the default path styles in Settings > Paths > 'Default path style' for the line style and Settings > Navigation > 'Default path color' for the line color.
+Set the default path styles in Settings > Paths > 'Default path style' for the line style and Settings > Paths > 'Default path color' for the line color.
 
 ## Simplify a path
 Paths can be simplified to reduce the number of points in the path. This can be useful to improve the performance of the path rendering and may improve the accuracy of the path by removing GPS errors.
@@ -66,10 +72,24 @@ Once the path has been simplified, it is not possible to undo the simplification
 
 You can choose to automatically simplify paths imported from a GPX file by enabling Settings > Paths > 'Simplify paths on import'.
 
-## Navigate to a path
-You can navigate to the nearest point on a path by opening the path and tapping the 'Navigate' button at the bottom. This will open the navigation tool with the path as the destination. Alternatively, you can tap the menu button on the path row you want to navigate to and then select 'Navigate'.
+## Replace path elevations
+To replace all elevations on a path using the digital elevation model (DEM), open the path, tap the menu button in the top-right corner of the screen, and select 'Replace elevations'. If it is taking too long to load (ex. too many points), you can cancel and your path will be unmodified.
 
-By default, this will only navigate to recorded waypoints on the path. However, you can choose to navigate to any position on the path by disabling Settings > Paths > 'Only navigate to recorded points'. This will assume that the path is a straight line between points.
+## Navigate with a path
+To navigate with a path, open it and tap the 'Navigate' button at the bottom. You will be prompted to choose how you want to follow the path:
+
+- **Follow to end**: Follow the path from your nearest point on it to its end.
+- **Follow to start**: Follow the path from your nearest point on it to its start.
+- **Follow full loop**: Follow the entire loop from your nearest point on it to its end. This option is only available for loop paths.
+- **Follow full loop in reverse**: Follow the entire loop from your nearest point on it to its start. This option is only available for loop paths.
+- **Navigate back onto path**: Navigate to the nearest point on the path without following it. By default, this targets a recorded waypoint. To navigate to any position along the path, disable Settings > Paths > 'Only navigate to recorded points'.
+
+To navigate to a specific point on the path, select the desired waypoint and use its menu to choose 'Navigate'. You will be prompted to choose how you want to navigate there:
+
+- **Follow path to this point**: Follow the path from your nearest point on it to the selected waypoint.
+- **Navigate directly**: Navigate straight to the selected waypoint without following the path.
+
+Once you have chosen a navigation option, you will be taken to the Navigation tool and it will point you toward the next point on the path. The distance, elevation gain/loss, and ETA will be displayed.
 
 ## Path visibility
 You can choose which paths are visible on maps by tapping the eye icon on the right side of the path row. They will show up on maps that have the Paths layer enabled.

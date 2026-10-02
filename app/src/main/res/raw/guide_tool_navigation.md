@@ -6,13 +6,21 @@ The compass can be used for both orientation and navigation. Your bearing is dis
 
 This feature is not available if your device does not have a compass.
 
+### Compass update frequency
+
+You can change how often the compass updates in Settings > Navigation > Compass > 'Compass update frequency'.
+
+- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
+- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
+
 ### Nearby
 
 You can choose to display nearby beacons on the compass. The following settings control the nearby beacons:
 
 - **Settings > Navigation > Show nearby beacons**: Determines if nearby beacons are shown on the compass.
-- **Settings > Navigation > Nearby beacon radius**: Determines the maximum distance a beacon can be from your location to be shown on the compass.
+- **Settings > Navigation > Nearby beacon distance**: Determines the maximum distance a beacon can be from your location to be shown on the compass.
 - **Settings > Navigation > Nearby beacons**: Limits the number of nearby beacons shown on the compass.
+- **Settings > Navigation > Only show nearby beacons on linear compass**: Hides nearby beacons on the round compass.
 
 Nearby beacons will be shown as arrows around the compass. The arrows will point to the beacon, and when you are facing the beacon, more information about it will be shown at the bottom of the screen.
 
@@ -56,6 +64,14 @@ The compass shows the direction of the sun and moon, allowing you to navigate us
 
 Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, tap the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
 
+When you start navigating to a beacon, Trail Sense reminds you to calibrate your compass. You can tick 'Do not ask again' in the reminder, or turn this off in Settings > Navigation > Calibrate before navigating.
+
+## Lock screen
+By default, Trail Sense follows your device's lock screen behavior. You can change this in Settings > Navigation:
+
+- **Show on lock screen while navigating**: Keeps Trail Sense visible over your lock screen while you are navigating.
+- **Show on lock screen while open**: Keeps Trail Sense visible over your lock screen whenever the Navigation tool is open.
+
 ## Beacon navigation
 
 You can navigate to a beacon by tapping the navigate button in the bottom-right. This will open the Beacons tool, where you can select a beacon to navigate to. See the Beacons guide for more information.
@@ -88,7 +104,7 @@ You can change the length of the bearing line under Settings > Navigation > 'Bea
 
 ## Path navigation
 
-If you have the Paths map layer enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass to see where the path is relative to you. If you have Backtrack running, you can see your current position on the path. For more information, see the Paths guide.
+You can navigate with a path using the Paths tool. For more information, see the Paths guide.
 
 ## Location
 

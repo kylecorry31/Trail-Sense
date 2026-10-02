@@ -10,13 +10,15 @@ You can adjust prediction sensitivity in Settings > Weather > Forecast sensitivi
 ## Weather monitor
 The weather monitor runs in the background to record pressure history. Enable it by tapping the start icon at the bottom-right. This causes a notification to appear with the current prediction and an option to stop the weather monitor. You can also stop it by tapping the stop icon in the bottom-right.
 
-To change the recording frequency, tap the time under the weather monitor label at the bottom left and enter a new interval.
+By default, the weather monitor records every 30 minutes. To change the recording frequency, tap the time under the weather monitor label at the bottom left and enter a new interval (you can also change it in Settings > Weather > Weather update frequency).
 
 For better accuracy, grant Trail Sense Location permission to determine your elevation via GPS. This helps convert pressure to sea level pressure, improving prediction accuracy.
 
 In Settings > Weather, you can customize the notification to show:
 - **Pressure**: Displays the current pressure.
 - **Temperature**: Displays the current temperature (refer to the Thermometer guide for details).
+
+The weather monitor and daily weather notifications show a large, colored icon for the prediction. You can turn this off in Settings > Weather > Show colored notification icon.
 
 You can also enable daily weather notifications in Settings > Weather > Daily weather notification. Without the weather monitor being active, you won't receive these notifications. The timing of this notification is configurable in Settings > Weather > Daily weather time.
 

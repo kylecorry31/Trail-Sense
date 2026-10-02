@@ -13,6 +13,8 @@ The chart shows the position of the sun and moon throughout the day. The X-axis 
 
 You can also choose to keep the current time centered in the chart by enabling 'Keep sun/moon centered' in Settings > Astronomy. This will keep the current time centered in the chart when you have today selected and will show 12 hours before and after the current time. If you have a different date selected, it will show the entire day instead.
 
+You can enable 'Show sunrise/set bands' in Settings > Astronomy to shade the chart by twilight stage (civil, nautical, astronomical, and full darkness) instead of a single night shade. See the Sun section below for a description of each stage.
+
 ## Sun
 All times related to the sun respect the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see below.
 

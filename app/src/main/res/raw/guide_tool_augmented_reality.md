@@ -29,6 +29,8 @@ Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may
 
 You can choose to adjust paths using their recorded elevation by enabling Settings > Augmented Reality > 'Use path elevation'. This should make the paths line up better with hills and valleys, but is dependent on the accuracy of the elevation data.
 
+When navigating a path, the Paths layer shows the remaining route even if that saved path is hidden. The route updates as you move.
+
 ## Sun / moon
 The paths that the sun and moon will take today are displayed as markers on the screen. The sun's path is displayed in yellow and the moon's path is displayed in white. A larger marker is displayed at the current time, and will also show the moon phase. Times in the past are lighter.
 
@@ -57,14 +59,23 @@ A grid is displayed on the screen to help orient you. The grid is aligned with t
 ## Orientation
 The orientation of your device is displayed at the top of the screen. This includes the compass bearing and the tilt angle. The Augmented Reality tool respects the true north setting found on Settings > Sensors > Compass > True north.
 
+## Compass update frequency
+
+You can change how often the compass updates in Settings > Augmented Reality > Advanced > 'Compass update frequency'.
+
+- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
+- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
+
 ## Navigation
 Tap on a beacon to navigate to it.
 
-While navigating, you will see an arrow around the reticle pointing in the direction of the beacon. Move your phone toward the arrow to bring the beacon into view. When the beacon is in the reticle, the arrow will disappear.
+While navigating, you will see an arrow around the reticle pointing in the direction of your target. Move your phone toward the arrow to align the reticle with the target. When the target is in the reticle, the arrow will disappear.
 
-If beacon navigation is already active when you open the Augmented Reality tool, that beacon becomes the current target automatically.
+If beacon, path, or bearing navigation is already active when you open the Augmented Reality tool, guidance starts automatically.
 
-If you switch from a beacon target to a non-beacon target, beacon navigation is canceled.
+For path navigation, the guidance arrow points toward the next point along your route and updates as you move. For bearing navigation, it points along your selected bearing. If Settings > Navigation > 'Lock bearing to location' is enabled and the bearing has a starting location, it points toward the fixed destination instead.
+
+Switching to a non-beacon target or closing guidance with the 'X' button leaves your navigation active. Selecting a different beacon for guidance changes your navigation destination to that beacon.
 
 ## Calibration
 If the Augmented Reality tool is not aligned with the real world, you can calibrate it by tapping the compass icon in the top-left corner of the screen. This will prompt you to center either the sun or moon in the reticle and tap 'Calibrate'.

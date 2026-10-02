@@ -1,7 +1,9 @@
 The Clock tool can be used to determine the current time using the GPS satellites.
 
 ## Viewing GPS time
-When you first open the Clock tool, it shows your device's set time. Once you get a GPS fix, the clock automatically updates to show precise GPS time. To refresh the GPS time, tap the refresh icon in the top-right.
+When you first open the Clock tool, it shows your device's set time. Once you get a GPS fix, the clock automatically updates to show precise GPS time. The source of the displayed time ('Device time' or 'GPS time') is shown under the clock. If the GPS signal can't be acquired, the clock continues to show the device time. To refresh the GPS time, tap the refresh icon in the top-right.
+
+Once the GPS time is acquired, Trail Sense also shows how far your device's clock is from GPS time (for example, 'Device clock is 2 seconds slow' or 'Device clock is accurate').
 
 ## Syncing Your Clock
 To sync your device’s clock with GPS time:

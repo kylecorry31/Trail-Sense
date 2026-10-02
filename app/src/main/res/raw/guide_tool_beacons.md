@@ -101,6 +101,8 @@ To rename a group, tap the menu button on the group row you want to rename, then
 
 You can delete a group (along with all beacons within it) by tapping the menu button on the group row you wish to remove, then selecting 'Delete'.
 
+You can also tap the menu button in the top-right of the beacon list and select 'Delete' to delete the open group (along with all beacons within it). If no group is open, this deletes all of your beacons.
+
 ## Searching for beacons
 To search through your created beacons, use the search bar at the top of the beacon list. This search encompasses the current group and all subgroups. Additionally, you can sort beacons by distance, time, or name by tapping the menu button in the top-right and selecting 'Sort'.
 
