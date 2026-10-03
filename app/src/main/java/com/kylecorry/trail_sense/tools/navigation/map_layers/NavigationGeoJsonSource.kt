@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 
 class NavigationGeoJsonSource : GeoJsonSource {
 
@@ -139,5 +140,6 @@ class NavigationGeoJsonSource : GeoJsonSource {
     companion object {
         const val SOURCE_ID = "navigation"
         const val SHOW_ENDPOINTS = "show_endpoints"
+        val DEFAULT_BACKGROUND_COLOR = PathBackgroundColor.White
     }
 }

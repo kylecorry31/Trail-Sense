@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.map_layers.ui.layers
 
 import android.content.Context
+import android.os.Bundle
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
@@ -127,6 +128,13 @@ suspend fun IMapView.setLayersWithPreferences(
     }
 
     val layerPreferences = repo.getLayerPreferencesBundle(mapId, newLayerIds)
+    layerPreferences.forEach { (layerId, bundle) ->
+        definitions[layerId]?.preferences?.forEach { preference ->
+            if (!bundle.containsKey(preference.id)) {
+                bundle.putDefault(preference.id, preference.defaultValue)
+            }
+        }
+    }
 
     val layersToPreference = layers.map { layer ->
         layer to layerPreferences[layer.layerId]
@@ -144,6 +152,16 @@ suspend fun IMapView.setLayersWithPreferences(
     }
 
     setLayers(actualLayers.map { it.first })
+}
+
+private fun Bundle.putDefault(key: String, value: Any?) {
+    when (value) {
+        is Boolean -> putBoolean(key, value)
+        is Int -> putInt(key, value)
+        is Float -> putFloat(key, value)
+        is Long -> putLong(key, value)
+        is String -> putString(key, value)
+    }
 }
 
 fun IMapView.getLayerById(layerId: String): ILayer? {

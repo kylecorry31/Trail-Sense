@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
 import com.kylecorry.trail_sense.shared.logging.Logger
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
@@ -35,6 +36,7 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
@@ -571,28 +573,56 @@ class PreferenceMigrator private constructor() {
                 prefs.remove(key)
                 prefs.putString(key, source.id)
             },
-            PreferenceMigration(37, 38) { _, _ ->
+            PreferenceMigration(37, 38) { _, prefs ->
                 val repo = getAppService<MapLayerPreferenceRepo>()
-                repo.addLayerInBestPosition(
-                    NavigationToolRegistration.MAP_ID,
+                // Navigation is above paths and below beacons
+                val idealOrdering = listOf(
+                    BaseMapTileSource.SOURCE_ID,
+                    ElevationMapTileSource.SOURCE_ID,
+                    TrailMapsTileSource.SOURCE_ID,
+                    HillshadeMapTileSource.SOURCE_ID,
+                    AspectMapTileSource.SOURCE_ID,
+                    SlopeMapTileSource.SOURCE_ID,
+                    PhotoMapTileSource.SOURCE_ID,
+                    ContourGeoJsonSource.SOURCE_ID,
+                    CellTowerGeoJsonSource.SOURCE_ID,
+                    TideGeoJsonSource.SOURCE_ID,
+                    PathGeoJsonSource.SOURCE_ID,
                     NavigationGeoJsonSource.SOURCE_ID,
-                    listOf(
-                        BaseMapTileSource.SOURCE_ID,
-                        ElevationMapTileSource.SOURCE_ID,
-                        TrailMapsTileSource.SOURCE_ID,
-                        HillshadeMapTileSource.SOURCE_ID,
-                        AspectMapTileSource.SOURCE_ID,
-                        SlopeMapTileSource.SOURCE_ID,
-                        PhotoMapTileSource.SOURCE_ID,
-                        ContourGeoJsonSource.SOURCE_ID,
-                        NavigationGeoJsonSource.SOURCE_ID,
-                        CellTowerGeoJsonSource.SOURCE_ID,
-                        TideGeoJsonSource.SOURCE_ID,
-                        PathGeoJsonSource.SOURCE_ID,
-                        BeaconGeoJsonSource.SOURCE_ID,
-                        MyLocationGeoJsonSource.SOURCE_ID
-                    )
+                    BeaconGeoJsonSource.SOURCE_ID,
+                    MyLocationGeoJsonSource.SOURCE_ID
                 )
+
+                val mapIds = listOf(
+                    NavigationToolRegistration.MAP_ID,
+                    MapToolRegistration.MAP_ID,
+                    OfflineMapsToolRegistration.PHOTO_MAPS_ID
+                )
+                for (mapId in mapIds) {
+                    val layers = repo.getActiveLayerIds(mapId)
+                    if (NavigationGeoJsonSource.SOURCE_ID in layers) {
+                        // Returning users keep their existing placement
+                        if (AppState.isReturningUser) {
+                            continue
+                        }
+                        repo.setActiveLayerIds(
+                            mapId,
+                            layers.filter { it != NavigationGeoJsonSource.SOURCE_ID }
+                        )
+                    }
+                    repo.addLayerInBestPosition(
+                        mapId,
+                        NavigationGeoJsonSource.SOURCE_ID,
+                        idealOrdering
+                    )
+                    prefs.remove(
+                        MapLayerPreferenceRepo.getPreferenceKey(
+                            mapId,
+                            NavigationGeoJsonSource.SOURCE_ID,
+                            DefaultMapLayerDefinitions.ENABLED
+                        )
+                    )
+                }
             }
         )
 

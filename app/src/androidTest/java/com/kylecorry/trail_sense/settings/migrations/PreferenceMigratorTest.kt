@@ -13,6 +13,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.colors.ElevationColorStrategy
 import com.kylecorry.trail_sense.shared.dem.map_layers.ElevationMapTileSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
@@ -20,11 +21,13 @@ import com.kylecorry.trail_sense.shared.sensors.gps.modules.GPSCacheData
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.AstronomyDailyWorker
+import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.test_utils.TestUtils
@@ -46,6 +49,11 @@ class PreferenceMigratorTest {
     private val context = TestUtils.context
     private lateinit var prefs: IPreferences
     private var snapshot: Collection<Preference> = emptyList()
+    private val mapIds = listOf(
+        NavigationToolRegistration.MAP_ID,
+        MapToolRegistration.MAP_ID,
+        OfflineMapsToolRegistration.PHOTO_MAPS_ID
+    )
 
     @Before
     fun setUp() {
@@ -528,45 +536,70 @@ class PreferenceMigratorTest {
     }
 
     @Test
-    fun migration37To38EnablesNavigationWithNoConfiguredLayers() {
+    fun migration37To38PlacesNavigationAbovePathsForNewUsers() {
+        val repo = getAppService<MapLayerPreferenceRepo>()
+        val enabledKey = MapLayerPreferenceRepo.getPreferenceKey(
+            NavigationToolRegistration.MAP_ID,
+            NavigationGeoJsonSource.SOURCE_ID,
+            DefaultMapLayerDefinitions.ENABLED
+        )
+        prefs.putBoolean(enabledKey, false)
+        // Navigation is below paths on the map views from an older migration
+        repo.setActiveLayerIds(
+            MapToolRegistration.MAP_ID,
+            listOf(
+                NavigationGeoJsonSource.SOURCE_ID,
+                PathGeoJsonSource.SOURCE_ID,
+                BeaconGeoJsonSource.SOURCE_ID
+            )
+        )
+        val layers = listOf(PathGeoJsonSource.SOURCE_ID, BeaconGeoJsonSource.SOURCE_ID)
+        repo.setActiveLayerIds(NavigationToolRegistration.MAP_ID, layers)
+        repo.setActiveLayerIds(OfflineMapsToolRegistration.PHOTO_MAPS_ID, layers)
+
         migrate(37)
 
-        val repo = getAppService<MapLayerPreferenceRepo>()
-        assertEquals(
-            listOf(NavigationGeoJsonSource.SOURCE_ID),
-            repo.getActiveLayerIds(NavigationToolRegistration.MAP_ID)
-        )
-        assertTrue(repo.getActiveLayerIds(MapToolRegistration.MAP_ID).isEmpty())
+        for (mapId in mapIds) {
+            assertEquals(
+                listOf(
+                    PathGeoJsonSource.SOURCE_ID,
+                    NavigationGeoJsonSource.SOURCE_ID,
+                    BeaconGeoJsonSource.SOURCE_ID
+                ),
+                repo.getActiveLayerIds(mapId)
+            )
+        }
+        assertFalse(prefs.contains(enabledKey))
     }
 
     @Test
-    fun migration37To38AddsNavigationBetweenTerrainAndPaths() {
-        val repo = getAppService<MapLayerPreferenceRepo>()
-        val mapId = NavigationToolRegistration.MAP_ID
-        val layers = listOf(TrailMapsTileSource.SOURCE_ID, PathGeoJsonSource.SOURCE_ID)
-        repo.setActiveLayerIds(mapId, layers)
-        repo.setActiveLayerIds(MapToolRegistration.MAP_ID, layers)
+    fun migration37To38AddsNavigationForReturningUsers() {
+        AppState.isReturningUser = true
 
         migrate(37)
 
-        assertEquals(
-            listOf(TrailMapsTileSource.SOURCE_ID, NavigationGeoJsonSource.SOURCE_ID, PathGeoJsonSource.SOURCE_ID),
-            repo.getActiveLayerIds(mapId)
-        )
-        assertEquals(layers, repo.getActiveLayerIds(MapToolRegistration.MAP_ID))
+        val repo = getAppService<MapLayerPreferenceRepo>()
+        for (mapId in mapIds) {
+            assertEquals(listOf(NavigationGeoJsonSource.SOURCE_ID), repo.getActiveLayerIds(mapId))
+        }
     }
 
     @Test
-    fun migration37To38PreservesExistingNavigationLayerOrderWithoutDuplicates() {
+    fun migration37To38KeepsExistingOrderForReturningUsers() {
+        AppState.isReturningUser = true
         val repo = getAppService<MapLayerPreferenceRepo>()
-        val mapId = NavigationToolRegistration.MAP_ID
-        val layers = listOf(PathGeoJsonSource.SOURCE_ID, NavigationGeoJsonSource.SOURCE_ID, TrailMapsTileSource.SOURCE_ID)
-        repo.setActiveLayerIds(mapId, layers)
+        val layers = listOf(
+            PathGeoJsonSource.SOURCE_ID,
+            NavigationGeoJsonSource.SOURCE_ID,
+            TrailMapsTileSource.SOURCE_ID
+        )
+        mapIds.forEach { repo.setActiveLayerIds(it, layers) }
 
         migrate(37)
-        migrate(37)
 
-        assertEquals(layers, repo.getActiveLayerIds(mapId))
+        for (mapId in mapIds) {
+            assertEquals(layers, repo.getActiveLayerIds(mapId))
+        }
     }
 
     private fun migrate(fromVersion: Int) {

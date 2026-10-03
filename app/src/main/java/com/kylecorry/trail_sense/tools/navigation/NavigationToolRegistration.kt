@@ -52,7 +52,7 @@ object NavigationToolRegistration : ToolRegistration {
                                 context.getString(R.string.color_black) to PathBackgroundColor.Black.id.toString(),
                                 context.getString(R.string.color_white) to PathBackgroundColor.White.id.toString(),
                             ),
-                            defaultValue = PathBackgroundColor.None.id.toString(),
+                            defaultValue = NavigationGeoJsonSource.DEFAULT_BACKGROUND_COLOR.id.toString(),
                         ),
                         MapLayerPreference(
                             id = NavigationGeoJsonSource.SHOW_ENDPOINTS,
