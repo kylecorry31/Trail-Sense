@@ -1654,4 +1654,7 @@
     <string name="compass_update_frequency_normal">正常</string>
     <string name="compass_update_frequency_fast">快速</string>
     <string name="pref_backtrack_keep_awake_title">保持设备唤醒</string>
+    <string name="ar_path_appearance">外观</string>
+    <string name="ar_path_appearance_ribbon">Ribbon</string>
+    <string name="ar_path_appearance_line">线条</string>
 </resources>
