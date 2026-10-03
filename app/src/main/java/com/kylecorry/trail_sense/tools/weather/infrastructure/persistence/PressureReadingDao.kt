@@ -28,6 +28,9 @@ interface PressureReadingDao {
     @Delete
     suspend fun delete(pressure: PressureReadingEntity)
 
+    @Query("DELETE FROM pressures")
+    suspend fun deleteAll()
+
     @Query("DELETE FROM pressures WHERE time < :minEpochMillis")
     suspend fun deleteOlderThan(minEpochMillis: Long)
 

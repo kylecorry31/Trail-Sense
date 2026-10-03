@@ -10,4 +10,11 @@
         app:key="pref_debug_tap_map_to_set_location"
         app:singleLineTitle="false" />
 
+    <Preference
+        android:summary="Replaces all weather observations with an exported weather CSV"
+        android:title="Import weather CSV"
+        app:iconSpaceReserved="false"
+        app:key="pref_debug_import_weather"
+        app:singleLineTitle="false" />
+
 </PreferenceScreen>
