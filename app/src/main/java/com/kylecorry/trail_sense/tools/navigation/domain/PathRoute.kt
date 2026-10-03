@@ -155,7 +155,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         val nearby = geometry.nearest(
             location,
             previousDistance - movement - PROGRESS_TOLERANCE_METERS,
-            previousDistance + movement * FORWARD_PROGRESS_MULTIPLIER + PROGRESS_TOLERANCE_METERS
+            previousDistance + movement + PROGRESS_TOLERANCE_METERS
         )
         return rejoinRoute(location, nearby, movement)
     }

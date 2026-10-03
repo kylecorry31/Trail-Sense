@@ -68,7 +68,8 @@ class PathRouteTest {
             val route = PathRoute(path)
             route.navigate(coordinates.first())
             val location = Coordinate(0.003, 0.004)
-            val guidance = route.navigate(location)
+            route.navigate(location)
+            val guidance = route.navigate(Coordinate(location.latitude + 0.000001, location.longitude))
             assertEquals(0f, guidance.offRoute, 5f)
             assertTrue(guidance.target.latitude > location.latitude)
             assertEquals(location.distanceTo(coordinates.last()), guidance.remainingDistance, 5f)
@@ -82,7 +83,8 @@ class PathRouteTest {
         val route = PathRoute(path)
         route.restoreProgress(0.125f, Coordinate(0.0, 0.001))
         val location = Coordinate(0.002, 0.0039)
-        val guidance = route.navigate(location)
+        route.navigate(location)
+        val guidance = route.navigate(Coordinate(location.latitude + 0.000001, location.longitude))
         assertEquals(0.004, guidance.target.longitude, 0.00001)
         assertEquals(0.002 + 25 / 111_000.0, guidance.target.latitude, 0.00005)
         assertTrue(guidance.offRoute < 15f)
@@ -316,6 +318,31 @@ class PathRouteTest {
         route.navigate(Coordinate(0.0009, 0.0003))
         route.navigate(rejoined)
         assertTrue(progress > 0.5f)
+    }
+
+    @Test
+    fun `one outlier across a short loop does not complete it`() {
+        val start = Coordinate(0.0, 0.0)
+        val opposite = Coordinate(0.0004505, 0.0004505)
+        val coordinates = listOf(start, Coordinate(0.0, opposite.longitude), opposite,
+            Coordinate(opposite.latitude, 0.0), start)
+        val route = route(coordinates)
+        route.navigate(start)
+        route.navigate(opposite)
+        for (location in listOf(start, Coordinate(0.0, 0.000009))) {
+            val guidance = route.navigate(location)
+            assertFalse(guidance.arrived)
+            assertTrue(guidance.remainingDistance > 180f)
+        }
+        for ((a, b) in coordinates.zipWithNext()) {
+            for (step in 1..10) {
+                route.navigate(Coordinate(
+                    a.latitude + (b.latitude - a.latitude) * step / 10,
+                    a.longitude + (b.longitude - a.longitude) * step / 10
+                ))
+            }
+        }
+        assertTrue(route.navigate(start).arrived)
     }
 
     @Test
