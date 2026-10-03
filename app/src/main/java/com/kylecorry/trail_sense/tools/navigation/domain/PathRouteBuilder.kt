@@ -51,8 +51,8 @@ object PathRouteBuilder {
         }
         val ordered = if (mode.isReversed) points.reversed() else points
         if (ordered.size == 1) return ordered
-        val join = nearJoins(ordered, location).first()
-        return listOf(join.point) + ordered.drop(join.segment + 1)
+        val snap = nearSnaps(ordered, location).first()
+        return listOf(snap.point) + ordered.drop(snap.segment + 1)
     }
 
     /**
@@ -67,22 +67,22 @@ object PathRouteBuilder {
 
         // Only the lengths of the candidates are compared, since there can be many of them and each
         // route can be as long as the whole path
-        val shortest = nearJoins(points, location)
+        val shortest = nearSnaps(points, location)
             .flatMap { itineraries(it, destinationIndex, points.lastIndex, loop) }
             .minBy { lengths.of(it) }
-        return listOf(shortest.join.point) + shortest.runs.flatMap { run -> run.map { points[it] } }
+        return listOf(shortest.snap.point) + shortest.runs.flatMap { run -> run.map { points[it] } }
     }
 
-    // The ways to get from the join to the destination. When equally long, the first is preferred.
-    private fun itineraries(join: Join, destination: Int, lastIndex: Int, loop: Boolean): List<Itinerary> {
-        val segment = join.segment
+    // The ways to get from the snap to the destination. When equally long, the first is preferred.
+    private fun itineraries(snap: Snap, destination: Int, lastIndex: Int, loop: Boolean): List<Itinerary> {
+        val segment = snap.segment
         val destinationAhead = destination > segment
         val direct = if (destinationAhead) {
             listOf(segment + 1..destination)
         } else {
             listOf(segment downTo destination)
         }
-        if (!loop) return listOf(Itinerary(join, direct))
+        if (!loop) return listOf(Itinerary(snap, direct))
 
         val acrossSeam = if (destinationAhead) {
             listOf(segment downTo 0, lastIndex downTo destination)
@@ -90,19 +90,19 @@ object PathRouteBuilder {
             listOf(segment + 1..lastIndex, 0..destination)
         }
         return (if (destinationAhead) listOf(direct, acrossSeam) else listOf(acrossSeam, direct))
-            .map { Itinerary(join, it) }
+            .map { Itinerary(snap, it) }
     }
 
     // The places on the path that are about as close as the closest one, earliest first.
     // Overlapping parts of a path (ex. the start and end of an out and back) are indistinguishable
     // within the GPS error, so the closest is not necessarily the right one.
-    private fun nearJoins(points: List<PathPoint>, location: Coordinate): Sequence<Join> {
+    private fun nearSnaps(points: List<PathPoint>, location: Coordinate): Sequence<Snap> {
         val nearest = points.zipWithNext { a, b -> Geography.getNearestPoint(location, a.coordinate, b.coordinate) }
         val distances = nearest.map { location.distanceTo(it) }
         val closest = distances.min()
         return nearest.indices.asSequence()
             .filter { distances[it] <= closest + GPS_NOISE_TOLERANCE_METERS }
-            .map { Join(it, interpolate(points[it], points[it + 1], nearest[it])) }
+            .map { Snap(it, interpolate(points[it], points[it + 1], nearest[it])) }
     }
 
     fun interpolate(a: PathPoint, b: PathPoint, coordinate: Coordinate): PathPoint {
@@ -115,13 +115,13 @@ object PathRouteBuilder {
     }
 
     /** A location on the path, which is [point] on the segment starting at the path point [segment]. */
-    private class Join(val segment: Int, val point: PathPoint)
+    private class Snap(val segment: Int, val point: PathPoint)
 
     /**
-     * A route that goes from the join to the first index of each run, then along the path through
+     * A route that goes from the snap to the first index of each run, then along the path through
      * the indices of the run, and continues with the next run.
      */
-    private class Itinerary(val join: Join, val runs: List<IntProgression>)
+    private class Itinerary(val snap: Snap, val runs: List<IntProgression>)
 
     private class PathLengths(private val coordinates: List<Coordinate>) {
         private val cumulative = HikingService().getDistances(coordinates).toFloatArray()
@@ -133,7 +133,7 @@ object PathRouteBuilder {
         // Uses the cumulative distances so the route doesn't need to be built to measure it
         fun of(itinerary: Itinerary): Float {
             var length = 0f
-            var position = itinerary.join.point.coordinate
+            var position = itinerary.snap.point.coordinate
             for (run in itinerary.runs) {
                 length += position.distanceTo(coordinates[run.first]) +
                     abs(cumulative[run.last] - cumulative[run.first])
