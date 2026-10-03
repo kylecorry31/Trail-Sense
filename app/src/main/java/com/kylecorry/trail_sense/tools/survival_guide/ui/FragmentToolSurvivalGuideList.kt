@@ -84,7 +84,7 @@ class FragmentToolSurvivalGuideList :
         listView.emptyView = emptyTextView
 
         val listItems = useMemo(navController, chapters, query, searchResults, markdown) {
-            if (query.isBlank() || searchResults.isEmpty()) {
+            if (query.isBlank()) {
                 chapters.map {
                     ListItem(
                         it.chapter.resource.toLong(),
