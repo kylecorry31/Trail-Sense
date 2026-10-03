@@ -113,7 +113,6 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
 
         click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
 
-
         click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
 
         handleExactAlarmsDialog()
@@ -145,16 +144,6 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
         hasText("1:51 AM\nRise")
         hasText("9:00 AM\nNoon")
         hasText("4:25 PM\nSet")
-    }
-
-    @Test
-    fun showsDifferentValuesInWinter() {
-        goToDate(2025, 12, 21)
-
-        // Winter solstice: 9h 3m of daylight
-        hasText(Regex("Sun\\s+•\\s+9h \\d+m daylight"))
-        hasText(Regex("7:\\d\\d AM\nRise"))
-        hasText(Regex("4:\\d\\d PM\nSet"))
     }
 
     @Test

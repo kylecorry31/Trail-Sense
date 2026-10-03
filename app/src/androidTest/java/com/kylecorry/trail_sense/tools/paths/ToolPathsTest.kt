@@ -5,6 +5,7 @@ import androidx.test.uiautomator.Direction
 import com.kylecorry.luna.result.Result
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.GpxIOService
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriPickerError
@@ -35,14 +36,21 @@ import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
+import com.kylecorry.trail_sense.tools.navigation.domain.PathRoute
+import com.kylecorry.trail_sense.tools.navigation.domain.PathRouteBuilder
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigator
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
 import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Test
@@ -381,7 +389,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Click the start button
         click(R.id.play_btn)
 
-
         // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             waitFor {
@@ -662,6 +669,97 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         assertEquals(listOf(39, 90), imported.tracks.map { it.segments.single().points.size })
     }
 
+    // PATH NAVIGATION
+    // These use the navigator directly, with real hikes (androidTest/assets/paths), the database,
+    // and the saved navigation state. The routing logic itself is covered by PathRouteTest.
+    //
+    // Durfee Short is a loop (its start and end are 9 m apart) and Durfee Out is an out and back
+    // path. The expected distances were calculated from the GPX files.
+
+    @Test
+    fun loopsAreOnlyOfferedForPathsThatReturnToTheirStart() {
+        // Each of these ends within 9 m of where it started
+        for (asset in listOf(LOOP, "paths/sprague.gpx", "paths/mount mansfield.gpx", "paths/pulaski.gpx")) {
+            assertTrue(asset, PathRouteBuilder.isLoop(coordinatesOf(asset)))
+        }
+        // Ends 543 m from where it started
+        assertFalse(PathRouteBuilder.isLoop(coordinatesOf(OUT_AND_BACK)))
+    }
+
+    // The point 198 m along the loop, there is no other part of the loop nearby
+
+    @Test
+    fun navigationIsRestoredWithItsProgress() = runBlocking {
+        val points = coordinatesOf(OUT_AND_BACK)
+        val route = follow(OUT_AND_BACK, PathNavigationMode.TO_END, from = points[0])
+        val location = Coordinate(points[28].latitude + 0.00001, points[28].longitude)
+        route.navigate(points[28])
+        route.navigate(location)
+
+        // A new navigator is what the app has after it is restarted
+        val restored = PathNavigator(TestUtils.context)
+        restored.awaitRestore()
+        val destination = restored.destination.first()
+
+        assertNotNull(destination)
+        assertEquals("Durfee Out", destination!!.path.name)
+        // Without the saved progress the route would start over and need to find the shortcut again
+        assertEquals(663.6f, destination.route.navigate(location).remainingDistance, 3f)
+    }
+
+    @Test
+    fun stoppingNavigationClearsTheSavedRoute() = runBlocking {
+        val navigator = PathNavigator(TestUtils.context)
+        follow(OUT_AND_BACK, PathNavigationMode.TO_END, from = coordinatesOf(OUT_AND_BACK)[0], navigator)
+        assertTrue(navigator.isNavigating())
+
+        navigator.cancel()
+
+        assertFalse(navigator.isNavigating())
+        assertNull(navigator.destination.first())
+        val restored = PathNavigator(TestUtils.context)
+        restored.awaitRestore()
+        assertNull(restored.destination.first())
+    }
+
+    @Test
+    fun navigatingToAnotherPathReplacesThePreviousOne() = runBlocking {
+        val navigator = PathNavigator(TestUtils.context)
+        follow(OUT_AND_BACK, PathNavigationMode.TO_END, from = coordinatesOf(OUT_AND_BACK)[0], navigator)
+        assertEquals("Durfee Out", navigator.destination.first()!!.path.name)
+
+        follow(LOOP, PathNavigationMode.FULL_LOOP, from = coordinatesOf(LOOP)[0], navigator)
+
+        assertEquals("Durfee Short", navigator.destination.first()!!.path.name)
+        val restored = PathNavigator(TestUtils.context)
+        restored.awaitRestore()
+        assertEquals("Durfee Short", restored.destination.first()!!.path.name)
+    }
+
+    /**
+     * Saves the path and starts following it from the location.
+     */
+    private suspend fun follow(
+        asset: String,
+        mode: PathNavigationMode,
+        from: Coordinate,
+        navigator: PathNavigator = PathNavigator(TestUtils.context)
+    ): PathRoute {
+        assumeFalse(isStagingBuild)
+        UserPreferences(TestUtils.context).gps.locationOverride = from
+        val name = if (asset == LOOP) "Durfee Short" else "Durfee Out"
+        val pathService = PathService.getInstance(TestUtils.context)
+        val id = TestData.addPathFromGpx(name, asset)
+        val points = pathService.getWaypoints(id)
+
+        navigator.navigate(pathService.getPath(id)!!, points, mode)
+        return navigator.destination.first()!!.route
+    }
+
+    private fun coordinatesOf(asset: String): List<Coordinate> {
+        return TestData.loadGpxPoints(asset).map { it.coordinate }
+    }
+
     private class InMemoryUriPicker(private val uri: Uri) : UriPicker {
         override suspend fun open(
             types: List<String>,
@@ -686,5 +784,13 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         override suspend fun inputStream(uri: Uri): InputStream? {
             return text?.let { ByteArrayInputStream(it.toByteArray()) }
         }
+    }
+
+    companion object {
+        // A loop (the start and end are 9 m apart)
+        private const val LOOP = "paths/durfee short.gpx"
+
+        // Ends 543 m from where it started
+        private const val OUT_AND_BACK = "paths/durfee loop.gpx"
     }
 }

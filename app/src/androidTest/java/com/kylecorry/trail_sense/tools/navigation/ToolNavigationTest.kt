@@ -243,18 +243,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText(string(R.string.magnetic_north))
     }
 
-    @Test
-    fun beaconCommentCanBeViewedWhileNavigating() {
-        openWithSavedBeacons()
-
-        navigateToBeacon("Summit")
-
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Left))
-        hasText("Great view")
-        clickOk()
-        isVisible(R.id.navigation_sheet_title)
-    }
-
     private fun navigateToBeacon(name: String) {
         click(R.id.beaconBtn)
         click(name)

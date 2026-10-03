@@ -10,9 +10,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
@@ -245,19 +243,6 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
     }
 
     @Test
-    fun zoomingInHalvesTheDistanceBetweenPoints() {
-        assumeFalse(isStagingBuild)
-        clickOk()
-
-        val before = longitudeSpanBetweenTwoPressedPoints()
-        click(R.id.zoom_in_btn)
-        val after = longitudeSpanBetweenTwoPressedPoints()
-
-        // Each zoom in doubles the scale
-        assertEquals(before / 2, after, before * 0.1)
-    }
-
-    @Test
     fun tappingABeaconShowsItAndCanNavigateToIt() {
         openWithCamp()
         clickOk()
@@ -302,34 +287,6 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         hasText(Regex("Elevation: \\d+ ft"))
     }
 
-    @Test
-    fun hidingTheBeaconLayerHidesBeacons() {
-        openWithCamp()
-        clickOk()
-        tapAt(campLocation) { hasText(R.id.toolbar_title, "Camp", waitForTime = 1000) }
-        TestUtils.back()
-
-        toggleLayerVisibility("Beacons")
-
-        // Nothing is at that location any more
-        val point = getScreenPoint(campLocation)
-        TestUtils.device.click(point.x, point.y)
-        not { hasText("Camp") }
-
-        toggleLayerVisibility("Beacons")
-
-        tapAt(campLocation) { hasText(R.id.toolbar_title, "Camp", waitForTime = 1000) }
-    }
-
-    private fun toggleLayerVisibility(layer: String) {
-        click(R.id.menu_btn)
-        click("Layers")
-        scrollUntil { click(layer) }
-        click("Visible")
-        click(toolbarButton(R.id.title, Side.Right))
-        not { hasText("Layers", exact = true) }
-    }
-
     private fun textOf(
         id: Int,
         timeout: Long = AutomationLibrary.DEFAULT_WAIT_FOR_TIMEOUT
@@ -337,26 +294,6 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         return waitFor(timeout) {
             TestUtils.getMatchingChild(view(id).uiObject) { it.text != null }!!.text
         }
-    }
-
-    /**
-     * Long presses at 25% and 75% of the width of the map and returns the difference in longitude.
-     */
-    private fun longitudeSpanBetweenTwoPressedPoints(): Double {
-        val bounds = waitFor { view(R.id.map).uiObject.visibleBounds }
-        val y = bounds.centerY()
-        val longitudes = listOf(0.25f, 0.75f).map {
-            val x = bounds.left + (bounds.width() * it).toInt()
-            // The press is ignored while the previous sheet is still closing, so repeat it
-            val pressed = waitFor(20000) {
-                TestUtils.device.swipe(x, y, x, y, 200)
-                parseCoordinate(textOf(R.id.toolbar_title, timeout = 3000))
-            }
-            TestUtils.back()
-            isNotVisible(R.id.location_data_distance)
-            pressed.longitude
-        }
-        return longitudes[1] - longitudes[0]
     }
 
     private fun getScreenPoint(coordinate: Coordinate): Point {

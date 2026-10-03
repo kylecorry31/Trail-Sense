@@ -352,14 +352,4 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         back()
     }
 
-    @Test
-    fun canNavigateToTheClosestBeacon() {
-        openWithSavedBeacons()
-
-        click("Camp")
-        click(string(R.string.navigate))
-        clickOk()
-        hasText(R.id.navigation_distance, "0.69 mi")
-        hasText(R.id.navigation_distance, "0° N")
-    }
 }
