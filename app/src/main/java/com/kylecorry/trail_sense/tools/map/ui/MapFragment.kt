@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.android.material.button.MaterialButton
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
@@ -232,11 +233,16 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 }
                 mapDistanceSheetView.createPathListener = {
                     inBackground {
-                        val id = CreatePathCommand(
-                            pathService,
-                            prefs.navigation,
-                            null
-                        ).execute(manager.getDistanceMeasurementPoints())
+                        val id = Alerts.withLoading(
+                            requireContext(),
+                            getString(R.string.loading)
+                        ) {
+                            CreatePathCommand(
+                                pathService,
+                                prefs.navigation,
+                                null
+                            ).execute(manager.getDistanceMeasurementPoints())
+                        }
 
                         onMain {
                             navController.navigateWithAnimation(

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
@@ -301,11 +302,16 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.distanceSheet.createPathListener = {
             inBackground {
                 map?.let {
-                    val id = CreatePathCommand(
-                        pathService,
-                        prefs.navigation,
-                        it.name
-                    ).execute(layerManager.getDistanceMeasurementPoints())
+                    val id = Alerts.withLoading(
+                        requireContext(),
+                        getString(R.string.loading)
+                    ) {
+                        CreatePathCommand(
+                            pathService,
+                            prefs.navigation,
+                            it.name
+                        ).execute(layerManager.getDistanceMeasurementPoints())
+                    }
 
                     onMain {
                         findNavController().navigate(
