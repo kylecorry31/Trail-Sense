@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.test_utils
 
 import androidx.annotation.StringRes
 import androidx.test.uiautomator.Direction
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
@@ -17,6 +18,7 @@ import com.kylecorry.trail_sense.test_utils.views.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.test_utils.views.viewWithHint
 import com.kylecorry.trail_sense.test_utils.views.viewWithText
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 
@@ -120,6 +122,38 @@ object AutomationLibrary {
         waitFor(resolveWaitForTime(waitForTime)) {
             viewWithText(r.toPattern(), index = index)
         }
+    }
+
+    /**
+     * Verifies the texts of all of the visible views with the given ID, from top to bottom.
+     */
+    fun hasTextsInOrder(id: Int, texts: List<String>, waitForTime: Long? = null) {
+        waitFor(resolveWaitForTime(waitForTime)) {
+            assertEquals(texts, getTexts(id))
+        }
+    }
+
+    /**
+     * Verifies a data point (ex. a stat tile) is visible with the given value and label.
+     */
+    fun hasDataPoint(value: String, label: String, waitForTime: Long? = null) {
+        hasDataPoint(Regex(Regex.escape(value)), label, waitForTime)
+    }
+
+    fun hasDataPoint(value: Regex, label: String, waitForTime: Long? = null) {
+        waitFor(resolveWaitForTime(waitForTime)) {
+            val values = getTexts(R.id.data_point_title)
+            val labels = getTexts(R.id.data_point_desc)
+            val dataPoints = values.zip(labels)
+            assertTrue(
+                "Expected data point $value / $label but was $dataPoints",
+                dataPoints.any { (v, l) -> value.matches(v.trim()) && l.trim() == label }
+            )
+        }
+    }
+
+    private fun getTexts(id: Int): List<String> {
+        return TestUtils.device.findObjects(byResId(id, packageName)).map { it.text ?: "" }
     }
 
     fun any(vararg actions: () -> Unit, waitForTime: Long? = null) {

@@ -195,6 +195,20 @@ backUntil { isVisible(R.id.paths_title, waitForTime = 1000) }
 | `scrollUntil { }` | Scroll until condition |
 | `backUntil { }` | Press back until condition |
 
+## Deterministic Tests: Seed Data and Pin the Location
+
+Emulator sensors and the clock are not predictable, so regex-only assertions (`\d+ ft`) can't catch wrong values. Prefer known answers:
+
+- Pin the location: `ToolTestBase(Tools.X, Coordinate(42.03, -71.97))`
+- Seed data before the tool opens by overriding `seedData()`, using `TestData` (`addBeacon`, `addPathFromGpx`, `addPressureTrend`, ...). Guard with `assumeFalse(isStagingBuild)` since staging builds can't be seeded.
+- To use different data per test, call `relaunchTool { TestData.add...() }` (the tool is closed while seeding, so background updates can't race it).
+- Compute expected values independently of the app (a published value, or a quick script from the GPX/coordinates), not by calling the code under test.
+- Use fixed dates (`TestUtils.pickDate`) instead of "today".
+
+Helpers for checking values: `hasDataPoint(value, label)` (a stat tile) and `hasTextsInOrder(id, texts)` (list ordering). `hasText(String)` can't match across a leading newline, use a `Regex` for multi-line values.
+
+Canvas content (the map) can't be found by UiAutomator. Convert a coordinate to a screen pixel with the view's projection inside `scenario.onActivity` and tap that point (see `ToolMapTest`).
+
 ## Running Tests
 
 ```bash
@@ -202,7 +216,7 @@ backUntil { isVisible(R.id.paths_title, waitForTime = 1000) }
 ./scripts/run-emulator-integration-tests.sh com.kylecorry.trail_sense.tools.notes.ToolNotesTest 180
 ```
 
-The script defaults to a 1800 second timeout. Most individual integration tests should finish in 60 to 180 seconds, so pass a shorter timeout for focused runs when practical.
+The filter only supports a single class or method (a comma separated list runs just the first class), so run each class separately. The script defaults to a 1800 second timeout. Most individual integration tests should finish in 60 to 180 seconds, so pass a shorter timeout for focused runs when practical.
 
 ## Source Files
 

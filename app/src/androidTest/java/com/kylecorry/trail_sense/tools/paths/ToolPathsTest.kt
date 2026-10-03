@@ -1,14 +1,22 @@
 package com.kylecorry.trail_sense.tools.paths
 
+import android.net.Uri
 import androidx.test.uiautomator.Direction
+import com.kylecorry.luna.result.Result
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.io.GpxIOService
+import com.kylecorry.trail_sense.shared.io.UriPicker
+import com.kylecorry.trail_sense.shared.io.UriPickerError
+import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasDataPoint
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
@@ -16,6 +24,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
@@ -26,10 +35,21 @@ import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.tools.paths.domain.FullPath
+import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
+import org.junit.Assume.assumeFalse
 import org.junit.Test
-
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.io.OutputStream
 
 class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
     @Test
@@ -415,5 +435,256 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         }
 
         TestUtils.closeQuickActions()
+    }
+
+    // Uses real recorded hikes (androidTest/assets/paths) so the numbers shown can be checked against
+    // the GPX files themselves.
+
+    private fun openWithSavedPaths() {
+        assumeFalse(isStagingBuild)
+        relaunchTool { seedPaths() }
+    }
+
+    private fun seedPaths() {
+        TestData.addPathFromGpx("Sprague", "paths/sprague.gpx")
+        TestData.addPathFromGpx("Durfee Short", "paths/durfee short.gpx")
+        TestData.addPathFromGpx("Mansfield", "paths/mount mansfield.gpx")
+    }
+
+    @Test
+    fun listShowsEachPathWithItsLength() {
+        openWithSavedPaths()
+
+        hasText(R.id.paths_title, string(R.string.paths))
+        hasTitlesAndLengths(
+            "Mansfield" to "4.91 mi",
+            "Durfee Short" to "0.5 mi",
+            "Sprague" to "3.71 mi"
+        )
+    }
+
+    @Test
+    fun canSortPaths() {
+        openWithSavedPaths()
+
+        sortBy(string(R.string.most_recent), string(R.string.name))
+        hasTitlesInOrder("Durfee Short", "Mansfield", "Sprague")
+
+        sortBy(string(R.string.name), string(R.string.shortest))
+        hasTitlesInOrder("Durfee Short", "Sprague", "Mansfield")
+
+        sortBy(string(R.string.shortest), string(R.string.longest))
+        hasTitlesInOrder("Mansfield", "Sprague", "Durfee Short")
+    }
+
+    @Test
+    fun canSearchPaths() {
+        openWithSavedPaths()
+
+        input(R.id.searchbox, "spra")
+        hasText("Sprague")
+        not { hasText("Mansfield", waitForTime = 0) }
+        not { hasText("Durfee Short", waitForTime = 0) }
+
+        input(R.id.searchbox, "")
+        hasText("Mansfield")
+        hasText("Durfee Short")
+        hasText("Sprague")
+    }
+
+    @Test
+    fun pathDetailsShowTheRecordedStatistics() {
+        openWithSavedPaths()
+
+        click("Durfee Short")
+        hasText(R.id.path_title, "Durfee Short")
+
+        // Recorded from 17:20:52 to 17:36:23
+        hasDataPoint("15m", string(R.string.duration))
+        // 0.498 miles between the 39 recorded points
+        hasDataPoint("0.5 mi", string(R.string.distance))
+        hasDataPoint("39", string(R.string.points))
+        hasDataPoint("Easy", string(R.string.difficulty))
+        hasDataPoint(Regex("\\d{1,2} ft"), string(R.string.ascent))
+        hasDataPoint(Regex("-\\d{2} ft"), string(R.string.descent))
+
+        // The recorded elevations range from 522 ft to 590 ft
+        scrollUntil(R.id.path_scroll) {
+            hasDataPoint(Regex("5[2-4]\\d ft"), string(R.string.lowest_point_elevation))
+        }
+        hasDataPoint(Regex("5[7-9]\\d ft"), string(R.string.highest_point_elevation))
+        isVisible(R.id.chart)
+    }
+
+    @Test
+    fun difficultyReflectsLengthAndClimb() {
+        openWithSavedPaths()
+
+        click("Sprague")
+        hasText(R.id.path_title, "Sprague")
+        hasDataPoint("3.71 mi", string(R.string.distance))
+        hasDataPoint("90", string(R.string.points))
+        // The recording has no meaningful timestamps, so the duration is estimated from the pace
+        hasDataPoint(Regex("1h \\d+m"), string(R.string.duration))
+        hasDataPoint("Moderate", string(R.string.difficulty))
+        back()
+
+        click("Mansfield")
+        hasText(R.id.path_title, "Mansfield")
+        hasDataPoint("4.91 mi", string(R.string.distance))
+        hasDataPoint("175", string(R.string.points))
+        hasDataPoint("Hard", string(R.string.difficulty))
+        // The raw recording climbs 2655 ft, the app smooths out elevation noise
+        hasDataPoint(Regex("25\\d\\d ft"), string(R.string.ascent))
+        hasDataPoint(Regex("-25\\d\\d ft"), string(R.string.descent))
+    }
+
+    @Test
+    fun canFollowAPathFromTheCurrentLocation() {
+        openWithSavedPaths()
+
+        click("Durfee Short")
+        scrollUntil(R.id.path_scroll) {
+            click(string(R.string.navigate))
+        }
+        click(string(R.string.path_navigation_follow))
+        clickOk()
+
+        isVisible(R.id.navigation_title)
+        hasText(R.id.navigation_sheet_title, "Durfee Short")
+        // The path is 12.99 miles from the current location
+        hasText(R.id.navigation_distance, "13 mi")
+        hasText(R.id.navigation_eta, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
+    }
+
+    @Test
+    fun canDeleteAPath() {
+        openWithSavedPaths()
+
+        hasText("Durfee Short")
+        // The list is ordered by most recent: Mansfield, Durfee Short, Sprague
+        clickListItemMenu(string(R.string.delete), index = 1)
+        clickOk()
+
+        not { hasText("Durfee Short") }
+        hasText("Mansfield")
+        hasText("Sprague")
+    }
+
+    private fun sortBy(current: String, new: String) {
+        click(toolbarButton(R.id.paths_title, Side.Right))
+        click(string(R.string.sort_by, current))
+        click(new)
+        clickOk()
+    }
+
+    private fun hasTitlesInOrder(vararg titles: String) {
+        hasTextsInOrder(com.kylecorry.andromeda.views.R.id.title, titles.toList())
+    }
+
+    private fun hasTitlesAndLengths(vararg paths: Pair<String, String>) {
+        hasTitlesInOrder(*paths.map { it.first }.toTypedArray())
+        hasTextsInOrder(
+            com.kylecorry.andromeda.views.R.id.description,
+            paths.map { it.second }
+        )
+    }
+
+    // Exports saved paths to GPX and imports the result, to verify nothing is lost in the file.
+
+    private val uri = Uri.parse("content://test/paths.gpx")
+    private val files = InMemoryUriService()
+    private val service = GpxIOService(InMemoryUriPicker(uri), files)
+
+    @Test
+    fun exportedPathsCanBeImportedWithoutLosingData() = runBlocking {
+        assumeFalse(isStagingBuild)
+        val pathService = PathService.getInstance(TestUtils.context)
+        val groupId = TestData.addPathGroup("Hikes")
+        val pathId = TestData.addPathFromGpx("Durfee", "paths/durfee short.gpx", groupId)
+        val original = pathService.getWaypoints(pathId)
+        val fullPath = FullPath(
+            pathService.getPath(pathId)!!,
+            original,
+            pathService.getGroup(groupId)
+        )
+
+        assertTrue(service.export(PathGPXConverter().toGPX(listOf(fullPath)), "paths.gpx"))
+        val imported = service.import()
+
+        assertNotNull(imported)
+        assertEquals(1, imported!!.tracks.size)
+        val track = imported.tracks[0]
+        assertEquals("Durfee", track.name)
+        assertEquals("Hikes", track.group)
+        val points = track.segments.single().points
+        assertEquals(39, points.size)
+        for ((expected, actual) in original.zip(points)) {
+            assertEquals(expected.coordinate.latitude, actual.coordinate.latitude, 0.00001)
+            assertEquals(expected.coordinate.longitude, actual.coordinate.longitude, 0.00001)
+            assertEquals(expected.elevation!!, actual.elevation!!, 0.01f)
+            assertEquals(expected.time, actual.time)
+        }
+    }
+
+    @Test
+    fun exportedFileIsGpx() = runBlocking {
+        assumeFalse(isStagingBuild)
+        val pathService = PathService.getInstance(TestUtils.context)
+        val pathId = TestData.addPathFromGpx("Durfee", "paths/durfee short.gpx")
+        val fullPath = FullPath(
+            pathService.getPath(pathId)!!,
+            pathService.getWaypoints(pathId)
+        )
+
+        service.export(PathGPXConverter().toGPX(listOf(fullPath)), "paths.gpx")
+
+        val text = files.text!!
+        assertTrue(text.contains("<gpx"))
+        assertTrue(text.contains("creator=\"Trail Sense\""))
+        assertEquals(39, Regex("<trkpt ").findAll(text).count())
+    }
+
+    @Test
+    fun multiplePathsAreExportedAsSeparateTracks() = runBlocking {
+        assumeFalse(isStagingBuild)
+        val pathService = PathService.getInstance(TestUtils.context)
+        val paths = listOf("Durfee" to "paths/durfee short.gpx", "Sprague" to "paths/sprague.gpx")
+            .map { (name, asset) ->
+                val id = TestData.addPathFromGpx(name, asset)
+                FullPath(pathService.getPath(id)!!, pathService.getWaypoints(id))
+            }
+
+        service.export(PathGPXConverter().toGPX(paths), "paths.gpx")
+        val imported = service.import()!!
+
+        assertEquals(listOf("Durfee", "Sprague"), imported.tracks.map { it.name })
+        assertEquals(listOf(39, 90), imported.tracks.map { it.segments.single().points.size })
+    }
+
+    private class InMemoryUriPicker(private val uri: Uri) : UriPicker {
+        override suspend fun open(
+            types: List<String>,
+            requirePersistentAccess: Boolean
+        ): Result<Uri, UriPickerError> = Result.Ok(uri)
+
+        override suspend fun create(filename: String, type: String): Uri = uri
+    }
+
+    private class InMemoryUriService : UriService {
+        var text: String? = null
+
+        override suspend fun write(uri: Uri, data: String): Boolean {
+            text = data
+            return true
+        }
+
+        override suspend fun outputStream(uri: Uri): OutputStream = ByteArrayOutputStream()
+
+        override suspend fun read(uri: Uri): String? = text
+
+        override suspend fun inputStream(uri: Uri): InputStream? {
+            return text?.let { ByteArrayInputStream(it.toByteArray()) }
+        }
     }
 }

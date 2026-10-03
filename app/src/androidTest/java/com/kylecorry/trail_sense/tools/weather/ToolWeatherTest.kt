@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather
 
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -13,13 +14,17 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
+import org.junit.Assume.assumeFalse
+import org.junit.Assume.assumeTrue
 import org.junit.Test
+import java.time.Duration
 
 class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
@@ -135,4 +140,107 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         TestUtils.closeQuickActions()
     }
 
+    // Seeds known pressure histories and verifies the forecast shown to the user, covering the whole
+    // pipeline from stored readings to the weather screen.
+
+    @Test
+    fun steadyPressureHasNoForecastedChange() {
+        openWithPressureTrend(1020f, 1020f, Duration.ofHours(6))
+
+        hasText(R.id.weather_title, string(R.string.weather_no_change))
+        hasText("0.00 hPa / 3h", exact = true)
+        hasText("1020.0 hPa", exact = true)
+        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+    }
+
+    @Test
+    fun fallingPressureForecastsRain() {
+        openWithPressureTrend(1018f, 1012f, Duration.ofHours(6))
+
+        hasText(R.id.weather_title, string(R.string.precipitation_rain))
+        hasText(R.id.weather_title, Regex(".*" + string(R.string.then_weather, "overcast")))
+        // 6 hPa lost over 6 hours is a 3 hPa drop every 3 hours
+        hasText("-3.00 hPa / 3h", exact = true)
+        hasText("1012.0 hPa", exact = true)
+        // A moderate drop is not a storm
+        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+    }
+
+    @Test
+    fun rapidlyFallingPressureShowsAStormAlert() {
+        openWithPressureTrend(1020f, 1010f, Duration.ofHours(3))
+
+        hasText(R.id.weather_title, string(R.string.precipitation_rain))
+        hasText(R.id.weather_title, string(R.string.very_soon).lowercase())
+        hasText("-10.00 hPa / 3h", exact = true)
+        hasText("1010.0 hPa", exact = true)
+
+        hasText(string(R.string.alerts), exact = true)
+        hasText(string(R.string.weather_storm), exact = true)
+        click(string(R.string.alerts), exact = true)
+        hasText(string(R.string.weather_alert_storm_description))
+        clickOk()
+    }
+
+    @Test
+    fun risingPressureForecastsClearingSkies() {
+        openWithPressureTrend(1008f, 1016f, Duration.ofHours(6))
+
+        hasText(R.id.weather_title, string(R.string.weather_wind))
+        hasText(R.id.weather_title, Regex(".*" + string(R.string.then_weather, "clear")))
+        hasText("4.00 hPa / 3h", exact = true)
+        hasText("1016.0 hPa", exact = true)
+        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+    }
+
+    @Test
+    fun readingsSpanningUnderTenMinutesAreNotUsedToForecast() {
+        // The same large drop, but in too short a period to be trusted
+        openWithPressureTrend(
+            1020f,
+            1010f,
+            Duration.ofMinutes(5),
+            interval = Duration.ofMinutes(1)
+        )
+
+        hasText(R.id.weather_title, string(R.string.weather_no_change))
+        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+    }
+
+    @Test
+    fun pressureIsConvertedToTheSelectedUnits() {
+        openWithPressureTrend(1013.25f, 1013.25f, Duration.ofHours(6), units = "in")
+
+        hasText(Regex("29\\.92 in"))
+    }
+
+    @Test
+    fun pressureHistoryIsCharted() {
+        openWithPressureTrend(1018f, 1012f, Duration.ofHours(6))
+
+        isVisible(R.id.chart)
+    }
+
+    private fun setPressureUnits(units: String) {
+        PreferencesSubsystem.getInstance(TestUtils.context).preferences.putString(
+            string(R.string.pref_pressure_units),
+            units
+        )
+    }
+
+    private fun openWithPressureTrend(
+        start: Float,
+        end: Float,
+        duration: Duration,
+        interval: Duration = Duration.ofMinutes(15),
+        units: String = "hpa"
+    ) {
+        assumeFalse(isStagingBuild)
+        assumeTrue(Tools.isToolAvailable(TestUtils.context, Tools.WEATHER))
+        setPressureUnits(units)
+        relaunchTool {
+            TestData.addPressureTrend(start, end, duration, interval = interval)
+        }
+        optional { clickOk(waitForTime = 1000) }
+    }
 }

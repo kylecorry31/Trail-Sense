@@ -56,6 +56,28 @@ open class ToolTestBase(
 
     private var volume: Int = 0
 
+    /**
+     * Seed the app's data (paths, beacons, readings, etc.) before the tool is opened. Only called
+     * when testing the in-process debug build, so it is not available for staging builds.
+     */
+    protected open fun seedData() {}
+
+    /**
+     * Reopen the tool with different data. The tool is closed while [beforeLaunch] runs so
+     * background updates can't race with the seeded data.
+     */
+    protected fun relaunchTool(beforeLaunch: () -> Unit = {}) {
+        finishCurrentActivity()
+        TestData.clear()
+        beforeLaunch()
+        scenario = TestUtils.startWithTool(toolId) {
+            navController = it.findNavController()!!
+        }
+    }
+
+    protected val isStagingBuild: Boolean
+        get() = AutomationLibrary.packageName != null
+
     private fun grantBasicPermissions(packageName: String) {
         val permissions = mutableListOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -87,6 +109,8 @@ open class ToolTestBase(
             if (locationOverride != null) {
                 TestUtils.setLocationOverride(locationOverride)
             }
+
+            seedData()
         }
 
         TestUtils.listenForCameraUsage()
