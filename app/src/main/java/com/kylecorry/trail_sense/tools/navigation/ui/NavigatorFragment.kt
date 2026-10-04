@@ -309,10 +309,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         binding.radarCompassMap.resolutionPixels = userPrefs.navigation.radarCompassScale
         val radarCompassMap = binding.radarCompassMap
         val radarCompass = binding.radarCompass
-        binding.radarCompassMap.setOnScaleChangeListener(true) { resolutionPixels ->
-            val radiusMeters = resolutionPixels * radarCompassMap.width / 2f
+        val updateRadius = {
+            val radiusMeters = radarCompassMap.resolutionPixels * radarCompassMap.width / 2f
             radarCompass.setRadiusDistance(Distance.meters(radiusMeters))
+        }
+        binding.radarCompassMap.setOnScaleChangeListener(true) { resolutionPixels ->
+            updateRadius()
             userPrefs.navigation.radarCompassScale = resolutionPixels
+        }
+        // The radius depends on the width, which may not be known when the scale is first set
+        binding.radarCompassMap.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            updateRadius()
         }
 
         if (!hasCompass) {
