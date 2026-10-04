@@ -60,7 +60,7 @@ class PathNavigator(context: Context) {
         if (points.isEmpty()) return
         if (destinationPointId != null && points.none { it.id == destinationPointId }) return
         val start = locationSubsystem.location
-        val route = onIO { PathRouteBuilder.prepare(points, start, mode, destinationPointId) }
+        val route = onIO { PathRouteBuilder.buildRoute(points, start, mode, destinationPointId) }
         cancel()
         destinationState.value = onIO { store.save(path, route, start, mode, destinationPointId) }
     }

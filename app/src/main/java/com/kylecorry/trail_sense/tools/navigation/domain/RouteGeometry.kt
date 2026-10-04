@@ -35,7 +35,16 @@ internal class RouteGeometry(points: List<Coordinate>) {
     private val cumulativeDistances = HikingService().getDistances(routePoints).toFloatArray()
     private val lastSegment = routePoints.lastIndex - 1
     val length: Float = cumulativeDistances.last()
-    private val cornerDistances = findCorners()
+    private val cornerDistances by lazy { findCorners() }
+
+    /** The distance along the route to the point at [pointIndex]. */
+    fun distanceAt(pointIndex: Int): Float = cumulativeDistances[pointIndex]
+
+    /** The projection of the location onto each segment that has length, in route order. */
+    fun projections(location: Coordinate): List<RouteProjection> {
+        val plane = LocalPlane(location)
+        return (0..lastSegment).mapNotNull { projectOnto(it, plane, 0f, length) }
+    }
 
     /**
      * Finds the closest point on the route to the location, only considering the part of the route
@@ -43,7 +52,7 @@ internal class RouteGeometry(points: List<Coordinate>) {
      * considered equally good, and the furthest along the route of them is used (or the earliest if
      * not [preferLater]). If there is no segment in that range, the start of the range is returned.
      */
-    fun nearest(
+    fun findClosestInRange(
         location: Coordinate,
         minDistance: Float,
         maxDistance: Float,

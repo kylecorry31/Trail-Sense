@@ -61,7 +61,7 @@ class PathNavigationStore(context: Context) {
             require(originalPoints.isNotEmpty())
             currentCoroutineContext().ensureActive()
             val start = Coordinate(state.startLat, state.startLon)
-            val route = PathRouteBuilder.prepare(
+            val route = PathRouteBuilder.buildRoute(
                 originalPoints, start, PathNavigationMode.valueOf(state.mode), state.destinationPointId
             )
             val destination = Destination.Path(path, route)

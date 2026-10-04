@@ -44,41 +44,45 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         if (cached != null && location == previousLocation) {
             return cached
         }
-        val current = getCurrentPoint(location)
-        val arrived = hasArrived(location, current.distance)
-        val remainingDistance = if (arrived) {
-            0f
-        } else {
-            current.offset + length - current.distance
-        }
-        val (remainingElevationLoss, remainingElevationGain) = if (arrived) {
-            Distance.meters(0f) to Distance.meters(0f)
-        } else {
-            getRemainingElevationLossGain(current)
-        }
-        val currentElevation = getElevation(current)
-        val pathId = pathPoints.first().pathId
-        val projected = geometry.coordinateOf(current)
-        val guidance = Guidance(
-            target = getTarget(location, current, projected),
-            remainingDistance = remainingDistance,
-            offRoute = current.offset,
-            arrived = arrived,
-            remainingRoute = buildList {
-                add(PathPoint(-1, pathId, location, currentElevation))
-                if (current.offset > SNAPPED_POINT_MIN_OFFSET_METERS) {
-                    add(PathPoint(-2, pathId, projected, currentElevation))
-                }
-                addAll(pathPoints.subList(min(current.segment + 1, points.lastIndex), pathPoints.size))
-            },
-            remainingElevationGain = remainingElevationGain,
-            remainingElevationLoss = remainingElevationLoss,
-        )
-        previousProgress = getProgress(current.distance, arrived)
+        val match = matchLocation(location)
+        val guidance = getGuidance(location, match)
+        previousProgress = getProgress(match.distance, guidance.arrived)
         previousLocation = location
         previousGuidance = guidance
         onProgressChanged?.invoke(previousProgress, location)
         return guidance
+    }
+
+    private fun getGuidance(location: Coordinate, match: RouteProjection): Guidance {
+        val arrived = hasArrived(location, match.distance)
+        val remainingDistance = if (arrived) {
+            0f
+        } else {
+            match.offset + length - match.distance
+        }
+        val (remainingElevationLoss, remainingElevationGain) = if (arrived) {
+            Distance.meters(0f) to Distance.meters(0f)
+        } else {
+            getRemainingElevationLossGain(match)
+        }
+        val currentElevation = getElevation(match)
+        val pathId = pathPoints.first().pathId
+        val projected = geometry.coordinateOf(match)
+        return Guidance(
+            target = getTarget(location, match, projected),
+            remainingDistance = remainingDistance,
+            offRoute = match.offset,
+            arrived = arrived,
+            remainingRoute = buildList {
+                add(PathPoint(-1, pathId, location, currentElevation))
+                if (match.offset > SNAPPED_POINT_MIN_OFFSET_METERS) {
+                    add(PathPoint(-2, pathId, projected, currentElevation))
+                }
+                addAll(pathPoints.subList(min(match.segment + 1, points.lastIndex), pathPoints.size))
+            },
+            remainingElevationGain = remainingElevationGain,
+            remainingElevationLoss = remainingElevationLoss,
+        )
     }
 
     private fun getRemainingElevationLossGain(currentPoint: RouteProjection): Pair<Distance, Distance> {
@@ -149,10 +153,10 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     // Matches the location to the route. This only considers the part of the route near the
     // previous progress (the start of the route for the first location), so overlapping or nearby
     // parts of the route can't steal the match.
-    private fun getCurrentPoint(location: Coordinate): RouteProjection {
+    private fun matchLocation(location: Coordinate): RouteProjection {
         val movement = previousLocation?.distanceTo(location, highAccuracy = false) ?: 0f
         val previousDistance = previousProgress * length
-        val nearby = geometry.nearest(
+        val nearby = geometry.findClosestInRange(
             location,
             previousDistance - movement - PROGRESS_TOLERANCE_METERS,
             previousDistance + movement + PROGRESS_TOLERANCE_METERS
@@ -169,7 +173,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
             pendingRejoin = null
             return nearby
         }
-        val anywhere = geometry.nearest(location, 0f, length, preferLater = false)
+        val anywhere = geometry.findClosestInRange(location, 0f, length, preferLater = false)
         if (anywhere.offset + REJOIN_MARGIN_METERS >= nearby.offset) {
             pendingRejoin = null
             return nearby

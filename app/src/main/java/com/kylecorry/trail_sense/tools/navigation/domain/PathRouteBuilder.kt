@@ -10,17 +10,30 @@ object PathRouteBuilder {
     // Locations within this distance of each other can't be told apart given typical GPS error
     private const val GPS_NOISE_TOLERANCE_METERS = 5f
 
-    fun prepare(
+    fun buildRoute(
         points: List<PathPoint>,
         location: Coordinate,
         mode: PathNavigationMode,
         destinationPointId: Long? = null
     ): List<PathPoint> {
-        val ordered = HikingService().correctElevations(points.sortedBy { it.id })
-        return if (destinationPointId == null) {
-            build(ordered, location, mode)
-        } else {
-            toPoint(ordered, location, ordered.indexOfFirst { it.id == destinationPointId })
+        require(points.isNotEmpty())
+        val sorted = HikingService().correctElevations(points.sortedBy { it.id })
+        val coordinates = sorted.map { it.coordinate }
+        val geometry = RouteGeometry(coordinates)
+        if (geometry.length == 0f) return listOf(sorted.first())
+
+        val loop = sorted.size >= 3 && isLoop(geometry.length, coordinates.first().distanceTo(coordinates.last()))
+        return when {
+            destinationPointId != null -> findShortestRoute(
+                sorted,
+                location,
+                sorted.indexOfFirst { it.id == destinationPointId },
+                loop,
+                geometry
+            )
+
+            mode.isFullLoop -> followPath(sorted, location, mode.isReversed, geometry)
+            else -> findShortestRoute(sorted, location, if (mode.isReversed) 0 else sorted.lastIndex, loop, geometry)
         }
     }
 
@@ -35,42 +48,40 @@ object PathRouteBuilder {
         return length > 30 && seam <= minOf(100f, length * 0.1f)
     }
 
-    /**
-     * Builds the route from the location to the end of the path (or to its start if the mode is
-     * reversed).
-     *
-     * Normally this is the shortest route. In the full loop modes it is instead the way along the
-     * path, even if going the other way around the loop would be shorter. If the location is on a
-     * part of the path that overlaps another (ex. the shared start and end of a loop), it is
-     * treated as being on the earliest one.
-     */
-    fun build(points: List<PathPoint>, location: Coordinate, mode: PathNavigationMode): List<PathPoint> {
-        require(points.isNotEmpty())
-        if (!mode.isFullLoop) {
-            return toPoint(points, location, if (mode.isReversed) 0 else points.lastIndex)
-        }
-        val ordered = if (mode.isReversed) points.reversed() else points
-        if (ordered.size == 1) return ordered
-        val snap = nearSnaps(ordered, location).first()
-        return listOf(snap.point) + ordered.drop(snap.segment + 1)
+    // The route along the path from the earliest candidate snap, in the order of the path
+    private fun followPath(
+        points: List<PathPoint>,
+        location: Coordinate,
+        reversed: Boolean,
+        geometry: RouteGeometry
+    ): List<PathPoint> {
+        val path = if (reversed) points.reversed() else points
+        val pathGeometry = if (reversed) RouteGeometry(path.map { it.coordinate }) else geometry
+        val snap = findCandidateSnaps(path, location, pathGeometry).first()
+        return listOf(snap.point) + path.drop(snap.segment + 1)
     }
 
     /**
      * Builds the shortest route from the location to the point at [destinationIndex]. On a loop,
-     * the route may cross the gap between the end of the path and its start.
+     * the route may cross the gap between the end of the path and its start. The path must have
+     * a length.
      */
-    fun toPoint(points: List<PathPoint>, location: Coordinate, destinationIndex: Int): List<PathPoint> {
+    private fun findShortestRoute(
+        points: List<PathPoint>,
+        location: Coordinate,
+        destinationIndex: Int,
+        loop: Boolean,
+        geometry: RouteGeometry
+    ): List<PathPoint> {
         require(destinationIndex in points.indices)
-        if (points.size == 1) return points
-        val lengths = PathLengths(points.map { it.coordinate })
-        val loop = points.size >= 3 && isLoop(lengths.total, lengths.seam)
+        val lengths = PathLengths(points.map { it.coordinate }, geometry)
 
         // Only the lengths of the candidates are compared, since there can be many of them and each
         // route can be as long as the whole path
-        val shortest = nearSnaps(points, location)
+        val best = findCandidateSnaps(points, location, geometry)
             .flatMap { itineraries(it, destinationIndex, points.lastIndex, loop) }
             .minBy { lengths.of(it) }
-        return listOf(shortest.snap.point) + shortest.runs.flatMap { run -> run.map { points[it] } }
+        return listOf(best.snap.point) + best.runs.flatMap { run -> run.map { points[it] } }
     }
 
     // The ways to get from the snap to the destination. When equally long, the first is preferred.
@@ -95,17 +106,22 @@ object PathRouteBuilder {
 
     // The places on the path that are about as close as the closest one, earliest first.
     // Overlapping parts of a path (ex. the start and end of an out and back) are indistinguishable
-    // within the GPS error, so the closest is not necessarily the right one.
-    private fun nearSnaps(points: List<PathPoint>, location: Coordinate): Sequence<Snap> {
-        val nearest = points.zipWithNext { a, b -> Geography.getNearestPoint(location, a.coordinate, b.coordinate) }
-        val distances = nearest.map { location.distanceTo(it) }
+    // within the GPS error, so the closest is not necessarily the right one. The geometry must have
+    // a length so there is a segment to snap to.
+    private fun findCandidateSnaps(points: List<PathPoint>, location: Coordinate, geometry: RouteGeometry): Sequence<Snap> {
+        val projections = geometry.projections(location)
+        val coordinates = projections.map { geometry.coordinateOf(it) }
+        val distances = coordinates.map { location.distanceTo(it) }
         val closest = distances.min()
-        return nearest.indices.asSequence()
+        return projections.indices.asSequence()
             .filter { distances[it] <= closest + GPS_NOISE_TOLERANCE_METERS }
-            .map { Snap(it, interpolate(points[it], points[it + 1], nearest[it])) }
+            .map {
+                val segment = projections[it].segment
+                Snap(segment, interpolate(points[segment], points[segment + 1], coordinates[it]))
+            }
     }
 
-    fun interpolate(a: PathPoint, b: PathPoint, coordinate: Coordinate): PathPoint {
+    private fun interpolate(a: PathPoint, b: PathPoint, coordinate: Coordinate): PathPoint {
         val distance = a.coordinate.distanceTo(b.coordinate)
         val fraction = if (distance > 0f) (a.coordinate.distanceTo(coordinate) / distance).coerceIn(0f, 1f) else 0f
         val elevation = if (a.elevation != null && b.elevation != null) {
@@ -123,20 +139,14 @@ object PathRouteBuilder {
      */
     private class Itinerary(val snap: Snap, val runs: List<IntProgression>)
 
-    private class PathLengths(private val coordinates: List<Coordinate>) {
-        private val cumulative = HikingService().getDistances(coordinates).toFloatArray()
-        val total = cumulative.last()
-
-        /** The distance between the end of the path and its start */
-        val seam = coordinates.last().distanceTo(coordinates.first())
-
+    private class PathLengths(private val coordinates: List<Coordinate>, private val geometry: RouteGeometry) {
         // Uses the cumulative distances so the route doesn't need to be built to measure it
         fun of(itinerary: Itinerary): Float {
             var length = 0f
             var position = itinerary.snap.point.coordinate
             for (run in itinerary.runs) {
                 length += position.distanceTo(coordinates[run.first]) +
-                    abs(cumulative[run.last] - cumulative[run.first])
+                    abs(geometry.distanceAt(run.last) - geometry.distanceAt(run.first))
                 position = coordinates[run.last]
             }
             return length

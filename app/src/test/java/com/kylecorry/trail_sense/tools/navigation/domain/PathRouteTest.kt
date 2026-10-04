@@ -157,7 +157,7 @@ class PathRouteTest {
         route.navigate(points.first().coordinate)
         val location = Coordinate(0.0, 0.0005)
         val guidance = route.navigate(location)
-        val remaining = listOf(PathRouteBuilder.interpolate(points[0], points[1], location)) + points.drop(1)
+        val remaining = listOf(points[0].copy(coordinate = location, elevation = 50f)) + points.drop(1)
         val hiking = HikingService()
         assertEquals(50f, guidance.remainingElevationGain.meters().value, 0.1f)
         assertEquals(
