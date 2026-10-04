@@ -41,6 +41,29 @@ internal class TideTableWaterLevelCalculatorTest {
         check(calculator, time(12, 10, 11), 0.56f)
     }
 
+    @Test
+    fun calculateOutsideSupportedYears() {
+        val table = TideTable(
+            0, listOf(
+                Tide.high(ZonedDateTime.of(1990, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC")), 3f),
+                Tide.low(ZonedDateTime.of(1990, 1, 1, 6, 0, 0, 0, ZoneId.of("UTC")), 1f),
+            )
+        )
+
+        val calculator = TideTableWaterLevelCalculator(context, table)
+
+        assertEquals(
+            0f,
+            calculator.calculate(ZonedDateTime.of(1990, 1, 1, 3, 0, 0, 0, ZoneId.of("UTC"))),
+            0.0001f
+        )
+        assertEquals(
+            0f,
+            calculator.calculate(ZonedDateTime.of(3001, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC"))),
+            0.0001f
+        )
+    }
+
     private fun check(
         calculator: TideTableWaterLevelCalculator,
         time: ZonedDateTime,

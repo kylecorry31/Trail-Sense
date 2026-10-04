@@ -51,7 +51,11 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
             return lunitidal?.calculate(time) ?: 0f
         }
 
-        return if (tides.isEmpty()) 0f else generatePiecewiseCalculator().calculate(time)
+        if (tides.isEmpty() || time < MIN_TIME || time > MAX_TIME) {
+            return 0f
+        }
+
+        return generatePiecewiseCalculator().calculate(time)
     }
 
     private suspend fun generatePiecewiseCalculator(): IWaterLevelCalculator {
