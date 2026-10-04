@@ -22,8 +22,10 @@ Level calculators for the rule of twelfths, harmonics, lunitidal intervals and t
 lowest = smallest low tide height
 highest = largest high tide height
 
-if lowest is missing, lowest = (highest, or 1 if missing) - 1
-if highest is missing, highest = lowest + 1
+if lowest is missing
+    lowest = (highest, or 1 if missing) - 1
+if highest is missing
+    highest = lowest + 1
 
 return lowest to highest
 ```
