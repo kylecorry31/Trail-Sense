@@ -1,9 +1,9 @@
 # Deep Sleep
 
-Class: `PowerService`
-Method: `getDeepSleep`
-Inputs: `batteryReadings` (list of `BatteryReading`)
-Output: A `DeepSleep` class holding the sleep percent and total elapsed time, or null if there is no usable interval
+- Class: `PowerService`
+- Method: `getDeepSleep`
+- Inputs: `batteryReadings` (list of `BatteryReading`)
+- Output: A `DeepSleep` class holding the sleep percent and total elapsed time, or null if there is no usable interval
 
 ```
 readings = batteryReadings with non-null uptime and elapsedRealtime, sorted by time ascending
@@ -16,7 +16,7 @@ for each consecutive pair (previousReading, reading) in readings
     deltaTime = reading.time - previousReading.time
 
     if deltaElapsed <= 0 or deltaUptime < 0 or |deltaElapsed - deltaTime| > 5 minutes
-        skip this pair
+        continue
 
     totalElapsed += deltaElapsed
     totalSleep += (deltaElapsed - deltaUptime) clamped to [0, deltaElapsed]

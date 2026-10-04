@@ -11,9 +11,9 @@ Terms:
 
 ## Path shape
 
-Function: `isLoop`
-Inputs: list of path points
-Output: boolean, from the coordinates only
+- Function: `isLoop`
+- Inputs: list of path points
+- Output: boolean, from the coordinates only
 
 ```
 pathLength = sum of distances between consecutive points
@@ -24,9 +24,9 @@ return points.size >= 3 and pathLength > 30 m and endGap <= min(100 m, 10% of pa
 
 ## Routing
 
-Function: `buildRoute`
-Inputs: `points` (not empty), `location`, `mode` (`TO_END`, `REVERSED_TO_END`, `FULL_LOOP`, `REVERSED_FULL_LOOP`), optional `destinationPointId` (must be one of the points)
-Output: list of path points
+- Function: `buildRoute`
+- Inputs: `points` (not empty), `location`, `mode` (`TO_END`, `REVERSED_TO_END`, `FULL_LOOP`, `REVERSED_FULL_LOOP`), optional `destinationPointId` (must be one of the points)
+- Output: list of path points
 
 ```
 points = points sorted by id ascending
@@ -52,9 +52,9 @@ snap = snaps[0]
 return [snap] + path points after snap's segment
 ```
 
-Function: `findCandidateSnaps`
-Inputs: `points`, `location`
-Output: snaps ordered by segment index
+- Function: `findCandidateSnaps`
+- Inputs: `points`, `location`
+- Output: snaps ordered by segment index
 
 ```
 snaps = snap of location on every segment
@@ -63,9 +63,9 @@ closestDistance = smallest distance from location to any snap
 return snaps with distance to location <= closestDistance + 5 m, ordered by segment index
 ```
 
-Function: `findShortestRoute`
-Inputs: `points`, `location`, `destinationIndex`, `loop`
-Output: list of path points
+- Function: `findShortestRoute`
+- Inputs: `points`, `location`, `destinationIndex`, `loop`
+- Output: list of path points
 
 ```
 bestItinerary = none
@@ -94,10 +94,10 @@ return bestItinerary
 
 ## Progress tracking
 
-Class: `PathRoute`
-Method: `navigate(location)`
-Output: guidance
-Calls are serialized
+- Class: `PathRoute`
+- Method: `navigate(location)`
+- Output: guidance
+- Calls are serialized
 
 State:
 
@@ -132,9 +132,9 @@ return guidance
 
 ### Location matching
 
-Function: `matchLocation`
-Inputs: `location`
-Output: match (the projection onto the route, with its `distanceAlong` and `offset`)
+- Function: `matchLocation`
+- Inputs: `location`
+- Output: match (the projection onto the route, with its `distanceAlong` and `offset`)
 
 ```
 movement = distance(previousLocation, location), or 0 if there is no previousLocation
@@ -162,9 +162,9 @@ pendingRejoin = anywhere.distanceAlong
 return nearby
 ```
 
-Function: `findClosestInRange`
-Inputs: `location`, `range` (distances along the route)
-Output: match
+- Function: `findClosestInRange`
+- Inputs: `location`, `range` (distances along the route)
+- Output: match
 
 ```
 projections = projections of location onto the part of the route inside range, one per segment
@@ -181,9 +181,9 @@ A route with zero length (a single point, or points at the same position) is one
 
 ### Guidance
 
-Function: `getGuidance`
-Inputs: `location`, `match`
-Output: guidance
+- Function: `getGuidance`
+- Inputs: `location`, `match`
+- Output: guidance
 
 ```
 remainingLength = routeLength - match.distanceAlong
@@ -220,9 +220,9 @@ Elevation gain and loss are summed between consecutive route points (increases a
 
 ### Target
 
-Function: `getTarget`
-Inputs: `location`, `match`
-Output: the coordinate the user should head toward
+- Function: `getTarget`
+- Inputs: `location`, `match`
+- Output: the coordinate the user should head toward
 
 ```
 if match.offset > 30 m
@@ -247,9 +247,9 @@ return point on the route at min(lookahead, routeLength)
 
 ### Corners
 
-Function: `findCorners`
-Inputs: `route`
-Output: list of route points, one per corner
+- Function: `findCorners`
+- Inputs: `route`
+- Output: list of route points, one per corner
 
 ```
 for point in route points
