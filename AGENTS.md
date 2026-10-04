@@ -8,3 +8,7 @@ Use the following scripts to work with the app, but do not modify them:
 Use the test filters whenever possible.
 
 The `specs/` folder holds feature specs, organized by area (for example, `specs/tools/navigation/path-navigation.md`). Use the `/kylecorry31-skills:codegen` skill to convert a spec into code. Keep specs up to date when the code they describe changes, and use them as the source when generating new code.
+
+The `guides/en-US/*.txt` files are the source of truth for the user guides. All other guides (other locales, and the copies in the site and app) are only updated by the translation or weekly update process (`scripts/weekly-update.sh`, run manually by the user), so never edit them.
+
+Update the affected tool's androidTest for the same changes, adding to the tool's existing test file.
