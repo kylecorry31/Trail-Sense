@@ -2,29 +2,29 @@
 
 Class: `PowerService`
 Method: `getDeepSleep`
-Inputs: List of `BatteryReading`
-Output: A `DeepSleep` class holding the sleep percent and total elapsed time
+Inputs: `batteryReadings` (list of `BatteryReading`)
+Output: A `DeepSleep` class holding the sleep percent and total elapsed time, or null if there is no usable interval
 
 ```
-readings = battery readings with non-null uptime and elapsed time, sorted by time ascending
-total sleep = 0
-total elapsed = 0
+readings = batteryReadings with non-null uptime and elapsedRealtime, sorted by time ascending
+totalSleep = 0
+totalElapsed = 0
 
-for reading in readings
-    delta elapsed = reading elapsed - previous reading elapsed
-    delta uptime = reading uptime - previous reading uptime
-    delta time = reading.time - previous reading time
+for each consecutive pair (previousReading, reading) in readings
+    deltaElapsed = reading.elapsedRealtime - previousReading.elapsedRealtime
+    deltaUptime = reading.uptime - previousReading.uptime
+    deltaTime = reading.time - previousReading.time
 
-    if delta elapsed <= 0 or delta uptime < 0 or |delta elapsed - delta time| > 5 minutes
-        skip this reading
-    
-    total elapsed += delta elapsed
-    total sleep += (delta elapsed - delta uptime) clamped to [0, delta elapsed]
+    if deltaElapsed <= 0 or deltaUptime < 0 or |deltaElapsed - deltaTime| > 5 minutes
+        skip this pair
 
-if total elapsed = 0
+    totalElapsed += deltaElapsed
+    totalSleep += (deltaElapsed - deltaUptime) clamped to [0, deltaElapsed]
+
+if totalElapsed = 0
     return null
 
-sleep percent = 100 * total sleep / total elapsed
+sleepPercent = 100 * totalSleep / totalElapsed
 
-return sleep percent and total elapsed
+return sleepPercent and totalElapsed
 ```

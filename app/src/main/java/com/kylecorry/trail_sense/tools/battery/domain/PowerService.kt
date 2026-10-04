@@ -19,35 +19,37 @@ class PowerService {
         return hours(hours.toDouble())
     }
 
-    fun getDeepSleep(readings: List<BatteryReading>): DeepSleep? {
-        val sorted = readings
+    fun getDeepSleep(batteryReadings: List<BatteryReading>): DeepSleep? {
+        val readings = batteryReadings
             .filter { it.uptime != null && it.elapsedRealtime != null }
             .sortedBy { it.time }
 
-        var totalElapsed = 0L
         var totalSleep = 0L
+        var totalElapsed = 0L
 
-        for (i in 1 until sorted.size) {
-            val previous = sorted[i - 1]
-            val current = sorted[i]
-            val elapsed = current.elapsedRealtime!!.toMillis() - previous.elapsedRealtime!!.toMillis()
-            val awake = current.uptime!!.toMillis() - previous.uptime!!.toMillis()
+        for (i in 1 until readings.size) {
+            val previousReading = readings[i - 1]
+            val reading = readings[i]
+            val deltaElapsed = reading.elapsedRealtime!!.toMillis() - previousReading.elapsedRealtime!!.toMillis()
+            val deltaUptime = reading.uptime!!.toMillis() - previousReading.uptime!!.toMillis()
 
             // The clocks reset on reboot, so only trust intervals where they still track wall time
-            val wallClock = Duration.between(previous.time, current.time).toMillis()
-            if (elapsed <= 0 || awake < 0 || (elapsed - wallClock).absoluteValue > REBOOT_TOLERANCE_MILLIS) {
+            val deltaTime = Duration.between(previousReading.time, reading.time).toMillis()
+            if (deltaElapsed <= 0 || deltaUptime < 0 || (deltaElapsed - deltaTime).absoluteValue > REBOOT_TOLERANCE_MILLIS) {
                 continue
             }
 
-            totalElapsed += elapsed
-            totalSleep += (elapsed - awake).coerceIn(0, elapsed)
+            totalElapsed += deltaElapsed
+            totalSleep += (deltaElapsed - deltaUptime).coerceIn(0, deltaElapsed)
         }
 
         if (totalElapsed == 0L) {
             return null
         }
 
-        return DeepSleep(100f * totalSleep / totalElapsed, Duration.ofMillis(totalElapsed))
+        val sleepPercent = 100f * totalSleep / totalElapsed
+
+        return DeepSleep(sleepPercent, Duration.ofMillis(totalElapsed))
     }
 
     fun getRates(
