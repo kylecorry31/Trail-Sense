@@ -6,3 +6,5 @@ Use the following scripts to work with the app, but do not modify them:
 - If performing a code review, ignore the non en-US translations (strings, guides, and changelogs), the guide files outside of guides/en-US (site and app guides are copied from that on demand and do not need review), and the agent skills.
 
 Use the test filters whenever possible.
+
+The `specs/` folder holds feature specs, organized by area (for example, `specs/tools/navigation/path-navigation.md`). Use the `/kylecorry31-skills:codegen` skill to convert a spec into code. Keep specs up to date when the code they describe changes, and use them as the source when generating new code.
