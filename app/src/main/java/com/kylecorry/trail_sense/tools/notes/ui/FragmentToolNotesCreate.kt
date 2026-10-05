@@ -84,6 +84,6 @@ class FragmentToolNotesCreate : TrailSenseReactiveFragment(R.layout.fragment_too
             }
         }
 
-        useUnsavedChangesPrompt(hasChanges, resetOnResume)
+        useUnsavedChangesPrompt(hasChanges)
     }
 }

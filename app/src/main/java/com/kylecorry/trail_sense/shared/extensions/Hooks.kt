@@ -228,17 +228,15 @@ fun <T> T.useBackPressedCallback(
     callback: OnBackPressedCallback.() -> Boolean
 ) where T : Fragment, T : ReactiveComponent {
     val navController = useNavController()
-    useEffectWithCleanup(*values) {
-        val listener = onBackPressed {
+    val listenerRef = useRef<OnBackPressedCallback?>(null)
+    useEffect(*values) {
+        listenerRef.current?.remove()
+        listenerRef.current = onBackPressed {
             val consumed = callback()
             if (!consumed) {
                 remove()
                 navController.popBackStack()
             }
-        }
-
-        return@useEffectWithCleanup {
-            listener.remove()
         }
     }
 }
@@ -247,9 +245,12 @@ fun <T> T.useBottomSheetBackPressedCallback(
     vararg values: Any?,
     callback: OnBackPressedCallback.() -> Boolean
 ) where T : BottomSheetDialogFragment, T : ReactiveComponent {
-    useEffectWithCleanup(*values) {
+    val listenerRef = useRef<OnBackPressedCallback?>(null)
+    useEffect(*values) {
+        listenerRef.current?.remove()
+        listenerRef.current = null
         val dispatcher = (dialog as? ComponentDialog)?.onBackPressedDispatcher
-            ?: return@useEffectWithCleanup {}
+            ?: return@useEffect
         val listener = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val consumed = callback()
@@ -260,19 +261,13 @@ fun <T> T.useBottomSheetBackPressedCallback(
             }
         }
         dispatcher.addCallback(viewLifecycleOwner, listener)
-
-        return@useEffectWithCleanup {
-            listener.remove()
-        }
+        listenerRef.current = listener
     }
 }
 
-fun <T> T.useUnsavedChangesPrompt(
-    hasChanges: Boolean,
-    vararg values: Any?
-) where T : Fragment, T : ReactiveComponent {
+fun <T> T.useUnsavedChangesPrompt(hasChanges: Boolean) where T : Fragment, T : ReactiveComponent {
     val activity = useActivity() as? FragmentActivity
-    useBackPressedCallback(hasChanges, activity, *values) {
+    useBackPressedCallback(hasChanges, activity) {
         if (hasChanges && activity != null) {
             Alerts.dialog(
                 activity,
