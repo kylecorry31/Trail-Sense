@@ -150,7 +150,7 @@ class PathRouteBuilderTest {
         val guidance = PathRoute(prepared).navigate(recording.first().coordinate)
 
         assertTrue(prepared.any { it.id == recording[1].id })
-        assertTrue(guidance.remainingDistance > 2_000f)
+        assertTrue(guidance.remainingDistance.meters().value > 2_000f)
     }
 
     @Test

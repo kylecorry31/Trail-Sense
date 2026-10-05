@@ -704,7 +704,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         assertNotNull(destination)
         assertEquals("Durfee Out", destination!!.path.name)
         // Without the saved progress the route would start over and need to find the shortcut again
-        assertEquals(663.6f, destination.route.navigate(location).remainingDistance, 3f)
+        assertEquals(663.6f, destination.route.navigate(location).remainingDistance.meters().value, 3f)
     }
 
     @Test

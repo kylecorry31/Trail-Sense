@@ -214,7 +214,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         bearingDataView.isVisible = false
         distanceDataView.description = ""
         distanceDataView.setShowDescription(false)
-        updateDestinationDistance(guidance.remainingDistance)
+        updateDestinationDistance(guidance.remainingDistance.meters().value)
         toolbar.title.text = destination.path.name ?: context.getString(R.string.path)
         toolbar.subtitle.isVisible = false
         toolbar.leftButton.isVisible = false
@@ -225,7 +225,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             DistanceUnits.Meters, TimeUnits.Seconds
         ).value
         val remainingDuration = hikingService.getHikingDuration(
-            Distance.meters(guidance.remainingDistance),
+            guidance.remainingDistance,
             guidance.remainingElevationGain,
             Speed.from(
                 navigationService.getHikingSpeed(speed),
