@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
@@ -38,6 +39,7 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
+import kotlin.math.roundToInt
 
 class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     FrameLayout(context, attrs) {
@@ -60,6 +62,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
     // VIEWS
     private val toolbar: Toolbar
+    private val progressView: LinearProgressIndicator
     private val distanceDataView: DataPointView
     private val bearingDataView: DataPointView
     private val elevationDataView: DataPointView
@@ -68,6 +71,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     init {
         inflate(context, R.layout.view_navigation_sheet, this)
         toolbar = findViewById(R.id.navigation_sheet_title)
+        progressView = findViewById(R.id.navigation_progress)
         distanceDataView = findViewById(R.id.navigation_distance)
         bearingDataView = findViewById(R.id.navigation_bearing)
         elevationDataView = findViewById(R.id.navigation_elevation)
@@ -157,6 +161,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private fun updateNavigation() {
         val values = sensorValues
         val destination = destination
+        progressView.isVisible = false
         if (navigator.isRestoringRoute.value) {
             isVisible = true
             toolbar.title.text = context.getString(R.string.loading)
@@ -200,6 +205,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
     private fun updatePathNavigation(destination: Destination.Path, values: NavigationSensorValues) {
         val guidance = destination.route.navigate(values.location)
+        progressView.progress = (guidance.progress * progressView.max).roundToInt()
+        progressView.isVisible = true
         val gain = guidance.remainingElevationGain.convertTo(prefs.baseDistanceUnits)
         val loss = guidance.remainingElevationLoss.convertTo(prefs.baseDistanceUnits)
         elevationDataView.isVisible = gain.value.absoluteValue > 0 || loss.value.absoluteValue > 0

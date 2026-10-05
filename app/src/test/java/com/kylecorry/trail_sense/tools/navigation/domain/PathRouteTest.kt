@@ -115,13 +115,13 @@ class PathRouteTest {
         val route = PathRoute(path)
         var progress = -1f
         route.onProgressChanged = { fraction, _ -> progress = fraction }
-        route.navigate(path.first().coordinate)
+        assertEquals(0f, route.navigate(path.first().coordinate).progress)
         assertEquals(0f, progress)
-        route.navigate(path[1].coordinate)
+        assertEquals(0.25f, route.navigate(path[1].coordinate).progress, 0.002f)
         assertEquals(0.25f, progress, 0.002f)
-        route.navigate(Coordinate(0.0015, 0.001))
+        assertEquals(0.625f, route.navigate(Coordinate(0.0015, 0.001)).progress, 0.002f)
         assertEquals(0.625f, progress, 0.002f)
-        route.navigate(path.last().coordinate)
+        assertEquals(1f, route.navigate(path.last().coordinate).progress, 0.0001f)
         assertEquals(1f, progress, 0.0001f)
     }
 

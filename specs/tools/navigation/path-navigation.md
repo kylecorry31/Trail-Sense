@@ -107,6 +107,7 @@ Guidance
     remainingRoute: list of path points
     remainingElevationGain: Distance
     remainingElevationLoss: Distance, zero or negative
+    progress: Float (0 to 1)
 ```
 
 State:
@@ -126,15 +127,9 @@ if previousGuidance exists and location is previousLocation
 match = matchLocation(location)
 guidance = getGuidance(location, match)
 
-if guidance.arrived
-    previousProgress = 1
-else if routeLength is 0
-    previousProgress = 0
-else
-    previousProgress = clamp(match.distanceAlong / routeLength, 0, 1)
-
 previousLocation = location
 previousGuidance = guidance
+previousProgress = guidance.progress
 call onProgressChanged(previousProgress, location) if it is set
 
 return guidance
@@ -222,7 +217,14 @@ if match.offset > 1 m
     remainingRoute += projectionPoint
 remainingRoute += route points from the end of the matched segment onward
 
-return Guidance(target = getTarget(location, match), remainingDistance, offRoute, arrived, remainingRoute, remainingElevationGain = remainingGain, remainingElevationLoss = remainingLoss)
+if guidance.arrived
+    progress = 1
+else if routeLength is 0
+    progress = 0
+else
+    progress = clamp(match.distanceAlong / routeLength, 0, 1)
+
+return Guidance(target = getTarget(location, match), remainingDistance, offRoute, arrived, remainingRoute, remainingElevationGain = remainingGain, remainingElevationLoss = remainingLoss, progress = progress)
 ```
 
 Elevation gain and loss are summed between consecutive route points (increases are gain, decreases are loss, which is negative), and interpolated within the matched segment. For this sum only, a point without an elevation takes the previous point's elevation, and leading points without one take the first known elevation (all 0 if none are known), as in `HikingService.getElevations`. The elevation at the matched position is the endpoint's if exactly at a segment endpoint, otherwise interpolated between the segment's endpoints (absent if either is absent).

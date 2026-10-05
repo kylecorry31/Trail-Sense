@@ -46,7 +46,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         }
         val match = matchLocation(location)
         val guidance = getGuidance(location, match)
-        previousProgress = getProgress(match.distance, guidance.arrived)
+        previousProgress = guidance.progress
         previousLocation = location
         previousGuidance = guidance
         onProgressChanged?.invoke(previousProgress, location)
@@ -78,6 +78,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
             },
             remainingElevationGain = remainingElevationGain,
             remainingElevationLoss = remainingElevationLoss,
+            progress = getProgress(match.distance, arrived),
         )
     }
 
@@ -190,7 +191,8 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         val arrived: Boolean,
         val remainingRoute: List<PathPoint>,
         val remainingElevationGain: Distance,
-        val remainingElevationLoss: Distance
+        val remainingElevationLoss: Distance,
+        val progress: Float
     )
 
     private companion object {
