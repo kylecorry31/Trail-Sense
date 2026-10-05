@@ -40,7 +40,9 @@ class ARPathLayer(
 
     private val lineLayer = ARLineLayer(renderWithPaths = false)
     private val markerLayer = ARMarkerLayer(1f, 32f, false)
-    private val ribbonLayer = ARRibbonLayer(widthMeters = 0.45f)
+    private val polygons = ARPathPolygons(widthMeters = 0.45f)
+    private val ribbonLayer = ARPolygonLayer()
+    private val arrowLayer = ARPolygonLayer()
     private var lastElevation: Float? = null
     private var lastLocationAccuracySquared: Float? = null
 
@@ -73,7 +75,7 @@ class ARPathLayer(
     @Volatile
     var appearance: ARPathAppearance = ARPathAppearance.Ribbon
 
-    private val ribbonLayers = listOf<ARLayer>(ribbonLayer)
+    private val ribbonLayers = listOf<ARLayer>(ribbonLayer, arrowLayer)
     private val lineLayers = listOf<ARLayer>(lineLayer, markerLayer)
     private val activeLayers: List<ARLayer>
         get() = when (appearance) {
@@ -118,6 +120,7 @@ class ARPathLayer(
 
     override fun invalidate() {
         ribbonLayer.invalidate()
+        arrowLayer.invalidate()
         lineLayer.invalidate()
         markerLayer.invalidate()
     }
@@ -208,9 +211,14 @@ class ARPathLayer(
 
         markerLayer.setMarkers(markers)
         lineLayer.setLines(lines.map { it.second })
-        ribbonLayer.setRibbons(lines.map { (path, line) ->
-            ARRibbonLayer.Ribbon(line) { onFocus(path) }
-        })
+        ribbonLayer.setSource { view ->
+            lines.map { (path, line) -> polygons.ribbon(line, view) { onFocus(path) } }
+        }
+        val navigationPathId = destination?.path?.id
+        arrowLayer.setSource { view ->
+            lines.filter { (path, _) -> path.id == navigationPathId }
+                .map { (_, line) -> polygons.arrows(line, view) }
+        }
     }
 
     private fun getNearestPoint(points: Pair<MutableList<Float>, MutableList<Float>>): NearestPoint? {

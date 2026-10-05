@@ -72,6 +72,7 @@ class ToolAugmentedRealityTest : ToolTestBase(Tools.AUGMENTED_REALITY) {
         click(R.id.layers_btn)
         // Verify the layers panel is visible
         hasText(string(R.string.beacons))
+        hasText(string(R.string.ar_path_appearance))
 
         // Turn off the beacons layer
         click(string(R.string.visible), index = 0)
