@@ -17,9 +17,9 @@ Terms:
 
 ```
 pathLength = sum of distances between consecutive points
-endGap = distance(first point, last point)
+seam = distance(first point, last point)
 
-return points.size >= 3 and pathLength > 30 m and endGap <= min(100 m, 10% of pathLength)
+return points.size >= 3 and pathLength > 30 m and seam <= min(100 m, 10% of pathLength)
 ```
 
 ## Routing
@@ -29,10 +29,9 @@ return points.size >= 3 and pathLength > 30 m and endGap <= min(100 m, 10% of pa
 - Output: list of path points
 
 ```
-points = points sorted by id ascending
-points = HikingService.correctElevations(points)
+points = HikingService.correctElevations(points sorted by id ascending)
 
-if points.size = 1 or every segment has zero length
+if points.size is 1 or every segment has zero length
     return [first point]
 
 loop = isLoop(points)
@@ -40,15 +39,14 @@ loop = isLoop(points)
 if destinationPointId is present
     return findShortestRoute(points, location, index of destination in points, loop)
 
-if mode = TO_END
+if mode is TO_END
     return findShortestRoute(points, location, last index, loop)
 
-if mode = REVERSED_TO_END
+if mode is REVERSED_TO_END
     return findShortestRoute(points, location, 0, loop)
 
-path = points, or points reversed if mode = REVERSED_FULL_LOOP
-snaps = findCandidateSnaps(path, location)
-snap = snaps[0]
+path = points, or points reversed if mode is REVERSED_FULL_LOOP
+snap = findCandidateSnaps(path, location).first
 return [snap] + path points after snap's segment
 ```
 
@@ -84,10 +82,7 @@ for snap in findCandidateSnaps(points, location)
     else
         itineraries = [direct]
 
-    for itinerary in itineraries
-        itineraryLength = sum of distances between consecutive points of itinerary
-        if bestItinerary is none or itineraryLength < length of bestItinerary
-            bestItinerary = itinerary
+    update bestItinerary if any itinerary in itineraries has length shorter than bestItinerary or it is not set
 
 return bestItinerary
 ```
@@ -110,7 +105,7 @@ reachedCorner = -infinity
 ```
 
 ```
-if previousGuidance exists and location = previousLocation
+if previousGuidance exists and location is previousLocation
     return previousGuidance
 
 match = matchLocation(location)
@@ -118,7 +113,7 @@ guidance = getGuidance(location, match)
 
 if guidance.arrived
     previousProgress = 1
-else if routeLength = 0
+else if routeLength is 0
     previousProgress = 0
 else
     previousProgress = clamp(match.distanceAlong / routeLength, 0, 1)
@@ -147,8 +142,7 @@ if nearby.offset <= 15 m
     pendingRejoin = none
     return nearby
 
-closestOffset = smallest offset of any projection onto the whole route
-anywhere = of the projections within 1 m of closestOffset, the earliest along the route
+anywhere = findClosestInRange(location, [0, routeLength], preferLater = false)
 
 if anywhere.offset >= nearby.offset - 15 m
     pendingRejoin = none
@@ -163,7 +157,7 @@ return nearby
 ```
 
 - Function: `findClosestInRange`
-- Inputs: `location`, `range` (distances along the route)
+- Inputs: `location`, `range` (distances along the route), `preferLater` (default true)
 - Output: match
 
 ```
@@ -174,7 +168,7 @@ if projections is empty
     return position with offset = distance(location, point at position)
 
 closestOffset = smallest offset of projections
-return, of the projections within 1 m of closestOffset, the furthest along the route
+return, of the projections within 1 m of closestOffset, the furthest along the route if preferLater, otherwise the earliest
 ```
 
 A route with zero length (a single point, or points at the same position) is one zero length segment: it always matches position 0 with the offset measured to the first point, and the remaining route includes the points after the first (the point itself if there is only one).

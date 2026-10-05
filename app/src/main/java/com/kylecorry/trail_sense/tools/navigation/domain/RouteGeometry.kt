@@ -8,7 +8,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlin.math.PI
 import kotlin.math.abs
-import kotlin.math.min
 
 /**
  * A point on the route closest to a location.
@@ -59,16 +58,13 @@ internal class RouteGeometry(points: List<Coordinate>) {
         preferLater: Boolean = true
     ): RouteProjection {
         val plane = LocalPlane(location)
-        var chosen: RouteProjection? = null
-        var closest = Float.POSITIVE_INFINITY
-        for (segment in segmentContaining(minDistance)..segmentContaining(maxDistance)) {
-            val candidate = projectOnto(segment, plane, minDistance, maxDistance) ?: continue
-            closest = min(closest, candidate.offset)
-            if (isBetterMatch(candidate, chosen, closest, preferLater)) {
-                chosen = candidate
-            }
-        }
-        return chosen ?: projectionAt(location, minDistance)
+        val projections = (segmentContaining(minDistance)..segmentContaining(maxDistance))
+            .mapNotNull { projectOnto(it, plane, minDistance, maxDistance) }
+        if (projections.isEmpty()) return projectionAt(location, minDistance)
+
+        val closestOffset = projections.minOf { it.offset }
+        val closest = projections.filter { it.offset <= closestOffset + MATCH_TOLERANCE_METERS }
+        return if (preferLater) closest.last() else closest.first()
     }
 
     fun coordinateOf(projection: RouteProjection): Coordinate {
@@ -83,17 +79,6 @@ internal class RouteGeometry(points: List<Coordinate>) {
     /** The distances along the route of the sharp turns that are after [from] and up to [to]. */
     fun cornersBetween(from: Float, to: Float): List<Float> {
         return cornerDistances.subList(firstCornerAfter(from), firstCornerAfter(to))
-    }
-
-    // Segments are compared in route order, so a later candidate is further along the route
-    private fun isBetterMatch(
-        candidate: RouteProjection,
-        chosen: RouteProjection?,
-        closest: Float,
-        preferLater: Boolean
-    ): Boolean {
-        val tolerated = closest + MATCH_TOLERANCE_METERS
-        return candidate.offset <= tolerated && (preferLater || chosen == null || chosen.offset > tolerated)
     }
 
     // Projects the plane's origin onto the part of the segment between minDistance and maxDistance
