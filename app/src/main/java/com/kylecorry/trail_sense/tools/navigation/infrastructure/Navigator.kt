@@ -58,15 +58,10 @@ class Navigator private constructor(context: Context) {
 
     val bearingDestination = navigationBearing.map {
         it?.let {
-            val declination = if (userPrefs.useAutoDeclination) {
-                Geophysics.getGeomagneticDeclination(it.startLocation ?: locationSubsystem.location)
-            } else {
-                userPrefs.declinationOverride
-            }
             Destination.Bearing(
                 Bearing.from(it.bearing),
                 userPrefs.compass.useTrueNorth,
-                declination,
+                getDeclination(it.startLocation ?: locationSubsystem.location),
                 it.startLocation,
                 userPrefs.navigation.bearingDistance
             )
