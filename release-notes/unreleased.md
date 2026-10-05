@@ -1,3 +1,24 @@
+This is currently just a running list of what is in the 8.3.0 release to make it easier to write these notes by hand later.
+
+- Added path navigation: navigate along a saved path (to its end, to its start, as a full loop, or to a specific point on it) with guidance to rejoin the path if you leave it
+- The navigation layer is now enabled by default on the radar compass and has a background color setting
+- Added a setting to show the start and end points of the navigation path on the map
+- Added the ability to replace a path's elevations with elevations from the digital elevation model
+- Added a minimum distance between recorded Backtrack points setting
+- Paths are now rendered in Augmented Reality as ribbons (the line style is still available in settings), with arrows showing the direction of travel while navigating a path
+- Augmented Reality guidance now supports path and bearing navigation and starts automatically when navigation is already active
+- Added a compass update frequency setting to the Map, Navigation, Photo Maps, and Augmented Reality tools
+- GPS location source is now a selector between GPS and Manual
+- Improved path loading and simplification
+- Added a loading indicator while paths are created and while path navigation is restored
+- Added a confirmation before deleting a packing list item
+- Improved map tile loading and caching, and failed tiles are now retried
+- Improved the performance of the built-in elevation model
+- Reduced update frequency on the Navigation, Flashlight, and White Noise tools to save battery
+- Reordered and grouped some settings to make them easier to scan
+- Fixed the radar compass sometimes showing a distance of 0
+- Fixed the battery charging indicator not updating
+- Fixed a bug where sensors were not paused when the screen was off while navigating with show on lock screen enabled
 - Removed NMEA altitude correction setting in favor of built-in model
 - Added GPS power usage hint preferences
 - Backtrack no longer keeps the device awake by default
