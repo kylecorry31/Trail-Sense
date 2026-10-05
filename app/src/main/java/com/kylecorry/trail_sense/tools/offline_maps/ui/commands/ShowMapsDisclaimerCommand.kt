@@ -24,7 +24,7 @@ class ShowMapsDisclaimerCommand(private val fragment: Fragment) : Command {
             cancelText = context.getString(R.string.tool_user_guide_title),
             shownValue = true
         ) { showUserGuide, _ ->
-            if (showUserGuide) {
+            if (showUserGuide && fragment.isAdded) {
                 UserGuideUtils.showGuide(fragment, R.raw.guide_tool_offline_maps)
             }
         }
