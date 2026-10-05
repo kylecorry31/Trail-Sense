@@ -27,7 +27,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.firstOrNull
@@ -50,10 +49,8 @@ class Navigator private constructor(context: Context) {
     // Flows
     private val _destinationId = MutableStateFlow(getDestinationId())
     private val _forceUpdate = MutableStateFlow(0)
-    private val destinationId: Flow<Long?> = _destinationId
 
-    val destination = destinationId
-        .combine(_forceUpdate) { id, _ -> id }
+    val destination = combine(_destinationId, _forceUpdate) { id, _ -> id }
         .map { it?.let { beacons.getBeacon(it) } }
 
     // Bearings
@@ -145,14 +142,14 @@ class Navigator private constructor(context: Context) {
     fun navigateTo(beaconId: Long) {
         pathNavigator.cancel()
         prefs.putLong(DESTINATION_ID_KEY, beaconId)
-        _destinationId.update { beaconId }
-        _forceUpdate.update { it -> it + 1 }
+        _destinationId.value = beaconId
+        _forceUpdate.update { it + 1 }
     }
 
     fun cancelBeaconNavigation() {
         prefs.remove(DESTINATION_ID_KEY)
-        _destinationId.update { null }
-        _forceUpdate.update { it -> it + 1 }
+        _destinationId.value = null
+        _forceUpdate.update { it + 1 }
     }
 
     fun cancelPathNavigation(pathId: Long) {
@@ -208,46 +205,31 @@ class Navigator private constructor(context: Context) {
         myLocation: Coordinate,
         destination: Destination
     ): Bearing {
-        val useTrueNorth = userPrefs.compass.useTrueNorth
-
-        return when (destination) {
-            is Destination.Path -> fromTrueNorth(
-                myLocation.bearingTo(destination.route.navigate(myLocation).target),
-                useTrueNorth,
-                getDeclination(myLocation)
-            )
-            is Destination.Beacon -> {
-                fromTrueNorth(
-                    myLocation.bearingTo(destination.beacon.coordinate),
-                    useTrueNorth,
-                    getDeclination(myLocation)
-                )
-            }
-
+        val target = when (destination) {
+            is Destination.Path -> destination.route.navigate(myLocation).target
+            is Destination.Beacon -> destination.beacon.coordinate
             is Destination.Bearing -> {
-                if (destination.startingLocation != null && userPrefs.navigation.lockBearingToLocation) {
-                    fromTrueNorth(
-                        myLocation.bearingTo(destination.targetLocation!!),
-                        useTrueNorth,
-                        getDeclination(myLocation)
-                    )
-                } else {
-                    destination.bearing
+                if (destination.startingLocation == null || !userPrefs.navigation.lockBearingToLocation) {
+                    return destination.bearing
                 }
+                destination.targetLocation!!
             }
-
         }
+
+        return fromTrueNorth(
+            myLocation.bearingTo(target),
+            userPrefs.compass.useTrueNorth,
+            getDeclination(myLocation)
+        )
     }
 
-    private fun getDeclination(location: Coordinate? = null, elevation: Float? = null): Float {
-        // TODO: Cache declination
+    private fun getDeclination(location: Coordinate): Float {
         return if (userPrefs.useAutoDeclination) {
-            val actualLocation = location ?: locationSubsystem.location
             runBlocking {
-                declinationCache.getOrPut(actualLocation) {
+                declinationCache.getOrPut(location) {
                     Geophysics.getGeomagneticDeclination(
-                        actualLocation,
-                        elevation ?: locationSubsystem.elevation.meters().value
+                        location,
+                        locationSubsystem.elevation.meters().value
                     )
                 }
             }
