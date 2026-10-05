@@ -120,7 +120,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val hasCompass = useMemo(sensors) { sensors.hasCompass() }
         val navigator = useService<Navigator>()
         val pathService = useService<PathService>()
-        val destination = useFlow(navigator.destination2, state = BackgroundMinimumState.Resumed)
+        val destination = useFlow(navigator.destination, state = BackgroundMinimumState.Resumed)
         val formatter = useService<FormatService>()
         val activity = useActivity()
         val navController = useNavController()
@@ -141,7 +141,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         useEffect(screenLock, activity, resetOnResume, destination) {
-            screenLock.updateLock(activity)
+            screenLock.updateLock(activity, destination != null)
         }
 
         useDestroyEffect(screenLock, activity) {

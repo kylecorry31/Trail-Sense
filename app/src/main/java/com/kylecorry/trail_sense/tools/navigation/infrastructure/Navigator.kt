@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.cache.GeospatialCache
-import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Bearing
@@ -50,13 +49,10 @@ class Navigator private constructor(context: Context) {
     private val _destinationId = MutableStateFlow(getDestinationId())
     private val _forceUpdate = MutableStateFlow(0)
 
-    val destination = combine(_destinationId, _forceUpdate) { id, _ -> id }
-        .map { it?.let { beacons.getBeacon(it) } }
-
     // Bearings
-    val navigationBearing = bearings.getBearing()
+    private val navigationBearing = bearings.getBearing()
 
-    val bearingDestination = navigationBearing.map {
+    private val bearingDestination = navigationBearing.map {
         it?.let {
             Destination.Bearing(
                 Bearing.from(it.bearing),
@@ -76,18 +72,17 @@ class Navigator private constructor(context: Context) {
     // Elevation change?
     // Beacons = always to the beacon, bearings = if off track, then back to the bearing reading otherwise bearing end point (or just the bearing if no location info)
 
-    val beaconDestination = destination.map {
-        it?.let {
-            Destination.Beacon(it)
-        }
+    private val beaconDestination = combine(_destinationId, _forceUpdate) { id, _ ->
+        id?.let { beacons.getBeacon(it) }?.let { Destination.Beacon(it) }
     }
 
     private val pathNavigator = PathNavigator(context)
     val isRestoringRoute = pathNavigator.isRestoring
 
-    val destination2 = combine(bearingDestination, beaconDestination, pathNavigator.destination) { bearing, beacon, path ->
-        path ?: beacon ?: bearing
-    }
+    val destination =
+        combine(bearingDestination, beaconDestination, pathNavigator.destination) { bearing, beacon, path ->
+            path ?: beacon ?: bearing
+        }
 
     suspend fun navigateAlongPath(
         path: Path,
@@ -101,7 +96,7 @@ class Navigator private constructor(context: Context) {
     }
 
     private val listenTask = BackgroundTask {
-        destination2.collect {
+        destination.collect {
             Tools.broadcast(NavigationToolRegistration.BROADCAST_DESTINATION_CHANGED)
         }
     }
@@ -161,23 +156,9 @@ class Navigator private constructor(context: Context) {
         return prefs.getLong(DESTINATION_ID_KEY)
     }
 
-    suspend fun getDestination(): Beacon? = onIO {
-        val id = getDestinationId() ?: return@onIO null
-        beacons.getBeacon(id)
-    }
-
-    fun isNavigating(): Boolean {
-        return pathNavigator.isNavigating() || getDestinationId() != null
-    }
-
-    // TODO: Replace isNavigating with this
-    suspend fun isNavigating2(): Boolean {
-        return getDestination2() != null
-    }
-
-    suspend fun getDestination2(): Destination? {
+    suspend fun getDestination(): Destination? {
         pathNavigator.awaitRestore()
-        return destination2.firstOrNull()
+        return destination.firstOrNull()
     }
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {

@@ -35,7 +35,7 @@ class NavigationGeoJsonSource : GeoJsonSource {
         params: Bundle
     ): GeoJsonObject? {
         val myLocation = locationSubsystem.location
-        val destination = navigator.getDestination2() ?: return null
+        val destination = navigator.getDestination() ?: return null
         val paths = createPath(myLocation, destination)
         val showEndpoints = params.getPreferences().getBoolean(SHOW_ENDPOINTS, false)
 

@@ -15,7 +15,6 @@ class NavigationScreenLock(private val alwaysLock: Boolean = false) {
 
     private val prefs = DependencyRegistry.get<UserPreferences>()
     private val shouldLock by lazy { prefs.navigation.keepScreenUnlockedWhileNavigating }
-    private val navigator = DependencyRegistry.get<Navigator>()
 
     private var activityReference: WeakReference<Activity>? = null
     private var selfDestinationId: Int? = null
@@ -32,10 +31,10 @@ class NavigationScreenLock(private val alwaysLock: Boolean = false) {
         }
     }
 
-    fun updateLock(activity: Activity) {
+    fun updateLock(activity: Activity, isNavigating: Boolean) {
         activityReference = WeakReference(activity)
         tryOrNothing {
-            val shouldShowWhenLocked = alwaysLock || (shouldLock && navigator.isNavigating())
+            val shouldShowWhenLocked = alwaysLock || (shouldLock && isNavigating)
             if (shouldShowWhenLocked) {
                 Screen.setShowWhenLocked(activity, true)
                 addNavigationListener(activity)

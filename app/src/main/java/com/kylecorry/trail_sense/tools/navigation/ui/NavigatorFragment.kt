@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setTextDistinct
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.interval
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
@@ -177,7 +176,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         clinometer = Clinometer(orientation, isAugmentedReality = true)
         super.onViewCreated(view, savedInstanceState)
 
-        observeFlow(navigator.destination2) {
+        observeFlow(navigator.destination) {
             destination = it
         }
 
@@ -357,7 +356,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun handleShowWhenLocked() {
-        activity?.let { screenLock.updateLock(it) }
+        activity?.let { screenLock.updateLock(it, destination != null) }
     }
 
     fun displayAccuracyTips() {

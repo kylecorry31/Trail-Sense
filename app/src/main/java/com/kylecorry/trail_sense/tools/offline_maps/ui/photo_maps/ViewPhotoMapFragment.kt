@@ -140,7 +140,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             updateDestination()
         }
 
-        observeFlow(navigator.destination2) {
+        observeFlow(navigator.destination) {
             setDestination(it)
         }
 
@@ -395,7 +395,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 updateDestination()
             }
         }
-        activity?.let { screenLock.updateLock(it) }
+        activity?.let { screenLock.updateLock(it, destination != null) }
     }
 
     private fun onMapLoad(map: PhotoMap) {
@@ -542,7 +542,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         super.onUpdate()
 
         useEffect(resetOnResume) {
-            activity?.let { screenLock.updateLock(it) }
+            activity?.let { screenLock.updateLock(it, destination != null) }
         }
 
         effect("attribution", layerManager.key) {

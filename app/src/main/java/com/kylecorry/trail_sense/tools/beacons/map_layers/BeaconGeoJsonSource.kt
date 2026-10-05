@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class BeaconGeoJsonSource : GeoJsonSource {
@@ -29,7 +30,7 @@ class BeaconGeoJsonSource : GeoJsonSource {
         zoom: Int,
         params: Bundle
     ): GeoJsonObject {
-        val highlighted = navigator.getDestination()
+        val highlighted = (navigator.getDestination() as? Destination.Beacon)?.beacon
 
         val beacons =
             (beaconService.getBeaconsInRegion(bounds).filter { it.visible } + listOfNotNull(
