@@ -21,6 +21,8 @@ class ARPathLayerTest {
         PathPoint(index.toLong(), path.id, point)
     })
 
+    private fun ARPathLayer.getPaths(location: Coordinate) = getPaths(location, null)
+
     @Test
     fun navigationPreservesElevationProfileAsRouteAdvances() {
         layer.destination = Destination.Path(path, listOf(

@@ -12,7 +12,7 @@ data class PathGuidanceTarget(val destination: Destination.Path) : ARGuidanceTar
                 R.drawable.path_arrow,
                 iconTint = destination.path.style.color
             ),
-            GeographicARPoint(destination.route.navigate(request.location).target)
+            GeographicARPoint(destination.route.navigate(request.location, request.locationAccuracy).target)
         )
     }
 }

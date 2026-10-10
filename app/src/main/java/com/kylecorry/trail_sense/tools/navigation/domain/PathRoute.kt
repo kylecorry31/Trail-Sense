@@ -39,12 +39,12 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     }
 
     @Synchronized
-    fun navigate(location: Coordinate): Guidance {
+    fun navigate(location: Coordinate, accuracy: Distance?): Guidance {
         val cached = previousGuidance
         if (cached != null && location == previousLocation) {
             return cached
         }
-        val match = matchLocation(location)
+        val match = matchLocation(location, accuracy)
         val guidance = getGuidance(location, match)
         previousProgress = guidance.progress
         previousLocation = location
@@ -150,13 +150,15 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     // Matches the location to the route. This only considers the part of the route near the
     // previous progress (the start of the route for the first location), so overlapping or nearby
     // parts of the route can't steal the match.
-    private fun matchLocation(location: Coordinate): RouteProjection {
+    private fun matchLocation(location: Coordinate, accuracy: Distance?): RouteProjection {
         val movement = previousLocation?.distanceTo(location, highAccuracy = false) ?: 0f
+        val tolerance = (accuracy?.meters()?.value ?: 0f)
+            .coerceIn(PROGRESS_TOLERANCE_METERS, MAX_PROGRESS_TOLERANCE_METERS)
         val previousDistance = previousProgress * length
         val nearby = geometry.findClosestInRange(
             location,
-            previousDistance - movement - PROGRESS_TOLERANCE_METERS,
-            previousDistance + movement + PROGRESS_TOLERANCE_METERS
+            previousDistance - movement - tolerance,
+            previousDistance + movement + tolerance
         )
         return rejoinRoute(location, nearby, movement)
     }
@@ -198,6 +200,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     private companion object {
         const val FORWARD_PROGRESS_MULTIPLIER = 2f
         const val PROGRESS_TOLERANCE_METERS = 15f
+        const val MAX_PROGRESS_TOLERANCE_METERS = 75f
         const val REJOIN_MARGIN_METERS = 15f
         const val LOOKAHEAD_METERS = 25f
         const val CORNER_REACHED_METERS = 8f

@@ -10,6 +10,7 @@ import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.sol.science.geography.projections.IMapProjection
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.canvas.LineClipper
 import com.kylecorry.trail_sense.shared.canvas.LineInterpolator
 import com.kylecorry.trail_sense.shared.extensions.isSamePixel
@@ -108,7 +109,7 @@ class ARPathLayer(
             paths,
             destination
         ) {
-            updatePaths(getPaths(view.location))
+            updatePaths(getPaths(view.location, view.locationAccuracy?.let { Distance.meters(it) }))
         }
 
         activeLayers.forEach { it.update(drawer, view) }
@@ -141,10 +142,10 @@ class ARPathLayer(
         this.paths = paths
     }
 
-    internal fun getPaths(location: Coordinate): List<IMappablePath> {
+    internal fun getPaths(location: Coordinate, accuracy: Distance?): List<IMappablePath> {
         val destination = destination ?: return paths
         val path = destination.path
-        val guidance = destination.route.navigate(location)
+        val guidance = destination.route.navigate(location, accuracy)
         val route = MappablePath(
             path.id,
             guidance.remainingRoute.mapIndexed { index, point ->

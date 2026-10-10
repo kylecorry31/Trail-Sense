@@ -47,6 +47,18 @@ class SensorSubsystem private constructor(private val context: Context) {
         }
 
     /**
+     * Get the horizontal accuracy of the last known location without starting the GPS.
+     * @return the accuracy, or null if it is unknown (ex. the location is overridden)
+     */
+    val lastKnownLocationAccuracy: Distance?
+        get() {
+            return when (gpsSourceSelector.getSource(useCache = true)) {
+                GPSSource.Override, GPSSource.Timezone -> null
+                else -> CacheGPSModule.getCachedData(prefs)?.horizontalAccuracy?.let { Distance.meters(it) }
+            }
+        }
+
+    /**
      * Get the last known elevation without starting the altimeter. May be stale.
      * @return the last known elevation, may be Distance.meters(0f) if elevation is unknown
      */

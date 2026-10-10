@@ -757,6 +757,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         return navigator.destination.first()!!.route
     }
 
+    private fun PathRoute.navigate(location: Coordinate) = navigate(location, null)
+
     private fun coordinatesOf(asset: String): List<Coordinate> {
         return TestData.loadGpxPoints(asset).map { it.coordinate }
     }

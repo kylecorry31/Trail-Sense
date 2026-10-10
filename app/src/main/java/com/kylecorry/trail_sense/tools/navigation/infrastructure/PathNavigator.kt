@@ -45,7 +45,7 @@ class PathNavigator(context: Context) {
         Tools.subscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED) {
             if (destinationState.value != null) {
                 onIO {
-                    destinationState.value?.route?.navigate(locationSubsystem.location)
+                    destinationState.value?.route?.navigate(locationSubsystem.location, locationSubsystem.locationAccuracy)
                 }
             }
         }

@@ -25,6 +25,9 @@ class LocationSubsystem private constructor(private val context: Context) {
     val location: Coordinate
         get() = sensorSubsystem.lastKnownLocation
 
+    val locationAccuracy: Distance?
+        get() = sensorSubsystem.lastKnownLocationAccuracy
+
     val locationAge: Duration
         get() {
             if (isGPSOverridden()) {

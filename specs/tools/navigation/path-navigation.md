@@ -94,7 +94,7 @@ return bestItinerary
 
 - Class: `PathRoute(pathPoints: List<PathPoint>)` (not empty). `routeLength` is its public `length`, and the path's id is the first point's path id.
 - Property: `onProgressChanged: ((progress: Float, location: Coordinate) -> Unit)?`, null by default
-- Method: `navigate(location)`
+- Method: `navigate(location, accuracy: Distance?)`: `accuracy` is the horizontal accuracy of the location, null if unknown
 - Output: `PathRoute.Guidance`
 - Calls are serialized
 
@@ -124,7 +124,7 @@ reachedCorner = -infinity
 if previousGuidance exists and location is previousLocation
     return previousGuidance
 
-match = matchLocation(location)
+match = matchLocation(location, accuracy)
 guidance = getGuidance(location, match)
 
 previousLocation = location
@@ -138,13 +138,14 @@ return guidance
 ### Location matching
 
 - Function: `matchLocation`
-- Inputs: `location`
+- Inputs: `location`, `accuracy: Distance?`
 - Output: match (the projection onto the route, with its `distanceAlong` and `offset`)
 
 ```
 movement = distance(previousLocation, location), or 0 if there is no previousLocation
+tolerance = clamp(accuracy if not null, otherwise 0 m, 15 m, 75 m)
 center = previousProgress * routeLength
-range = [center - (movement + 15 m), center + (movement + 15 m)]
+range = [center - (movement + tolerance), center + (movement + tolerance)]
 
 nearby = findClosestInRange(location, range)
 

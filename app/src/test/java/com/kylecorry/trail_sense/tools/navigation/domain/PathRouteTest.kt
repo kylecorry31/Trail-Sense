@@ -22,6 +22,40 @@ class PathRouteTest {
         coordinates.mapIndexed { index, coordinate -> PathPoint(index.toLong(), 1, coordinate, 0f) }
     )
 
+    private fun PathRoute.navigate(location: Coordinate) = navigate(location, null)
+
+    @Test
+    fun `location accuracy widens the part of the route that is searched`() {
+        val location = Coordinate(0.0, 0.00036)
+
+        val withoutAccuracy = PathRoute(points).navigate(location, null)
+        val withAccuracy = PathRoute(points).navigate(location, Distance.meters(50f))
+
+        assertEquals(15f / PathRoute(points).length, withoutAccuracy.progress, 0.002f)
+        assertEquals(location.distanceTo(points.first().coordinate) / PathRoute(points).length, withAccuracy.progress, 0.002f)
+        assertEquals(0f, withAccuracy.offRoute.meters().value, 1f)
+    }
+
+    @Test
+    fun `accuracy smaller than the minimum tolerance does not narrow the search`() {
+        val location = Coordinate(0.0, 0.00036)
+
+        val withSmallAccuracy = PathRoute(points).navigate(location, Distance.meters(3f))
+
+        assertEquals(15f / PathRoute(points).length, withSmallAccuracy.progress, 0.002f)
+    }
+
+    @Test
+    fun `accuracy larger than the maximum tolerance does not widen the search any further`() {
+        val location = Coordinate(0.0, 0.0009)
+
+        val withMaxAccuracy = PathRoute(points).navigate(location, Distance.meters(75f))
+        val withPoorAccuracy = PathRoute(points).navigate(location, Distance.meters(500f))
+
+        assertEquals(75f / PathRoute(points).length, withPoorAccuracy.progress, 0.002f)
+        assertEquals(withMaxAccuracy.progress, withPoorAccuracy.progress, 0.0001f)
+    }
+
     @Test
     fun `remaining route interpolates current and off route target elevations`() {
         val route = PathRoute(points)
