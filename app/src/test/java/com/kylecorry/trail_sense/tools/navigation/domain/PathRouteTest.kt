@@ -160,6 +160,21 @@ class PathRouteTest {
     }
 
     @Test
+    fun `effort progress weights elevation gain`() {
+        val route = PathRoute(points)
+        val segment = points[0].coordinate.distanceTo(points[1].coordinate)
+        val total = 2 * segment + HikingService.SCARF_ELEVATION_GAIN_FACTOR * 100f
+
+        assertEquals(0f, route.navigate(points[0].coordinate).effortProgress, 0.0001f)
+        assertEquals(
+            (segment + HikingService.SCARF_ELEVATION_GAIN_FACTOR * 100f) / total,
+            route.navigate(points[1].coordinate).effortProgress,
+            0.002f
+        )
+        assertEquals(1f, route.navigate(points[2].coordinate).effortProgress, 0.0001f)
+    }
+
+    @Test
     fun `restored fraction locates progress along the route`() {
         val route = PathRoute(points)
         val location = Coordinate(0.0, 0.0015)

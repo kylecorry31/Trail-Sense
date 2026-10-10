@@ -108,6 +108,7 @@ Guidance
     remainingElevationGain: Distance
     remainingElevationLoss: Distance, zero or negative
     progress: Float (0 to 1)
+    effortProgress: Float (0 to 1)
 ```
 
 State:
@@ -225,7 +226,15 @@ else if routeLength is 0
 else
     progress = clamp(match.distanceAlong / routeLength, 0, 1)
 
-return Guidance(target = getTarget(location, match), remainingDistance, offRoute, arrived, remainingRoute, remainingElevationGain = remainingGain, remainingElevationLoss = remainingLoss, progress = progress)
+if guidance.arrived
+    effortProgress = 1
+else if routeLength is 0
+    effortProgress = 0
+else
+    currentEffort = total scarf's distance along the route up to the matched position
+    effortProgress = clamp(currentEffort / total scarf's distance along the route, 0, 1)
+
+return Guidance(target = getTarget(location, match), remainingDistance, offRoute, arrived, remainingRoute, remainingElevationGain = remainingGain, remainingElevationLoss = remainingLoss, progress = progress, effortProgress = effortProgress)
 ```
 
 Elevation gain and loss are summed between consecutive route points (increases are gain, decreases are loss, which is negative), and interpolated within the matched segment. For this sum only, a point without an elevation takes the previous point's elevation, and leading points without one take the first known elevation (all 0 if none are known), as in `HikingService.getElevations`. The elevation at the matched position is the endpoint's if exactly at a segment endpoint, otherwise interpolated between the segment's endpoints (absent if either is absent).

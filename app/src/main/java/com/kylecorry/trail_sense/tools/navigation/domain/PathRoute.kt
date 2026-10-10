@@ -22,6 +22,9 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     private val cumulativeElevationLossGain = hikingService.getCumulativeElevationLossGain(pathPoints)
     private val cumulativeElevationLoss = cumulativeElevationLossGain.first
     private val cumulativeElevationGain = cumulativeElevationLossGain.second
+    private val cumulativeScarfsDistance = FloatArray(points.size) {
+        geometry.distanceAt(it) + HikingService.SCARF_ELEVATION_GAIN_FACTOR * cumulativeElevationGain[it]
+    }
     private var previousProgress: Float = 0f
     private var previousLocation: Coordinate? = null
     private var previousGuidance: Guidance? = null
@@ -79,6 +82,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
             remainingElevationGain = remainingElevationGain,
             remainingElevationLoss = remainingElevationLoss,
             progress = getProgress(match.distance, arrived),
+            effortProgress = getEffortProgress(match, arrived),
         )
     }
 
@@ -117,6 +121,22 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         arrived -> 1f
         length > 0f -> (distance / length).coerceIn(0f, 1f)
         else -> 0f
+    }
+
+    private fun getEffortProgress(currentPoint: RouteProjection, arrived: Boolean): Float {
+        if (arrived) return 1f
+        if (length <= 0f) return 0f
+        val total = cumulativeScarfsDistance.last()
+        val current = if (currentPoint.segment >= points.lastIndex) {
+            total
+        } else {
+            Interpolation.lerp(
+                currentPoint.fraction,
+                cumulativeScarfsDistance[currentPoint.segment],
+                cumulativeScarfsDistance[currentPoint.segment + 1]
+            )
+        }
+        return (current / total).coerceIn(0f, 1f)
     }
 
     private fun hasArrived(location: Coordinate, distance: Float): Boolean {
@@ -194,7 +214,8 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         val remainingRoute: List<PathPoint>,
         val remainingElevationGain: Distance,
         val remainingElevationLoss: Distance,
-        val progress: Float
+        val progress: Float,
+        val effortProgress: Float
     )
 
     private companion object {

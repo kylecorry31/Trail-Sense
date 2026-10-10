@@ -205,7 +205,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
     private fun updatePathNavigation(destination: Destination.Path, values: NavigationSensorValues) {
         val guidance = destination.route.navigate(values.location, values.locationAccuracy)
-        progressView.progress = (guidance.progress * progressView.max).roundToInt()
+        progressView.progress = (guidance.effortProgress * progressView.max).roundToInt()
         progressView.isVisible = true
         val gain = guidance.remainingElevationGain.convertTo(prefs.baseDistanceUnits)
         val loss = guidance.remainingElevationLoss.convertTo(prefs.baseDistanceUnits)

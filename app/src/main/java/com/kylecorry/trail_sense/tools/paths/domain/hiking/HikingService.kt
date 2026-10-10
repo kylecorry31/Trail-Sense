@@ -143,7 +143,7 @@ class HikingService : IHikingService {
         speed: Speed
     ): Duration {
         val speedValue = speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value.coerceAtLeast(0.1f)
-        val scarfs = distance.meters().value + 7.92f * elevationGain.meters().value
+        val scarfs = distance.meters().value + SCARF_ELEVATION_GAIN_FACTOR * elevationGain.meters().value
         return Duration.ofSeconds((scarfs / speedValue).toLong())
     }
 
@@ -164,5 +164,6 @@ class HikingService : IHikingService {
 
     companion object {
         const val DEFAULT_PACE_FACTOR = 1.75f
+        const val SCARF_ELEVATION_GAIN_FACTOR = 7.92f
     }
 }
