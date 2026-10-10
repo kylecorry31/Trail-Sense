@@ -47,8 +47,10 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         if (cached != null && location == previousLocation) {
             return cached
         }
-        val match = matchLocation(location, accuracy)
-        val guidance = getGuidance(location, match)
+        val tolerance = (accuracy?.meters()?.value ?: 0f)
+            .coerceIn(MIN_TOLERANCE_METERS, MAX_TOLERANCE_METERS)
+        val match = matchLocation(location, tolerance)
+        val guidance = getGuidance(location, match, tolerance)
         previousProgress = guidance.progress
         previousLocation = location
         previousGuidance = guidance
@@ -56,8 +58,8 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         return guidance
     }
 
-    private fun getGuidance(location: Coordinate, match: RouteProjection): Guidance {
-        val arrived = hasArrived(location, match.distance)
+    private fun getGuidance(location: Coordinate, match: RouteProjection, tolerance: Float): Guidance {
+        val arrived = hasArrived(location, match.distance, tolerance)
         val remainingDistance = Distance.meters(if (arrived) 0f else match.offset + length - match.distance)
         val (remainingElevationLoss, remainingElevationGain) = if (arrived) {
             Distance.meters(0f) to Distance.meters(0f)
@@ -139,9 +141,10 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         return (current / total).coerceIn(0f, 1f)
     }
 
-    private fun hasArrived(location: Coordinate, distance: Float): Boolean {
-        return length - distance <= ARRIVAL_RADIUS_METERS &&
-                location.distanceTo(points.last()) <= ARRIVAL_RADIUS_METERS
+    // Once arrived, the user has to move further away to un-arrive so GPS drift doesn't flip it back
+    private fun hasArrived(location: Coordinate, distance: Float, tolerance: Float): Boolean {
+        val radius = if (previousGuidance?.arrived == true) tolerance * ARRIVED_RADIUS_MULTIPLIER else tolerance
+        return length - distance <= radius && location.distanceTo(points.last()) <= radius
     }
 
     // Steers toward the next sharp corner until it is reached, otherwise toward a point a short way
@@ -170,35 +173,42 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     // Matches the location to the route. This only considers the part of the route near the
     // previous progress (the start of the route for the first location), so overlapping or nearby
     // parts of the route can't steal the match.
-    private fun matchLocation(location: Coordinate, accuracy: Distance?): RouteProjection {
+    private fun matchLocation(location: Coordinate, tolerance: Float): RouteProjection {
         val movement = previousLocation?.distanceTo(location, highAccuracy = false) ?: 0f
-        val tolerance = (accuracy?.meters()?.value ?: 0f)
-            .coerceIn(PROGRESS_TOLERANCE_METERS, MAX_PROGRESS_TOLERANCE_METERS)
         val previousDistance = previousProgress * length
         val nearby = geometry.findClosestInRange(
             location,
             previousDistance - movement - tolerance,
             previousDistance + movement + tolerance
         )
-        return rejoinRoute(location, nearby, movement)
+        return rejoinRoute(location, nearby, movement, tolerance)
     }
 
     // If the nearby match is much worse than somewhere else on the route (ex. the user took a
-    // shortcut), the user has rejoined the route elsewhere. The new position must be seen twice
-    // in a row so a single GPS outlier can't move the progress. Where parts of the route overlap
-    // (ex. the start and end of a loop), the earliest is used so the user isn't sent to the end.
-    private fun rejoinRoute(location: Coordinate, nearby: RouteProjection, movement: Float): RouteProjection {
-        if (nearby.offset <= REJOIN_MARGIN_METERS) {
+    // shortcut), the user has rejoined the route elsewhere. Where parts of the route overlap
+    // (ex. the start and end of a loop), the one nearest the previous progress is used so the user
+    // isn't sent far away, and jumping back along the route counts against the other match. The
+    // new position must be seen twice in a row so a single GPS outlier can't move the progress.
+    private fun rejoinRoute(
+        location: Coordinate,
+        nearby: RouteProjection,
+        movement: Float,
+        tolerance: Float
+    ): RouteProjection {
+        val rejoinMargin = min(tolerance, MAX_REJOIN_MARGIN_METERS)
+        if (nearby.offset <= rejoinMargin) {
             pendingRejoin = null
             return nearby
         }
-        val anywhere = geometry.findClosestInRange(location, 0f, length, preferLater = false)
-        if (anywhere.offset + REJOIN_MARGIN_METERS >= nearby.offset) {
+        val previousDistance = previousProgress * length
+        val anywhere = geometry.findClosestInRange(location, 0f, length, preferNear = previousDistance)
+        val progressLost = max(previousDistance - anywhere.distance, 0f)
+        if (anywhere.offset + progressLost >= nearby.offset - rejoinMargin) {
             pendingRejoin = null
             return nearby
         }
         val pending = pendingRejoin
-        if (pending != null && abs(anywhere.distance - pending) <= PROGRESS_TOLERANCE_METERS + movement * FORWARD_PROGRESS_MULTIPLIER) {
+        if (pending != null && abs(anywhere.distance - pending) <= tolerance + movement * FORWARD_PROGRESS_MULTIPLIER) {
             pendingRejoin = null
             return anywhere
         }
@@ -220,13 +230,13 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
 
     private companion object {
         const val FORWARD_PROGRESS_MULTIPLIER = 2f
-        const val PROGRESS_TOLERANCE_METERS = 15f
-        const val MAX_PROGRESS_TOLERANCE_METERS = 75f
-        const val REJOIN_MARGIN_METERS = 15f
+        const val ARRIVED_RADIUS_MULTIPLIER = 2f
+        const val MIN_TOLERANCE_METERS = 15f
+        const val MAX_TOLERANCE_METERS = 75f
+        const val MAX_REJOIN_MARGIN_METERS = 30f
         const val LOOKAHEAD_METERS = 25f
         const val CORNER_REACHED_METERS = 8f
         const val CORNER_RESET_METERS = 15f
-        const val ARRIVAL_RADIUS_METERS = 15f
         const val OFF_ROUTE_DISTANCE_METERS = 30f
         const val SNAPPED_POINT_MIN_OFFSET_METERS = 1f
     }

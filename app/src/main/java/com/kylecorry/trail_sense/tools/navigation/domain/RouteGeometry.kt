@@ -48,14 +48,15 @@ internal class RouteGeometry(points: List<Coordinate>) {
     /**
      * Finds the closest point on the route to the location, only considering the part of the route
      * between [minDistance] and [maxDistance]. Candidates almost as close as the closest one are
-     * considered equally good, and the furthest along the route of them is used (or the earliest if
-     * not [preferLater]). If there is no segment in that range, the start of the range is returned.
+     * considered equally good. Of them, the one nearest to [preferNear] along the route is used
+     * (the earliest if tied), or the furthest along the route if it is not set. If there is no
+     * segment in that range, the start of the range is returned.
      */
     fun findClosestInRange(
         location: Coordinate,
         minDistance: Float,
         maxDistance: Float,
-        preferLater: Boolean = true
+        preferNear: Float? = null
     ): RouteProjection {
         val plane = LocalPlane(location)
         val projections = (segmentContaining(minDistance)..segmentContaining(maxDistance))
@@ -64,7 +65,7 @@ internal class RouteGeometry(points: List<Coordinate>) {
 
         val closestOffset = projections.minOf { it.offset }
         val closest = projections.filter { it.offset <= closestOffset + MATCH_TOLERANCE_METERS }
-        return if (preferLater) closest.last() else closest.first()
+        return if (preferNear == null) closest.last() else closest.minBy { abs(it.distance - preferNear) }
     }
 
     fun coordinateOf(projection: RouteProjection): Coordinate {

@@ -125,8 +125,9 @@ reachedCorner = -infinity
 if previousGuidance exists and location is previousLocation
     return previousGuidance
 
-match = matchLocation(location, accuracy)
-guidance = getGuidance(location, match)
+tolerance = clamp(accuracy if not null, otherwise 0 m, 15 m, 75 m)
+match = matchLocation(location, tolerance)
+guidance = getGuidance(location, match, tolerance)
 
 previousLocation = location
 previousGuidance = guidance
@@ -139,28 +140,30 @@ return guidance
 ### Location matching
 
 - Function: `matchLocation`
-- Inputs: `location`, `accuracy: Distance?`
+- Inputs: `location`, `tolerance: Distance`
 - Output: match (the projection onto the route, with its `distanceAlong` and `offset`)
 
 ```
 movement = distance(previousLocation, location), or 0 if there is no previousLocation
-tolerance = clamp(accuracy if not null, otherwise 0 m, 15 m, 75 m)
 center = previousProgress * routeLength
 range = [center - (movement + tolerance), center + (movement + tolerance)]
 
 nearby = findClosestInRange(location, range)
 
-if nearby.offset <= 15 m
+rejoinMargin = min(tolerance, 30 m)
+
+if nearby.offset <= rejoinMargin
     pendingRejoin = none
     return nearby
 
-anywhere = findClosestInRange(location, [0, routeLength], preferLater = false)
+anywhere = findClosestInRange(location, [0, routeLength], preferNear = center)
+progressLost = max(center - anywhere.distanceAlong, 0)
 
-if anywhere.offset >= nearby.offset - 15 m
+if anywhere.offset + progressLost >= nearby.offset - rejoinMargin
     pendingRejoin = none
     return nearby
 
-if pendingRejoin exists and |pendingRejoin - anywhere.distanceAlong| <= 15 m + 2 * movement
+if pendingRejoin exists and |pendingRejoin - anywhere.distanceAlong| <= tolerance + 2 * movement
     pendingRejoin = none
     return anywhere
 
@@ -169,7 +172,7 @@ return nearby
 ```
 
 - Function: `findClosestInRange`
-- Inputs: `location`, `range` (distances along the route), `preferLater` (default true)
+- Inputs: `location`, `range` (distances along the route), `preferNear` (a distance along the route, optional)
 - Output: match
 
 ```
@@ -180,7 +183,12 @@ if projections is empty
     return position with offset = distance(location, point at position)
 
 closestOffset = smallest offset of projections
-return, of the projections within 1 m of closestOffset, the furthest along the route if preferLater, otherwise the earliest (projections are ordered by segment index, so further along means later in the route)
+closest = projections within 1 m of closestOffset
+
+if preferNear is set
+    return the projection of closest whose distanceAlong is nearest to preferNear (the earliest if tied)
+
+return the furthest along the route of closest (projections are ordered by segment index, so further along means later in the route)
 ```
 
 A route with zero length (a single point, or points at the same position) is one zero length segment: it always matches position 0 with the offset measured to the first point, and the remaining route includes the points after the first (the point itself if there is only one).
@@ -188,12 +196,13 @@ A route with zero length (a single point, or points at the same position) is one
 ### Guidance
 
 - Function: `getGuidance`
-- Inputs: `location`, `match`
+- Inputs: `location`, `match`, `tolerance: Distance`
 - Output: guidance
 
 ```
 remainingLength = routeLength - match.distanceAlong
-arrived = remainingLength <= 15 m and distance(location, last route point) <= 15 m
+arrivalRadius = 2 * tolerance if previousGuidance exists and previousGuidance.arrived, otherwise tolerance
+arrived = remainingLength <= arrivalRadius and distance(location, last route point) <= arrivalRadius
 
 if arrived
     remainingDistance = 0
@@ -219,14 +228,14 @@ if match.offset > 1 m
     remainingRoute += projectionPoint
 remainingRoute += route points from the end of the matched segment onward
 
-if guidance.arrived
+if arrived
     progress = 1
 else if routeLength is 0
     progress = 0
 else
     progress = clamp(match.distanceAlong / routeLength, 0, 1)
 
-if guidance.arrived
+if arrived
     effortProgress = 1
 else if routeLength is 0
     effortProgress = 0

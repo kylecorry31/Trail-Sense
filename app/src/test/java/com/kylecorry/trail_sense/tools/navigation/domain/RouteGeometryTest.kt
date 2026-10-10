@@ -20,14 +20,27 @@ class RouteGeometryTest {
     )
 
     @Test
-    fun `the earliest match within tolerance of the closest is used when not preferring later`() {
-        val match = geometry.findClosestInRange(meters(0.0, 0.0), 0f, geometry.length, preferLater = false)
+    fun `the match within tolerance of the closest that is nearest the preferred distance is used`() {
+        val origin = meters(0.0, 0.0)
 
-        assertEquals(2, match.segment)
+        val nearStart = geometry.findClosestInRange(origin, 0f, geometry.length, preferNear = 0f)
+        val nearEnd = geometry.findClosestInRange(origin, 0f, geometry.length, preferNear = geometry.length)
+
+        assertEquals(2, nearStart.segment)
+        assertEquals(4, nearEnd.segment)
     }
 
     @Test
-    fun `the latest match within tolerance of the closest is used when preferring later`() {
+    fun `a closer match is used even when it is far from the preferred distance`() {
+        val closerFirst = RouteGeometry(listOf(meters(-50.0, 10.0), meters(50.0, 10.0), meters(50.0, 40.0)))
+
+        val match = closerFirst.findClosestInRange(meters(0.0, 0.0), 0f, closerFirst.length, preferNear = closerFirst.length)
+
+        assertEquals(0, match.segment)
+    }
+
+    @Test
+    fun `the latest match within tolerance of the closest is used when there is no preferred distance`() {
         val match = geometry.findClosestInRange(meters(0.0, 0.0), 0f, geometry.length)
 
         assertEquals(4, match.segment)

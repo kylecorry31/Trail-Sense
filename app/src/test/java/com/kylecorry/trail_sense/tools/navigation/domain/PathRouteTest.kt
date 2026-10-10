@@ -524,4 +524,59 @@ class PathRouteTest {
         assertFalse(guidance.arrived)
         assertTrue(guidance.remainingDistance.meters().value > 1000f)
     }
+
+    @Test
+    fun `a closer part of the route far behind is not rejoined`() {
+        val route = route(listOf(
+            Coordinate(0.0, 0.0), Coordinate(0.0, 0.003), Coordinate(0.0003, 0.003), Coordinate(0.0003, 0.0)
+        ))
+        // Midway along the return leg, which runs parallel to the first leg
+        route.restoreProgress(0.76f, Coordinate(0.0003, 0.0015))
+        route.navigate(Coordinate(0.00006, 0.0015))
+        val guidance = route.navigate(Coordinate(0.00006, 0.0015001))
+
+        assertEquals(0.76f, guidance.progress, 0.05f)
+    }
+
+    @Test
+    fun `arrival radius widens with accuracy`() {
+        val end = points.last().coordinate
+        val shortOfEnd = Coordinate(0.0, end.longitude - 20.0 / 111_195.0)
+
+        val withoutAccuracy = PathRoute(points).apply { restoreProgress(1f, end) }.navigate(shortOfEnd, null)
+        val withAccuracy = PathRoute(points).apply { restoreProgress(1f, end) }
+            .navigate(shortOfEnd, Distance.meters(40f))
+
+        assertFalse(withoutAccuracy.arrived)
+        assertTrue(withAccuracy.arrived)
+    }
+
+    @Test
+    fun `arrival is kept until moving well away from the end`() {
+        val route = PathRoute(points)
+        val end = points.last().coordinate
+        val shortOfEnd = Coordinate(0.0, end.longitude - 20.0 / 111_195.0)
+        val wellShortOfEnd = Coordinate(0.0, end.longitude - 40.0 / 111_195.0)
+        route.restoreProgress(1f, end)
+
+        assertTrue(route.navigate(end).arrived)
+        assertTrue(route.navigate(shortOfEnd).arrived)
+        assertFalse(route.navigate(wellShortOfEnd).arrived)
+    }
+
+    @Test
+    fun `poor accuracy does not stop a nearby parallel leg from being rejoined`() {
+        val route = route(listOf(
+            Coordinate(0.0, 0.0), Coordinate(0.0, 0.01),
+            Coordinate(0.0005, 0.01), Coordinate(0.0005, 0.0), Coordinate(0.001, 0.0)
+        ))
+        val accuracy = Distance.meters(75f)
+        route.navigate(Coordinate(0.0, 0.0), accuracy)
+        route.navigate(Coordinate(0.0, 0.0002), accuracy)
+        // Cuts across to the return leg 55 m away
+        route.navigate(Coordinate(0.0005, 0.0003), accuracy)
+        val guidance = route.navigate(Coordinate(0.0005, 0.00031), accuracy)
+
+        assertTrue(guidance.progress > 0.5f)
+    }
 }
