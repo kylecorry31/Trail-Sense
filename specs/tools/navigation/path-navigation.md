@@ -8,6 +8,7 @@ Terms:
 - route: the ordered points the user follows, starting with a snap (or the path's only point)
 - `distanceAlong`: distance from the start of the route to a position on it, measured along the route
 - `offset`: straight-line distance from a location to its projection onto the route
+- pace multiplier: the user's pace relative to the Tobler prediction (1.0 = Tobler speed)
 
 ## Path shape
 
@@ -90,11 +91,41 @@ for snap in findCandidateSnaps(points, location)
 return bestItinerary
 ```
 
+## Effort model
+
+Used to predict walking speed from terrain, and to measure and apply the user's pace. Elevations are filled the same way as for the gain/loss sum (a point without an elevation takes the previous point's elevation, and leading points without one take the first known elevation, all 0 if none are known).
+
+- Function: `toblerSpeed`
+- Inputs: `distanceAlong`
+- Output: speed in m/s at pace multiplier 1.0
+
+```
+segment = route segment containing distanceAlong
+slope = clamp(elevation change of segment / length of segment, -0.5, 0.5)
+speed = 6 * exp(-3.5 * |slope + 0.05|) km/h
+
+return speed converted to m/s
+```
+
+- Function: `effortTime`
+- Inputs: `distanceAlong`
+- Output: seconds to walk from the route start to `distanceAlong` at pace multiplier 1.0
+
+```
+sum of (segment length / toblerSpeed of segment) for each segment before distanceAlong,
+plus the partial segment containing distanceAlong, interpolated
+
+zero-length segments contribute 0
+```
+
+`flatToblerSpeed` is `toblerSpeed` at slope 0 (about 1.4 m/s).
+
 ## Progress tracking
 
 - Class: `PathRoute(pathPoints: List<PathPoint>)` (not empty). `routeLength` is its public `length`, and the path's id is the first point's path id.
 - Property: `onProgressChanged: ((progress: Float, location: Coordinate) -> Unit)?`, null by default
 - Method: `navigate(location)`
+- Input: `location` with `time` and an optional `accuracy` (meters)
 - Output: `PathRoute.Guidance`
 - Calls are serialized
 
@@ -108,6 +139,19 @@ Guidance
     remainingElevationGain: Distance
     remainingElevationLoss: Distance, zero or negative
     progress: Float (0 to 1)
+    estimatedTimeRemaining: Duration
+```
+
+Constants:
+
+```
+tolerance(location) = clamp(location.accuracy, 15 m, 50 m), or 15 m if accuracy is absent
+
+V_MAX = 2.2 m/s
+K_MIN = 0.3
+K_MAX = 2.0
+MIN_BASELINE = 100 m
+PACE_WEIGHT = 0.2
 ```
 
 State:
@@ -115,19 +159,29 @@ State:
 ```
 previousProgress = 0
 previousLocation = none
+previousTime = none
 previousGuidance = none
 pendingRejoin = none
 reachedCorner = -infinity
+paceMultiplier = 1.0
+paceAnchor = none          # (time, distanceAlong, pausedTime)
+pausedTime = 0
+startTime = none
 ```
 
 ```
 if previousGuidance exists and location is previousLocation
     return previousGuidance
 
+if startTime is none
+    startTime = location.time
+
 match = matchLocation(location)
+updatePace(location, match)
 guidance = getGuidance(location, match)
 
 previousLocation = location
+previousTime = location.time
 previousGuidance = guidance
 previousProgress = guidance.progress
 call onProgressChanged(previousProgress, location) if it is set
@@ -142,29 +196,34 @@ return guidance
 - Output: match (the projection onto the route, with its `distanceAlong` and `offset`)
 
 ```
+tol = tolerance(location)
 movement = distance(previousLocation, location), or 0 if there is no previousLocation
+dt = max(location.time - previousTime, 0), or 0 if there is no previousTime or time is absent
 center = previousProgress * routeLength
-range = [center - (movement + 15 m), center + (movement + 15 m)]
+reach = min(paceMultiplier * toblerSpeed(center), V_MAX) * dt
+range = [center - (movement + tol + reach), center + (movement + tol + reach)]
 
 nearby = findClosestInRange(location, range)
 
-if nearby.offset <= 15 m
+if nearby.offset <= tol
     pendingRejoin = none
     return nearby
 
 anywhere = findClosestInRange(location, [0, routeLength], preferLater = false)
 
-if anywhere.offset >= nearby.offset - 15 m
+if anywhere.offset >= nearby.offset - tol
     pendingRejoin = none
     return nearby
 
-if pendingRejoin exists and |pendingRejoin - anywhere.distanceAlong| <= 15 m + 2 * movement
+if pendingRejoin exists and |pendingRejoin - anywhere.distanceAlong| <= tol + 2 * movement
     pendingRejoin = none
     return anywhere
 
 pendingRejoin = anywhere.distanceAlong
 return nearby
 ```
+
+The range is symmetric around the previous progress, so a fix that places the user behind the previous position still matches and progress can go backward.
 
 - Function: `findClosestInRange`
 - Inputs: `location`, `range` (distances along the route), `preferLater` (default true)
@@ -182,6 +241,45 @@ return, of the projections within 1 m of closestOffset, the furthest along the r
 ```
 
 A route with zero length (a single point, or points at the same position) is one zero length segment: it always matches position 0 with the offset measured to the first point, and the remaining route includes the points after the first (the point itself if there is only one).
+
+### Pace tracking
+
+- Function: `updatePace`
+- Inputs: `location`, `match`
+- Output: none (updates `paceMultiplier`, `paceAnchor`, `pausedTime`)
+
+```
+tol = tolerance(location)
+
+# pause tracking
+if previousLocation exists and previousTime exists and location.time > previousTime
+    dt = location.time - previousTime
+    movement = distance(previousLocation, location)
+    if movement < 2 * tol and movement / dt < 0.3 m/s
+        pausedTime += dt
+
+# baseline handling
+if match.offset > tol
+    paceAnchor = none
+    return
+
+if paceAnchor is none or match.distanceAlong < paceAnchor.distanceAlong - tol
+    paceAnchor = (location.time, match.distanceAlong, pausedTime)
+    return
+
+if match.distanceAlong - paceAnchor.distanceAlong < MIN_BASELINE
+    return
+
+movingDt = (location.time - paceAnchor.time) - (pausedTime - paceAnchor.pausedTime)
+if movingDt > 0
+    observed = (effortTime(match.distanceAlong) - effortTime(paceAnchor.distanceAlong)) / movingDt
+    if K_MIN <= observed <= K_MAX
+        paceMultiplier = (1 - PACE_WEIGHT) * paceMultiplier + PACE_WEIGHT * observed
+
+paceAnchor = (location.time, match.distanceAlong, pausedTime)
+```
+
+Pace is measured over at least `MIN_BASELINE` of net forward progress, excluding paused time, so GPS noise does not corrupt it and it works with sparse fixes. Observations outside `[K_MIN, K_MAX]` (for example from a rejoin jump) are ignored. If `location.time` is absent, pace is never updated and stays at 1.0.
 
 ### Guidance
 
@@ -224,10 +322,24 @@ else if routeLength is 0
 else
     progress = clamp(match.distanceAlong / routeLength, 0, 1)
 
-return Guidance(target = getTarget(location, match), remainingDistance, offRoute, arrived, remainingRoute, remainingElevationGain = remainingGain, remainingElevationLoss = remainingLoss, progress = progress)
+if arrived
+    estimatedTimeRemaining = 0
+else
+    remainingEffort = effortTime(routeLength) - effortTime(match.distanceAlong)
+    walking = remainingEffort / paceMultiplier
+    offRouteTime = match.offset / (flatToblerSpeed * paceMultiplier)
+
+    elapsed = location.time - startTime
+    pausedFraction = min(pausedTime / elapsed, 0.5) if elapsed >= 10 min, otherwise 0
+
+    estimatedTimeRemaining = (walking + offRouteTime) / (1 - pausedFraction)
+
+return Guidance(target = getTarget(location, match), remainingDistance, offRoute, arrived, remainingRoute, remainingElevationGain = remainingGain, remainingElevationLoss = remainingLoss, progress = progress, estimatedTimeRemaining = estimatedTimeRemaining)
 ```
 
 Elevation gain and loss are summed between consecutive route points (increases are gain, decreases are loss, which is negative), and interpolated within the matched segment. For this sum only, a point without an elevation takes the previous point's elevation, and leading points without one take the first known elevation (all 0 if none are known), as in `HikingService.getElevations`. The elevation at the matched position is the endpoint's if exactly at a segment endpoint, otherwise interpolated between the segment's endpoints (absent if either is absent).
+
+If `location.time` is absent, `estimatedTimeRemaining` uses pace multiplier 1.0 and no pause allowance.
 
 ### Target
 
