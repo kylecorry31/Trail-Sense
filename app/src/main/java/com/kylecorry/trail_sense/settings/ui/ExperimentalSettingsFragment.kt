@@ -4,10 +4,8 @@ import android.os.Build
 import android.os.Bundle
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.andromeda.sense.Sensors
-import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem.GroupBehavior
-import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.debugging.isPlayStoreBuild
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -33,21 +31,6 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
             // Refresh all widgets so the new icon rendering takes effect immediately
             Tools.triggerWidgetUpdate(requireContext(), null)
         }
-
-        val sources = ForecastSource.entries
-        val sourceNames = sources.map { it.name }
-        val idMap = mapOf(
-            ForecastSource.Sol to 1,
-            ForecastSource.Zambretti to 2,
-        )
-        val sourceIds = sources.map { (idMap[it] ?: 0).toString() }
-
-        val forecastSource = list(R.string.pref_weather_forecast_source)
-
-        forecastSource?.entries = sourceNames.toTypedArray()
-        forecastSource?.entryValues = sourceIds.toTypedArray()
-        forecastSource?.isVisible =
-            Tools.isToolAvailable(requireContext(), Tools.WEATHER) && isDebug()
 
         val notificationGrouping = list(R.string.pref_notification_group_behavior)
 

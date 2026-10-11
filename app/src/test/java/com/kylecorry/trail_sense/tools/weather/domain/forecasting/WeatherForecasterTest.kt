@@ -4,7 +4,6 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
@@ -41,7 +40,6 @@ internal class WeatherForecasterTest {
 
         whenever(prefs.stormAlertThreshold).thenReturn(-6f)
         whenever(prefs.hourlyForecastChangeThreshold).thenReturn(1.5f)
-        whenever(prefs.forecastSource).thenReturn(ForecastSource.Sol)
 
         setTemperatures(10f, 20f, 15f)
     }

@@ -4,10 +4,8 @@ import android.content.Context
 import com.kylecorry.luna.text.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.FloatPreference
-import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.math.Range
-import com.kylecorry.sol.science.meteorology.forecast.ForecastSource
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -158,15 +156,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
         get() = cache.getBoolean(context.getString(R.string.pref_weather_show_detailed_icon))
             ?: true
 
-    override val forecastSource: ForecastSource by StringEnumPreference(
-        cache,
-        context.getString(R.string.pref_weather_forecast_source),
-        mapOf(
-            "1" to ForecastSource.Sol,
-            "2" to ForecastSource.Zambretti
-        ),
-        ForecastSource.Sol
-    )
     override val useAlarmForStormAlert: Boolean
         get() {
             val hours = stormAlertAlarmHours ?: return false
