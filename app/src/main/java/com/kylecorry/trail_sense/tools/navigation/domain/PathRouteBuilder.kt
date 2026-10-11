@@ -9,6 +9,9 @@ import kotlin.math.abs
 object PathRouteBuilder {
     // Locations within this distance of each other can't be told apart given typical GPS error
     private const val GPS_NOISE_TOLERANCE_METERS = 5f
+    private const val LOOP_MIN_LENGTH = 30f
+    private const val LOOP_MAX_SEAM = 100f
+    private const val LOOP_MAX_SEAM_FRACTION = 0.1f
 
     fun buildRoute(
         points: List<PathPoint>,
@@ -45,7 +48,7 @@ object PathRouteBuilder {
     }
 
     private fun isLoop(length: Float, seam: Float): Boolean {
-        return length > 30 && seam <= minOf(100f, length * 0.1f)
+        return length > LOOP_MIN_LENGTH && seam <= minOf(LOOP_MAX_SEAM, length * LOOP_MAX_SEAM_FRACTION)
     }
 
     // The route along the path from the earliest candidate snap, in the order of the path

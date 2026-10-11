@@ -9,6 +9,29 @@ Terms:
 - `distanceAlong`: distance from the start of the route to a position on it, measured along the route
 - `offset`: straight-line distance from a location to its projection onto the route
 
+## Constants
+
+| Name | Value | Used for |
+| --- | --- | --- |
+| `LOOP_MIN_LENGTH` | 30 m | shortest path that can be a loop |
+| `LOOP_MAX_SEAM` | 100 m | largest gap between a loop's first and last point |
+| `LOOP_MAX_SEAM_FRACTION` | 10% | largest seam as a fraction of the path length |
+| `GPS_NOISE_TOLERANCE_METERS` | 5 m | how much farther than the closest snap a candidate snap can be |
+| `MIN_TOLERANCE_METERS` | 15 m | smallest location tolerance |
+| `MAX_TOLERANCE_METERS` | 75 m | largest location tolerance |
+| `MAX_REJOIN_MARGIN_METERS` | 30 m | cap on how close to the route counts as on it |
+| `FORWARD_PROGRESS_MULTIPLIER` | 2 | weight of the movement between locations when confirming a rejoin |
+| `MATCH_TOLERANCE_METERS` | 1 m | offsets this close to the smallest are treated as equally close |
+| `ARRIVED_RADIUS_MULTIPLIER` | 2 | arrival radius, as a multiple of the tolerance, once arrived |
+| `SNAPPED_POINT_MIN_OFFSET_METERS` | 1 m | smallest offset that adds the projection to the remaining route |
+| `OFF_ROUTE_DISTANCE_METERS` | 30 m | offset beyond which the target is the projection onto the route |
+| `LOOKAHEAD_METERS` | 25 m | smallest distance ahead of the match to look for corners |
+| `CORNER_REACHED_METERS` | 8 m | distance from a corner at which it counts as reached |
+| `CORNER_RESET_METERS` | 15 m | how far back from the last reached corner progress resets it |
+| `CORNER_CHORD_METERS` | 15 m | distance before and after a point used to measure its turn, and largest gap between sharp points in the same corner |
+| `MIN_CORNER_CHORD_METERS` | 3 m | shortest before or after distance for a turn to be measured |
+| `CORNER_TURN_DEGREES` | 35 degrees | smallest turn that is a corner |
+
 ## Path shape
 
 - Function: `isLoop`
@@ -19,7 +42,7 @@ Terms:
 pathLength = sum of distances between consecutive points
 seam = distance(first point, last point)
 
-return points.size >= 3 and pathLength > 30 m and seam <= min(100 m, 10% of pathLength)
+return points.size >= 3 and pathLength > LOOP_MIN_LENGTH and seam <= min(LOOP_MAX_SEAM, LOOP_MAX_SEAM_FRACTION * pathLength)
 ```
 
 ## Routing
@@ -61,42 +84,24 @@ return [snap] + path points after snap's segment
 snaps = snap of location on every segment
 closestDistance = smallest distance from location to any snap
 
-return snaps with distance to location <= closestDistance + 5 m, ordered by segment index
+return snaps with distance to location <= closestDistance + GPS_NOISE_TOLERANCE_METERS, ordered by segment index
 ```
 
 - Function: `findShortestRoute`
 - Inputs: `points`, `location`, `destinationIndex`, `loop`
 - Output: list of path points
 
-```
-bestItinerary = none
+For each candidate snap, the candidate routes are:
+- direct: from the snap along the path to the destination
+- across the seam (loops only): from the snap along the path in the other direction, through the seam (between the last and first points), to the destination
 
-for snap in findCandidateSnaps(points, location)
-    segmentIndex = snap's segment index
-
-    direct = [snap] + (points segmentIndex + 1 up to destinationIndex if destinationIndex > segmentIndex, otherwise points segmentIndex down to destinationIndex)
-
-    if loop and destinationIndex > segmentIndex
-        acrossSeam = [snap] + points segmentIndex down to 0 + points last down to destinationIndex
-        itineraries = [direct, acrossSeam]
-    else if loop
-        acrossSeam = [snap] + points segmentIndex + 1 up to last + points 0 up to destinationIndex
-        itineraries = [acrossSeam, direct]
-    else
-        itineraries = [direct]
-
-    update bestItinerary if any itinerary in itineraries has length shorter than bestItinerary or it is not set
-
-return bestItinerary
-```
+Return the shortest candidate route over all snaps. On a tie, prefer the earlier snap, then the route that travels in increasing point order.
 
 ## Progress tracking
 
 - Class: `PathRoute(pathPoints: List<PathPoint>)` (not empty). `routeLength` is its public `length`, and the path's id is the first point's path id.
 - Property: `onProgressChanged: ((progress: Float, location: Coordinate) -> Unit)?`, null by default
-- Method: `navigate(location, accuracy: Distance?)`: `accuracy` is the horizontal accuracy of the location, null if unknown
-- Output: `PathRoute.Guidance`
-- Calls are serialized
+- Calls to `navigate` and `restoreProgress` are serialized
 
 ```
 Guidance
@@ -121,11 +126,17 @@ pendingRejoin = none
 reachedCorner = -infinity
 ```
 
+### Navigate
+
+- Function: `navigate`
+- Inputs: `location`, `accuracy: Distance?` (the horizontal accuracy of the location, null if unknown)
+- Output: `PathRoute.Guidance`
+
 ```
 if previousGuidance exists and location is previousLocation
     return previousGuidance
 
-tolerance = clamp(accuracy if not null, otherwise 0 m, 15 m, 75 m)
+tolerance = clamp(accuracy if not null, otherwise 0 m, MIN_TOLERANCE_METERS, MAX_TOLERANCE_METERS)
 match = matchLocation(location, tolerance)
 guidance = getGuidance(location, match, tolerance)
 
@@ -135,6 +146,20 @@ previousProgress = guidance.progress
 call onProgressChanged(previousProgress, location) if it is set
 
 return guidance
+```
+
+### Restore progress
+
+- Function: `restoreProgress`
+- Inputs: `progress: Float`, `location: Coordinate` (a saved progress and location to resume the route from)
+- Output: none. Does not call `onProgressChanged`
+
+```
+previousProgress = clamp(progress, 0, 1)
+previousLocation = location
+previousGuidance = none
+pendingRejoin = none
+reachedCorner = -infinity
 ```
 
 ### Location matching
@@ -150,7 +175,7 @@ range = [center - (movement + tolerance), center + (movement + tolerance)]
 
 nearby = findClosestInRange(location, range)
 
-rejoinMargin = min(tolerance, 30 m)
+rejoinMargin = min(tolerance, MAX_REJOIN_MARGIN_METERS)
 
 if nearby.offset <= rejoinMargin
     pendingRejoin = none
@@ -163,7 +188,7 @@ if anywhere.offset + progressLost >= nearby.offset - rejoinMargin
     pendingRejoin = none
     return nearby
 
-if pendingRejoin exists and |pendingRejoin - anywhere.distanceAlong| <= tolerance + 2 * movement
+if pendingRejoin exists and |pendingRejoin - anywhere.distanceAlong| <= tolerance + FORWARD_PROGRESS_MULTIPLIER * movement
     pendingRejoin = none
     return anywhere
 
@@ -183,7 +208,7 @@ if projections is empty
     return position with offset = distance(location, point at position)
 
 closestOffset = smallest offset of projections
-closest = projections within 1 m of closestOffset
+closest = projections within MATCH_TOLERANCE_METERS of closestOffset
 
 if preferNear is set
     return the projection of closest whose distanceAlong is nearest to preferNear (the earliest if tied)
@@ -201,7 +226,7 @@ A route with zero length (a single point, or points at the same position) is one
 
 ```
 remainingLength = routeLength - match.distanceAlong
-arrivalRadius = 2 * tolerance if previousGuidance exists and previousGuidance.arrived, otherwise tolerance
+arrivalRadius = ARRIVED_RADIUS_MULTIPLIER * tolerance if previousGuidance exists and previousGuidance.arrived, otherwise tolerance
 arrived = remainingLength <= arrivalRadius and distance(location, last route point) <= arrivalRadius
 
 if arrived
@@ -224,24 +249,19 @@ locationPoint = location with positionElevation, id -1, the path's id
 projectionPoint = match projection with positionElevation, id -2, the path's id
 
 remainingRoute = [locationPoint]
-if match.offset > 1 m
+if match.offset > SNAPPED_POINT_MIN_OFFSET_METERS
     remainingRoute += projectionPoint
 remainingRoute += route points from the end of the matched segment onward
 
 if arrived
     progress = 1
-else if routeLength is 0
-    progress = 0
-else
-    progress = clamp(match.distanceAlong / routeLength, 0, 1)
-
-if arrived
     effortProgress = 1
 else if routeLength is 0
+    progress = 0
     effortProgress = 0
 else
-    currentEffort = total scarf's distance along the route up to the matched position
-    effortProgress = clamp(currentEffort / total scarf's distance along the route, 0, 1)
+    progress = clamp(match.distanceAlong / routeLength, 0, 1)
+    effortProgress = clamp(scarf's distance along the route up to the matched position / total scarf's distance along the route, 0, 1)
 
 return Guidance(target = getTarget(location, match), remainingDistance, offRoute, arrived, remainingRoute, remainingElevationGain = remainingGain, remainingElevationLoss = remainingLoss, progress = progress, effortProgress = effortProgress)
 ```
@@ -255,19 +275,19 @@ Elevation gain and loss are summed between consecutive route points (increases a
 - Output: the coordinate the user should head toward
 
 ```
-if match.offset > 30 m
+if match.offset > OFF_ROUTE_DISTANCE_METERS
     return projection onto the route
 
-lookahead = match.distanceAlong + max(25 m, match.offset)
+lookahead = match.distanceAlong + max(LOOKAHEAD_METERS, match.offset)
 
-if match.distanceAlong < reachedCorner - 15 m
+if match.distanceAlong < reachedCorner - CORNER_RESET_METERS
     reachedCorner = -infinity
 
 for corner in findCorners(route) between match.distanceAlong (exclusive) and lookahead (inclusive), nearest first
     if corner.distanceAlong <= reachedCorner
         continue
 
-    if distance(location, corner) > 8 m
+    if distance(location, corner) > CORNER_REACHED_METERS
         return corner
 
     reachedCorner = corner.distanceAlong
@@ -283,19 +303,19 @@ return point on the route at min(lookahead, routeLength)
 
 ```
 for point in route points
-    before = point on route at max(point.distanceAlong - 15 m, 0)
-    after = point on route at min(point.distanceAlong + 15 m, routeLength)
+    before = point on route at max(point.distanceAlong - CORNER_CHORD_METERS, 0)
+    after = point on route at min(point.distanceAlong + CORNER_CHORD_METERS, routeLength)
 
-    if distance(before, point) < 3 m or distance(point, after) < 3 m
+    if distance(before, point) < MIN_CORNER_CHORD_METERS or distance(point, after) < MIN_CORNER_CHORD_METERS
         turn = 0
     else
         turn = angle between direction(before, point) and direction(point, after)
 
-sharpPoints = route points with turn >= 35 degrees, in route order
+sharpPoints = route points with turn >= CORNER_TURN_DEGREES, in route order
 groups = []
 
 for point in sharpPoints
-    if groups is not empty and point.distanceAlong - previousSharpPoint.distanceAlong <= 15 m
+    if groups is not empty and point.distanceAlong - previousSharpPoint.distanceAlong <= CORNER_CHORD_METERS
         add point to last group
     else
         add new group containing point
