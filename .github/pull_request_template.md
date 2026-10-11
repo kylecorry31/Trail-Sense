@@ -1,4 +1,5 @@
-<!-- You are required to use this template for pull requests. Please fill out each section and the checklist. You can optionally delete the comments. -->
+<!-- You are required to use this template for pull requests. Please fill out each section. You can optionally delete the comments. -->
+<!-- By submitting this pull request, you confirm that you have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide and are following it (updated on 2026-08-25). -->
 
 <!-- ISSUE: All pull requests must have an associated issue. If you don't have one, please create a post in the Discussions. Fill this out as Issue: #1234 -->
 Issue: 
@@ -11,9 +12,3 @@ Issue:
 
 ## Screenshots
 <!-- Add screenshots or video to help explain your changes. This is required if you modified the app code (ex. not just tests/docs/etc). If you did not modify app code, state that here. -->
-
-## Checklist
-- [ ] I have reviewed the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) guide and confirm that I am following it (updated on 2026-08-25)
-- [ ] I have tested these changes on an Android device or emulator (or no app code was changed)
-- [ ] I have manually reviewed my code changes and will comment on the PR that it is ready for review
-- [ ] This PR was authored and submitted by an AI agent without human review
