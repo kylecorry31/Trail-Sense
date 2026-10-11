@@ -32,9 +32,14 @@ Terms:
 | `MIN_CORNER_CHORD_METERS` | 3 m | shortest before or after distance for a turn to be measured |
 | `CORNER_TURN_DEGREES` | 35 degrees | smallest turn that is a corner |
 
-## Path shape
+## Routing
 
-- Function: `isLoop`
+- Object: `PathRouteBuilder`
+- Enum: `PathNavigationMode` (`TO_END`, `REVERSED_TO_END`, `FULL_LOOP`, `REVERSED_FULL_LOOP`)
+
+### Path shape
+
+- Public function: `isLoop`
 - Inputs: list of coordinates (the path points' coordinates)
 - Output: boolean
 
@@ -45,12 +50,9 @@ seam = distance(first point, last point)
 return points.size >= 3 and pathLength > LOOP_MIN_LENGTH and seam <= min(LOOP_MAX_SEAM, LOOP_MAX_SEAM_FRACTION * pathLength)
 ```
 
-## Routing
+### Build route
 
-- Object: `PathRouteBuilder`. `buildRoute` and `isLoop` are public, `findCandidateSnaps` and `findShortestRoute` are private.
-- Enum: `PathNavigationMode` (`TO_END`, `REVERSED_TO_END`, `FULL_LOOP`, `REVERSED_FULL_LOOP`)
-
-- Function: `buildRoute`
+- Public function: `buildRoute`
 - Inputs: `points` (not empty), `location`, `mode: PathNavigationMode`, optional `destinationPointId` (must be one of the points)
 - Output: list of path points
 
@@ -76,7 +78,9 @@ snap = findCandidateSnaps(path, location).first
 return [snap] + path points after snap's segment
 ```
 
-- Function: `findCandidateSnaps`
+#### Candidate snaps
+
+- Private function: `findCandidateSnaps`
 - Inputs: `points`, `location`
 - Output: snaps ordered by segment index
 
@@ -87,7 +91,9 @@ closestDistance = smallest distance from location to any snap
 return snaps with distance to location <= closestDistance + GPS_NOISE_TOLERANCE_METERS, ordered by segment index
 ```
 
-- Function: `findShortestRoute`
+#### Shortest route
+
+- Private function: `findShortestRoute`
 - Inputs: `points`, `location`, `destinationIndex`, `loop`
 - Output: list of path points
 
@@ -103,19 +109,6 @@ Return the shortest candidate route over all snaps. On a tie, prefer the earlier
 - Property: `onProgressChanged: ((progress: Float, location: Coordinate) -> Unit)?`, null by default
 - Calls to `navigate` and `restoreProgress` are serialized
 
-```
-Guidance
-    target: coordinate
-    remainingDistance: Distance
-    offRoute: Distance
-    arrived: boolean
-    remainingRoute: list of path points
-    remainingElevationGain: Distance
-    remainingElevationLoss: Distance, zero or negative
-    progress: Float (0 to 1)
-    effortProgress: Float (0 to 1)
-```
-
 State:
 
 ```
@@ -128,7 +121,7 @@ reachedCorner = -infinity
 
 ### Navigate
 
-- Function: `navigate`
+- Public function: `navigate`
 - Inputs: `location`, `accuracy: Distance?` (the horizontal accuracy of the location, null if unknown)
 - Output: `PathRoute.Guidance`
 
@@ -150,7 +143,7 @@ return guidance
 
 ### Restore progress
 
-- Function: `restoreProgress`
+- Public function: `restoreProgress`
 - Inputs: `progress: Float`, `location: Coordinate` (a saved progress and location to resume the route from)
 - Output: none. Does not call `onProgressChanged`
 
@@ -164,7 +157,7 @@ reachedCorner = -infinity
 
 ### Location matching
 
-- Function: `matchLocation`
+- Private function: `matchLocation`
 - Inputs: `location`, `tolerance: Distance`
 - Output: match (the projection onto the route, with its `distanceAlong` and `offset`)
 
@@ -196,7 +189,9 @@ pendingRejoin = anywhere.distanceAlong
 return nearby
 ```
 
-- Function: `findClosestInRange`
+#### Closest in range
+
+- Internal function: `findClosestInRange`
 - Inputs: `location`, `range` (distances along the route), `preferNear` (a distance along the route, optional)
 - Output: match
 
@@ -220,7 +215,20 @@ A route with zero length (a single point, or points at the same position) is one
 
 ### Guidance
 
-- Function: `getGuidance`
+```
+Guidance
+    target: coordinate
+    remainingDistance: Distance
+    offRoute: Distance
+    arrived: boolean
+    remainingRoute: list of path points
+    remainingElevationGain: Distance
+    remainingElevationLoss: Distance, zero or negative
+    progress: Float (0 to 1)
+    effortProgress: Float (0 to 1)
+```
+
+- Private function: `getGuidance`
 - Inputs: `location`, `match`, `tolerance: Distance`
 - Output: guidance
 
@@ -268,9 +276,9 @@ return Guidance(target = getTarget(location, match), remainingDistance, offRoute
 
 Elevation gain and loss are summed between consecutive route points (increases are gain, decreases are loss, which is negative), and interpolated within the matched segment. For this sum only, a point without an elevation takes the previous point's elevation, and leading points without one take the first known elevation (all 0 if none are known), as in `HikingService.getElevations`. The elevation at the matched position is the endpoint's if exactly at a segment endpoint, otherwise interpolated between the segment's endpoints (absent if either is absent).
 
-### Target
+#### Target
 
-- Function: `getTarget`
+- Private function: `getTarget`
 - Inputs: `location`, `match`
 - Output: the coordinate the user should head toward
 
@@ -295,9 +303,9 @@ for corner in findCorners(route) between match.distanceAlong (exclusive) and loo
 return point on the route at min(lookahead, routeLength)
 ```
 
-### Corners
+##### Corners
 
-- Function: `findCorners`
+- Private function: `findCorners`
 - Inputs: `route`
 - Output: list of route points, one per corner
 
@@ -315,7 +323,7 @@ sharpPoints = route points with turn >= CORNER_TURN_DEGREES, in route order
 groups = []
 
 for point in sharpPoints
-    if groups is not empty and point.distanceAlong - previousSharpPoint.distanceAlong <= CORNER_CHORD_METERS
+    if groups is not empty and point.distanceAlong - previous sharp point's distanceAlong <= CORNER_CHORD_METERS
         add point to last group
     else
         add new group containing point
