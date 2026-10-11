@@ -7,43 +7,72 @@ import org.junit.jupiter.api.Test
 class RouteGeometryTest {
     private fun meters(east: Double, north: Double) = Coordinate(north / METERS_PER_DEGREE, east / METERS_PER_DEGREE)
 
-    // Parallel legs 10, 9.5 and 8.8 m north of the origin, joined by long connecting segments
+    // Parallel legs 10 and 9.5 m north of the origin, joined by a long connecting segment
     private val geometry = RouteGeometry(
         listOf(
             meters(-50.0, 10.0),
             meters(50.0, 10.0),
             meters(50.0, 9.5),
-            meters(-50.0, 9.5),
-            meters(-50.0, 8.8),
-            meters(50.0, 8.8)
+            meters(-50.0, 9.5)
         )
     )
 
     @Test
-    fun `the match within tolerance of the closest that is nearest the preferred distance is used`() {
+    fun `a similarly close match nearest the estimated distance is used`() {
         val origin = meters(0.0, 0.0)
 
-        val nearStart = geometry.findClosestInRange(origin, 0f, geometry.length, preferNear = 0f)
-        val nearEnd = geometry.findClosestInRange(origin, 0f, geometry.length, preferNear = geometry.length)
+        val nearStart = geometry.getOptimalLocationMatch(origin, 0f, geometry.length, 0f)
+        val nearEnd = geometry.getOptimalLocationMatch(origin, 0f, geometry.length, geometry.length)
 
-        assertEquals(2, nearStart.segment)
-        assertEquals(4, nearEnd.segment)
+        assertEquals(0, nearStart.segment)
+        assertEquals(2, nearEnd.segment)
     }
 
     @Test
-    fun `a closer match is used even when it is far from the preferred distance`() {
+    fun `a closer match is used even when it is far from the estimated distance`() {
         val closerFirst = RouteGeometry(listOf(meters(-50.0, 10.0), meters(50.0, 10.0), meters(50.0, 40.0)))
 
-        val match = closerFirst.findClosestInRange(meters(0.0, 0.0), 0f, closerFirst.length, preferNear = closerFirst.length)
+        val match = closerFirst.getOptimalLocationMatch(meters(0.0, 0.0), 0f, closerFirst.length, closerFirst.length)
 
         assertEquals(0, match.segment)
     }
 
     @Test
-    fun `the latest match within tolerance of the closest is used when there is no preferred distance`() {
-        val match = geometry.findClosestInRange(meters(0.0, 0.0), 0f, geometry.length)
+    fun `the match nearest the estimated distance is used when equally close`() {
+        val outAndBack = RouteGeometry(listOf(meters(-50.0, 10.0), meters(50.0, 10.0), meters(-50.0, 10.0)))
+        val origin = meters(0.0, 0.0)
 
-        assertEquals(4, match.segment)
+        val nearStart = outAndBack.getOptimalLocationMatch(origin, 0f, outAndBack.length, 0f)
+        val nearEnd = outAndBack.getOptimalLocationMatch(origin, 0f, outAndBack.length, outAndBack.length)
+
+        assertEquals(0, nearStart.segment)
+        assertEquals(1, nearEnd.segment)
+    }
+
+    @Test
+    fun `the earliest match is used when equally close and equally near the estimated distance`() {
+        val outAndBack = RouteGeometry(listOf(meters(-50.0, 10.0), meters(50.0, 10.0), meters(-50.0, 10.0)))
+
+        val match = outAndBack.getOptimalLocationMatch(meters(0.0, 0.0), 0f, outAndBack.length, outAndBack.length / 2)
+
+        assertEquals(0, match.segment)
+    }
+
+    @Test
+    fun `a much closer match is used however far it is from the estimated distance`() {
+        val farButClose = RouteGeometry(
+            listOf(
+                meters(-50.0, 40.0),
+                meters(50.0, 40.0),
+                meters(5000.0, 40.0),
+                meters(5000.0, -5.0),
+                meters(-50.0, -5.0)
+            )
+        )
+
+        val match = farButClose.getOptimalLocationMatch(meters(0.0, 0.0), 0f, farButClose.length, 0f)
+
+        assertEquals(3, match.segment)
     }
 
     private companion object {

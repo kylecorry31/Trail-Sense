@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Assertions.assertSame
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import java.time.Clock
+import java.time.Instant
+import java.time.ZoneId
 
 class PathRouteTest {
     private val points = listOf(
@@ -578,5 +581,46 @@ class PathRouteTest {
         val guidance = route.navigate(Coordinate(0.0005, 0.00031), accuracy)
 
         assertTrue(guidance.progress > 0.5f)
+    }
+
+    private class TestClock : Clock() {
+        private var now = Instant.EPOCH
+
+        fun advance(seconds: Long) {
+            now = now.plusSeconds(seconds)
+        }
+
+        override fun getZone(): ZoneId = ZoneId.of("UTC")
+        override fun withZone(zone: ZoneId?): Clock = this
+        override fun instant(): Instant = now
+    }
+
+    private fun meters(east: Double, north: Double) = Coordinate(north / 111_195.0, east / 111_195.0)
+
+    // A hairpin: 200 m east, 20 m north, then 200 m back west, which ends 20 m from the start
+    private val hairpin = listOf(meters(0.0, 0.0), meters(200.0, 0.0), meters(200.0, 20.0), meters(0.0, 20.0))
+
+    @Test
+    fun `a long gap between locations searches as far as a hiker could have walked`() {
+        val clock = TestClock()
+        val route = PathRoute(hairpin.mapIndexed { index, it -> PathPoint(index.toLong(), 1, it, 0f) }, clock)
+        route.navigate(hairpin.first())
+
+        clock.advance(210)
+        val guidance = route.navigate(hairpin.last())
+
+        assertTrue(guidance.progress > 0.9f)
+    }
+
+    @Test
+    fun `a short gap between locations does not search as far as a hiker could have walked`() {
+        val clock = TestClock()
+        val route = PathRoute(hairpin.mapIndexed { index, it -> PathPoint(index.toLong(), 1, it, 0f) }, clock)
+        route.navigate(hairpin.first())
+
+        clock.advance(1)
+        val guidance = route.navigate(hairpin.last())
+
+        assertTrue(guidance.progress < 0.1f)
     }
 }

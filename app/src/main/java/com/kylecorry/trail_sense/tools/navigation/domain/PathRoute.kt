@@ -5,11 +5,17 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
+import java.time.Clock
+import java.time.Duration
+import java.time.Instant
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-class PathRoute(private val pathPoints: List<PathPoint>) {
+class PathRoute(
+    private val pathPoints: List<PathPoint>,
+    private val clock: Clock = Clock.systemUTC()
+) {
     private val points = pathPoints.map { it.coordinate }
 
     init {
@@ -28,6 +34,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     private var previousProgress: Float = 0f
     private var previousLocation: Coordinate? = null
     private var previousGuidance: Guidance? = null
+    private var previousTime: Instant? = null
     private var pendingRejoin: Float? = null
     private var reachedCorner: Float = Float.NEGATIVE_INFINITY
     var onProgressChanged: ((progress: Float, location: Coordinate) -> Unit)? = null
@@ -36,6 +43,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
     fun restoreProgress(progress: Float, location: Coordinate) {
         previousProgress = progress.coerceIn(0f, 1f)
         previousLocation = location
+        previousTime = null
         previousGuidance = null
         pendingRejoin = null
         reachedCorner = Float.NEGATIVE_INFINITY
@@ -47,10 +55,12 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         if (cached != null && location == previousLocation) {
             return cached
         }
+        val currentTime = Instant.now(clock)
         val tolerance = (accuracy?.meters()?.value ?: 0f)
             .coerceIn(MIN_TOLERANCE_METERS, MAX_TOLERANCE_METERS)
-        val match = matchLocation(location, tolerance)
+        val match = matchLocation(location, tolerance, currentTime)
         val guidance = getGuidance(location, match, tolerance)
+        previousTime = currentTime
         previousProgress = guidance.progress
         previousLocation = location
         previousGuidance = guidance
@@ -170,28 +180,39 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
         return geometry.pointAt(lookahead)
     }
 
-    // Matches the location to the route. This only considers the part of the route near the
-    // previous progress (the start of the route for the first location), so overlapping or nearby
-    // parts of the route can't steal the match.
-    private fun matchLocation(location: Coordinate, tolerance: Float): RouteProjection {
+    // Matches the location to the route. This only considers the part of the route the user could
+    // have traveled to since the previous progress (the start of the route for the first location),
+    // so overlapping or nearby parts of the route can't steal the match. That is as far as the user
+    // moved or a typical hiker would have walked since the last location, whichever is further, so
+    // a gap in locations doesn't leave the user's position outside of it. The estimated distance,
+    // how far the user moved from the previous progress, breaks ties between parts of the route
+    // that are equally close.
+    private fun matchLocation(location: Coordinate, tolerance: Float, currentTime: Instant): RouteProjection {
         val movement = previousLocation?.distanceTo(location, highAccuracy = false) ?: 0f
-        val previousDistance = previousProgress * length
-        val nearby = geometry.findClosestInRange(
+        val lastDistance = previousProgress * length
+        val seconds = previousTime?.let { Duration.between(it, currentTime).toMillis() / 1000f } ?: 0f
+        val hikingDistance = NORMAL_HIKING_SPEED_METERS_PER_SECOND * seconds
+        val estimatedDistance = lastDistance + movement
+        val possibleTravelDistance = max(movement + tolerance, hikingDistance)
+        val nearby = geometry.getOptimalLocationMatch(
             location,
-            previousDistance - movement - tolerance,
-            previousDistance + movement + tolerance
+            lastDistance - possibleTravelDistance,
+            lastDistance + possibleTravelDistance,
+            estimatedDistance
         )
-        return rejoinRoute(location, nearby, movement, tolerance)
+        return rejoinRoute(location, nearby, lastDistance, estimatedDistance, movement, tolerance)
     }
 
     // If the nearby match is much worse than somewhere else on the route (ex. the user took a
     // shortcut), the user has rejoined the route elsewhere. Where parts of the route overlap
-    // (ex. the start and end of a loop), the one nearest the previous progress is used so the user
+    // (ex. the start and end of a loop), the one nearest the estimated distance is used so the user
     // isn't sent far away, and jumping back along the route counts against the other match. The
     // new position must be seen twice in a row so a single GPS outlier can't move the progress.
     private fun rejoinRoute(
         location: Coordinate,
         nearby: RouteProjection,
+        lastDistance: Float,
+        estimatedDistance: Float,
         movement: Float,
         tolerance: Float
     ): RouteProjection {
@@ -200,9 +221,8 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
             pendingRejoin = null
             return nearby
         }
-        val previousDistance = previousProgress * length
-        val anywhere = geometry.findClosestInRange(location, 0f, length, preferNear = previousDistance)
-        val progressLost = max(previousDistance - anywhere.distance, 0f)
+        val anywhere = geometry.getOptimalLocationMatch(location, 0f, length, estimatedDistance)
+        val progressLost = max(lastDistance - anywhere.distance, 0f)
         if (anywhere.offset + progressLost >= nearby.offset - rejoinMargin) {
             pendingRejoin = null
             return nearby
@@ -230,6 +250,7 @@ class PathRoute(private val pathPoints: List<PathPoint>) {
 
     private companion object {
         const val FORWARD_PROGRESS_MULTIPLIER = 2f
+        const val NORMAL_HIKING_SPEED_METERS_PER_SECOND = 2f
         const val ARRIVED_RADIUS_MULTIPLIER = 2f
         const val MIN_TOLERANCE_METERS = 15f
         const val MAX_TOLERANCE_METERS = 75f

@@ -21,7 +21,6 @@ Terms:
 | `MAX_TOLERANCE_METERS` | 75 m | largest location tolerance |
 | `MAX_REJOIN_MARGIN_METERS` | 30 m | cap on how close to the route counts as on it |
 | `FORWARD_PROGRESS_MULTIPLIER` | 2 | weight of the movement between locations when confirming a rejoin |
-| `MATCH_TOLERANCE_METERS` | 1 m | offsets this close to the smallest are treated as equally close |
 | `ARRIVED_RADIUS_MULTIPLIER` | 2 | arrival radius, as a multiple of the tolerance, once arrived |
 | `SNAPPED_POINT_MIN_OFFSET_METERS` | 1 m | smallest offset that adds the projection to the remaining route |
 | `OFF_ROUTE_DISTANCE_METERS` | 30 m | offset beyond which the target is the projection onto the route |
@@ -31,6 +30,9 @@ Terms:
 | `CORNER_CHORD_METERS` | 15 m | distance before and after a point used to measure its turn, and largest gap between sharp points in the same corner |
 | `MIN_CORNER_CHORD_METERS` | 3 m | shortest before or after distance for a turn to be measured |
 | `CORNER_TURN_DEGREES` | 35 degrees | smallest turn that is a corner |
+| `ESTIMATE_DISTANCE_WEIGHT` | 0.01 | meters of offset that each meter between a match and the estimated distance costs, so the estimate only decides between matches that are about equally close |
+| `MAX_ESTIMATE_DISTANCE_PENALTY_METERS` | 5 m | most that being far from the estimated distance can add to a match's cost, so a far-off match that is clearly closer to the location still wins |
+| `NORMAL_HIKING_SPEED` | 2 m/s | typical hiking speed used for estimating distance over time |
 
 ## Routing
 
@@ -117,6 +119,7 @@ previousLocation = none
 previousGuidance = none
 pendingRejoin = none
 reachedCorner = -infinity
+previousTime = none
 ```
 
 ### Navigate
@@ -129,10 +132,12 @@ reachedCorner = -infinity
 if previousGuidance exists and location is previousLocation
     return previousGuidance
 
+currentTime = now()
 tolerance = clamp(accuracy if not null, otherwise 0 m, MIN_TOLERANCE_METERS, MAX_TOLERANCE_METERS)
-match = matchLocation(location, tolerance)
+match = matchLocation(location, tolerance, currentTime)
 guidance = getGuidance(location, match, tolerance)
 
+previousTime = currentTime
 previousLocation = location
 previousGuidance = guidance
 previousProgress = guidance.progress
@@ -153,20 +158,24 @@ previousLocation = location
 previousGuidance = none
 pendingRejoin = none
 reachedCorner = -infinity
+previousTime = none
 ```
 
 ### Location matching
 
 - Private function: `matchLocation`
-- Inputs: `location`, `tolerance: Distance`
+- Inputs: `location`, `tolerance: Distance`, `currentTime: Instant`
 - Output: match (the projection onto the route, with its `distanceAlong` and `offset`)
 
 ```
 movement = distance(previousLocation, location), or 0 if there is no previousLocation
-center = previousProgress * routeLength
-range = [center - (movement + tolerance), center + (movement + tolerance)]
+lastDistance = previousProgress * routeLength
+dt = currentTime - previousTime if previousTime exists, otherwise 0
+estimatedDistance = lastDistance + movement
+possibleTravelDistance = max(movement + tolerance, NORMAL_HIKING_SPEED * dt)
+range = [lastDistance - possibleTravelDistance, lastDistance + possibleTravelDistance]
 
-nearby = findClosestInRange(location, range)
+nearby = getOptimalLocationMatch(location, range, estimatedDistance)
 
 rejoinMargin = min(tolerance, MAX_REJOIN_MARGIN_METERS)
 
@@ -174,8 +183,8 @@ if nearby.offset <= rejoinMargin
     pendingRejoin = none
     return nearby
 
-anywhere = findClosestInRange(location, [0, routeLength], preferNear = center)
-progressLost = max(center - anywhere.distanceAlong, 0)
+anywhere = getOptimalLocationMatch(location, [0, routeLength], estimatedDistance)
+progressLost = max(lastDistance - anywhere.distanceAlong, 0)
 
 if anywhere.offset + progressLost >= nearby.offset - rejoinMargin
     pendingRejoin = none
@@ -191,8 +200,8 @@ return nearby
 
 #### Closest in range
 
-- Internal function: `findClosestInRange`
-- Inputs: `location`, `range` (distances along the route), `preferNear` (a distance along the route, optional)
+- Internal function: `getOptimalLocationMatch`
+- Inputs: `location`, `range` (distances along the route), `estimatedDistance` (a distance along the route)
 - Output: match
 
 ```
@@ -202,13 +211,8 @@ if projections is empty
     position = clamp(range start, 0, routeLength)
     return position with offset = distance(location, point at position)
 
-closestOffset = smallest offset of projections
-closest = projections within MATCH_TOLERANCE_METERS of closestOffset
-
-if preferNear is set
-    return the projection of closest whose distanceAlong is nearest to preferNear (the earliest if tied)
-
-return the furthest along the route of closest (projections are ordered by segment index, so further along means later in the route)
+costs = [projection offset + min(ESTIMATE_DISTANCE_WEIGHT * |projection distanceAlong - estimatedDistance|, MAX_ESTIMATE_DISTANCE_PENALTY_METERS) for each projection]
+return the projection with the smallest cost, earliest if tied
 ```
 
 A route with zero length (a single point, or points at the same position) is one zero length segment: it always matches position 0 with the offset measured to the first point, and the remaining route includes the points after the first (the point itself if there is only one).

@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlin.math.PI
 import kotlin.math.abs
+import kotlin.math.min
 
 /**
  * A point on the route closest to a location.
@@ -47,25 +48,29 @@ internal class RouteGeometry(points: List<Coordinate>) {
 
     /**
      * Finds the closest point on the route to the location, only considering the part of the route
-     * between [minDistance] and [maxDistance]. Candidates almost as close as the closest one are
-     * considered equally good. Of them, the one nearest to [preferNear] along the route is used
-     * (the earliest if tied), or the furthest along the route if it is not set. If there is no
-     * segment in that range, the start of the range is returned.
+     * between [minDistance] and [maxDistance]. Each candidate costs its offset plus a small penalty
+     * for its distance along the route from [estimatedDistance] (capped, so a far away candidate
+     * that is clearly closer still wins), so the estimate only decides between candidates that are
+     * about equally close. The lowest cost is used (the earliest if
+     * tied). If there is no segment in that range, the start of the range is returned.
      */
-    fun findClosestInRange(
+    fun getOptimalLocationMatch(
         location: Coordinate,
         minDistance: Float,
         maxDistance: Float,
-        preferNear: Float? = null
+        estimatedDistance: Float
     ): RouteProjection {
         val plane = LocalPlane(location)
         val projections = (segmentContaining(minDistance)..segmentContaining(maxDistance))
             .mapNotNull { projectOnto(it, plane, minDistance, maxDistance) }
         if (projections.isEmpty()) return projectionAt(location, minDistance)
 
-        val closestOffset = projections.minOf { it.offset }
-        val closest = projections.filter { it.offset <= closestOffset + MATCH_TOLERANCE_METERS }
-        return if (preferNear == null) closest.last() else closest.minBy { abs(it.distance - preferNear) }
+        return projections.minBy {
+            it.offset + min(
+                ESTIMATE_DISTANCE_WEIGHT * abs(it.distance - estimatedDistance),
+                MAX_ESTIMATE_DISTANCE_PENALTY_METERS
+            )
+        }
     }
 
     fun coordinateOf(projection: RouteProjection): Coordinate {
@@ -211,7 +216,8 @@ internal class RouteGeometry(points: List<Coordinate>) {
 
     private companion object {
         const val METERS_PER_DEGREE: Double = Geology.EARTH_AVERAGE_RADIUS * PI / 180.0
-        const val MATCH_TOLERANCE_METERS = 1f
+        const val ESTIMATE_DISTANCE_WEIGHT = 0.01f
+        const val MAX_ESTIMATE_DISTANCE_PENALTY_METERS = 5f
         const val CORNER_CHORD_METERS = 15f
         const val MIN_CORNER_CHORD_METERS = 3f
         const val CORNER_TURN_DEGREES = 35f
