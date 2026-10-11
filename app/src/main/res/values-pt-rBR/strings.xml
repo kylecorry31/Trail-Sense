@@ -762,7 +762,6 @@
     <string name="low_tide_letter">B</string>
     <string name="hard">Difícil</string>
     <string name="simplifying">Simplificando</string>
-    <string name="simplification_quality">Qualidade de simplificação</string>
     <string name="gps_unavailable">GPS indisponível</string>
     <string name="gps_timeouts">Intervalos no GPS</string>
     <string name="qr_code_scanner">Leitor de código QR</string>
@@ -1108,7 +1107,6 @@
     <string name="visible">Visível</string>
     <string name="ar_layer_override_message">As configurações de camada podem ser substituídas por orientações, como o guia Astronomia.</string>
     <string name="ar_calibration_disclaimer">Antes de cada uso da ferramenta de Realidade Aumentada, verifique se os ícones de sol ou lua estão alinhados corretamente com o mundo real. Caso contrário, toque no ícone da bússola no canto superior esquerdo da tela e siga as instruções para calibrar.</string>
-    <string name="forecast_algorithm">Algoritmo de previsão</string>
     <string name="no_sensor_unable_to_fix">Não, infelizmente essa é uma função de hardware, portanto não há nada que possa ser feito para adicioná-lo.</string>
     <string name="true_north_description">Aponta para o \"Pólo Norte\" geográfico usando a declinação da sua localização. Isso se alinhará com a maioria dos mapas.</string>
     <string name="missing_sensor_explanation">Alguns fabricantes de telefones optam por não adicionar esse sensor, mesmo em dispositivos novos ou caros. Para obter mais informações, visite o site do fabricante do seu dispositivo ou entre em contato com ele.</string>

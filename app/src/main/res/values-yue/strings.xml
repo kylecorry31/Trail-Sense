@@ -247,7 +247,6 @@
     <string name="append_onto">追加落去</string>
     <string name="simplify">簡化</string>
     <string name="simplifying">簡化緊</string>
-    <string name="simplification_quality">簡化品質</string>
     <string name="pref_auto_simplify_paths_title">匯入時簡化路徑</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">用大細聲掣去鎖定</string>
     <string name="height">高度</string>
@@ -1030,7 +1029,6 @@
     <string name="reduce_photo_resolution">降低相片解像度</string>
     <string name="reduce_pdf_resolution">降低 PDF 解像度</string>
     <string name="bottom_navigation_slot">樓底分頁第 %d 格</string>
-    <string name="forecast_algorithm">預測演算法</string>
     <string name="quick_actions_are_unavailable">快速動作欠奉</string>
     <string name="compass_dynamic_colors">羅經融入調和色水大局</string>
     <string name="compass_dynamic_colors_summary">東南西北都要用返系統嘅調和色水</string>

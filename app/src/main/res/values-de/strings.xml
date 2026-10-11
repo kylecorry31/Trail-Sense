@@ -737,7 +737,6 @@
     <string name="merge">Zusammenführen</string>
     <string name="simplify">Vereinfachen</string>
     <string name="simplifying">Vereinfachung</string>
-    <string name="simplification_quality">Vereinfachungsqualität</string>
     <string name="saving">Speichert</string>
     <string name="map_projection_equidistant">Längentreue Kegelprojektion</string>
     <string name="reduce_map_resolution">Kartenauflösung reduzieren</string>
@@ -1063,7 +1062,6 @@
     <string name="auto_backup_instructions">Einmal am Tag wird eine Sicherung nach %1$s erstellt. Es werden nur die letzten %2$d Backups aufbewahrt.</string>
     <string name="backup_failed">Sicherung fehlgeschlagen</string>
     <string name="widgets">Widgets</string>
-    <string name="forecast_algorithm">Vorhersage Algorithmus</string>
     <string name="on_import">Beim Import</string>
     <string name="books">Bücher</string>
     <string name="no_items_found">Keine Gegenstände gefunden</string>

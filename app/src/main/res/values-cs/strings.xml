@@ -876,7 +876,6 @@
     <string name="tool_temperature_estimation_title">Odhad teploty</string>
     <string name="step_length_walk">Jděte v přímé linii, až budete hotovi, stiskněte stop</string>
     <string name="simplifying">Zjednodušuji</string>
-    <string name="simplification_quality">Kvalita zjednodušení</string>
     <string name="tide_deleted">Příliv/odliv odstraněn</string>
     <string name="measure">Měřit</string>
     <string name="path_color">Barva cesty</string>
@@ -1161,7 +1160,6 @@
     <string name="quick_actions_are_unavailable">Rychlé akce jsou nedostupné</string>
     <string name="bottom_navigation_slot">Místo spodní navigace %d</string>
     <string name="tool_quick_action_summary">Dlouze stiskněte spodní navigaci nebo zobrazení na kartě nástrojů.</string>
-    <string name="forecast_algorithm">Algoritmus předpovědi</string>
     <string name="exported">Exportováno</string>
     <string name="no_items_found">Nenalezeny žádné položky</string>
     <string name="enter_the_current_pressure">Zadejte aktuální tlak</string>

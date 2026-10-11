@@ -897,7 +897,6 @@
     <string name="accelerometer">Επιταχυνσιόμετρο</string>
     <string name="direction_not_set">Δεν ορίστηκε διόπτευση</string>
     <string name="direction">Διόπτευση</string>
-    <string name="simplification_quality">Βαθμίδα απλοποίησης</string>
     <string name="simplifying">Γίνεται απλοποίηση</string>
     <string name="pref_auto_simplify_paths_title">Απλοποίηση διαδρομών κατά την εισαγωγή</string>
     <string name="change_map_projection">Επιλογή προβολής</string>

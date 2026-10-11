@@ -739,7 +739,6 @@
     <string name="merging">正在合併</string>
     <string name="append_onto">附加至</string>
     <string name="simplifying">正在簡化</string>
-    <string name="simplification_quality">簡化品質</string>
     <string name="duration_of_charge">充電時間</string>
     <string name="no_clouds">沒有雲</string>
     <string name="precipitation_none">沒有降雨</string>
@@ -1125,7 +1124,6 @@
     <string name="tool_quick_action_summary">長按底部導航或於工具分頁上檢視。</string>
     <string name="bottom_navigation_slot">底部導航欄 %d</string>
     <string name="quick_actions_are_unavailable">快捷動作不能使用</string>
-    <string name="forecast_algorithm">預報演算法</string>
     <string name="sunrise_alert_notification_title">太陽很快就要升起</string>
     <string name="sunrise_alerts">日出警報</string>
     <string name="pref_sunrise_alert_time_title">日出警報時間</string>

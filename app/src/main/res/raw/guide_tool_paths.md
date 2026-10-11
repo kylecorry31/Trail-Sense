@@ -68,6 +68,8 @@ Paths can be simplified to reduce the number of points in the path. This can be 
 
 To simplify a path, open the path and tap the menu button in the top-right corner of the screen. Select 'Simplify path' and choose the desired simplification quality. High quality means fewer points will be removed, while low quality means more points will be removed.
 
+A preview shows the original path in transparent gray and the simplified path in the path's color, along with the number of points that will be removed. Tap OK to apply the simplification.
+
 Once the path has been simplified, it is not possible to undo the simplification.
 
 You can choose to automatically simplify paths imported from a GPX file by enabling Settings > Paths > 'Simplify paths on import'.
@@ -78,10 +80,10 @@ To replace all elevations on a path using the digital elevation model (DEM), ope
 ## Navigate with a path
 To navigate with a path, open it and tap the 'Navigate' button at the bottom. You will be prompted to choose how you want to follow the path:
 
-- **Follow to end**: Follow the path from your nearest point on it to its end.
-- **Follow to start**: Follow the path from your nearest point on it to its start.
-- **Follow full loop**: Follow the entire loop from your nearest point on it to its end. This option is only available for loop paths.
-- **Follow full loop in reverse**: Follow the entire loop from your nearest point on it to its start. This option is only available for loop paths.
+- **Follow to end**: Follow the path from your nearest point on it to its end, taking the shortest route.
+- **Follow to start**: Follow the path from your nearest point on it to its start, taking the shortest route.
+- **Follow full loop**: Follow the path from your nearest point on it to its end, even if the start is closer. This option is only available for loop paths.
+- **Follow full loop in reverse**: The same as following the full loop, but from your nearest point on the path to its start.
 - **Navigate back onto path**: Navigate to the nearest point on the path without following it. By default, this targets a recorded waypoint. To navigate to any position along the path, disable Settings > Paths > 'Only navigate to recorded points'.
 
 To navigate to a specific point on the path, select the desired waypoint and use its menu to choose 'Navigate'. You will be prompted to choose how you want to navigate there:
@@ -89,7 +91,7 @@ To navigate to a specific point on the path, select the desired waypoint and use
 - **Follow path to this point**: Follow the path from your nearest point on it to the selected waypoint.
 - **Navigate directly**: Navigate straight to the selected waypoint without following the path.
 
-Once you have chosen a navigation option, you will be taken to the Navigation tool and it will point you toward the next point on the path. The distance, elevation gain/loss, and ETA will be displayed.
+Once you have chosen a navigation option, you will be taken to the Navigation tool and it will point you toward the next point on the path. The distance, elevation gain/loss, and ETA will be displayed, along with a progress bar showing how far along the path you are.
 
 ## Path visibility
 You can choose which paths are visible on maps by tapping the eye icon on the right side of the path row. They will show up on maps that have the Paths layer enabled.

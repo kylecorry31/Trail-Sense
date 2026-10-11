@@ -743,7 +743,6 @@
     <string name="merging">Злиття</string>
     <string name="merge">Злити</string>
     <string name="append_onto">Додати до</string>
-    <string name="simplification_quality">Якість спрощення</string>
     <string name="pref_auto_simplify_paths_title">Спростити шляхи при імпорті</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d шляхову точку видалено</item>
@@ -1163,7 +1162,6 @@
     <string name="crafting">Майстрування</string>
     <string name="quick_actions">Швидкі дії</string>
     <string name="layers">Шари</string>
-    <string name="forecast_algorithm">Алгоритм прогнозування</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Регулювання яскравості екранного ліхтарика за допомогою кнопок гучності</string>
     <string name="theme_system_black">Системна (чорна)</string>
     <string name="pref_start_camera_in_3d_view_title">Використовувати камеру для 3D-перегляду</string>

@@ -853,7 +853,6 @@
     <string name="us_pints">Yhdysvaltain tuoppia</string>
     <string name="diagnostic_message_template">%1$s: %2$s\n\n### Vaikuttaa työkaluihin\n%3$s\n\n### Resoluutio\n%4$s</string>
     <string name="precipitation_hail">Rakeita</string>
-    <string name="simplification_quality">Yksikertaistamisen laatu</string>
     <string name="sunrise_alert_scheduled">Ilmoitus ajoitettu %s ennen aurigonnousua</string>
     <string name="triangulate_self_location_1_instructions">Valitse tunnettu kohde jonka voit nähdä, ja tallenna suunta, missä itse olet kohteesta katsottuna.</string>
     <string name="augmented_reality">Paranneltu todellisuus</string>
@@ -1094,7 +1093,6 @@
         <item quantity="one">%d askel</item>
         <item quantity="other">%d askelta</item>
     </plurals>
-    <string name="forecast_algorithm">Sääennustealgoritmi</string>
     <string name="barometer_offset">Barometrin poikkeama</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Säädä näyttötaskulampun kirkkautta äänenvoimakkuuden painikkeilla</string>
     <string name="shelter">Suoja ja vaatetus</string>

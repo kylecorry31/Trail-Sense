@@ -130,7 +130,7 @@ object Licenses {
                 "mgorny",
                 "Kapral67",
                 "TomasCartman",
-                "ARtHryDr",
+                "xmbhasin",
                 "yamin8000",
                 "darrencoen",
                 "dependabot[bot]",
@@ -145,6 +145,7 @@ object Licenses {
                 "jacoii",
                 "zaioti",
                 "btsmartx",
+                "ARtHryDr",
                 "Abdulkarim28",
                 "Ajay-S-Biradar",
                 "Akamar",
@@ -152,6 +153,7 @@ object Licenses {
                 "realgooseman",
                 "CgtyC",
                 "CanUCMeSharp",
+                "Copilot",
                 "E440QF",
                 "EnderPicture",
                 "Estebastien",
@@ -170,8 +172,7 @@ object Licenses {
                 "LightFOSS",
                 "grntcr",
                 "Luiz-bro",
-                "BatuAtlas",
-                "xmbhasin"
+                "BatuAtlas"
             )
             "${
                 mit(

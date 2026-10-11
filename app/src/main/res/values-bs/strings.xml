@@ -892,7 +892,6 @@
     <string name="autofill">Automatsko punjenje</string>
     <string name="season_winter">Zima</string>
     <string name="precipitation_hail">Grad</string>
-    <string name="simplification_quality">Kvalitet pojednostavljenja</string>
     <string name="pref_auto_simplify_paths_title">Pojednostavite putanje pri uvozu</string>
     <string name="saving">Spašavanje</string>
     <string name="instructions">Instrukcije</string>

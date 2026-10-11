@@ -738,7 +738,6 @@
     <string name="weather_monitor_disabled_resolution">Włącz monitorowanie pogody w ustawieniach pogody</string>
     <string name="error_banners">Komunikaty błędów</string>
     <string name="duration_second_format">%ds</string>
-    <string name="simplification_quality">Jakość uproszczenia</string>
     <string name="note">Notatka</string>
     <string name="open">Otwórz</string>
     <string name="beacon">Punkt nawigacyjny</string>
@@ -1110,7 +1109,6 @@
     <string name="widget_pref_title">Widżety aplikacji</string>
     <string name="quick_actions_are_unavailable">Szybkie akcje niedostępne</string>
     <string name="bottom_navigation_slot">Miejsce na pasku nawigacji: %d</string>
-    <string name="forecast_algorithm">Algorytm prognozy</string>
     <string name="no_items_found">Brak elementów</string>
     <string name="import_packing_list">Importuj listę rzeczy do spakowania</string>
     <string name="barometer_offset">Korekta barometru</string>

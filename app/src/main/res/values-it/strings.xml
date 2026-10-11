@@ -544,7 +544,6 @@
     <string name="imperial_quarts">Quarti imperiali</string>
     <string name="volume">Volume</string>
     <string name="simplifying">Semplificando</string>
-    <string name="simplification_quality">Qualità della semplificazione</string>
     <string name="map_projection_mercator">Mercatore</string>
     <string name="map_projection_equidistant">Equidistante</string>
     <string name="tide_table">Tabella delle maree</string>
@@ -1141,7 +1140,6 @@
     <string name="cloud_scanner">Scanner Nuvole</string>
     <string name="turn_back_instructions">Dietro front alle %1$s (%2$s) per tornare alle %3$s</string>
     <string name="turn_back_alerts">Avviso di dietro front</string>
-    <string name="forecast_algorithm">Algoritmo di previsione</string>
     <string name="lunitidal_interval_utc">Intervallo lunare (UTC/Greenwich)</string>
     <string name="imperial_tablespoons">Cucchiai imperiali</string>
     <string name="automatic_backup_invalid_directory">Cartella non valida</string>

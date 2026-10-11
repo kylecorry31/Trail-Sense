@@ -696,7 +696,6 @@
     <string name="append_onto">Anexar en</string>
     <string name="simplify">Simplificar</string>
     <string name="simplifying">Simplificando</string>
-    <string name="simplification_quality">Calidad de simplificación</string>
     <string name="pref_auto_simplify_paths_title">Simplificar rutas al importar</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d punto de referencia eliminado</item>
@@ -1108,7 +1107,6 @@
     <string name="turn_back_notification_description">Regresa ahora para estar a las %s</string>
     <string name="background">En segundo plano</string>
     <string name="quick_actions">Acciones rápidas</string>
-    <string name="forecast_algorithm">Algoritmo del pronóstico</string>
     <string name="turn_back_alert_set">Alerta de regreso establecida</string>
     <string name="quick_actions_are_unavailable">Las acciones rápidas no están disponibles</string>
     <string name="estimate_method">Estimación</string>

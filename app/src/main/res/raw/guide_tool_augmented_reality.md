@@ -29,7 +29,9 @@ Nearby paths are displayed below your feet. Due to GPS inaccuracy, the paths may
 
 You can choose to adjust paths using their recorded elevation by enabling Settings > Augmented Reality > 'Use path elevation'. This should make the paths line up better with hills and valleys, but is dependent on the accuracy of the elevation data.
 
-When navigating a path, the Paths layer shows the remaining route even if that saved path is hidden. The route updates as you move.
+Paths are drawn as semi-transparent ribbons on the ground. If you prefer lines with markers, change Settings > Augmented Reality > Paths > 'Appearance' to 'Line'. You can also change this from the layers panel.
+
+When navigating a path, the Paths layer shows the remaining route even if that saved path is hidden. The route updates as you move. When using the ribbon appearance, white arrows are drawn on the ribbon pointing in the direction of travel.
 
 ## Sun / moon
 The paths that the sun and moon will take today are displayed as markers on the screen. The sun's path is displayed in yellow and the moon's path is displayed in white. A larger marker is displayed at the current time, and will also show the moon phase. Times in the past are lighter.

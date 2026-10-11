@@ -683,7 +683,6 @@
     <string name="closest">Plus proche</string>
     <string name="sort_by">Trier : %s</string>
     <string name="simplifying">Simplification</string>
-    <string name="simplification_quality">Niveau de simplification</string>
     <string name="hard">Difficile</string>
     <string name="difficulty">Difficulté</string>
     <string name="waypoint">Balise</string>
@@ -1249,7 +1248,6 @@
     <string name="widget_bottom_sheet_instructions">Appuyez longuement sur la barre de navigation inférieure ou utilisez l\'action rapide Widgets.</string>
     <string name="widget_pref_title">Widgets intégrés à l\'application</string>
     <string name="bottom_navigation_slot">Emplacement de navigation inférieur %d</string>
-    <string name="forecast_algorithm">Algorithme de prévision</string>
     <string name="import_packing_list">Liste de colisage à l\'importation</string>
     <string name="barometer_offset">Décalage du baromètre</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Contrôler la luminosité de la lampe torche de l\'écran à l\'aide des boutons de volume</string>

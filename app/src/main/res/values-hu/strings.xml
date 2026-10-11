@@ -504,7 +504,6 @@
     <string name="most_recent">Legutóbbi</string>
     <string name="append_onto">Hozzáfűzés ehhez:</string>
     <string name="merging">Összevonás</string>
-    <string name="simplification_quality">Egyszerűsítés minősége</string>
     <string name="pref_auto_simplify_paths_title">Ösvények egyszerűsítése importáláskor</string>
     <string name="saving">Mentés</string>
     <string name="change_map_projection">Vetület módosítása</string>
@@ -1111,7 +1110,6 @@
     <string name="crafting">Barkácsolás</string>
     <string name="field_required">%s (kötelező)</string>
     <string name="astronomy_altitude">Magasság</string>
-    <string name="forecast_algorithm">Előrejelző algoritmus</string>
     <string name="pref_flashlight_control_screen_with_volume_title">Kijelző zseblámpa fényerejének állítása a hangerőgombokkal</string>
     <string name="compass_dynamic_colors">Iránytű dinamikus színekben</string>
     <string name="compass_dynamic_colors_summary">Dinamikus színek használata a kiemelt irányokhoz</string>

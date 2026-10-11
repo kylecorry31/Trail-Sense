@@ -821,7 +821,6 @@
     <string name="step_length_stand_still">Berdiri diam</string>
     <string name="line_style">Gaya garis</string>
     <string name="simplify">Sederhanakan</string>
-    <string name="simplification_quality">Kualitas penyederhanaan</string>
     <string name="pref_auto_simplify_paths_title">Sederhanakan jalur saat impor</string>
     <string name="clinometer_measure_distance_instructions">Untuk mengukur jarak ke target yang tingginya %s:
 \n
@@ -1167,7 +1166,6 @@
     <string name="widget_pref_title">Widget dalam aplikasi</string>
     <string name="quick_actions_are_unavailable">Tindakan cepat tidak tersedia</string>
     <string name="bottom_navigation_slot">Slot navigasi bawah %d</string>
-    <string name="forecast_algorithm">Algoritma prakiraan</string>
     <string name="no_items_found">Tidak ada item yang ditemukan</string>
     <string name="import_packing_list">Impor daftar perlengkapan</string>
     <string name="barometer_offset">Offset barometer</string>

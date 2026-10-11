@@ -729,7 +729,6 @@
     <string name="append_onto">Anexar a</string>
     <string name="simplify">Simplificar</string>
     <string name="simplifying">Simplificar</string>
-    <string name="simplification_quality">Qualidade de simplificação</string>
     <string name="pref_auto_simplify_paths_title">Simplificar percursos ao importar</string>
     <plurals name="waypoints_deleted">
         <item quantity="one">%d ponto do percurso eliminado</item>
@@ -1173,7 +1172,6 @@
     <string name="widget_pref_title">Widgets na app</string>
     <string name="quick_actions_are_unavailable">As ações rápidas não estão disponíveis</string>
     <string name="bottom_navigation_slot">Slot de navegação inferior %d</string>
-    <string name="forecast_algorithm">Algoritmo de previsão</string>
     <string name="no_items_found">Nenhum elemento encontrado</string>
     <string name="import_packing_list">Importar lista de elementos na mochila</string>
     <string name="barometer_offset">Deslocamento do barômetro</string>
