@@ -25,12 +25,14 @@ import com.kylecorry.trail_sense.tools.map.map_layers.MyElevationLayer
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceLayer
+import com.kylecorry.trail_sense.tools.paths.infrastructure.PathElevationPrefetcher
 import java.time.Instant
 
 class MapToolLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
+    private val elevationPrefetcher = PathElevationPrefetcher()
     private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
 
     var key: Int = 0
@@ -114,6 +116,8 @@ class MapToolLayerManager {
     // Distance measurement
 
     private fun onDistancePathChange(points: List<Coordinate>) {
+        elevationPrefetcher.update(points)
+
         // Display distance
         val distance = Geography.getPathDistance(points)
         onDistanceChangedCallback?.invoke(distance)
@@ -134,6 +138,10 @@ class MapToolLayerManager {
 
     fun getDistanceMeasurementPoints(): List<Coordinate> {
         return distanceLayer.getPoints()
+    }
+
+    fun getDistanceMeasurementElevations(): Map<Coordinate, Float> {
+        return elevationPrefetcher.getElevations()
     }
 
     fun startDistanceMeasurement(initialPoints: Array<Coordinate>) {

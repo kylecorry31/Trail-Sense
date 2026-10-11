@@ -1323,6 +1323,7 @@
     <!-- As in "a preliminary sketch, outline, or version". Used for maps which aren't fully calibrated. -->
     <string name="draft">Draft</string>
     <string name="loading">Loading</string>
+    <string name="skip_elevations">Skip elevations</string>
     <!--    Unable to find the next astronomy event (ex. solar eclipse)-->
     <string name="unable_to_find_next_astronomy">Unable to find next %s</string>
     <!--    The action of printing a document/map-->

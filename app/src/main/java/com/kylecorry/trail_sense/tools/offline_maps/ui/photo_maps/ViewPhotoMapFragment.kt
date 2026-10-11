@@ -34,6 +34,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
@@ -54,6 +55,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlin.math.roundToInt
@@ -302,14 +304,20 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.distanceSheet.createPathListener = {
             inBackground {
                 map?.let {
-                    val id = Alerts.withLoading(
+                    val skipElevations = AtomicBoolean(false)
+                    var id = 0L
+                    Alerts.withCancelableLoading(
                         requireContext(),
-                        getString(R.string.loading)
+                        getString(R.string.loading),
+                        cancelText = getString(R.string.skip_elevations),
+                        onCancel = { skipElevations.set(true) }
                     ) {
-                        CreatePathCommand(
+                        id = CreatePathCommand(
                             pathService,
                             prefs.navigation,
-                            it.name
+                            it.name,
+                            layerManager.getDistanceMeasurementElevations(),
+                            skipElevations::get
                         ).execute(layerManager.getDistanceMeasurementPoints())
                     }
 

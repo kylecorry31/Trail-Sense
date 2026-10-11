@@ -40,6 +40,7 @@ import com.kylecorry.trail_sense.shared.extensions.useIntPreference
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
@@ -59,6 +60,7 @@ import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceShe
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import java.time.Instant
+import java.util.concurrent.atomic.AtomicBoolean
 
 class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
     override fun update() {
@@ -233,14 +235,20 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 }
                 mapDistanceSheetView.createPathListener = {
                     inBackground {
-                        val id = Alerts.withLoading(
+                        val skipElevations = AtomicBoolean(false)
+                        var id = 0L
+                        Alerts.withCancelableLoading(
                             requireContext(),
-                            getString(R.string.loading)
+                            getString(R.string.loading),
+                            cancelText = getString(R.string.skip_elevations),
+                            onCancel = { skipElevations.set(true) }
                         ) {
-                            CreatePathCommand(
+                            id = CreatePathCommand(
                                 pathService,
                                 prefs.navigation,
-                                null
+                                null,
+                                manager.getDistanceMeasurementElevations(),
+                                skipElevations::get
                             ).execute(manager.getDistanceMeasurementPoints())
                         }
 
