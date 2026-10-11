@@ -35,7 +35,7 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         cache,
         context.getString(R.string.pref_navigation_compass_update_frequency),
         CompassUpdateFrequency.entries.associateBy { it.id },
-        CompassUpdateFrequency.Normal
+        CompassUpdateFrequency.Fast
     )
 
     private var _showCalibrationOnNavigateDialog by BooleanPreference(

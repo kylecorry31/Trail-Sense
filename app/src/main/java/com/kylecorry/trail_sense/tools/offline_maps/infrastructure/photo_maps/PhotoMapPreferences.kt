@@ -15,7 +15,7 @@ class PhotoMapPreferences(context: Context) : PreferenceRepo(context) {
         cache,
         context.getString(R.string.pref_photo_maps_compass_update_frequency),
         CompassUpdateFrequency.entries.associateBy { it.id },
-        CompassUpdateFrequency.Normal
+        CompassUpdateFrequency.Fast
     )
 
     val autoReducePhotoMaps by BooleanPreference(

@@ -13,7 +13,7 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
         cache,
         context.getString(R.string.pref_map_compass_update_frequency),
         CompassUpdateFrequency.entries.associateBy { it.id },
-        CompassUpdateFrequency.Normal
+        CompassUpdateFrequency.Fast
     )
 
     val keepScreenUnlockedWhileOpen by BooleanPreference(
