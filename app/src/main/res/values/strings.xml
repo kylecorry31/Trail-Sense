@@ -1080,7 +1080,7 @@
     <string name="append_onto">Append onto</string>
     <string name="simplify">Simplify</string>
     <string name="simplifying">Simplifying</string>
-    <string name="simplification_quality">Simplification quality</string>
+    <string name="quality">Quality</string>
     <string name="pref_auto_simplify_paths" translatable="false">pref_auto_simplify_paths</string>
     <string name="pref_auto_simplify_paths_title">Simplify paths on import</string>
     <string name="saving">Saving</string>

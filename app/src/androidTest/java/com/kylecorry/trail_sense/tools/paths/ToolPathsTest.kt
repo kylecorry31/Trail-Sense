@@ -179,7 +179,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         // Simplify path
         clickListItemMenu(string(R.string.simplify))
-        click("High")
         clickOk()
 
         // Move Empty Path to Dest Group
@@ -321,17 +320,21 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 //        hasText("1")
         back()
 
-    // Replace elevations
-    click(toolbarButton(R.id.path_title, Side.Right))
-    click(string(R.string.replace_elevations))
-    hasText(string(R.string.replace_elevations_confirmation))
-    back(false)
+        // Replace elevations
+        click(toolbarButton(R.id.path_title, Side.Right))
+        click(string(R.string.replace_elevations))
+        hasText(string(R.string.replace_elevations_confirmation))
+        back(false)
 
         // Simplify
         click(toolbarButton(R.id.path_title, Side.Right))
         click("Simplify")
+        hasText("will be deleted")
+        click(R.id.simplify_quality)
         hasOptions("High", "Moderate", "Low")
-        click("High")
+        click("Low")
+        clickOk()
+        hasText(R.id.simplify_quality, "Low")
         clickOk()
 
         // Export

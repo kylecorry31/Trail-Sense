@@ -68,6 +68,8 @@ Paths can be simplified to reduce the number of points in the path. This can be 
 
 To simplify a path, open the path and tap the menu button in the top-right corner of the screen. Select 'Simplify path' and choose the desired simplification quality. High quality means fewer points will be removed, while low quality means more points will be removed.
 
+A preview shows the original path in transparent gray and the simplified path in the path's color, along with the number of points that will be removed. Tap OK to apply the simplification.
+
 Once the path has been simplified, it is not possible to undo the simplification.
 
 You can choose to automatically simplify paths imported from a GPX file by enabling Settings > Paths > 'Simplify paths on import'.

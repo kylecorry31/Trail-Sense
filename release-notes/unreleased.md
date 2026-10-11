@@ -33,3 +33,4 @@ This is currently just a running list of what is in the 8.3.0 release to make it
 - Added GPS accuracy filter to GPS settings (default to low)
 - Dropped support for Android 6
 - Fixed clock tool's GPS time on devices running Android 7, 8, and 9
+- Show preview of path simplification
