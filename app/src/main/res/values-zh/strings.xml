@@ -1657,4 +1657,5 @@
     <string name="ar_path_appearance">外观</string>
     <string name="ar_path_appearance_ribbon">Ribbon</string>
     <string name="ar_path_appearance_line">线条</string>
+    <string name="skip_elevations">跳过海拔</string>
 </resources>
