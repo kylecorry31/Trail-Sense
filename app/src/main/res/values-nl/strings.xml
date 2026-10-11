@@ -1676,4 +1676,5 @@
     <string name="ar_path_appearance">Uiterlijk</string>
     <string name="ar_path_appearance_line">Lijn</string>
     <string name="ar_path_appearance_ribbon">Lint</string>
+    <string name="skip_elevations">Hoogtes overslaan</string>
 </resources>
