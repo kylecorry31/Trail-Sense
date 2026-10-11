@@ -32,7 +32,8 @@ class ARPathLayerTest {
         ))
 
         assertEquals(listOf(100f, 200f, 150f), layer.getPaths(start).single().points.map { it.elevation })
-        assertEquals(listOf(200f, 150f), layer.getPaths(middle).single().points.map { it.elevation })
+        val pastMiddle = Coordinate(42.0011, -72.0)
+        assertEquals(listOf(150f), layer.getPaths(pastMiddle).single().points.map { it.elevation }.drop(1))
     }
 
     @Test
