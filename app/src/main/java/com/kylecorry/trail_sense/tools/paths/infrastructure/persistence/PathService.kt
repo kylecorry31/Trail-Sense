@@ -185,9 +185,10 @@ class PathService(
 
         points.removeAll(toKeep)
 
-        waypointRepo.deleteAll(points)
-
-        updatePathMetadata(path)
+        waypointLock.withLock {
+            waypointRepo.deleteAll(points)
+            updatePathMetadata(path)
+        }
         return numDeleted
     }
 
@@ -221,8 +222,10 @@ class PathService(
     }
 
     override suspend fun addWaypointsToPath(points: List<PathPoint>, pathId: Long) {
-        waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
-        updatePathMetadata(pathId)
+        waypointLock.withLock {
+            waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
+            updatePathMetadata(pathId)
+        }
     }
 
     override suspend fun replaceWaypoints(points: List<PathPoint>) {
@@ -254,17 +257,21 @@ class PathService(
     }
 
     override suspend fun deleteWaypoint(point: PathPoint) {
-        waypointRepo.delete(point)
-        updatePathMetadata(point.pathId)
+        waypointLock.withLock {
+            waypointRepo.delete(point)
+            updatePathMetadata(point.pathId)
+        }
     }
 
     override suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long) {
         val oldPaths =
             points.filter { it.pathId != 0L && it.pathId != pathId }.map { it.pathId }.distinct()
-        waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
-        updatePathMetadata(pathId)
-        for (path in oldPaths) {
+        waypointLock.withLock {
+            waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
             updatePathMetadata(pathId)
+            for (path in oldPaths) {
+                updatePathMetadata(path)
+            }
         }
     }
 
@@ -291,21 +298,25 @@ class PathService(
     }
 
     private suspend fun deleteOldWaypoints(pathId: Long) {
-        waypointRepo.deleteOlderInPath(
-            pathId,
-            time.getTime().toInstant().minus(pathPreferences.backtrackHistory)
-        )
-        updatePathMetadata(pathId, true)
+        val isEmpty = waypointLock.withLock {
+            waypointRepo.deleteOlderInPath(
+                pathId,
+                time.getTime().toInstant().minus(pathPreferences.backtrackHistory)
+            )
+            updatePathMetadata(pathId)
+            waypointRepo.getCountInPath(pathId) == 0
+        }
+
+        // Deleted outside the waypoint lock since deletePath takes the backtrack lock, and
+        // addBacktrackPoint takes the two locks in the opposite order
+        if (isEmpty) {
+            getPath(pathId)?.let { deletePath(it) }
+        }
     }
 
-    private suspend fun updatePathMetadata(pathId: Long, deleteIfEmpty: Boolean = false) {
+    private suspend fun updatePathMetadata(pathId: Long) {
         val path = getPath(pathId) ?: return
         val points = waypointRepo.getAllInPaths(listOf(pathId)).sortedBy { it.id }
-
-        if (deleteIfEmpty && points.isEmpty()) {
-            deletePath(path)
-            return
-        }
 
         val coords = points.map { it.coordinate }
         val start = points.firstOrNull()?.time
