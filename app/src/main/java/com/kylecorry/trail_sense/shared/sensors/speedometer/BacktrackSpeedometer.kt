@@ -83,10 +83,7 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
                 return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
             }
 
-            val time = minOf(
-                Duration.between(secondLast.time, last.time),
-                prefs.paths.backtrackRecordFrequency.plus(TIMING_BUFFER)
-            )
+            val time = Duration.between(secondLast.time, last.time)
             Speed.from(
                 distance / time.seconds.coerceAtLeast(1).toFloat(),
                 DistanceUnits.Meters,
