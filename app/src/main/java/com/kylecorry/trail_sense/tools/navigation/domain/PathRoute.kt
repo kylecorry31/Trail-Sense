@@ -191,7 +191,7 @@ class PathRoute(
         val movement = previousLocation?.distanceTo(location, highAccuracy = false) ?: 0f
         val lastDistance = previousProgress * length
         val seconds = previousTime?.let { Duration.between(it, currentTime).toMillis() / 1000f } ?: 0f
-        val hikingDistance = NORMAL_HIKING_SPEED_METERS_PER_SECOND * seconds
+        val hikingDistance = NORMAL_HIKING_SPEED * seconds
         val estimatedDistance = lastDistance + movement
         val possibleTravelDistance = max(movement + tolerance, hikingDistance)
         val nearby = geometry.getOptimalLocationMatch(
@@ -250,7 +250,7 @@ class PathRoute(
 
     private companion object {
         const val FORWARD_PROGRESS_MULTIPLIER = 2f
-        const val NORMAL_HIKING_SPEED_METERS_PER_SECOND = 2f
+        const val NORMAL_HIKING_SPEED = 2f
         const val ARRIVED_RADIUS_MULTIPLIER = 2f
         const val MIN_TOLERANCE_METERS = 15f
         const val MAX_TOLERANCE_METERS = 75f
