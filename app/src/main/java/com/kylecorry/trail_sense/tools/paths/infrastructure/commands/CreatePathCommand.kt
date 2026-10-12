@@ -30,7 +30,7 @@ class CreatePathCommand(
 
         val waypoints = value.filter { PathElevationPrefetcher.isValid(it) }.map {
             val elevation = knownElevations[it]
-                ?: if (shouldSkipElevations()) null else DEM.getElevation(it).elevation
+                ?: if (shouldSkipElevations()) null else DEM.getElevation(it).takeIf { dem -> dem.hasData }?.elevation
             PathPoint(0, newPathId, it, elevation)
         }
 

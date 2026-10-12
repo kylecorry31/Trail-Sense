@@ -54,11 +54,11 @@ object DEM {
         cache.getOrPut(location) {
             val allSources = getSources()
             val source = allSources.firstOrNull { it.contains(location) }
-                ?: return@getOrPut DEMElevation(0f, null)
+                ?: return@getOrPut DEMElevation(0f, null, hasData = false)
             val hasWaterMask = cachedHasWaterMask
             val neighbors = getNeighborSources(source, allSources)
             onIO {
-                tryOrDefault(DEMElevation(0f, null)) {
+                tryOrDefault(DEMElevation(0f, null, hasData = false)) {
                     val data = source.read(location, neighbors)
                     val elevation = data[0]
                     if (hasWaterMask) {

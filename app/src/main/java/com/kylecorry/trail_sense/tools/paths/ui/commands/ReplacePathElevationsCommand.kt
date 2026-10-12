@@ -43,9 +43,13 @@ class ReplacePathElevationsCommand(
                     job = launch {
                         val points = pathService.getWaypoints(path.id)
                         elevations = points.mapIndexed { index, point ->
-                            val elevation = DEM.getElevation(point.coordinate).elevation
+                            val elevation = DEM.getElevation(point.coordinate)
                             setProgress((index + 1) / points.size.coerceAtLeast(1).toFloat())
-                            point.copy(elevation = elevation)
+                            if (elevation.hasData) {
+                                point.copy(elevation = elevation.elevation)
+                            } else {
+                                point
+                            }
                         }
                     }
                     job.join()

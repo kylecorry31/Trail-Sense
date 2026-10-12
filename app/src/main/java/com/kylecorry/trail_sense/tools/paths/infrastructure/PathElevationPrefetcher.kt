@@ -1,7 +1,10 @@
 package com.kylecorry.trail_sense.tools.paths.infrastructure
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.logging.Logger
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,6 +20,7 @@ class PathElevationPrefetcher {
     private val requested = mutableSetOf<Coordinate>()
     private var elevations = ConcurrentHashMap<Coordinate, Float>()
 
+    @Suppress("TooGenericExceptionCaught")
     fun update(points: List<Coordinate>) {
         if (points.isEmpty()) {
             scope.coroutineContext.cancelChildren()
@@ -33,7 +37,18 @@ class PathElevationPrefetcher {
 
         val target = elevations
         scope.launch {
-            newPoints.forEach { target[it] = DEM.getElevation(it).elevation }
+            try {
+                newPoints.forEach { point ->
+                    val elevation = DEM.getElevation(point)
+                    if (elevation.hasData) {
+                        target[point] = elevation.elevation
+                    }
+                }
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Exception) {
+                getAppService<Logger>().error(TAG, "Unable to prefetch path elevations", e)
+            }
         }
     }
 
@@ -42,6 +57,8 @@ class PathElevationPrefetcher {
     }
 
     companion object {
+        private const val TAG = "PathElevationPrefetcher"
+
         fun isValid(location: Coordinate): Boolean {
             return !location.latitude.isNaN() && !location.longitude.isNaN()
         }

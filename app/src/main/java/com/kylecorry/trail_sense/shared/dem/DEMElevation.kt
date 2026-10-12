@@ -1,6 +1,10 @@
 package com.kylecorry.trail_sense.shared.dem
 
-data class DEMElevation(private val _elevation: Float, val waterType: DEMElevationType?) {
+data class DEMElevation(
+    private val _elevation: Float,
+    val waterType: DEMElevationType?,
+    val hasData: Boolean = true
+) {
     val elevation: Float
         get() = if (waterType == DEMElevationType.Ocean) {
             0f
