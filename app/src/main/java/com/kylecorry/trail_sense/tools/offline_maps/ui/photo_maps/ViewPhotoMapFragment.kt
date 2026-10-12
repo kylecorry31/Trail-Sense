@@ -133,6 +133,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             }
         }
         observe(altimeter) { updateDestination() }
+        compass.declination = declinationProvider.getDeclination()
         observe(compass) {
             val bearing = compass.rawBearing
             binding.map.userAzimuth = compass.bearing
