@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.main
 
 import android.content.Context
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewTreeObserver
@@ -33,8 +34,8 @@ class CustomBottomNavigationView @JvmOverloads constructor(
             bindItemLongClickListeners()
         }
 
-    // Item views are recreated when the menu changes, and below API 26 Material overrides
-    // long-click listeners with a tooltip
+    // Below API 26, Material replaces the item long-click listeners with a tooltip whenever it
+    // updates the items
     private val preDrawListener = ViewTreeObserver.OnPreDrawListener {
         bindItemLongClickListeners()
         true
@@ -53,12 +54,20 @@ class CustomBottomNavigationView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        viewTreeObserver.addOnPreDrawListener(preDrawListener)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            viewTreeObserver.addOnPreDrawListener(preDrawListener)
+        }
     }
 
     override fun onDetachedFromWindow() {
         viewTreeObserver.removeOnPreDrawListener(preDrawListener)
         super.onDetachedFromWindow()
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        // Item views are recreated when the menu changes
+        bindItemLongClickListeners()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
