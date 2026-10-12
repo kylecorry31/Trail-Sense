@@ -1,5 +1,7 @@
 # Path Navigation
 
+Level: medium
+
 All distances (path, route, offset, straight-line) are horizontal geodesic distances, elevation is ignored. A position on a route is a distance along it. Projection onto a segment uses a flat local plane around the location, and segments of zero length are never projected onto.
 
 Terms:

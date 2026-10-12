@@ -1,5 +1,7 @@
 # Tide Table Water Level
 
+Level: medium
+
 Estimates the water level at any time from a `TideTable`. Heights are in the table's own unit.
 
 Terms:
@@ -42,9 +44,9 @@ tides = table's tides sorted by time, with a missing height set to range.highest
 
 if tides is empty
     if estimator is Harmonic or TideModel
-        return harmonic estimate at time
+        return harmonic estimate at time, or 0 if there is none
     if estimator is LunitidalInterval and the interval is set
-        return lunitidal estimate at time
+        return lunitidal estimate at time, or 0 if there is none
     return 0
 
 if time is outside the years 2000 to 3000

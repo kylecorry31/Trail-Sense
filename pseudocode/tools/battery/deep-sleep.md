@@ -1,5 +1,7 @@
 # Deep Sleep
 
+Level: low
+
 - Class: `PowerService`
 - Method: `getDeepSleep`
 - Inputs: `batteryReadings` (list of `BatteryReading`)
