@@ -808,7 +808,7 @@
 \n
 \n‐Και πολλά άλλα!</string>
     <string name="camera_capture">Απαθανάτιση</string>
-    <string name="tool_temperature_estimation_description">Κάντε πρόβλεψη της θερμοκρασίας σε διαφορετικό υψόμετρο</string>
+    <string name="tool_temperature_estimation_description">Κάντε πρόβλεψη της θερμοκρασίας σε διαφορετικό υψόμετρο, της ταχύτητας του ανέμου, και της υγρασίας</string>
     <string name="pressure_tendency">Τάση</string>
     <string name="pref_start_on_boot_title">Άνοιγμα εφαρμογής στην εκκίνηση του τηλεφώνου</string>
     <string name="step_length_walk">Προχωρήστε σε ευθεία γραμμή, αγγίξτε τέλος στην οθόνη όταν ολοκληρώσετε</string>
@@ -1010,4 +1010,17 @@
     <string name="scanning_image">Σάρωση εικόνας</string>
     <string name="pref_tiles_battery_log">Αρχείο καταγραφής μπαταρίας</string>
     <string name="pref_dialog_battery_log_summary">Το αρχείο καταγραφής της μπαταρίας είναι απενεργοποιημένο. Το ιστορικό και ο χρόνος μέχρι να αδειάσει ενδέχεται να μην είναι διαθέσιμοι. Μπορείτε να το ενεργοποιήσετε ξανά στις ρυθμίσεις</string>
+    <string name="weather_overcast">Νεφοκάλυψη</string>
+    <string name="last_updated">Τελευταία ενημέρωση</string>
+    <string name="current_temperature">Τρέχουσα θερμοκρασία</string>
+    <string name="weather_alert_hot_description">Προετοιμαστείτε για υψηλές θερμοκρασίες. Λάβετε ιδιαίτερες προφυλάξεις για την θερμική εξάντληση και τη θερμοπληξία.</string>
+    <string name="weather_alert_cold_description">Προετοιμαστείτε για χαμηλές θερμοκρασίες. Λάβετε ιδιαίτερες προφυλάξεις για την υποθερμία και τα κρυοπαγήματα.</string>
+    <string name="historic_temperatures_full_disclaimer" tools:ignore="PluralsCandidate">Οι θερμοκρασίες βασίζονται σε ένα μέσο όρο ιστορικών δεδομένων %d ετών, και είναι πιθανό να μην αντικατοπτρίζουν τις τρέχουσες καιρικές συνθήκες.</string>
+    <string name="average_pace">Μέσος βηματισμός</string>
+    <string name="pref_pedometer_average_pace_time_title">Μέσος χρόνος βηματισμού</string>
+    <string name="current_pace">Τρέχων βηματισμός</string>
+    <string name="pref_pedometer_history_days_title">Ιστορικό βηματομετρητή</string>
+    <string name="history">Ιστορικό</string>
+    <string name="true_north_description">Δείχνει τον γεωγραφικό Βόρειο Πόλο, εφαρμόζοντας την δεδομένη μαγνητική απόκλιση για την τοποθεσία σας. Αυτό θα ευθυγραμμιστεί με τους περισσότερους χάρτες.</string>
+    <string name="declination">Μαγνητική απόκλιση</string>
 </resources>
