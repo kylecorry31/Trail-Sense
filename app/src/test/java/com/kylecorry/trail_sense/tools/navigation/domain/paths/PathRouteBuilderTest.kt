@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.domain
+package com.kylecorry.trail_sense.tools.navigation.domain.paths
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
@@ -59,14 +59,6 @@ class PathRouteBuilderTest {
     }
 
     @Test
-    fun `loop detection accepts nearby endpoints but rejects open or tiny paths`() {
-        assertFalse(PathRouteBuilder.isLoop(points.map { it.coordinate }))
-        assertFalse(PathRouteBuilder.isLoop(emptyList()))
-        assertFalse(PathRouteBuilder.isLoop(List(3) { location }))
-        assertTrue(PathRouteBuilder.isLoop((points + points[0].copy(coordinate = Coordinate(0.0, 0.00005))).map { it.coordinate }))
-    }
-
-    @Test
     fun `selected point chooses either direction on an open path`() {
         val toLast = PathRouteBuilder.buildRoute(points, location, PathNavigationMode.TO_END, 3)
         assertEquals(3L, toLast.last().id)
@@ -83,7 +75,7 @@ class PathRouteBuilderTest {
     }
 
     @Test
-    fun `selected point on overlapping legs chooses shortest itinerary`() {
+    fun `selected point on overlapping legs chooses shortest route`() {
         val route = PathRouteBuilder.buildRoute(outAndBack, location, PathNavigationMode.TO_END, 5)
         assertEquals(5L, route.last().id)
         assertTrue(route.drop(1).all { it.coordinate == outAndBack.last().coordinate })
@@ -100,7 +92,7 @@ class PathRouteBuilderTest {
     }
 
     @Test
-    fun `route sorts and smooths elevations before constructing either itinerary`() {
+    fun `route sorts and smooths elevations before constructing either route`() {
         for (mode in PathNavigationMode.entries) {
             assertEquals(
                 PathRouteBuilder.buildRoute(points, location, mode),

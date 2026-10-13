@@ -6,8 +6,8 @@ import com.kylecorry.andromeda.preferences.SharedPreferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
-import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
-import com.kylecorry.trail_sense.tools.navigation.domain.PathRouteBuilder
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRouteBuilder
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService

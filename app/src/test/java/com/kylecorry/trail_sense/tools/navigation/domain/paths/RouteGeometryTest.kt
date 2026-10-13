@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.domain
+package com.kylecorry.trail_sense.tools.navigation.domain.paths
 
 import com.kylecorry.sol.units.Coordinate
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -73,6 +73,27 @@ class RouteGeometryTest {
         val match = farButClose.getOptimalLocationMatch(meters(0.0, 0.0), 0f, farButClose.length, 0f)
 
         assertEquals(3, match.segment)
+    }
+
+    @Test
+    fun `candidate snaps are those within the tolerance of the closest in route order`() {
+        val legs = RouteGeometry(
+            listOf(
+                meters(-50.0, 10.0),
+                meters(50.0, 10.0),
+                meters(50.0, 13.0),
+                meters(-50.0, 13.0),
+                meters(-50.0, 30.0),
+                meters(50.0, 30.0)
+            )
+        )
+        val origin = meters(0.0, 0.0)
+
+        val narrow = legs.candidateSnaps(origin, 1f)
+        val wide = legs.candidateSnaps(origin, 5f)
+
+        assertEquals(listOf(0), narrow.map { it.segment })
+        assertEquals(listOf(0, 2), wide.map { it.segment })
     }
 
     private companion object {

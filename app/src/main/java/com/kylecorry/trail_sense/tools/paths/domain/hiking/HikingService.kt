@@ -162,8 +162,19 @@ class HikingService : IHikingService {
         return Geography.getElevationGain(elevations)
     }
 
+    /** Whether the path ends close enough to where it started to be followed as a loop. */
+    fun isLoop(points: List<Coordinate>): Boolean {
+        if (points.size < 3) return false
+        val length = Geography.getPathDistance(points).meters().value
+        val seam = points.first().distanceTo(points.last())
+        return length > LOOP_MIN_LENGTH && seam <= minOf(LOOP_MAX_SEAM, length * LOOP_MAX_SEAM_FRACTION)
+    }
+
     companion object {
         const val DEFAULT_PACE_FACTOR = 1.75f
         const val SCARF_ELEVATION_GAIN_FACTOR = 7.92f
+        private const val LOOP_MIN_LENGTH = 30f
+        private const val LOOP_MAX_SEAM = 100f
+        private const val LOOP_MAX_SEAM_FRACTION = 0.1f
     }
 }

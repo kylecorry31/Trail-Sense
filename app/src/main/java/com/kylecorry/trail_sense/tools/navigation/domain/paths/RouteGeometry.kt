@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.domain
+package com.kylecorry.trail_sense.tools.navigation.domain.paths
 
 import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.interpolation.Interpolation
@@ -11,13 +11,13 @@ import kotlin.math.abs
 import kotlin.math.min
 
 /**
- * A point on the route closest to a location.
- * @param segment the index of the route point that starts the segment containing the projection
- * @param fraction how far along the segment the projection is, from 0 to 1
- * @param distance the distance along the route to the projection
- * @param offset the distance from the queried location to the projection
+ * A location snapped onto the route.
+ * @param segment the index of the route point that starts the segment containing the snap
+ * @param fraction how far along the segment the snap is, from 0 to 1
+ * @param distance the distance along the route to the snap
+ * @param offset the distance from the queried location to the snap
  */
-internal class RouteProjection(
+internal class Snap(
     val segment: Int,
     val fraction: Float,
     val distance: Float,
@@ -35,15 +35,26 @@ internal class RouteGeometry(points: List<Coordinate>) {
     private val cumulativeDistances = HikingService().getDistances(routePoints).toFloatArray()
     private val lastSegment = routePoints.lastIndex - 1
     val length: Float = cumulativeDistances.last()
+
     private val cornerDistances by lazy { findCorners() }
 
     /** The distance along the route to the point at [pointIndex]. */
     fun distanceAt(pointIndex: Int): Float = cumulativeDistances[pointIndex]
 
-    /** The projection of the location onto each segment that has length, in route order. */
-    fun projections(location: Coordinate): List<RouteProjection> {
+    /**
+     * The snaps that are within [tolerance] of the closest one, in route order. Overlapping
+     * parts of a route (ex. the start and end of an out and back) are indistinguishable within the
+     * GPS error, so the closest is not necessarily the right one. The route must have a length.
+     */
+    fun candidateSnaps(location: Coordinate, tolerance: Float = GPS_NOISE_TOLERANCE_METERS): List<Snap> {
         val plane = LocalPlane(location)
-        return (0..lastSegment).mapNotNull { projectOnto(it, plane, 0f, length) }
+        val snaps = (0..lastSegment).mapNotNull { projectOnto(it, plane, 0f, length) }
+        val closest = snaps.minOf { it.offset }
+        return snaps.filter { it.offset <= closest + tolerance }
+    }
+
+    fun coordinateOf(snap: Snap): Coordinate {
+        return interpolate(snap.segment, snap.fraction)
     }
 
     /**
@@ -59,22 +70,18 @@ internal class RouteGeometry(points: List<Coordinate>) {
         minDistance: Float,
         maxDistance: Float,
         estimatedDistance: Float
-    ): RouteProjection {
+    ): Snap {
         val plane = LocalPlane(location)
-        val projections = (segmentContaining(minDistance)..segmentContaining(maxDistance))
+        val snaps = (segmentContaining(minDistance)..segmentContaining(maxDistance))
             .mapNotNull { projectOnto(it, plane, minDistance, maxDistance) }
-        if (projections.isEmpty()) return projectionAt(location, minDistance)
+        if (snaps.isEmpty()) return snapAt(location, minDistance)
 
-        return projections.minBy {
+        return snaps.minBy {
             it.offset + min(
                 ESTIMATE_DISTANCE_WEIGHT * abs(it.distance - estimatedDistance),
                 MAX_ESTIMATE_DISTANCE_PENALTY_METERS
             )
         }
-    }
-
-    fun coordinateOf(projection: RouteProjection): Coordinate {
-        return interpolate(projection.segment, projection.fraction)
     }
 
     fun pointAt(distance: Float): Coordinate {
@@ -93,7 +100,7 @@ internal class RouteGeometry(points: List<Coordinate>) {
         plane: LocalPlane,
         minDistance: Float,
         maxDistance: Float
-    ): RouteProjection? {
+    ): Snap? {
         val overlapsRange = cumulativeDistances[segment + 1] >= minDistance &&
             cumulativeDistances[segment] <= maxDistance
         if (segmentLength(segment) <= 0f || !overlapsRange) return null
@@ -102,7 +109,7 @@ internal class RouteGeometry(points: List<Coordinate>) {
         val fraction = closestFractionToOrigin(a, b)
             .coerceIn(fractionAlong(segment, minDistance), fractionAlong(segment, maxDistance))
         val projected = a + (b - a) * fraction
-        return RouteProjection(
+        return Snap(
             segment,
             fraction,
             cumulativeDistances[segment] + fraction * segmentLength(segment),
@@ -118,11 +125,11 @@ internal class RouteGeometry(points: List<Coordinate>) {
         return -(a.x * ab.x + a.y * ab.y) / squaredLength
     }
 
-    private fun projectionAt(location: Coordinate, distance: Float): RouteProjection {
+    private fun snapAt(location: Coordinate, distance: Float): Snap {
         val clamped = distance.coerceIn(0f, length)
         val segment = segmentContaining(clamped)
         val fraction = fractionAlong(segment, clamped)
-        return RouteProjection(segment, fraction, clamped, location.distanceTo(interpolate(segment, fraction)))
+        return Snap(segment, fraction, clamped, location.distanceTo(interpolate(segment, fraction)))
     }
 
     // The first segment that ends at or after the distance. The last segment is never searched
@@ -221,5 +228,6 @@ internal class RouteGeometry(points: List<Coordinate>) {
         const val CORNER_CHORD_METERS = 15f
         const val MIN_CORNER_CHORD_METERS = 3f
         const val CORNER_TURN_DEGREES = 35f
+        const val GPS_NOISE_TOLERANCE_METERS = 5f
     }
 }

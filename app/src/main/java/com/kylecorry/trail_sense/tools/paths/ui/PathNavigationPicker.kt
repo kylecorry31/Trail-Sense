@@ -3,11 +3,13 @@ package com.kylecorry.trail_sense.tools.paths.ui
 import android.content.Context
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
-import com.kylecorry.trail_sense.tools.navigation.domain.PathRouteBuilder
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 
 internal object PathNavigationPicker {
+    private val hikingService = HikingService()
+
     fun show(
         context: Context,
         points: List<PathPoint>,
@@ -18,7 +20,7 @@ internal object PathNavigationPicker {
             R.string.path_navigation_follow to PathNavigationMode.TO_END,
             R.string.path_navigation_reverse to PathNavigationMode.REVERSED_TO_END
         )
-        if (PathRouteBuilder.isLoop(points.sortedBy { it.id }.map { it.coordinate })) {
+        if (hikingService.isLoop(points.sortedBy { it.id }.map { it.coordinate })) {
             options.add(R.string.path_navigation_loop to PathNavigationMode.FULL_LOOP)
             options.add(R.string.path_navigation_reverse_loop to PathNavigationMode.REVERSED_FULL_LOOP)
         }

@@ -7,6 +7,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
@@ -226,6 +227,15 @@ class HikingServiceTest {
                 elevation
             )
         }
+    }
+
+    @Test
+    fun `loop detection accepts nearby endpoints but rejects open or tiny paths`() {
+        val open = listOf(Coordinate(0.0, 0.0), Coordinate(0.0, 0.001), Coordinate(0.0, 0.002))
+        assertFalse(service.isLoop(open))
+        assertFalse(service.isLoop(emptyList()))
+        assertFalse(service.isLoop(List(3) { Coordinate(0.0, 0.0005) }))
+        assertTrue(service.isLoop(open + Coordinate(0.0, 0.00005)))
     }
 
     private fun coordinate(latitude: Double): Coordinate {

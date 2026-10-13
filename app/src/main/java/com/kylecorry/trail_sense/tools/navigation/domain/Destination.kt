@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.navigation.domain
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRoute
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 
 sealed class Destination {

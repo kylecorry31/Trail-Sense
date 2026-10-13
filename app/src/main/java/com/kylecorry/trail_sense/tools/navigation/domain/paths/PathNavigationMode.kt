@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.domain
+package com.kylecorry.trail_sense.tools.navigation.domain.paths
 
 enum class PathNavigationMode(val isReversed: Boolean, val isFullLoop: Boolean) {
     TO_END(false, false),

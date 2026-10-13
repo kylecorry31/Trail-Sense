@@ -5,8 +5,8 @@ import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
-import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
-import com.kylecorry.trail_sense.tools.navigation.domain.PathRouteBuilder
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRouteBuilder
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration

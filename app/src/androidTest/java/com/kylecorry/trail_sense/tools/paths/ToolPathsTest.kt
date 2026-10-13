@@ -36,12 +36,12 @@ import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.tools.navigation.domain.PathNavigationMode
-import com.kylecorry.trail_sense.tools.navigation.domain.PathRoute
-import com.kylecorry.trail_sense.tools.navigation.domain.PathRouteBuilder
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRoute
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigator
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
 import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -684,10 +684,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
     fun loopsAreOnlyOfferedForPathsThatReturnToTheirStart() {
         // Each of these ends within 9 m of where it started
         for (asset in listOf(LOOP, "paths/sprague.gpx", "paths/mount mansfield.gpx", "paths/pulaski.gpx")) {
-            assertTrue(asset, PathRouteBuilder.isLoop(coordinatesOf(asset)))
+            assertTrue(asset, HikingService().isLoop(coordinatesOf(asset)))
         }
         // Ends 543 m from where it started
-        assertFalse(PathRouteBuilder.isLoop(coordinatesOf(OUT_AND_BACK)))
+        assertFalse(HikingService().isLoop(coordinatesOf(OUT_AND_BACK)))
     }
 
     // The point 198 m along the loop, there is no other part of the loop nearby
