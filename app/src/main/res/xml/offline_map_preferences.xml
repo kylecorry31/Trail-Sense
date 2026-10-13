@@ -45,7 +45,7 @@
             app:singleLineTitle="false" />
 
         <ListPreference
-            app:defaultValue="normal"
+            app:defaultValue="fast"
             app:entries="@array/compass_update_frequency_entries"
             app:entryValues="@array/compass_update_frequency_values"
             app:iconSpaceReserved="false"

@@ -121,7 +121,7 @@
             app:title="@string/pref_navigation_show_azimuth_indicator_title" />
 
         <ListPreference
-            app:defaultValue="normal"
+            app:defaultValue="fast"
             app:entries="@array/compass_update_frequency_entries"
             app:entryValues="@array/compass_update_frequency_values"
             app:iconSpaceReserved="false"
