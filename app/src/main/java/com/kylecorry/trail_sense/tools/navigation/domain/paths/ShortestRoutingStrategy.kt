@@ -35,8 +35,7 @@ internal class ShortestRoutingStrategy(private val destinationIndex: Int) : Rout
         } else {
             listOf(segment + 1..lastIndex, 0..destinationIndex)
         }
-        return (if (destinationAhead) listOf(onPath, acrossSeam) else listOf(acrossSeam, onPath))
-            .map { CandidateRoute(snap, it) }
+        return listOf(onPath, acrossSeam).map { CandidateRoute(snap, it) }
     }
 
     private class CandidateRoute(val snap: Snap, val runs: List<IntProgression>) {

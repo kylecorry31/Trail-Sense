@@ -143,8 +143,12 @@ class HikingService : IHikingService {
         speed: Speed
     ): Duration {
         val speedValue = speed.convertTo(DistanceUnits.Meters, TimeUnits.Seconds).value.coerceAtLeast(0.1f)
-        val scarfs = distance.meters().value + SCARF_ELEVATION_GAIN_FACTOR * elevationGain.meters().value
+        val scarfs = getScarfsDistance(distance, elevationGain).meters().value
         return Duration.ofSeconds((scarfs / speedValue).toLong())
+    }
+
+    fun getScarfsDistance(distance: Distance, elevationGain: Distance): Distance {
+        return Distance.meters(distance.meters().value + SCARF_ELEVATION_GAIN_FACTOR * elevationGain.meters().value)
     }
 
     override fun getHikingDuration(

@@ -29,7 +29,7 @@ class PathRoute(
     private val cumulativeElevationLoss = cumulativeElevationLossGain.first
     private val cumulativeElevationGain = cumulativeElevationLossGain.second
     private val cumulativeScarfsDistance = FloatArray(points.size) {
-        geometry.distanceAt(it) + HikingService.SCARF_ELEVATION_GAIN_FACTOR * cumulativeElevationGain[it]
+        hikingService.getScarfsDistance(Distance.meters(geometry.distanceAt(it)), Distance.meters(cumulativeElevationGain[it])).meters().value
     }
     private var previousProgress: Float = 0f
     private var previousLocation: Coordinate? = null
