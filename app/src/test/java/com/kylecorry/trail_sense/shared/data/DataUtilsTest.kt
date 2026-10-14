@@ -73,6 +73,7 @@ class DataUtilsTest {
         val smoothed = DataUtils.smooth(
             data,
             0.1f,
+            null,
             { index, value -> Vector2(index.toFloat(), value.toFloat()) }
         ) { _, vector -> vector.y.toInt() }
 
@@ -119,6 +120,7 @@ class DataUtilsTest {
         val smoothed = DataUtils.smoothGeospatial(
             data,
             0.3f,
+            null,
             DataUtils.GeospatialSmoothingType.Path,
             { it.first },
             { it.second }
@@ -132,6 +134,30 @@ class DataUtilsTest {
     }
 
     @Test
+    fun geospatialSmoothingLimitsTheSpanToTheMaximumDistance() {
+        val data = List(20) {
+            Coordinate(it * 0.001, 0.0) to if (it == 10) 100f else 0f
+        }
+
+        fun smooth(maximumSpanDistance: Float?) = DataUtils.smoothGeospatial(
+            data,
+            0.3f,
+            maximumSpanDistance,
+            DataUtils.GeospatialSmoothingType.Path,
+            { it.first },
+            { it.second }
+        ) { value, smoothedValue -> value.first to smoothedValue }
+
+        val unlimited = smooth(null)
+        val limited = smooth(0.25f)
+
+        assertTrue(
+            limited[10].second > unlimited[10].second,
+            "A narrower span should reduce the spike less, was ${limited[10].second} vs ${unlimited[10].second}"
+        )
+    }
+
+    @Test
     fun geospatialSmoothingOfIdenticalCoordinatesFallsBackToOrder() {
         // All points share a location (ex. a mocked GPS), so the minimum distance keeps them distinct
         val data = List(20) { Coordinate.zero to if (it == 10) 100f else 0f }
@@ -139,6 +165,7 @@ class DataUtilsTest {
         val smoothed = DataUtils.smoothGeospatial(
             data,
             0.3f,
+            null,
             DataUtils.GeospatialSmoothingType.Path,
             { it.first },
             { it.second }
@@ -157,6 +184,7 @@ class DataUtilsTest {
         val smoothed = DataUtils.smoothGeospatial(
             data,
             0.3f,
+            null,
             DataUtils.GeospatialSmoothingType.FromStart,
             { it.first },
             { it.second }
@@ -175,6 +203,7 @@ class DataUtilsTest {
         val smoothed = DataUtils.smoothGeospatial(
             data,
             0.3f,
+            null,
             DataUtils.GeospatialSmoothingType.Nearby,
             { it.first },
             { it.second }
@@ -189,6 +218,7 @@ class DataUtilsTest {
         val smoothed = DataUtils.smoothGeospatial(
             emptyList<Pair<Coordinate, Float>>(),
             0.1f,
+            null,
             DataUtils.GeospatialSmoothingType.Path,
             { it.first },
             { it.second }

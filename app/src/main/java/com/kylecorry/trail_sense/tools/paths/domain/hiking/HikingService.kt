@@ -33,7 +33,8 @@ class HikingService : IHikingService {
         }
         val smoothed = DataUtils.smoothGeospatial(
             points,
-            0.1f,
+            0.25f, // Maximum span distance is the driving factor, but "smoothness" has to be large enough to pick up surrounding points
+            maximumSpanDistance = 0.25f,
             DataUtils.GeospatialSmoothingType.Path,
             { it.coordinate },
             { it.elevation ?: 0f }

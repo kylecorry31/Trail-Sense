@@ -24,6 +24,7 @@ object DataUtils {
     fun <T> smoothGeospatial(
         data: List<T>,
         smoothness: Float = 0.1f,
+        maximumSpanDistance: Float? = null,
         type: GeospatialSmoothingType,
         location: (value: T) -> Coordinate,
         select: (value: T) -> Float,
@@ -54,6 +55,7 @@ object DataUtils {
                 smooth(
                     data,
                     smoothness,
+                    maximumSpanDistance,
                     { index, value -> Vector2(distances[index] / 1000f, select(value)) }
                 ) { point, smoothed ->
                     merge(point, smoothed.y)
@@ -65,6 +67,7 @@ object DataUtils {
                 smooth(
                     data,
                     smoothness,
+                    maximumSpanDistance,
                     { _, value ->
                         Vector2(
                             location(value).distanceTo(start) / 1000f,
@@ -92,6 +95,7 @@ object DataUtils {
         return smooth(
             data,
             smoothness,
+            null,
             { _, reading ->
                 Vector2(
                     Duration.between(start, reading.time).toMillis() / 1000f,
@@ -106,17 +110,23 @@ object DataUtils {
     fun <T> smooth(
         data: List<T>,
         smoothness: Float = 0.1f,
+        maximumSpanDistance: Float? = null,
         select: (index: Int, value: T) -> Vector2,
         merge: (value: T, smoothed: Vector2) -> T
     ): List<T> {
-        val smoothed = smooth(data.mapIndexed { index, value -> select(index, value) }, smoothness)
+        val smoothed = smooth(data.mapIndexed { index, value -> select(index, value) }, smoothness, maximumSpanDistance)
         return data.zip(smoothed).map {
             merge(it.first, it.second)
         }
     }
 
-    fun smooth(data: List<Vector2>, smoothness: Float = 0.06f): List<Vector2> {
-        val filter = LoessFilter2D(smoothness, 1, minimumSpanSize = if (smoothness == 0f) 0 else 10)
+    fun smooth(data: List<Vector2>, smoothness: Float = 0.06f, maximumSpanDistance: Float? = null): List<Vector2> {
+        val filter = LoessFilter2D(
+            smoothness,
+            1,
+            minimumSpanSize = if (smoothness == 0f) 0 else 10,
+            maximumSpanDistance = maximumSpanDistance
+        )
         return filter.filter(data)
     }
 
