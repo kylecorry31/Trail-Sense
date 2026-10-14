@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.shared.map_layers.MapLayerLoader
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.PersistentTileCache
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
@@ -37,6 +38,7 @@ object TrailSenseServiceRegister {
         DependencyRegistry.addSingleton(StringLoader(appContext))
         DependencyRegistry.addSingleton(FormatService.getInstance(appContext))
         DependencyRegistry.addSingleton(PreferencesSubsystem.getInstance(appContext))
+        DependencyRegistry.addSingleton(SessionStateSubsystem.getInstance(appContext))
         DependencyRegistry.addSingleton(UserPreferences(appContext))
         DependencyRegistry.addSingleton<GeoidService>(AltitudeCorrection)
         DependencyRegistry.addSingleton(NotificationSubsystem(appContext))

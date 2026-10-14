@@ -29,42 +29,34 @@ class PathRoute(
     private val cumulativeElevationLoss = cumulativeElevationLossGain.first
     private val cumulativeElevationGain = cumulativeElevationLossGain.second
     private val cumulativeScarfsDistance = FloatArray(points.size) {
-        hikingService.getScarfsDistance(Distance.meters(geometry.distanceAt(it)), Distance.meters(cumulativeElevationGain[it])).meters().value
+        hikingService.getScarfsDistance(
+            Distance.meters(geometry.distanceAt(it)),
+            Distance.meters(cumulativeElevationGain[it])
+        ).meters().value
     }
-    private var previousProgress: Float = 0f
-    private var previousLocation: Coordinate? = null
-    private var previousGuidance: Guidance? = null
-    private var previousTime: Instant? = null
-    private var pendingRejoin: Float? = null
-    private var reachedCorner: Float = Float.NEGATIVE_INFINITY
-    var onProgressChanged: ((progress: Float, location: Coordinate) -> Unit)? = null
+
+    private val state = NavigationState()
 
     @Synchronized
     fun restoreProgress(progress: Float, location: Coordinate) {
-        previousProgress = progress.coerceIn(0f, 1f)
-        previousLocation = location
-        previousTime = null
-        previousGuidance = null
-        pendingRejoin = null
-        reachedCorner = Float.NEGATIVE_INFINITY
+        state.restore(progress, location)
     }
 
     @Synchronized
     fun navigate(location: Coordinate, accuracy: Distance?): Guidance {
-        val cached = previousGuidance
-        if (cached != null && location == previousLocation) {
-            return cached
+        val previousGuidance = state.guidance
+        if (previousGuidance != null && location == state.location) {
+            return previousGuidance
         }
         val currentTime = Instant.now(clock)
         val tolerance = (accuracy?.meters()?.value ?: 0f)
             .coerceIn(MIN_TOLERANCE_METERS, MAX_TOLERANCE_METERS)
         val match = matchLocation(location, tolerance, currentTime)
         val guidance = getGuidance(location, match, tolerance)
-        previousTime = currentTime
-        previousProgress = guidance.progress
-        previousLocation = location
-        previousGuidance = guidance
-        onProgressChanged?.invoke(previousProgress, location)
+        state.time = currentTime
+        state.progress = guidance.progress
+        state.location = location
+        state.guidance = guidance
         return guidance
     }
 
@@ -141,7 +133,7 @@ class PathRoute(
 
     // Once arrived, the user has to move further away to un-arrive so GPS drift doesn't flip it back
     private fun hasArrived(location: Coordinate, distance: Float, tolerance: Float): Boolean {
-        val radius = if (previousGuidance?.arrived == true) tolerance * ARRIVED_RADIUS_MULTIPLIER else tolerance
+        val radius = if (state.guidance?.arrived == true) tolerance * ARRIVED_RADIUS_MULTIPLIER else tolerance
         return length - distance <= radius && location.distanceTo(points.last()) <= radius
     }
 
@@ -152,17 +144,17 @@ class PathRoute(
         if (current.offset > OFF_ROUTE_DISTANCE_METERS) {
             return projected
         }
-        if (current.distance < reachedCorner - CORNER_RESET_METERS) {
-            reachedCorner = Float.NEGATIVE_INFINITY
+        if (current.distance < state.reachedCorner - CORNER_RESET_METERS) {
+            state.reachedCorner = Float.NEGATIVE_INFINITY
         }
         val lookahead = current.distance + max(LOOKAHEAD_METERS, current.offset)
         for (distance in geometry.cornersBetween(current.distance, lookahead)) {
-            if (distance > reachedCorner) {
+            if (distance > state.reachedCorner) {
                 val point = geometry.pointAt(distance)
                 if (location.distanceTo(point) > CORNER_REACHED_METERS) {
                     return point
                 }
-                reachedCorner = distance
+                state.reachedCorner = distance
             }
         }
         return geometry.pointAt(lookahead)
@@ -176,9 +168,9 @@ class PathRoute(
     // how far the user moved from the previous progress, breaks ties between parts of the route
     // that are equally close.
     private fun matchLocation(location: Coordinate, tolerance: Float, currentTime: Instant): Snap {
-        val movement = previousLocation?.distanceTo(location, highAccuracy = false) ?: 0f
-        val lastDistance = previousProgress * length
-        val seconds = previousTime?.let { Duration.between(it, currentTime).toMillis() / 1000f } ?: 0f
+        val movement = state.location?.distanceTo(location, highAccuracy = false) ?: 0f
+        val lastDistance = state.progress * length
+        val seconds = state.time?.let { Duration.between(it, currentTime).toMillis() / 1000f } ?: 0f
         val hikingDistance = NORMAL_HIKING_SPEED * seconds
         val estimatedDistance = lastDistance + movement
         val possibleTravelDistance = max(movement + tolerance, hikingDistance)
@@ -206,21 +198,21 @@ class PathRoute(
     ): Snap {
         val rejoinMargin = min(tolerance, MAX_REJOIN_MARGIN_METERS)
         if (nearby.offset <= rejoinMargin) {
-            pendingRejoin = null
+            state.pendingRejoin = null
             return nearby
         }
         val anywhere = geometry.getOptimalLocationMatch(location, 0f, length, estimatedDistance)
         val progressLost = max(lastDistance - anywhere.distance, 0f)
         if (anywhere.offset + progressLost >= nearby.offset - rejoinMargin) {
-            pendingRejoin = null
+            state.pendingRejoin = null
             return nearby
         }
-        val pending = pendingRejoin
+        val pending = state.pendingRejoin
         if (pending != null && abs(anywhere.distance - pending) <= tolerance + movement * FORWARD_PROGRESS_MULTIPLIER) {
-            pendingRejoin = null
+            state.pendingRejoin = null
             return anywhere
         }
-        pendingRejoin = anywhere.distance
+        state.pendingRejoin = anywhere.distance
         return nearby
     }
 
@@ -235,6 +227,24 @@ class PathRoute(
         val progress: Float,
         val effortProgress: Float
     )
+
+    private data class NavigationState(
+        var progress: Float = 0f,
+        var location: Coordinate? = null,
+        var time: Instant? = null,
+        var guidance: Guidance? = null,
+        var pendingRejoin: Float? = null,
+        var reachedCorner: Float = Float.NEGATIVE_INFINITY
+    ) {
+        fun restore(progress: Float, location: Coordinate) {
+            this.progress = progress.coerceIn(0f, 1f)
+            this.location = location
+            this.time = null
+            this.guidance = null
+            this.pendingRejoin = null
+            this.reachedCorner = Float.NEGATIVE_INFINITY
+        }
+    }
 
     private companion object {
         const val FORWARD_PROGRESS_MULTIPLIER = 2f

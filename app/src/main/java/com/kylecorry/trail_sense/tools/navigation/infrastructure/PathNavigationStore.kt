@@ -1,25 +1,26 @@
 package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
-import android.content.Context
 import com.kylecorry.andromeda.json.JsonConvert
-import com.kylecorry.andromeda.preferences.SharedPreferences
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.ProguardIgnore
-import com.kylecorry.trail_sense.tools.navigation.domain.Destination
+import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
-import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRouteBuilder
 import com.kylecorry.trail_sense.tools.paths.domain.Path
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.currentCoroutineContext
-import kotlinx.coroutines.ensureActive
 
-class PathNavigationStore(context: Context) {
-    private val prefs = SharedPreferences(context, SESSION_STATE)
-    private val paths = PathService.getInstance(context)
-    private var active: Destination.Path? = null
-    private var revision = 0L
+data class PathNavigationSession(
+    val pathId: Long,
+    val mode: PathNavigationMode,
+    val destinationPointId: Long?,
+    val start: Coordinate,
+    val progress: PathNavigationSessionProgress?
+)
+
+data class PathNavigationSessionProgress(val distance: Float, val location: Coordinate)
+
+class PathNavigationStore {
+    private val prefs = getAppService<SessionStateSubsystem>().preferences
 
     fun hasSavedRoute(): Boolean = prefs.getString(ROUTE_KEY) != null
 
@@ -28,15 +29,12 @@ class PathNavigationStore(context: Context) {
         return JsonConvert.fromJson<PathNavigationState>(saved)?.id
     }
 
-    @Synchronized
-    fun save(
+    suspend fun save(
         path: Path,
-        route: List<PathPoint>,
         start: Coordinate,
         mode: PathNavigationMode,
         destinationPointId: Long?
-    ): Destination.Path {
-        revision++
+    ) = onIO {
         val state = PathNavigationState(
             id = path.id,
             mode = mode.name,
@@ -44,76 +42,45 @@ class PathNavigationStore(context: Context) {
             startLat = start.latitude,
             startLon = start.longitude
         )
-        prefs.remove(PROGRESS_KEY)
-        prefs.putString(ROUTE_KEY, JsonConvert.toJson(state))
-        return attach(Destination.Path(path, route))
+        synchronized(this@PathNavigationStore) {
+            prefs.remove(PROGRESS_KEY)
+            prefs.putString(ROUTE_KEY, JsonConvert.toJson(state))
+        }
     }
 
-    suspend fun restore(): Destination.Path? {
-        val (saved, progressSnapshot, restoreRevision) = synchronized(this) {
-            Triple(prefs.getString(ROUTE_KEY) ?: return null, prefs.getString(PROGRESS_KEY), revision)
-        }
-        return try {
+    suspend fun load(): PathNavigationSession? = onIO {
+        synchronized(this@PathNavigationStore) {
+            val saved = prefs.getString(ROUTE_KEY) ?: return@synchronized null
             val state = requireNotNull(JsonConvert.fromJson<PathNavigationState>(saved))
-            val id = state.id
-            val path = requireNotNull(paths.getPath(id))
-            val originalPoints = paths.getWaypoints(id)
-            require(originalPoints.isNotEmpty())
-            currentCoroutineContext().ensureActive()
-            val start = Coordinate(state.startLat, state.startLon)
-            val route = PathRouteBuilder.buildRoute(
-                originalPoints, start, PathNavigationMode.valueOf(state.mode), state.destinationPointId
+            val progress = prefs.getString(PROGRESS_KEY)
+                ?.let { JsonConvert.fromJson<PathNavigationProgress>(it) }
+                ?.let { PathNavigationSessionProgress(it.distance, Coordinate(it.lat, it.lon)) }
+            PathNavigationSession(
+                state.id,
+                PathNavigationMode.valueOf(state.mode),
+                state.destinationPointId,
+                Coordinate(state.startLat, state.startLon),
+                progress
             )
-            val destination = Destination.Path(path, route)
-            progressSnapshot?.let {
-                JsonConvert.fromJson<PathNavigationProgress>(it)?.let { progress ->
-                    // Stored as a distance because the route may be longer now (ex. an active backtrack path)
-                    val route = destination.route
-                    if (route.length > 0f) {
-                        route.restoreProgress(
-                            progress.distance / route.length,
-                            Coordinate(progress.lat, progress.lon)
-                        )
-                    }
-                }
-            }
-            currentCoroutineContext().ensureActive()
-            synchronized(this) {
-                if (revision == restoreRevision) attach(destination) else null
-            }
-        } catch (e: CancellationException) {
-            throw e
-        } catch (_: Exception) {
-            synchronized(this) {
-                if (revision == restoreRevision) clear()
-            }
-            null
         }
     }
 
     @Synchronized
     fun clear() {
-        revision++
-        active = null
         prefs.remove(ROUTE_KEY)
         prefs.remove(PROGRESS_KEY)
     }
 
-    private fun attach(destination: Destination.Path): Destination.Path {
-        active = destination
-        destination.route.onProgressChanged = { fraction, location ->
-            synchronized(this) {
-                if (active === destination) {
-                    val progress = PathNavigationProgress(
-                        fraction * destination.route.length,
-                        location.latitude,
-                        location.longitude
-                    )
-                    prefs.putString(PROGRESS_KEY, JsonConvert.toJson(progress))
-                }
-            }
+    suspend fun saveProgress(
+        distance: Float,
+        location: Coordinate,
+        isCurrent: () -> Boolean
+    ) = onIO {
+        val progress = PathNavigationProgress(distance, location.latitude, location.longitude)
+        synchronized(this@PathNavigationStore) {
+            if (!isCurrent()) return@synchronized
+            prefs.putString(PROGRESS_KEY, JsonConvert.toJson(progress))
         }
-        return destination
     }
 
     private data class PathNavigationState(
@@ -131,7 +98,6 @@ class PathNavigationStore(context: Context) {
     ) : ProguardIgnore
 
     private companion object {
-        const val SESSION_STATE = "session_state"
         const val ROUTE_KEY = "path_navigation_route"
         const val PROGRESS_KEY = "path_navigation_progress"
     }
