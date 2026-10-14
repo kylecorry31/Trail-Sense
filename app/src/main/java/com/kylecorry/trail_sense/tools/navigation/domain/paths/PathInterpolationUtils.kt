@@ -11,10 +11,10 @@ internal object PathInterpolationUtils {
     fun elevationAt(points: List<PathPoint>, snap: Snap): Float? {
         val index = snap.segment
         if (index >= points.lastIndex) return points[index].elevation
-        if (snap.fraction == 0f) return points[index].elevation
-        if (snap.fraction == 1f) return points[index + 1].elevation
+        if (snap.percentAlongSegment == 0f) return points[index].elevation
+        if (snap.percentAlongSegment == 1f) return points[index + 1].elevation
         return Interpolation.lerp(
-            snap.fraction,
+            snap.percentAlongSegment,
             points[index].elevation ?: return null,
             points[index + 1].elevation ?: return null
         )

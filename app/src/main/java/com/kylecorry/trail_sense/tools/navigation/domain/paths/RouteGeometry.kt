@@ -13,14 +13,14 @@ import kotlin.math.min
 /**
  * A location snapped onto the route.
  * @param segment the index of the route point that starts the segment containing the snap
- * @param fraction how far along the segment the snap is, from 0 to 1
- * @param distance the distance along the route to the snap
+ * @param percentAlongSegment how far along the segment the snap is, from 0 to 1
+ * @param distanceAlong the distance along the route to the snap
  * @param offset the distance from the queried location to the snap
  */
 internal class Snap(
     val segment: Int,
-    val fraction: Float,
-    val distance: Float,
+    val percentAlongSegment: Float,
+    val distanceAlong: Float,
     val offset: Float
 )
 
@@ -54,7 +54,7 @@ internal class RouteGeometry(points: List<Coordinate>) {
     }
 
     fun coordinateOf(snap: Snap): Coordinate {
-        return interpolate(snap.segment, snap.fraction)
+        return interpolate(snap.segment, snap.percentAlongSegment)
     }
 
     /**
@@ -78,7 +78,7 @@ internal class RouteGeometry(points: List<Coordinate>) {
 
         return snaps.minBy {
             it.offset + min(
-                ESTIMATE_DISTANCE_WEIGHT * abs(it.distance - estimatedDistance),
+                ESTIMATE_DISTANCE_WEIGHT * abs(it.distanceAlong - estimatedDistance),
                 MAX_ESTIMATE_DISTANCE_PENALTY_METERS
             )
         }
@@ -102,7 +102,7 @@ internal class RouteGeometry(points: List<Coordinate>) {
         maxDistance: Float
     ): Snap? {
         val overlapsRange = cumulativeDistances[segment + 1] >= minDistance &&
-            cumulativeDistances[segment] <= maxDistance
+                cumulativeDistances[segment] <= maxDistance
         if (segmentLength(segment) <= 0f || !overlapsRange) return null
         val a = plane.toMeters(latitudes[segment], longitudes[segment])
         val b = plane.toMeters(latitudes[segment + 1], longitudes[segment + 1])

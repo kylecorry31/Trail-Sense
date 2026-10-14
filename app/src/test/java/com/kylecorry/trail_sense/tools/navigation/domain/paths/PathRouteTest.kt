@@ -36,7 +36,7 @@ class PathRouteTest {
 
         assertEquals(15f / PathRoute(points).length, withoutAccuracy.progress, 0.002f)
         assertEquals(location.distanceTo(points.first().coordinate) / PathRoute(points).length, withAccuracy.progress, 0.002f)
-        assertEquals(0f, withAccuracy.offRoute.meters().value, 1f)
+        assertEquals(0f, withAccuracy.offRouteDistance.meters().value, 1f)
     }
 
     @Test
@@ -107,7 +107,7 @@ class PathRouteTest {
             val location = Coordinate(0.003, 0.004)
             route.navigate(location)
             val guidance = route.navigate(Coordinate(location.latitude + 0.000001, location.longitude))
-            assertEquals(0f, guidance.offRoute.meters().value, 5f)
+            assertEquals(0f, guidance.offRouteDistance.meters().value, 5f)
             assertTrue(guidance.target.latitude > location.latitude)
             assertEquals(location.distanceTo(coordinates.last()), guidance.remainingDistance.meters().value, 5f)
         }
@@ -124,9 +124,9 @@ class PathRouteTest {
         val guidance = route.navigate(Coordinate(location.latitude + 0.000001, location.longitude))
         assertEquals(0.004, guidance.target.longitude, 0.00001)
         assertEquals(0.002 + 25 / 111_000.0, guidance.target.latitude, 0.00005)
-        assertTrue(guidance.offRoute.meters().value < 15f)
+        assertTrue(guidance.offRouteDistance.meters().value < 15f)
         assertEquals(
-            guidance.offRoute.meters().value + Coordinate(0.002, 0.004).distanceTo(path.last().coordinate),
+            guidance.offRouteDistance.meters().value + Coordinate(0.002, 0.004).distanceTo(path.last().coordinate),
             guidance.remainingDistance.meters().value,
             1f
         )
@@ -275,7 +275,7 @@ class PathRouteTest {
         val guidance = PathRoute(points).navigate(Coordinate(0.001, 0.0))
         assertTrue(guidance.target.distanceTo(points[0].coordinate) < 0.1f)
         assertEquals(
-            guidance.offRoute.meters().value + points[0].coordinate.distanceTo(points[2].coordinate),
+            guidance.offRouteDistance.meters().value + points[0].coordinate.distanceTo(points[2].coordinate),
             guidance.remainingDistance.meters().value,
             0.1f
         )
@@ -471,7 +471,7 @@ class PathRouteTest {
             )
             val guidance = route.navigate(location)
             assertTrue(guidance.progress * route.length >= previousProgress * route.length - 25f)
-            assertTrue(guidance.offRoute.meters().value < 25f)
+            assertTrue(guidance.offRouteDistance.meters().value < 25f)
             previousProgress = guidance.progress
             arrived = guidance.arrived
         }
