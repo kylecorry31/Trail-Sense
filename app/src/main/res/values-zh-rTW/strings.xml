@@ -1448,7 +1448,7 @@
     <string name="slope_color_white_to_red">白色至紅色</string>
     <string name="slope_color_green_to_red">綠色至紅色</string>
     <string name="hide_flat_ground">隱藏平地</string>
-    <string name="lock_bearing_to_location">鎖定方位至位置</string>
+    <string name="lock_bearing_to_location">將方位鎖定至位置</string>
     <string name="map_attribution_format">地圖資料 © %s</string>
     <string name="map_layer_photo_maps_description">你已儲存的照片地圖</string>
     <string name="map_layer_cell_towers_description">大致的基地台塔位置</string>
@@ -1649,4 +1649,14 @@
     <string name="gps_accuracy_wait">最久等待：%1$s</string>
     <string name="pref_backtrack_min_distance_title">點之間的最短距離</string>
     <string name="pref_backtrack_min_distance_summary">距離前一個點更靠近的點不會被記錄。設置為 0 則記錄每個點。</string>
+    <string name="ar_path_appearance_ribbon">帶狀</string>
+    <string name="delete_packing_list_item">刪除項目?</string>
+    <string name="quality">品質</string>
+    <string name="skip_elevations">跳過海拔</string>
+    <string name="map_layer_navigation_show_endpoints">顯示起點和終點</string>
+    <string name="compass_update_frequency">指南針更新頻率</string>
+    <string name="compass_update_frequency_normal">正常</string>
+    <string name="compass_update_frequency_fast">快速</string>
+    <string name="ar_path_appearance">外觀</string>
+    <string name="ar_path_appearance_line">線條</string>
 </resources>
