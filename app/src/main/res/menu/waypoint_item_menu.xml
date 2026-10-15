@@ -2,7 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_waypoint_navigate"
-        android:title="@string/navigate" />
+        android:title="@string/path_navigation_follow_to_point" />
+    <item
+        android:id="@+id/action_waypoint_navigate_directly"
+        android:title="@string/path_navigation_direct" />
     <item
         android:id="@+id/action_waypoint_create_beacon"
         android:title="@string/create_beacon" />

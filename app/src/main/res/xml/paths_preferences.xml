@@ -100,13 +100,6 @@
             app:title="@string/pref_auto_simplify_paths_title" />
 
         <SwitchPreferenceCompat
-            app:defaultValue="true"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_only_navigate_path_points"
-            app:singleLineTitle="false"
-            app:title="@string/pref_only_navigate_path_points_title" />
-
-        <SwitchPreferenceCompat
             android:summary="@string/fast_path_rendering_summary"
             app:defaultValue="false"
             app:iconSpaceReserved="false"

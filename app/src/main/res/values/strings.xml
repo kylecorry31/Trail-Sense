@@ -1184,8 +1184,6 @@
     <string name="pref_enable_analog_clock" translatable="false">pref_enable_analog_clock</string>
     <string name="pref_enable_analog_title">Analog clock</string>
     <string name="bearing">Bearing</string>
-    <string name="pref_only_navigate_path_points" translatable="false">pref_only_navigate_path_points</string>
-    <string name="pref_only_navigate_path_points_title">Only navigate to recorded points</string>
     <string name="error">Error</string>
     <string name="warning">Warning</string>
     <!--The OK string is what is seen as a button in the dialog containing this message. Don't kill my app is the name of the website - it is formatted as a Markdown URL.-->
@@ -2056,19 +2054,18 @@
     <!--The last updated time for weather readings-->
     <string name="last_updated">Last updated</string>
     <string name="pref_gps_smoothing" translatable="false">pref_gps_smoothing</string>
-    <!-- Follow the saved path in its recorded direction, from its start to its end. -->
-    <string name="path_navigation_follow">Follow to end</string>
-    <!-- Follow the saved path in the opposite direction, toward its start. -->
-    <string name="path_navigation_reverse">Follow to start</string>
-    <!-- For a loop path, follow the entire path and return to the starting point. -->
-    <string name="path_navigation_loop">Follow full loop</string>
-    <!-- For a loop path, follow the entire path in the opposite direction and return to the starting point. -->
-    <string name="path_navigation_reverse_loop">Follow full loop in reverse</string>
-    <!-- Reach the selected point by following the saved path. -->
-    <string name="path_navigation_to_point">Follow path to this point</string>
+    <!-- Header above the buttons for following the saved path in either direction. -->
+    <string name="follow_path">Follow path</string>
+    <!-- Follow the saved path in its recorded direction, from the nearest point to its end. -->
+    <string name="path_direction_to_end">To end</string>
+    <!-- Follow the saved path in the opposite direction, from the nearest point back to its start. -->
+    <string name="path_direction_to_start">To start</string>
+    <!-- Waypoint menu item: follow the saved path from the nearest point to this waypoint. -->
+    <string name="path_navigation_follow_to_point">Follow to point</string>
+    <!-- Path menu item for a loop path: take the shortest route back to the first point of the path. -->
+    <string name="path_navigation_trailhead">Follow to trailhead</string>
     <!-- Reach the selected point directly, without following the saved path. -->
     <string name="path_navigation_direct">Navigate directly</string>
-    <string name="navigate_back_onto_path">Navigate back onto path</string>
     <string name="compass_update_frequency">Compass update frequency</string>
     <string name="compass_update_frequency_normal">Normal</string>
     <string name="compass_update_frequency_fast">Fast</string>

@@ -20,6 +20,7 @@ class PathPointsListFragment : BoundBottomSheetDialogFragment<FragmentPathPoints
     var onCreateBeaconListener: (point: PathPoint) -> Unit = {}
     var onDeletePointListener: (point: PathPoint) -> Unit = {}
     var onNavigateToPointListener: (point: PathPoint) -> Unit = {}
+    var onNavigateDirectlyToPointListener: (point: PathPoint) -> Unit = {}
     var onViewPointListener: (point: PathPoint) -> Unit = {}
 
     fun setPoints(points: List<PathPoint>) {
@@ -48,6 +49,10 @@ class PathPointsListFragment : BoundBottomSheetDialogFragment<FragmentPathPoints
             { onDeletePointListener(it) },
             {
                 onNavigateToPointListener(it)
+                dismiss()
+            },
+            {
+                onNavigateDirectlyToPointListener(it)
                 dismiss()
             },
             {

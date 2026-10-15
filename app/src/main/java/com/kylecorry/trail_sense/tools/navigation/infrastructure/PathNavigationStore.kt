@@ -6,12 +6,11 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
-import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 
 data class PathNavigationSession(
     val pathId: Long,
-    val mode: PathNavigationMode,
+    val reversed: Boolean,
     val destinationPointId: Long?,
     val start: Coordinate,
     val progress: PathNavigationSessionProgress?
@@ -32,12 +31,12 @@ class PathNavigationStore {
     suspend fun save(
         path: Path,
         start: Coordinate,
-        mode: PathNavigationMode,
+        reversed: Boolean,
         destinationPointId: Long?
     ) = onIO {
         val state = PathNavigationState(
             id = path.id,
-            mode = mode.name,
+            reversed = reversed,
             destinationPointId = destinationPointId,
             startLat = start.latitude,
             startLon = start.longitude
@@ -57,7 +56,7 @@ class PathNavigationStore {
                 ?.let { PathNavigationSessionProgress(it.distance, Coordinate(it.lat, it.lon)) }
             PathNavigationSession(
                 state.id,
-                PathNavigationMode.valueOf(state.mode),
+                state.reversed,
                 state.destinationPointId,
                 Coordinate(state.startLat, state.startLon),
                 progress
@@ -85,7 +84,7 @@ class PathNavigationStore {
 
     private data class PathNavigationState(
         val id: Long,
-        val mode: String,
+        val reversed: Boolean,
         val destinationPointId: Long?,
         val startLat: Double,
         val startLon: Double

@@ -10,16 +10,16 @@ object PathRouteBuilder {
     fun buildRoute(
         points: List<PathPoint>,
         location: Coordinate,
-        mode: PathNavigationMode,
+        reversed: Boolean,
         destinationPointId: Long? = null
     ): List<PathPoint> {
         require(points.isNotEmpty())
         val sorted = hikingService.correctElevations(points.sortedBy { it.id })
 
-        val strategy = when {
-            destinationPointId != null -> ShortestRoutingStrategy(sorted.indexOfFirst { it.id == destinationPointId })
-            mode.isFullLoop -> InOrderRoutingStrategy(mode.isReversed)
-            else -> ShortestRoutingStrategy(if (mode.isReversed) 0 else sorted.lastIndex)
+        val strategy = if (destinationPointId != null) {
+            ShortestRoutingStrategy(sorted.indexOfFirst { it.id == destinationPointId })
+        } else {
+            InOrderRoutingStrategy(reversed)
         }
         return strategy.buildRoute(sorted, location)
     }

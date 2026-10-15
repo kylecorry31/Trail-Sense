@@ -20,6 +20,7 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
+import com.kylecorry.andromeda.pickers.MenuItem
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
@@ -33,7 +34,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
@@ -70,8 +70,6 @@ import com.kylecorry.trail_sense.tools.paths.domain.beacon.TemporaryPathPointBea
 import com.kylecorry.trail_sense.tools.paths.domain.factories.IPointDisplayFactory
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
-import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathLineNavigator
-import com.kylecorry.trail_sense.tools.paths.domain.point_finder.NearestPathPointNavigator
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathColorCommand
@@ -82,7 +80,6 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.DeletePointCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ExportPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.KeepPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.MoveIPathCommand
-import com.kylecorry.trail_sense.tools.paths.ui.commands.NavigateToPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.NavigateToPointCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ReplacePathElevationsCommand
@@ -109,6 +106,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
     private var declination = 0f
     private val hikingService = HikingService()
+    private var isLoop = false
     private val pathService by lazy { PathService.getInstance(requireContext()) }
 
     private var pointSheet: PathPointsListFragment? = null
@@ -242,9 +240,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             }
         }
 
-        binding.navigateBtn.setOnClickListener {
-            PathNavigationPicker.show(requireContext(), waypoints,
-                onFollow = { followPath(it) }, onNearestPoint = { navigateToNearestPathPoint() })
+        binding.toEndBtn.setOnClickListener {
+            followPath()
+        }
+
+        binding.toStartBtn.setOnClickListener {
+            followPath(reversed = true)
         }
 
         binding.pathTitle.rightButton.setOnClickListener {
@@ -337,6 +338,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     deselectPoint()
                 }
                 pointSheet?.setPoints(this@PathOverviewFragment.waypoints)
+                isLoop = hikingService.isLoop(waypoints.sortedBy { it.id }.map { it.coordinate })
                 updateElevationOverview()
                 updateHikingStats()
                 updatePathMap()
@@ -404,43 +406,57 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun showPathMenu() {
         val path = path ?: return
-        val actions = listOf(
-            PathAction.Rename,
-            PathAction.Keep,
-            PathAction.ToggleVisibility,
-            PathAction.Export,
-            PathAction.Simplify,
-            PathAction.ReplaceElevations,
-            PathAction.ViewPoints
+        val menuItems = listOfNotNull(
+            MenuItem(getString(R.string.rename)) {
+                renamePath(path)
+                true
+            },
+            if (path.temporary) {
+                MenuItem(getString(R.string.keep_forever)) {
+                    keepPath(path)
+                    true
+                }
+            } else {
+                null
+            },
+            if (path.style.visible) {
+                MenuItem(getString(R.string.hide)) {
+                    togglePathVisibility(path)
+                    true
+                }
+            } else {
+                MenuItem(getString(R.string.show)) {
+                    togglePathVisibility(path)
+                    true
+                }
+            },
+            MenuItem(getString(R.string.export)) {
+                exportPath(path)
+                true
+            },
+            MenuItem(getString(R.string.simplify)) {
+                simplifyPath(path)
+                true
+            },
+            MenuItem(getString(R.string.replace_elevations)) {
+                replaceElevations(path)
+                true
+            },
+            if (isLoop) {
+                MenuItem(getString(R.string.path_navigation_trailhead)) {
+                    navigateToTrailhead()
+                    true
+                }
+            } else {
+                null
+            },
+            MenuItem(getString(R.string.points)) {
+                viewPoints()
+                true
+            }
         )
 
-        Pickers.menu(
-            binding.pathTitle.rightButton, listOf(
-                getString(R.string.rename),
-                if (path.temporary) getString(R.string.keep_forever) else null,
-                if (path.style.visible) getString(R.string.hide) else getString(
-                    R.string.show
-                ),
-                getString(R.string.export),
-                getString(R.string.simplify),
-                getString(R.string.replace_elevations),
-                getString(R.string.points)
-            )
-        ) {
-            when (actions[it]) {
-                PathAction.Export -> exportPath(path)
-                PathAction.Rename -> renamePath(path)
-                PathAction.Keep -> keepPath(path)
-                PathAction.ToggleVisibility -> togglePathVisibility(path)
-                PathAction.Simplify -> simplifyPath(path)
-                PathAction.ReplaceElevations -> replaceElevations(path)
-                PathAction.ViewPoints -> viewPoints()
-                else -> {
-                    // Do nothing
-                }
-            }
-            true
-        }
+        Pickers.menu(binding.pathTitle.rightButton, menuItems)
     }
 
     private fun simplifyPath(path: Path) {
@@ -689,6 +705,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             { createBeacon(it) },
             { deleteWaypoint(it) },
             { navigateToWaypoint(it) },
+            { navigateDirectlyToWaypoint(it) },
             { /* Do nothing */ }
         )
 
@@ -702,6 +719,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         pointSheet?.onCreateBeaconListener = { createBeacon(it) }
         pointSheet?.onDeletePointListener = { deleteWaypoint(it) }
         pointSheet?.onNavigateToPointListener = { navigateToWaypoint(it) }
+        pointSheet?.onNavigateDirectlyToPointListener = { navigateDirectlyToWaypoint(it) }
         pointSheet?.onViewPointListener = { viewWaypoint(it) }
         pointSheet?.setPoints(waypoints)
     }
@@ -729,13 +747,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     }
 
     private fun navigateToWaypoint(point: PathPoint) {
-        PathNavigationPicker.showToPoint(requireContext(),
-            onFollow = { followPath(destinationPointId = point.id) },
-            onDirect = { navigateDirectlyToWaypoint(point) })
+        followPath(destinationPointId = point.id)
     }
 
     private fun followPath(
-        mode: PathNavigationMode = PathNavigationMode.TO_END,
+        reversed: Boolean = false,
         destinationPointId: Long? = null
     ) {
         val selectedPath = path ?: return
@@ -745,12 +761,17 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 val navigator = Navigator.getInstance(requireContext())
                 onDefault {
                     navigator.navigateAlongPath(
-                        selectedPath, pathService.getWaypoints(selectedPath.id), mode, destinationPointId
+                        selectedPath, pathService.getWaypoints(selectedPath.id), reversed, destinationPointId
                     )
                 }
             }
             onMain { findNavController().navigate(R.id.action_navigation) }
         }
+    }
+
+    private fun navigateToTrailhead() {
+        val firstWaypoint = waypoints.minByOrNull { it.id } ?: return
+        followPath(destinationPointId = firstWaypoint.id)
     }
 
     private fun navigateDirectlyToWaypoint(point: PathPoint) {
@@ -762,23 +783,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
         tryOrNothing {
             command.execute(path, point)
-        }
-    }
-
-    private fun navigateToNearestPathPoint() {
-        val path = path ?: return
-        val points = waypoints
-        val command = NavigateToPathCommand(
-            if (prefs.navigation.onlyNavigateToPoints) NearestPathPointNavigator() else NearestPathLineNavigator(),
-            gps,
-            converter,
-            beaconNavigator
-        )
-
-        toast(getString(R.string.navigate_back_onto_path))
-
-        inBackground {
-            command.execute(path, points)
         }
     }
 

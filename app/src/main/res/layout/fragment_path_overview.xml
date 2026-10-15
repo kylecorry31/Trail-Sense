@@ -209,29 +209,53 @@
             android:layout_marginEnd="16dp" />
 
 
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_point_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text="@string/point"
+            app:icon="@drawable/ic_add"
+            style="?attr/materialButtonOutlinedStyle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="@string/follow_path" />
+
+        <com.google.android.material.button.MaterialButtonGroup
+            style="@style/Widget.Material3Expressive.MaterialButtonGroup.Connected"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="@dimen/default_bottom_margin"
-            android:gravity="center">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/default_bottom_margin">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/navigate_btn"
-                android:layout_width="wrap_content"
+                android:id="@+id/to_start_btn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="@string/navigate"
-                app:icon="@drawable/ic_beacon" />
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/path_direction_to_start"
+                style="?attr/materialButtonTonalStyle" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/add_point_btn"
-                android:layout_width="wrap_content"
+                android:id="@+id/to_end_btn"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/point"
-                app:icon="@drawable/ic_add" />
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/path_direction_to_end"
+                style="?attr/materialButtonTonalStyle" />
 
-        </LinearLayout>
+        </com.google.android.material.button.MaterialButtonGroup>
 
         <TextView
             android:id="@+id/paths_timing"

@@ -7,6 +7,5 @@ interface IPathPreferences {
     val defaultPathStyle: PathStyle
     val backtrackHistory: Duration
     val simplifyPathOnImport: Boolean
-    val onlyNavigateToPoints: Boolean
     val useFastPathRendering: Boolean
 }

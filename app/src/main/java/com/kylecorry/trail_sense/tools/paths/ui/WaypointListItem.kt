@@ -24,6 +24,7 @@ class WaypointListItem(
     private val createBeacon: (waypoint: PathPoint) -> Unit,
     private val delete: (waypoint: PathPoint) -> Unit,
     private val navigate: (waypoint: PathPoint) -> Unit,
+    private val navigateDirectly: (waypoint: PathPoint) -> Unit,
     private val view: (waypoint: PathPoint) -> Unit
 ) {
     fun display(
@@ -91,6 +92,10 @@ class WaypointListItem(
 
                     R.id.action_waypoint_navigate -> {
                         navigate(item)
+                    }
+
+                    R.id.action_waypoint_navigate_directly -> {
+                        navigateDirectly(item)
                     }
                 }
                 true

@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
-import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRouteBuilder
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
@@ -53,7 +52,7 @@ class PathNavigator(context: Context) {
             require(points.isNotEmpty())
             currentCoroutineContext().ensureActive()
             val route = PathRouteBuilder.buildRoute(
-                points, session.start, session.mode, session.destinationPointId
+                points, session.start, session.reversed, session.destinationPointId
             )
             val destination = Destination.Path(path, route)
             session.progress?.let {
@@ -91,15 +90,15 @@ class PathNavigator(context: Context) {
     suspend fun navigate(
         path: Path,
         points: List<PathPoint>,
-        mode: PathNavigationMode = PathNavigationMode.TO_END,
+        reversed: Boolean = false,
         destinationPointId: Long? = null
     ) {
         if (points.isEmpty()) return
         if (destinationPointId != null && points.none { it.id == destinationPointId }) return
         val start = locationSubsystem.location
-        val route = PathRouteBuilder.buildRoute(points, start, mode, destinationPointId)
+        val route = PathRouteBuilder.buildRoute(points, start, reversed, destinationPointId)
         cancel()
-        store.save(path, start, mode, destinationPointId)
+        store.save(path, start, reversed, destinationPointId)
         destinationState.value = Destination.Path(path, route)
     }
 
