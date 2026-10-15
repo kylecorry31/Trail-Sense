@@ -218,6 +218,56 @@ class HikingServiceTest {
         assertEquals(15, corrected.size)
     }
 
+    @Test
+    fun correctingElevationsKeepsACleanClimb() {
+        val elevations = Array<Float?>(40) { 100f + it * 5f }
+
+        val corrected = service.correctElevations(path(*elevations))
+
+        corrected.forEachIndexed { index, point ->
+            assertEquals(elevations[index]!!, point.elevation!!, 0.5f)
+        }
+    }
+
+    @Test
+    fun correctingElevationsRemovesNoiseFromAClimb() {
+        val trend = List(40) { 100f + it * 5f }
+        val noisy = Array<Float?>(40) { trend[it] + if (it % 2 == 0) 15f else -15f }
+
+        val corrected = service.correctElevations(path(*noisy))
+
+        val error = corrected.indices.map { (corrected[it].elevation!! - trend[it]).let { d -> d * d } }.average()
+        assertTrue(error < 15f * 15f / 4, "The noise should be at least halved, mean squared error was $error")
+    }
+
+    @Test
+    fun correctingElevationsWithNoSmoothingChangesNothing() {
+        val path = path(*Array<Float?>(20) { 100f + (it % 3) * 10f })
+
+        assertEquals(path, service.correctElevations(path, 0f))
+    }
+
+    @Test
+    fun correctingElevationsUsesMediumSmoothingByDefault() {
+        val path = path(*Array<Float?>(40) { 100f + it * 5f + if (it % 2 == 0) 15f else -15f })
+
+        assertEquals(service.correctElevations(path, 0.5f), service.correctElevations(path))
+    }
+
+    @Test
+    fun moreSmoothingRemovesMoreNoise() {
+        val trend = List(40) { 100f + it * 5f }
+        val noisy = path(*Array<Float?>(40) { trend[it] + if (it % 2 == 0) 15f else -15f })
+
+        val errors = listOf(0.25f, 0.5f, 0.75f).map { smoothing ->
+            val corrected = service.correctElevations(noisy, smoothing)
+            corrected.indices.map { (corrected[it].elevation!! - trend[it]).let { d -> d * d } }.average()
+        }
+
+        assertTrue(errors[0] >= errors[1] && errors[1] >= errors[2], "More smoothing should not add error, was $errors")
+        assertTrue(errors[2] < errors[0], "The most smoothing should have less error than the least, was $errors")
+    }
+
     private fun path(vararg elevations: Float?): List<PathPoint> {
         return elevations.mapIndexed { index, elevation ->
             PathPoint(

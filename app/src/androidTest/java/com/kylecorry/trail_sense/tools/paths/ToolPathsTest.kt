@@ -38,12 +38,14 @@ import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationMode
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRoute
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigationStore
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigator
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
 import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
@@ -698,7 +700,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         val route = follow(OUT_AND_BACK, PathNavigationMode.TO_END, from = points[0])
         val location = Coordinate(points[28].latitude + 0.00001, points[28].longitude)
         route.navigate(points[28])
-        route.navigate(location)
+        // The navigator saves the progress when the location changes
+        UserPreferences(TestUtils.context).gps.locationOverride = location
+        Tools.broadcast(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED)
+        waitFor { assertNotNull(runBlocking { PathNavigationStore().load() }?.progress) }
 
         // A new navigator is what the app has after it is restarted
         val restored = PathNavigator(TestUtils.context)

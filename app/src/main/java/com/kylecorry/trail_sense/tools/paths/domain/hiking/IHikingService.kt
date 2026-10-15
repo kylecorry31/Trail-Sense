@@ -10,7 +10,15 @@ interface IHikingService {
 
     fun getDistances(points: List<Coordinate>, minDistance: Float = 0f): List<Float>
 
-    fun correctElevations(points: List<PathPoint>): List<PathPoint>
+    /**
+     * Smooths the elevations of the path to remove noise
+     * @param points The path points in order
+     * @param smoothing How much to smooth the elevations, from 0 (none) to 1 (the most)
+     */
+    fun correctElevations(
+        points: List<PathPoint>,
+        smoothing: Float = HikingService.DEFAULT_ELEVATION_SMOOTHING
+    ): List<PathPoint>
 
     fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty
 
