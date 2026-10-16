@@ -232,9 +232,12 @@ class PathService(
         }
     }
 
-    override suspend fun replaceWaypoints(points: List<PathPoint>) {
+    override suspend fun updateWaypointElevations(path: Long, elevations: Map<Long, Float>) {
         waypointLock.withLock {
-            waypointRepo.addAll(points)
+            val updated = waypointRepo.getAllInPaths(listOf(path)).mapNotNull { point ->
+                elevations[point.id]?.let { point.copy(elevation = it) }
+            }
+            waypointRepo.addAll(updated)
         }
     }
 

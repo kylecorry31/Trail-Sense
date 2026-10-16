@@ -34,7 +34,7 @@ interface IPathService : ICleanable {
     fun getWaypointsLive(path: Long): LiveData<List<PathPoint>>
     suspend fun getWaypointsWithCellSignal(): List<PathPoint>
     suspend fun addWaypointsToPath(points: List<PathPoint>, pathId: Long)
-    suspend fun replaceWaypoints(points: List<PathPoint>)
+    suspend fun updateWaypointElevations(path: Long, elevations: Map<Long, Float>)
     suspend fun addWaypoint(point: PathPoint): Long
     suspend fun deleteWaypoint(point: PathPoint)
     suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long)

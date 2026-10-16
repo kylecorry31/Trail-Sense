@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.extensions.withCancelableProgress
 import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -33,7 +32,7 @@ class ReplacePathElevationsCommand(
             }
 
             lifecycleOwner.inBackground {
-                var elevations = emptyList<PathPoint>()
+                val elevations = mutableMapOf<Long, Float>()
                 var job: Job? = null
                 Alerts.withCancelableProgress(
                     context,
@@ -42,13 +41,11 @@ class ReplacePathElevationsCommand(
                 ) { setProgress ->
                     job = launch {
                         val points = pathService.getWaypoints(path.id)
-                        elevations = points.mapIndexed { index, point ->
+                        points.forEachIndexed { index, point ->
                             val elevation = DEM.getElevation(point.coordinate)
                             setProgress((index + 1) / points.size.coerceAtLeast(1).toFloat())
                             if (elevation.hasData) {
-                                point.copy(elevation = elevation.elevation)
-                            } else {
-                                point
+                                elevations[point.id] = elevation.elevation
                             }
                         }
                     }
@@ -63,7 +60,7 @@ class ReplacePathElevationsCommand(
                     Alerts.loading(context, context.getString(R.string.saving))
                 }
                 onIO {
-                    pathService.replaceWaypoints(elevations)
+                    pathService.updateWaypointElevations(path.id, elevations)
                 }
                 onMain {
                     loading.dismiss()
