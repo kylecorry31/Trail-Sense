@@ -655,7 +655,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             color = path.style.color
         )
 
-        layer.setData(GeoJsonFeatureCollection(waypointFeatures + endpointFeatures + pathFeature))
+        layer.setData(GeoJsonFeatureCollection(endpointFeatures + waypointFeatures + pathFeature))
     }
 
     private fun updateDeclination() {
