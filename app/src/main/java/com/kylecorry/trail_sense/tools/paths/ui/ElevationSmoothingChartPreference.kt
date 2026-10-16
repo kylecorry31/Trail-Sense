@@ -63,6 +63,10 @@ class ElevationSmoothingChartPreference(context: Context, attributeSet: Attribut
         this.chart = chart
     }
 
+    fun releaseChart() {
+        chart = null
+    }
+
     fun setPath(path: List<PathPoint>) {
         rawLine.data = getPlotPoints(path)
         chart?.invalidate()

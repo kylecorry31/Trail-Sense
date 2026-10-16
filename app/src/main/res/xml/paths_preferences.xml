@@ -100,8 +100,7 @@
             app:title="@string/pref_auto_simplify_paths_title" />
 
         <SeekBarPreference
-            android:defaultValue="500"
-            android:max="1000"
+            android:max="@integer/elevation_smoothing_scale"
             app:iconSpaceReserved="false"
             app:key="@string/pref_elevation_smoothing"
             app:min="0"

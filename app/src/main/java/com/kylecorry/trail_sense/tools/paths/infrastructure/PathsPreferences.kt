@@ -127,15 +127,18 @@ class PathsPreferences(private val context: Context) : IPathPreferences {
         false
     )
 
+    val elevationSmoothingScale: Int
+        get() = context.resources.getInteger(R.integer.elevation_smoothing_scale)
+
     override val elevationSmoothing: Float
         get() {
+            val scale = elevationSmoothingScale
             val scaled = cache.getInt(context.getString(R.string.pref_elevation_smoothing))
-                ?: (HikingService.DEFAULT_ELEVATION_SMOOTHING * ELEVATION_SMOOTHING_SCALE).toInt()
-            return scaled / ELEVATION_SMOOTHING_SCALE.toFloat()
+                ?: (HikingService.DEFAULT_ELEVATION_SMOOTHING * scale).toInt()
+            return scaled / scale.toFloat()
         }
 
     companion object {
         const val DEFAULT_BACKTRACK_MIN_DISTANCE_METERS = 10f
-        const val ELEVATION_SMOOTHING_SCALE = 1000
     }
 }

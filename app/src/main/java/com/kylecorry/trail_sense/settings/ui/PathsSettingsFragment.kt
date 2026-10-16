@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.settings.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.SwitchPreferenceCompat
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -18,7 +19,6 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
-import com.kylecorry.trail_sense.tools.paths.infrastructure.PathsPreferences
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
@@ -30,8 +30,10 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangeBacktrackFrequenc
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ToggleBacktrackCommand
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 class PathsSettingsFragment : AndromedaPreferenceFragment() {
 
@@ -56,6 +58,16 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
         )
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupElevationSmoothingPreview()
+    }
+
+    override fun onDestroyView() {
+        elevationSmoothingChart?.releaseChart()
+        super.onDestroyView()
+    }
+
     override fun onPause() {
         super.onPause()
         Tools.unsubscribe(PathsToolRegistration.BROADCAST_BACKTRACK_ENABLED, ::onBacktrackEnabled)
@@ -64,12 +76,15 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
 
     private fun setupElevationSmoothingPreview() {
         val context = requireContext()
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             val pathService = PathService.getInstance(context)
             val path = onIO {
                 val pathId = pathService.getMostRecentPathIdWithElevationChange(MIN_PREVIEW_ELEVATION_CHANGE_METERS)
                     ?: return@onIO null
-                pathService.getWaypoints(pathId).sortedBy { it.id }
+                pathService.getWaypoints(pathId)
+                    .sortedBy { it.id }
+                    .filter { it.elevation != null }
+                    .downsample(MAX_PREVIEW_POINTS)
             } ?: return@launch
             elevationPreviewPath = path
             elevationSmoothingChart?.setPath(path)
@@ -80,7 +95,8 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
 
     private fun updateElevationSmoothingPreview(smoothing: Float) {
         elevationPreviewJob?.cancel()
-        elevationPreviewJob = lifecycleScope.launch {
+        elevationPreviewJob = viewLifecycleOwner.lifecycleScope.launch {
+            delay(PREVIEW_DEBOUNCE_MS.milliseconds)
             val smoothed = onDefault { hikingService.correctElevations(elevationPreviewPath, smoothing) }
             elevationSmoothingChart?.plot(smoothed)
         }
@@ -98,11 +114,11 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.paths_preferences, rootKey)
         prefBacktrack = switch(R.string.pref_backtrack_enabled)
 
-        setupElevationSmoothingPreview()
         seekBar(R.string.pref_elevation_smoothing)?.apply {
+            value = (prefs.paths.elevationSmoothing * prefs.paths.elevationSmoothingScale).toInt()
             summary = formatService.formatPercentage(prefs.paths.elevationSmoothing * 100)
             setOnPreferenceChangeListener { _, newValue ->
-                val smoothing = newValue.toString().toFloat() / PathsPreferences.ELEVATION_SMOOTHING_SCALE
+                val smoothing = newValue.toString().toFloat() / prefs.paths.elevationSmoothingScale
                 summary = formatService.formatPercentage(smoothing * 100)
                 updateElevationSmoothingPreview(smoothing)
                 true
@@ -224,5 +240,14 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
 
     companion object {
         private const val MIN_PREVIEW_ELEVATION_CHANGE_METERS = 50f
+        private const val MAX_PREVIEW_POINTS = 200
+        private const val PREVIEW_DEBOUNCE_MS = 100L
+
+        private fun <T> List<T>.downsample(maxSize: Int): List<T> {
+            if (size <= maxSize) {
+                return this
+            }
+            return List(maxSize) { this[it * lastIndex / (maxSize - 1)] }
+        }
     }
 }

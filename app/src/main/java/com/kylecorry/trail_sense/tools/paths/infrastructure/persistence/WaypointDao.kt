@@ -39,8 +39,9 @@ interface WaypointDao {
     suspend fun getLastInPath(pathId: Long): WaypointEntity?
 
     @Query(
-        "SELECT pathId FROM waypoints WHERE altitude IS NOT NULL GROUP BY pathId " +
-                "HAVING MAX(altitude) - MIN(altitude) >= :minChange ORDER BY pathId DESC LIMIT 1"
+        "SELECT _id FROM paths WHERE " +
+                "(SELECT MAX(altitude) - MIN(altitude) FROM waypoints WHERE pathId = paths._id) >= :minChange " +
+                "ORDER BY _id DESC LIMIT 1"
     )
     suspend fun getMostRecentPathIdWithElevationChange(minChange: Float): Long?
 
