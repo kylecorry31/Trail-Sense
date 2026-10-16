@@ -239,6 +239,9 @@ fun <T> T.useBackPressedCallback(
             }
         }
     }
+    useDestroyEffect {
+        listenerRef.current?.remove()
+    }
 }
 
 fun <T> T.useBottomSheetBackPressedCallback(
@@ -262,6 +265,9 @@ fun <T> T.useBottomSheetBackPressedCallback(
         }
         dispatcher.addCallback(viewLifecycleOwner, listener)
         listenerRef.current = listener
+    }
+    useDestroyEffect {
+        listenerRef.current?.remove()
     }
 }
 
