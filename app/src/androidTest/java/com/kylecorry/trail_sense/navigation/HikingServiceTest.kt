@@ -60,14 +60,36 @@ class HikingServiceTest {
         }
 
         // Meters
-        assertQuantile(elevationErrors, 3f, 0.5f, "Elevation")
-        assertQuantile(elevationErrors, 16f, 0.9f, "Elevation")
+        assertQuantile(elevationErrors, 2.6f, 0.5f, "Elevation")
+        assertQuantile(elevationErrors, 12f, 0.9f, "Elevation")
         // Fraction of the USGS gain plus loss
         assertQuantile(gainLossErrors, 0.15f, 0.5f, "Gain/loss")
         assertQuantile(gainLossErrors, 0.25f, 0.9f, "Gain/loss")
     }
 
+    @Test
+    fun lowSmoothingDoesNotThrowPointsOffThePath() {
+        val hikingService = HikingService()
+        val failures = mutableListOf<String>()
+
+        for (name in USGS_PATHS) {
+            val recorded = TestData.loadGpxPoints("paths/$name.gpx")
+            for (smoothing in listOf(0.05f, 0.1f, 0.25f, 0.4f)) {
+                val corrected = hikingService.correctElevations(recorded, smoothing)
+                val worst = corrected.indices.maxOf { (corrected[it].elevation!! - recorded[it].elevation!!).absoluteValue }
+                if (worst > MAX_CORRECTION_METERS) {
+                    failures.add("$name at $smoothing moved a point by $worst m")
+                }
+            }
+        }
+
+        assertEquals(emptyList<String>(), failures)
+    }
+
     private companion object {
+        // Smoothing can pull a peak down by tens of meters, but a point moving this far means the smoothing failed
+        const val MAX_CORRECTION_METERS = 100f
+
         // Sprague and Pulaski were recorded with elevations that already match USGS, so any error there is from the smoothing.
         // Some of the others have an elevation that drifts by tens of meters, which smoothing can't fix.
         val USGS_PATHS = listOf(
@@ -82,7 +104,9 @@ class HikingServiceTest {
             "mt chocorua",
             "moat mountain",
             "cathedral ledge",
-            "presidential range"
+            "presidential range",
+            "mount marcy",
+            "mt beacon"
         )
     }
 
