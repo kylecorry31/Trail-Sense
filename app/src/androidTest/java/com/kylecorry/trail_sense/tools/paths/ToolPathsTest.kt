@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.io.GpxIOService
 import com.kylecorry.trail_sense.shared.io.UriPicker
 import com.kylecorry.trail_sense.shared.io.UriPickerError
 import com.kylecorry.trail_sense.shared.io.UriService
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
@@ -781,6 +782,34 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         val restoredAfterStopping = PathNavigator(TestUtils.context)
         restoredAfterStopping.awaitRestore()
         assertNull(restoredAfterStopping.destination.first())
+    }
+
+    @Test
+    fun navigationUsesTheElevationSmoothingSetting() = runBlocking {
+        val prefs = UserPreferences(TestUtils.context).paths
+        val start = coordinatesOf(OUT_AND_BACK)[0]
+
+        val defaultGain = follow(OUT_AND_BACK, reversed = false, from = start)
+            .navigate(start).remainingElevationGain.meters().value
+        PreferencesSubsystem.getInstance(TestUtils.context).preferences
+            .putInt(TestUtils.context.getString(R.string.pref_elevation_smoothing), 1000)
+        val smoothedGain = follow(OUT_AND_BACK, reversed = false, from = start)
+            .navigate(start).remainingElevationGain.meters().value
+
+        assertEquals(1f, prefs.elevationSmoothing, 0.001f)
+        assertTrue(smoothedGain < defaultGain)
+    }
+
+    @Test
+    fun findsTheMostRecentPathWithEnoughElevationChange() = runBlocking {
+        val pathService = PathService.getInstance(TestUtils.context)
+        assertNull(pathService.getMostRecentPathIdWithElevationChange(50f))
+
+        val hilly = TestData.addPathFromGpx("Hilly", "paths/presidential range.gpx")
+        TestData.addPathFromGpx("Flat", "paths/durfee short.gpx")
+
+        assertEquals(hilly, pathService.getMostRecentPathIdWithElevationChange(50f))
+        assertNull(pathService.getMostRecentPathIdWithElevationChange(5000f))
     }
 
     /**

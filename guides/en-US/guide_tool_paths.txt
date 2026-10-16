@@ -77,6 +77,9 @@ You can choose to automatically simplify paths imported from a GPX file by enabl
 ## Replace path elevations
 To replace all elevations on a path using the digital elevation model (DEM), open the path, tap the menu button in the top-right corner of the screen, and select 'Replace elevations'. If it is taking too long to load (ex. too many points), you can cancel and your path will be unmodified.
 
+## Elevation smoothing
+Path elevations are smoothed to reduce GPS noise. You can adjust this in Settings > Paths > 'Elevation smoothing'. If you have a recent path with elevations, a preview shows its original elevations (gray) and the smoothed elevations. Higher values reduce more noise, but may also remove real climbs and descents.
+
 ## Navigate with a path
 To navigate with a path, open it and use the buttons in the 'Follow path' section at the bottom:
 

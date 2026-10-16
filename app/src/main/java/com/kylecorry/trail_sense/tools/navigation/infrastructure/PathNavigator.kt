@@ -3,6 +3,8 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRouteBuilder
@@ -23,6 +25,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class PathNavigator(context: Context) {
+    private val prefs = getAppService<UserPreferences>().paths
     private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
     private val store = PathNavigationStore()
     private val paths = PathService.getInstance(context)
@@ -52,7 +55,11 @@ class PathNavigator(context: Context) {
             require(points.isNotEmpty())
             currentCoroutineContext().ensureActive()
             val route = PathRouteBuilder.buildRoute(
-                points, session.start, session.reversed, session.destinationPointId
+                points,
+                session.start,
+                session.reversed,
+                session.destinationPointId,
+                prefs.elevationSmoothing
             )
             val destination = Destination.Path(path, route)
             session.progress?.let {
@@ -96,7 +103,13 @@ class PathNavigator(context: Context) {
         if (points.isEmpty()) return
         if (destinationPointId != null && points.none { it.id == destinationPointId }) return
         val start = locationSubsystem.location
-        val route = PathRouteBuilder.buildRoute(points, start, reversed, destinationPointId)
+        val route = PathRouteBuilder.buildRoute(
+            points,
+            start,
+            reversed,
+            destinationPointId,
+            prefs.elevationSmoothing
+        )
         cancel()
         store.save(path, start, reversed, destinationPointId)
         destinationState.value = Destination.Path(path, route)

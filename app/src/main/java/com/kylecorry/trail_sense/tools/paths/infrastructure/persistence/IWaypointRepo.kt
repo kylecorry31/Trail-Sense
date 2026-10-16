@@ -33,5 +33,7 @@ interface IWaypointRepo {
 
     suspend fun getCountInPath(pathId: Long): Int
 
+    suspend fun getMostRecentPathIdWithElevationChange(minChange: Float): Long?
+
     suspend fun getAllWithCellSignal(): List<PathPoint>
 }

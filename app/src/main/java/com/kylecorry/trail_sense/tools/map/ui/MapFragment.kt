@@ -245,7 +245,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                         ) {
                             id = CreatePathCommand(
                                 pathService,
-                                prefs.navigation,
+                                prefs.paths,
                                 null,
                                 manager.getDistanceMeasurementElevations(),
                                 skipElevations::get

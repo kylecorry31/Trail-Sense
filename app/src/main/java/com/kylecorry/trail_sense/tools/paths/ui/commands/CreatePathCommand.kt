@@ -16,7 +16,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathServ
 class CreatePathCommand(
     private val context: Context,
     private val pathService: IPathService = PathService.getInstance(context),
-    private val pathPreferences: IPathPreferences = UserPreferences(context).navigation
+    private val pathPreferences: IPathPreferences = UserPreferences(context).paths
 ) {
 
     suspend fun execute(parentId: Long?): Long? {

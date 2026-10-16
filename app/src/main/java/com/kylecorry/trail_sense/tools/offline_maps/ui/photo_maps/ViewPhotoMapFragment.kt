@@ -315,7 +315,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                     ) {
                         id = CreatePathCommand(
                             pathService,
-                            prefs.navigation,
+                            prefs.paths,
                             it.name,
                             layerManager.getDistanceMeasurementElevations(),
                             skipElevations::get

@@ -8,4 +8,5 @@ interface IPathPreferences {
     val backtrackHistory: Duration
     val simplifyPathOnImport: Boolean
     val useFastPathRendering: Boolean
+    val elevationSmoothing: Float
 }

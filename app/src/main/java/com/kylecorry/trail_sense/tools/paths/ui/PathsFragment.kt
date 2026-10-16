@@ -330,7 +330,7 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
             this,
             gpxService,
             pathService,
-            prefs.navigation
+            prefs.paths
         )
         command.execute(manager.root?.id)
     }
@@ -355,7 +355,7 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
     }
 
     private fun createPath() {
-        val command = CreatePathCommand(requireContext(), pathService, prefs.navigation)
+        val command = CreatePathCommand(requireContext(), pathService, prefs.paths)
         inBackground {
             command.execute(manager.root?.id)?.let {
                 showPath(it)

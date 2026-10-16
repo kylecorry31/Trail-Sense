@@ -98,6 +98,10 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         waypointDao.getCountInPath(pathId)
     }
 
+    override suspend fun getMostRecentPathIdWithElevationChange(minChange: Float): Long? = onIO {
+        waypointDao.getMostRecentPathIdWithElevationChange(minChange)
+    }
+
     override suspend fun getAllWithCellSignal(): List<PathPoint> = onIO {
         waypointDao.getAllWithCellSignal().map { it.toPathPoint() }
     }

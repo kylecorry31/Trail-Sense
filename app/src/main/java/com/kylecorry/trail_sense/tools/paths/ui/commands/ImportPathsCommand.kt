@@ -29,7 +29,7 @@ class ImportPathsCommand(
     private val lifecycleOwner: LifecycleOwner,
     private val gpxService: ImportService<GPXData>,
     private val pathService: IPathService = PathService.getInstance(context),
-    private val prefs: IPathPreferences = UserPreferences(context).navigation
+    private val prefs: IPathPreferences = UserPreferences(context).paths
 ) {
 
     private val style = prefs.defaultPathStyle

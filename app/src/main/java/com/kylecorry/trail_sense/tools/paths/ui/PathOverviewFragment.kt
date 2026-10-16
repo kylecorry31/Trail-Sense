@@ -151,7 +151,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pathId = requireArguments().getLong("path_id")
-        layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.navigation.useFastPathRendering)
+        layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = prefs.paths.useFastPathRendering)
         layer.setOnClickListener {
             if (selectedPointId != null) {
                 deselectPoint()
@@ -323,7 +323,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         inBackground {
             onDefault {
                 this@PathOverviewFragment.waypoints =
-                    hikingService.correctElevations(waypoints.sortedBy { it.id }).reversed()
+                    hikingService.correctElevations(
+                        waypoints.sortedBy { it.id },
+                        prefs.paths.elevationSmoothing
+                    ).reversed()
             }
             onIO {
                 DebugPathElevationsCommand(
@@ -361,7 +364,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun updateElevationPlot() {
         chart.plot(
             waypoints.reversed(),
-            path?.style?.color ?: prefs.navigation.defaultPathColor.color
+            path?.style?.color ?: prefs.paths.defaultPathColor.color
         )
     }
 

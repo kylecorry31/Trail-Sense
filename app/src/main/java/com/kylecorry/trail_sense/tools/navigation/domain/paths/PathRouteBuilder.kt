@@ -11,10 +11,11 @@ object PathRouteBuilder {
         points: List<PathPoint>,
         location: Coordinate,
         reversed: Boolean,
-        destinationPointId: Long? = null
+        destinationPointId: Long? = null,
+        elevationSmoothing: Float = HikingService.DEFAULT_ELEVATION_SMOOTHING
     ): List<PathPoint> {
         require(points.isNotEmpty())
-        val sorted = hikingService.correctElevations(points.sortedBy { it.id })
+        val sorted = hikingService.correctElevations(points.sortedBy { it.id }, elevationSmoothing)
 
         val strategy = if (destinationPointId != null) {
             ShortestRoutingStrategy(sorted.indexOfFirst { it.id == destinationPointId })

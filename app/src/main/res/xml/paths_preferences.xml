@@ -99,6 +99,22 @@
             app:singleLineTitle="false"
             app:title="@string/pref_auto_simplify_paths_title" />
 
+        <SeekBarPreference
+            android:defaultValue="500"
+            android:max="1000"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_elevation_smoothing"
+            app:min="0"
+            app:seekBarIncrement="1"
+            app:singleLineTitle="false"
+            app:title="@string/elevation_smoothing"
+            app:updatesContinuously="true" />
+
+        <com.kylecorry.trail_sense.tools.paths.ui.ElevationSmoothingChartPreference
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="@string/pref_holder_elevation_smoothing_chart" />
+
         <SwitchPreferenceCompat
             android:summary="@string/fast_path_rendering_summary"
             app:defaultValue="false"

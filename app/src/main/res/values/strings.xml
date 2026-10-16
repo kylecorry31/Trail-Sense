@@ -1480,6 +1480,9 @@
     <string name="view_in_3d">View in 3D</string>
     <string name="locate">Locate</string>
     <string name="not_visible">Not visible</string>
+    <string name="pref_elevation_smoothing" translatable="false">pref_elevation_smoothing</string>
+    <string name="pref_holder_elevation_smoothing_chart" translatable="false">pref_holder_elevation_smoothing_chart</string>
+    <string name="elevation_smoothing">Elevation smoothing</string>
     <string name="pref_fast_path_rendering" translatable="false">pref_fast_path_rendering</string>
     <string name="fast_path_rendering">Fast path rendering</string>
     <string name="fast_path_rendering_summary">Improves performance at the cost of appearance</string>

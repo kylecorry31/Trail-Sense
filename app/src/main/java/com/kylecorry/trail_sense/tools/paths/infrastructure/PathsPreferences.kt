@@ -7,11 +7,17 @@ import com.kylecorry.andromeda.sense.location.GPSPowerUsage
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.GPSPreferences
+import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSPowerMode
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
 import java.time.Duration
 
-class PathsPreferences(private val context: Context) {
+class PathsPreferences(private val context: Context) : IPathPreferences {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val gps by lazy { GPSPreferences(context) }
@@ -64,7 +70,72 @@ class PathsPreferences(private val context: Context) {
             )
         }
 
+    var defaultPathColor: AppColor
+        get() {
+            val id = cache.getLong(context.getString(R.string.pref_backtrack_path_color))
+            return AppColor.values().firstOrNull { it.id == id } ?: AppColor.Gray
+        }
+        set(value) {
+            cache.putLong(context.getString(R.string.pref_backtrack_path_color), value.id)
+        }
+
+    private val backtrackPathLineStyle: LineStyle
+        get() {
+            return when (cache.getString(context.getString(R.string.pref_backtrack_path_style))) {
+                "solid" -> LineStyle.Solid
+                "arrow" -> LineStyle.Arrow
+                "dashed" -> LineStyle.Dashed
+                "square" -> LineStyle.Square
+                "diamond" -> LineStyle.Diamond
+                "cross" -> LineStyle.Cross
+                else -> LineStyle.Dotted
+            }
+        }
+    private val defaultPathPointStyle: PathPointColoringStyle
+        get() = PathPointColoringStyle.None
+
+    override val defaultPathStyle: PathStyle
+        get() = PathStyle(
+            backtrackPathLineStyle,
+            defaultPathPointStyle,
+            defaultPathColor.color,
+            true
+        )
+
+    override var backtrackHistory: Duration
+        get() {
+            val days = cache.getInt(context.getString(R.string.pref_backtrack_history_days)) ?: 2
+            return Duration.ofDays(days.toLong())
+        }
+        set(value) {
+            val d = value.toDays().toInt()
+            cache.putInt(
+                context.getString(R.string.pref_backtrack_history_days),
+                if (d > 0) d else 1
+            )
+        }
+
+    override val simplifyPathOnImport by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_auto_simplify_paths),
+        true
+    )
+
+    override val useFastPathRendering by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_fast_path_rendering),
+        false
+    )
+
+    override val elevationSmoothing: Float
+        get() {
+            val scaled = cache.getInt(context.getString(R.string.pref_elevation_smoothing))
+                ?: (HikingService.DEFAULT_ELEVATION_SMOOTHING * ELEVATION_SMOOTHING_SCALE).toInt()
+            return scaled / ELEVATION_SMOOTHING_SCALE.toFloat()
+        }
+
     companion object {
         const val DEFAULT_BACKTRACK_MIN_DISTANCE_METERS = 10f
+        const val ELEVATION_SMOOTHING_SCALE = 1000
     }
 }

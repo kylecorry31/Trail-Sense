@@ -4,6 +4,8 @@ import android.content.Context
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.sol.science.geology.CoordinateBounds
+import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
@@ -25,6 +27,7 @@ class AugmentedRealityPathLayerManager(
     private var bounds: CoordinateBounds? = null
     private val pathService = PathService.Companion.getInstance(context)
     private val hikingService = HikingService()
+    private val prefs = getAppService<UserPreferences>().paths
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -80,7 +83,10 @@ class AugmentedRealityPathLayerManager(
             val path = pathsById[it.key] ?: return@mapNotNull null
 
             val correctedPoints = if (shouldCorrectElevations) {
-                hikingService.correctElevations(it.value.sortedBy { it.id }).reversed()
+                hikingService.correctElevations(
+                    it.value.sortedBy { it.id },
+                    prefs.elevationSmoothing
+                ).reversed()
             } else {
                 it.value
             }

@@ -29,6 +29,8 @@ interface IPathService : ICleanable {
     suspend fun getWaypoints(paths: List<Long>? = null): Map<Long, List<PathPoint>>
     suspend fun getWaypoints(path: Long): List<PathPoint>
     suspend fun getLastWaypoint(path: Long): PathPoint?
+
+    suspend fun getMostRecentPathIdWithElevationChange(minChange: Float): Long?
     fun getWaypointsLive(path: Long): LiveData<List<PathPoint>>
     suspend fun getWaypointsWithCellSignal(): List<PathPoint>
     suspend fun addWaypointsToPath(points: List<PathPoint>, pathId: Long)

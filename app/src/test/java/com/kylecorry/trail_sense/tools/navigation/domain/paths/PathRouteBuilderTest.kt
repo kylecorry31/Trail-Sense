@@ -96,6 +96,14 @@ class PathRouteBuilderTest {
     }
 
     @Test
+    fun `route uses the elevation smoothing`() {
+        val raw = PathRouteBuilder.buildRoute(points, location, reversed = false, elevationSmoothing = 0f)
+        val smoothed = PathRouteBuilder.buildRoute(points, location, reversed = false, elevationSmoothing = 1f)
+        assertEquals(points.drop(1).map { it.elevation }, raw.drop(1).map { it.elevation })
+        assertNotEquals(raw.drop(1).map { it.elevation }, smoothed.drop(1).map { it.elevation })
+    }
+
+    @Test
     fun `route sorts and smooths elevations before constructing either route`() {
         for (reversed in listOf(false, true)) {
             assertEquals(
