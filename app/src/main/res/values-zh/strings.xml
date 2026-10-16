@@ -322,7 +322,7 @@
 \nOSGB (如， TG 51409 13177)</string>
     <string name="location_input_help_title">支持的位置格式</string>
     <string name="tool_thermometer_title">温度计</string>
-    <string name="delete_waypoint_prompt">删除航点？</string>
+    <string name="delete_waypoint_prompt">删除航路点？</string>
     <string name="low_power_mode_on_message">已开启省电模式，一些功能可能被禁用。</string>
     <string name="pref_low_power_mode_title">省电模式</string>
     <string name="charging_wireless">充电中 （%s）</string>
@@ -413,7 +413,7 @@
     <string name="lux_format">%s lx</string>
     <string name="distance_from_flashlight">从手机到手电筒的距离</string>
     <string name="beacon_export_error">无法导出信标</string>
-    <string name="pref_backtrack_save_cell_summary">在航点处记录手机信号。 不使用互联网。</string>
+    <string name="pref_backtrack_save_cell_summary">在航路点处记录手机信号。 不使用互联网。</string>
     <string name="pref_backtrack_save_cell_title">记录手机信号</string>
     <string name="tool_light_meter_title">照度计</string>
     <string name="location_disabled">位置被禁用</string>
@@ -632,7 +632,7 @@
     <string name="autofill">自动填充</string>
     <string name="lightning_dangerously_close">闪电过近 有危险</string>
     <plurals name="waypoints_to_be_deleted">
-        <item quantity="other">将删除 %d 个航点</item>
+        <item quantity="other">将删除 %d 个航路点</item>
     </plurals>
     <string name="delete_path">删除路径？</string>
     <string name="auto">自动</string>
@@ -706,7 +706,7 @@
     <string name="points">点</string>
     <string name="importing">导入中</string>
     <string name="elevation">海拔</string>
-    <string name="waypoint">航点</string>
+    <string name="waypoint">航路点</string>
     <string name="dashed">虚线</string>
     <string name="pref_default_path_style_title">默认路径样式</string>
     <string name="pref_default_path_color_title">默认路径颜色</string>
@@ -717,7 +717,7 @@
     <string name="pref_auto_simplify_paths_title">导入时简化路径</string>
     <string name="merging">合并中</string>
     <plurals name="waypoints_deleted">
-        <item quantity="other">删除了 %d 个航点</item>
+        <item quantity="other">删除了 %d 个航路点</item>
     </plurals>
     <string name="saving">节省</string>
     <string name="change_map_projection">更改地图投影</string>
@@ -1659,4 +1659,9 @@
     <string name="ar_path_appearance_line">线条</string>
     <string name="skip_elevations">跳过海拔</string>
     <string name="quality">质量</string>
+    <string name="follow_path">沿着路径移动</string>
+    <string name="path_direction_to_end">到终点</string>
+    <string name="path_direction_to_start">到起点</string>
+    <string name="path_navigation_follow_to_point">到这个航路点</string>
+    <string name="path_navigation_trailhead">到路径起点</string>
 </resources>
