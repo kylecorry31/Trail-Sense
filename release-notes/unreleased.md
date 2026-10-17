@@ -1,6 +1,6 @@
 This is currently just a running list of what is in the 8.3.0 release to make it easier to write these notes by hand later.
 
-- Added path navigation: navigate along a saved path (to its end, to its start, as a full loop, or to a specific point on it) with guidance to rejoin the path if you leave it
+- Added path navigation: follow a saved path to its end, to its start, to a specific point on it, or (for loops) to the trailhead, with guidance to rejoin the path if you leave it
 - The navigation layer is now enabled by default on the radar compass and has a background color setting
 - Added a setting to show the start and end points of the navigation path on the map
 - Added the ability to replace a path's elevations with elevations from the digital elevation model
@@ -34,3 +34,7 @@ This is currently just a running list of what is in the 8.3.0 release to make it
 - Dropped support for Android 6
 - Fixed clock tool's GPS time on devices running Android 7, 8, and 9
 - Show preview of path simplification
+- Added the ability to create a path by drawing it on the map
+- Added an elevation smoothing setting to Paths, with a preview of the smoothed elevations
+- Backtrack paths are now kept when stopped, and the Backtrack history default is longer
+- Tapping the Backtrack notification now opens the path being recorded, which can be stopped from the path details
