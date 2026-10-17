@@ -91,22 +91,8 @@ class PathRoute(
     }
 
     private fun getRemainingElevationLossGain(currentPoint: Snap): Pair<Distance, Distance> {
-        if (currentPoint.segment >= coordinates.lastIndex) {
-            return Distance.meters(0f) to Distance.meters(0f)
-        }
-
-        val currentLoss = Interpolation.lerp(
-            currentPoint.percentAlongSegment,
-            cumulativeElevationLoss[currentPoint.segment],
-            cumulativeElevationLoss[currentPoint.segment + 1]
-        )
-        val currentGain = Interpolation.lerp(
-            currentPoint.percentAlongSegment,
-            cumulativeElevationGain[currentPoint.segment],
-            cumulativeElevationGain[currentPoint.segment + 1]
-        )
-        return Distance.meters(cumulativeElevationLoss.last() - currentLoss) to
-                Distance.meters(cumulativeElevationGain.last() - currentGain)
+        return Distance.meters(cumulativeElevationLoss.last() - cumulativeElevationLoss.at(currentPoint)) to
+                Distance.meters(cumulativeElevationGain.last() - cumulativeElevationGain.at(currentPoint))
     }
 
     private fun getProgress(distanceAlong: Float, arrived: Boolean): Float = when {
@@ -117,21 +103,13 @@ class PathRoute(
 
     private fun getEffortProgress(currentPoint: Snap, arrived: Boolean): Float = when {
         arrived -> 1f
-        length > 0f -> {
-            val total = cumulativeScarfsDistance.last()
-            val current = if (currentPoint.segment >= coordinates.lastIndex) {
-                total
-            } else {
-                Interpolation.lerp(
-                    currentPoint.percentAlongSegment,
-                    cumulativeScarfsDistance[currentPoint.segment],
-                    cumulativeScarfsDistance[currentPoint.segment + 1]
-                )
-            }
-            (current / total).coerceIn(0f, 1f)
-        }
-
+        length > 0f -> (cumulativeScarfsDistance.at(currentPoint) / cumulativeScarfsDistance.last()).coerceIn(0f, 1f)
         else -> 0f
+    }
+
+    private fun FloatArray.at(snap: Snap): Float {
+        if (snap.segment >= coordinates.lastIndex) return last()
+        return Interpolation.lerp(snap.percentAlongSegment, this[snap.segment], this[snap.segment + 1])
     }
 
     private fun hasArrived(location: Coordinate, distanceAlong: Float, tolerance: Float): Boolean {
