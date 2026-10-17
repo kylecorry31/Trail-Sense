@@ -83,10 +83,12 @@ To replace all elevations on a path using the digital elevation model (DEM), ope
 Path elevations are smoothed to reduce GPS noise. You can adjust this in Settings > Paths > 'Elevation smoothing'. If you have a recent path with elevations, a preview shows its original elevations (gray) and the smoothed elevations. Higher values reduce more noise, but may also remove real climbs and descents.
 
 ## Navigate with a path
-To navigate with a path, open it and use the buttons in the 'Follow path' section at the bottom:
+To navigate with a path, open it and use the buttons pinned to the bottom of the screen:
 
-- **To end**: Follow the path in its recorded direction from your nearest point on it to its end.
-- **To start**: Follow the path in the opposite direction from your nearest point on it to its start.
+- **Follow to end**: Follow the path in its recorded direction from your nearest point on it to its end.
+- **Follow to start**: Follow the path in the opposite direction from your nearest point on it to its start.
+
+The button for the direction you most likely want is highlighted. Neither is highlighted for loop paths or when your location is unavailable.
 
 For loop paths, you can also open the path menu and select 'Follow to trailhead' to take the shortest route back to the first point of the path, even if that means crossing from the end of the path to its start.
 

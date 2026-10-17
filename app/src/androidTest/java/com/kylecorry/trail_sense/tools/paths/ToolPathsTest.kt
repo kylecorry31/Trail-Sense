@@ -292,9 +292,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         }
 
         // Navigate
-        scrollUntil(R.id.path_scroll) {
-            click(string(R.string.path_direction_to_end))
-        }
+        click(string(R.string.path_direction_to_end))
 
         isVisible(R.id.navigation_title)
         hasText("Test Path")
@@ -564,9 +562,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         openWithSavedPaths()
 
         click("Durfee Short")
-        scrollUntil(R.id.path_scroll) {
-            click(string(R.string.path_direction_to_end))
-        }
+        isVisible(R.id.to_start_btn)
+        click(string(R.string.path_direction_to_end))
 
         isVisible(R.id.navigation_title)
         assertFalse(runBlocking { PathNavigationStore().load() }!!.reversed)
@@ -578,9 +575,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         // Following a different direction replaces the route
         backUntil { isVisible(R.id.path_scroll) }
-        scrollUntil(R.id.path_scroll) {
-            click(string(R.string.path_direction_to_start))
-        }
+        click(string(R.string.path_direction_to_start))
 
         isVisible(R.id.navigation_title)
         assertTrue(runBlocking { PathNavigationStore().load() }!!.reversed)

@@ -1,273 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.kylecorry.andromeda.list.LockableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/path_scroll">
+    android:orientation="vertical">
+
+    <com.kylecorry.andromeda.list.LockableScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/path_scroll">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.kylecorry.trail_sense.shared.views.Toolbar
+                android:id="@+id/path_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flattenButtons="true"
+                app:rightButtonIcon="@drawable/ic_menu_dots"
+                tools:text="Start - End" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:alignItems="center"
+                app:justifyContent="space_between">
+
+                <ImageView
+                    android:id="@+id/path_color"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="8dp"
+                    app:srcCompat="@drawable/bubble"
+                    app:tint="@color/blue" />
+
+                <TextView
+                    android:id="@+id/path_line_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:drawablePadding="16dp"
+                    app:drawableEndCompat="@drawable/ic_drop_down"
+                    app:drawableTint="?android:textColorSecondary"
+                    tools:text="Dotted" />
+
+                <TextView
+                    android:id="@+id/path_point_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawablePadding="16dp"
+                    app:drawableEndCompat="@drawable/ic_drop_down"
+                    app:drawableTint="?android:textColorSecondary"
+                    tools:text="Cell Signal" />
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/path_map_holder"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <com.kylecorry.trail_sense.tools.map.ui.MapView
+                    android:id="@+id/path_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_rectangle"
+                    android:backgroundTint="@color/colorSecondary"
+                    android:keepScreenOn="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageButton
+                    android:id="@+id/path_map_fullscreen_toggle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_recenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:tint="@color/white" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/path_selected_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone" />
+
+            <com.kylecorry.trail_sense.shared.views.ColorScaleView
+                android:id="@+id/path_legend"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:id="@+id/path_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:columnCount="2"
+                app:useDefaultMargins="false">
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/duration"
+                    app:dataPointIcon="@drawable/ic_tool_clock"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_distance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/distance"
+                    app:dataPointIcon="@drawable/ruler"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_waypoints"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/points"
+                    app:dataPointIcon="@drawable/ic_location"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_difficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/difficulty"
+                    app:dataPointIcon="@drawable/steps"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_elevation_gain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/ascent"
+                    app:dataPointIcon="@drawable/ic_elevation_gain"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_elevation_loss"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/descent"
+                    app:dataPointIcon="@drawable/ic_elevation_loss"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_elevation_min"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/lowest_point_elevation"
+                    app:dataPointIcon="@drawable/ic_elevation_loss"
+                    app:layout_columnWeight="1" />
+
+                <com.kylecorry.trail_sense.shared.views.DataPointView
+                    android:id="@+id/path_elevation_max"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:dataPointDescription="@string/highest_point_elevation"
+                    app:dataPointIcon="@drawable/ic_elevation_gain"
+                    app:layout_columnWeight="1" />
+
+            </androidx.gridlayout.widget.GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:text="@string/elevation" />
+
+            <com.kylecorry.andromeda.views.chart.Chart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/chart_height"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/add_point_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="@dimen/default_bottom_margin"
+                android:text="@string/point"
+                app:icon="@drawable/ic_add"
+                style="?attr/materialButtonOutlinedStyle" />
+
+            <TextView
+                android:id="@+id/paths_timing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="@dimen/default_bottom_margin"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+
+        </LinearLayout>
+
+    </com.kylecorry.andromeda.list.LockableScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.kylecorry.trail_sense.shared.views.Toolbar
-            android:id="@+id/path_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:flattenButtons="true"
-            app:rightButtonIcon="@drawable/ic_menu_dots"
-            tools:text="Start - End" />
-
-        <com.google.android.flexbox.FlexboxLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
-            app:alignItems="center"
-            app:justifyContent="space_between">
-
-            <ImageView
-                android:id="@+id/path_color"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="8dp"
-                app:srcCompat="@drawable/bubble"
-                app:tint="@color/blue" />
-
-            <TextView
-                android:id="@+id/path_line_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="8dp"
-                android:drawablePadding="16dp"
-                app:drawableEndCompat="@drawable/ic_drop_down"
-                app:drawableTint="?android:textColorSecondary"
-                tools:text="Dotted" />
-
-            <TextView
-                android:id="@+id/path_point_style"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:drawablePadding="16dp"
-                app:drawableEndCompat="@drawable/ic_drop_down"
-                app:drawableTint="?android:textColorSecondary"
-                tools:text="Cell Signal" />
-        </com.google.android.flexbox.FlexboxLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/path_map_holder"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
-
-            <com.kylecorry.trail_sense.tools.map.ui.MapView
-                android:id="@+id/path_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rounded_rectangle"
-                android:backgroundTint="@color/colorSecondary"
-                android:keepScreenOn="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/path_map_fullscreen_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_recenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:tint="@color/white" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <FrameLayout
-            android:id="@+id/path_selected_point"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:visibility="gone" />
-
-        <com.kylecorry.trail_sense.shared.views.ColorScaleView
-            android:id="@+id/path_legend"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp" />
-
-        <androidx.gridlayout.widget.GridLayout
-            android:id="@+id/path_grid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:columnCount="2"
-            app:useDefaultMargins="false">
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_duration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/duration"
-                app:dataPointIcon="@drawable/ic_tool_clock"
-                app:layout_columnWeight="1" />
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_distance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/distance"
-                app:dataPointIcon="@drawable/ruler"
-                app:layout_columnWeight="1" />
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_waypoints"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/points"
-                app:dataPointIcon="@drawable/ic_location"
-                app:layout_columnWeight="1" />
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_difficulty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/difficulty"
-                app:dataPointIcon="@drawable/steps"
-                app:layout_columnWeight="1" />
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_elevation_gain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/ascent"
-                app:dataPointIcon="@drawable/ic_elevation_gain"
-                app:layout_columnWeight="1" />
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_elevation_loss"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/descent"
-                app:dataPointIcon="@drawable/ic_elevation_loss"
-                app:layout_columnWeight="1" />
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_elevation_min"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/lowest_point_elevation"
-                app:dataPointIcon="@drawable/ic_elevation_loss"
-                app:layout_columnWeight="1" />
-
-            <com.kylecorry.trail_sense.shared.views.DataPointView
-                android:id="@+id/path_elevation_max"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:dataPointDescription="@string/highest_point_elevation"
-                app:dataPointIcon="@drawable/ic_elevation_gain"
-                app:layout_columnWeight="1" />
-
-        </androidx.gridlayout.widget.GridLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="@string/elevation" />
-
-        <com.kylecorry.andromeda.views.chart.Chart
-            android:id="@+id/chart"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/chart_height"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp" />
-
+        android:background="?attr/colorSurfaceContainer"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="@dimen/default_bottom_margin">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/add_point_btn"
-            android:layout_width="wrap_content"
+            android:id="@+id/to_start_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:text="@string/point"
-            app:icon="@drawable/ic_add"
-            style="?attr/materialButtonOutlinedStyle" />
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/path_direction_to_start"
+            style="?attr/materialButtonTonalStyle" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/to_end_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="@string/follow_path" />
-
-        <com.google.android.material.button.MaterialButtonGroup
-            style="@style/Widget.Material3Expressive.MaterialButtonGroup.Connected"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="@dimen/default_bottom_margin">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/to_start_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/path_direction_to_start"
-                style="?attr/materialButtonTonalStyle" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/to_end_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/path_direction_to_end"
-                style="?attr/materialButtonTonalStyle" />
-
-        </com.google.android.material.button.MaterialButtonGroup>
-
-        <TextView
-            android:id="@+id/paths_timing"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="@dimen/default_bottom_margin"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/path_direction_to_end"
+            style="?attr/materialButtonTonalStyle" />
 
     </LinearLayout>
 
-</com.kylecorry.andromeda.list.LockableScrollView>
+</LinearLayout>
