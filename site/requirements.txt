@@ -1,5 +1,5 @@
-markdown==3.10.2
+markdown==3.11.1
 pystache==0.6.8
 PyYAML==6.0.3
 watchdog==6.0.0
-Pillow==12.3.0
+Pillow==13.0.0

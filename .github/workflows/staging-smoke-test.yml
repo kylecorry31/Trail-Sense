@@ -15,13 +15,13 @@ jobs:
         api-level: [36]
 
     steps:
-      - uses: actions/checkout@v7.0.0
+      - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v5.3.0
+        uses: actions/setup-java@v6.1.0
         with:
           distribution: "temurin"
           java-version: 17
@@ -35,12 +35,12 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - uses: gradle/actions/setup-gradle@v6.2.0
+      - uses: gradle/actions/setup-gradle@v6.4.0
 
       - name: Run staging smoke test
         id: testing
         continue-on-error: true
-        uses: reactivecircus/android-emulator-runner@v2.37.0
+        uses: reactivecircus/android-emulator-runner@v2.38.0
         with:
           api-level: ${{ matrix.api-level }}
           arch: x86_64
@@ -56,7 +56,7 @@ jobs:
 
       - name: Upload Test Results
         if: always()
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: logs-api-${{ matrix.api-level }}
           path: app/emulator.log
