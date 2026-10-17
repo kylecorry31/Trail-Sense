@@ -31,10 +31,6 @@ class NavigationBearingService(private val dao: NavigationBearingDao) : ICleanab
         return dao.getActiveBearingFlow().map { it?.toNavigationBearing() }
     }
 
-    suspend fun isNavigating(): Boolean {
-        return dao.isNavigating()
-    }
-
     override suspend fun clean() {
         dao.deleteOlderThan(Instant.now().minus(BEARING_HISTORY_DURATION).toEpochMilli())
     }

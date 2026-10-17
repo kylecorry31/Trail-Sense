@@ -253,7 +253,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     ) {
         val bearing = navigator.getBearing(values.location, values.locationAccuracy, destination)
         updateDestinationDirection(bearing.value, true)
-        updateDestinationElevation(null, null)
+        updateDestinationElevation(null)
         etaDataView.isVisible = false
         toolbar.title.text = context.getString(R.string.bearing)
         toolbar.subtitle.isVisible = false
@@ -275,7 +275,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
 
         updateDestinationDirection(vector.direction.value)
-        updateDestinationElevation(beacon.elevation, vector.altitudeChange)
+        updateDestinationElevation(vector.altitudeChange)
         updateDestinationEta(
             values.location, values.elevation.meters().value, values.speed.convertTo(
                 DistanceUnits.Meters, TimeUnits.Seconds
@@ -371,10 +371,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
     }
 
-    private fun updateDestinationElevation(destinationElevation: Float?, elevationChange: Float?) {
-        val hasElevation = elevationChange != null && destinationElevation != null
-        elevationDataView.isVisible = hasElevation
-        if (hasElevation) {
+    private fun updateDestinationElevation(elevationChange: Float?) {
+        elevationDataView.isVisible = elevationChange != null
+        if (elevationChange != null) {
             val direction = when {
                 elevationChange > 0 -> context.getString(R.string.increase)
                 else -> ""

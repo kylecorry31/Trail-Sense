@@ -40,7 +40,6 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.domain.Probability
-import com.kylecorry.trail_sense.tools.navigation.domain.LocationMath
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
@@ -511,9 +510,11 @@ class FormatService private constructor(private val context: Context) {
     // TODO: Rewrite this
     fun formatSpeed(metersPerSecond: Float): String {
         val distanceUnits = prefs.distanceUnits
-        val convertedSpeed = LocationMath.convertToBaseSpeed(metersPerSecond, distanceUnits)
-        val formattedSpeed = DecimalFormatter.format(convertedSpeed.toDouble(), 1)
-        return if (distanceUnits == UserPreferences.DistanceUnits.Meters) {
+        val isMetric = distanceUnits == UserPreferences.DistanceUnits.Meters
+        val speedUnits = if (isMetric) DistanceUnits.Kilometers else DistanceUnits.Miles
+        val unitsPerSecond = Distance.from(metersPerSecond, DistanceUnits.Meters).convertTo(speedUnits).value
+        val formattedSpeed = DecimalFormatter.format((unitsPerSecond * 60 * 60).toDouble(), 1)
+        return if (isMetric) {
             strings.getString(R.string.kilometers_per_hour_format, formattedSpeed)
         } else {
             strings.getString(R.string.miles_per_hour_format, formattedSpeed)

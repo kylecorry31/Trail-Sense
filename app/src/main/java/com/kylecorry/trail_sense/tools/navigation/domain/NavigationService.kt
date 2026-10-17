@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.navigation.domain
 import com.kylecorry.sol.math.arithmetic.Arithmetic.clamp
 import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.science.geography.Geography
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.science.geology.NavigationVector
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
