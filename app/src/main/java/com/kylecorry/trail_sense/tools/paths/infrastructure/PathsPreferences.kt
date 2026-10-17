@@ -97,13 +97,11 @@ class PathsPreferences(private val context: Context) : IPathPreferences {
                 else -> LineStyle.Dotted
             }
         }
-    private val defaultPathPointStyle: PathPointColoringStyle
-        get() = PathPointColoringStyle.None
 
     override val defaultPathStyle: PathStyle
         get() = PathStyle(
             backtrackPathLineStyle,
-            defaultPathPointStyle,
+            PathPointColoringStyle.None,
             defaultPathColor.color,
             true
         )

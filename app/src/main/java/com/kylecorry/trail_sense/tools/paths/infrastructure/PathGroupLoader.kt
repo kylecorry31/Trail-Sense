@@ -20,14 +20,14 @@ class PathGroupLoader(pathService: IPathService) : ISearchableGroupLoader<IPath>
         }
     }
 
-    private suspend fun getPathsBySearch(search: String, groupFilter: Long?) = onIO {
-        filter.filter(groupFilter) {
+    private suspend fun getPathsBySearch(search: String, groupFilter: Long?): List<IPath> {
+        return filter.filter(groupFilter) {
             (it as Path).name?.contains(search, ignoreCase = true) == true
         }
     }
 
-    private suspend fun getPathsByGroup(group: Long?) = onIO {
-        loader.getChildren(group, 1)
+    private suspend fun getPathsByGroup(group: Long?): List<IPath> {
+        return loader.getChildren(group, 1)
     }
 
     override suspend fun getGroup(id: Long): IPath? {

@@ -31,7 +31,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.time.Instant
-import java.util.stream.Collectors
 
 class PathService(
     private val pathRepo: PathRepo,
@@ -276,31 +275,12 @@ class PathService(
         }
     }
 
-    override suspend fun moveWaypointsToPath(points: List<PathPoint>, pathId: Long) {
-        val oldPaths =
-            points.filter { it.pathId != 0L && it.pathId != pathId }.map { it.pathId }.distinct()
-        waypointLock.withLock {
-            waypointRepo.addAll(points.map { it.copy(pathId = pathId) })
-            updatePathMetadata(pathId)
-            for (path in oldPaths) {
-                updatePathMetadata(path)
-            }
-        }
-    }
-
     override fun getRecentAltitudesLive(since: Instant): LiveData<List<Reading<Float>>> {
         val recent = waypointRepo.getAllLive(since)
         return recent.map {
             it.filter { point -> point.elevation != null && point.time != null }
                 .map { point -> Reading(point.elevation!!, point.time!!) }
         }
-    }
-
-    override suspend fun getRecentAltitudes(since: Instant): List<Reading<Float>> = onIO {
-        waypointRepo.getAll(since).stream()
-            .filter { it.elevation != null && it.time != null }
-            .map { Reading(it.elevation!!, it.time!!) }
-            .collect(Collectors.toList())
     }
 
     override suspend fun clean() {

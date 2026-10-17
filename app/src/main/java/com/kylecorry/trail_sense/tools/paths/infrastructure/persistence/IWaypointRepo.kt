@@ -17,9 +17,7 @@ interface IWaypointRepo {
 
     suspend fun deleteOlderInPath(pathId: Long, time: Instant)
 
-    suspend fun get(id: Long): PathPoint?
-
-    suspend fun getAll(since: Instant? = null): List<PathPoint>
+    suspend fun getAll(): List<PathPoint>
 
     fun getAllLive(since: Instant? = null): LiveData<List<PathPoint>>
 

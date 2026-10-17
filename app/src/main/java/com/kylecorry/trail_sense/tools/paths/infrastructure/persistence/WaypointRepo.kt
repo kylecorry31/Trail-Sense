@@ -51,13 +51,8 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
         waypointDao.deleteOlderThan(time.toEpochMilli(), pathId)
     }
 
-    override suspend fun get(id: Long): PathPoint? {
-        return waypointDao.get(id)?.toPathPoint()
-    }
-
-    override suspend fun getAll(since: Instant?): List<PathPoint> {
-        return (if (since == null) waypointDao.getAllSync() else waypointDao.getAllSinceSync(since.toEpochMilli()))
-            .map { it.toPathPoint() }
+    override suspend fun getAll(): List<PathPoint> {
+        return waypointDao.getAllSync().map { it.toPathPoint() }
     }
 
     override fun getAllLive(since: Instant?): LiveData<List<PathPoint>> {

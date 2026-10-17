@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class PathRepo private constructor(context: Context) : IPathRepo {
+class PathRepo private constructor(context: Context) {
 
     private val pathDao = AppDatabase.getInstance(context).pathDao()
     private val groupDao = AppDatabase.getInstance(context).pathGroupDao()
@@ -23,7 +23,7 @@ class PathRepo private constructor(context: Context) : IPathRepo {
         private set
     private val changeLock = Any()
 
-    override suspend fun add(value: Path): Long {
+    suspend fun add(value: Path): Long {
         val id = if (value.id != 0L) {
             pathDao.update(PathEntity.from(value))
             value.id
@@ -37,7 +37,7 @@ class PathRepo private constructor(context: Context) : IPathRepo {
         return id
     }
 
-    override suspend fun delete(value: Path) {
+    suspend fun delete(value: Path) {
         pathDao.delete(PathEntity.from(value))
         synchronized(changeLock) {
             changeKey++
@@ -45,27 +45,27 @@ class PathRepo private constructor(context: Context) : IPathRepo {
         Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
     }
 
-    override suspend fun get(id: Long): Path? {
+    suspend fun get(id: Long): Path? {
         return pathDao.get(id)?.toPath()
     }
 
-    override fun getLive(id: Long): LiveData<Path?> {
+    fun getLive(id: Long): LiveData<Path?> {
         return pathDao.getLive(id).map { it?.toPath() }
     }
 
-    override suspend fun getAll(): List<Path> {
+    suspend fun getAll(): List<Path> {
         return pathDao.getAllSuspend().map { it.toPath() }
     }
 
-    override fun getPaths(): Flow<List<Path>> {
+    fun getPaths(): Flow<List<Path>> {
         return pathDao.getAll().map { it.map { path -> path.toPath() } }
     }
 
-    override suspend fun getPathsWithParent(parent: Long?): List<Path> {
+    suspend fun getPathsWithParent(parent: Long?): List<Path> {
         return pathDao.getAllInGroup(parent).map { it.toPath() }
     }
 
-    override suspend fun addGroup(group: PathGroup): Long {
+    suspend fun addGroup(group: PathGroup): Long {
         return if (group.id != 0L) {
             groupDao.update(PathGroupEntity.from(group))
             group.id
@@ -74,15 +74,15 @@ class PathRepo private constructor(context: Context) : IPathRepo {
         }
     }
 
-    override suspend fun deleteGroup(group: PathGroup) {
+    suspend fun deleteGroup(group: PathGroup) {
         groupDao.delete(PathGroupEntity.from(group))
     }
 
-    override suspend fun getGroupsWithParent(parent: Long?): List<PathGroup> {
+    suspend fun getGroupsWithParent(parent: Long?): List<PathGroup> {
         return groupDao.getAllWithParent(parent).map { it.toPathGroup() }
     }
 
-    override suspend fun getGroup(id: Long): PathGroup? {
+    suspend fun getGroup(id: Long): PathGroup? {
         return groupDao.get(id)?.toPathGroup()
     }
 

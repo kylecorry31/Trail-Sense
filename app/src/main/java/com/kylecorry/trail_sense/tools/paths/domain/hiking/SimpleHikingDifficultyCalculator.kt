@@ -13,10 +13,9 @@ import kotlin.math.absoluteValue
 import kotlin.math.max
 
 // Adapted from https://www.smcgov.org/parks/county-hiking-trail-difficulty-rating-system
-class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService) :
-    HikingDifficultyCalculator {
+class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService) {
 
-    override fun calculate(points: List<PathPoint>): HikingDifficulty {
+    fun calculate(points: List<PathPoint>): HikingDifficulty {
         // Distance
         val distance = Geography.getPathDistance(points.map { it.coordinate })
             .convertTo(DistanceUnits.Miles)
