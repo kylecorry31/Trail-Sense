@@ -1663,5 +1663,7 @@
     <string name="path_direction_to_end">到终点</string>
     <string name="path_direction_to_start">到起点</string>
     <string name="path_navigation_follow_to_point">到这个航路点</string>
-    <string name="path_navigation_trailhead">到路径起点</string>
+    <string name="path_navigation_trailhead">到路线起点</string>
+    <string name="elevation_smoothing">高程平滑</string>
+    <string name="create_path_on_map">在地图上绘制</string>
 </resources>
