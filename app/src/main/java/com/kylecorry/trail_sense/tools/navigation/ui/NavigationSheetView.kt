@@ -211,7 +211,11 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         val loss = guidance.remainingElevationLoss.convertTo(prefs.baseDistanceUnits)
         elevationDataView.isVisible = gain.value.absoluteValue > 0 || loss.value.absoluteValue > 0
         val gainText = formatter.formatDistance(gain, Units.getDecimalPlaces(gain.units), false)
-        val lossText = formatter.formatDistance(loss, Units.getDecimalPlaces(loss.units), false)
+        val lossText = formatter.formatDistance(
+            Distance.from(loss.value.absoluteValue, loss.units),
+            Units.getDecimalPlaces(loss.units),
+            false
+        )
         elevationDataView.setShowDescription(true)
         elevationDataView.title = "↑ $gainText"
         elevationDataView.description = "↓ $lossText"
