@@ -21,6 +21,8 @@ You can choose to manually create a path by doing the following:
 3. Give the path a name and tap 'OK'.
 4. Tap the '+ Point' button to add a point to the path at your current location. You can add as many points as you want.
 
+You can also draw a path on the map by tapping 'Draw on map' instead of 'Path' in step 2. The Map tool will open and you can tap the map to place points, then tap 'Create path' at the bottom when you are done.
+
 ## Importing paths
 If you have tracks or routes saved in a GPX file, you can import them into Trail Sense as paths.
 

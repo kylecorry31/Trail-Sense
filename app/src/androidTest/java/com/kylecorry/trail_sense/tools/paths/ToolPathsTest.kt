@@ -73,6 +73,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         addPathGroup()
         importPath()
         createEmptyPath()
+        createPathOnMap()
         groupOperations()
         pathOperations()
         searchPath()
@@ -109,6 +110,16 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         clickOk()
         isVisible(R.id.path_title)
         hasText("Empty Path")
+        backUntil { isVisible(R.id.paths_title) }
+    }
+
+    private fun createPathOnMap() {
+        click(R.id.add_btn)
+        click(string(R.string.create_path_on_map))
+        optional { clickOk() }
+        hasText("Distance")
+        hasText("Create path")
+        click(toolbarButton(R.id.map_distance_title, Side.Right))
         backUntil { isVisible(R.id.paths_title) }
     }
 

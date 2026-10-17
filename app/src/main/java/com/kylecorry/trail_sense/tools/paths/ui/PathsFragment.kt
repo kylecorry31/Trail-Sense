@@ -23,7 +23,9 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.grouping.lists.GroupListManager
 import com.kylecorry.trail_sense.shared.grouping.lists.bind
 import com.kylecorry.trail_sense.shared.io.IOFactory
+import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
+import com.kylecorry.trail_sense.tools.map.ui.MapFragment
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.IPath
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -196,6 +198,7 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
                 R.id.action_import_path_gpx -> importPaths()
                 R.id.action_create_path_group -> createGroup()
                 R.id.action_create_path -> createPath()
+                R.id.action_create_path_on_map -> createPathOnMap()
             }
             true
         }
@@ -361,6 +364,15 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
                 showPath(it)
             }
         }
+    }
+
+    private fun createPathOnMap() {
+        findNavController().navigateWithAnimation(
+            R.id.mapFragment,
+            Bundle().apply {
+                putBoolean(MapFragment.ARG_START_PATH_CREATION, true)
+            }
+        )
     }
 
     // Groups

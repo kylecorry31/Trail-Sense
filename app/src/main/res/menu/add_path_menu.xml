@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_create_path_on_map"
+        android:icon="@drawable/maps"
+        android:title="@string/create_path_on_map" />
+    <item
         android:id="@+id/action_import_path_gpx"
         android:icon="@drawable/ic_file"
         android:title="@string/import_gpx" />

@@ -18,6 +18,7 @@ import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.andromeda.fragments.useArgument
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.fragments.useFlow
@@ -451,6 +452,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
+        val startPathCreation = useArgument<Boolean>(ARG_START_PATH_CREATION) ?: false
+        useEffect(manager, startPathCreation) {
+            if (startPathCreation) {
+                startDistanceMeasurement(null, false)
+            }
+        }
+
         // Disclaimer
         useEffect(context) {
             CustomUiUtils.disclaimer(
@@ -634,6 +642,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         return lockMode to exposedSetLockMode
+    }
+
+    companion object {
+        const val ARG_START_PATH_CREATION = "start_path_creation"
     }
 
     private enum class MapLockMode(val id: Int) {
