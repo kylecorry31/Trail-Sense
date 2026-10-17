@@ -129,6 +129,7 @@
     <string name="units_mbar">mbar</string>
     <string name="units_psi">PSI</string>
     <string name="stop">Stop</string>
+    <string name="recording">Recording</string>
     <string name="pressure_tendency_format_2">%s / 3h</string>
     <string name="pressure_format">%1$s %2$s</string>
     <string name="pressure_reading_time_ago">%1$s - %2$s ago</string>

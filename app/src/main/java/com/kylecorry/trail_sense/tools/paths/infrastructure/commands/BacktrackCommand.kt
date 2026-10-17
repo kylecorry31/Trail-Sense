@@ -6,7 +6,6 @@ import com.kylecorry.andromeda.core.time.SystemTimeProvider
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
@@ -18,6 +17,7 @@ import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.MockCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.age
+import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.ShouldRecordBacktrackPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
@@ -27,7 +27,7 @@ import java.time.Instant
 class BacktrackCommand(
     private val context: Context,
     private val pathId: Long = 0,
-    private val alerter: IValueAlerter<Distance> = BacktrackAlerter(context)
+    private val alerter: IValueAlerter<Path> = BacktrackAlerter(context)
 ) : CoroutineCommand {
 
     private val prefs = UserPreferences(context)
@@ -65,9 +65,7 @@ class BacktrackCommand(
         }
         val backtrackId = pathService.getBacktrackPathId() ?: return
         val backtrackPath = pathService.getPath(backtrackId) ?: return
-
-        val distance = backtrackPath.metadata.distance
-        alerter.alert(distance)
+        alerter.alert(backtrackPath)
     }
 
     private suspend fun updateSensors() {

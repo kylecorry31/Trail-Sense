@@ -477,6 +477,30 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
     }
 
     @Test
+    fun canStopBacktrackFromRecordingPathDetails() {
+        assumeFalse(isStagingBuild)
+
+        click(R.id.play_btn)
+        optional {
+            hasText(string(R.string.battery_settings_limit_accuracy))
+            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+        }
+        hasText(R.id.play_bar_title, "On - 1m")
+
+        // Wait for the path to be created
+        isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
+
+        click(com.kylecorry.andromeda.views.R.id.title)
+        isVisible(R.id.stop_recording_btn)
+
+        click(R.id.stop_recording_btn)
+        not { isVisible(R.id.stop_recording_btn) }
+
+        back()
+        hasText(R.id.play_bar_title, "Off - 1m")
+    }
+
+    @Test
     fun listShowsEachPathWithItsLength() {
         openWithSavedPaths()
 

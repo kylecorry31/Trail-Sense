@@ -65,6 +65,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
+import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 import com.kylecorry.trail_sense.tools.paths.domain.PathDirectionRecommender
@@ -91,6 +92,7 @@ import com.kylecorry.trail_sense.tools.paths.ui.commands.RenamePathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ReplacePathElevationsCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.SimplifyPathCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.TogglePathVisibilityCommand
+import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.launch
 import java.time.Duration
 
@@ -182,11 +184,19 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             gps.horizontalAccuracy?.let { Distance.meters(it) }
 
         binding.pathImage.start()
+        Tools.subscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED,
+            this::onBacktrackChanged
+        )
     }
 
     override fun onPause() {
         super.onPause()
         binding.pathImage.stop()
+        Tools.unsubscribe(
+            PathsToolRegistration.BROADCAST_BACKTRACK_STATE_CHANGED,
+            this::onBacktrackChanged
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -245,6 +255,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     }
                 }
             }
+        }
+
+        binding.stopRecordingBtn.setOnClickListener {
+            stopRecording()
         }
 
         binding.toEndBtn.setOnClickListener {
@@ -336,9 +350,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                         prefs.paths.elevationSmoothing
                     ).reversed()
             }
-            isRecording = onIO {
-                pathService.getBacktrackPathId() == pathId && BacktrackScheduler.isOn(requireContext())
-            }
+            isRecording = isRecordingPath()
             onIO {
                 DebugPathElevationsCommand(
                     requireContext(),
@@ -353,6 +365,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 }
                 pointSheet?.setPoints(this@PathOverviewFragment.waypoints)
                 isLoop = hikingService.isLoop(waypoints.sortedBy { it.id }.map { it.coordinate })
+                updateRecordingBanner()
                 updateFollowEmphasis()
                 updateElevationOverview()
                 updateHikingStats()
@@ -516,6 +529,38 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         lastBounds = Geography.getBounds(waypoints.map { it.coordinate })
         binding.pathImage.fitIntoView(lastBounds)
         updateMapLayer()
+    }
+
+    private fun updateRecordingBanner() {
+        if (!isBound) {
+            return
+        }
+        binding.pathRecordingBanner.isVisible = isRecording
+    }
+
+    private suspend fun isRecordingPath(): Boolean = onIO {
+        pathService.getBacktrackPathId() == pathId && BacktrackScheduler.isOn(requireContext())
+    }
+
+    @Suppress("UnusedParameter")
+    private suspend fun onBacktrackChanged(data: Bundle) = refreshRecording()
+
+    private suspend fun refreshRecording() {
+        isRecording = isRecordingPath()
+        onMain {
+            updateRecordingBanner()
+            updateFollowEmphasis()
+        }
+    }
+
+    private fun stopRecording() {
+        inBackground {
+            onIO {
+                Tools.getService(requireContext(), PathsToolRegistration.SERVICE_BACKTRACK)
+                    ?.disable()
+            }
+            refreshRecording()
+        }
     }
 
     private fun updateFollowEmphasis() {

@@ -1,7 +1,7 @@
 The Paths tool can be used to record waypoints while hiking or to follow a trail.
 
 ## Backtrack
-The Backtrack feature can be used to automatically record a path while you hike. To start Backtrack, tap the start button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can stop Backtrack by tapping the stop button in the notification or by tapping the stop button in the bottom-right corner of the screen.
+The Backtrack feature can be used to automatically record a path while you hike. To start Backtrack, tap the start button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can stop Backtrack by tapping the stop button in the notification or by tapping the stop button in the bottom-right corner of the screen. Tapping the notification opens the path being recorded, which shows a recording banner under the map with a stop button.
 
 To change the recording frequency, tap the time under the Backtrack label at the bottom-left and enter a new interval.
 
