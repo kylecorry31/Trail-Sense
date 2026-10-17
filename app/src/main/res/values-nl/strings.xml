@@ -1679,10 +1679,13 @@
     <string name="skip_elevations">Hoogtes overslaan</string>
     <string name="quality">Kwaliteit</string>
     <string name="follow_path">Pad volgen</string>
-    <string name="path_direction_to_end">Naar einde</string>
-    <string name="path_direction_to_start">Naar begin</string>
+    <string name="path_direction_to_end">Volg naar einde</string>
+    <string name="path_direction_to_start">Volg naar begin</string>
     <string name="path_navigation_follow_to_point">Volg naar punt</string>
     <string name="path_navigation_trailhead">Volg naar beginpunt</string>
     <string name="elevation_smoothing">Hoogtes afvlakken</string>
     <string name="create_path_on_map">Tekenen op kaart</string>
+    <string name="recording">Opnemen</string>
+    <string name="pref_backtrack_keep_on_stop_title">Pad behouden na stoppen</string>
+    <string name="pref_backtrack_keep_on_stop_summary">Anders wordt het pad verwijderd na de terugweggeschiedenis</string>
 </resources>
