@@ -1668,4 +1668,5 @@
     <string name="create_path_on_map">在地图上绘制</string>
     <string name="pref_backtrack_keep_on_stop_title">停止时保留路径</string>
     <string name="pref_backtrack_keep_on_stop_summary">如不保留在 Backtrack 历史后将删除路径</string>
+    <string name="recording">记录中</string>
 </resources>
