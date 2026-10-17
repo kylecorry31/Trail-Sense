@@ -369,7 +369,6 @@ class SensorService(ctx: Context) {
 
     companion object {
         const val MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_UI
-        const val FAST_MOTION_SENSOR_DELAY = SensorManager.SENSOR_DELAY_GAME
         private const val ENVIRONMENT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_NORMAL
         val DEFAULT_GPS_FREQUENCY: Duration = Duration.ofSeconds(1)
         val NAVIGATION_GPS_FREQUENCY: Duration = Duration.ofMillis(200)

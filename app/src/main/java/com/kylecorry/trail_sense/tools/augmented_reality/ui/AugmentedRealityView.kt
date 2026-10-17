@@ -598,7 +598,6 @@ class AugmentedRealityView : CanvasView {
 
     fun switchToGyro() {
         val lastAzimuth = azimuth
-        val lastInclination = inclination
         orientationSensor = if (hasGyro) gyroOrientationSensor else geomagneticOrientationSensor
         updateOrientation()
         calibrationBearingOffset = deltaAngle(azimuth, lastAzimuth)

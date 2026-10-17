@@ -30,7 +30,6 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
     AstronomyListItemProducer {
 
     private val subtitleScale = 0.7f
-    private val textScale = 1.2f
     protected val imageSize = Resources.dp(context, 24f).toInt()
     protected val secondaryColor = Resources.androidTextColorSecondary(context)
     protected val formatter = FormatService.getInstance(context)

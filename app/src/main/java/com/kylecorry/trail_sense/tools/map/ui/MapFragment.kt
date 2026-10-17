@@ -165,7 +165,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             manager.setTime(mapView, mapTime)
         }
         useEffectWithCleanup(manager, mapView, resetOnResume) {
-            manager.resume(context, mapView, this@MapFragment)
+            manager.resume(mapView, this@MapFragment)
             return@useEffectWithCleanup {
                 manager.pause(mapView)
             }
@@ -203,7 +203,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {
             manager.pause(mapView)
             layerEditSheet.setOnDismissListener {
-                manager.resume(context, mapView, this@MapFragment)
+                manager.resume(mapView, this@MapFragment)
                 setHasTimeDependentLayers(
                     mapView.layerManager.getLayers().any { it.isTimeDependent })
             }

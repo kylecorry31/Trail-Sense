@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.tides.infrastructure.persistence
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -15,9 +14,6 @@ interface TideTableDao {
 
     @Query("SELECT * FROM tide_tables")
     suspend fun getTideTables(): List<TideTableEntity>
-
-    @Query("SELECT * FROM tide_tables")
-    fun getTideTablesLive(): LiveData<List<TideTableEntity>>
 
     @Query("SELECT * FROM tide_tables WHERE _id = :id")
     suspend fun getTideTable(id: Long): TideTableEntity?
@@ -56,12 +52,6 @@ interface TideTableDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(constituent: TideConstituentEntry): Long
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun bulkInsertConstituents(constituents: List<TideConstituentEntry>)
-
     @Delete
     suspend fun delete(constituent: TideConstituentEntry)
-
-    @Query("DELETE FROM tide_constituents WHERE table_id = :tableId")
-    suspend fun deleteConstituentsForTable(tableId: Long)
 }

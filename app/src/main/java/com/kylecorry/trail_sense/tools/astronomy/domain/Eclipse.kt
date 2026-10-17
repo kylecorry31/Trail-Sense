@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.astronomy.domain
 
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
-import com.kylecorry.sol.units.Bearing
 import java.time.Duration
 import java.time.ZonedDateTime
 
@@ -11,8 +10,7 @@ data class Eclipse(
     val peak: ZonedDateTime,
     val magnitude: Float,
     val obscuration: Float,
-    val peakAltitude: Float,
-    val peakDirection: Bearing
+    val peakAltitude: Float
 ) {
     val isTotal: Boolean = magnitude.roundPlaces(2) >= 1f
     val duration: Duration = Duration.between(start, end)

@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.layers
 
-import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
@@ -21,7 +20,7 @@ class NavigationCompassLayerManager {
     private var isRunning = false
     private val runningLock = Any()
 
-    fun resume(context: Context, view: IMapView, fragment: Fragment) {
+    fun resume(view: IMapView, fragment: Fragment) {
         synchronized(runningLock) {
             isRunning = true
         }

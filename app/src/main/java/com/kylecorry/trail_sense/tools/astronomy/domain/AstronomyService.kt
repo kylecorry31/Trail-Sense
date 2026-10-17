@@ -266,8 +266,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
         return getEclipse(location, date, EclipseType.PartialLunar) {
-            val moon = getMoonPosition(location, it)
-            moon.azimuth to moon.altitude
+            getMoonPosition(location, it).altitude
         }
     }
 
@@ -280,8 +279,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         date: LocalDate = LocalDate.now()
     ): Eclipse? {
         return getEclipse(location, date, EclipseType.Solar, 1) {
-            val sun = getSunPosition(location, it)
-            sun.azimuth to sun.altitude
+            getSunPosition(location, it).altitude
         }
     }
 
@@ -396,7 +394,7 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         date: LocalDate,
         eclipseType: EclipseType,
         days: Long = 2,
-        getPosition: (ZonedDateTime) -> Pair<Bearing, Float>
+        getPeakAltitude: (ZonedDateTime) -> Float
     ): Eclipse? {
         val nextEclipse = Astronomy.getNextEclipse(
             date.atStartOfDay(ZoneId.systemDefault()),
@@ -413,16 +411,13 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             return null
         }
 
-        val position = getPosition(peak)
-
         return Eclipse(
             start,
             end,
             peak,
             nextEclipse.magnitude,
             nextEclipse.obscuration,
-            position.second,
-            position.first
+            getPeakAltitude(peak)
         )
     }
 

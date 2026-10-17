@@ -13,7 +13,6 @@ class HookTriggers {
     private val frequencyLock = Any()
 
     private val predicateTriggers = mutableMapOf<String, PredicateHookTrigger>()
-    private val predicateLock = Any()
 
     fun distance(
         name: String,

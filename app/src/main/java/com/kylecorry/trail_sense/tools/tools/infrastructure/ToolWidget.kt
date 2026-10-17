@@ -10,7 +10,6 @@ data class ToolWidget(
     val size: ToolSummarySize = ToolSummarySize.Full,
     val widgetView: ToolWidgetView,
     val widgetClass: Class<out AppWidgetProvider>,
-    val inAppUpdateFrequencyMs: Long = 60000,
     val updateBroadcasts: List<String> = emptyList(),
     val isEnabled: (context: Context) -> Boolean = { true },
     val usesLocation: Boolean = false,

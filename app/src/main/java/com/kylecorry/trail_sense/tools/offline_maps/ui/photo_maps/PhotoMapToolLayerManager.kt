@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps
 
-import android.content.Context
 import android.graphics.Color
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -51,7 +50,7 @@ class PhotoMapToolLayerManager {
     private var isRunning = false
     private val runningLock = Any()
 
-    fun resume(context: Context, view: IMapView, photoMapId: Long, fragment: Fragment) {
+    fun resume(view: IMapView, photoMapId: Long, fragment: Fragment) {
         synchronized(runningLock) {
             isRunning = true
         }
