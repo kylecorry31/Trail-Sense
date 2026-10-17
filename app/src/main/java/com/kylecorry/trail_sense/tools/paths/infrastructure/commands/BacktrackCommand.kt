@@ -106,7 +106,8 @@ class BacktrackCommand(
             )
 
             if (pathId == 0L) {
-                if (!isFarEnoughFromPreviousPoint(waypoint)) {
+                // Backtrack may have been stopped while waiting for a GPS fix
+                if (!prefs.paths.backtrackEnabled || !isFarEnoughFromPreviousPoint(waypoint)) {
                     return@onIO null
                 }
                 pathService.addBacktrackPoint(waypoint)

@@ -420,6 +420,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Wait for the path to be created
         isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
+        hasText(string(R.string.temporary))
+
         // Stop backtrack
         click(R.id.play_btn)
 
@@ -427,6 +429,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         if (AutomationLibrary.packageName == null) {
             not { notification(BacktrackAlerter.NOTIFICATION_ID) }
         }
+
+        // The path is kept when stopped
+        not { hasText(string(R.string.temporary)) }
     }
 
     private fun verifyQuickAction() {

@@ -34,6 +34,12 @@ class PathsPreferences(private val context: Context) : IPathPreferences {
         true
     )
 
+    override val keepBacktrackPathOnStop by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_backtrack_keep_on_stop),
+        true
+    )
+
     val backtrackKeepDeviceAwake by BooleanPreference(
         cache,
         context.getString(R.string.pref_backtrack_keep_awake),
@@ -104,7 +110,7 @@ class PathsPreferences(private val context: Context) : IPathPreferences {
 
     override var backtrackHistory: Duration
         get() {
-            val days = cache.getInt(context.getString(R.string.pref_backtrack_history_days)) ?: 2
+            val days = cache.getInt(context.getString(R.string.pref_backtrack_history_days)) ?: 7
             return Duration.ofDays(days.toLong())
         }
         set(value) {

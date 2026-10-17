@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.permissions.isAppForeground
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.services.BacktrackService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -79,6 +80,7 @@ class BacktrackToolService(private val context: Context) : ToolService {
         prefs.paths.backtrackEnabled = false
         Tools.broadcast(PathsToolRegistration.BROADCAST_BACKTRACK_DISABLED)
         stop()
+        PathService.getInstance(context).endBacktrackPath()
     }
 
     override suspend fun restart() {

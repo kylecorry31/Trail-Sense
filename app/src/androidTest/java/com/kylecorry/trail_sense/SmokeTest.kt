@@ -137,12 +137,12 @@ class SmokeTest {
         // Wait for the path to be created
         hasText("Temporary", waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
-        // Stop backtrack
-        click({ viewWithResourceId("$packageName:id/play_btn") })
-
         // Open the path
         click("Temporary")
         back()
+
+        // Stop backtrack
+        click({ viewWithResourceId("$packageName:id/play_btn") })
     }
 
     private fun smokeTestPhotoMaps() {

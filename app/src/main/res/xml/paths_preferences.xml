@@ -35,6 +35,14 @@
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"
+            app:key="@string/pref_backtrack_keep_on_stop"
+            app:singleLineTitle="false"
+            app:summary="@string/pref_backtrack_keep_on_stop_summary"
+            app:title="@string/pref_backtrack_keep_on_stop_title" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
             app:key="@string/pref_backtrack_save_cell"
             app:singleLineTitle="false"
             app:summary="@string/pref_backtrack_save_cell_summary"

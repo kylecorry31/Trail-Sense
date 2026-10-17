@@ -77,6 +77,12 @@ class PathService(
 
     override suspend fun endBacktrackPath() = onIO {
         backtrackLock.withLock {
+            if (pathPreferences.keepBacktrackPathOnStop) {
+                val path = cache.getLong(BACKTRACK_PATH_KEY)?.let { getPath(it) }
+                if (path?.temporary == true) {
+                    addPath(path.copy(temporary = false))
+                }
+            }
             cache.remove(BACKTRACK_PATH_KEY)
         }
     }

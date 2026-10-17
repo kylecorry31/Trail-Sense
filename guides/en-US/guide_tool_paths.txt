@@ -11,7 +11,7 @@ To avoid recording additional points while stationary, adjust Settings > Paths >
 
 Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Paths > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
 
-By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Paths > 'Backtrack history'. You can choose to keep a Backtrack path forever by tapping the menu button on the Backtrack path row and selecting 'Keep forever'.
+When you stop Backtrack, the path is kept forever. To have Backtrack paths be temporary instead, disable Settings > Paths > 'Keep path when stopped'. Temporary paths (and the points of a path that is still being recorded) are deleted after the number of days specified by Settings > Paths > 'Backtrack history' (7 days by default). You can choose to keep a temporary path forever by tapping the menu button on the Backtrack path row and selecting 'Keep forever'.
 
 ## Creating a path
 You can choose to manually create a path by doing the following:
