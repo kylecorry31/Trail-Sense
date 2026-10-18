@@ -6,7 +6,8 @@ Usage: apply_changes.py PLAN.json [--dry-run]
 PLAN.json: {"remove": [issue numbers], "insert": [{"number": 123, "after": 456 | null}]}
 
 Removals run first. Inserts run in list order, so "after" may name an issue inserted earlier
-in the same list. "after": null puts the issue at the top of the project.
+in the same list. "after": null puts the issue at the top of the project. Inserting an issue
+that is already in the project moves it.
 """
 import json
 import subprocess
