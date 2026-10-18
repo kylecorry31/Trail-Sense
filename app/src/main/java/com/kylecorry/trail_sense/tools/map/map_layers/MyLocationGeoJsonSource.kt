@@ -15,18 +15,21 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryMarkerColor
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.sources.GeoJsonSource
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.MapLayerParams
+import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import java.time.Duration
 
 class MyLocationGeoJsonSource : GeoJsonSource {
 
     private var arrowBitmap: Bitmap? = null
-    private var arrowBitmapSizeDp: Float? = null
-    private var arrowBitmapStrokeWeight: Float? = null
+    private var arrowBitmapKey: ArrowBitmapKey? = null
     private val hasCompass = DependencyRegistry.get<SensorService>().hasCompass()
 
     override suspend fun load(
@@ -46,7 +49,12 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         )
         val userLocationSizeDp = if (largeIndicator) LARGE_SIZE_DP else DEFAULT_SIZE_DP
         val strokeWeight = if (largeIndicator) 4f else 2f
-        val color = Resources.getPrimaryMarkerColor(context)
+        val isStale = getAppService<LocationSubsystem>().isLocationStale
+        val color = if (isStale) {
+            AppColor.Gray.color
+        } else {
+            Resources.getPrimaryMarkerColor(context)
+        }
         val features = mutableListOf<GeoJsonFeature>()
 
         if (drawAccuracy) {
@@ -89,7 +97,8 @@ class MyLocationGeoJsonSource : GeoJsonSource {
     }
 
     private fun getArrowBitmap(context: Context, color: Int, sizeDp: Float, strokeWeight: Float): Bitmap {
-        if (arrowBitmap != null && arrowBitmapSizeDp == sizeDp && arrowBitmapStrokeWeight == strokeWeight) {
+        val key = ArrowBitmapKey(color, sizeDp, strokeWeight)
+        if (arrowBitmap != null && arrowBitmapKey == key) {
             return arrowBitmap!!
         }
 
@@ -120,14 +129,15 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         bitmapDrawer.pop()
 
         arrowBitmap = bitmap
-        arrowBitmapSizeDp = sizeDp
-        arrowBitmapStrokeWeight = strokeWeight
+        arrowBitmapKey = key
         return bitmap
     }
 
     override suspend fun cleanup() {
         arrowBitmap = null
     }
+
+    private data class ArrowBitmapKey(val color: Int, val sizeDp: Float, val strokeWeight: Float)
 
     companion object {
         const val SOURCE_ID = "my_location"
@@ -137,6 +147,7 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         const val DEFAULT_LARGE_INDICATOR = false
         private const val DEFAULT_SIZE_DP = 20f
         private const val LARGE_SIZE_DP = 28f
+        val STALE_CHECK_INTERVAL: Duration = Duration.ofMinutes(1)
     }
 
 }

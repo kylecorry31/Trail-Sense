@@ -40,6 +40,9 @@ class LocationSubsystem private constructor(private val context: Context) {
             return Duration.between(lastUpdate, Instant.now())
         }
 
+    val isLocationStale: Boolean
+        get() = locationAge > STALE_LOCATION_AGE
+
     val elevation: Distance
         get() = sensorSubsystem.lastKnownElevation
 
@@ -98,6 +101,8 @@ class LocationSubsystem private constructor(private val context: Context) {
     }
 
     companion object {
+        private val STALE_LOCATION_AGE: Duration = Duration.ofMinutes(2)
+
         @SuppressLint("StaticFieldLeak")
         private var instance: LocationSubsystem? = null
 

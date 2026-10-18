@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.tools.map.map_layers.ScaleBarLayer
 import com.kylecorry.trail_sense.tools.map.widgets.AppWidgetMap
 import com.kylecorry.trail_sense.tools.map.widgets.MapToolWidgetView
 import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
+import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
@@ -268,7 +269,9 @@ object MapToolRegistration : ToolRegistration {
                             defaultValue = MyLocationGeoJsonSource.DEFAULT_LARGE_INDICATOR,
                         )
                     ),
-                    geoJsonSource = ::MyLocationGeoJsonSource
+                    geoJsonSource = ::MyLocationGeoJsonSource,
+                    refreshInterval = MyLocationGeoJsonSource.STALE_CHECK_INTERVAL,
+                    refreshBroadcasts = listOf(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED)
                 ),
                 MapLayerDefinition(
                     ScaleBarLayer.LAYER_ID,

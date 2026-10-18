@@ -30,6 +30,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentSensorDetailsBinding
 import com.kylecorry.trail_sense.databinding.ListItemSensorBinding
@@ -39,6 +40,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
+import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachedAltimeter
 import com.kylecorry.trail_sense.shared.sensors.altimeter.OverrideAltimeter
@@ -47,7 +49,6 @@ import com.kylecorry.trail_sense.shared.sensors.hygrometer.MockHygrometer
 import com.kylecorry.trail_sense.shared.sensors.overrides.CachedGPS
 import com.kylecorry.trail_sense.shared.sensors.overrides.OverrideGPS
 import java.time.Duration
-import java.time.Instant
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.time.format.TextStyle
@@ -421,11 +422,7 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return Resources.color(requireContext(), R.color.red)
         }
 
-        if (Duration.between(gps.eventTime, Instant.now()) > Duration.ofMinutes(2)) {
-            return Resources.color(requireContext(), R.color.yellow)
-        }
-
-        if (!gps.hasValidReading || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (isGPSSearching()) {
             return Resources.color(requireContext(), R.color.yellow)
         }
 
@@ -473,15 +470,16 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
             return getString(R.string.unavailable)
         }
 
-        if (Duration.between(gps.eventTime, Instant.now()) > Duration.ofMinutes(2)) {
-            return getString(R.string.gps_stale)
-        }
-
-        if (!gps.hasValidReading || (gps is CustomGPS && (gps as CustomGPS).isTimedOut)) {
+        if (isGPSSearching()) {
             return getString(R.string.gps_searching)
         }
 
         return formatService.formatQuality(gps.quality)
+    }
+
+    private fun isGPSSearching(): Boolean {
+        val isTimedOut = gps is CustomGPS && (gps as CustomGPS).isTimedOut
+        return getAppService<LocationSubsystem>().isLocationStale || !gps.hasValidReading || isTimedOut
     }
 
     data class SensorDetails(
