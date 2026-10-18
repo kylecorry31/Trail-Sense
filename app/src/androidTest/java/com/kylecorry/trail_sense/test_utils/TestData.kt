@@ -65,11 +65,12 @@ object TestData {
     fun addPath(
         name: String,
         points: List<PathPoint>,
-        groupId: Long? = null
+        groupId: Long? = null,
+        temporary: Boolean = false
     ): Long = runBlocking {
         val service = PathService.getInstance(context)
         val id = service.addPath(
-            Path(0, name, PathStyle.default(), PathMetadata.empty, parentId = groupId)
+            Path(0, name, PathStyle.default(), PathMetadata.empty, temporary, groupId)
         )
         service.addWaypointsToPath(points, id)
         id

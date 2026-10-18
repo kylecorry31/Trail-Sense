@@ -251,14 +251,15 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText("0m")
         hasText("Duration")
 
-        hasText("1")
-        hasText("Points")
-
         hasText("0 ft")
         hasText("Distance")
 
-        hasText("Easy")
-        hasText("Difficulty")
+        scrollUntil(R.id.path_scroll) {
+            hasText("1")
+            hasText("Points")
+            hasText("Easy")
+            hasText("Difficulty")
+        }
 
         scrollUntil(R.id.path_scroll) {
             hasText("0 ft")
@@ -360,12 +361,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Hide")
         click(toolbarButton(R.id.path_title, Side.Right))
         click("Show")
-
-        // Keep forever
-        click(toolbarButton(R.id.path_title, Side.Right))
-        click("Keep forever")
-        click(toolbarButton(R.id.path_title, Side.Right))
-        not { hasText("Keep forever") }
 
         backUntil { isVisible(R.id.paths_title) }
     }
@@ -477,6 +472,27 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
     }
 
     @Test
+    fun canKeepATemporaryPathForever() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            TestData.addPath(
+                "Recording",
+                TestData.loadGpxPoints("paths/durfee short.gpx"),
+                temporary = true
+            )
+        }
+
+        hasText(string(R.string.temporary))
+        click("Recording")
+        hasText(R.id.path_title, "Recording")
+
+        click(toolbarButton(R.id.path_title, Side.Right))
+        click(string(R.string.keep_forever))
+        click(toolbarButton(R.id.path_title, Side.Right))
+        not { hasText(string(R.string.keep_forever)) }
+    }
+
+    @Test
     fun canStopBacktrackFromRecordingPathDetails() {
         assumeFalse(isStagingBuild)
 
@@ -552,10 +568,12 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasDataPoint("15m", string(R.string.duration))
         // 0.498 miles between the 39 recorded points
         hasDataPoint("0.5 mi", string(R.string.distance))
-        hasDataPoint("39", string(R.string.points))
-        hasDataPoint("Moderate", string(R.string.difficulty))
-        hasDataPoint(Regex("\\d{1,2} ft"), string(R.string.ascent))
-        hasDataPoint(Regex("-\\d{2} ft"), string(R.string.descent))
+        scrollUntil(R.id.path_scroll) {
+            hasDataPoint("39", string(R.string.points))
+            hasDataPoint("Moderate", string(R.string.difficulty))
+            hasDataPoint(Regex("\\d{1,2} ft"), string(R.string.ascent))
+            hasDataPoint(Regex("-\\d{2} ft"), string(R.string.descent))
+        }
 
         // The recorded elevations range from 522 ft to 590 ft
         scrollUntil(R.id.path_scroll) {
@@ -572,18 +590,22 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Sprague")
         hasText(R.id.path_title, "Sprague")
         hasDataPoint("3.71 mi", string(R.string.distance))
-        hasDataPoint("90", string(R.string.points))
         // The recording has no meaningful timestamps, so the duration is estimated from the pace
         hasDataPoint(Regex("1h \\d+m"), string(R.string.duration))
+        scrollUntil(R.id.path_scroll) {
+            hasDataPoint("90", string(R.string.points))
+        }
         back()
 
         click("Mansfield")
         hasText(R.id.path_title, "Mansfield")
         hasDataPoint("4.91 mi", string(R.string.distance))
-        hasDataPoint("175", string(R.string.points))
         // The raw recording climbs 2655 ft, the app smooths out elevation noise
-        hasDataPoint(Regex("25\\d\\d ft"), string(R.string.ascent))
-        hasDataPoint(Regex("-25\\d\\d ft"), string(R.string.descent))
+        scrollUntil(R.id.path_scroll) {
+            hasDataPoint("175", string(R.string.points))
+            hasDataPoint(Regex("25\\d\\d ft"), string(R.string.ascent))
+            hasDataPoint(Regex("-25\\d\\d ft"), string(R.string.descent))
+        }
     }
 
     @Test
