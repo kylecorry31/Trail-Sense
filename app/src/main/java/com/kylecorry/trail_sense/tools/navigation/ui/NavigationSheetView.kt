@@ -229,7 +229,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         toolbar.title.text = destination.path.name ?: context.getString(R.string.path)
         toolbar.subtitle.isVisible = false
         toolbar.leftButton.isVisible = false
-        toolbar.title.setOnClickListener(null)
+        toolbar.title.setOnClickListener {
+            openPath(destination.path.id)
+        }
         toolbar.subtitle.setOnClickListener(null)
         etaDataView.isVisible = true
         val speed = values.speed.convertTo(
@@ -325,6 +327,15 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             R.id.beaconDetailsFragment,
             Bundle().apply {
                 putLong("beacon_id", id)
+            }
+        )
+    }
+
+    private fun openPath(id: Long) {
+        findNavController().navigateWithAnimation(
+            R.id.pathDetailsFragment,
+            Bundle().apply {
+                putLong("path_id", id)
             }
         )
     }
