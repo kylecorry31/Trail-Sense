@@ -29,7 +29,7 @@ import java.time.Instant
 
 class MapToolLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
-    private val distanceLayer = MapDistanceLayer()
+    private val distanceLayer = MapDistanceLayer().apply { isEnabled = false }
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
     private val elevationPrefetcher = PathElevationPrefetcher()
     private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
@@ -60,7 +60,6 @@ class MapToolLayerManager {
 
             // Hardcoded configuration
             distanceLayer.onPathChanged = { onDistancePathChange(it) }
-            distanceLayer.isEnabled = false
             (view.getLayerById(CompassOverlayLayer.LAYER_ID) as? CompassOverlayLayer)?.paddingTopDp =
                 48f
 

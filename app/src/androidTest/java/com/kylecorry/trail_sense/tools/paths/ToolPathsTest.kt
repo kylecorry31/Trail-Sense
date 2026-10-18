@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEO
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasDataPoint
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
@@ -73,7 +74,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         addPathGroup()
         importPath()
         createEmptyPath()
-        createPathOnMap()
         groupOperations()
         pathOperations()
         searchPath()
@@ -113,12 +113,21 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         backUntil { isVisible(R.id.paths_title) }
     }
 
-    private fun createPathOnMap() {
+    @Test
+    fun canCreatePathOnMap() {
         click(R.id.add_btn)
         click(string(R.string.create_path_on_map))
         optional { clickOk() }
         hasText("Distance")
         hasText("Create path")
+
+        // Tapping the map should add points to the path
+        click(R.id.map, xPercent = 0.3f, yPercent = 0.3f)
+        // Wait so the next tap isn't treated as a double tap (zoom)
+        delay(600)
+        click(R.id.map, xPercent = 0.7f, yPercent = 0.3f)
+        hasText(Regex("[1-9]\\d*(\\.\\d+)? (mi|ft)"))
+
         click(toolbarButton(R.id.map_distance_title, Side.Right))
         backUntil { isVisible(R.id.paths_title) }
     }
