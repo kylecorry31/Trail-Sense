@@ -35,8 +35,6 @@ class ScaleBarLayer : OverlayLayer() {
         map: IMapView
     ) {
         drawer.noFill()
-        drawer.stroke(Color.WHITE)
-        drawer.strokeWeight(4f)
 
         val scaleSize =
             distanceScale.getScaleDistance(units, drawer.canvas.width / 2f, map.resolutionPixels)

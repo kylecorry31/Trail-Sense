@@ -71,34 +71,6 @@ class BaseMapTileSource : TileSource {
                     SOURCE_MAP_COLOR_LAKES,
                     DESTINATION_MAP_COLOR_LAKES
                 )
-            ),
-            Conditional(
-                SOURCE_MAP_COLOR_DESERT != DESTINATION_MAP_COLOR_DESERT,
-                ReplaceColor(
-                    SOURCE_MAP_COLOR_DESERT,
-                    DESTINATION_MAP_COLOR_DESERT
-                )
-            ),
-            Conditional(
-                SOURCE_MAP_COLOR_ROCK != DESTINATION_MAP_COLOR_ROCK,
-                ReplaceColor(
-                    SOURCE_MAP_COLOR_ROCK,
-                    DESTINATION_MAP_COLOR_ROCK
-                )
-            ),
-            Conditional(
-                SOURCE_MAP_COLOR_GRASS != DESTINATION_MAP_COLOR_GRASS,
-                ReplaceColor(
-                    SOURCE_MAP_COLOR_GRASS,
-                    DESTINATION_MAP_COLOR_GRASS
-                )
-            ),
-            Conditional(
-                SOURCE_MAP_COLOR_ICE != DESTINATION_MAP_COLOR_ICE,
-                ReplaceColor(
-                    SOURCE_MAP_COLOR_ICE,
-                    DESTINATION_MAP_COLOR_ICE
-                )
             )
         )
     )
@@ -117,17 +89,9 @@ class BaseMapTileSource : TileSource {
 
     companion object {
         const val SOURCE_ID = "base_map"
-        private val SOURCE_MAP_COLOR_DESERT = Color.rgb(232, 225, 182)
-        private val SOURCE_MAP_COLOR_ROCK = Color.rgb(202, 195, 184)
-        private val SOURCE_MAP_COLOR_GRASS = Color.rgb(184, 201, 166)
-        private val SOURCE_MAP_COLOR_ICE = Color.rgb(245, 244, 242)
         private const val SOURCE_MAP_COLOR_OCEAN = Color.BLACK
         private val SOURCE_MAP_COLOR_LAKES = Color.rgb(127, 127, 127)
 
-        private val DESTINATION_MAP_COLOR_DESERT = SOURCE_MAP_COLOR_DESERT
-        private val DESTINATION_MAP_COLOR_ROCK = SOURCE_MAP_COLOR_ROCK
-        private val DESTINATION_MAP_COLOR_GRASS = SOURCE_MAP_COLOR_GRASS
-        private val DESTINATION_MAP_COLOR_ICE = SOURCE_MAP_COLOR_ICE
         val DESTINATION_MAP_COLOR_OCEAN = "#AAD3DF".toColorInt()
         val DESTINATION_MAP_COLOR_INLAND_WATER = "#AAD3DF".toColorInt()
         private val DESTINATION_MAP_COLOR_LAKES = DESTINATION_MAP_COLOR_INLAND_WATER

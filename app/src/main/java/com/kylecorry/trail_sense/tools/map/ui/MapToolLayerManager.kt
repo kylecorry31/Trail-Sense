@@ -53,7 +53,6 @@ class MapToolLayerManager {
                             CompassOverlayLayer.LAYER_ID,
                         ),
                 listOf(
-
                     selectedPointLayer,
                     distanceLayer
                 )

@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.map.ui
 import android.content.Context
 import android.graphics.Matrix
 import android.graphics.Path
-import android.graphics.PointF
 import android.util.AttributeSet
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -184,7 +183,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var minScale = 0.0001f
         set(value) {
             field = value
-            maxScale = calculateMaxScale(value)
             if (scale < minScale) {
                 zoomTo(minScale)
             }
@@ -222,7 +220,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
 
-    private var maxScale = calculateMaxScale(minScale)
+    private val maxScale: Float
+        get() = max(2 * minScale, getScale(MIN_RESOLUTION_PIXELS))
+
     private var isScaling = false
 
     private var fitToViewBounds: CoordinateBounds? = null
@@ -328,7 +328,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         clipPath?.let { clip(it) }
         backgroundColorOverride?.let { drawer.background(it) }
 
-        maxScale = calculateMaxScale(minScale)
         zoomTo(clampScale(scale))
 
         if (pendingScaleChangeCallback) {
@@ -358,9 +357,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         return 1f / resolutionPixels
     }
 
-    fun recenter(ignoreFitToViewBounds: Boolean = false) {
+    fun recenter() {
         val fitToViewBounds = fitToViewBounds
-        if (ignoreFitToViewBounds || fitToViewBounds == null) {
+        if (fitToViewBounds == null) {
             scale = 1f
         } else {
             fitIntoView(fitToViewBounds, fitToViewPadding)
@@ -409,8 +408,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         invalidate()
     }
 
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun zoomTo(newScale: Float) {
+    private fun zoomTo(newScale: Float) {
         if (newScale == scale) {
             return
         }
@@ -425,7 +423,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     private fun clampScale(scale: Float): Float {
-        return scale.coerceIn(minScale, max(2 * minScale, maxScale))
+        return scale.coerceIn(minScale, maxScale)
     }
 
     private fun translatePixels(distanceX: Float, distanceY: Float) {
@@ -549,35 +547,12 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     private fun unrotated(pixel: PixelCoordinate): PixelCoordinate {
-        val point = PointF(pixel.x, pixel.y)
-        return transform(point, invert = true, inPlace = true) {
-            postRotate(-mapAzimuth, width / 2f, height / 2f)
-        }.let { PixelCoordinate(it.x, it.y) }
-    }
-
-    private fun transform(
-        point: PointF,
-        invert: Boolean = false,
-        inPlace: Boolean = false,
-        actions: Matrix.() -> Unit
-    ): PointF {
+        val point = floatArrayOf(pixel.x, pixel.y)
         synchronized(lookupMatrix) {
-            lookupMatrix.reset()
-            actions(lookupMatrix)
-            if (invert) {
-                lookupMatrix.invert(lookupMatrix)
-            }
-            val pointArray = floatArrayOf(point.x, point.y)
-            lookupMatrix.mapPoints(pointArray)
-
-            if (inPlace) {
-                point.x = pointArray[0]
-                point.y = pointArray[1]
-                return point
-            }
-
-            return PointF(pointArray[0], pointArray[1])
+            lookupMatrix.setRotate(mapAzimuth, width / 2f, height / 2f)
+            lookupMatrix.mapPoints(point)
         }
+        return PixelCoordinate(point[0], point[1])
     }
 
     fun setOnScaleChangeListener(
@@ -594,10 +569,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override fun setOnGeoJsonFeatureClickListener(listener: ((GeoJsonFeature) -> Unit)?) {
         layerManager.setOnGeoJsonFeatureClickListener(listener)
-    }
-
-    private fun calculateMaxScale(minScale: Float): Float {
-        return max(2 * minScale, getScale(MIN_RESOLUTION_PIXELS))
     }
 
     private fun constrainToBounds(location: Coordinate): Coordinate {

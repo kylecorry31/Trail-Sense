@@ -427,27 +427,19 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         // Menu
-        useClickCallback(menuButton, startDistanceMeasurement) {
-            val actions = listOf(
-                MapAction.Measure to getString(R.string.measure),
-                MapAction.CreatePath to getString(R.string.create_path),
-                MapAction.AdjustLayers to getString(R.string.layers),
-                MapAction.Trace to getString(R.string.trace)
+        useClickCallback(menuButton, startDistanceMeasurement, adjustLayers) {
+            val actions = listOf<Pair<String, () -> Unit>>(
+                getString(R.string.measure) to { startDistanceMeasurement(null, false) },
+                getString(R.string.create_path) to { startDistanceMeasurement(null, false) },
+                getString(R.string.layers) to adjustLayers,
+                getString(R.string.trace) to { setLockMode(MapLockMode.Trace) }
             )
 
             Pickers.menu(
                 menuButton,
-                actions.map { action -> action.second }
+                actions.map { it.first }
             ) { index ->
-                when (actions[index].first) {
-                    MapAction.Measure, MapAction.CreatePath -> startDistanceMeasurement(
-                        null,
-                        false
-                    )
-
-                    MapAction.AdjustLayers -> adjustLayers()
-                    MapAction.Trace -> setLockMode(MapLockMode.Trace)
-                }
+                actions[index].second()
                 true
             }
         }

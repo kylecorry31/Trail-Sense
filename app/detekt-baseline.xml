@@ -16,7 +16,6 @@
     <ID>ComplexCondition:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$image == null &amp;&amp; imagePath != null &amp;&amp; width &gt; 0 &amp;&amp; height &gt; 0</ID>
     <ID>ComplexCondition:PhotoMapEntity.kt:PhotoMapEntity$percentX1 != null &amp;&amp; percentY1 != null &amp;&amp; longitude1 != null &amp;&amp; latitude1 != null</ID>
     <ID>ComplexCondition:PhotoMapEntity.kt:PhotoMapEntity$percentX2 != null &amp;&amp; percentY2 != null &amp;&amp; longitude2 != null &amp;&amp; latitude2 != null</ID>
-    <ID>ComplexCondition:PhotoMapTileSource.kt:PhotoMapTileSource$internalSelector == null || loadPdfs != lastLoadPdfs || backgroundColor != lastBackgroundColor || featureId != lastFeatureId</ID>
     <ID>ComplexCondition:PixelInterpolators.kt:BilinearInterpolator$x1y1 == null || x1y2 == null || x2y1 == null || x2y2 == null || x1y1.isNaN() || x1y2.isNaN() || x2y1.isNaN() || x2y2.isNaN()</ID>
     <ID>ComplexCondition:TideService.kt:TideService$(nextIsHigh &amp;&amp; closeToNextTide) || (nextIsLow &amp;&amp; farFromNextTide)</ID>
     <ID>ComplexCondition:TideService.kt:TideService$(nextIsLow &amp;&amp; closeToNextTide) || (nextIsHigh &amp;&amp; farFromNextTide)</ID>
@@ -51,7 +50,6 @@
     <ID>EmptyFunctionBlock:ProgressBar.kt:ProgressBar${ }</ID>
     <ID>EmptyFunctionBlock:QuickActionSheet.kt:QuickActionSheet.&lt;no name provided&gt;${ }</ID>
     <ID>ExplicitItLambdaParameter:LighterPackIOService.kt:LighterPackIOService${ it -&gt; val name = it.getOrNull(nameIdx) ?: "" val category = parseCategoryString(it.getOrNull(categoryIdx) ?: "") val weight = it.getOrNull(weightAmountIdx)?.toFloatOrNull() val unit = it.getOrNull(weightUnitIdx)?.let { parseWeightUnit(it) } ?: WeightUnits.Grams val packedQty = it.getOrNull(packedQtyIdx)?.toDoubleCompat() ?: 0.0 val desiredQty = it.getOrNull(desiredQtyIdx)?.toDoubleCompat() ?: it.getOrNull(qtyIdx) ?.toDoubleCompat() ?: 0.0 val isOptional = parseOptional(it.getOrNull(optionalIdx)) PackItem( 0, 0, name, category, amount = packedQty, desiredAmount = desiredQty, weight = weight?.let { Weight.from(it, unit) }, isOptional = isOptional ) }</ID>
-    <ID>ExplicitItLambdaParameter:Navigator.kt:Navigator${ it -&gt; it + 1 }</ID>
     <ID>ForbiddenComment:ARAstronomyLayer.kt:ARAstronomyLayer$// TODO: The line should be drawn to the horizon</ID>
     <ID>ForbiddenComment:ARAstronomyLayer.kt:ARAstronomyLayer$// TODO: This isn't efficient</ID>
     <ID>ForbiddenComment:ARBeaconLayer.kt:ARBeaconLayer$// TODO: Change opacity if navigating</ID>
@@ -65,7 +63,6 @@
     <ID>ForbiddenComment:AugmentedRealityFragment.kt:AugmentedRealityFragment$// Beacon layer setup (TODO: Move this to a layer manager)</ID>
     <ID>ForbiddenComment:AugmentedRealityFragment.kt:AugmentedRealityFragment$// TODO: Extract focus formatters</ID>
     <ID>ForbiddenComment:AugmentedRealityFragment.kt:AugmentedRealityFragment$// TODO: Move this to the AR view</ID>
-    <ID>ForbiddenComment:AugmentedRealityUtils.kt:AugmentedRealityUtils$// TODO: Get this working for all mappers</ID>
     <ID>ForbiddenComment:AugmentedRealityUtils.kt:AugmentedRealityUtils$// TODO: Go directly to ENU</ID>
     <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: Notify location change</ID>
     <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: Should the onFocus method just return a string?</ID>
@@ -115,7 +112,6 @@
     <ID>ForbiddenComment:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$// TODO: Picker for different bullet types with option for Custom BC</ID>
     <ID>ForbiddenComment:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$// TODO: Set units in header</ID>
     <ID>ForbiddenComment:FragmentToolBattery.kt:FragmentToolBattery$// TODO: Extract battery reading to a custom hook</ID>
-    <ID>ForbiddenComment:FragmentToolLocalMessaging.kt:FragmentToolLocalMessaging$// TODO: Only do this once</ID>
     <ID>ForbiddenComment:FragmentToolMetalDetector.kt:FragmentToolMetalDetector$// TODO: Have two methods: onMetalFound and onMetalLost</ID>
     <ID>ForbiddenComment:FragmentToolMetalDetector.kt:FragmentToolMetalDetector$// TODO: Once a better orientation is calculated, use that</ID>
     <ID>ForbiddenComment:FragmentToolPedometer.kt:FragmentToolPedometer$// TODO: Use pedometer subsystem topics</ID>
@@ -150,7 +146,6 @@
     <ID>ForbiddenComment:LinearSightingCompassView.kt:LinearSightingCompassView$// TODO: Make this more efficient (only update when the camera changes)</ID>
     <ID>ForbiddenComment:LocalMessagingToolRegistration.kt:LocalMessagingToolRegistration$// TODO: Have an open action rather than navigation ID</ID>
     <ID>ForbiddenComment:LocalTalkToolRegistration.kt:LocalTalkToolRegistration$// TODO: Have an open action rather than navigation ID</ID>
-    <ID>ForbiddenComment:LocationMath.kt:// TODO: Remove this</ID>
     <ID>ForbiddenComment:LocationSubsystem.kt:LocationSubsystem$// TODO: Technically not true - this should probably by another broadcast</ID>
     <ID>ForbiddenComment:MapCalibrationView.kt:MapCalibrationView$// TODO: Support dragging the coordinates</ID>
     <ID>ForbiddenComment:MapLayerLoader.kt:// TODO: Consider loading required attribution with the layer data rather than the definition (definition can contain the long form attribution)</ID>
@@ -167,17 +162,13 @@
     <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: Listen for navigation and automatically hide/show with override ability (for navigation tool)</ID>
     <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: These don't change</ID>
     <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: This should be tracked by a service (for background navigation)</ID>
-    <ID>ForbiddenComment:Navigator.kt:Navigator$// TODO: Cache declination</ID>
-    <ID>ForbiddenComment:Navigator.kt:Navigator$// TODO: Replace isNavigating with this</ID>
     <ID>ForbiddenComment:Navigator.kt:Navigator$// TODO: Standardized navigation instructions</ID>
     <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Extract this logic to the flashlight (if camera is in use)</ID>
     <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Move selected beacon updating to a coroutine</ID>
     <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Prompt to cancel navigation?</ID>
-    <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: This shouldn't be needed - layers can be updated when the data changes</ID>
     <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Wait for GPS location to be up to date (show a loading indicator)</ID>
     <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Each error condition should be responsible for its own display and dismissal</ID>
     <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Improve architecture using the strategy pattern and remove this class all together</ID>
-    <ID>ForbiddenComment:NextPathPointNavigator.kt:NextPathPointNavigator$// TODO: This doesn't take into consideration which points you've already reached - if the path is a out and back type, it will not work properly</ID>
     <ID>ForbiddenComment:OfflineMapService.kt:OfflineMapService.&lt;no name provided&gt;$// TODO: Bulk delete</ID>
     <ID>ForbiddenComment:PathExtensions.kt:// TODO: Extract this and add solid style</ID>
     <ID>ForbiddenComment:PathOverviewFragment.kt:PathOverviewFragment$// TODO: Eventually move all of this to the path layer (including waypoint rendering)</ID>
@@ -230,7 +221,6 @@
     <ID>LargeClass:PathOverviewFragment.kt:PathOverviewFragment : BoundFragment</ID>
     <ID>LongMethod:ARAstronomyLayer.kt:ARAstronomyLayer$private fun updatePositions</ID>
     <ID>LongMethod:AppDatabase.kt:AppDatabase.Companion$private fun buildDatabase: AppDatabase</ID>
-    <ID>LongMethod:AstronomyGuidanceTargetPicker.kt:AstronomyGuidanceTargetPicker$private suspend fun getGuidanceOptions: List&lt;AstronomyGuidanceOption&gt;</ID>
     <ID>LongMethod:CreateTideFragment.kt:CreateTideFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
     <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$private suspend fun renderFeaturesInBackground</ID>
     <ID>LongMethod:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$private fun convertFeaturesToMarkers</ID>
@@ -341,12 +331,9 @@
     <ID>UnusedParameter:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$context: Context</ID>
     <ID>UnusedParameter:GeoJsonPolygonRenderer.kt:GeoJsonPolygonRenderer$context: Context</ID>
     <ID>UnusedParameter:MainActivity.kt:MainActivity$data: Bundle</ID>
-    <ID>UnusedParameter:MapToolLayerManager.kt:MapToolLayerManager$context: Context</ID>
-    <ID>UnusedParameter:NavigationCompassLayerManager.kt:NavigationCompassLayerManager$context: Context</ID>
     <ID>UnusedParameter:PathsFragment.kt:PathsFragment$data: Bundle</ID>
     <ID>UnusedParameter:PathsSettingsFragment.kt:PathsSettingsFragment$data: Bundle</ID>
     <ID>UnusedParameter:PedometerSettingsFragment.kt:PedometerSettingsFragment$data: Bundle</ID>
-    <ID>UnusedParameter:PhotoMapToolLayerManager.kt:PhotoMapToolLayerManager$context: Context</ID>
     <ID>UnusedParameter:SurvivalGuideSearch.kt:SurvivalGuideSearch$query: String</ID>
     <ID>UnusedParameter:TileMapLayer.kt:TileMapLayer$data: Bundle</ID>
     <ID>UnusedParameter:ToolServiceQuickAction.kt:ToolServiceQuickAction$data: Bundle</ID>
