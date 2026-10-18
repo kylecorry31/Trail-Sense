@@ -68,11 +68,7 @@ class WaypointRepo private constructor(context: Context) : IWaypointRepo {
     }
 
     override suspend fun getAllInPaths(pathIds: List<Long>): List<PathPoint> = onIO {
-        val points = mutableListOf<WaypointEntity>()
-        for (pathId in pathIds) {
-            points.addAll(waypointDao.getAllInPathSync(pathId))
-        }
-        points.map { it.toPathPoint() }
+        pathIds.flatMap { waypointDao.getAllInPathSync(it) }.map { it.toPathPoint() }
     }
 
     override fun getAllInPathLive(pathId: Long): LiveData<List<PathPoint>> {

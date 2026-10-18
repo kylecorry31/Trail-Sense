@@ -179,9 +179,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     override fun onResume() {
         super.onResume()
         // Populate the last known location
-        binding.pathImage.userLocation = gps.location
-        binding.pathImage.userLocationAccuracy =
-            gps.horizontalAccuracy?.let { Distance.meters(it) }
+        updateUserLocation()
 
         binding.pathImage.start()
         Tools.subscribe(
@@ -309,9 +307,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         observe(gps) {
             updateDeclination()
             updateFollowEmphasis()
-            binding.pathImage.userLocation = gps.location
-            binding.pathImage.userLocationAccuracy =
-                gps.horizontalAccuracy?.let { Distance.meters(it) }
+            updateUserLocation()
         }
 
         observe(compass) {
@@ -341,6 +337,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         }
     }
 
+    private fun updateUserLocation() {
+        binding.pathImage.userLocation = gps.location
+        binding.pathImage.userLocationAccuracy =
+            gps.horizontalAccuracy?.let { Distance.meters(it) }
+    }
+
     private fun onWaypointsChanged(waypoints: List<PathPoint>) {
         inBackground {
             onDefault {
@@ -360,7 +362,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             }
             onMain {
                 val selected = selectedPointId
-                if (selected != null && waypoints.find { it.id == selected } == null) {
+                if (selected != null && waypoints.none { it.id == selected }) {
                     deselectPoint()
                 }
                 pointSheet?.setPoints(this@PathOverviewFragment.waypoints)
@@ -412,11 +414,11 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         onDefault {
             val path = waypoints.reversed()
 
-            val gainLoss = hikingService.getElevationLossGain(path)
+            val (loss, gain) = hikingService.getElevationLossGain(path)
 
             val units = prefs.baseDistanceUnits
-            elevationGain = gainLoss.second.convertTo(units)
-            elevationLoss = gainLoss.first.convertTo(units)
+            elevationGain = gain.convertTo(units)
+            elevationLoss = loss.convertTo(units)
             elevationRange =
                 path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }
                     .range()
@@ -447,16 +449,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             } else {
                 null
             },
-            if (path.style.visible) {
-                MenuItem(getString(R.string.hide)) {
-                    togglePathVisibility(path)
-                    true
-                }
-            } else {
-                MenuItem(getString(R.string.show)) {
-                    togglePathVisibility(path)
-                    true
-                }
+            MenuItem(getString(if (path.style.visible) R.string.hide else R.string.show)) {
+                togglePathVisibility(path)
+                true
             },
             MenuItem(getString(R.string.export)) {
                 exportPath(path)
@@ -622,21 +617,12 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         val distance =
             path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
 
-        val start = path.metadata.duration?.start
-        val end = path.metadata.duration?.end
-
-
         binding.pathTitle.title.text = PathNameFactory(requireContext()).getName(path)
 
-        val duration = if (start != null && end != null && Duration.between(
-                start,
-                end
-            ) > Duration.ofMinutes(1)
-        ) {
-            Duration.between(start, end)
-        } else {
-            calculatedDuration
-        }
+        val duration = path.metadata.duration
+            ?.let { Duration.between(it.start, it.end) }
+            ?.takeIf { it > Duration.ofMinutes(1) }
+            ?: calculatedDuration
 
         binding.pathDuration.title = formatService.formatDuration(duration, false)
         binding.pathWaypoints.title = path.metadata.waypoints.toString()
@@ -803,14 +789,15 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private fun viewPoints() {
         binding.pathScroll.scrollTo(0, 0)
-        pointSheet = PathPointsListFragment()
-        pointSheet?.show(this)
-        pointSheet?.onCreateBeaconListener = { createBeacon(it) }
-        pointSheet?.onDeletePointListener = { deleteWaypoint(it) }
-        pointSheet?.onNavigateToPointListener = { navigateToWaypoint(it) }
-        pointSheet?.onNavigateDirectlyToPointListener = { navigateDirectlyToWaypoint(it) }
-        pointSheet?.onViewPointListener = { viewWaypoint(it) }
-        pointSheet?.setPoints(waypoints)
+        val sheet = PathPointsListFragment()
+        pointSheet = sheet
+        sheet.show(this)
+        sheet.onCreateBeaconListener = { createBeacon(it) }
+        sheet.onDeletePointListener = { deleteWaypoint(it) }
+        sheet.onNavigateToPointListener = { navigateToWaypoint(it) }
+        sheet.onNavigateDirectlyToPointListener = { navigateDirectlyToWaypoint(it) }
+        sheet.onViewPointListener = { viewWaypoint(it) }
+        sheet.setPoints(waypoints)
     }
 
     private fun viewWaypoint(point: PathPoint) {

@@ -198,12 +198,10 @@ class PathElevationChart(private val chart: Chart) {
     }
 
     private fun getSteepness(slope: Float): Steepness {
-        return if (slope.absoluteValue <= 10f) {
-            Steepness.Low
-        } else if (slope.absoluteValue <= 25f) {
-            Steepness.Medium
-        } else {
-            Steepness.High
+        return when {
+            slope.absoluteValue <= 10f -> Steepness.Low
+            slope.absoluteValue <= 25f -> Steepness.Medium
+            else -> Steepness.High
         }
     }
 

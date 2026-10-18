@@ -30,15 +30,16 @@ class PathRepo private constructor(context: Context) {
         } else {
             pathDao.insert(PathEntity.from(value))
         }
-        synchronized(changeLock) {
-            changeKey++
-        }
-        Tools.broadcast(PathsToolRegistration.BROADCAST_PATHS_CHANGED)
+        notifyChanged()
         return id
     }
 
     suspend fun delete(value: Path) {
         pathDao.delete(PathEntity.from(value))
+        notifyChanged()
+    }
+
+    private fun notifyChanged() {
         synchronized(changeLock) {
             changeKey++
         }

@@ -183,18 +183,15 @@ class PathService(
     }
 
     override suspend fun simplifyPath(path: Long, quality: PathSimplificationQuality): Int {
-        val points = getWaypoints(path).sortedBy { it.id }.toMutableList()
+        val points = getWaypoints(path).sortedBy { it.id }
         val toKeep = PathSimplifier.simplify(points, quality).toSet()
-
-        val numDeleted = points.size - toKeep.size
-
-        points.removeAll(toKeep)
+        val toDelete = points.filter { it !in toKeep }
 
         waypointLock.withLock {
-            waypointRepo.deleteAll(points)
+            waypointRepo.deleteAll(toDelete)
             updatePathMetadata(path)
         }
-        return numDeleted
+        return toDelete.size
     }
 
     override suspend fun getWaypoints(paths: List<Long>?): Map<Long, List<PathPoint>> {

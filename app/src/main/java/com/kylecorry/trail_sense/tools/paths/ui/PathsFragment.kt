@@ -257,13 +257,9 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
     private fun setGroupVisibility(group: PathGroup, visible: Boolean) {
         inBackground {
             Alerts.withLoading(requireContext(), getString(R.string.loading)) {
-                val paths = onIO {
-                    pathService.loader().getChildren(group.id, null).filterIsInstance<Path>()
-                }
-
                 onIO {
-                    paths
-                        .asSequence()
+                    pathService.loader().getChildren(group.id, null)
+                        .filterIsInstance<Path>()
                         .filter { it.style.visible != visible }
                         .forEach { pathService.addPath(it.copy(style = it.style.copy(visible = visible))) }
                 }

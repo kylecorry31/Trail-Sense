@@ -36,7 +36,7 @@ class HikingService : IHikingService {
         }
         // The default smoothing is a factor of 1, and each end of the range is 4 times more or less smoothing
         val factor = MAX_SMOOTHING_FACTOR.pow(2 * smoothing.coerceAtMost(1f) - 1)
-        val smoothed = DataUtils.smoothGeospatial(
+        return DataUtils.smoothGeospatial(
             points,
             (ELEVATION_SMOOTHNESS * factor).coerceAtMost(1f), // The span distance is the driving factor, but this has to be large enough to include all of the points within it
             getElevationSmoothingSpan(points, factor),
@@ -46,7 +46,6 @@ class HikingService : IHikingService {
         ) { point, smoothed ->
             point.copy(elevation = if (point.elevation == null) null else smoothed)
         }
-        return smoothed
     }
 
     /**
@@ -70,21 +69,16 @@ class HikingService : IHikingService {
     }
 
     override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
-        val calculator = SimpleHikingDifficultyCalculator(this)
-        return calculator.calculate(points)
+        return SimpleHikingDifficultyCalculator(this).calculate(points)
     }
 
     override fun getAveragePace(difficulty: HikingDifficulty, factor: Float): Speed {
-        return when (difficulty) {
-            HikingDifficulty.Easy -> Speed.from(1.5f * factor, DistanceUnits.Miles, TimeUnits.Hours)
-            HikingDifficulty.Moderate -> Speed.from(
-                1.4f * factor,
-                DistanceUnits.Miles,
-                TimeUnits.Hours
-            )
-
-            HikingDifficulty.Hard -> Speed.from(1.2f * factor, DistanceUnits.Miles, TimeUnits.Hours)
+        val milesPerHour = when (difficulty) {
+            HikingDifficulty.Easy -> 1.5f
+            HikingDifficulty.Moderate -> 1.4f
+            HikingDifficulty.Hard -> 1.2f
         }
+        return Speed.from(milesPerHour * factor, DistanceUnits.Miles, TimeUnits.Hours)
     }
 
     fun getElevations(path: List<PathPoint>): FloatArray {
@@ -108,43 +102,33 @@ class HikingService : IHikingService {
     }
 
     override fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
-        val elevations = getElevations(path)
-        val (losses, gains) = getCumulativeElevationLossGain(elevations)
+        val (losses, gains) = getCumulativeElevationLossGain(path)
         return Distance.meters(losses.lastOrNull() ?: 0f) to Distance.meters(gains.lastOrNull() ?: 0f)
     }
 
     fun getCumulativeElevationLossGain(path: List<PathPoint>): Pair<FloatArray, FloatArray> {
-        val elevations = getElevations(path)
-        return getCumulativeElevationLossGain(elevations)
+        return getCumulativeElevationLossGain(getElevations(path))
     }
 
     fun getCumulativeElevationLossGain(elevations: FloatArray): Pair<FloatArray, FloatArray> {
-        if (elevations.isEmpty()) {
-            return FloatArray(0) to FloatArray(0)
-        }
         val gains = FloatArray(elevations.size)
         val losses = FloatArray(elevations.size)
 
         for (i in 1..<elevations.size) {
-            val current = elevations[i]
-            val last = elevations[i - 1]
-            val change = current - last
+            val change = elevations[i] - elevations[i - 1]
             gains[i] = gains[i - 1]
             losses[i] = losses[i - 1]
             if (change > 0) {
-                gains[i] = change + gains[i - 1]
+                gains[i] += change
             } else if (change < 0) {
-                losses[i] = change + losses[i - 1]
+                losses[i] += change
             }
         }
         return losses to gains
     }
 
     override fun getSlopes(path: List<PathPoint>): List<Triple<PathPoint, PathPoint, Float>> {
-        return path.zipWithNext()
-            .map {
-                Triple(it.first, it.second, getSlope(it.first, it.second))
-            }
+        return path.zipWithNext { a, b -> Triple(a, b, getSlope(a, b)) }
     }
 
     private fun getSlope(a: PathPoint, b: PathPoint): Float {
@@ -187,9 +171,7 @@ class HikingService : IHikingService {
     }
 
     override fun getElevationGain(path: List<PathPoint>): Distance {
-        val elevations =
-            path.filter { it.elevation != null }.map { Distance.meters(it.elevation!!) }
-        return Geography.getElevationGain(elevations)
+        return Geography.getElevationGain(path.mapNotNull { it.elevation }.map { Distance.meters(it) })
     }
 
     /** Whether the path ends close enough to where it started to be followed as a loop. */

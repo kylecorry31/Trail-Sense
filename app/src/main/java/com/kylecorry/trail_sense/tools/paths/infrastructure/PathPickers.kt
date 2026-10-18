@@ -35,20 +35,13 @@ object PathPickers {
             augment = { sort.sort(filter(it.filterIsInstance<PathGroup>())) }
         )
         val mapper = IPathListItemMapper(context, { _, _ -> }, { _, _ -> })
-        val titleProvider = { path: IPath? ->
-            if (path is PathGroup) {
-                path.name
-            } else {
-                context.getString(R.string.paths)
-            }
-        }
         GroupablePickers.group(
             context,
             title,
             okText,
             manager,
             mapper,
-            titleProvider,
+            { getGroupTitle(context, it) },
             context.getString(R.string.no_groups),
             initialGroup,
             searchEnabled = false
@@ -73,24 +66,25 @@ object PathPickers {
             augment = { sort.sort(filter(it)) }
         )
         val mapper = IPathListItemMapper(context, { _, _ -> }, { _, _ -> })
-        val titleProvider = { path: IPath? ->
-            if (path is PathGroup) {
-                path.name
-            } else {
-                context.getString(R.string.paths)
-            }
-        }
         GroupablePickers.item(
             context,
             title,
             manager,
             mapper,
-            titleProvider,
+            { getGroupTitle(context, it) },
             context.getString(R.string.no_paths),
             initialGroup,
             searchEnabled = false
         ) {
             cont.resume(it as Path?)
+        }
+    }
+
+    private fun getGroupTitle(context: Context, group: IPath?): String {
+        return if (group is PathGroup) {
+            group.name
+        } else {
+            context.getString(R.string.paths)
         }
     }
 }

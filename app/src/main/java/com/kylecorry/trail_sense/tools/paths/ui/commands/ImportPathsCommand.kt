@@ -37,11 +37,9 @@ class ImportPathsCommand(
     fun execute(parentId: Long?) {
         lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
             val gpx = gpxService.import() ?: return@inBackground
-            val paths = mutableListOf<FullPath>()
 
             // Get the tracks and routes from the GPX
-            paths.addAll(getTracks(gpx))
-            paths.addAll(getRoutes(gpx))
+            val paths = getTracks(gpx) + getRoutes(gpx)
 
             // Let the user select the paths to import
             val selectedPathIndices = CoroutinePickers.items(
@@ -73,26 +71,20 @@ class ImportPathsCommand(
 
     private suspend fun getRoutes(gpx: GPXData): List<FullPath> = onDefault {
         // Groups are a Trail Sense concept, so routes don't have groups
-        val paths = mutableListOf<FullPath>()
-        for (route in gpx.routes) {
+        gpx.routes.map { route ->
             val path = Path(0, route.name, style, PathMetadata.empty)
-            paths.add(FullPath(path, route.points.toPathPoints()))
+            FullPath(path, route.points.toPathPoints())
         }
-        paths
     }
 
     private suspend fun getTracks(gpx: GPXData): List<FullPath> = onDefault {
-        val paths = mutableListOf<FullPath>()
-        for (track in gpx.tracks) {
-            for ((points) in track.segments) {
+        gpx.tracks.flatMap { track ->
+            val parent = track.group?.let { PathGroup(0, it) }
+            track.segments.map { (points) ->
                 val path = Path(0, track.name, style, PathMetadata.empty)
-                val parent = track.group?.let {
-                    PathGroup(0, it)
-                }
-                paths.add(FullPath(path, points.toPathPoints(), parent))
+                FullPath(path, points.toPathPoints(), parent)
             }
         }
-        paths
     }
 
     private fun List<GPXWaypoint>.toPathPoints(): List<PathPoint> {
@@ -106,12 +98,9 @@ class ImportPathsCommand(
     ) = onIO {
         val shouldSimplify = prefs.simplifyPathOnImport
 
-        val groupNames = paths.mapNotNull { it.parent?.name }.distinct()
-        val groupIdMap = mutableMapOf<String, Long>()
-        for (groupName in groupNames) {
-            val id = pathService.addGroup(PathGroup(0, groupName, parentId))
-            groupIdMap[groupName] = id
-        }
+        val groupIdMap = paths.mapNotNull { it.parent?.name }
+            .distinct()
+            .associateWith { pathService.addGroup(PathGroup(0, it, parentId)) }
 
         for (path in paths) {
             val parent = if (path.parent != null) {

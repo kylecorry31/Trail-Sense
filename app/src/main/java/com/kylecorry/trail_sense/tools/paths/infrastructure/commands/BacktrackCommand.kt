@@ -51,11 +51,9 @@ class BacktrackCommand(
                 "(GPS: ${gps.hasValidReading}, Altitude: ${altimeter.hasValidReading}, " +
                 "Cell Signal: ${if (cellSignalSensor is MockCellSignalSensor) "N/A" else cellSignalSensor.hasValidReading})"
         )
-        if (point == null) {
-            showNotification()
-            return@onDefault
+        if (point != null) {
+            CreateLastSignalBeaconCommand(context).execute(point)
         }
-        CreateLastSignalBeaconCommand(context).execute(point)
         showNotification()
     }
 

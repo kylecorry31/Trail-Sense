@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.tryOrLog
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -54,13 +55,7 @@ class PathNavigator(context: Context) {
             val points = paths.getWaypoints(session.pathId)
             require(points.isNotEmpty())
             currentCoroutineContext().ensureActive()
-            val route = PathRouteBuilder.buildRoute(
-                points,
-                session.start,
-                session.reversed,
-                session.destinationPointId,
-                prefs.elevationSmoothing
-            )
+            val route = buildRoute(points, session.start, session.reversed, session.destinationPointId)
             val destination = Destination.Path(path, route)
             session.progress?.let {
                 if (destination.route.length > 0f) {
@@ -81,8 +76,7 @@ class PathNavigator(context: Context) {
     init {
         restoreTask.start()
         Tools.subscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED) {
-            val destination = destinationState.value
-            if (destination != null) {
+            destinationState.value?.let { destination ->
                 tryOrLog {
                     val location = locationSubsystem.location
                     val guidance = destination.route.navigate(location, locationSubsystem.locationAccuracy)
@@ -103,16 +97,25 @@ class PathNavigator(context: Context) {
         if (points.isEmpty()) return
         if (destinationPointId != null && points.none { it.id == destinationPointId }) return
         val start = locationSubsystem.location
-        val route = PathRouteBuilder.buildRoute(
+        val route = buildRoute(points, start, reversed, destinationPointId)
+        cancel()
+        store.save(path, start, reversed, destinationPointId)
+        destinationState.value = Destination.Path(path, route)
+    }
+
+    private fun buildRoute(
+        points: List<PathPoint>,
+        start: Coordinate,
+        reversed: Boolean,
+        destinationPointId: Long?
+    ): List<PathPoint> {
+        return PathRouteBuilder.buildRoute(
             points,
             start,
             reversed,
             destinationPointId,
             prefs.elevationSmoothing
         )
-        cancel()
-        store.save(path, start, reversed, destinationPointId)
-        destinationState.value = Destination.Path(path, route)
     }
 
     fun cancel() {

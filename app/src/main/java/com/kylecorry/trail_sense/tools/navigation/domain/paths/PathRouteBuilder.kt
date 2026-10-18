@@ -25,4 +25,3 @@ object PathRouteBuilder {
         return strategy.buildRoute(sorted, location)
     }
 }
-
