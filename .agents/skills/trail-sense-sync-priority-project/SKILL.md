@@ -29,8 +29,11 @@ Closed issues are not removed by the project: its "Item closed" workflow only up
 
 The priority label picks the section; within a section, rank by how much a hiker would notice the issue.
 
-- Most users rely on Navigation, Map, Paths, Beacons and Offline Maps. Astronomy, Packing Lists and Field Guide are used heavily but are not the primary use. Weather, Tides, Climate, Signal Finder and the rest are secondary; ballistics, white noise and similar are lowest.
-- Safety-relevant navigation behavior (alerts, getting back, knowing where you are) ranks above polish.
-- The project is roughly ordered: work that completes the primary tools, then other strong-value work, then well-scoped smaller improvements by hiker value, then research, weather modeling, plugins, refactors, AR and non-hiking tools at the bottom. Read the titles around a candidate position within the issue's priority section in `order` and place the issue next to issues of similar value.
+- Tiers of tools based on use/importance:
+   - Primary: Navigation, Map, Beacons, Paths, Offline Maps
+   - Secondary: Flashlight, Astronomy, Weather, Pedometer, Signal Finder, Survival Guide, User Guide, Field Guide, Packing Lists
+   - Tertiary: All other tools
+- Safety-relevant behavior (alerts, getting back, knowing where you are) ranks above polish.
+- The project is roughly ordered: work that completes the primary tools, then other strong-value work, then well-scoped smaller improvements by hiker value, then research, plugins, refactors, and non-hiking tools at the bottom. Read the titles around a candidate position within the issue's priority section in `order` and place the issue next to issues of similar value.
 - Research spikes, refactors and technical debt rank low unless they unblock a higher-ranked issue; place those just below the issue they unblock.
 - When a new issue overlaps an existing one (duplicate or same work), anchor it directly after that issue and say so in the reason.
