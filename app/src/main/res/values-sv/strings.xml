@@ -1485,7 +1485,6 @@
     <string name="widget_theme_black_text">Svart text</string>
     <string name="widget_theme_white_text">Vit text</string>
     <string name="default_widget_theme">Förvalt widgettema</string>
-    <string name="cancel_navigation_question">Avbryt navigeringen?</string>
     <string name="elevation_value">Höjd: %s</string>
     <string name="show_pressure_forecast">Visa tryckprognos i diagrammet</string>
     <string name="moa_amount">%s MOA</string>

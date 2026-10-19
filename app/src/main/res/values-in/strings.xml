@@ -1457,7 +1457,6 @@
     <string name="widget_theme_black_text">Teks hitam</string>
     <string name="widget_theme_white_text">Teks putih</string>
     <string name="default_widget_theme">Tema widget default</string>
-    <string name="cancel_navigation_question">Batalkan navigasi?</string>
     <string name="elevation_value">Ketinggian: %s</string>
     <string name="show_pressure_forecast">Tampilkan prakiraan tekanan pada grafik</string>
     <string name="moa_amount">%s MOA</string>

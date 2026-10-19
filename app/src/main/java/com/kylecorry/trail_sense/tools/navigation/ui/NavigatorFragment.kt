@@ -344,7 +344,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             } else {
                 onMain {
                     if (isBound) {
-                        binding.navigationSheet.requestCancelNavigation()
+                        binding.navigationSheet.cancelNavigation()
                     }
                 }
             }

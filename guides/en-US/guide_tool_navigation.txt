@@ -80,7 +80,7 @@ While navigating to a beacon, the direction will be displayed on the compass and
 - **Elevation change**: The elevation difference from your current elevation.
 - **Notes**: Any notes you have for the beacon. This will show as an icon if there are notes, and you can tap it to see the notes.
 
-You can stop navigating to a beacon by tapping the 'X' button.
+You can stop navigating to a beacon by tapping the 'X' button. A message with an 'Undo' option will appear in case you cancelled by accident.
 
 You can open the beacon by tapping the beacon name.
 

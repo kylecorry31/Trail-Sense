@@ -1386,7 +1386,6 @@
     <string name="theme_transparent_type">透明（%s）</string>
     <string name="widget_theme_black_text">黑色文字</string>
     <string name="widget_theme_white_text">白色文字</string>
-    <string name="cancel_navigation_question">取消導航？</string>
     <string name="elevation_value">海拔：%s</string>
     <string name="moa_amount">%s 角分</string>
     <string name="default_widget_theme">預設小工具主題</string>

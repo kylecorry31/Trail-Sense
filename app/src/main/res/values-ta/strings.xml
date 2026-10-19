@@ -1365,7 +1365,6 @@
     <string name="widget_theme_black_text">கருப்பு உரை</string>
     <string name="widget_theme_white_text">வெள்ளை உரை</string>
     <string name="default_widget_theme">இயல்புநிலை விட்செட் கருப்பொருள்</string>
-    <string name="cancel_navigation_question">வழிசெலுத்தலை ரத்துசெய்யவா?</string>
     <string name="elevation_value">உயரம்: %s</string>
     <string name="show_pressure_forecast">விளக்கப்படத்தில் அழுத்த முன்னறிவிப்பைக் காட்டு</string>
     <string name="moa_amount">%s MOA</string>

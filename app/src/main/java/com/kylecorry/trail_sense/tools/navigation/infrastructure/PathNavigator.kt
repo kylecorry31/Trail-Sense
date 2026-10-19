@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
@@ -144,6 +145,27 @@ class PathNavigator(context: Context) {
                 session = updated
                 store.save(updated)
             }
+        }
+    }
+
+    /**
+     * Restarts a navigation session, including its progress, that was previously cancelled.
+     */
+    fun restore(restored: PathNavigationSession) {
+        synchronized(lock) {
+            cancel()
+            store.save(restored)
+            buildJob = startBuild()
+        }
+    }
+
+    /**
+     * The session being followed, or the one still being built. Null if not navigating or the
+     * saved session can't be read.
+     */
+    fun currentSession(): PathNavigationSession? {
+        return synchronized(lock) {
+            session ?: tryOrDefault<PathNavigationSession?>(null) { store.load() }
         }
     }
 

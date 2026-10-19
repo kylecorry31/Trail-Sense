@@ -1398,7 +1398,6 @@
     <string name="widget_theme_black_text">Siyah metin</string>
     <string name="widget_theme_white_text">Beyaz metin</string>
     <string name="default_widget_theme">Öntanımlı bileşen teması</string>
-    <string name="cancel_navigation_question">Gezinme iptal edilsin mi?</string>
     <string name="elevation_value">Yükseklik: %s</string>
     <string name="record_sighting">Gözlem Kaydı</string>
     <string name="harvested">Hasat edildi</string>

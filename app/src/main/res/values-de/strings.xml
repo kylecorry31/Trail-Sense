@@ -1450,7 +1450,6 @@
     <string name="widget_theme_white_text">Weißer Text</string>
     <string name="default_widget_theme">Standard-Widget-Design</string>
     <string name="show_pressure_forecast">Zeige Luftdruckvorhersage im Diagramm</string>
-    <string name="cancel_navigation_question">Navigation beenden?</string>
     <string name="elevation_value">Höhe: %s</string>
     <string name="pref_night_mode_fullscreen_title">Vollbildschirm im Nachtmodus</string>
     <string name="pref_night_mode_fullscreen_summary">System-UI verbergen, damit die Nachtsicht besser erhalten bleibt</string>

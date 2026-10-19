@@ -120,6 +120,10 @@ class Navigator private constructor(context: Context) {
 
     fun navigateTo(beaconId: Long) {
         pathNavigator.cancel()
+        setBeaconDestination(beaconId)
+    }
+
+    private fun setBeaconDestination(beaconId: Long) {
         prefs.putLong(DESTINATION_ID_KEY, beaconId)
         _destinationId.value = beaconId
         _forceUpdate.update { it + 1 }
@@ -135,10 +139,34 @@ class Navigator private constructor(context: Context) {
         pathNavigator.cancel(pathId)
     }
 
-    suspend fun cancelAllNavigation() {
+    /**
+     * Cancels all navigation.
+     * @return a function which restores the navigation that was cancelled, unless the user has
+     * started navigating somewhere else since
+     */
+    suspend fun cancelAllNavigation(): suspend () -> Unit {
+        val beaconId = getDestinationId()
+        val bearing = navigationBearing.firstOrNull()
+        val pathSession = pathNavigator.currentSession()
+
         pathNavigator.cancel()
         cancelBeaconNavigation()
         clearBearing()
+
+        return restore@{
+            if (isNavigating()) {
+                return@restore
+            }
+            beaconId?.let { setBeaconDestination(it) }
+            bearing?.let { bearings.setBearing(it) }
+            pathSession?.let { pathNavigator.restore(it) }
+        }
+    }
+
+    private suspend fun isNavigating(): Boolean {
+        return getDestinationId() != null ||
+                navigationBearing.firstOrNull() != null ||
+                pathNavigator.currentSession() != null
     }
 
     fun getDestinationId(): Long? {

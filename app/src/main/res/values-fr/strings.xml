@@ -1483,7 +1483,6 @@
     <string name="widget_theme_black_text">Texte noir</string>
     <string name="widget_theme_white_text">Texte blanc</string>
     <string name="default_widget_theme">Thème par défaut du widget</string>
-    <string name="cancel_navigation_question">Annuler la navigation ?</string>
     <string name="elevation_value">Altitude : %s</string>
     <string name="show_pressure_forecast">Afficher les prévisions de pression sur la carte</string>
     <string name="moa_amount">%s MOA</string>

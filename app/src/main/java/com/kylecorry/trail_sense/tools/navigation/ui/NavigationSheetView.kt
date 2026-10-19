@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
@@ -19,6 +23,7 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
+import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -140,20 +145,23 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         updateNavigationSensorValues(values)
     }
 
-    fun requestCancelNavigation() {
+    fun cancelNavigation() {
         if (!isNavigating) {
             return
         }
-        Alerts.dialog(
-            context,
-            context.getString(R.string.cancel_navigation_question),
-            okText = context.getString(R.string.yes),
-            cancelText = context.getString(R.string.no)
-        ) { cancelled ->
-            if (!cancelled) {
-                CoroutineScope(Dispatchers.Default).launch {
-                    navigator.cancelAllNavigation()
-                }
+        val fragment = findFragment<Fragment>()
+        fragment.lifecycleScope.launch {
+            val restore = navigator.cancelAllNavigation()
+            if (!fragment.isAdded) {
+                return@launch
+            }
+            CustomUiUtils.snackbar(
+                fragment,
+                context.getString(R.string.navigation_cancelled),
+                Snackbar.LENGTH_LONG,
+                context.getString(R.string.undo)
+            ) {
+                CoroutineScope(Dispatchers.Default).launch { restore() }
             }
         }
     }
@@ -184,7 +192,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         toolbar.title.maxWidth = Resources.dp(context, 250f).toInt()
         toolbar.rightButton.isVisible = isNavigating
         toolbar.rightButton.setOnClickListener {
-            requestCancelNavigation()
+            cancelNavigation()
         }
 
         elevationDataView.contentDescription = null

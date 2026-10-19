@@ -1188,7 +1188,6 @@
     <string name="airplane_mode">Flymodus</string>
     <string name="pref_night_mode_fullscreen_title">Fullskjerm i nattmodus</string>
     <string name="show_below_horizon">Vis under horisont</string>
-    <string name="cancel_navigation_question">Avbryte navigering?</string>
     <string name="elevation_value">Høyde: %s</string>
     <string name="guide_map_layers">Kartlag</string>
     <string name="draw_accurate_shadows">Tegn nøyaktige skygger</string>

@@ -70,7 +70,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         isVisible(R.id.navigation_bearing)
 
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
-        click("Yes")
         not { hasText("Bearing") }
     }
 
@@ -112,7 +111,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         back()
 
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
-        click("Yes")
         not { hasText("Test Beacon") }
 
         hasWorkingTrueNorthIndicator()
@@ -209,7 +207,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText(R.id.navigation_distance, "40.41 mi")
 
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
-        click(string(R.string.yes))
         not { hasText("Summit") }
 
         navigateToBeacon("Camp")

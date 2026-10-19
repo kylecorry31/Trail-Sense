@@ -192,7 +192,6 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         click("Navigate")
         hasText(Regex(".*-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°.*"))
         click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
-        click("Yes")
 
         longClick(R.id.map)
         click("Distance")

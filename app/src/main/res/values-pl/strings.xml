@@ -1392,7 +1392,6 @@
     <string name="battery_tip_background_apps">Ustaw Limity użycia w tle, przez aplikacje których nie używasz często.</string>
     <string name="battery_tip_other">Wyłącz urządzenie, wymuś zatrzymanie aplikacji, wyłącz lub odinstaluj aplikacje, wyłącz automatyczną aktualizację/kopie zapasową.</string>
     <string name="default_widget_theme">Domyślny motyw widżetu</string>
-    <string name="cancel_navigation_question">Zakończyć nawigację?</string>
     <string name="elevation_value">Wysokość: %s</string>
     <string name="show_pressure_forecast">Pokaż prognozę ciśnienia na wykresie</string>
     <string name="moa_amount">%s MOA</string>
