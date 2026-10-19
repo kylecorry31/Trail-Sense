@@ -120,7 +120,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        compass = sensorService.getCompass(delay = prefs.photoMaps.compassUpdateFrequency.sensorDelay)
+        compass = sensorService.getCompass(delay = prefs.compass.updateFrequency.sensorDelay)
         super.onViewCreated(view, savedInstanceState)
         observe(gps) {
             compass.declination = declinationProvider.getDeclination()

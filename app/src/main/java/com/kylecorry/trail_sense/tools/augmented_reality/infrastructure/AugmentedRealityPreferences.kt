@@ -8,18 +8,10 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
-import com.kylecorry.trail_sense.shared.sensors.compass.CompassUpdateFrequency
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathAppearance
 
 class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
-
-    val compassUpdateFrequency by StringEnumPreference(
-        cache,
-        context.getString(R.string.pref_ar_compass_update_frequency),
-        CompassUpdateFrequency.entries.associateBy { it.id },
-        CompassUpdateFrequency.Fast
-    )
 
     var beaconViewDistance by FloatPreference(
         cache,

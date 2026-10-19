@@ -40,6 +40,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
     private lateinit var azimuthTxt: Preference
     private lateinit var compassSource: ListPreference
     private lateinit var compassSmoothingBar: SeekBarPreference
+    private lateinit var updateFrequency: ListPreference
     private lateinit var declinationTxt: Preference
     private lateinit var trueNorthSwitch: SwitchPreferenceCompat
     private lateinit var autoDeclinationSwitch: SwitchPreferenceCompat
@@ -88,6 +89,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         azimuthTxt = findPreference(getString(R.string.pref_holder_azimuth))!!
         compassSource = list(R.string.pref_compass_source)!!
         compassSmoothingBar = findPreference(getString(R.string.pref_compass_filter_amt))!!
+        updateFrequency = list(R.string.pref_compass_update_frequency)!!
         declinationTxt = findPreference(getString(R.string.pref_holder_declination))!!
         trueNorthSwitch = findPreference(getString(R.string.pref_use_true_north))!!
         autoDeclinationSwitch = findPreference(getString(R.string.pref_auto_declination))!!
@@ -150,6 +152,7 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
         val prefsRequiringCompass = listOf(
             compassSource,
             compassSmoothingBar,
+            updateFrequency,
             trueNorthSwitch,
             calibrateBtn,
             azimuthTxt,

@@ -7,6 +7,7 @@ import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
+import com.kylecorry.trail_sense.shared.sensors.compass.CompassUpdateFrequency
 
 class CompassPreferences(context: Context) : PreferenceRepo(context), ICompassPreferences {
 
@@ -35,5 +36,12 @@ class CompassPreferences(context: Context) : PreferenceRepo(context), ICompassPr
         context.getString(R.string.pref_compass_source),
         CompassSource.entries.associateBy { it.id },
         CompassSource.CustomRotationVector
+    )
+
+    val updateFrequency by StringEnumPreference(
+        cache,
+        context.getString(R.string.pref_compass_update_frequency),
+        CompassUpdateFrequency.entries.associateBy { it.id },
+        CompassUpdateFrequency.Fast
     )
 }

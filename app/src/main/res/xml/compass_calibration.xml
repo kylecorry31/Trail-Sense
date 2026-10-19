@@ -39,6 +39,16 @@
             app:summary="@string/smoothing_summary"
             app:title="@string/smoothing" />
 
+        <ListPreference
+            app:defaultValue="fast"
+            app:entries="@array/compass_update_frequency_entries"
+            app:entryValues="@array/compass_update_frequency_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_compass_update_frequency"
+            app:singleLineTitle="false"
+            app:title="@string/compass_update_frequency"
+            app:useSimpleSummaryProvider="true" />
+
         <SwitchPreferenceCompat
             app:defaultValue="true"
             app:iconSpaceReserved="false"

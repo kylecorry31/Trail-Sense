@@ -181,7 +181,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.arView.setCompassSensorDelay(userPrefs.augmentedReality.compassUpdateFrequency.sensorDelay)
+        binding.arView.setCompassSensorDelay(userPrefs.compass.updateFrequency.sensorDelay)
 
         // Beacon layer setup (TODO: Move this to a layer manager)
         observeFlow(beaconRepo.getBeacons()) {

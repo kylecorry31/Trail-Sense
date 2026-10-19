@@ -14,7 +14,6 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.ICompassStylePr
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.compass.CompassUpdateFrequency
 import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -23,13 +22,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val sensors by lazy { SensorService(context) }
-
-    val compassUpdateFrequency by StringEnumPreference(
-        cache,
-        context.getString(R.string.pref_navigation_compass_update_frequency),
-        CompassUpdateFrequency.entries.associateBy { it.id },
-        CompassUpdateFrequency.Fast
-    )
 
     private var _showCalibrationOnNavigateDialog by BooleanPreference(
         cache,

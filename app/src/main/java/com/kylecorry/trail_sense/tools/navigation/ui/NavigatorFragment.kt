@@ -170,7 +170,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sensorDelay = userPrefs.navigation.compassUpdateFrequency.sensorDelay
+        val sensorDelay = userPrefs.compass.updateFrequency.sensorDelay
         val orientation = sensorService.getOrientation(sensorDelay)
         compass = sensorService.getCompass(orientation, sensorDelay)
         clinometer = Clinometer(orientation, isAugmentedReality = true)

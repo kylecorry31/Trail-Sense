@@ -29,6 +29,12 @@ The reported accuracy of the compass is shown. If it is low, you can tap this op
 ### Smoothing
 To reduce noise in compass readings, you can increase the smoothing setting. If using a source that has a gyroscope, a value of 1 is recommended. Otherwise, experiment with increasing this value until the compass appears to be working correctly when you rotate your phone. However, if you increase the smoothing too much, Trail Sense may ignore real compass changes.
 
+### Update frequency
+You can change how often the compass updates in the Navigation, Map, Photo Maps, and Augmented Reality tools.
+
+- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
+- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
+
 ### True north
 To display true north instead of magnetic north, enable the 'True north' setting. This will adjust the compass reading to account for magnetic declination, and it will match most maps.
 
