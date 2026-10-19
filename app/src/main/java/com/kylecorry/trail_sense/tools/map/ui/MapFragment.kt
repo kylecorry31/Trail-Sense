@@ -216,6 +216,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             mapDistanceSheetView.hide()
         }
 
+        // The sheet starts hidden when the view is recreated, so the measurement it showed is over
+        useEffect(manager, mapDistanceSheetView, stopDistanceMeasurement, resetOnResume) {
+            if (manager.isMeasuringDistance() && !mapDistanceSheetView.isVisible) {
+                stopDistanceMeasurement()
+            }
+        }
+
         val startDistanceMeasurement =
             useCallback(
                 mapDistanceSheetView,
