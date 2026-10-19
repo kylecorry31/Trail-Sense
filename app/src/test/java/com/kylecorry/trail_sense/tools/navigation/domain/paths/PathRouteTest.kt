@@ -377,43 +377,7 @@ class PathRouteTest {
     }
 
     @Test
-    fun `steers to a corner instead of cutting it`() {
-        val corner = Coordinate(0.0, 0.004)
-        val route = route(listOf(Coordinate(0.0, 0.0), corner, Coordinate(0.004, 0.004)))
-        route.navigate(Coordinate(0.0, 0.0))
-        val approaching = route.navigate(Coordinate(0.0, 0.0038))
-        assertEquals(corner.longitude, approaching.target.longitude, 0.00001)
-        assertEquals(corner.latitude, approaching.target.latitude, 0.00001)
-    }
-
-    @Test
-    fun `steers past a corner once it is reached`() {
-        val corner = Coordinate(0.0, 0.004)
-        val route = route(listOf(Coordinate(0.0, 0.0), corner, Coordinate(0.004, 0.004)))
-        route.navigate(Coordinate(0.0, 0.0))
-        route.navigate(Coordinate(0.0, 0.0038))
-        val atCorner = route.navigate(Coordinate(0.0, 0.003975))
-        assertTrue(atCorner.target.latitude > 0.0001)
-        assertEquals(0.004, atCorner.target.longitude, 0.00001)
-        // GPS jitter around the corner does not bring the corner back
-        val jitter = route.navigate(Coordinate(0.0, 0.00389))
-        assertTrue(jitter.target.latitude > 0.0)
-    }
-
-    @Test
-    fun `the corner is targeted again after backtracking away from it`() {
-        val corner = Coordinate(0.0, 0.004)
-        val route = route(listOf(Coordinate(0.0, 0.0), corner, Coordinate(0.004, 0.004)))
-        route.navigate(Coordinate(0.0, 0.0))
-        route.navigate(Coordinate(0.0, 0.003975))
-        route.navigate(Coordinate(0.0, 0.0036))
-        val back = route.navigate(Coordinate(0.0, 0.0038))
-        assertEquals(corner.latitude, back.target.latitude, 0.00001)
-        assertEquals(corner.longitude, back.target.longitude, 0.00001)
-    }
-
-    @Test
-    fun `gentle bends on a dense path are not treated as corners`() {
+    fun `targets the lookahead distance ahead on a dense path`() {
         val coordinates = (0..100).map { Coordinate(0.00002 * it * it / 100.0, 0.0001 * it) }
         val route = route(coordinates)
         route.navigate(coordinates.first())

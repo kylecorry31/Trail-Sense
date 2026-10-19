@@ -71,7 +71,7 @@ class PathRoute(
         val currentElevation = PathInterpolationUtils.elevationAt(pathPoints, match)
         val projected = geometry.coordinateOf(match)
         return PathGuidance(
-            target = getTarget(location, match, projected),
+            target = getTarget(match, projected),
             remainingDistance = remainingDistance,
             offRouteDistance = Distance.meters(match.offset),
             arrived = arrived,
@@ -108,33 +108,11 @@ class PathRoute(
         return length - distanceAlong <= radius && location.distanceTo(coordinates.last()) <= radius
     }
 
-    private fun getTarget(location: Coordinate, current: Snap, projected: Coordinate): Coordinate {
-        // If the user is off route, steer toward the projected point on the route instead of a corner
+    private fun getTarget(current: Snap, projected: Coordinate): Coordinate {
         if (current.offset > OFF_ROUTE_TARGET_DISTANCE_METERS) {
             return projected
         }
-
-        // Reset the last reached corner if the user has walked back far enough
-        if (current.distanceAlong < state.lastReachedCorner - TARGET_CORNER_RESET_METERS) {
-            state.lastReachedCorner = Float.NEGATIVE_INFINITY
-        }
-
-        // Look ahead to the next corner on the route, but not too far ahead
-        val lookahead = current.distanceAlong + max(TARGET_LOOKAHEAD_METERS, current.offset)
-        for (distance in geometry.cornersBetween(current.distanceAlong, lookahead)) {
-            if (distance > state.lastReachedCorner) {
-                val point = geometry.pointAt(distance)
-                // If the user is far enough away from the corner, target it. Otherwise, keep looking for a corner further ahead.
-                if (location.distanceTo(point) > TARGET_CORNER_REACHED_METERS) {
-                    return point
-                }
-                // The user has reached this corner
-                state.lastReachedCorner = distance
-            }
-        }
-
-        // If there are no corners ahead, target the point at the lookahead distance
-        return geometry.pointAt(lookahead)
+        return geometry.pointAt(current.distanceAlong + max(TARGET_LOOKAHEAD_METERS, current.offset))
     }
 
     private fun matchLocation(location: Coordinate, tolerance: Float, currentTime: Instant): Snap {
@@ -193,8 +171,7 @@ class PathRoute(
         var location: Coordinate? = null,
         var time: Instant? = null,
         var guidance: PathGuidance? = null,
-        var pendingRejoin: Float? = null,
-        var lastReachedCorner: Float = Float.NEGATIVE_INFINITY
+        var pendingRejoin: Float? = null
     ) {
         fun restore(distanceAlong: Float, location: Coordinate) {
             this.distanceAlong = distanceAlong
@@ -202,7 +179,6 @@ class PathRoute(
             this.time = null
             this.guidance = null
             this.pendingRejoin = null
-            this.lastReachedCorner = Float.NEGATIVE_INFINITY
         }
     }
 
@@ -227,12 +203,6 @@ class PathRoute(
 
         // How far ahead the user should look for a target point
         private const val TARGET_LOOKAHEAD_METERS = 25f
-
-        // How far away the user must be from a corner before it is considered reached
-        private const val TARGET_CORNER_REACHED_METERS = 8f
-
-        // How far back the user must walk before the last reached corner is reset
-        private const val TARGET_CORNER_RESET_METERS = 15f
 
         // How far off route before the projected point becomes the target
         private const val OFF_ROUTE_TARGET_DISTANCE_METERS = 30f
