@@ -90,9 +90,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         click("Test Beacon")
         hasText(R.id.beacon_title, "Test Beacon")
         click(string(R.string.navigate))
-
-        hasText(string(R.string.calibrate_compass_dialog_title))
-        clickOk()
+        optional { clickOk() }
 
         hasText("Test Beacon")
         hasText(Regex("1.000000°,\\s+-1.000000°"))
@@ -229,7 +227,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         click(R.id.beaconBtn)
         click("Summit")
         click(string(R.string.navigate))
-        clickOk()
+        optional { clickOk() }
 
         // True bearing of 36 degrees minus the declination of about -14 degrees
         waitFor {
@@ -244,8 +242,8 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         click(R.id.beaconBtn)
         click(name)
         click(string(R.string.navigate))
-        // Calibration reminder
-        clickOk()
+        // Calibration reminder (only shown when the compass accuracy is poor)
+        optional { clickOk() }
     }
 
     private fun textOf(id: Int): String {

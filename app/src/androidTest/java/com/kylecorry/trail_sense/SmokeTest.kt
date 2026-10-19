@@ -215,7 +215,7 @@ class SmokeTest {
         click({ viewWithResourceId("$packageName:id/toolbar_right_button") })
         click("Test beacon")
         click("Navigate")
-        clickOk()
+        optional { clickOk() }
         hasText("Test beacon")
         click({ viewWithResourceId("$packageName:id/toolbar_right_button", index = 1) })
         back()

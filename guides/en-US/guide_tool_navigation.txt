@@ -57,7 +57,7 @@ The compass shows the direction of the sun and moon, allowing you to navigate us
 
 Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, tap the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
 
-When you start navigating to a beacon, Trail Sense reminds you to calibrate your compass. You can tick 'Do not ask again' in the reminder, or turn this off in Settings > Navigation > Calibrate before navigating.
+When you start navigating to a beacon and your compass accuracy is low, Trail Sense reminds you to calibrate your compass. You can tick 'Do not ask again' in the reminder, or turn this off in Settings > Navigation > Calibrate before navigating.
 
 ## Lock screen
 By default, Trail Sense follows your device's lock screen behavior. You can change this in Settings > Navigation > 'Show on lock screen':

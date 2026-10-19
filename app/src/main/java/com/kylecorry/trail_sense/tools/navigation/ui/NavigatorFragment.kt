@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
+import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setTextDistinct
@@ -153,6 +154,9 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private val triggers = HookTriggers()
 
+    // The compass quality is unknown until it reports its first reading
+    private var checkCalibrationOnNextReading = false
+
     override fun onDestroyView() {
         super.onDestroyView()
         activity?.let { screenLock.releaseLock(it) }
@@ -164,7 +168,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
         // Load the destination and start navigation
         if (beaconId != 0L) {
-            showCalibrationDialog()
+            checkCalibrationOnNextReading = true
             navigator.navigateTo(beaconId)
         }
     }
@@ -479,6 +483,15 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 binding.navigationSheet.show(currentDestination, destination != null)
             } else {
                 binding.navigationSheet.hide()
+            }
+        }
+
+        effect("calibration_prompt", compass.quality) {
+            if (checkCalibrationOnNextReading && compass.quality != Quality.Unknown) {
+                checkCalibrationOnNextReading = false
+                if (compass.quality == Quality.Poor) {
+                    showCalibrationDialog()
+                }
             }
         }
 
