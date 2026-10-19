@@ -141,7 +141,7 @@ class MapToolLayerManager {
         return elevationPrefetcher.getElevations()
     }
 
-    fun startDistanceMeasurement(initialPoints: Array<Coordinate>) {
+    fun startDistanceMeasurement(initialPoints: List<Coordinate>) {
         distanceLayer.isEnabled = true
         distanceLayer.clear()
         initialPoints.forEach { distanceLayer.add(it) }

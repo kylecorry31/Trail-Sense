@@ -228,7 +228,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 val initialPoints = listOfNotNull(
                     if (startWithUserLocation) navigation.location else null,
                     location
-                ).toTypedArray()
+                )
                 manager.startDistanceMeasurement(initialPoints)
                 mapDistanceSheetView.show()
                 mapDistanceSheetView.cancelListener = {
@@ -555,25 +555,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
     private fun getNextLockMode(mode: MapLockMode, hasCompass: Boolean): MapLockMode {
         return when (mode) {
-            MapLockMode.Location -> {
-                if (hasCompass) {
-                    MapLockMode.Compass
-                } else {
-                    MapLockMode.Free
-                }
-            }
-
-            MapLockMode.Compass -> {
-                MapLockMode.Free
-            }
-
-            MapLockMode.Free -> {
-                MapLockMode.Location
-            }
-
-            MapLockMode.Trace -> {
-                MapLockMode.Free
-            }
+            MapLockMode.Location -> if (hasCompass) MapLockMode.Compass else MapLockMode.Free
+            MapLockMode.Compass, MapLockMode.Trace -> MapLockMode.Free
+            MapLockMode.Free -> MapLockMode.Location
         }
     }
 

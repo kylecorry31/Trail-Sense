@@ -21,7 +21,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class MyElevationLayer : OverlayLayer() {
 
-    private var bottomLeft = PixelCoordinate(
+    private val bottomLeft = PixelCoordinate(
         16f,
         -16f
     )

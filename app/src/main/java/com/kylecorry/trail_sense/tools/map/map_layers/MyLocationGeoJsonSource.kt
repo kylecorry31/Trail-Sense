@@ -98,8 +98,9 @@ class MyLocationGeoJsonSource : GeoJsonSource {
 
     private fun getArrowBitmap(context: Context, color: Int, sizeDp: Float, strokeWeight: Float): Bitmap {
         val key = ArrowBitmapKey(color, sizeDp, strokeWeight)
-        if (arrowBitmap != null && arrowBitmapKey == key) {
-            return arrowBitmap!!
+        val cached = arrowBitmap
+        if (cached != null && arrowBitmapKey == key) {
+            return cached
         }
 
         val size = Resources.dp(context, sizeDp).toInt()

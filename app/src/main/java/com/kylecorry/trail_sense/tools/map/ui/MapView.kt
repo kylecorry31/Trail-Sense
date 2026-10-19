@@ -98,7 +98,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     override val mapBounds: CoordinateBounds
         get() = hooks.memo(
             "bounds",
-            this@MapView.resolutionPixels, mapCenter, width, height, mapAzimuth != 0f,
+            resolutionPixels, mapCenter, width, height, mapAzimuth != 0f,
             projection, metersPerProjectedUnit, latitudeScaleFactor
         ) {
             // Increase size to account for 45 degree rotation
@@ -127,9 +127,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
 
     override var resolution: Float
-        get() = this@MapView.resolutionPixels * density
+        get() = resolutionPixels * density
         set(value) {
-            this@MapView.resolutionPixels = value / density
+            resolutionPixels = value / density
         }
 
     override val zoom: Float
@@ -175,7 +175,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         private set(value) {
             field = value
             isScaleExplicitlySet = true
-            onScaleChange?.invoke(this@MapView.resolutionPixels)
+            onScaleChange?.invoke(resolutionPixels)
             invalidate()
         }
     private var lastScale = 1f
@@ -201,21 +201,21 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     var projection: IMapProjection = MercatorProjection()
         set(value) {
             field = value
-            this@MapView.layerManager.invalidate()
+            layerManager.invalidate()
             invalidate()
         }
 
     var metersPerProjectedUnit: Double = TileMath.WEB_MERCATOR_RADIUS
         set(value) {
             field = value
-            this@MapView.layerManager.invalidate()
+            layerManager.invalidate()
             invalidate()
         }
 
     var latitudeScaleFactor: (Double) -> Float = { MercatorProjection.getScaleForLatitude(it) }
         set(value) {
             field = value
-            this@MapView.layerManager.invalidate()
+            layerManager.invalidate()
             invalidate()
         }
 
@@ -243,7 +243,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             val mapCenter = mapCenter
             val center = mapCenterPixels
             val projection = projection
-            val equatorialResolutionPixels = this@MapView.equatorialResolutionPixels
+            val equatorialResolutionPixels = equatorialResolutionPixels
             val metersPerProjectedUnit = metersPerProjectedUnit
             val groundResolutionPixels =
                 equatorialResolutionPixels * latitudeScaleFactor(mapCenter.latitude)
@@ -304,7 +304,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        this@MapView.layerManager.invalidate()
+        layerManager.invalidate()
     }
 
     override fun setup() {
@@ -346,7 +346,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private fun drawLayers() {
         if (scale != lastScale) {
             lastScale = scale
-            this@MapView.layerManager.invalidate()
+            layerManager.invalidate()
         }
         // TODO: If map bounds changed, invalidate layers
 
@@ -384,16 +384,14 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
 
         Optimization.newtonRaphsonIteration(scale, 0.001f, 10) {
             mapCenter = bounds.center
-            val nePixel = toPixel(constrainToBounds(bounds.northEast))
-            val sePixel = toPixel(constrainToBounds(bounds.southEast))
-            val nwPixel = toPixel(constrainToBounds(bounds.northWest))
-            val swPixel = toPixel(constrainToBounds(bounds.southWest))
-            val minX = minOf(nePixel.x, sePixel.x, nwPixel.x, swPixel.x)
-            val maxX = maxOf(nePixel.x, sePixel.x, nwPixel.x, swPixel.x)
-            val minY = minOf(nePixel.y, sePixel.y, nwPixel.y, swPixel.y)
-            val maxY = maxOf(nePixel.y, sePixel.y, nwPixel.y, swPixel.y)
-            val boxWidth = (maxX - minX).absoluteValue * paddingFactor
-            val boxHeight = (maxY - minY).absoluteValue * paddingFactor
+            val corners = listOf(
+                bounds.northEast,
+                bounds.southEast,
+                bounds.northWest,
+                bounds.southWest
+            ).map { toPixel(constrainToBounds(it)) }
+            val boxWidth = (corners.maxOf { it.x } - corners.minOf { it.x }).absoluteValue * paddingFactor
+            val boxHeight = (corners.maxOf { it.y } - corners.minOf { it.y }).absoluteValue * paddingFactor
 
             if (boxWidth == 0f || boxHeight == 0f) {
                 return@newtonRaphsonIteration 0f
@@ -416,9 +414,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     }
 
     fun zoom(factor: Float) {
-        val newScale = clampScale(scale * factor)
-        val newFactor = newScale / scale
-        scale *= newFactor
+        scale = clampScale(scale * factor)
         invalidate()
     }
 
@@ -426,12 +422,20 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         return scale.coerceIn(minScale, maxScale)
     }
 
+    private fun rotateByAzimuth(x: Float, y: Float): Vector2 {
+        val angle = mapAzimuth
+        return Vector2(
+            x * cosDegrees(angle) - y * sinDegrees(angle),
+            x * sinDegrees(angle) + y * cosDegrees(angle)
+        )
+    }
+
     private fun translatePixels(distanceX: Float, distanceY: Float) {
         val newPoint = PixelCoordinate(width / 2f + distanceX, height / 2f + distanceY)
         mapCenter = toCoordinate(newPoint)
     }
 
-    private val mGestureListener = object : GestureDetector.SimpleOnGestureListener() {
+    private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
 
         override fun onScroll(
             e1: MotionEvent?,
@@ -440,10 +444,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             distanceY: Float
         ): Boolean {
             if (isPanEnabled) {
-                val angle = mapAzimuth
-                val dx = distanceX * cosDegrees(angle) - distanceY * sinDegrees(angle)
-                val dy = distanceX * sinDegrees(angle) + distanceY * cosDegrees(angle)
-                translatePixels(dx, dy)
+                val delta = rotateByAzimuth(distanceX, distanceY)
+                translatePixels(delta.x, delta.y)
             }
             return true
         }
@@ -467,16 +469,14 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             velocityY: Float
         ): Boolean {
             if (isPanEnabled && isFlingEnabled) {
-                val angle = mapAzimuth
-                val vx = velocityX * cosDegrees(angle) - velocityY * sinDegrees(angle)
-                val vy = velocityX * sinDegrees(angle) + velocityY * cosDegrees(angle)
+                val velocity = rotateByAzimuth(velocityX, velocityY)
                 val startX = FLING_MULTIPLIER / 2
                 val startY = FLING_MULTIPLIER / 2
                 lastFlingX = startX
                 lastFlingY = startY
                 scroller.fling(
                     startX, startY,
-                    (vx * FLING_VELOCITY_SCALE).toInt(), (vy * FLING_VELOCITY_SCALE).toInt(),
+                    (velocity.x * FLING_VELOCITY_SCALE).toInt(), (velocity.y * FLING_VELOCITY_SCALE).toInt(),
                     0, FLING_MULTIPLIER,
                     0, FLING_MULTIPLIER
                 )
@@ -532,15 +532,15 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         }
     }
 
-    private val gestureDetector = GestureDetector(context, mGestureListener)
-    private val mScaleDetector = ScaleGestureDetector(context, scaleListener)
+    private val gestureDetector = GestureDetector(context, gestureListener)
+    private val scaleDetector = ScaleGestureDetector(context, scaleListener)
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (isInteractive) {
             if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                 scroller.forceFinished(true)
             }
-            mScaleDetector.onTouchEvent(event)
+            scaleDetector.onTouchEvent(event)
             gestureDetector.onTouchEvent(event)
         }
         return true

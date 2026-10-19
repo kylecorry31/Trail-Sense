@@ -17,10 +17,7 @@ class MapSettingsFragment : AndromedaPreferenceFragment() {
         // Layers
         onClick(preference(R.string.pref_map_layer_button)) {
             layerSheet?.dismiss()
-            layerSheet = MapLayersBottomSheet(
-                MapToolRegistration.MAP_ID
-            )
-            layerSheet?.show(this)
+            layerSheet = MapLayersBottomSheet(MapToolRegistration.MAP_ID).also { it.show(this) }
         }
     }
 

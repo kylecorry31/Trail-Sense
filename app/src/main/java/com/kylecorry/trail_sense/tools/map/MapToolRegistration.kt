@@ -90,22 +90,13 @@ object MapToolRegistration : ToolRegistration {
                             id = ElevationMapTileSource.COLOR,
                             title = context.getString(R.string.color),
                             type = MapLayerPreferenceType.Enum,
-                            values = listOf(
-                                context.getString(R.string.color_usgs) to ElevationColorStrategy.USGS.id.toString(),
-                                context.getString(R.string.color_grayscale) to ElevationColorStrategy.Grayscale.id.toString(),
-                                context.getString(R.string.color_muted) to ElevationColorStrategy.Muted.id.toString(),
-                                context.getString(R.string.color_vibrant) to ElevationColorStrategy.Vibrant.id.toString(),
-                                context.getString(R.string.color_viridis) to ElevationColorStrategy.Viridis.id.toString(),
-                                context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
-                                context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
-                            ),
+                            values = getElevationColorValues(context),
                             defaultValue = ElevationMapTileSource.DEFAULT_COLOR.id.toString(),
                         ),
-                        MapLayerPreference(
-                            id = ElevationMapTileSource.HIGH_RESOLUTION,
-                            title = context.getString(R.string.high_resolution),
-                            type = MapLayerPreferenceType.Switch,
-                            defaultValue = ElevationMapTileSource.DEFAULT_HIGH_RESOLUTION,
+                        highResolutionPreference(
+                            context,
+                            ElevationMapTileSource.HIGH_RESOLUTION,
+                            ElevationMapTileSource.DEFAULT_HIGH_RESOLUTION
                         ),
                     ),
                     tileSource = ::ElevationMapTileSource,
@@ -124,11 +115,10 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = HillshadeMapTileSource.DEFAULT_DRAW_ACCURATE_SHADOWS,
                         ),
-                        MapLayerPreference(
-                            id = HillshadeMapTileSource.HIGH_RESOLUTION,
-                            title = context.getString(R.string.high_resolution),
-                            type = MapLayerPreferenceType.Switch,
-                            defaultValue = HillshadeMapTileSource.DEFAULT_HIGH_RESOLUTION,
+                        highResolutionPreference(
+                            context,
+                            HillshadeMapTileSource.HIGH_RESOLUTION,
+                            HillshadeMapTileSource.DEFAULT_HIGH_RESOLUTION
                         ),
                         MapLayerPreference(
                             id = HillshadeMapTileSource.MULTI_DIRECTION_SHADING,
@@ -149,11 +139,10 @@ object MapToolRegistration : ToolRegistration {
                     description = context.getString(R.string.map_layer_ruggedness_description),
                     preferences = listOf(
                         demSettingsPreference,
-                        MapLayerPreference(
-                            id = RuggednessMapTileSource.HIGH_RESOLUTION,
-                            title = context.getString(R.string.high_resolution),
-                            type = MapLayerPreferenceType.Switch,
-                            defaultValue = RuggednessMapTileSource.DEFAULT_HIGH_RESOLUTION,
+                        highResolutionPreference(
+                            context,
+                            RuggednessMapTileSource.HIGH_RESOLUTION,
+                            RuggednessMapTileSource.DEFAULT_HIGH_RESOLUTION
                         ),
                     ),
                     tileSource = ::RuggednessMapTileSource,
@@ -189,11 +178,10 @@ object MapToolRegistration : ToolRegistration {
                             type = MapLayerPreferenceType.Switch,
                             defaultValue = SlopeMapTileSource.DEFAULT_HIDE_FLAT_GROUND,
                         ),
-                        MapLayerPreference(
-                            id = SlopeMapTileSource.HIGH_RESOLUTION,
-                            title = context.getString(R.string.high_resolution),
-                            type = MapLayerPreferenceType.Switch,
-                            defaultValue = SlopeMapTileSource.DEFAULT_HIGH_RESOLUTION,
+                        highResolutionPreference(
+                            context,
+                            SlopeMapTileSource.HIGH_RESOLUTION,
+                            SlopeMapTileSource.DEFAULT_HIGH_RESOLUTION
                         ),
                     ),
                     tileSource = ::SlopeMapTileSource,
@@ -206,11 +194,10 @@ object MapToolRegistration : ToolRegistration {
                     description = context.getString(R.string.map_layer_aspect_description),
                     preferences = listOf(
                         demSettingsPreference,
-                        MapLayerPreference(
-                            id = AspectMapTileSource.HIGH_RESOLUTION,
-                            title = context.getString(R.string.high_resolution),
-                            type = MapLayerPreferenceType.Switch,
-                            defaultValue = AspectMapTileSource.DEFAULT_HIGH_RESOLUTION,
+                        highResolutionPreference(
+                            context,
+                            AspectMapTileSource.HIGH_RESOLUTION,
+                            AspectMapTileSource.DEFAULT_HIGH_RESOLUTION
                         ),
                     ),
                     tileSource = ::AspectMapTileSource,
@@ -237,14 +224,7 @@ object MapToolRegistration : ToolRegistration {
                                 context.getString(R.string.color_brown) to ElevationColorStrategy.Brown.id.toString(),
                                 context.getString(R.string.color_gray) to ElevationColorStrategy.Gray.id.toString(),
                                 context.getString(R.string.color_white) to ElevationColorStrategy.White.id.toString(),
-                                context.getString(R.string.color_usgs) to ElevationColorStrategy.USGS.id.toString(),
-                                context.getString(R.string.color_grayscale) to ElevationColorStrategy.Grayscale.id.toString(),
-                                context.getString(R.string.color_muted) to ElevationColorStrategy.Muted.id.toString(),
-                                context.getString(R.string.color_vibrant) to ElevationColorStrategy.Vibrant.id.toString(),
-                                context.getString(R.string.color_viridis) to ElevationColorStrategy.Viridis.id.toString(),
-                                context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
-                                context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
-                            ),
+                            ) + getElevationColorValues(context),
                             defaultValue = ContourGeoJsonSource.DEFAULT_COLOR.id.toString(),
                         )
                     ),
@@ -296,6 +276,31 @@ object MapToolRegistration : ToolRegistration {
                     layer = ::MyElevationLayer
                 )
             )
+        )
+    }
+
+    private fun getElevationColorValues(context: Context): List<Pair<String, String>> {
+        return listOf(
+            context.getString(R.string.color_usgs) to ElevationColorStrategy.USGS.id.toString(),
+            context.getString(R.string.color_grayscale) to ElevationColorStrategy.Grayscale.id.toString(),
+            context.getString(R.string.color_muted) to ElevationColorStrategy.Muted.id.toString(),
+            context.getString(R.string.color_vibrant) to ElevationColorStrategy.Vibrant.id.toString(),
+            context.getString(R.string.color_viridis) to ElevationColorStrategy.Viridis.id.toString(),
+            context.getString(R.string.color_inferno) to ElevationColorStrategy.Inferno.id.toString(),
+            context.getString(R.string.color_plasma) to ElevationColorStrategy.Plasma.id.toString(),
+        )
+    }
+
+    private fun highResolutionPreference(
+        context: Context,
+        id: String,
+        defaultValue: Boolean
+    ): MapLayerPreference {
+        return MapLayerPreference(
+            id = id,
+            title = context.getString(R.string.high_resolution),
+            type = MapLayerPreferenceType.Switch,
+            defaultValue = defaultValue,
         )
     }
 

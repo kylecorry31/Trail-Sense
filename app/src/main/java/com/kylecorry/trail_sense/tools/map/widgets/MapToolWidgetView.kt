@@ -10,7 +10,6 @@ import androidx.core.graphics.createBitmap
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils
@@ -26,8 +25,6 @@ import kotlinx.coroutines.delay
 
 class MapToolWidgetView : ChartToolWidgetViewBase() {
 
-    private var drawAsCircle: Boolean = false
-
     override suspend fun getPopulatedView(
         context: Context,
         prefs: WidgetPreferences?
@@ -42,18 +39,14 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
             val mapView = MapView(context)
             mapView.backgroundColorOverride = Color.rgb(127, 127, 127)
             mapView.clipPath = Path().apply {
-                if (drawAsCircle) {
-                    addCircle(size / 2f, size / 2f, size / 2f, Path.Direction.CW)
-                } else {
-                    addRoundRect(
-                        0f,
-                        0f,
-                        size.toFloat(),
-                        size.toFloat(),
-                        FloatArray(8) { cornerRadius },
-                        Path.Direction.CW
-                    )
-                }
+                addRoundRect(
+                    0f,
+                    0f,
+                    size.toFloat(),
+                    size.toFloat(),
+                    FloatArray(8) { cornerRadius },
+                    Path.Direction.CW
+                )
             }
             mapView.isInteractive = false
             mapView.isWidget = true
@@ -68,13 +61,6 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
                     CompassOverlayLayer.LAYER_ID
                 )
             mapView.setLayersWithPreferences(MapToolRegistration.MAP_ID, layerIds)
-
-            if (drawAsCircle) {
-                mapView.projection = AzimuthalEquidistantProjection(location)
-                mapView.metersPerProjectedUnit = 1.0
-                mapView.latitudeScaleFactor = { 1f }
-                // TODO: Do something with the scale bar (center it or render it like the radar compass)
-            }
 
             // Set mapview size
             mapView.measure(
