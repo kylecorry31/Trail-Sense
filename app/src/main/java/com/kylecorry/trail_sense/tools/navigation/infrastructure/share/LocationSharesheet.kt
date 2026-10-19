@@ -21,7 +21,7 @@ class LocationSharesheet(private val context: Context) : ILocationSender {
             action = Intent.ACTION_SEND
             putExtra(
                 Intent.EXTRA_TEXT,
-                getShareString(location, format ?: prefs.navigation.coordinateFormat)
+                getShareString(location, format ?: prefs.coordinateFormat)
             )
             type = "text/plain"
         }

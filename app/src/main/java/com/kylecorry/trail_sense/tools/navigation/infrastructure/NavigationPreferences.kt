@@ -5,16 +5,13 @@ import com.kylecorry.luna.text.toFloatCompat
 import com.kylecorry.luna.text.toIntCompat
 import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.FloatPreference
-import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.ICompassStylePreferences
-import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
@@ -96,26 +93,6 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
         cache,
         "cache_radar_compass_state_scale",
         2f
-    )
-
-    val coordinateFormat: BuiltInCoordinateFormat
-        get() {
-            return when (cache.getString(context.getString(R.string.pref_coordinate_format))) {
-                "dms" -> BuiltInCoordinateFormat.DegreesMinutesSeconds
-                "ddm" -> BuiltInCoordinateFormat.DegreesDecimalMinutes
-                "utm" -> BuiltInCoordinateFormat.UTM
-                "mgrs" -> BuiltInCoordinateFormat.MGRS
-                "usng" -> BuiltInCoordinateFormat.USNG
-                "osng" -> BuiltInCoordinateFormat.OSGB
-                else -> BuiltInCoordinateFormat.DecimalDegrees
-            }
-        }
-
-    var pathSort: PathSortMethod by IntEnumPreference(
-        cache,
-        context.getString(R.string.pref_path_sort),
-        PathSortMethod.values().associateBy { it.id.toInt() },
-        PathSortMethod.MostRecent
     )
 
     val leftButton: Int

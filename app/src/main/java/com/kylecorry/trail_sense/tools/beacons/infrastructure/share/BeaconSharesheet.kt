@@ -34,7 +34,7 @@ class BeaconSharesheet(private val context: Context) : IBeaconSender {
         val coordinateString =
             formatService.formatLocation(coordinate, BuiltInCoordinateFormat.DecimalDegrees)
         val coordinateUser = formatService.formatLocation(coordinate)
-        return "${name}\n\n${coordinateString}\n\n${formatService.formatCoordinateType(prefs.navigation.coordinateFormat)}: ${coordinateUser}\n\n${
+        return "${name}\n\n${coordinateString}\n\n${formatService.formatCoordinateType(prefs.coordinateFormat)}: ${coordinateUser}\n\n${
             context.getString(
                 R.string.maps
             )

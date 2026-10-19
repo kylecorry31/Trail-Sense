@@ -17,7 +17,7 @@ object Share {
     fun shareLocation(
         fragment: Fragment,
         location: Coordinate,
-        format: BuiltInCoordinateFormat = UserPreferences(fragment.requireContext()).navigation.coordinateFormat,
+        format: BuiltInCoordinateFormat = UserPreferences(fragment.requireContext()).coordinateFormat,
         title: String = fragment.getString(R.string.location)
     ) {
         val locationSenders = mapOf(

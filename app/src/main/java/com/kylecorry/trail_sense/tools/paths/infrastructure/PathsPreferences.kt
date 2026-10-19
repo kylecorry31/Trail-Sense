@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.paths.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.preferences.BooleanPreference
+import com.kylecorry.andromeda.preferences.IntEnumPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.andromeda.sense.location.GPSPowerUsage
 import com.kylecorry.sol.units.Distance
@@ -15,12 +16,20 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
+import com.kylecorry.trail_sense.tools.paths.ui.PathSortMethod
 import java.time.Duration
 
 class PathsPreferences(private val context: Context) : IPathPreferences {
 
     private val cache by lazy { PreferencesSubsystem.getInstance(context).preferences }
     private val gps by lazy { GPSPreferences(context) }
+
+    var pathSort: PathSortMethod by IntEnumPreference(
+        cache,
+        context.getString(R.string.pref_path_sort),
+        PathSortMethod.entries.associateBy { it.id.toInt() },
+        PathSortMethod.MostRecent
+    )
 
     var backtrackEnabled by BooleanPreference(
         cache,

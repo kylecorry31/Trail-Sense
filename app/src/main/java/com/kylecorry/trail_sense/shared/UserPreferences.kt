@@ -19,6 +19,7 @@ import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.CustomBottomNavigationView
+import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.settings.backup.BackupPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.AltimeterPreferences
 import com.kylecorry.trail_sense.tools.augmented_reality.infrastructure.AugmentedRealityPreferences
@@ -184,6 +185,21 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         ),
         if (isMetricPreferred) TemperatureUnits.Celsius else TemperatureUnits.Fahrenheit,
         saveDefault = true
+    )
+
+    val coordinateFormat by StringEnumPreference(
+        cache,
+        getString(R.string.pref_coordinate_format),
+        mapOf(
+            "dd" to BuiltInCoordinateFormat.DecimalDegrees,
+            "ddm" to BuiltInCoordinateFormat.DegreesDecimalMinutes,
+            "dms" to BuiltInCoordinateFormat.DegreesMinutesSeconds,
+            "utm" to BuiltInCoordinateFormat.UTM,
+            "mgrs" to BuiltInCoordinateFormat.MGRS,
+            "usng" to BuiltInCoordinateFormat.USNG,
+            "osng" to BuiltInCoordinateFormat.OSGB
+        ),
+        BuiltInCoordinateFormat.DecimalDegrees
     )
 
     val use24HourTime by BooleanPreference(

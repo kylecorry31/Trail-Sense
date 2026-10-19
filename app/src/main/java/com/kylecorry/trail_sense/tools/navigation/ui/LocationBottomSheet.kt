@@ -37,7 +37,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        format = prefs.navigation.coordinateFormat
+        format = prefs.coordinateFormat
 
         binding.locationTitle.title.textSize = 32f
         binding.locationTitle.subtitle.setCompoundDrawables(

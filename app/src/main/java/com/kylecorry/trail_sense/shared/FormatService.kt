@@ -561,7 +561,7 @@ class FormatService private constructor(private val context: Context) {
         fallbackToDD: Boolean = true
     ): String {
         val formatted =
-            builtInCoordinateFormatMap[format ?: prefs.navigation.coordinateFormat]?.toString(
+            builtInCoordinateFormatMap[format ?: prefs.coordinateFormat]?.toString(
                 location
             ) ?: "?"
         if (formatted == "?" && fallbackToDD) {

@@ -106,7 +106,7 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
             (it as PathGroup?)?.name ?: getString(R.string.paths)
         }
 
-        sort = prefs.navigation.pathSort
+        sort = prefs.paths.pathSort
 
         // TODO: See if it is possible to get notified of changes without loading all paths
         observeFlow(pathService.getPaths()) {
@@ -122,7 +122,7 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
 
 
         binding.pathsTitle.rightButton.setOnClickListener {
-            val defaultSort = prefs.navigation.pathSort
+            val defaultSort = prefs.paths.pathSort
             Pickers.menu(
                 it,
                 listOf(
@@ -218,10 +218,10 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
             requireContext(),
             getString(R.string.sort),
             sortOptions.map { getSortString(it) },
-            sortOptions.indexOf(prefs.navigation.pathSort)
+            sortOptions.indexOf(prefs.paths.pathSort)
         ) { newSort ->
             if (newSort != null) {
-                prefs.navigation.pathSort = sortOptions[newSort]
+                prefs.paths.pathSort = sortOptions[newSort]
                 sort = sortOptions[newSort]
                 onSortChanged()
             }
