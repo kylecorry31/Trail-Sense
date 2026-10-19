@@ -150,7 +150,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         binding.displayDate.searchEnabled = true
         binding.displayDate.setOnSearchListener {
-            val options = listOfNotNull(
+            val options = listOf(
                 AstronomyEvent.FullMoon,
                 AstronomyEvent.NewMoon,
                 AstronomyEvent.QuarterMoon,
@@ -160,7 +160,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 AstronomyEvent.Supermoon
             )
 
-            val optionNames = listOfNotNull(
+            val optionNames = listOf(
                 getString(R.string.full_moon),
                 getString(R.string.new_moon),
                 getString(R.string.quarter_moon),
@@ -286,7 +286,10 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         binding.astronomyDetailList.isVisible = true
         binding.button3d.isVisible =
             Tools.isToolAvailable(requireContext(), Tools.AUGMENTED_REALITY)
-        val displayDate = binding.displayDate.date
+        plotCurrentPositions(binding.displayDate.date)
+    }
+
+    private fun plotCurrentPositions(displayDate: LocalDate) {
         if (displayDate == LocalDate.now()) {
             plotMoonImage(data.moon)
             plotSunImage(data.sun)
@@ -299,7 +302,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     private fun getSunMoonPositions(time: ZonedDateTime): AstroPositions {
         val moonPosition = astronomyService.getMoonPosition(location, time)
         val sunPosition = astronomyService.getSunPosition(location, time)
-        val declination = if (!prefs.compass.useTrueNorth) getDeclination() else 0f
+        val declination = getDeclination()
 
         val sunAzimuth =
             sunPosition.azimuth.withDeclination(-declination).value
@@ -349,7 +352,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun getDeclination(): Float {
-        return declination.getDeclination()
+        return if (prefs.compass.useTrueNorth) 0f else declination.getDeclination()
     }
 
     private suspend fun updateMoonUI() {
@@ -399,14 +402,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
         onMain {
             chart.plot(data.sun, data.moon)
-
-            if (displayDate == LocalDate.now()) {
-                plotMoonImage(data.moon)
-                plotSunImage(data.sun)
-            } else {
-                chart.moveSun(null)
-                chart.moveMoon(null)
-            }
+            plotCurrentPositions(displayDate)
         }
     }
 
@@ -439,29 +435,25 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         val displayDate = binding.displayDate.date
 
         onDefault {
-            val declination = if (!prefs.compass.useTrueNorth) getDeclination() else 0f
+            val declination = getDeclination()
 
             val items = producers.map { it.getListItem(displayDate, location, declination) }
 
             onMain {
                 binding.astronomyDetailList.setItems(items.filterNotNull())
             }
-
         }
     }
-
 
     private suspend fun displayTimeUntilNextSunEvent() {
         val currentTime = LocalDateTime.now()
 
-        var nextSunrise: LocalDateTime?
-        var nextSunset: LocalDateTime?
-        withContext(Dispatchers.Default) {
-            nextSunrise = astronomyService.getNextSunrise(location, sunTimesMode)
-            nextSunset = astronomyService.getNextSunset(location, sunTimesMode)
+        val (nextSunrise, nextSunset) = onDefault {
+            astronomyService.getNextSunrise(location, sunTimesMode) to
+                    astronomyService.getNextSunset(location, sunTimesMode)
         }
 
-        withContext(Dispatchers.Main) {
+        onMain {
             if (nextSunrise != null && (nextSunset == null || nextSunrise.isBefore(nextSunset))) {
                 binding.astronomyTitle.title.text =
                     formatService.formatDuration(Duration.between(currentTime, nextSunrise))

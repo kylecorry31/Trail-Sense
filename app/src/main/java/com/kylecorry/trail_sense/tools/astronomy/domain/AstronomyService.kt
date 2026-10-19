@@ -241,9 +241,8 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         date: LocalDate = LocalDate.now()
     ): MeteorShowerPeak? {
         val today = date.atTime(12, 0).toZonedDateTime()
-        val todays = Astronomy.getMeteorShower(location, today)
-        val tomorrows = Astronomy.getMeteorShower(location, today.plusDays(1))
-        return todays ?: tomorrows
+        return Astronomy.getMeteorShower(location, today)
+            ?: Astronomy.getMeteorShower(location, today.plusDays(1))
     }
 
     fun getMeteorShowerPeakPosition(peak: MeteorShowerPeak, location: Coordinate): CelestialObservation {
@@ -428,65 +427,35 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         maxSearch: Duration = Duration.ofDays(365 * 2L)
     ): LocalDate? = onDefault {
         // An update to this algorithm is planned to make it more efficient
-        var isInEvent = when (event) {
-            AstronomyEvent.FullMoon -> getMoonPhase(start).phase == MoonTruePhase.Full
-            AstronomyEvent.NewMoon -> getMoonPhase(start).phase == MoonTruePhase.New
-            AstronomyEvent.QuarterMoon -> listOf(
-                MoonTruePhase.FirstQuarter,
-                MoonTruePhase.ThirdQuarter
-            ).contains(getMoonPhase(start).phase)
-
-            AstronomyEvent.MeteorShower -> getMeteorShower(
-                location,
-                start
-            )?.peak?.toLocalDate() == start
-
-            AstronomyEvent.LunarEclipse -> getLunarEclipse(
-                location,
-                start
-            ) != null
-
-            AstronomyEvent.Supermoon -> isSuperMoon(start)
-            AstronomyEvent.SolarEclipse -> getSolarEclipse(
-                location,
-                start
-            ) != null
-        }
+        var isInEvent = hasEvent(event, location, start)
         var date = start.plusDays(1)
         val end = start.plusDays(maxSearch.toDays())
         while (date <= end) {
             ensureActive()
-            val hasEvent = when (event) {
-                AstronomyEvent.FullMoon -> getMoonPhase(date).phase == MoonTruePhase.Full
-                AstronomyEvent.NewMoon -> getMoonPhase(date).phase == MoonTruePhase.New
-                AstronomyEvent.QuarterMoon -> listOf(
-                    MoonTruePhase.FirstQuarter,
-                    MoonTruePhase.ThirdQuarter
-                ).contains(getMoonPhase(date).phase)
-
-                AstronomyEvent.MeteorShower -> getMeteorShower(
-                    location,
-                    date
-                )?.peak?.toLocalDate() == date
-
-                AstronomyEvent.LunarEclipse -> getLunarEclipse(
-                    location,
-                    date
-                ) != null
-
-                AstronomyEvent.Supermoon -> isSuperMoon(date)
-                AstronomyEvent.SolarEclipse -> getSolarEclipse(
-                    location,
-                    date
-                ) != null
-            }
-            if (hasEvent && !isInEvent) {
+            val isEventDay = hasEvent(event, location, date)
+            if (isEventDay && !isInEvent) {
                 return@onDefault date
             }
-            isInEvent = hasEvent
+            isInEvent = isEventDay
             date = date.plusDays(1)
         }
         return@onDefault null
+    }
+
+    private fun hasEvent(event: AstronomyEvent, location: Coordinate, date: LocalDate): Boolean {
+        return when (event) {
+            AstronomyEvent.FullMoon -> getMoonPhase(date).phase == MoonTruePhase.Full
+            AstronomyEvent.NewMoon -> getMoonPhase(date).phase == MoonTruePhase.New
+            AstronomyEvent.QuarterMoon -> getMoonPhase(date).phase in listOf(
+                MoonTruePhase.FirstQuarter,
+                MoonTruePhase.ThirdQuarter
+            )
+
+            AstronomyEvent.MeteorShower -> getMeteorShower(location, date)?.peak?.toLocalDate() == date
+            AstronomyEvent.LunarEclipse -> getLunarEclipse(location, date) != null
+            AstronomyEvent.Supermoon -> isSuperMoon(date)
+            AstronomyEvent.SolarEclipse -> getSolarEclipse(location, date) != null
+        }
     }
 
     companion object {

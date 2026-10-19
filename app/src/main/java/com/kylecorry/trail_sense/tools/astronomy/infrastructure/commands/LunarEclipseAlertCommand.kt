@@ -69,8 +69,4 @@ class LunarEclipseAlertCommand(private val context: Context) : Command<Coordinat
         return "$timeSpan\n$eclipseAmount"
     }
 
-    companion object {
-        private const val TAG = "LunarEclipseAlertCommand"
-    }
-
 }

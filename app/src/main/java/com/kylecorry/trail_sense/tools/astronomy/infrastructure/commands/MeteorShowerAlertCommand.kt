@@ -63,8 +63,4 @@ class MeteorShowerAlertCommand(private val context: Context) : Command<Coordinat
         return "$peak\n$rate"
     }
 
-    companion object {
-        private const val TAG = "MeteorShowerAlertCommand"
-    }
-
 }

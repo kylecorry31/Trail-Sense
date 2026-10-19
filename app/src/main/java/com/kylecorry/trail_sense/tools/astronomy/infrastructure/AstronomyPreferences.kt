@@ -29,19 +29,14 @@ class AstronomyPreferences(private val context: Context) {
             return cache.getBoolean(context.getString(R.string.pref_center_sun_and_moon)) ?: false
         }
 
+    private val sunMoonCompassMode: String
+        get() = cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "when_up"
+
     val showOnCompass: Boolean
-        get() {
-            val raw =
-                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "when_up"
-            return raw == "always" || raw == "when_up"
-        }
+        get() = sunMoonCompassMode.let { it == "always" || it == "when_up" }
 
     val showOnCompassWhenDown: Boolean
-        get() {
-            val raw =
-                cache.getString(context.getString(R.string.pref_show_sun_moon_compass)) ?: "when_up"
-            return raw == "always"
-        }
+        get() = sunMoonCompassMode == "always"
 
     var showAstronomyBands by BooleanPreference(
         cache,
