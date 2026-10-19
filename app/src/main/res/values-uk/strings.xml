@@ -519,7 +519,6 @@
     <string name="convert">Перетворення одиниць</string>
     <string name="map_perspective_instructions">Накресліть мапу</string>
     <string name="preview">Попередній перегляд</string>
-    <string name="pref_navigation_lock_screen_presence_title">Показувати на екрані блокування під час навігації</string>
     <string name="import_map">Імпортувати мапу</string>
     <string name="pref_cell_signal_refresh_cache_summary">Змушує завантажувати останні сили сигналу</string>
     <string name="pref_cell_signal_refresh_cache_title">Оновити кеш сигналу</string>

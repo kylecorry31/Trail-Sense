@@ -540,7 +540,6 @@
     <string name="whistle_signal_acknowledged">Ricevuto</string>
     <string name="weather_monitor">Monitoraggio meteo</string>
     <string name="no_groups">Nessun gruppo</string>
-    <string name="pref_navigation_lock_screen_presence_title">Mostra sulla schermata di blocco durante la navigazione</string>
     <string name="imperial_quarts">Quarti imperiali</string>
     <string name="volume">Volume</string>
     <string name="simplifying">Semplificando</string>

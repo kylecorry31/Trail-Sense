@@ -106,6 +106,29 @@ class PreferenceMigratorTest {
     }
 
     @Test
+    fun migratesLockScreenSwitchesToOneMode() {
+        val cases = listOf(
+            Triple(null, null, null),
+            Triple(false, false, null),
+            Triple(true, false, "navigating"),
+            Triple(false, true, "open"),
+            Triple(true, true, "open")
+        )
+        for ((navigating, open, expected) in cases) {
+            val settings = InMemoryPreferences()
+            navigating?.let { settings.putBoolean("pref_navigation_show_on_lock_screen", it) }
+            open?.let { settings.putBoolean("pref_navigation_keep_unlocked", it) }
+
+            PreferenceMigrator.migrations.first { it.fromVersion == 38 }
+                .action(lockScreenContext(), settings)
+
+            assertEquals(expected, settings.getString("pref_navigation_lock_screen_mode"))
+            assertFalse(settings.contains("pref_navigation_show_on_lock_screen"))
+            assertFalse(settings.contains("pref_navigation_keep_unlocked"))
+        }
+    }
+
+    @Test
     fun runsEveryMigrationInOrderForANewInstall() {
         val ran = migrate()
 
@@ -245,6 +268,13 @@ class PreferenceMigratorTest {
         return mock<Context>().also {
             whenever(it.getString(R.string.pref_backtrack_enabled)).thenReturn("backtrack_enabled")
             whenever(it.getString(R.string.pref_backtrack_frequency)).thenReturn("backtrack_frequency")
+        }
+    }
+
+    private fun lockScreenContext(): Context {
+        return mock<Context>().also {
+            whenever(it.getString(R.string.pref_navigation_lock_screen_mode))
+                .thenReturn("pref_navigation_lock_screen_mode")
         }
     }
 

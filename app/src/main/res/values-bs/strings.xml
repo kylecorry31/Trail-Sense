@@ -133,7 +133,6 @@
     <string name="import_map">Uvezi kartu</string>
     <string name="pref_cell_signal_refresh_cache_summary">Prisiljava učitavanje najnovijih snaga signala</string>
     <string name="pref_cell_signal_refresh_cache_title">Osvježite predmemoriju signala</string>
-    <string name="pref_navigation_lock_screen_presence_title">Prikaži na zaključanom ekranu tijekom navigacije</string>
     <string name="map_perspective_instructions">Zacrtajte kartu</string>
     <string name="preview">Pregled</string>
     <string name="move">Premjesti</string>

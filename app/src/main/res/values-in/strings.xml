@@ -416,7 +416,6 @@
     <string name="coordinates_tab">Koordinat</string>
     <string name="move">Pindah</string>
     <string name="pref_cell_signal_refresh_cache_summary">Memaksa memuat kekuatan sinyal terbaru</string>
-    <string name="pref_navigation_lock_screen_presence_title">Tampilkan di layar kunci saat menavigasi</string>
     <string name="unit_feet">Kaki</string>
     <string name="water_purification_step_1">Menyaring air</string>
     <string name="water_purification_step_2">Rebus air hingga mendidih</string>

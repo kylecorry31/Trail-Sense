@@ -34,19 +34,15 @@
             app:key="@string/pref_show_calibrate_on_navigate_dialog"
             app:singleLineTitle="false" />
 
-        <SwitchPreferenceCompat
-            android:title="@string/pref_navigation_lock_screen_presence_title"
-            app:defaultValue="false"
+        <ListPreference
+            app:defaultValue="never"
+            app:entries="@array/navigation_lock_screen_entries"
+            app:entryValues="@array/navigation_lock_screen_values"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_navigation_lock_screen_presence"
-            app:singleLineTitle="false" />
-
-        <SwitchPreferenceCompat
-            android:title="@string/pref_navigation_lock_screen_when_open_title"
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_navigation_keep_unlocked"
-            app:singleLineTitle="false" />
+            app:key="@string/pref_navigation_lock_screen_mode"
+            app:singleLineTitle="false"
+            app:title="@string/pref_navigation_lock_screen_title"
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"

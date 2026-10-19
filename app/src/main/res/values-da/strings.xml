@@ -290,7 +290,6 @@
     <string name="no_groups">Ingen grupper</string>
     <string name="move">Flyt</string>
     <string name="move_to">Flyt til</string>
-    <string name="pref_navigation_lock_screen_presence_title">Vis på låseskærmen, mens du navigerer</string>
     <string name="notifications_blocked">Notifikationer blokeret</string>
     <string name="diagnostics">Diagnostik</string>
     <string name="precipitation_rain">Regn</string>

@@ -521,7 +521,6 @@
     <string name="import_map">Импортировать карту</string>
     <string name="pref_cell_signal_refresh_cache_summary">Заставляет загружать последние уровни сигнала</string>
     <string name="pref_cell_signal_refresh_cache_title">Обновить кэш сигнала</string>
-    <string name="pref_navigation_lock_screen_presence_title">Показывать на экране блокировки во время навигации</string>
     <string name="preview">Предпросмотр</string>
     <string name="moved_to">Перемещено в %s</string>
     <string name="move">Переместить</string>

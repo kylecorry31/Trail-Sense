@@ -609,7 +609,6 @@
     <string name="temperature_history">היסטוריית טמפרטורה - אחרונה %s</string>
     <string name="pref_barometer_info_summary">הלחץ עשוי להיות שונה מזה של תחנות סמוכות</string>
     <string name="preview">תצוגה מקדימה</string>
-    <string name="pref_navigation_lock_screen_presence_title">הצג במסך הנעילה בזמן הניווט</string>
     <string name="pref_cell_signal_refresh_cache_summary">מאלץ טעינת עוצמת האות העדכנית ביותר</string>
     <string name="roll_pitch_yaw">גליל: %1$s, גובה: %2$s, פיתול: %3$s</string>
     <string name="location_not_mocked">שימוש במיקום בפועל</string>

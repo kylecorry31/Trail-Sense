@@ -486,7 +486,6 @@
     <string name="convert">Dönüştür</string>
     <string name="map_perspective_instructions">Haritanın ana hatlarını çiz</string>
     <string name="preview">Ön izleme</string>
-    <string name="pref_navigation_lock_screen_presence_title">Gezinirken kilit ekranında göster</string>
     <string name="import_map">Haritayı içe aktar</string>
     <string name="pref_cell_signal_refresh_cache_summary">En yeni sinyal güçlerini yüklemeye zorlar</string>
     <string name="pref_cell_signal_refresh_cache_title">Sinyal ön belleğini yenile</string>

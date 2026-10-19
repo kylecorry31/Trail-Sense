@@ -539,7 +539,6 @@
     <string name="no_groups">Žádné skupiny</string>
     <string name="weather_monitor">Monitor počasí</string>
     <string name="coordinates_tab">Souřadnice</string>
-    <string name="pref_navigation_lock_screen_presence_title">Zobrazit na uzamčené obrazovce při navigaci</string>
     <string name="battery_history">Historie baterie - poslední %s</string>
     <string name="map_perspective_instructions">Načrtněte mapu</string>
     <string name="clinometer_measure_distance_title">Výška cíle</string>

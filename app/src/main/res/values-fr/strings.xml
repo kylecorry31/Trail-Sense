@@ -601,7 +601,6 @@
     <string name="meteor_shower">Pluie de météores</string>
     <string name="kilograms">Kilogrammes</string>
     <string name="weight">Masse</string>
-    <string name="pref_navigation_lock_screen_presence_title">Afficher sur l’écran de verrouillage lors de la navigation</string>
     <string name="base_elevation">Altitude de base</string>
     <string name="ounces_weight_format">%s oz</string>
     <string name="no_packing_lists">Pas de listes</string>

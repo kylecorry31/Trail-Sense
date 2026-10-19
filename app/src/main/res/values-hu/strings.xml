@@ -694,7 +694,6 @@
     <string name="convert">Átalakítás</string>
     <string name="pref_barometer_info_summary">A nyomás eltérhet a közeli állomásokétól</string>
     <string name="distance">Távolság</string>
-    <string name="pref_navigation_lock_screen_presence_title">Mutatás a zárolt képernyőn navigálás közben</string>
     <string name="pref_cell_signal_refresh_cache_summary">Kényszeríti a legfrissebb térerőadat betöltését</string>
     <string name="roll_pitch_yaw">Vízszintes dőlés: %1$s, Függőleges dőlés: %2$s, Elfordulás: %3$s</string>
     <string name="privacy">Biztonság</string>

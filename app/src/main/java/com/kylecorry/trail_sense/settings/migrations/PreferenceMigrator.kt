@@ -97,7 +97,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
-        internal const val version = 38
+        internal const val version = 39
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -623,6 +623,22 @@ class PreferenceMigrator private constructor() {
                         )
                     )
                 }
+            },
+            PreferenceMigration(38, 39) { context, prefs ->
+                val showWhileNavigatingKey = "pref_navigation_show_on_lock_screen"
+                val showWhileOpenKey = "pref_navigation_keep_unlocked"
+                val modeKey = context.getString(R.string.pref_navigation_lock_screen_mode)
+                // Showing while open also covers navigating, so it takes priority
+                val mode = when {
+                    prefs.getBoolean(showWhileOpenKey) == true -> "open"
+                    prefs.getBoolean(showWhileNavigatingKey) == true -> "navigating"
+                    else -> null
+                }
+                if (mode != null) {
+                    prefs.putString(modeKey, mode)
+                }
+                prefs.remove(showWhileNavigatingKey)
+                prefs.remove(showWhileOpenKey)
             }
         )
 

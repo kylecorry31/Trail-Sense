@@ -605,7 +605,6 @@
     <string name="high">高</string>
     <string name="pref_daily_weather_time_title">每天天氣時間</string>
     <string name="color">顏色</string>
-    <string name="pref_navigation_lock_screen_presence_title">導航時在鎖定螢幕上顯示</string>
     <string name="pref_experimental_metal_direction_title">顯示金屬方向</string>
     <string name="us_pints">美制品脫</string>
     <string name="us_quarts">美制夸脫</string>

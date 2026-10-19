@@ -268,7 +268,6 @@
         <item quantity="other">นำเข้า %d บีคอนแล้ว</item>
     </plurals>
     <string name="pref_navigation_lock_screen_when_open_title">แสดงบนหน้าจอล็อกไว้ระหว่างที่เปิด</string>
-    <string name="pref_navigation_lock_screen_presence_title">แสดงบนหน้าจอล็อกไว้ระหว่างที่นำทาง</string>
     <string name="guide_map_layers">ชั้นเลเยอร์แผนที่</string>
     <string name="layers">เลเยอร์</string>
     <string name="gps_signal_lost">สัญญาณ GPS ขาดหาย</string>

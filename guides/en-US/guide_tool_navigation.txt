@@ -60,10 +60,11 @@ Phone compasses are not always accurate, so you should frequently calibrate your
 When you start navigating to a beacon, Trail Sense reminds you to calibrate your compass. You can tick 'Do not ask again' in the reminder, or turn this off in Settings > Navigation > Calibrate before navigating.
 
 ## Lock screen
-By default, Trail Sense follows your device's lock screen behavior. You can change this in Settings > Navigation:
+By default, Trail Sense follows your device's lock screen behavior. You can change this in Settings > Navigation > 'Show on lock screen':
 
-- **Show on lock screen while navigating**: Keeps Trail Sense visible over your lock screen while you are navigating.
-- **Show on lock screen while open**: Keeps Trail Sense visible over your lock screen whenever the Navigation tool is open.
+- **Never**: Follows your device's lock screen behavior.
+- **While navigating**: Keeps Trail Sense visible over your lock screen while you are navigating.
+- **While open**: Keeps Trail Sense visible over your lock screen whenever the Navigation tool is open.
 
 ## Beacon navigation
 

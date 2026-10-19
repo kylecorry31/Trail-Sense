@@ -595,7 +595,6 @@
     <string name="water_purification_step_3">Käynnistä ajastin</string>
     <string name="gps_signal_lost">GPS-signaali kadotettiin</string>
     <string name="unable_to_find_next_astronomy">Seuraavaa %s ei löydy</string>
-    <string name="pref_navigation_lock_screen_presence_title">Näytä lukitusnäytöllä navigoinnin aikana</string>
     <string name="delete_waypoint_prompt">Poistetaanko majakka?</string>
     <string name="manual">Manuaalinen</string>
     <string name="action_inventory_clear_confirm">Nollaa pakattujen esineiden määrät?</string>

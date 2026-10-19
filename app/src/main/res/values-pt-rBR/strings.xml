@@ -473,7 +473,6 @@
     <string name="sensor_gyroscope">Giroscópio</string>
     <string name="import_map">Importar mapa</string>
     <string name="pref_cell_signal_refresh_cache_title">Atualizar o cache do sinal da rede móvel</string>
-    <string name="pref_navigation_lock_screen_presence_title">Mostrar na tela de bloqueio durante a navegação</string>
     <string name="map_perspective_instructions">Descreva o mapa</string>
     <string name="preview">Pré-visualização</string>
     <string name="moved_to">Movido para %s</string>

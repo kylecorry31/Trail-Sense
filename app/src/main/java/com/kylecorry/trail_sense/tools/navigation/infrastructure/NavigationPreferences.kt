@@ -32,15 +32,18 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
             _showCalibrationOnNavigateDialog = value
         }
 
-    val keepScreenUnlockedWhileNavigating: Boolean
-        get() = cache.getBoolean(context.getString(R.string.pref_navigation_lock_screen_presence))
-            ?: false
-
-    val keepScreenUnlockedWhileOpen by BooleanPreference(
+    private val screenLockMode by StringEnumPreference(
         cache,
-        context.getString(R.string.pref_navigation_keep_unlocked),
-        false
+        context.getString(R.string.pref_navigation_lock_screen_mode),
+        ScreenLockMode.entries.associateBy { it.id },
+        ScreenLockMode.Never
     )
+
+    val keepScreenUnlockedWhileNavigating: Boolean
+        get() = screenLockMode != ScreenLockMode.Never
+
+    val keepScreenUnlockedWhileOpen: Boolean
+        get() = screenLockMode == ScreenLockMode.WhileOpen
 
     override val useLinearCompass: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_show_linear_compass)) ?: true
@@ -158,6 +161,12 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
                 km.toString()
             )
         }
+
+    enum class ScreenLockMode(val id: String) {
+        Never("never"),
+        WhileNavigating("navigating"),
+        WhileOpen("open")
+    }
 
     enum class SpeedometerMode {
         Backtrack,

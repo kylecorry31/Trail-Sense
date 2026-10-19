@@ -512,7 +512,6 @@
     <string name="convert">Umrechner</string>
     <string name="map_perspective_instructions">Umriss der Karte</string>
     <string name="preview">Vorschau</string>
-    <string name="pref_navigation_lock_screen_presence_title">Während der Navigation auf dem Sperrbildschirm zeigen</string>
     <string name="import_map">Karte importieren</string>
     <string name="pref_cell_signal_refresh_cache_summary">Erzwingt das Laden der letzten Signalstärken</string>
     <string name="pref_cell_signal_refresh_cache_title">Signalcache erneuern</string>

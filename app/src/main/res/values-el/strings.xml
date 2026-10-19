@@ -734,7 +734,6 @@
     <string name="astronomy_alerts">Ειδοποιήσεις για αστρονομικά συμβάντα</string>
     <string name="export_path_error">Δεν ήταν δυνατό να εξαχθεί η διαδρομή</string>
     <string name="unit_yards">Γιάρδες</string>
-    <string name="pref_navigation_lock_screen_presence_title">Εμφάνιση στην οθόνη κλειδώματος κατά την πλοήγηση</string>
     <string name="lunar_eclipse">Έκλειψη σελήνης</string>
     <string name="season_summer">Καλοκαίρι</string>
     <string name="solar_eclipses">Εκλείψεις ηλίου</string>

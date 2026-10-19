@@ -629,7 +629,6 @@
     <string name="move">Flytta</string>
     <string name="preview">Förhandsgranska</string>
     <string name="map_perspective_instructions">Markera kartans kontur</string>
-    <string name="pref_navigation_lock_screen_presence_title">Visa på låsskärmen under navigering</string>
     <string name="pref_navigation_lock_screen_when_open_title">Visa på låsskärmen medan appen är öppen</string>
     <string name="pref_cell_signal_refresh_cache_title">Uppdatera signalcachen</string>
     <string name="pref_cell_signal_refresh_cache_summary">Tvingar inläsning av de senaste signalstyrkorna</string>

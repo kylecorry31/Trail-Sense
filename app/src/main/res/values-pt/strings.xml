@@ -552,7 +552,6 @@
     <string name="import_map">Importar mapa</string>
     <string name="pref_cell_signal_refresh_cache_summary">Força o carregamento dos últimos níveis de sinal de antena do telemóvel</string>
     <string name="pref_cell_signal_refresh_cache_title">Atualizar a cache do sinal de antena do telemóvel</string>
-    <string name="pref_navigation_lock_screen_presence_title">Mostrar no ecrã de bloqueio durante a navegação</string>
     <string name="map_perspective_instructions">Endireitar o mapa</string>
     <string name="moved_to">Movido para %s</string>
     <string name="move">Mover</string>

@@ -795,8 +795,10 @@
     <string name="moved_to">Moved to %s</string>
     <string name="preview">Preview</string>
     <string name="map_perspective_instructions">Outline the map</string>
-    <string name="pref_navigation_lock_screen_presence" translatable="false">pref_navigation_show_on_lock_screen</string>
-    <string name="pref_navigation_lock_screen_presence_title">Show on lock screen while navigating</string>
+    <string name="pref_navigation_lock_screen_mode" translatable="false">pref_navigation_lock_screen_mode</string>
+    <string name="pref_navigation_lock_screen_title">Show on lock screen</string>
+    <string name="pref_navigation_lock_screen_while_navigating">While navigating</string>
+    <string name="pref_navigation_lock_screen_while_open">While open</string>
     <string name="pref_navigation_lock_screen_when_open_title">Show on lock screen while open</string>
     <string name="pref_temperature_settings" translatable="false">pref_temperature_settings</string>
     <string name="pref_cell_signal_refresh_cache" translatable="false">pref_cell_signal_refresh_cache</string>
@@ -1828,7 +1830,6 @@
     <string name="show_on_map">Show on map</string>
     <string name="safe_mode_toast">Crashes detected, disabling some features for a few seconds.</string>
     <string name="opacity">Opacity</string>
-    <string name="pref_navigation_keep_unlocked" translatable="false">pref_navigation_keep_unlocked</string>
     <string name="pref_photo_maps_keep_unlocked" translatable="false">pref_photo_maps_keep_unlocked</string>
     <string name="pref_photo_maps_high_detail_mode" translatable="false">pref_photo_maps_high_detail_mode</string>
     <string name="pref_high_detail_mode_title">High detail mode</string>
