@@ -258,17 +258,17 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         }
 
         binding.beaconBtn.setOnLongClickListener {
-            if (gps.hasValidReading) {
-                val bundle = Bundle().apply {
+            val bundle = if (gps.hasValidReading) {
+                Bundle().apply {
                     putParcelable("initial_location", GeoUri(
                         gps.location,
                         if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
                     ))
                 }
-                findNavController().openTool(Tools.BEACONS, bundle)
             } else {
-                findNavController().openTool(Tools.BEACONS)
+                null
             }
+            findNavController().openTool(Tools.BEACONS, bundle)
             true
         }
 
@@ -290,10 +290,6 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                 layers.resume(binding.radarCompassMap, this)
             }
             layerSheet?.show(this)
-        }
-
-        binding.linearCompass.setOnClickListener {
-            toggleDestinationBearing()
         }
 
         binding.radarCompassMap.isPanEnabled = false
@@ -655,10 +651,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             // Destination
             if (destinationBeacon != null) {
                 navigationCompassLayer.setDestination(destinationBeacon)
-            } else if (direction != null) {
-                navigationCompassLayer.setDestination(direction)
             } else {
-                navigationCompassLayer.setDestination(null as MappableBearing?)
+                navigationCompassLayer.setDestination(direction)
             }
         }
     }

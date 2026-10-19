@@ -31,7 +31,7 @@ class NavigationService {
         usingTrueNorth: Boolean = true
     ): NavigationVector {
         val originalVector = navigate(fromLocation, to.coordinate, declination, usingTrueNorth)
-        val altitudeChange = if (to.elevation != null) to.elevation - fromElevation else null
+        val altitudeChange = to.elevation?.let { it - fromElevation }
         return originalVector.copy(altitudeChange = altitudeChange)
     }
 
@@ -58,10 +58,7 @@ class NavigationService {
     ): Float {
         val distance = from.distanceTo(to)
         val elevationGain =
-            max(
-                if (toAltitude == null || fromAltitude == null) 0f else (toAltitude - fromAltitude),
-                0f
-            )
+            if (toAltitude == null || fromAltitude == null) 0f else max(toAltitude - fromAltitude, 0f)
 
         return distance + 7.92f * elevationGain
     }

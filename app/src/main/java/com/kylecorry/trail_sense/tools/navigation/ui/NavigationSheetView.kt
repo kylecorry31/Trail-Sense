@@ -300,16 +300,13 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         }
 
         toolbar.subtitle.text = formatter.join(
-            *listOfNotNull(
-                formatter.formatLocation(beacon.coordinate),
-                if (elevationDistance != null) context.getString(
+            formatter.formatLocation(beacon.coordinate),
+            elevationDistance?.let {
+                context.getString(
                     R.string.elevation_value,
-                    formatter.formatDistance(
-                        elevationDistance,
-                        Units.getDecimalPlaces(elevationDistance.units)
-                    )
-                ) else null
-            ).toTypedArray(),
+                    formatter.formatDistance(it, Units.getDecimalPlaces(it.units))
+                )
+            },
             separator = FormatService.Separator.NewLine
         )
 
@@ -385,10 +382,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private fun updateDestinationElevation(elevationChange: Float?) {
         elevationDataView.isVisible = elevationChange != null
         if (elevationChange != null) {
-            val direction = when {
-                elevationChange > 0 -> context.getString(R.string.increase)
-                else -> ""
-            }
+            val direction = if (elevationChange > 0) context.getString(R.string.increase) else ""
 
             val elevationChangeDist =
                 Distance.meters(elevationChange).convertTo(prefs.baseDistanceUnits)
