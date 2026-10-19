@@ -77,7 +77,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.factories.IPointDisplayFacto
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.BacktrackScheduler
-import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.BacktrackCommand
+import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.AddPathPointCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathColorCommand
 import com.kylecorry.trail_sense.tools.paths.ui.commands.ChangePathLineStyleCommand
@@ -237,7 +237,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             inBackground {
                 var wasSuccessful = false
                 val job = launch {
-                    BacktrackCommand(requireContext(), pathId).execute()
+                    AddPathPointCommand(requireContext(), pathId).execute()
                     wasSuccessful = true
                 }
 

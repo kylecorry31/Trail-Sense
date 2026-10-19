@@ -8,35 +8,28 @@ import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.networkQuality
 import com.kylecorry.trail_sense.shared.safeRoundPlaces
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
-import com.kylecorry.trail_sense.shared.sensors.MockCellSignalSensor
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.gps.age
-import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.ShouldRecordBacktrackPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import java.time.Instant
 
-class BacktrackCommand(
-    private val context: Context,
-    private val pathId: Long = 0,
-    private val alerter: IValueAlerter<Path> = BacktrackAlerter(context)
-) : CoroutineCommand {
+class BacktrackCommand(private val context: Context) : CoroutineCommand {
 
     private val prefs = UserPreferences(context)
 
     private val sensorService = SensorService(context)
-    private val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = "BacktrackCommand")
+    private val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = TAG)
     private val altimeter = sensorService.getAltimeter(gps = gps)
     private val cellSignalSensor =
-        if (prefs.paths.backtrackSaveCellHistory && pathId == 0L) sensorService.getCellSignal() else MockCellSignalSensor()
+        if (prefs.paths.backtrackSaveCellHistory) sensorService.getCellSignal() else null
 
     private val pathService = PathService.getInstance(context)
 
@@ -47,9 +40,9 @@ class BacktrackCommand(
         val outcome = if (point == null) "Skipped" else "Recorded"
         getAppService<Logger>().info(
             TAG,
-            "$outcome ${if (pathId == 0L) "backtrack" else "path $pathId"} point in ${SystemClock.elapsedRealtime() - start}ms " +
+            "$outcome backtrack point in ${SystemClock.elapsedRealtime() - start}ms " +
                 "(GPS: ${gps.hasValidReading}, Altitude: ${altimeter.hasValidReading}, " +
-                "Cell Signal: ${if (cellSignalSensor is MockCellSignalSensor) "N/A" else cellSignalSensor.hasValidReading})"
+                "Cell Signal: ${cellSignalSensor?.hasValidReading ?: "N/A"})"
         )
         if (point != null) {
             CreateLastSignalBeaconCommand(context).execute(point)
@@ -58,28 +51,24 @@ class BacktrackCommand(
     }
 
     private suspend fun showNotification() {
-        if (pathId != 0L) {
-            return
-        }
         val backtrackId = pathService.getBacktrackPathId() ?: return
         val backtrackPath = pathService.getPath(backtrackId) ?: return
-        alerter.alert(backtrackPath)
+        BacktrackAlerter(context).alert(backtrackPath)
     }
 
     private suspend fun updateSensors() {
         readAll(
-            listOf(gps, altimeter, cellSignalSensor),
+            listOfNotNull(gps, altimeter, cellSignalSensor),
             timeout = SensorService.GPS_READ_TIMEOUT,
             forceStopOnCompletion = true
         )
 
         if (!gps.hasValidReading || (gps as? CustomGPS)?.isTimedOut == true) {
             val reason = if (gps.hasValidReading) "timed out" else "no valid reading"
-            val path = if (pathId == 0L) "backtrack" else "path $pathId"
             val outcome = if (gps.hasValidReading) "recording" else "skipping"
             getAppService<Logger>().warn(
                 TAG,
-                "GPS did not receive a fix ($reason), $outcome $path point from a reading " +
+                "GPS did not receive a fix ($reason), $outcome backtrack point from a reading " +
                     "${gps.age(SystemTimeProvider()).seconds}s old with ${gps.horizontalAccuracy?.safeRoundPlaces(1)}m accuracy"
             )
         }
@@ -94,22 +83,18 @@ class BacktrackCommand(
 
             val waypoint = PathPoint(
                 0,
-                pathId,
+                0,
                 gps.location,
                 altimeter.altitude,
                 Instant.now(),
-                cellSignalSensor.networkQuality()
+                cellSignalSensor?.networkQuality()
             )
 
-            if (pathId == 0L) {
-                // Backtrack may have been stopped while waiting for a GPS fix
-                if (!prefs.paths.backtrackEnabled || !isFarEnoughFromPreviousPoint(waypoint)) {
-                    return@onIO null
-                }
-                pathService.addBacktrackPoint(waypoint)
-            } else {
-                pathService.addWaypoint(waypoint)
+            // Backtrack may have been stopped while waiting for a GPS fix
+            if (!prefs.paths.backtrackEnabled || !isFarEnoughFromPreviousPoint(waypoint)) {
+                return@onIO null
             }
+            pathService.addBacktrackPoint(waypoint)
             waypoint
         }
     }
