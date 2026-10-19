@@ -1,13 +1,13 @@
 This is currently just a running list of what is in the 8.3.0 release to make it easier to write these notes by hand later.
 
-- Added path navigation: follow a saved path to its end, to its start, to a specific point on it, or (for loops) to the trailhead, with guidance to rejoin the path if you leave it
+- Added path navigation
 - The navigation layer is now enabled by default on the radar compass and has a background color setting
 - Added a setting to show the start and end points of the navigation path on the map
 - Added the ability to replace a path's elevations with elevations from the digital elevation model
 - Added a minimum distance between recorded Backtrack points setting
 - Paths are now rendered in Augmented Reality as ribbons (the line style is still available in settings), with arrows showing the direction of travel while navigating a path
 - Augmented Reality guidance now supports path and bearing navigation and starts automatically when navigation is already active
-- Added a compass update frequency setting to the Map, Navigation, Photo Maps, and Augmented Reality tools
+- Added a compass update frequency setting to the compass calibration settings, used by the Map, Navigation, Photo Maps, and Augmented Reality tools
 - GPS location source is now a selector between GPS and Manual
 - Improved path loading and simplification
 - Added a loading indicator while paths are created and while path navigation is restored
@@ -38,3 +38,8 @@ This is currently just a running list of what is in the 8.3.0 release to make it
 - Added an elevation smoothing setting to Paths, with a preview of the smoothed elevations
 - Backtrack paths are now kept when stopped, and the Backtrack history default is longer
 - Tapping the Backtrack notification now opens the path being recorded, which can be stopped from the path details
+- Canceling navigation is now a single tap with an undo button instead of a confirmation
+- The calibrate compass reminder when navigating to a beacon is now only shown when the compass accuracy is low
+- Merged the navigation lock screen settings into a single 'Show on lock screen' setting (never, while navigating, or while open)
+- Improved the stale location indication: the GPS status badge shows searching and the location marker turns gray on maps
+- Fixed the Photo Maps compass declination waiting for the first GPS reading
