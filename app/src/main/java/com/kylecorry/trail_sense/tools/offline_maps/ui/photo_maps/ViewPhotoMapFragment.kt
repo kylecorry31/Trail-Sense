@@ -32,7 +32,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.declination.GPSDeclinationStrategy
+import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
@@ -66,7 +66,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val gps by lazy { sensorService.getGPS(tag = "ViewPhotoMapFragment") }
     private val altimeter by lazy { sensorService.getAltimeter(tag = "ViewPhotoMapFragment") }
     private lateinit var compass: ICompass
-    private val declinationProvider by lazy { GPSDeclinationStrategy(gps) }
+    private val declinationProvider by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconService by lazy { BeaconService(requireContext()) }
     private val service = getAppService<OfflineMapService>()
