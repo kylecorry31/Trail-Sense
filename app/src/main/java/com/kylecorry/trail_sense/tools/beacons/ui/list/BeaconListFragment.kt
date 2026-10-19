@@ -88,12 +88,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (requireArguments().containsKey("initial_location")) {
-            initialLocation = BundleCompat.getParcelable(
-                requireArguments(), "initial_location",
-                GeoUri::class.java
-            )
-        }
+        initialLocation = BundleCompat.getParcelable(
+            requireArguments(), "initial_location",
+            GeoUri::class.java
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -143,6 +141,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
         binding.createMenu.setOverlay(binding.overlayMask)
         binding.createMenu.setOnMenuItemClickListener {
+            setCreateMenuVisibility(false)
             when (it.itemId) {
                 R.id.action_import_qr_beacon -> {
                     requestCamera { hasPermission ->
@@ -152,13 +151,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                             alertNoCameraPermission()
                         }
                     }
-                    setCreateMenuVisibility(false)
                 }
 
-                R.id.action_import_gpx_beacons -> {
-                    importBeacons()
-                    setCreateMenuVisibility(false)
-                }
+                R.id.action_import_gpx_beacons -> importBeacons()
 
                 R.id.action_create_beacon_group -> {
                     val command =
@@ -166,13 +161,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
                             refresh()
                         }
                     command.execute(manager.root?.id)
-                    setCreateMenuVisibility(false)
                 }
 
-                R.id.action_create_beacon -> {
-                    setCreateMenuVisibility(false)
-                    createBeacon(group = manager.root?.id)
-                }
+                R.id.action_create_beacon -> createBeacon(group = manager.root?.id)
             }
             true
         }
@@ -189,17 +180,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
         }
 
         onBackPressed {
-            when {
-                isCreateMenuOpen() -> {
-                    setCreateMenuVisibility(false)
-                }
-
-                else -> {
-                    if (!manager.up()) {
-                        remove()
-                        navController.navigateUp()
-                    }
-                }
+            if (isCreateMenuOpen()) {
+                setCreateMenuVisibility(false)
+            } else if (!manager.up()) {
+                remove()
+                navController.navigateUp()
             }
         }
     }
@@ -406,13 +391,8 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun viewBeacon(id: Long) {
-        val bundle = Bundle().apply {
-            putLong("beacon_id", id)
-        }
-        navController.navigate(
-            R.id.action_beacon_list_to_beaconDetailsFragment,
-            bundle
-        )
+        val bundle = Bundle().apply { putLong("beacon_id", id) }
+        navController.navigate(R.id.action_beacon_list_to_beaconDetailsFragment, bundle)
     }
 
     private fun navigate(beacon: Beacon) {
@@ -422,8 +402,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     }
 
     private fun deleteCurrentGroup() {
-        val group = manager.root
-        delete(group as BeaconGroup?)
+        delete(manager.root as BeaconGroup?)
     }
 
     private fun delete(beacon: Beacon) {
@@ -500,13 +479,9 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private fun setGroupVisibility(group: BeaconGroup, visible: Boolean) {
         inBackground {
             Alerts.withLoading(requireContext(), getString(R.string.loading)) {
-                val beacons = onIO {
-                    beaconService.loader.getChildren(group.id, null).filterIsInstance<Beacon>()
-                }
-
                 onIO {
-                    beacons
-                        .asSequence()
+                    beaconService.loader.getChildren(group.id, null)
+                        .filterIsInstance<Beacon>()
                         .filter { it.visible != visible }
                         .forEach { beaconService.add(it.copy(visible = visible)) }
                 }
@@ -526,13 +501,11 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun navigateToNearestCellSignal() {
         inBackground {
-            val command = NavigateToNearestCellSignal(requireContext())
-            if (command.execute()) {
-                onMain {
-                    findNavController().navigate(R.id.action_navigation)
-                }
-            } else {
-                onMain {
+            val found = NavigateToNearestCellSignal(requireContext()).execute()
+            onMain {
+                if (found) {
+                    navController.navigate(R.id.action_navigation)
+                } else {
                     toast(getString(R.string.no_recorded_cell_signal_nearby))
                 }
             }
@@ -541,10 +514,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun handleBeaconGroupAction(group: BeaconGroup, action: BeaconGroupAction) {
         when (action) {
-            BeaconGroupAction.Open -> {
-                manager.open(group.id)
-            }
-
+            BeaconGroupAction.Open -> manager.open(group.id)
             BeaconGroupAction.ShowAll -> setGroupVisibility(group, true)
             BeaconGroupAction.HideAll -> setGroupVisibility(group, false)
             BeaconGroupAction.Edit -> rename(group)

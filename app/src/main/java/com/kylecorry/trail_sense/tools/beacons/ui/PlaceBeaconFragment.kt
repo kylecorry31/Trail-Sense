@@ -59,21 +59,9 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
             GeoUri::class.java
         )
 
-        editingBeaconId = if (beaconId == 0L) {
-            null
-        } else {
-            beaconId
-        }
+        editingBeaconId = beaconId.takeIf { it != 0L }
 
-        form.updateData(
-            form.data.copy(
-                groupId = if (groupId == 0L) {
-                    null
-                } else {
-                    groupId
-                }
-            )
-        )
+        form.updateData(form.data.copy(groupId = groupId.takeIf { it != 0L }))
     }
 
     private fun setEditingBeaconValues(beacon: Beacon) {
@@ -91,9 +79,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
                 }
 
                 onMain {
-                    beacon?.let {
-                        setEditingBeaconValues(it)
-                    }
+                    beacon?.let(::setEditingBeaconValues)
                 }
             }
         }
@@ -124,24 +110,15 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         }
 
         binding.beaconName.setOnTextFocusChangeListener { hasFocus ->
-            if (!hasFocus && !hasValidName()) {
-                binding.beaconName.setError(getString(R.string.beacon_invalid_name))
-            } else if (!hasFocus) {
-                binding.beaconName.setError(null)
+            if (!hasFocus) {
+                binding.beaconName.setError(
+                    if (hasValidName()) null else getString(R.string.beacon_invalid_name)
+                )
             }
         }
 
-        binding.beaconLocation.setOnAutoLocationClickListener {
-            if (binding.beaconElevation.elevation == null) {
-                binding.beaconElevation.autofill()
-            }
-        }
-
-        binding.beaconLocation.setOnBeaconSelectedListener {
-            if (binding.beaconElevation.elevation == null) {
-                binding.beaconElevation.autofill()
-            }
-        }
+        binding.beaconLocation.setOnAutoLocationClickListener { autofillElevationIfEmpty() }
+        binding.beaconLocation.setOnBeaconSelectedListener { autofillElevationIfEmpty() }
 
         form.setOnDataChangeListener {
             updateSubmitButton()
@@ -206,11 +183,16 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         super.onPause()
     }
 
+    private fun autofillElevationIfEmpty() {
+        if (binding.beaconElevation.elevation == null) {
+            binding.beaconElevation.autofill()
+        }
+    }
+
     private fun updateSubmitButton() {
         binding.createBeaconTitle.rightButton.isVisible =
             isComplete.isSatisfiedBy(form.data)
     }
-
 
     private fun hasValidName(): Boolean {
         return form.data.name.isNotBlank()

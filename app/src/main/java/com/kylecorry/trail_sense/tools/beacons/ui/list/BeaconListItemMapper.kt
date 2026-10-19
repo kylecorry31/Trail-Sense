@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.sensors.CellSignalUtils
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
+import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 
 class BeaconListItemMapper(
@@ -85,20 +86,18 @@ class BeaconListItemMapper(
         context: Context,
         action: (BeaconAction) -> Unit
     ): List<ListMenuItem> {
-        return if (temporary) {
-            listOf(
-                ListMenuItem(context.getString(R.string.navigate)) { action(BeaconAction.Navigate) },
-                ListMenuItem(context.getString(R.string.share_ellipsis)) { action(BeaconAction.Share) },
-            )
-        } else {
-            listOf(
-                ListMenuItem(context.getString(R.string.navigate)) { action(BeaconAction.Navigate) },
-                ListMenuItem(context.getString(R.string.share_ellipsis)) { action(BeaconAction.Share) },
-                ListMenuItem(context.getString(R.string.edit)) { action(BeaconAction.Edit) },
-                ListMenuItem(context.getString(R.string.move_to)) { action(BeaconAction.Move) },
-                ListMenuItem(context.getString(R.string.delete)) { action(BeaconAction.Delete) },
-            )
+        val shared = listOf(
+            ListMenuItem(context.getString(R.string.navigate)) { action(BeaconAction.Navigate) },
+            ListMenuItem(context.getString(R.string.share_ellipsis)) { action(BeaconAction.Share) },
+        )
+        if (temporary) {
+            return shared
         }
+        return shared + listOf(
+            ListMenuItem(context.getString(R.string.edit)) { action(BeaconAction.Edit) },
+            ListMenuItem(context.getString(R.string.move_to)) { action(BeaconAction.Move) },
+            ListMenuItem(context.getString(R.string.delete)) { action(BeaconAction.Delete) },
+        )
     }
 
     private fun Beacon.getDescription(
@@ -115,7 +114,7 @@ class BeaconListItemMapper(
 
     private fun Beacon.getListIcon(context: Context): ListIcon {
         val foregroundScale = 0.6f
-        if (owner == com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner.User) {
+        if (owner == BeaconOwner.User) {
             return if (icon != null) {
                 val foregroundColor = Colors.mostContrastingColor(Color.WHITE, Color.BLACK, color)
                 ResourceListIcon(

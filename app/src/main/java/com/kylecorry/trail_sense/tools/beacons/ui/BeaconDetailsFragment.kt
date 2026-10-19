@@ -35,8 +35,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.trail_sense.tools.weather.ui.dialogs.ShowHighLowTemperatureDialogCommand
 import java.time.LocalDate
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
 
@@ -50,94 +48,78 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
     private val astronomy = AstronomyService()
 
     private var beacon: Beacon? = null
-    private var beaconId: Long? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        beaconId = requireArguments().getLong("beacon_id")
-    }
+    private val beaconId by lazy { requireArguments().getLong("beacon_id") }
 
     private fun loadBeacon(id: Long) {
         inBackground {
-            onIO {
-                beacon = beaconRepo.getBeacon(id)?.toBeacon()
+            val loaded = onIO {
+                beaconRepo.getBeacon(id)?.toBeacon()
             }
+            beacon = loaded
 
             onMain {
-                beacon?.apply {
-                    updateBeaconTemperature(this)
-                    updateBeaconSunTimes(this)
-                    updateBeaconTides(this)
+                loaded?.let { showBeacon(it) }
+            }
+        }
+    }
 
-                    binding.beaconTitle.title.text = this.name
-                    binding.beaconTitle.subtitle.text =
-                        formatService.formatLocation(this.coordinate)
+    private suspend fun showBeacon(beacon: Beacon) {
+        updateBeaconTemperature(beacon)
+        updateBeaconSunTimes(beacon)
+        updateBeaconTides(beacon)
 
-                    if (this.elevation != null) {
-                        val d = Distance.meters(this.elevation).convertTo(prefs.baseDistanceUnits)
-                        binding.beaconAltitude.title =
-                            formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
-                    } else {
-                        binding.beaconGrid.removeView(binding.beaconAltitude)
+        binding.beaconTitle.title.text = beacon.name
+        binding.beaconTitle.subtitle.text = formatService.formatLocation(beacon.coordinate)
+
+        if (beacon.elevation != null) {
+            val d = Distance.meters(beacon.elevation).convertTo(prefs.baseDistanceUnits)
+            binding.beaconAltitude.title =
+                formatService.formatDistance(d, Units.getDecimalPlaces(d.units), false)
+        } else {
+            binding.beaconGrid.removeView(binding.beaconAltitude)
+        }
+
+        if (!beacon.comment.isNullOrEmpty()) {
+            binding.commentText.text = beacon.comment
+        }
+
+        binding.navigateBtn.setOnClickListener {
+            val bundle = Bundle().apply { putLong("destination", beacon.id) }
+            findNavController().openTool(Tools.NAVIGATION, bundle)
+        }
+
+        binding.editBtn.isVisible = !beacon.temporary
+        binding.editBtn.setOnClickListener {
+            val bundle = Bundle().apply { putLong("edit_beacon", beacon.id) }
+            findNavController().navigate(R.id.action_beacon_details_to_beacon_edit, bundle)
+        }
+
+        binding.beaconTitle.rightButton.setOnClickListener {
+            val menuItems = if (beacon.temporary) {
+                listOf(getString(R.string.share_ellipsis))
+            } else {
+                listOf(getString(R.string.share_ellipsis), getString(R.string.delete))
+            }
+            Pickers.menu(it, menuItems) { idx ->
+                when (idx) {
+                    0 -> BeaconSender(this).send(beacon)
+                    1 -> confirmDelete(beacon)
+                }
+                true
+            }
+        }
+    }
+
+    private fun confirmDelete(beacon: Beacon) {
+        Alerts.dialog(requireContext(), getString(R.string.delete), beacon.name) { cancelled ->
+            if (!cancelled) {
+                inBackground {
+                    onIO {
+                        beaconRepo.deleteBeacon(BeaconEntity.from(beacon))
                     }
 
-                    if (!this.comment.isNullOrEmpty()) {
-                        binding.commentText.text = this.comment
-                    }
-
-                    binding.navigateBtn.setOnClickListener {
-                        val bundle = Bundle().apply {
-                            putLong("destination", id)
-                        }
-                        findNavController().openTool(Tools.NAVIGATION, bundle)
-                    }
-
-                    binding.editBtn.isVisible = !temporary
-
-                    binding.editBtn.setOnClickListener {
-                        val bundle = Bundle().apply {
-                            putLong("edit_beacon", id)
-                        }
-                        findNavController().navigate(
-                            R.id.action_beacon_details_to_beacon_edit,
-                            bundle
-                        )
-                    }
-
-                    binding.beaconTitle.rightButton.setOnClickListener {
-                        val menuItems = if (temporary) {
-                            listOf(getString(R.string.share_ellipsis))
-                        } else {
-                            listOf(getString(R.string.share_ellipsis), getString(R.string.delete))
-                        }
-                        Pickers.menu(it, menuItems) { idx ->
-                            when (idx) {
-                                0 -> {
-                                    BeaconSender(this@BeaconDetailsFragment).send(this)
-                                }
-
-                                1 -> {
-                                    Alerts.dialog(
-                                        requireContext(),
-                                        getString(R.string.delete),
-                                        name
-                                    ) { cancelled ->
-                                        if (!cancelled) {
-                                            inBackground {
-                                                withContext(Dispatchers.IO) {
-                                                    beaconRepo.deleteBeacon(BeaconEntity.from(this@apply))
-                                                }
-
-                                                withContext(Dispatchers.Main) {
-                                                    findNavController().navigateUp()
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            true
-                        }
+                    onMain {
+                        findNavController().navigateUp()
                     }
                 }
             }
@@ -214,9 +196,7 @@ class BeaconDetailsFragment : BoundFragment<FragmentBeaconDetailsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.beaconTitle.rightButton.flatten()
-        if (beaconId != null) {
-            loadBeacon(beaconId!!)
-        }
+        loadBeacon(beaconId)
         observe(gps) {
             val beacon = beacon
             if (isBound && beacon != null) {
