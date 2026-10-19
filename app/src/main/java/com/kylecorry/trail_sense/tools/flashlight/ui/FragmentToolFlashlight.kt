@@ -147,9 +147,7 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
             } else {
                 FlashlightMode.Torch
             }
-            val index = options.indexOfFirst { it.mode == selectedMode }
-            dial.selected = index
-            dial.scrollToOption(index)
+            selectInDial(dial, options)
             dial.areHapticsEnabled = true
         }
 
@@ -162,9 +160,7 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
             onButton.setState(mode != FlashlightMode.Off)
             if (mode != FlashlightMode.Off) {
                 selectedMode = mode
-                val index = options.indexOfFirst { it.mode == selectedMode }
-                dial.selected = index
-                dial.scrollToOption(index)
+                selectInDial(dial, options)
             }
         }
 
@@ -189,11 +185,17 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
                 val initialDelayMillis = getRemainingTimeout(cache, prefs).toMillis() % 1000
                 timer.interval(1000, initialDelayMillis = initialDelayMillis)
             }
-            return@useEffectWithCleanup { 
+            return@useEffectWithCleanup {
                 updateCountdown()
                 timer.stop()
             }
         }
+    }
+
+    private fun selectInDial(dial: DialSelectView, options: List<FlashlightOption>) {
+        val index = options.indexOfFirst { it.mode == selectedMode }
+        dial.selected = index
+        dial.scrollToOption(index)
     }
 
     private fun getRemainingTimeout(cache: IPreferences, prefs: UserPreferences): Duration {

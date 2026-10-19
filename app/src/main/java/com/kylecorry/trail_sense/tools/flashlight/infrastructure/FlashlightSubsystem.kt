@@ -91,33 +91,32 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         }
     }
 
+    private fun setTransitioning(transitioning: Boolean) {
+        isTransitioning = transitioning
+        if (transitioning) {
+            transitionTimer.once(transitionDuration)
+        } else {
+            transitionTimer.stop()
+        }
+    }
+
     private fun on(newMode: FlashlightMode, bySystem: Boolean = false) = synchronized(modeLock) {
         clearTimeout()
         selectedMode = newMode
+        setTransitioning(!bySystem)
         if (!bySystem) {
-            isTransitioning = true
-            transitionTimer.once(transitionDuration)
             setTimeout()
-        } else {
-            isTransitioning = false
-            transitionTimer.stop()
         }
-        val mode = getMode()
+        val previousMode = getMode()
         _mode.publish(newMode)
-        if (mode == FlashlightMode.Off) {
+        if (previousMode == FlashlightMode.Off) {
             FlashlightService.start(context)
         }
     }
 
     private fun off(bySystem: Boolean = false) = synchronized(modeLock) {
         clearTimeout()
-        if (!bySystem) {
-            isTransitioning = true
-            transitionTimer.once(transitionDuration)
-        } else {
-            isTransitioning = false
-            transitionTimer.stop()
-        }
+        setTransitioning(!bySystem)
         _mode.publish(FlashlightMode.Off)
         FlashlightService.stop(context)
         torch?.off()
@@ -209,10 +208,9 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         @SuppressLint("StaticFieldLeak")
         private var instance: FlashlightSubsystem? = null
         fun getInstance(context: Context): FlashlightSubsystem {
-            if (instance == null) {
-                instance = FlashlightSubsystem(context.applicationContext)
+            return instance ?: FlashlightSubsystem(context.applicationContext).also {
+                instance = it
             }
-            return instance!!
         }
     }
 

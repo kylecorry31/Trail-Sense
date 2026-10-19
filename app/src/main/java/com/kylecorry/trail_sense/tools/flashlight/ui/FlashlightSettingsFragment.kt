@@ -21,7 +21,6 @@ class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
             preference(R.string.pref_flashlight_toggle_with_volume)?.isVisible = false
             preference(R.string.pref_flashlight_should_timeout)?.isVisible = false
             preference(R.string.pref_flashlight_timeout)?.isVisible = false
-
         }
 
         val timeout = preference(R.string.pref_flashlight_timeout)
@@ -43,7 +42,6 @@ class FlashlightSettingsFragment : AndromedaPreferenceFragment() {
             }
             true
         }
-
     }
 
 }

@@ -8,12 +8,8 @@ import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 
 class FlashlightOffReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        if (context == null) return
-
-        val flashlight = FlashlightSubsystem.getInstance(context)
-        flashlight.set(FlashlightMode.Off)
+        FlashlightSubsystem.getInstance(context ?: return).set(FlashlightMode.Off)
     }
-
 
     companion object {
 

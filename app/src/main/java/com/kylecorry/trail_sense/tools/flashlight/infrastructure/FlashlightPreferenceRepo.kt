@@ -23,24 +23,24 @@ class FlashlightPreferenceRepo(context: Context) : PreferenceRepo(context) {
 
     val shouldTimeout by BooleanPreference(
         cache,
-        context.getString(R.string.pref_flashlight_should_timeout),
+        getString(R.string.pref_flashlight_should_timeout),
         false
     )
 
     var brightness by FloatPreference(
         cache,
-        context.getString(R.string.pref_torch_brightness),
+        getString(R.string.pref_torch_brightness),
         1f
     )
 
     var timeout: Duration
         get() {
             val seconds =
-                cache.getLong(context.getString(R.string.pref_flashlight_timeout)) ?: (5L * 60)
+                cache.getLong(getString(R.string.pref_flashlight_timeout)) ?: (5L * 60)
             return Duration.ofSeconds(seconds)
         }
         set(value) {
-            cache.putLong(context.getString(R.string.pref_flashlight_timeout), value.seconds)
+            cache.putLong(getString(R.string.pref_flashlight_timeout), value.seconds)
         }
 
 }
