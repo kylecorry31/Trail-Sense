@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.paths.domain.hiking
 
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.science.geography.Geography
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.debugging.ifDebug

@@ -34,7 +34,6 @@ import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.CoordinateBounds
-import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
@@ -112,7 +111,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             gps
         )
     }
-    private var declination = 0f
     private val hikingService = HikingService()
     private var isLoop = false
     private var isRecording = false
@@ -604,15 +602,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun updatePathDetails() {
         val path = path ?: return
 
-        binding.pathLineStyle.text = listOf(
-            getString(R.string.solid),
-            getString(R.string.dotted),
-            getString(R.string.arrow),
-            getString(R.string.dashed),
-            getString(R.string.square),
-            getString(R.string.diamond),
-            getString(R.string.cross)
-        )[path.style.line.ordinal]
+        binding.pathLineStyle.text = getLineStyleNames(requireContext()).getValue(path.style.line)
 
         val distance =
             path.metadata.distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
@@ -733,8 +723,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun updateDeclination() {
         inBackground {
             onIO {
-                declination = declinationProvider.getDeclination()
-                compass.declination = declination
+                compass.declination = declinationProvider.getDeclination()
             }
         }
     }
@@ -752,13 +741,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         val factory = getPointFactory()
 
-        binding.pathPointStyle.text = listOf(
-            getString(R.string.none),
-            getString(R.string.cell_signal),
-            getString(R.string.elevation),
-            getString(R.string.time),
-            getString(R.string.path_slope)
-        )[path.style.point.ordinal]
+        binding.pathPointStyle.text = getPointStyleNames(requireContext()).getValue(path.style.point)
 
         binding.pathLegend.colorScale = factory.createColorScale(waypoints)
         binding.pathLegend.labels = factory.createLabelMap(waypoints)

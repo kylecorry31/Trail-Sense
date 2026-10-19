@@ -2,10 +2,12 @@ package com.kylecorry.trail_sense.tools.paths.ui
 
 import android.content.Context
 import android.graphics.Color
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
@@ -75,6 +77,28 @@ fun List<PathPoint>.asBeacons(
             },
         )
     }
+}
+
+fun getLineStyleNames(context: Context): Map<LineStyle, String> {
+    return mapOf(
+        LineStyle.Solid to context.getString(R.string.solid),
+        LineStyle.Dotted to context.getString(R.string.dotted),
+        LineStyle.Arrow to context.getString(R.string.arrow),
+        LineStyle.Dashed to context.getString(R.string.dashed),
+        LineStyle.Square to context.getString(R.string.square),
+        LineStyle.Diamond to context.getString(R.string.diamond),
+        LineStyle.Cross to context.getString(R.string.cross)
+    )
+}
+
+fun getPointStyleNames(context: Context): Map<PathPointColoringStyle, String> {
+    return mapOf(
+        PathPointColoringStyle.None to context.getString(R.string.none),
+        PathPointColoringStyle.CellSignal to context.getString(R.string.cell_signal),
+        PathPointColoringStyle.Altitude to context.getString(R.string.elevation),
+        PathPointColoringStyle.Time to context.getString(R.string.time),
+        PathPointColoringStyle.Slope to context.getString(R.string.path_slope)
+    )
 }
 
 // TODO: Extract this and add solid style

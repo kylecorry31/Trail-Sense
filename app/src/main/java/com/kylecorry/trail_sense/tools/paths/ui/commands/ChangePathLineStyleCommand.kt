@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.ui.getLineStyleNames
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -20,21 +21,14 @@ class ChangePathLineStyleCommand(
 ) : IPathCommand {
 
     override fun execute(path: Path) {
+        val names = getLineStyleNames(context)
+        val styles = LineStyle.entries
         Pickers.item(
-            context, context.getString(R.string.line_style), listOf(
-                context.getString(R.string.solid),
-                context.getString(R.string.dotted),
-                context.getString(R.string.arrow),
-                context.getString(R.string.dashed),
-                context.getString(R.string.square),
-                context.getString(R.string.diamond),
-                context.getString(R.string.cross)
-            ),
-            defaultSelectedIndex = path.style.line.ordinal
+            context, context.getString(R.string.line_style), styles.map { names.getValue(it) },
+            defaultSelectedIndex = styles.indexOf(path.style.line)
         ) {
             if (it != null) {
-                val line =
-                    LineStyle.values().find { style -> style.ordinal == it } ?: LineStyle.Dotted
+                val line = styles.getOrElse(it) { LineStyle.Dotted }
                 lifecycleOwner.inBackground {
                     withContext(Dispatchers.IO) {
                         pathService.addPath(path.copy(style = path.style.copy(line = line)))

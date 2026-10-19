@@ -9,6 +9,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.ui.getPointStyleNames
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -20,20 +21,14 @@ class ChangePointStyleCommand(
 ) : IPathCommand {
 
     override fun execute(path: Path) {
+        val names = getPointStyleNames(context)
+        val styles = PathPointColoringStyle.entries
         Pickers.item(
-            context, context.getString(R.string.point_style), listOf(
-                context.getString(R.string.none),
-                context.getString(R.string.cell_signal),
-                context.getString(R.string.elevation),
-                context.getString(R.string.time),
-                context.getString(R.string.path_slope)
-            ),
-            defaultSelectedIndex = path.style.point.ordinal
+            context, context.getString(R.string.point_style), styles.map { names.getValue(it) },
+            defaultSelectedIndex = styles.indexOf(path.style.point)
         ) {
             if (it != null) {
-                val pointStyle =
-                    PathPointColoringStyle.values().find { style -> style.ordinal == it }
-                        ?: PathPointColoringStyle.None
+                val pointStyle = styles.getOrElse(it) { PathPointColoringStyle.None }
                 lifecycleOwner.inBackground {
                     withContext(Dispatchers.IO) {
                         pathService.addPath(path.copy(style = path.style.copy(point = pointStyle)))
