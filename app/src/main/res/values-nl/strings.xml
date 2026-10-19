@@ -1688,4 +1688,5 @@
     <string name="recording">Opnemen</string>
     <string name="pref_backtrack_keep_on_stop_title">Pad behouden na stoppen</string>
     <string name="pref_backtrack_keep_on_stop_summary">Anders wordt het pad verwijderd na de terugweggeschiedenis</string>
+    <string name="path_navigation_too_short">Dit pad is te kort om te volgen</string>
 </resources>
