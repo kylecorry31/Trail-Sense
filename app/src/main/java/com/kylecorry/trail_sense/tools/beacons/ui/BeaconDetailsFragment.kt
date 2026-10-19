@@ -3,15 +3,13 @@ package com.kylecorry.trail_sense.tools.beacons.ui
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useArgument
 import com.kylecorry.andromeda.fragments.useBackgroundMemo
 import com.kylecorry.andromeda.pickers.Pickers
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
@@ -27,8 +25,8 @@ import com.kylecorry.trail_sense.shared.views.DataPointView
 import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconEntity
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.commands.DeleteBeaconCommand
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.share.BeaconSender
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
@@ -52,14 +50,14 @@ class BeaconDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_beaco
 
         // Services
         val formatter = useService<FormatService>()
-        val beaconRepo = useMemo(context) { BeaconRepo.getInstance(context) }
+        val beaconService = useService<BeaconService>()
 
         // Arguments
         val beaconId = useArgument<Long>("beacon_id") ?: 0L
 
         // State
-        val beacon = useBackgroundMemo(beaconRepo, beaconId, resetOnResume) {
-            beaconRepo.getBeacon(beaconId)?.toBeacon()
+        val beacon = useBackgroundMemo(beaconService, beaconId, resetOnResume) {
+            beaconService.getBeacon(beaconId)
         }
 
         useEffect(titleView) {
@@ -203,7 +201,7 @@ class BeaconDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_beaco
         val titleView = useView<Toolbar>(R.id.beacon_title)
         val navigateButton = useView<MaterialButton>(R.id.navigate_btn)
         val editButton = useView<MaterialButton>(R.id.edit_btn)
-        val beaconRepo = useMemo(context) { BeaconRepo.getInstance(context) }
+        val beaconService = useService<BeaconService>()
         val navigator = useService<Navigator>()
 
         useEffect(navigateButton, navController, navigator, beacon) {
@@ -228,7 +226,7 @@ class BeaconDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_beaco
             }
         }
 
-        useEffect(titleView, navController, context, beaconRepo, beacon) {
+        useEffect(titleView, navController, context, beaconService, beacon) {
             titleView.rightButton.setOnClickListener { button ->
                 if (beacon != null) {
                     val menuItems = if (beacon.temporary) {
@@ -240,23 +238,9 @@ class BeaconDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_beaco
                         when (idx) {
                             0 -> BeaconSender(this).send(beacon)
                             1 -> {
-                                Alerts.dialog(
-                                    context,
-                                    getString(R.string.delete),
-                                    beacon.name
-                                ) { cancelled ->
-                                    if (!cancelled) {
-                                        inBackground {
-                                            onIO {
-                                                beaconRepo.deleteBeacon(BeaconEntity.from(beacon))
-                                            }
-
-                                            onMain {
-                                                navController.navigateUp()
-                                            }
-                                        }
-                                    }
-                                }
+                                DeleteBeaconCommand(context, lifecycleScope, beaconService) {
+                                    navController.navigateUp()
+                                }.execute(beacon)
                             }
                         }
                         true

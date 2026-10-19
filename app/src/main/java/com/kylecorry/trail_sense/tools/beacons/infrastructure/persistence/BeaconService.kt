@@ -101,6 +101,12 @@ class BeaconService(context: Context) : IBeaconService {
 
     override suspend fun delete(group: BeaconGroup?) {
         repo.deleteBeaconGroup(group?.let { BeaconGroupEntity.from(it) })
+
+        val navigator = DependencyRegistry.get<Navigator>()
+        val destinationId = navigator.getDestinationId() ?: return
+        if (repo.getBeacon(destinationId) == null) {
+            navigator.cancelBeaconNavigation()
+        }
     }
 
     override suspend fun delete(beacon: Beacon) {
