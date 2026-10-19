@@ -62,6 +62,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
 
 class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
 
@@ -361,7 +362,7 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         }
 
         val time = if (isSeeking) {
-            currentSeekChartTime
+            currentSeekChartTime.truncatedTo(ChronoUnit.HOURS)
         } else if (displayDate == LocalDate.now()) {
             ZonedDateTime.now()
         } else {
@@ -404,6 +405,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             chart.plot(data.sun, data.moon)
             plotCurrentPositions(displayDate)
         }
+    }
+
+    private fun plotSeekPositions() {
+        plotMoonImage(data.moon, currentSeekChartTime)
+        plotSunImage(data.sun, currentSeekChartTime)
     }
 
     private fun plotSunImage(
@@ -543,8 +549,6 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
         effect(
             "chart",
             displayDate,
-            currentSeekChartTime,
-            isSeeking,
             location,
             triggers.frequency("chart", Duration.ofMinutes(1)),
             lifecycleHookTrigger.onResume()
@@ -556,9 +560,14 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
                 updateAstronomyChart()
 
                 if (isSeeking) {
-                    plotMoonImage(data.moon, currentSeekChartTime)
-                    plotSunImage(data.sun, currentSeekChartTime)
+                    plotSeekPositions()
                 }
+            }
+        }
+
+        effect("seek_chart", currentSeekChartTime, isSeeking) {
+            if (isSeeking) {
+                plotSeekPositions()
             }
         }
 
@@ -573,10 +582,11 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
             }
         }
 
+        val seekHour = currentSeekChartTime.truncatedTo(ChronoUnit.HOURS)
         effect(
             "moon_phase",
             displayDate,
-            currentSeekChartTime,
+            seekHour,
             isSeeking,
             triggers.frequency("moon_phase", Duration.ofMinutes(15)),
             lifecycleHookTrigger.onResume()
