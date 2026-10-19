@@ -13,36 +13,29 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
-class BeaconRepo private constructor(context: Context) : IBeaconRepo {
+class BeaconRepo private constructor(context: Context) {
 
     private val beaconDao = AppDatabase.getInstance(context).beaconDao()
     private val beaconGroupDao = AppDatabase.getInstance(context).beaconGroupDao()
 
-    override fun getBeacons(): Flow<List<Beacon>> = beaconDao.getAll()
+    fun getBeacons(): Flow<List<Beacon>> = beaconDao.getAll()
         .map { it.map { it.toBeacon() } }
         .flowOn(Dispatchers.IO)
 
-    override suspend fun getBeaconsSync(): List<BeaconEntity> = beaconDao.getAllSuspend()
-
-    override suspend fun searchBeacons(text: String): List<BeaconEntity> = beaconDao.search(text)
-
-    override suspend fun searchBeaconsInGroup(text: String, groupId: Long?): List<BeaconEntity> =
-        beaconDao.searchInGroup(text, groupId)
-
-    override suspend fun getBeaconsInGroup(groupId: Long?): List<BeaconEntity> =
+    suspend fun getBeaconsInGroup(groupId: Long?): List<BeaconEntity> =
         beaconDao.getAllInGroup(groupId)
 
-    override suspend fun getBeacon(id: Long): BeaconEntity? = beaconDao.get(id)
+    suspend fun getBeacon(id: Long): BeaconEntity? = beaconDao.get(id)
 
-    override suspend fun getTemporaryBeacon(owner: BeaconOwner): BeaconEntity? =
+    suspend fun getTemporaryBeacon(owner: BeaconOwner): BeaconEntity? =
         beaconDao.getTemporaryBeacon(owner.id)
 
-    override suspend fun deleteBeacon(beacon: BeaconEntity) = onIO {
+    suspend fun deleteBeacon(beacon: BeaconEntity) = onIO {
         beaconDao.delete(beacon)
         Tools.broadcast(BeaconsToolRegistration.BROADCAST_BEACONS_CHANGED)
     }
 
-    override suspend fun addBeacon(beacon: BeaconEntity): Long = onIO {
+    suspend fun addBeacon(beacon: BeaconEntity): Long = onIO {
         val newId = if (beacon.id != 0L) {
             beaconDao.update(beacon)
             beacon.id
@@ -53,7 +46,7 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
         newId
     }
 
-    override suspend fun addBeaconGroup(group: BeaconGroupEntity): Long {
+    suspend fun addBeaconGroup(group: BeaconGroupEntity): Long {
         return if (group.id != 0L) {
             beaconGroupDao.update(group)
             group.id
@@ -62,7 +55,7 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
         }
     }
 
-    override suspend fun deleteBeaconGroup(group: BeaconGroupEntity?) {
+    suspend fun deleteBeaconGroup(group: BeaconGroupEntity?) {
         // Delete beacons
         beaconDao.deleteInGroup(group?.id)
         Tools.broadcast(BeaconsToolRegistration.BROADCAST_BEACONS_CHANGED)
@@ -79,12 +72,12 @@ class BeaconRepo private constructor(context: Context) : IBeaconRepo {
         }
     }
 
-    override suspend fun getGroupsWithParent(parent: Long?): List<BeaconGroupEntity> =
+    suspend fun getGroupsWithParent(parent: Long?): List<BeaconGroupEntity> =
         beaconGroupDao.getAllWithParent(parent)
 
-    override suspend fun getGroup(id: Long): BeaconGroupEntity? = beaconGroupDao.get(id)
+    suspend fun getGroup(id: Long): BeaconGroupEntity? = beaconGroupDao.get(id)
 
-    override suspend fun getBeaconsInRegion(region: CoordinateBounds): List<BeaconEntity> {
+    suspend fun getBeaconsInRegion(region: CoordinateBounds): List<BeaconEntity> {
         return if (region.east < region.west) {
             beaconDao.getAllInRegionNear180Meridian(
                 region.north,
