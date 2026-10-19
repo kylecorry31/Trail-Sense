@@ -165,25 +165,24 @@ internal class OfflineMapImporter(
             getAppService<Logger>().warn(TAG, "Not a Mapsforge map (${describeSource(request.uri)})")
             return Result.Err(CreateOfflineMapError.InvalidMapFile)
         }
-        var hasPersistentAccess = false
-        val path = if (prefs.photoMaps.copyTrailMapsToAppStorage) {
+        val copyToAppStorage = prefs.photoMaps.copyTrailMapsToAppStorage
+        val path = if (copyToAppStorage) {
             copyToAppStorage(request.uri, MapsforgeAdapter.MAPSFORGE_MAP_EXTENSION) ?: return Result.Err(
                 CreateOfflineMapError.UnableToCopy
             )
         } else {
-            hasPersistentAccess = tryOrDefault(false) {
+            val hasPersistentAccess = tryOrDefault(false) {
                 files.acceptPersistentAccess(request.uri)
                 true
             }
-            if (hasPersistentAccess) {
-                request.uri.toString()
-            } else {
+            if (!hasPersistentAccess) {
                 getAppService<Logger>().warn(
                     TAG,
                     "Unable to obtain persistent access to trail map (${describeSource(request.uri)})"
                 )
                 return Result.Err(CreateOfflineMapError.AccessDenied)
             }
+            request.uri.toString()
         }
 
         val info = MapsforgeAdapter.getMapInfo(path)
@@ -191,9 +190,9 @@ internal class OfflineMapImporter(
             getAppService<Logger>().warn(
                 TAG,
                 "Unable to read Mapsforge map info (${describeSource(request.uri)}, " +
-                    "size: ${files.size(path)} bytes, copied: ${prefs.photoMaps.copyTrailMapsToAppStorage})"
+                    "size: ${files.size(path)} bytes, copied: $copyToAppStorage)"
             )
-            if (hasPersistentAccess) {
+            if (!copyToAppStorage) {
                 files.releasePersistentAccess(request.uri)
             }
             return Result.Err(CreateOfflineMapError.InvalidMapFile)

@@ -246,7 +246,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         when (action) {
             MapAction.View -> view(map)
             MapAction.Delete -> delete(map)
-            MapAction.Export -> export(map)
+            MapAction.Export -> exportService.export(map)
             MapAction.Print -> print(map)
             MapAction.Resize -> resize(map)
             MapAction.Rename -> rename(map)
@@ -260,16 +260,12 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
             TrailMapAction.View -> view(map)
             TrailMapAction.Rename -> rename(map)
             TrailMapAction.EditAttribution -> editAttribution(map)
-            TrailMapAction.Export -> exportTrailMap(map)
+            TrailMapAction.Export -> exportService.export(map)
             TrailMapAction.Delete -> delete(map)
             TrailMapAction.Move -> move(map)
             TrailMapAction.ToggleVisibility -> toggleVisibility(map)
             TrailMapAction.CopyToAppStorage -> copyToAppStorage(map)
         }
-    }
-
-    private fun exportTrailMap(map: TrailMap) {
-        exportService.export(map)
     }
 
     private fun copyToAppStorage(map: TrailMap) {
@@ -295,10 +291,6 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
         inBackground(BackgroundMinimumState.Created) {
             PrintMapCommand(requireContext()).execute(map)
         }
-    }
-
-    private fun export(map: PhotoMap) {
-        exportService.export(map)
     }
 
     private fun rename(map: OfflineMapCatalogItem) {
@@ -339,12 +331,7 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
     private fun view(map: OfflineMapCatalogItem) {
         when (map) {
             is MapGroup -> manager.open(map.id)
-            is PhotoMap -> findNavController().navigate(
-                R.id.action_mapList_to_maps,
-                Bundle().apply {
-                    putLong("mapId", map.id)
-                }
-            )
+            is PhotoMap -> openPhotoMap(map)
 
             is TrailMap -> {
                 if (map.state == OfflineMapState.Draft) {
@@ -365,6 +352,15 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                 )
             }
         }
+    }
+
+    private fun openPhotoMap(map: PhotoMap) {
+        findNavController().navigate(
+            R.id.action_mapList_to_maps,
+            Bundle().apply {
+                putLong("mapId", map.id)
+            }
+        )
     }
 
     private fun setupMapCreateMenu() {
@@ -450,13 +446,9 @@ class OfflineMapListFragment : BoundFragment<FragmentOfflineMapListBinding>() {
                 }
 
                 manager.refresh(true)
-                when (val map = unwrappedResult.map) {
-                    is PhotoMap -> findNavController().navigate(
-                        R.id.action_mapList_to_maps,
-                        Bundle().apply {
-                            putLong("mapId", map.id)
-                        }
-                    )
+                val map = unwrappedResult.map
+                if (map is PhotoMap) {
+                    openPhotoMap(map)
                 }
             } finally {
                 binding.addBtn.isEnabled = true

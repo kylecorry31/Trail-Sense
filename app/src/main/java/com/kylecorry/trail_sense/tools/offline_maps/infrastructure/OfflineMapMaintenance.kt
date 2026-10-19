@@ -2,9 +2,11 @@ package com.kylecorry.trail_sense.tools.offline_maps.infrastructure
 
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMap
 import com.kylecorry.trail_sense.tools.offline_maps.domain.isExternal
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 internal class OfflineMapMaintenance(
     private val files: FileSubsystem,
@@ -12,12 +14,7 @@ internal class OfflineMapMaintenance(
 ) {
 
     suspend fun <T> withImportLock(block: suspend () -> T): T {
-        maintenanceLock.lock()
-        try {
-            return block()
-        } finally {
-            maintenanceLock.unlock()
-        }
+        return maintenanceLock.withLock { block() }
     }
 
     suspend fun cleanup(): Boolean = onIO {
@@ -37,41 +34,31 @@ internal class OfflineMapMaintenance(
     private suspend fun cleanupTrailMaps(): Boolean {
         // External maps don't have a file in app storage, so they can't be cleaned up
         val maps = repo.getTrailMaps().filter { !it.isExternal() }
-        val allFiles = files.list(OFFLINE_MAPS_DIRECTORY).map { "$OFFLINE_MAPS_DIRECTORY/${it.name}" }
-
-        // Delete files without a map
-        val mapFiles = maps.flatMap { it.files.map { file -> file.path } }
-        val orphanedFiles = allFiles.filter { !mapFiles.contains(it) }
-        orphanedFiles.forEach {
-            files.delete(it)
-        }
-
-        // Delete maps without a file
-        val toDelete = maps.filter { !allFiles.contains(it.mapFile.path) }
-        toDelete.forEach {
-            repo.delete(it)
-        }
-
-        return toDelete.isNotEmpty()
+        return cleanupDirectory(maps, OFFLINE_MAPS_DIRECTORY, { it.mapFile.path }) { repo.delete(it) }
     }
 
     private suspend fun cleanupPhotoMaps(): Boolean {
         val maps = repo.getPhotoMaps()
-        val allFiles = files.list(PHOTO_MAPS_DIRECTORY).map { "$PHOTO_MAPS_DIRECTORY/${it.name}" }
+        return cleanupDirectory(maps, PHOTO_MAPS_DIRECTORY, { it.imageFile.path }) { repo.delete(it) }
+    }
 
-        // Delete files without a map
+    /**
+     * Deletes files in the directory that no map uses, and maps whose main file is missing.
+     * @return true if any maps were deleted
+     */
+    private suspend fun <T : OfflineMap> cleanupDirectory(
+        maps: List<T>,
+        directory: String,
+        mainFilePath: (T) -> String,
+        deleteMap: suspend (T) -> Unit
+    ): Boolean {
+        val allFiles = files.list(directory).map { "$directory/${it.name}" }
+
         val mapFiles = maps.flatMap { it.files.map { file -> file.path } }
-        val orphanedFiles = allFiles.filter { !mapFiles.contains(it) }
-        orphanedFiles.forEach {
-            files.delete(it)
-        }
+        allFiles.filter { !mapFiles.contains(it) }.forEach { files.delete(it) }
 
-        // Delete maps without a file
-        val toDelete = maps.filter { !allFiles.contains(it.imageFile.path) }
-
-        toDelete.forEach {
-            repo.delete(it)
-        }
+        val toDelete = maps.filter { !allFiles.contains(mainFilePath(it)) }
+        toDelete.forEach { deleteMap(it) }
 
         return toDelete.isNotEmpty()
     }
