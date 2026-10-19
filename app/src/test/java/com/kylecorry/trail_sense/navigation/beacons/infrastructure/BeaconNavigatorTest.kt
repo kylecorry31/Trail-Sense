@@ -6,6 +6,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.navigation.IAppNavigation
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.IBeaconService
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.BeforeEach
@@ -20,14 +22,16 @@ internal class BeaconNavigatorTest {
     private lateinit var navigator: BeaconNavigator
     private lateinit var navigation: IAppNavigation
     private lateinit var service: IBeaconService
+    private lateinit var appNavigator: Navigator
     private lateinit var bundle: Bundle
 
     @BeforeEach
     fun setup() {
         navigation = mock()
         service = mock()
+        appNavigator = mock()
         bundle = mock()
-        navigator = BeaconNavigator(service, navigation, Dispatchers.Default) { bundle }
+        navigator = BeaconNavigator(service, navigation, appNavigator, Dispatchers.Default) { bundle }
     }
 
     @Test
@@ -36,7 +40,8 @@ internal class BeaconNavigatorTest {
 
         navigator.navigateTo(beacon)
 
-        verify(bundle).putLong("destination", 2L)
+        verify(appNavigator).navigateTo(2L)
+        verify(bundle).putBoolean(NavigatorFragment.ARG_NAVIGATION_STARTED, true)
         verify(navigation).navigate(eq(R.id.action_navigation), eq(bundle))
     }
 
@@ -50,7 +55,8 @@ internal class BeaconNavigatorTest {
         navigator.navigateTo(beacon)
 
         verify(service).add(beacon)
-        verify(bundle).putLong("destination", 1L)
+        verify(appNavigator).navigateTo(1L)
+        verify(bundle).putBoolean(NavigatorFragment.ARG_NAVIGATION_STARTED, true)
         verify(navigation).navigate(eq(R.id.action_navigation), eq(bundle))
 
     }

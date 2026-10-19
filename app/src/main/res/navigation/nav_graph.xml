@@ -11,9 +11,9 @@
         tools:layout="@layout/activity_navigator">
 
         <argument
-            android:name="destination"
-            android:defaultValue="0L"
-            app:argType="long" />
+            android:name="navigation_started"
+            android:defaultValue="false"
+            app:argType="boolean" />
 
         <action
             android:id="@+id/action_navigatorFragment_to_calibrateGPSFragment"

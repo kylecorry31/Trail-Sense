@@ -30,6 +30,8 @@ import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconEntity
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.share.BeaconSender
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.tools.tides.subsystem.TidesSubsystem
 import com.kylecorry.trail_sense.tools.tides.ui.TideFormatter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -202,11 +204,15 @@ class BeaconDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_beaco
         val navigateButton = useView<MaterialButton>(R.id.navigate_btn)
         val editButton = useView<MaterialButton>(R.id.edit_btn)
         val beaconRepo = useMemo(context) { BeaconRepo.getInstance(context) }
+        val navigator = useService<Navigator>()
 
-        useEffect(navigateButton, navController, beacon) {
+        useEffect(navigateButton, navController, navigator, beacon) {
             navigateButton.setOnClickListener {
                 if (beacon != null) {
-                    val bundle = Bundle().apply { putLong("destination", beacon.id) }
+                    navigator.navigateTo(beacon)
+                    val bundle = Bundle().apply {
+                        putBoolean(NavigatorFragment.ARG_NAVIGATION_STARTED, true)
+                    }
                     navController.openTool(Tools.NAVIGATION, bundle)
                 }
             }

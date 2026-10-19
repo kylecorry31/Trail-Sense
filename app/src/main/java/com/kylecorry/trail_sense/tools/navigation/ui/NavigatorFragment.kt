@@ -164,13 +164,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val beaconId = arguments?.getLong("destination") ?: 0L
-
-        // Load the destination and start navigation
-        if (beaconId != 0L) {
-            checkCalibrationOnNextReading = true
-            navigator.navigateTo(beaconId)
-        }
+        checkCalibrationOnNextReading =
+            arguments?.getBoolean(ARG_NAVIGATION_STARTED) ?: false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -724,6 +719,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     companion object {
+        const val ARG_NAVIGATION_STARTED = "navigation_started"
         const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
         private val ASTRONOMY_UPDATE_DISTANCE = Distance.kilometers(1f).meters()
         private val ASTRONOMY_UPDATE_FREQUENCY = Duration.ofMinutes(1)

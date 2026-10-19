@@ -53,6 +53,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.ClosestBeacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.MostRecentBeaconSort
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.NameBeaconSort
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.tools.qr.infrastructure.BeaconQREncoder
 import java.time.Instant
 
@@ -398,7 +399,16 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     private fun navigate(beacon: Beacon) {
         val navigator = Navigator.getInstance(requireContext())
         navigator.navigateTo(beacon)
-        navController.navigate(R.id.action_navigation)
+        openNavigation()
+    }
+
+    private fun openNavigation() {
+        navController.navigate(
+            R.id.action_navigation,
+            Bundle().apply {
+                putBoolean(NavigatorFragment.ARG_NAVIGATION_STARTED, true)
+            }
+        )
     }
 
     private fun deleteCurrentGroup() {
@@ -504,7 +514,7 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
             val found = NavigateToNearestCellSignal(requireContext()).execute()
             onMain {
                 if (found) {
-                    navController.navigate(R.id.action_navigation)
+                    openNavigation()
                 } else {
                     toast(getString(R.string.no_recorded_cell_signal_nearby))
                 }

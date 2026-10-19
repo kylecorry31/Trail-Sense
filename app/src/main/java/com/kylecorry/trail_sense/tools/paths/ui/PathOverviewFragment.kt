@@ -38,8 +38,10 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.databinding.FragmentPathOverviewBinding
 import com.kylecorry.trail_sense.databinding.ListItemWaypointBinding
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -148,10 +150,13 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
     }
 
+    private val navigator by lazy { getAppService<Navigator>() }
+
     private val beaconNavigator: IBeaconNavigator by lazy {
         BeaconNavigator(
             BeaconService(requireContext()),
-            NavControllerAppNavigation(findNavController())
+            NavControllerAppNavigation(findNavController()),
+            navigator
         )
     }
 
@@ -810,9 +815,14 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
     private fun followPath(follow: PathFollow) {
         val selectedPath = path ?: return
         inBackground {
-            Navigator.getInstance(requireContext()).navigateAlongPath(selectedPath, follow)
+            navigator.navigateAlongPath(selectedPath, follow)
             onMain {
-                findNavController().navigate(R.id.action_navigation)
+                findNavController().navigate(
+                    R.id.action_navigation,
+                    Bundle().apply {
+                        putBoolean(NavigatorFragment.ARG_NAVIGATION_STARTED, true)
+                    }
+                )
             }
         }
     }
