@@ -78,15 +78,16 @@ jobs:
           cp ./app/build/outputs/apk/nightlyRelease/*.apk ./nightly-release/Trail-Sense-Nightly-Release.apk
 
           REPO="kylecorry31/Trail-Sense-Nightly"
-          TAG="trail-sense-nightly-${GITHUB_SHA}"
+          DATE=$(date -u +'%Y-%m-%d')
+          TAG="trail-sense-nightly-${DATE}-${GITHUB_SHA}"
 
-          if gh release view "$TAG" --repo "$REPO" >/dev/null 2>&1; then
+          if gh release list --repo "$REPO" --limit 100 --json tagName --jq '.[].tagName' | grep -q "${GITHUB_SHA}$"; then
             echo "Nightly release for commit ${GITHUB_SHA} already exists; skipping publication."
           else
             gh release create "$TAG" \
               ./nightly-release/Trail-Sense-Nightly.apk \
               ./nightly-release/Trail-Sense-Nightly-Release.apk \
               --repo "$REPO" \
-              --title "Trail Sense Nightly $(date -u +'%Y-%m-%d')" \
+              --title "Trail Sense Nightly ${DATE}" \
               --notes "Automatically generated Trail Sense nightly build."
           fi
