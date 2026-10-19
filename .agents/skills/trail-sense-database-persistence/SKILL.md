@@ -190,13 +190,13 @@ val MIGRATION_{PREV}_{NEXT} = object : Migration({PREV}, {NEXT}) {
 
 ### Register Migration
 
-Add to `.addMigrations()`:
+Append to the list inside `.addMigrations(*withLogging(...))`:
 
 ```kotlin
-.addMigrations(
+.addMigrations(*withLogging(
     ...,
     MIGRATION_{PREV}_{NEXT}
-)
+))
 ```
 
 ## 4. Repository
@@ -206,7 +206,7 @@ package com.kylecorry.trail_sense.tools.{toolname}.infrastructure.persistence
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.kylecorry.luna.coroutines.onIO
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.tools.{toolname}.domain.{Model}
 import kotlinx.coroutines.Dispatchers
@@ -255,16 +255,18 @@ class {Model}Repo private constructor(context: Context) {
 
 ## 5. Register Singleton in ToolRegistration
 
-In `{ToolName}ToolRegistration.kt`, add the repo to `singletons`:
+In `{ToolName}ToolRegistration.kt`, register the repo in the tool's `initialize` block (extend it if the tool already has one):
 
 ```kotlin
+import com.kylecorry.andromeda.core.cache.DependencyRegistry
+
 object {ToolName}ToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
         return Tool(
             // ... other properties
-            singletons = listOf(
-                {Model}Repo::getInstance
-            ),
+            initialize = {
+                DependencyRegistry.addSingleton({Model}Repo.getInstance(it))
+            },
             // ...
         )
     }

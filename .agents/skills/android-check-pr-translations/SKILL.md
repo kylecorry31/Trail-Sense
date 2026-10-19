@@ -10,7 +10,7 @@ Audit the translation accuracy of Android string resources and localized guide f
 
 ## Workflow
 
-1. Run the extraction script from the skill's folder to get the changed translated content from the PR:
+1. Run the extraction script from this skill's folder to get the changed translated content from the PR:
    ```
    python3 scripts/extract_pr_strings.py <pr-number> --output /tmp/pr-strings.json
    ```

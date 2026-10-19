@@ -8,5 +8,3 @@ Use the following scripts to work with the app, but do not modify them:
 Use the test filters whenever possible.
 
 The `guides/en-US/*.txt` files are the source of truth for the user guides. All other guides (other locales, and the copies in the site and app) are only updated by the translation or weekly update process (`scripts/weekly-update.sh`, run manually by the user), so never edit them.
-
-Update the affected tool's androidTest for the same changes, adding to the tool's existing test file.
