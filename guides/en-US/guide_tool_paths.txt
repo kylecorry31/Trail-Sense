@@ -90,8 +90,6 @@ To navigate with a path, open it and use the buttons pinned to the bottom of the
 
 The button for the direction you most likely want is highlighted. Neither is highlighted for loop paths or when your location is unavailable.
 
-For loop paths, you can also open the path menu and select 'Follow to trailhead' to take the shortest route back to the first point of the path, even if that means crossing from the end of the path to its start.
-
 To navigate to a specific point on the path, select the desired waypoint and use its menu:
 
 - **Follow to point**: Follow the path from your nearest point on it to the selected waypoint, taking the shortest route.

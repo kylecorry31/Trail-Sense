@@ -17,11 +17,6 @@ class PathRoute(
     private val clock: Clock = Clock.systemUTC()
 ) {
     private val coordinates = pathPoints.map { it.coordinate }
-
-    init {
-        require(coordinates.isNotEmpty())
-    }
-
     private val hikingService = HikingService()
     private val geometry = RouteGeometry(coordinates)
     val length = geometry.length
@@ -39,9 +34,13 @@ class PathRoute(
     private val state = NavigationState()
 
     @Synchronized
-    fun restoreProgress(progress: Float, location: Coordinate) {
-        state.restore(progress, location)
+    fun restorePosition(distanceAlong: Float, location: Coordinate) {
+        state.restore(distanceAlong.coerceIn(0f, length), location)
     }
+
+    /** The guidance from the latest [navigate], which must have been called at least once. */
+    val guidance: PathGuidance
+        @Synchronized get() = checkNotNull(state.guidance) { "The route has not been navigated" }
 
     @Synchronized
     fun navigate(location: Coordinate, accuracy: Distance?): PathGuidance {
@@ -55,7 +54,7 @@ class PathRoute(
         val match = matchLocation(location, tolerance, currentTime)
         val guidance = getGuidance(location, match, tolerance)
         state.time = currentTime
-        state.progress = guidance.progress
+        state.distanceAlong = guidance.distanceAlong
         state.location = location
         state.guidance = guidance
         return guidance
@@ -81,12 +80,12 @@ class PathRoute(
                 if (match.offset > OFF_ROUTE_PROJECTION_INCLUSION_DISTANCE_METERS) {
                     add(PathPoint(-2, pathId, projected, currentElevation))
                 }
-                addAll(pathPoints.subList(min(match.segment + 1, coordinates.lastIndex), pathPoints.size))
+                addAll(pathPoints.subList(match.segment + 1, pathPoints.size))
             },
             remainingElevationGain = remainingElevationGain,
             remainingElevationLoss = remainingElevationLoss,
-            progress = getProgress(match.distanceAlong, arrived),
-            effortProgress = getEffortProgress(match, arrived),
+            distanceAlong = if (arrived) length else match.distanceAlong,
+            progress = getProgress(match, arrived),
         )
     }
 
@@ -95,22 +94,14 @@ class PathRoute(
                 Distance.meters(cumulativeElevationGain.last() - cumulativeElevationGain.at(currentPoint))
     }
 
-    private fun getProgress(distanceAlong: Float, arrived: Boolean): Float = when {
-        arrived -> 1f
-        length > 0f -> (distanceAlong / length).coerceIn(0f, 1f)
-        else -> 0f
-    }
-
-    private fun getEffortProgress(currentPoint: Snap, arrived: Boolean): Float = when {
+    private fun getProgress(currentPoint: Snap, arrived: Boolean): Float = when {
         arrived -> 1f
         length > 0f -> (cumulativeScarfsDistance.at(currentPoint) / cumulativeScarfsDistance.last()).coerceIn(0f, 1f)
         else -> 0f
     }
 
-    private fun FloatArray.at(snap: Snap): Float {
-        if (snap.segment >= coordinates.lastIndex) return last()
-        return Interpolation.lerp(snap.percentAlongSegment, this[snap.segment], this[snap.segment + 1])
-    }
+    private fun FloatArray.at(snap: Snap): Float =
+        Interpolation.lerp(snap.percentAlongSegment, this[snap.segment], this[snap.segment + 1])
 
     private fun hasArrived(location: Coordinate, distanceAlong: Float, tolerance: Float): Boolean {
         val radius = if (state.guidance?.arrived == true) tolerance * ARRIVED_RADIUS_MULTIPLIER else tolerance
@@ -148,7 +139,7 @@ class PathRoute(
 
     private fun matchLocation(location: Coordinate, tolerance: Float, currentTime: Instant): Snap {
         val movement = state.location?.distanceTo(location) ?: 0f
-        val lastDistance = state.progress * length
+        val lastDistance = state.distanceAlong
         val secondsSinceLastUpdate = state.time?.let { Duration.between(it, currentTime).toMillis() / 1000f } ?: 0f
         // How far the user could have hiked since the last update (likely more than actual)
         val possibleHikingDistance = MAX_HIKING_SPEED_METERS_PER_SECOND * secondsSinceLastUpdate
@@ -198,15 +189,15 @@ class PathRoute(
     }
 
     private data class NavigationState(
-        var progress: Float = 0f,
+        var distanceAlong: Float = 0f,
         var location: Coordinate? = null,
         var time: Instant? = null,
         var guidance: PathGuidance? = null,
         var pendingRejoin: Float? = null,
         var lastReachedCorner: Float = Float.NEGATIVE_INFINITY
     ) {
-        fun restore(progress: Float, location: Coordinate) {
-            this.progress = progress.coerceIn(0f, 1f)
+        fun restore(distanceAlong: Float, location: Coordinate) {
+            this.distanceAlong = distanceAlong
             this.location = location
             this.time = null
             this.guidance = null

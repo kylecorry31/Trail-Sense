@@ -76,7 +76,7 @@ class RouteGeometryTest {
     }
 
     @Test
-    fun `candidate snaps are those within the tolerance of the closest in route order`() {
+    fun `candidate snaps are those within the GPS noise of the closest in route order`() {
         val legs = RouteGeometry(
             listOf(
                 meters(-50.0, 10.0),
@@ -89,11 +89,7 @@ class RouteGeometryTest {
         )
         val origin = meters(0.0, 0.0)
 
-        val narrow = legs.candidateSnaps(origin, 1f)
-        val wide = legs.candidateSnaps(origin, 5f)
-
-        assertEquals(listOf(0), narrow.map { it.segment })
-        assertEquals(listOf(0, 2), wide.map { it.segment })
+        assertEquals(listOf(0, 2), legs.candidateSnaps(origin).map { it.segment })
     }
 
     private companion object {

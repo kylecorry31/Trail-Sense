@@ -45,6 +45,8 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigationS
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigator
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
 import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
+import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -626,7 +628,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(string(R.string.path_direction_to_end))
 
         isVisible(R.id.navigation_title)
-        assertFalse(runBlocking { PathNavigationStore().load() }!!.reversed)
+        assertFalse(PathNavigationStore().load()!!.reversed)
         hasText(R.id.navigation_sheet_title, "Durfee Short")
         isVisible(R.id.navigation_progress)
         // The route's distance is covered by PathRouteBuilderTest
@@ -638,34 +640,22 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(string(R.string.path_direction_to_start))
 
         isVisible(R.id.navigation_title)
-        assertTrue(runBlocking { PathNavigationStore().load() }!!.reversed)
+        assertTrue(PathNavigationStore().load()!!.reversed)
     }
 
     @Test
-    fun trailheadIsOnlyOfferedForLoops() {
+    fun aPathWithNoLengthCannotBeFollowed() {
         assumeFalse(isStagingBuild)
-        var loopId = 0L
         relaunchTool {
-            loopId = TestData.addPathFromGpx("Durfee Short", LOOP)
-            TestData.addPathFromGpx("Durfee Out", OUT_AND_BACK)
+            TestData.addPath("Single Point", listOf(PathPoint(0, 0, Coordinate(42.0, -72.0), 0f)))
         }
 
-        click("Durfee Out")
-        click(toolbarButton(R.id.path_title, Side.Right))
-        hasText(string(R.string.rename))
-        not { hasText(string(R.string.path_navigation_trailhead)) }
-        back(false)
-        back(false)
+        click("Single Point")
+        click(string(R.string.path_direction_to_end))
 
-        click("Durfee Short")
-        click(toolbarButton(R.id.path_title, Side.Right))
-        click(string(R.string.path_navigation_trailhead))
-
-        isVisible(R.id.navigation_title)
-        val firstPointId = runBlocking {
-            PathService.getInstance(TestUtils.context).getWaypoints(loopId).minOf { it.id }
-        }
-        assertEquals(firstPointId, runBlocking { PathNavigationStore().load() }!!.destinationPointId)
+        hasText(string(R.string.path_navigation_too_short))
+        isVisible(R.id.path_scroll)
+        assertNull(PathNavigationStore().load())
     }
 
     @Test
@@ -679,7 +669,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(string(R.string.path_navigation_follow_to_point))
 
         isVisible(R.id.navigation_title)
-        assertNotNull(runBlocking { PathNavigationStore().load() }!!.destinationPointId)
+        assertNotNull(PathNavigationStore().load()!!.destinationPointId)
 
         backUntil { isVisible(R.id.path_scroll) }
         click(toolbarButton(R.id.path_title, Side.Right))
@@ -689,7 +679,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         val navigator = Navigator.getInstance(TestUtils.context)
         waitFor { assertTrue(runBlocking { navigator.getDestination() } is Destination.Beacon) }
-        assertNull(runBlocking { PathNavigationStore().load() })
+        assertNull(PathNavigationStore().load())
     }
 
     @Test
@@ -815,7 +805,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // The navigator saves the progress when the location changes
         UserPreferences(TestUtils.context).gps.locationOverride = location
         Tools.broadcast(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED)
-        waitFor { assertNotNull(runBlocking { PathNavigationStore().load() }?.progress) }
+        waitFor { assertNotNull(PathNavigationStore().load()?.progress) }
 
         // A new navigator is what the app has after it is restarted
         val restored = PathNavigator(TestUtils.context)
@@ -843,7 +833,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         navigator.cancel()
 
-        assertFalse(navigator.isNavigating())
         assertNull(navigator.destination.first())
         val restoredAfterStopping = PathNavigator(TestUtils.context)
         restoredAfterStopping.awaitRestore()
@@ -851,7 +840,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
     }
 
     @Test
-    fun navigationUsesTheElevationSmoothingSetting() = runBlocking {
+    fun restoredNavigationUsesTheElevationSmoothingSetting() = runBlocking {
         val prefs = UserPreferences(TestUtils.context).paths
         val start = coordinatesOf(OUT_AND_BACK)[0]
 
@@ -859,7 +848,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
             .navigate(start).remainingElevationGain.meters().value
         PreferencesSubsystem.getInstance(TestUtils.context).preferences
             .putInt(TestUtils.context.getString(R.string.pref_elevation_smoothing), 1000)
-        val smoothedGain = follow(OUT_AND_BACK, reversed = false, from = start)
+        val restored = PathNavigator(TestUtils.context)
+        restored.awaitRestore()
+        val smoothedGain = restored.destination.first()!!.route
             .navigate(start).remainingElevationGain.meters().value
 
         assertEquals(1f, prefs.elevationSmoothing, 0.001f)
@@ -892,7 +883,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         val name = if (asset == LOOP) "Durfee Short" else "Durfee Out"
         val pathService = PathService.getInstance(TestUtils.context)
         val id = TestData.addPathFromGpx(name, asset)
-        val points = pathService.getWaypoints(id)
+        val points = HikingService().correctElevations(
+            pathService.getWaypoints(id).sortedBy { it.id },
+            UserPreferences(TestUtils.context).paths.elevationSmoothing
+        )
 
         navigator.navigate(pathService.getPath(id)!!, points, reversed)
         return navigator.destination.first()!!.route

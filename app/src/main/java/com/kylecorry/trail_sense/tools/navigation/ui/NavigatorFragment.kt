@@ -421,11 +421,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getDestinationBearing(): Float? {
-        return destination?.let { navigator.getBearing(
-                gps.location,
-                gps.horizontalAccuracy?.let { Distance.meters(it) },
-                it
-            ).value }
+        return destination?.let { navigator.getBearing(gps.location, it).value }
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {

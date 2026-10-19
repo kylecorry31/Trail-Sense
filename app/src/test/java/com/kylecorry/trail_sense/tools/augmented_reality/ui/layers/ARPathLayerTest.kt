@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
+import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
 import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -21,7 +22,10 @@ class ARPathLayerTest {
         PathPoint(index.toLong(), path.id, point)
     })
 
-    private fun ARPathLayer.getPaths(location: Coordinate) = getPaths(location, null)
+    private fun ARPathLayer.getPaths(location: Coordinate): List<IMappablePath> {
+        destination?.route?.navigate(location, null)
+        return getPaths()
+    }
 
     @Test
     fun navigationPreservesElevationProfileAsRouteAdvances() {

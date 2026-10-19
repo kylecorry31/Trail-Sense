@@ -27,9 +27,7 @@ internal class Snap(
 /**
  * Spatial queries over a polyline, with positions given as distances along it.
  */
-internal class RouteGeometry(points: List<Coordinate>) {
-    // A single point is treated as a zero length segment so every route has at least one segment
-    private val routePoints = if (points.size == 1) points + points else points
+internal class RouteGeometry(private val routePoints: List<Coordinate>) {
     private val latitudes = DoubleArray(routePoints.size) { routePoints[it].latitude }
     private val longitudes = DoubleArray(routePoints.size) { routePoints[it].longitude }
     private val cumulativeDistances = HikingService().getDistances(routePoints).toFloatArray()
@@ -42,15 +40,15 @@ internal class RouteGeometry(points: List<Coordinate>) {
     fun distanceAt(pointIndex: Int): Float = cumulativeDistances[pointIndex]
 
     /**
-     * The snaps that are within [tolerance] of the closest one, in route order. Overlapping
+     * The snaps that are within the GPS noise of the closest one, in route order. Overlapping
      * parts of a route (ex. the start and end of an out and back) are indistinguishable within the
      * GPS error, so the closest is not necessarily the right one. The route must have a length.
      */
-    fun candidateSnaps(location: Coordinate, tolerance: Float = GPS_NOISE_TOLERANCE_METERS): List<Snap> {
+    fun candidateSnaps(location: Coordinate): List<Snap> {
         val plane = LocalPlane(location)
         val snaps = (0..lastSegment).mapNotNull { projectOnto(it, plane, 0f, length) }
         val closest = snaps.minOf { it.offset }
-        return snaps.filter { it.offset <= closest + tolerance }
+        return snaps.filter { it.offset <= closest + GPS_NOISE_TOLERANCE_METERS }
     }
 
     fun coordinateOf(snap: Snap): Coordinate {

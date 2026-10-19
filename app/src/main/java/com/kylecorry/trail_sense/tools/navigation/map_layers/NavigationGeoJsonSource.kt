@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.extensions.point
@@ -37,7 +36,7 @@ class NavigationGeoJsonSource : GeoJsonSource {
     ): GeoJsonObject? {
         val myLocation = locationSubsystem.location
         val destination = navigator.getDestination() ?: return null
-        val paths = createPath(myLocation, locationSubsystem.locationAccuracy, destination)
+        val paths = createPath(myLocation, destination)
         val showEndpoints = params.getPreferences().getBoolean(SHOW_ENDPOINTS, false)
 
         return GeoJsonFeatureCollection(paths.flatMap { createFeatures(it, showEndpoints) })
@@ -80,12 +79,11 @@ class NavigationGeoJsonSource : GeoJsonSource {
 
     private fun createPath(
         myLocation: Coordinate,
-        accuracy: Distance?,
         destination: Destination
     ): List<MappablePath> {
         return when (destination) {
             is Destination.Path -> listOf(
-                MappablePath(-1, destination.route.navigate(myLocation, accuracy).remainingRoute.map { it.coordinate },
+                MappablePath(-1, destination.route.guidance.remainingRoute.map { it.coordinate },
                     destination.path.style.color, LineStyle.Arrow, 1.5f)
             )
             is Destination.Beacon -> createBeaconPath(myLocation, destination)

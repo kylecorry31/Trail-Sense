@@ -88,10 +88,11 @@ class Navigator private constructor(context: Context) {
         points: List<PathPoint>,
         reversed: Boolean = false,
         destinationPointId: Long? = null
-    ) {
+    ): Boolean {
+        if (!pathNavigator.navigate(path, points, reversed, destinationPointId)) return false
         cancelBeaconNavigation()
         clearBearing()
-        pathNavigator.navigate(path, points, reversed, destinationPointId)
+        return true
     }
 
     private val listenTask = BackgroundTask {
@@ -178,11 +179,10 @@ class Navigator private constructor(context: Context) {
 
     fun getBearing(
         myLocation: Coordinate,
-        locationAccuracy: Distance?,
         destination: Destination
     ): Bearing {
         val target = when (destination) {
-            is Destination.Path -> destination.route.navigate(myLocation, locationAccuracy).target
+            is Destination.Path -> destination.route.guidance.target
             is Destination.Beacon -> destination.beacon.coordinate
             is Destination.Bearing -> {
                 if (destination.startingLocation == null || !userPrefs.navigation.lockBearingToLocation) {

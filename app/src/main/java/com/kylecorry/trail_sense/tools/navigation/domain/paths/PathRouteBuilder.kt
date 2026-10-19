@@ -2,26 +2,55 @@ package com.kylecorry.trail_sense.tools.navigation.domain.paths
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
+import kotlin.math.abs
 
 object PathRouteBuilder {
-    private val hikingService = HikingService()
 
     fun buildRoute(
         points: List<PathPoint>,
         location: Coordinate,
         reversed: Boolean,
-        destinationPointId: Long? = null,
-        elevationSmoothing: Float = HikingService.DEFAULT_ELEVATION_SMOOTHING
-    ): List<PathPoint> {
-        require(points.isNotEmpty())
-        val sorted = hikingService.correctElevations(points.sortedBy { it.id }, elevationSmoothing)
+        destinationPointId: Long? = null
+    ): List<PathPoint>? {
+        val path = if (destinationPointId == null && reversed) points.reversed() else points
+        val geometry = RouteGeometry(path.map { it.coordinate })
+        if (geometry.length == 0f) return null
 
-        val strategy = if (destinationPointId != null) {
-            ShortestRoutingStrategy(sorted.indexOfFirst { it.id == destinationPointId })
+        return if (destinationPointId != null) {
+            followToPoint(path, geometry, location, path.indexOfFirst { it.id == destinationPointId })
         } else {
-            InOrderRoutingStrategy(reversed)
+            followInOrder(path, geometry, location)
         }
-        return strategy.buildRoute(sorted, location)
+    }
+
+    private fun followInOrder(path: List<PathPoint>, geometry: RouteGeometry, location: Coordinate): List<PathPoint> {
+        val snap = geometry.candidateSnaps(location).first()
+        return listOf(PathInterpolationUtils.pointAt(path, geometry, snap)) + path.drop(snap.segment + 1)
+    }
+
+    private fun followToPoint(
+        path: List<PathPoint>,
+        geometry: RouteGeometry,
+        location: Coordinate,
+        destinationIndex: Int
+    ): List<PathPoint> {
+        val snap = geometry.candidateSnaps(location).minBy {
+            lengthTo(path, geometry, it, indicesTo(it, destinationIndex))
+        }
+        return listOf(PathInterpolationUtils.pointAt(path, geometry, snap)) +
+                indicesTo(snap, destinationIndex).map { path[it] }
+    }
+
+    private fun indicesTo(snap: Snap, destinationIndex: Int): IntProgression {
+        return if (destinationIndex > snap.segment) {
+            snap.segment + 1..destinationIndex
+        } else {
+            snap.segment downTo destinationIndex
+        }
+    }
+
+    private fun lengthTo(path: List<PathPoint>, geometry: RouteGeometry, snap: Snap, indices: IntProgression): Float {
+        return geometry.coordinateOf(snap).distanceTo(path[indices.first].coordinate) +
+                abs(geometry.distanceAt(indices.last) - geometry.distanceAt(indices.first))
     }
 }

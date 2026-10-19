@@ -204,8 +204,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     }
 
     private fun updatePathNavigation(destination: Destination.Path, values: NavigationSensorValues) {
-        val guidance = destination.route.navigate(values.location, values.locationAccuracy)
-        progressView.progress = (guidance.effortProgress * progressView.max).roundToInt()
+        val guidance = destination.route.guidance
+        progressView.progress = (guidance.progress * progressView.max).roundToInt()
         progressView.isVisible = true
         val gain = guidance.remainingElevationGain.convertTo(prefs.baseDistanceUnits)
         val loss = guidance.remainingElevationLoss.convertTo(prefs.baseDistanceUnits)
@@ -253,7 +253,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         destination: Destination.Bearing,
         values: NavigationSensorValues
     ) {
-        val bearing = navigator.getBearing(values.location, values.locationAccuracy, destination)
+        val bearing = navigator.getBearing(values.location, destination)
         updateDestinationDirection(bearing.value, true)
         updateDestinationElevation(null)
         etaDataView.isVisible = false

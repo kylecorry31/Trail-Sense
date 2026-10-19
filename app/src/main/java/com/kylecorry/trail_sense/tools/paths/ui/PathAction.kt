@@ -11,6 +11,5 @@ enum class PathAction {
     Simplify,
     Move,
     ReplaceElevations,
-    ViewPoints,
-    NavigateToTrailhead
+    ViewPoints
 }

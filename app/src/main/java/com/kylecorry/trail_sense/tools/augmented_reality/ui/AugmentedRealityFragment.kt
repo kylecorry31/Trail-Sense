@@ -583,8 +583,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         val request = ARGuidanceRefreshRequest(
             requireContext(),
             binding.arView.location,
-            timeOverride?.toZonedDateTime() ?: ZonedDateTime.now(),
-            binding.arView.locationAccuracy?.let { Distance.meters(it) }
+            timeOverride?.toZonedDateTime() ?: ZonedDateTime.now()
         )
         inBackground {
             guidance.updateTargetState(request)

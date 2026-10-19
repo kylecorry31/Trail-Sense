@@ -26,12 +26,14 @@ class PathGuidanceTargetTest {
             PathPoint(index.toLong(), path.id, point)
         })
         val target = PathGuidanceTarget(destination)
+        destination.route.navigate(start, null)
         val first = target.refresh(request)
         assertEquals("Trail", first.display.name)
         val firstLocation = (first.point as GeographicARPoint).location
         assertEquals(25f, start.distanceTo(firstLocation), 1f)
         assertEquals(-72.0, firstLocation.longitude, 0.00001)
-        val next = target.refresh(request.copy(location = middle))
+        destination.route.navigate(middle, null)
+        val next = target.refresh(request)
         val nextLocation = (next.point as GeographicARPoint).location
         assertEquals(25f, middle.distanceTo(nextLocation), 1f)
         assertTrue(nextLocation.latitude > middle.latitude)

@@ -463,14 +463,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                 replaceElevations(path)
                 true
             },
-            if (isLoop) {
-                MenuItem(getString(R.string.path_navigation_trailhead)) {
-                    navigateToTrailhead()
-                    true
-                }
-            } else {
-                null
-            },
             MenuItem(getString(R.string.points)) {
                 viewPoints()
                 true
@@ -814,23 +806,24 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         destinationPointId: Long? = null
     ) {
         val selectedPath = path ?: return
-        if (waypoints.isEmpty()) return
+        // The waypoints are ordered from newest to oldest
+        val points = waypoints.reversed()
         inBackground {
+            var started = false
             Alerts.withLoading(requireContext(), getString(R.string.loading)) {
                 val navigator = Navigator.getInstance(requireContext())
-                onDefault {
-                    navigator.navigateAlongPath(
-                        selectedPath, pathService.getWaypoints(selectedPath.id), reversed, destinationPointId
-                    )
+                started = onDefault {
+                    navigator.navigateAlongPath(selectedPath, points, reversed, destinationPointId)
                 }
             }
-            onMain { findNavController().navigate(R.id.action_navigation) }
+            onMain {
+                if (started) {
+                    findNavController().navigate(R.id.action_navigation)
+                } else {
+                    toast(getString(R.string.path_navigation_too_short))
+                }
+            }
         }
-    }
-
-    private fun navigateToTrailhead() {
-        val firstWaypoint = waypoints.minByOrNull { it.id } ?: return
-        followPath(destinationPointId = firstWaypoint.id)
     }
 
     private fun navigateDirectlyToWaypoint(point: PathPoint) {
