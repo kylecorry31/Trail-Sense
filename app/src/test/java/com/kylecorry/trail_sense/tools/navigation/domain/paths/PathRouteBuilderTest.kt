@@ -48,6 +48,13 @@ class PathRouteBuilderTest {
     }
 
     @Test
+    fun `following a loop from near its seam goes all the way around`() {
+        val nearEnd = Coordinate(0.00009, 0.0)
+        val route = buildRoute(loop, nearEnd, reversed = false)
+        assertEquals(listOf(2L, 3L, 4L, 5L), route.drop(1).map { it.id })
+    }
+
+    @Test
     fun `destination of the first point takes the shortest route to the start of an out and back`() {
         val route = buildRoute(outAndBack, location, reversed = false, destinationPointId = 1)
         assertEquals(outAndBack.first().coordinate, route.last().coordinate)

@@ -24,7 +24,12 @@ object PathRouteBuilder {
     }
 
     private fun followInOrder(path: List<PathPoint>, geometry: RouteGeometry, location: Coordinate): List<PathPoint> {
-        val snap = geometry.candidateSnaps(location).first()
+        val candidates = geometry.candidateSnaps(location)
+        val longestRemaining = candidates.maxOf { geometry.length - it.distanceAlong }
+        // Skip candidates that would leave only a sliver of the path, ex. the end of a loop when standing at its start
+        val snap = candidates
+            .filter { geometry.length - it.distanceAlong >= longestRemaining * MIN_REMAINING_FRACTION }
+            .minBy { it.offset }
         return listOf(PathInterpolationUtils.pointAt(path, geometry, snap)) + path.drop(snap.segment + 1)
     }
 
@@ -53,4 +58,6 @@ object PathRouteBuilder {
         return geometry.coordinateOf(snap).distanceTo(path[indices.first].coordinate) +
                 abs(geometry.distanceAt(indices.last) - geometry.distanceAt(indices.first))
     }
+
+    private const val MIN_REMAINING_FRACTION = 0.25f
 }

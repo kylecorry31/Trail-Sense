@@ -46,7 +46,7 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         val plane = LocalPlane(location)
         val snaps = (0..lastSegment).mapNotNull { projectOnto(it, plane, 0f, length) }
         val closest = snaps.minOf { it.offset }
-        return snaps.filter { it.offset <= closest + GPS_NOISE_TOLERANCE_METERS }
+        return snaps.filter { it.offset <= closest + ROUTING_SAME_PLACE_TOLERANCE_METERS }
     }
 
     fun coordinateOf(snap: Snap): Coordinate {
@@ -182,6 +182,5 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         const val METERS_PER_DEGREE: Double = Geology.EARTH_AVERAGE_RADIUS * PI / 180.0
         const val ESTIMATE_DISTANCE_WEIGHT = 0.01f
         const val MAX_ESTIMATE_DISTANCE_PENALTY_METERS = 5f
-        const val GPS_NOISE_TOLERANCE_METERS = 5f
     }
 }

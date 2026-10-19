@@ -112,7 +112,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         )
     }
     private val hikingService = HikingService()
-    private var isLoop = false
     private var isRecording = false
     private val pathService by lazy { PathService.getInstance(requireContext()) }
 
@@ -364,7 +363,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
                     deselectPoint()
                 }
                 pointSheet?.setPoints(this@PathOverviewFragment.waypoints)
-                isLoop = hikingService.isLoop(waypoints.sortedBy { it.id }.map { it.coordinate })
                 updateRecordingBanner()
                 updateFollowEmphasis()
                 updateElevationOverview()
@@ -558,7 +556,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         // The recording path's end is the user's location, so a GPS reading isn't needed
         val hasLocation = isRecording || gps.hasValidReading
         val recommended = if (start != null && end != null && hasLocation) {
-            PathDirectionRecommender.recommend(start, end, gps.location, isRecording, isLoop)
+            PathDirectionRecommender.recommend(start, end, gps.location, isRecording)
         } else {
             null
         }

@@ -32,9 +32,18 @@ class PathDirectionRecommenderTest {
     }
 
     @Test
-    fun hasNoRecommendationForLoops() {
-        assertNull(recommend(location = Coordinate(0.0, 0.9), isLoop = true))
-        assertNull(recommend(location = Coordinate(0.0, 0.9), isRecording = true, isLoop = true))
+    fun recommendsToEndWhenTheStartAndEndAreNearEachOther() {
+        val nearbyEnd = Coordinate(0.0, 0.0001)
+
+        assertEquals(PathDirection.ToEnd, recommend(end = nearbyEnd, location = nearbyEnd))
+        assertEquals(PathDirection.ToEnd, recommend(end = nearbyEnd, location = start))
+    }
+
+    @Test
+    fun recommendsToStartWhileRecordingEvenIfTheStartAndEndAreNearEachOther() {
+        val direction = recommend(end = Coordinate(0.0, 0.0001), location = start, isRecording = true)
+
+        assertEquals(PathDirection.ToStart, direction)
     }
 
     @Test
@@ -44,9 +53,9 @@ class PathDirectionRecommenderTest {
 
     private fun recommend(
         location: Coordinate,
-        isRecording: Boolean = false,
-        isLoop: Boolean = false
+        end: Coordinate = this.end,
+        isRecording: Boolean = false
     ): PathDirection? {
-        return PathDirectionRecommender.recommend(start, end, location, isRecording, isLoop)
+        return PathDirectionRecommender.recommend(start, end, location, isRecording)
     }
 }

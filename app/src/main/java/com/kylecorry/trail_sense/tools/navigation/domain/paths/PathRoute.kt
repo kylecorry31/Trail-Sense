@@ -50,7 +50,7 @@ class PathRoute(
         }
         val currentTime = Instant.now(clock)
         val tolerance = (accuracy?.meters()?.value ?: 0f)
-            .coerceIn(CURRENT_LOCATION_MIN_TOLERANCE_METERS, CURRENT_LOCATION_MAX_TOLERANCE_METERS)
+            .coerceIn(ROUTING_SAME_PLACE_TOLERANCE_METERS, CURRENT_LOCATION_MAX_TOLERANCE_METERS)
         val match = matchLocation(location, tolerance, currentTime)
         val guidance = getGuidance(location, match, tolerance)
         state.time = currentTime
@@ -183,9 +183,6 @@ class PathRoute(
     }
 
     private companion object {
-        // The minimum tolerance for using the current location for matching/arrival
-        private const val CURRENT_LOCATION_MIN_TOLERANCE_METERS = 15f
-
         // The maximum tolerance for using the current location for matching/arrival
         private const val CURRENT_LOCATION_MAX_TOLERANCE_METERS = 75f
 

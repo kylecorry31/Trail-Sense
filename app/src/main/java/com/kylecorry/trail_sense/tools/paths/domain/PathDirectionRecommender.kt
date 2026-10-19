@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.paths.domain
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.ROUTING_SAME_PLACE_TOLERANCE_METERS
 
 enum class PathDirection {
     ToStart,
@@ -17,16 +18,15 @@ object PathDirectionRecommender {
         start: Coordinate,
         end: Coordinate,
         location: Coordinate,
-        isRecording: Boolean,
-        isLoop: Boolean
+        isRecording: Boolean
     ): PathDirection? {
-        // A loop's start and end are the same place, so neither direction is closer
-        if (isLoop) {
-            return null
-        }
-
         if (isRecording) {
             return PathDirection.ToStart
+        }
+
+        // Detect if a path is a loop
+        if (start.distanceTo(end) <= ROUTING_SAME_PLACE_TOLERANCE_METERS) {
+            return PathDirection.ToEnd
         }
 
         val distanceToStart = location.distanceTo(start)
