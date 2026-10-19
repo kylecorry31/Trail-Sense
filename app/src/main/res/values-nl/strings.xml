@@ -1689,4 +1689,8 @@
     <string name="pref_backtrack_keep_on_stop_title">Pad behouden na stoppen</string>
     <string name="pref_backtrack_keep_on_stop_summary">Anders wordt het pad verwijderd na de terugweggeschiedenis</string>
     <string name="path_navigation_too_short">Dit pad is te kort om te volgen</string>
+    <string name="pref_navigation_lock_screen_title">Weergeven op vergrendelscherm</string>
+    <string name="pref_navigation_lock_screen_while_navigating">Tijdens navigeren</string>
+    <string name="navigation_cancelled">Navigatie geannuleerd</string>
+    <string name="pref_navigation_lock_screen_while_open">Wanneer app open is</string>
 </resources>
