@@ -8,13 +8,9 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.ZERO_SPEED
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
-import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
 import com.kylecorry.trail_sense.tools.pedometer.domain.IPaceCalculator
 import com.kylecorry.trail_sense.tools.pedometer.domain.IStepTrackerService
-import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import java.time.Duration
 
 class AveragePaceSpeedometer(
     private val stepTrackerService: IStepTrackerService,
@@ -60,17 +56,11 @@ class AveragePaceSpeedometer(
                 reset()
                 return@enqueue
             }
-            speed = paceCalculator.speed(stepPeriod.steps, getDuration(stepPeriod))
+            val duration = stepPeriod.getDuration(pedometerPreferences.averagePaceTimeMode)
+            speed = paceCalculator.speed(stepPeriod.steps, duration)
             hasValidReading = true
 
             notifyListeners()
-        }
-    }
-
-    private fun getDuration(period: StepTrackingPeriod): Duration {
-        return when (pedometerPreferences.averagePaceTimeMode) {
-            AveragePaceTimeMode.Active -> period.activeTime
-            AveragePaceTimeMode.Elapsed -> period.elapsedTime
         }
     }
 

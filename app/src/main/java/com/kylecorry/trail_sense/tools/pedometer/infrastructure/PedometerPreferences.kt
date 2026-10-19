@@ -5,7 +5,6 @@ import com.kylecorry.andromeda.preferences.BooleanPreference
 import com.kylecorry.andromeda.preferences.StringEnumPreference
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.tools.pedometer.infrastructure.IPedometerPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.PreferenceRepo
 import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
 import java.time.Duration

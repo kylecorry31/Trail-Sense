@@ -35,6 +35,11 @@ import com.kylecorry.trail_sense.tools.tools.widgets.RefreshWidgetAction
 
 object PedometerToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
+        val distanceAlarmName = context.getString(
+            R.string.parenthesized_pair,
+            context.getString(R.string.distance_alert),
+            context.getString(R.string.alarm)
+        )
         return Tool(
             Tools.PEDOMETER,
             context.getString(R.string.pedometer),
@@ -85,11 +90,7 @@ object PedometerToolRegistration : ToolRegistration {
                 ),
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_DISTANCE_ALARM,
-                    context.getString(
-                        R.string.parenthesized_pair,
-                        context.getString(R.string.distance_alert),
-                        context.getString(R.string.alarm)
-                    ),
+                    distanceAlarmName,
                     context.getString(R.string.distance_alert),
                     Notify.CHANNEL_IMPORTANCE_HIGH,
                     isAlarm = true,
@@ -110,11 +111,7 @@ object PedometerToolRegistration : ToolRegistration {
                 ),
                 ToolDiagnosticFactory.notification(
                     NOTIFICATION_CHANNEL_DISTANCE_ALARM,
-                    context.getString(
-                        R.string.parenthesized_pair,
-                        context.getString(R.string.distance_alert),
-                        context.getString(R.string.alarm)
-                    )
+                    distanceAlarmName
                 ),
                 ToolDiagnosticFactory.powerSaver(context),
                 ToolDiagnosticFactory.backgroundService(context)

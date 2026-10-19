@@ -30,4 +30,11 @@ data class StepTrackingPeriod(
             }
             return minOf(totalActiveTime, elapsedTime)
         }
+
+    fun getDuration(mode: AveragePaceTimeMode): Duration {
+        return when (mode) {
+            AveragePaceTimeMode.Active -> activeTime
+            AveragePaceTimeMode.Elapsed -> elapsedTime
+        }
+    }
 }

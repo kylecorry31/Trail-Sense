@@ -36,6 +36,7 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
+    private val pedometer by lazy { PedometerSubsystem.getInstance(requireContext()) }
 
 
     private val intervalometer = CoroutineTimer {
@@ -65,14 +66,14 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
                             )
                             cache.putBoolean("pedometer_battery_sent", true)
                         }
-                        PedometerSubsystem.getInstance(requireContext()).enable()
+                        pedometer.enable()
                     } else {
-                        PedometerSubsystem.getInstance(requireContext()).disable()
+                        pedometer.disable()
                         alertNoActivityRecognitionPermission()
                     }
                 }
             } else {
-                PedometerSubsystem.getInstance(requireContext()).disable()
+                pedometer.disable()
             }
         }
 

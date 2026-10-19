@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.math.DecimalFormatter
+import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.fragments.BoundFragment
 import com.kylecorry.andromeda.fragments.asLiveData
 import com.kylecorry.andromeda.fragments.inBackground
@@ -18,7 +19,6 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.luna.topics.generic.getOrNull
 import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.sol.time.Time.toZonedDateTime
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolPedometerBinding
 import com.kylecorry.trail_sense.main.getAppService
@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.views.DataPointView
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -256,7 +257,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
     override fun onUpdate() {
         super.onUpdate()
-        val distance = getDistance(steps)
         val lastReset = lastResetTime?.toZonedDateTime()
 
         binding.pedometerTitle.rightButton.isChecked = prefs.pedometer.alertDistance != null
@@ -283,12 +283,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         }
 
         binding.pedometerSteps.title = DecimalFormatter.format(steps, 0)
-        val formattedDistance = formatService.formatDistance(
-            distance,
-            Units.getDecimalPlaces(distance.units),
-            false
-        )
-        binding.pedometerDistance.title = formattedDistance
+        binding.pedometerDistance.title = formatDistance(steps)
         binding.currentSessionTime.isVisible = lastReset != null
 
         binding.pedometerTitle.title.text = getString(R.string.pedometer)
@@ -305,47 +300,31 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     }
 
     private fun updateAverageSpeed() {
-        val speed = averageSpeedometer.speed
-        binding.pedometerAverageSpeed.title = if (averageSpeedometer.hasValidReading) {
-            formatService.formatSpeed(speed.value)
-        } else {
-            getString(R.string.dash)
-        }
-        binding.pedometerAveragePace.title = if (averageSpeedometer.hasValidReading) {
-            formatService.formatPace(speed.value)
-        } else {
-            getString(R.string.dash)
-        }
+        updateSpeed(averageSpeedometer, binding.pedometerAverageSpeed, binding.pedometerAveragePace)
     }
 
     private fun updateCurrentSpeed() {
-        val speed = instantSpeedometer.speed
-        binding.pedometerSpeed.title = if (instantSpeedometer.hasValidReading) {
-            formatService.formatSpeed(speed.value)
-        } else {
-            getString(R.string.dash)
-        }
-        binding.pedometerPace.title = if (instantSpeedometer.hasValidReading) {
-            formatService.formatPace(speed.value)
-        } else {
-            getString(R.string.dash)
-        }
+        updateSpeed(instantSpeedometer, binding.pedometerSpeed, binding.pedometerPace)
     }
 
-    private fun getDistance(steps: Long): Distance {
+    private fun updateSpeed(speedometer: ISpeedometer, speedView: DataPointView, paceView: DataPointView) {
+        val speed = speedometer.speed.value
+        val hasReading = speedometer.hasValidReading
+        speedView.title = if (hasReading) formatService.formatSpeed(speed) else getString(R.string.dash)
+        paceView.title = if (hasReading) formatService.formatPace(speed) else getString(R.string.dash)
+    }
+
+    private fun formatDistance(steps: Long): String {
         val distance = paceCalculator.distance(steps)
-        return distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
+            .convertTo(prefs.baseDistanceUnits)
+            .toRelativeDistance()
+        return formatService.formatDistance(distance, Units.getDecimalPlaces(distance.units), false)
     }
 
     private fun updateHourlyStepsChart() {
         val roundedDailySteps = hourlySteps.sumOf { it.steps }
-        val dailyDistance = getDistance(roundedDailySteps)
         binding.hourlyStepsTotalSteps.title = DecimalFormatter.format(roundedDailySteps, 0)
-        binding.hourlyStepsTotalDistance.title = formatService.formatDistance(
-            dailyDistance,
-            Units.getDecimalPlaces(dailyDistance.units),
-            false
-        )
+        binding.hourlyStepsTotalDistance.title = formatDistance(roundedDailySteps)
         hourlyStepsChart?.plot(hourlySteps)
         hourlyStepsChart?.highlight(selectedHourlySteps)
         updateHourlyStepsDetails()
@@ -358,18 +337,13 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
         hourlySteps ?: return
 
         val steps = hourlySteps.steps
-        val distance = getDistance(steps)
         binding.hourlyStepsDetails.text = getString(
             R.string.dash_separated_pair,
             formatService.formatTime(hourlySteps.startTime, false),
             formatService.formatTime(hourlySteps.endTime, false)
         )
         binding.hourlyStepsDetailsSteps.title = DecimalFormatter.format(steps, 0)
-        binding.hourlyStepsDetailsDistance.title = formatService.formatDistance(
-            distance,
-            Units.getDecimalPlaces(distance.units),
-            false
-        )
+        binding.hourlyStepsDetailsDistance.title = formatDistance(steps)
     }
 
     private fun startStepCounter() {

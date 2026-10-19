@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.tools.pedometer.domain.AveragePaceTimeMode
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackingPeriod
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepLengthPaceCalculator
 import java.time.Instant
@@ -51,10 +50,7 @@ class PedometerSessionListItemMapper(
     }
 
     private fun getSubtitle(period: StepTrackingPeriod): String {
-        val duration = when (prefs.pedometer.averagePaceTimeMode) {
-            AveragePaceTimeMode.Active -> period.activeTime
-            AveragePaceTimeMode.Elapsed -> period.elapsedTime
-        }
+        val duration = period.getDuration(prefs.pedometer.averagePaceTimeMode)
         val distance = paceCalculator.distance(period.steps)
             .convertTo(prefs.baseDistanceUnits)
             .toRelativeDistance()

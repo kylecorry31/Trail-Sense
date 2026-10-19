@@ -8,6 +8,7 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getPrimaryColor
 import com.kylecorry.trail_sense.shared.views.chart.label.HourChartLabelFormatter
 import com.kylecorry.trail_sense.tools.pedometer.domain.HourlyStepCount
+import java.time.Instant
 
 class HourlyStepsChart(
     private val chart: Chart,
@@ -29,25 +30,15 @@ class HourlyStepsChart(
     )
 
     init {
-        chart.configureXAxis(
-            labelCount = 7,
-            drawGridLines = true,
-            labelFormatter = HourChartLabelFormatter(chart.context) {
-                steps.firstOrNull()?.startTime ?: java.time.Instant.now()
-            },
-            minimum = 0f,
-            maximum = 23f
-        )
-        chart.configureYAxis(labelCount = 5, drawGridLines = true, minimum = 0f)
+        configureAxes(maxHour = 23f, maxSteps = null)
         chart.plot(bars, highlight)
         chart.setShouldRerenderEveryCycle(false)
     }
 
     fun highlight(hourlyStepCount: HourlyStepCount?) {
         val index = hourlyStepCount?.let { steps.indexOf(it) } ?: -1
-        val selected = hourlyStepCount
-        highlight.data = if (index >= 0 && selected != null) {
-            listOf(Vector2(index.toFloat(), selected.steps.toFloat()))
+        highlight.data = if (hourlyStepCount != null && index >= 0) {
+            listOf(Vector2(index.toFloat(), hourlyStepCount.steps.toFloat()))
         } else {
             emptyList()
         }
@@ -60,22 +51,26 @@ class HourlyStepsChart(
             Vector2(index.toFloat(), hourlyStepCount.steps.toFloat())
         }
         val range = Chart.getYRange(values, 100f, 500f)
-        chart.configureYAxis(
-            labelCount = 5,
-            drawGridLines = true,
-            minimum = 0f,
-            maximum = range.end
-        )
+        configureAxes(maxHour = (data.size - 1).coerceAtLeast(0).toFloat(), maxSteps = range.end)
+        bars.data = values
+        chart.invalidate()
+    }
+
+    private fun configureAxes(maxHour: Float, maxSteps: Float?) {
         chart.configureXAxis(
             labelCount = 7,
             drawGridLines = true,
             labelFormatter = HourChartLabelFormatter(chart.context) {
-                steps.firstOrNull()?.startTime ?: java.time.Instant.now()
+                steps.firstOrNull()?.startTime ?: Instant.now()
             },
             minimum = 0f,
-            maximum = (data.size - 1).coerceAtLeast(0).toFloat()
+            maximum = maxHour
         )
-        bars.data = values
-        chart.invalidate()
+        chart.configureYAxis(
+            labelCount = 5,
+            drawGridLines = true,
+            minimum = 0f,
+            maximum = maxSteps
+        )
     }
 }
