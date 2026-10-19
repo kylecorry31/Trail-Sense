@@ -421,7 +421,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getDestinationBearing(): Float? {
-        return destination?.let { navigator.getBearing(gps.location, it).value }
+        return destination?.let { navigator.getBearing(gps.location, it, declination).value }
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
@@ -445,7 +445,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             return
         }
 
-        effect("compass_layers", destination, gps.location, nearbyBeacons, lifecycleHookTrigger.onResume()) {
+        effect(
+            "compass_layers",
+            destination,
+            gps.location,
+            declination,
+            nearbyBeacons,
+            lifecycleHookTrigger.onResume()
+        ) {
             updateCompassLayers()
         }
 

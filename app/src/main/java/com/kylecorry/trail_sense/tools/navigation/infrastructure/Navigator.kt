@@ -2,12 +2,10 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
-import com.kylecorry.andromeda.core.cache.GeospatialCache
 import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.dem.DEM
@@ -31,7 +29,6 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.time.Instant
 
 class Navigator private constructor(context: Context) {
@@ -41,8 +38,6 @@ class Navigator private constructor(context: Context) {
     private val beacons = BeaconService(context)
     private val bearings = NavigationBearingService.getInstance(context)
     private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
-
-    private val declinationCache = GeospatialCache<Float>(Distance.kilometers(10f), 10)
 
     // Flows
     private val _destinationId = MutableStateFlow(getDestinationId())
@@ -173,7 +168,8 @@ class Navigator private constructor(context: Context) {
 
     fun getBearing(
         myLocation: Coordinate,
-        destination: Destination
+        destination: Destination,
+        declination: Float
     ): Bearing {
         val target = when (destination) {
             is Destination.Path -> destination.route.guidance.target
@@ -189,20 +185,16 @@ class Navigator private constructor(context: Context) {
         return fromTrueNorth(
             myLocation.bearingTo(target),
             userPrefs.compass.useTrueNorth,
-            getDeclination(myLocation)
+            declination
         )
     }
 
     private fun getDeclination(location: Coordinate): Float {
         return if (userPrefs.useAutoDeclination) {
-            runBlocking {
-                declinationCache.getOrPut(location) {
-                    Geophysics.getGeomagneticDeclination(
-                        location,
-                        locationSubsystem.elevation.meters().value
-                    )
-                }
-            }
+            Geophysics.getGeomagneticDeclination(
+                location,
+                locationSubsystem.elevation.meters().value
+            )
         } else {
             userPrefs.declinationOverride
         }

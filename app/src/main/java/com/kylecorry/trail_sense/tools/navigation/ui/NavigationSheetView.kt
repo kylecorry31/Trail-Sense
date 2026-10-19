@@ -253,7 +253,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         destination: Destination.Bearing,
         values: NavigationSensorValues
     ) {
-        val bearing = navigator.getBearing(values.location, destination)
+        val bearing = navigator.getBearing(values.location, destination, values.declination)
         updateDestinationDirection(bearing.value, true)
         updateDestinationElevation(null)
         etaDataView.isVisible = false
