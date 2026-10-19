@@ -22,6 +22,7 @@ class PathPointsListFragment : BoundBottomSheetDialogFragment<FragmentPathPoints
     var onNavigateToPointListener: (point: PathPoint) -> Unit = {}
     var onNavigateDirectlyToPointListener: (point: PathPoint) -> Unit = {}
     var onViewPointListener: (point: PathPoint) -> Unit = {}
+    var canFollow = true
 
     fun setPoints(points: List<PathPoint>) {
         list?.setData(points)
@@ -58,7 +59,8 @@ class PathPointsListFragment : BoundBottomSheetDialogFragment<FragmentPathPoints
             {
                 onViewPointListener(it)
                 dismiss()
-            }
+            },
+            canFollow
         )
 
         itemStrategy.display(itemBinding, item)

@@ -5,9 +5,9 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
-import com.kylecorry.trail_sense.tools.paths.domain.Path
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
+import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 
-// Coordinates are stored as plain numbers since the library's Coordinate class is not kept by R8
 data class PathNavigationSession(
     val pathId: Long,
     val reversed: Boolean,
@@ -16,8 +16,24 @@ data class PathNavigationSession(
     val startLongitude: Double,
     val progress: PathNavigationSessionProgress? = null
 ) : ProguardIgnore {
+    val follow: PathFollow
+        get() = destinationPointId?.let { PathFollow.ToPoint(it) }
+            ?: PathFollow.Direction(if (reversed) PathDirection.ToStart else PathDirection.ToEnd)
+
     val start: Coordinate
         get() = Coordinate(startLatitude, startLongitude)
+
+    companion object {
+        fun of(pathId: Long, follow: PathFollow, start: Coordinate): PathNavigationSession {
+            return PathNavigationSession(
+                pathId,
+                follow is PathFollow.Direction && follow.direction == PathDirection.ToStart,
+                (follow as? PathFollow.ToPoint)?.pointId,
+                start.latitude,
+                start.longitude
+            )
+        }
+    }
 }
 
 data class PathNavigationSessionProgress(
@@ -27,50 +43,33 @@ data class PathNavigationSessionProgress(
 ) : ProguardIgnore {
     val location: Coordinate
         get() = Coordinate(latitude, longitude)
+
+    companion object {
+        fun of(distance: Float, location: Coordinate): PathNavigationSessionProgress {
+            return PathNavigationSessionProgress(distance, location.latitude, location.longitude)
+        }
+    }
 }
 
 class PathNavigationStore {
     private val prefs = getAppService<SessionStateSubsystem>().preferences
 
-    fun hasSavedRoute(): Boolean = prefs.getString(ROUTE_KEY) != null
+    fun hasSavedRoute(): Boolean = prefs.getString(SESSION_KEY) != null
 
-    fun save(
-        path: Path,
-        start: Coordinate,
-        reversed: Boolean,
-        destinationPointId: Long?
-    ) {
-        val session = PathNavigationSession(
-            path.id,
-            reversed,
-            destinationPointId,
-            start.latitude,
-            start.longitude
-        )
-        prefs.remove(PROGRESS_KEY)
-        prefs.putString(ROUTE_KEY, JsonConvert.toJson(session))
+    fun save(session: PathNavigationSession) {
+        prefs.putString(SESSION_KEY, JsonConvert.toJson(session))
     }
 
     fun load(): PathNavigationSession? {
-        val saved = prefs.getString(ROUTE_KEY) ?: return null
-        val session = requireNotNull(JsonConvert.fromJson<PathNavigationSession>(saved))
-        val progress = prefs.getString(PROGRESS_KEY)
-            ?.let { JsonConvert.fromJson<PathNavigationSessionProgress>(it) }
-        return session.copy(progress = progress)
+        val saved = prefs.getString(SESSION_KEY) ?: return null
+        return requireNotNull(JsonConvert.fromJson<PathNavigationSession>(saved))
     }
 
     fun clear() {
-        prefs.remove(ROUTE_KEY)
-        prefs.remove(PROGRESS_KEY)
-    }
-
-    fun saveProgress(distance: Float, location: Coordinate) {
-        val progress = PathNavigationSessionProgress(distance, location.latitude, location.longitude)
-        prefs.putString(PROGRESS_KEY, JsonConvert.toJson(progress))
+        prefs.remove(SESSION_KEY)
     }
 
     private companion object {
-        const val ROUTE_KEY = "path_navigation_route"
-        const val PROGRESS_KEY = "path_navigation_progress"
+        const val SESSION_KEY = "path_navigation_route"
     }
 }

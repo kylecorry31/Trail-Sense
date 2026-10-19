@@ -19,7 +19,7 @@ class PathRoute(
     private val coordinates = pathPoints.map { it.coordinate }
     private val hikingService = HikingService()
     private val geometry = RouteGeometry(coordinates)
-    val length = geometry.length
+    private val length = geometry.length
     private val pathId = pathPoints.first().pathId
     private val cumulativeElevationLossGain = hikingService.getCumulativeElevationLossGain(pathPoints)
     private val cumulativeElevationLoss = cumulativeElevationLossGain.first

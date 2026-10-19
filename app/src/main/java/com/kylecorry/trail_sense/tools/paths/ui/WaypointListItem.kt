@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.core.sensors.Quality
+import com.kylecorry.andromeda.pickers.MenuItem
 import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.andromeda.signal.CellNetwork
 import com.kylecorry.sol.time.Time.toZonedDateTime
@@ -25,7 +26,8 @@ class WaypointListItem(
     private val delete: (waypoint: PathPoint) -> Unit,
     private val navigate: (waypoint: PathPoint) -> Unit,
     private val navigateDirectly: (waypoint: PathPoint) -> Unit,
-    private val view: (waypoint: PathPoint) -> Unit
+    private val view: (waypoint: PathPoint) -> Unit,
+    private val canFollow: Boolean
 ) {
     fun display(
         itemBinding: ListItemWaypointBinding,
@@ -80,26 +82,27 @@ class WaypointListItem(
         itemBinding.signalStrength.isVisible = item.cellSignal != null
 
         itemBinding.waypointMenuBtn.setOnClickListener {
-            Pickers.menu(it, R.menu.waypoint_item_menu) {
-                when (it) {
-                    R.id.action_waypoint_create_beacon -> {
-                        createBeacon(item)
-                    }
-
-                    R.id.action_waypoint_delete -> {
-                        delete(item)
-                    }
-
-                    R.id.action_waypoint_navigate -> {
+            Pickers.menu(
+                it,
+                listOfNotNull(
+                    MenuItem(context.getString(R.string.path_navigation_follow_to_point)) {
                         navigate(item)
-                    }
-
-                    R.id.action_waypoint_navigate_directly -> {
+                        true
+                    }.takeIf { canFollow },
+                    MenuItem(context.getString(R.string.path_navigation_direct)) {
                         navigateDirectly(item)
+                        true
+                    },
+                    MenuItem(context.getString(R.string.create_beacon)) {
+                        createBeacon(item)
+                        true
+                    },
+                    MenuItem(context.getString(R.string.delete)) {
+                        delete(item)
+                        true
                     }
-                }
-                true
-            }
+                )
+            )
         }
 
         itemBinding.root.setOnClickListener {

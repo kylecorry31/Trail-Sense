@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test
 import java.time.Clock
 import java.time.Instant
 import java.time.ZoneId
+import java.util.IdentityHashMap
 
 class PathRouteTest {
     private val points = listOf(
@@ -20,7 +21,19 @@ class PathRouteTest {
         PathPoint(3, 1, Coordinate(0.0, 0.002), 50f)
     )
 
-    private fun route(coordinates: List<Coordinate>) = PathRoute(
+    // The route does not expose its length, so it is tracked here to express positions as a fraction of it
+    private val lengths = IdentityHashMap<PathRoute, Float>()
+
+    private val PathRoute.length: Float
+        get() = lengths.getValue(this)
+
+    private fun createRoute(points: List<PathPoint>, clock: Clock = Clock.systemUTC()): PathRoute {
+        return PathRoute(points, clock).also {
+            lengths[it] = RouteGeometry(points.map { point -> point.coordinate }).length
+        }
+    }
+
+    private fun route(coordinates: List<Coordinate>) = createRoute(
         coordinates.mapIndexed { index, coordinate -> PathPoint(index.toLong(), 1, coordinate, 0f) }
     )
 
@@ -32,8 +45,8 @@ class PathRouteTest {
     fun `location accuracy widens the part of the route that is searched`() {
         val location = Coordinate(0.0, 0.00036)
 
-        val withoutAccuracy = PathRoute(points).navigate(location, null)
-        val withAccuracy = PathRoute(points).navigate(location, Distance.meters(50f))
+        val withoutAccuracy = createRoute(points).navigate(location, null)
+        val withAccuracy = createRoute(points).navigate(location, Distance.meters(50f))
 
         assertEquals(15f, withoutAccuracy.distanceAlong, 0.5f)
         assertEquals(location.distanceTo(points.first().coordinate), withAccuracy.distanceAlong, 0.5f)
@@ -44,7 +57,7 @@ class PathRouteTest {
     fun `accuracy smaller than the minimum tolerance does not narrow the search`() {
         val location = Coordinate(0.0, 0.00036)
 
-        val withSmallAccuracy = PathRoute(points).navigate(location, Distance.meters(3f))
+        val withSmallAccuracy = createRoute(points).navigate(location, Distance.meters(3f))
 
         assertEquals(15f, withSmallAccuracy.distanceAlong, 0.5f)
     }
@@ -53,8 +66,8 @@ class PathRouteTest {
     fun `accuracy larger than the maximum tolerance does not widen the search any further`() {
         val location = Coordinate(0.0, 0.0009)
 
-        val withMaxAccuracy = PathRoute(points).navigate(location, Distance.meters(75f))
-        val withPoorAccuracy = PathRoute(points).navigate(location, Distance.meters(500f))
+        val withMaxAccuracy = createRoute(points).navigate(location, Distance.meters(75f))
+        val withPoorAccuracy = createRoute(points).navigate(location, Distance.meters(500f))
 
         assertEquals(75f, withPoorAccuracy.distanceAlong, 0.5f)
         assertEquals(withMaxAccuracy.distanceAlong, withPoorAccuracy.distanceAlong, 0.05f)
@@ -62,7 +75,7 @@ class PathRouteTest {
 
     @Test
     fun `remaining route interpolates current and off route target elevations`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         val location = Coordinate(0.001, 0.0005)
         route.restorePosition(0.25f * route.length, location)
         val guidance = route.navigate(location)
@@ -75,14 +88,14 @@ class PathRouteTest {
 
     @Test
     fun `remaining route preserves unknown elevations`() {
-        val route = PathRoute(points.map { it.copy(elevation = null) })
+        val route = createRoute(points.map { it.copy(elevation = null) })
         assertEquals(listOf(null, null, null), route.navigate(points.first().coordinate).remainingRoute.map { it.elevation })
     }
 
     @Test
     fun `reversed route preserves elevations at repeated coordinates`() {
         val path = (points + points.first().copy(id = 4, elevation = 75f)).reversed()
-        val guidance = PathRoute(path).navigate(path.first().coordinate)
+        val guidance = createRoute(path).navigate(path.first().coordinate)
         assertEquals(listOf(75f, 50f, 100f, 0f), guidance.remainingRoute.map { it.elevation })
     }
 
@@ -97,7 +110,7 @@ class PathRouteTest {
             val path = coordinates.mapIndexed { index, coordinate ->
                 PathPoint(index.toLong(), 1, coordinate, 0f)
             }
-            val route = PathRoute(path)
+            val route = createRoute(path)
             route.navigate(coordinates.first())
             val location = Coordinate(0.003, 0.004)
             route.navigate(location)
@@ -112,7 +125,7 @@ class PathRouteTest {
     fun `shortcut past a corner advances from restored progress`() {
         val path = listOf(Coordinate(0.0, 0.0), Coordinate(0.0, 0.004), Coordinate(0.004, 0.004))
             .mapIndexed { index, coordinate -> PathPoint(index.toLong(), 1, coordinate, 0f) }
-        val route = PathRoute(path)
+        val route = createRoute(path)
         route.restorePosition(0.125f * route.length, Coordinate(0.0, 0.001))
         val location = Coordinate(0.002, 0.0039)
         route.navigate(location)
@@ -133,7 +146,7 @@ class PathRouteTest {
             Coordinate(0.0, 0.0), Coordinate(0.0, 0.01),
             Coordinate(0.0001, 0.01), Coordinate(0.0001, 0.0)
         ).mapIndexed { index, coordinate -> PathPoint(index.toLong(), 1, coordinate, 0f) }
-        val route = PathRoute(path)
+        val route = createRoute(path)
         route.navigate(path.first().coordinate)
         val guidance = route.navigate(Coordinate(0.0001, 0.001))
         assertEquals(0.0, guidance.target.latitude, 0.00002)
@@ -144,7 +157,7 @@ class PathRouteTest {
     @Test
     fun `distance along is the cumulative distance with unequal segments`() {
         val path = points.take(2) + points.last().copy(coordinate = Coordinate(0.003, 0.001))
-        val route = PathRoute(path)
+        val route = createRoute(path)
         assertEquals(0f, route.navigateFraction(path.first().coordinate))
         assertEquals(0.25f, route.navigateFraction(path[1].coordinate), 0.002f)
         assertEquals(0.625f, route.navigateFraction(Coordinate(0.0015, 0.001)), 0.002f)
@@ -153,7 +166,7 @@ class PathRouteTest {
 
     @Test
     fun `progress weights elevation gain`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         val segment = points[0].coordinate.distanceTo(points[1].coordinate)
         val total = 2 * segment + HikingService.SCARF_ELEVATION_GAIN_FACTOR * 100f
 
@@ -168,7 +181,7 @@ class PathRouteTest {
 
     @Test
     fun `restored distance locates the position along the route`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         val location = Coordinate(0.0, 0.0015)
         route.restorePosition(0.75f * route.length, location)
         val guidance = route.navigate(location)
@@ -177,12 +190,12 @@ class PathRouteTest {
 
     @Test
     fun `position saved as a distance locates the position on a longer route`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         val location = Coordinate(0.0, 0.0015)
         route.navigate(points.first().coordinate)
         val savedDistance = route.navigate(location).distanceAlong
 
-        val extended = PathRoute(points + PathPoint(4, 1, Coordinate(0.0, 0.004), 0f))
+        val extended = createRoute(points + PathPoint(4, 1, Coordinate(0.0, 0.004), 0f))
         extended.restorePosition(savedDistance, location)
         val guidance = extended.navigate(location)
         assertEquals(location.distanceTo(Coordinate(0.0, 0.004)), guidance.remainingDistance.meters().value, 0.5f)
@@ -191,7 +204,7 @@ class PathRouteTest {
 
     @Test
     fun `remaining estimates use hiking service and include partial segment elevation`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         route.navigate(points.first().coordinate)
         val location = Coordinate(0.0, 0.0005)
         val guidance = route.navigate(location)
@@ -207,18 +220,18 @@ class PathRouteTest {
 
     @Test
     fun `restored position produces the same guidance even at the last saved location`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         val location = Coordinate(0.0, 0.0005)
         route.navigate(points.first().coordinate)
         val expected = route.navigate(location)
-        val restored = PathRoute(points)
+        val restored = createRoute(points)
         restored.restorePosition(expected.distanceAlong, location)
         assertEquals(expected, restored.navigate(location))
     }
 
     @Test
     fun `repeated location reuses guidance`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         val first = route.navigate(points.first().coordinate)
         assertSame(first, route.navigate(points.first().coordinate))
     }
@@ -226,14 +239,14 @@ class PathRouteTest {
     @Test
     fun `overlapping return leg does not cause early arrival`() {
         val loop = points + points[1] + points[0]
-        val route = PathRoute(loop)
+        val route = createRoute(loop)
         assertFalse(route.navigate(points[0].coordinate).arrived)
         assertFalse(route.navigate(points[1].coordinate).arrived)
     }
 
     @Test
     fun `arrival clears remaining estimates`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         points.dropLast(1).forEach { route.navigate(it.coordinate) }
         val arrived = route.navigate(points.last().coordinate)
         assertTrue(arrived.arrived)
@@ -244,7 +257,7 @@ class PathRouteTest {
 
     @Test
     fun `exactly retraced turnaround prefers forward progress on the return leg`() {
-        val route = PathRoute(points + points[1] + points[0])
+        val route = createRoute(points + points[1] + points[0])
         val outbound = points.map { route.navigate(it.coordinate) }
         assertEquals(0.5f, outbound.last().distanceAlong / route.length, 0.001f)
         val returning = route.navigate(points[1].coordinate)
@@ -259,7 +272,7 @@ class PathRouteTest {
 
     @Test
     fun `backtracking still decreases progress when there is no matching forward leg`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         route.navigate(points[0].coordinate)
         assertEquals(0.5f, route.navigateFraction(points[1].coordinate), 0.001f)
         assertEquals(0.25f, route.navigateFraction(Coordinate(0.0, 0.0005)), 0.001f)
@@ -267,7 +280,7 @@ class PathRouteTest {
 
     @Test
     fun `off route guidance leads back to the projected point`() {
-        val guidance = PathRoute(points).navigate(Coordinate(0.001, 0.0))
+        val guidance = createRoute(points).navigate(Coordinate(0.001, 0.0))
         assertTrue(guidance.target.distanceTo(points[0].coordinate) < 0.1f)
         assertEquals(
             guidance.offRouteDistance.meters().value + points[0].coordinate.distanceTo(points[2].coordinate),
@@ -278,7 +291,7 @@ class PathRouteTest {
 
     @Test
     fun `missing elevations are treated as 0`() {
-        val guidance = PathRoute(points.map { it.copy(elevation = null) }).navigate(points[0].coordinate)
+        val guidance = createRoute(points.map { it.copy(elevation = null) }).navigate(points[0].coordinate)
         assertEquals(Distance.meters(0f), guidance.remainingElevationGain)
         assertEquals(Distance.meters(0f), guidance.remainingElevationLoss)
     }
@@ -286,7 +299,7 @@ class PathRouteTest {
     @Test
     fun `duplicate points can arrive without a segment`() {
         for (path in listOf(List(2) { points[0] }, List(3) { points[0] })) {
-            val route = PathRoute(path)
+            val route = createRoute(path)
             val guidance = route.navigate(points[0].coordinate)
             assertTrue(guidance.arrived)
             assertEquals(route.length, guidance.distanceAlong)
@@ -469,8 +482,8 @@ class PathRouteTest {
         val end = points.last().coordinate
         val shortOfEnd = Coordinate(0.0, end.longitude - 20.0 / 111_195.0)
 
-        val withoutAccuracy = PathRoute(points).apply { restorePosition(length, end) }.navigate(shortOfEnd, null)
-        val withAccuracy = PathRoute(points).apply { restorePosition(length, end) }
+        val withoutAccuracy = createRoute(points).apply { restorePosition(length, end) }.navigate(shortOfEnd, null)
+        val withAccuracy = createRoute(points).apply { restorePosition(length, end) }
             .navigate(shortOfEnd, Distance.meters(40f))
 
         assertFalse(withoutAccuracy.arrived)
@@ -479,7 +492,7 @@ class PathRouteTest {
 
     @Test
     fun `arrival is kept until moving well away from the end`() {
-        val route = PathRoute(points)
+        val route = createRoute(points)
         val end = points.last().coordinate
         val shortOfEnd = Coordinate(0.0, end.longitude - 20.0 / 111_195.0)
         val wellShortOfEnd = Coordinate(0.0, end.longitude - 40.0 / 111_195.0)
@@ -526,7 +539,7 @@ class PathRouteTest {
     @Test
     fun `a long gap between locations searches as far as a hiker could have walked`() {
         val clock = TestClock()
-        val route = PathRoute(hairpin.mapIndexed { index, it -> PathPoint(index.toLong(), 1, it, 0f) }, clock)
+        val route = createRoute(hairpin.mapIndexed { index, it -> PathPoint(index.toLong(), 1, it, 0f) }, clock)
         route.navigate(hairpin.first())
 
         clock.advance(210)
@@ -538,7 +551,7 @@ class PathRouteTest {
     @Test
     fun `a short gap between locations does not search as far as a hiker could have walked`() {
         val clock = TestClock()
-        val route = PathRoute(hairpin.mapIndexed { index, it -> PathPoint(index.toLong(), 1, it, 0f) }, clock)
+        val route = createRoute(hairpin.mapIndexed { index, it -> PathPoint(index.toLong(), 1, it, 0f) }, clock)
         route.navigate(hairpin.first())
 
         clock.advance(1)

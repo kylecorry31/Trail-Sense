@@ -20,8 +20,8 @@ import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.paths.domain.Path
-import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -83,16 +83,10 @@ class Navigator private constructor(context: Context) {
             path ?: beacon ?: bearing
         }
 
-    suspend fun navigateAlongPath(
-        path: Path,
-        points: List<PathPoint>,
-        reversed: Boolean = false,
-        destinationPointId: Long? = null
-    ): Boolean {
-        if (!pathNavigator.navigate(path, points, reversed, destinationPointId)) return false
+    suspend fun navigateAlongPath(path: Path, follow: PathFollow) {
+        pathNavigator.navigate(path, follow)
         cancelBeaconNavigation()
         clearBearing()
-        return true
     }
 
     private val listenTask = BackgroundTask {

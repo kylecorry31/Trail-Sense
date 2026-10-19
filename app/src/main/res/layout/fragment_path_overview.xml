@@ -277,6 +277,7 @@
     </com.kylecorry.andromeda.list.LockableScrollView>
 
     <LinearLayout
+        android:id="@+id/follow_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurfaceContainer"

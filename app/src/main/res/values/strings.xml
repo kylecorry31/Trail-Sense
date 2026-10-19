@@ -2068,8 +2068,6 @@
     <string name="path_direction_to_start">Follow to start</string>
     <!-- Waypoint menu item: follow the saved path from the nearest point to this waypoint. -->
     <string name="path_navigation_follow_to_point">Follow to point</string>
-    <!-- Shown when the user tries to follow a saved path that has no distance (ex. a single point). -->
-    <string name="path_navigation_too_short">This path is too short to follow</string>
     <!-- Reach the selected point directly, without following the saved path. -->
     <string name="path_navigation_direct">Navigate directly</string>
     <string name="compass_update_frequency">Compass update frequency</string>

@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasDataPoint
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
@@ -39,14 +40,15 @@ import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRoute
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigationStore
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigator
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
+import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
-import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -651,10 +653,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         }
 
         click("Single Point")
-        click(string(R.string.path_direction_to_end))
 
-        hasText(string(R.string.path_navigation_too_short))
         isVisible(R.id.path_scroll)
+        isNotVisible(R.id.follow_options)
         assertNull(PathNavigationStore().load())
     }
 
@@ -883,12 +884,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         val name = if (asset == LOOP) "Durfee Short" else "Durfee Out"
         val pathService = PathService.getInstance(TestUtils.context)
         val id = TestData.addPathFromGpx(name, asset)
-        val points = HikingService().correctElevations(
-            pathService.getWaypoints(id).sortedBy { it.id },
-            UserPreferences(TestUtils.context).paths.elevationSmoothing
-        )
-
-        navigator.navigate(pathService.getPath(id)!!, points, reversed)
+        val direction = if (reversed) PathDirection.ToStart else PathDirection.ToEnd
+        navigator.navigate(pathService.getPath(id)!!, PathFollow.Direction(direction))
+        navigator.awaitRestore()
         return navigator.destination.first()!!.route
     }
 

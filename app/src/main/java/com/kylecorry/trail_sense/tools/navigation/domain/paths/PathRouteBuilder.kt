@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.domain.paths
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import kotlin.math.abs
 
@@ -9,17 +10,21 @@ object PathRouteBuilder {
     fun buildRoute(
         points: List<PathPoint>,
         location: Coordinate,
-        reversed: Boolean,
-        destinationPointId: Long? = null
+        follow: PathFollow
     ): List<PathPoint>? {
-        val path = if (destinationPointId == null && reversed) points.reversed() else points
+        if (points.isEmpty()) return null
+        val reversed = follow is PathFollow.Direction && follow.direction == PathDirection.ToStart
+        val path = if (reversed) points.reversed() else points
         val geometry = RouteGeometry(path.map { it.coordinate })
         if (geometry.length == 0f) return null
 
-        return if (destinationPointId != null) {
-            followToPoint(path, geometry, location, path.indexOfFirst { it.id == destinationPointId })
-        } else {
-            followInOrder(path, geometry, location)
+        return when (follow) {
+            is PathFollow.Direction -> followInOrder(path, geometry, location)
+            is PathFollow.ToPoint -> {
+                val destinationIndex = path.indexOfFirst { it.id == follow.pointId }
+                if (destinationIndex == -1) return null
+                followToPoint(path, geometry, location, destinationIndex)
+            }
         }
     }
 
