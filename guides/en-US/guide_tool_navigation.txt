@@ -34,6 +34,7 @@ The following layers are not available:
 - Compass
 - Elevation
 
+If the layers appear blurry, enable Settings > Navigation > 'High detail mode' to load more tiles for higher quality. This will use more memory and be slower to load.
 
 ### Linear compass
 

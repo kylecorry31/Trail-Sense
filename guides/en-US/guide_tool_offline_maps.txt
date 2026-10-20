@@ -134,7 +134,7 @@ To create a path from a photo map, follow the instructions in the 'Measuring dis
 For further details on paths, refer to the 'Paths' guide.
 
 ## Measuring distance on a photo map
-You can measure distances on a photo map by opening the map, tapping the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, tap the undo button in the bottom left. Cancel by tapping the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by tapping the 'Create path' button at the bottom.
+You can measure distances on a photo map by opening the map, tapping the menu button in the top-right, and selecting 'Measure' or 'Create path'. Tap the map to place markers, and the total distance will be displayed at the bottom. To undo the last marker, tap the undo button in the bottom-left. Cancel by tapping the 'X' button in the bottom-right. You can also convert the drawn path into a saved path by tapping the 'Create path' button at the bottom.
 
 For a quick measurement from your location to a point, long-press that point on the photo map and tap 'Distance'.
 
@@ -173,7 +173,7 @@ By default, Trail Sense will automatically reduce the map resolution on import. 
 Some trail map files include attribution. To edit attribution, tap the menu button on the map row, select 'Attribution', and provide the attribution text. If attribution is populated, it will be shown on the map when the layer is displayed.
 
 ## Quick action
-You can enable the Open Photo Map quick action in the settings for the tab where you want it to appear.
+You can enable the Open Photo Map quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the quick action button and the active photo map will be opened and locked to your location. If no photo map is active, the map list will be displayed. Long-press the quick action to open the Offline Maps tool.
 

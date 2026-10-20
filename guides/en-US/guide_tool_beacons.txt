@@ -56,7 +56,7 @@ To open a beacon, tap the beacon in the list. This will open the beacon details 
 - **Location**: The location of the beacon.
 - **Elevation**: The elevation of the beacon.
 - **Distance**: The distance to the beacon from your current location.
-- **Historic high/low temperature**: The historical average high and low temperature for the beacon's location. See the 'Climate' guide for more information.
+- **Historic high/low temperature**: The historic average high and low temperature for the beacon's location. See the 'Climate' guide for more information.
 - **Sunrise/sunset**: The sunrise and sunset times for the beacon's location.
 - **Tide**: The estimated tide near the beacon's location.
 - **Notes**: Any notes you recorded about the beacon.
@@ -117,7 +117,7 @@ You can also choose to navigate to the nearest cell signal by tapping the menu b
 - **Default beacon color**: The color that will be pre-selected when creating a new beacon. This can be changed in Settings > Beacons > 'Default beacon color'.
 
 ## Quick action
-You can enable the Create Beacon quick action in the settings for the desired tab.
+You can enable the Create Beacon quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the Beacon quick action button to create a beacon at your current location. The title of the beacon will be set to the current date and time. Once created you will see a notification at the bottom of the screen with a button to view the beacon.
 

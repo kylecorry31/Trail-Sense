@@ -9,7 +9,7 @@ Once the GPS time is acquired, Trail Sense also shows how far your device's cloc
 To sync your device’s clock with GPS time:
 
 1. Tap 'Update system time'.
-2. Note the time shown in the pop-up.
+2. Note the time shown in the dialog.
 3. Tap 'OK' to open your device's time settings.
 4. Enter the noted time and wait for the sync notification before saving.
 5. Save the time update when the notification arrives.

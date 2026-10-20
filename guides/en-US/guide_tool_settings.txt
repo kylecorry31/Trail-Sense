@@ -57,7 +57,7 @@ GPS settings can be found in Trail Sense Settings > Sensors > GPS. If your phone
 ### GPS settings
 - **Smoothing**: Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. Higher values can delay responses to changes in movement.
 - **Accuracy filter**: Choose the reported GPS accuracy you prefer before a reading is accepted and the maximum amount of time Trail Sense should wait for it. If the preferred accuracy is not available within that time, Trail Sense accepts the best available recent reading.
-- **GPS power usage**: Controls the power hint for GPS updates. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce location accuracy.
+- **GPS power usage**: Controls the power hint for GPS updates (Battery saving, Balanced, or High accuracy). When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce location accuracy.
 - **Clear cache**: Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using this option.
 
 ### Manual settings
@@ -119,7 +119,7 @@ Thermometer settings can be found in Trail Sense Settings > Sensors > Thermomete
 ### Source
 On most phones, you should use the historic temperature source as it will be more accurate.
 
-- **Historic** temperature is estimated from 30 years of historical data. It's usually accurate, but not during extreme weather. You can calibrate it if it's wrong for your location.
+- **Historic** temperature is estimated from 30 years of historic data. It's usually accurate, but not during extreme weather. You can calibrate it if it's wrong for your location.
 - **Sensor** temperature is read from the phone's built-in thermometer. It's often inaccurate because it's affected by the phone's CPU and battery. You can calibrate it to improve its accuracy. If you power off your phone for a while, you will get a more accurate reading from the sensor.
 
 ### Smoothing
@@ -150,8 +150,8 @@ Camera settings can be found in Trail Sense Settings > Sensors > Camera.
 ### Augmented reality projection
 The projection method determines how points get displayed onto the camera view. If you are experiencing issues with the points not aligning with the real world, try changing the projection method.
 
-- **Estimated Intrinsics**: This is the default method and should work on most devices. It uses the camera's properties to estimate the projection.
-- **Manual Intrinsics**: This is similar to the estimated intrinsics method, except that the calculations are done by the manufacturer. On some devices this does not work correctly.
+- **Estimated intrinsics**: This is the default method and should work on most devices. It uses the camera's properties to estimate the projection.
+- **Manufacturer intrinsics**: This is similar to the estimated intrinsics method, except that the calculations are done by the manufacturer. On some devices this does not work correctly.
 - **Perspective**: This is a simple projection method that factors in the distance of the point from the camera. It is similar to intrinsics, but may be less accurate in some cases.
 - **Linear**: This is the simplest projection method (also the fastest). It does not factor in distances.
 
@@ -160,6 +160,9 @@ Cell signal settings can be found in Trail Sense Settings > Sensors > Cell signa
 
 ### Refresh signal cache
 Your phone reports the current cell signal strength, but it may be outdated. You can choose to forcefully refresh the cell signal cache to get the current signal strength. This feature is only used by the Paths tool (Backtrack) when Settings > Paths > Record cell signal is enabled.
+
+## Sensors > Sensor details
+Sensor details can be found in Trail Sense Settings > Sensors > Sensor details. This opens the Sensors tool, which lists the values of the sensors on your device. See the Sensors guide for more information.
 
 ## Privacy
 Privacy settings can be adjusted in Settings > Privacy.
@@ -185,14 +188,12 @@ Experimental features can be enabled in Settings > Experimental. These features 
 ### Tools
 - **Show metal direction**: Shows the experimental metal direction indicator in the Metal Detector tool. This requires a compass and gyroscope. See the Metal Detector tool guide for details.
 - **Cliff Height**: Makes the Cliff Height tool available in the tool list.
-
-### Camera
-- **Zero shutter lag**: Prioritizes capture speed over image quality when taking photos within Trail Sense.
-
-### Weather
 - **Show pressure forecast on chart**: Extends the pressure chart in the Weather tool with the forecasted pressure.
 
-### Use large tile cache
+### Zero shutter lag
+Prioritizes capture speed over image quality when taking photos within Trail Sense.
+
+### Use large map tile cache
 By default, each map layer keeps a tile cache sized for the current screen. Enable this setting to let each map layer retain more tiles. This may reduce tile reloading while using maps, but it can significantly increase memory usage when several map layers are enabled.
 
 ### Use legacy file picker
@@ -236,7 +237,9 @@ When switching to a new device or reinstalling the app, it may be helpful to bac
 - **Include trail maps in backups**: Whether Mapsforge (.map) files are included in backups. These files can be large.
 
 ## Tools
-Settings for each tool can be adjusted in the Settings > Tools section. For more information, see the guide for each tool.
+Settings for each tool are listed in the Tools section of the settings page. For more information, see the guide for each tool.
+
+The 'Tools' entry at the top of that section lets you customize the bottom navigation, quick actions, and in-app widgets. For more information, see the Tools guide.
 
 ## Theme
 Theme related settings can be adjusted in Settings > Theme.
@@ -263,10 +266,11 @@ You can find additional information about Trail Sense in Settings > About.
 - **Privacy policy**: A link to the privacy policy.
 - **Email developer**: A link to send an email to the developer for feedback or support.
 - **GitHub**: A link to the GitHub repository (source code) for Trail Sense.
+- **Diagnostics**: Opens the Diagnostics tool, which detects common issues that impact tools in Trail Sense.
 - **Licenses**: A list of open source licenses used in Trail Sense.
 
 ## Quick action
-You can enable the Settings quick action in the settings for the tab where you want it to appear.
+You can enable the Settings quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the quick action button and settings page for the active tool will be opened. Long-press the quick action to open the app settings.
 

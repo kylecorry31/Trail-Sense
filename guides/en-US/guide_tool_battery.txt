@@ -13,7 +13,7 @@ You can view the history of battery percentage by tapping the chart icon in the 
 
 The history is updated about every hour, you can disable this in 'Settings > Battery > Battery log'. If this is disabled, you will no longer see battery history and may not see time until full or empty.
 
-## System settings
+## System battery settings
 To access system battery settings and usage, tap the settings icon in the top-right corner.
 
 ## Power saving mode

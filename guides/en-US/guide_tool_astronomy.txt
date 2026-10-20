@@ -6,7 +6,7 @@ You can also tap the search icon to find the next occurrence of an astronomical 
 
 ## Time until sunrise/sunset
 
-The time until sunrise or sunset is shown at the top of the screen. This respects the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see the Sun section below.
+The time until sunrise or sunset is shown at the top of the screen. This respects the 'Sunrise / sunset times' in Settings > Astronomy. For a description of each time, see the Sun section below.
 
 ## Chart
 The chart shows the position of the sun and moon throughout the day. The X-axis is time, and the Y-axis is the altitude or height in the sky. You can tap on the sun or moon icon in the chart to see its current position or tap the chart to see its position at a different time. When you do this, a slider will appear so you can see its position at a different time of the day.
@@ -16,7 +16,7 @@ You can also choose to keep the current time centered in the chart by enabling '
 You can enable 'Show sunrise/set bands' in Settings > Astronomy to shade the chart by twilight stage (civil, nautical, astronomical, and full darkness) instead of a single night shade. See the Sun section below for a description of each stage.
 
 ## Sun
-All times related to the sun respect the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see below.
+All times related to the sun respect the 'Sunrise / sunset times' in Settings > Astronomy. For a description of each time, see below.
 
 The time until sunrise or sunset is shown at the top of the screen.
 
@@ -72,12 +72,12 @@ If a solar eclipse is happening on the selected date at your location, it will s
 - **Peak direction**: This is the direction the sun is in at the peak of the eclipse.
 
 ## Sunset alerts
-Alerts can be set for sunset to avoid being caught outside in the dark. To set an alert, open Settings > Astronomy and enable 'Sunset alerts'. You can adjust the 'Sunset alert time' setting to determine how far in advance you want to be notified. There is also a quick action available for the sunset alert. See below for more information.
+Alerts can be set for sunset to avoid being caught outside in the dark. To set an alert, open Settings > Astronomy and enable 'Sunset' under Alerts. You can adjust the 'Sunset alert time' setting to determine how far in advance you want to be notified. There is also a quick action available for the sunset alert. See below for more information.
 
 You can choose to use the alarm audio channel for this alert by enabling Settings > Astronomy > Use alarm for sunset alert. This will play a sound as an alarm even if media and notifications are muted. 
 
 ## Sunrise alerts
-Alerts can be configured for sunrise to ensure you don't miss the beginning of the day. To set up an alert, go to Settings > Astronomy and turn on 'Sunrise alerts'. You can adjust the 'Sunrise alert time' setting to decide how much advance notice you want. Additionally, there is a quick action option available for the sunrise alert. Refer to the information below for further details.
+Alerts can be configured for sunrise to ensure you don't miss the beginning of the day. To set up an alert, go to Settings > Astronomy and enable 'Sunrise' under Alerts. You can adjust the 'Sunrise alert time' setting to decide how much advance notice you want. Additionally, there is a quick action option available for the sunrise alert. Refer to the information below for further details.
 
 You can choose to use the alarm audio channel for this alert by enabling Settings > Astronomy > Use alarm for sunrise alert. This will play a sound as an alarm even if media and notifications are muted. 
 
@@ -90,9 +90,10 @@ If your phone has a compass, you will see a 'View in 3D' button. Tapping this wi
 You can choose to disable the camera when tapped by disabling the 'Settings > Astronomy > Use camera for 3D viewing' setting.
 
 ## Quick action
-You can enable the Sunset Alert and Sunrise Alert quick action in the settings for the tab where you want it to appear.
+You can enable the Sunset Alerts, Sunrise Alerts, and Night quick actions in the settings for the tab you want them on.
 
-To use the quick action, tap the sunset alert or sunrise alert quick action button to toggle it on or off.
+- **Sunset Alerts** and **Sunrise Alerts**: Tap the quick action button to toggle the alert on or off.
+- **Night**: Tap the quick action button to switch to the Night theme. Tap it again to return to your previous theme.
 
 ## Widgets
 The following widgets can be placed on your device's homescreen or viewed in-app:

@@ -3,7 +3,7 @@ The Paths tool can be used to record waypoints while hiking or to follow a trail
 ## Backtrack
 The Backtrack feature can be used to automatically record a path while you hike. To start Backtrack, tap the start button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can stop Backtrack by tapping the stop button in the notification or by tapping the stop button in the bottom-right corner of the screen. Tapping the notification opens the path being recorded, which shows a recording banner under the map with a stop button.
 
-To change the recording frequency, tap the time under the Backtrack label at the bottom-left and enter a new interval.
+To change the recording frequency, tap the time under the Backtrack label at the bottom-left and enter a new interval (you can also change it in Settings > Paths > Backtrack interval).
 
 When 'Keep device awake' is disabled, Backtrack uses the GPS to wake your phone and record a point. You can control the power hint for these updates with Settings > Paths > 'Backtrack GPS power usage'. The default, 'Inherit from GPS settings', uses Settings > Sensors > GPS > 'GPS power usage'. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce the accuracy of the recorded path.
 
@@ -68,7 +68,7 @@ Set the default path styles in Settings > Paths > 'Default path style' for the l
 ## Simplify a path
 Paths can be simplified to reduce the number of points in the path. This can be useful to improve the performance of the path rendering and may improve the accuracy of the path by removing GPS errors.
 
-To simplify a path, open the path and tap the menu button in the top-right corner of the screen. Select 'Simplify path' and choose the desired simplification quality. High quality means fewer points will be removed, while low quality means more points will be removed.
+To simplify a path, tap the menu button on the path row (or open the path and tap the menu button in the top-right corner of the screen) and select 'Simplify'. Then choose the desired simplification quality. High quality means fewer points will be removed, while low quality means more points will be removed.
 
 A preview shows the original path in transparent gray and the simplified path in the path's color, along with the number of points that will be removed. Tap OK to apply the simplification.
 
@@ -100,7 +100,15 @@ Once you have started navigating, you will be taken to the Navigation tool and i
 ## Path visibility
 You can choose which paths are visible on maps by tapping the eye icon on the right side of the path row. They will show up on maps that have the Paths layer enabled.
 
+You can also show or hide a path by opening it, tapping the menu button in the top-right corner, and selecting 'Show' or 'Hide'.
+
 To show or hide all paths in a group, tap the menu button on the group row and select 'Show all' or 'Hide all'.
+
+## Rename a path
+To rename a path, tap the menu button on the path row you want to rename, then select 'Rename' and provide a new name. You can also open the path, tap the menu button in the top-right corner, and select 'Rename'.
+
+## Merge paths
+To combine two paths, tap the menu button on the path row you want to merge, select 'Merge', and choose the path to append it onto. The two paths are replaced by a single path containing the points of the chosen path followed by the points of the path you selected. The merged path uses the name, style, and group of the chosen path.
 
 ## Delete a path
 To delete a path, tap the menu button on the path row you want to remove, then select 'Delete'.
@@ -128,7 +136,7 @@ To search through your created paths, use the search bar at the top of the path 
 If you are experiencing performance issues with the Paths tool, you can enable Settings > Paths > 'Fast path rendering' which will render paths faster, at the cost of appearance.
 
 ## Quick action
-You can enable the Backtrack quick action in the settings for the desired tab.
+You can enable the Backtrack quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the Backtrack quick action button to toggle it on or off. You can long-press the button to open the Paths tool.
 

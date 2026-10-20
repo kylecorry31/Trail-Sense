@@ -7,7 +7,7 @@ The sensor list shows all the sensors available on your device that Trail Sense 
 To see all available sensors on your device, tap the button in the top-right corner of the screen. This will show a list of all sensors available on your device, including those that Trail Sense does not use.
 
 ## Quick action
-You can enable the Recalibrate Altimeter quick action in the settings for the desired tab.
+You can enable the Recalibrate Altimeter quick action in the settings for the tab you want it on.
 
 To use the quick action, tap the **Recalibrate Altimeter** button. What happens depends on your current altimeter mode:
 
@@ -16,3 +16,9 @@ To use the quick action, tap the **Recalibrate Altimeter** button. What happens 
 - **GPS or DEM**: Opens the altimeter calibration settings.
 
 Long-pressing the quick action always opens the altimeter calibration settings.
+
+## Widgets
+The following widgets can be placed on your device's homescreen or viewed in-app:
+
+- **Location**: Shows your current location.
+- **Elevation**: Shows your current elevation.

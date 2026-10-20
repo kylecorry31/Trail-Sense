@@ -31,7 +31,7 @@ You can choose to use the alarm audio channel for this alert by enabling Setting
 ## Calibration
 Before using the pedometer in Trail Sense, you should calibrate it based on your step length. Your step length is measured as the distance traveled with a single step. To set your step length, you can open Settings > Pedometer and enter a value for step length. You can use Trail Sense to estimate this value by doing the following:
 
-1. From the Pedometer settings, tap  'Estimate step length.'
+1. From the Pedometer settings, tap 'Estimate step length'
 2. Ensure you are outside, have a clear view of the sky, have a straight path where you can walk at least 50 steps, and are wearing your hiking gear.
 3. Tap start and stand still until Trail Sense tells you to walk.
 4. Start walking in a straight line - you can put your phone in your pocket or by your side as you walk.

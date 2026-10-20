@@ -26,13 +26,13 @@ With a packing list open, tap the '+' button in the bottom-right corner. On the 
 - **Weight**: The weight of 1 item in your desired units. Trail Sense will scale this by the amount of packed items to determine the total weight.
 - **Optional**: Marks the item as optional. Optional items show an 'Optional' tag in the list and do not count toward the packed percentage.
 
-When finished, tap the check button in the bottom-right corner to save the item.
+When finished, tap the checkmark button in the bottom-right corner to save the item.
 
 ## Editing items
 
-With a packing list open, tap the item you want to edit. This will bring you to the same form described in the 'Adding Items' section.
+With a packing list open, tap the item you want to edit. This will bring you to the same form described in the 'Adding items' section.
 
-When finished, tap the check button in the bottom-right corner to save the item.
+When finished, tap the checkmark button in the bottom-right corner to save the item.
 
 ## Changing the packed amount
 Tap the menu button on the right of an item and tap 'Add' or 'Subtract' to change the packed amount by a specific number without editing the item.
