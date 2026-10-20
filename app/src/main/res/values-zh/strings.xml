@@ -1670,4 +1670,8 @@
     <string name="pref_backtrack_keep_on_stop_summary">如不保留在 Backtrack 历史后将删除路径</string>
     <string name="recording">记录中</string>
     <string name="path_navigation_too_short">此路径太短无法照着走</string>
+    <string name="pref_navigation_lock_screen_title">显示在锁屏上</string>
+    <string name="pref_navigation_lock_screen_while_navigating">导航时</string>
+    <string name="pref_navigation_lock_screen_while_open">打开时</string>
+    <string name="navigation_cancelled">导航已取消</string>
 </resources>
