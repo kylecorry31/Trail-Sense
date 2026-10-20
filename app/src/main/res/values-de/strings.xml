@@ -847,13 +847,11 @@
     <string name="reset_distance_title">Distanz zurücksetzen\?</string>
     <string name="move_to">Verschieben nach</string>
     <string name="pref_start_on_boot_title">Beim Anschalten App starten</string>
-    <string name="navigate_back_onto_path">Navigiere zum nächsten Pfadpunkt</string>
     <string name="beacons">Wegpunkte</string>
     <string name="bearing">Peilung</string>
     <string name="square">Quadrat</string>
     <string name="cross">Kreuz</string>
     <string name="diamond">Diamant</string>
-    <string name="pref_only_navigate_path_points_title">Nur zu aufgenommenen Punkten navigieren</string>
     <string name="error">Fehler</string>
     <string name="warning">Warnung</string>
     <string name="allow_ignore_battery_restrictions_instructions">Die Akkuoptimierung für Trail Sense auszuschalten kann die Genauigkeit verbessern.

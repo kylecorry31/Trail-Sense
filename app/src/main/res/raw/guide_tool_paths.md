@@ -1,7 +1,7 @@
 The Paths tool can be used to record waypoints while hiking or to follow a trail.
 
 ## Backtrack
-The Backtrack feature can be used to automatically record a path while you hike. To start Backtrack, tap the start button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can stop Backtrack by tapping the stop button in the notification or by tapping the stop button in the bottom-right corner of the screen.
+The Backtrack feature can be used to automatically record a path while you hike. To start Backtrack, tap the start button in the bottom-right corner of the screen. A notification will appear showing how far you have traveled. You can stop Backtrack by tapping the stop button in the notification or by tapping the stop button in the bottom-right corner of the screen. Tapping the notification opens the path being recorded, which shows a recording banner under the map with a stop button.
 
 To change the recording frequency, tap the time under the Backtrack label at the bottom-left and enter a new interval.
 
@@ -11,7 +11,7 @@ To avoid recording additional points while stationary, adjust Settings > Paths >
 
 Backtrack can record the cell signal strength at each point. This can be enabled in Settings > Paths > 'Record cell signal'. If you also have Settings > Paths > 'Last signal beacon' enabled, a beacon will be created for the last known location where you had a cell signal.
 
-By default, Backtrack paths are temporary and will be deleted after the number of days specified by Settings > Paths > 'Backtrack history'. You can choose to keep a Backtrack path forever by tapping the menu button on the Backtrack path row and selecting 'Keep forever'.
+When you stop Backtrack, the path is kept forever. To have Backtrack paths be temporary instead, disable Settings > Paths > 'Keep path when stopped'. Temporary paths (and the points of a path that is still being recorded) are deleted after the number of days specified by Settings > Paths > 'Backtrack history' (7 days by default). You can choose to keep a temporary path forever by tapping the menu button on the Backtrack path row and selecting 'Keep forever'.
 
 ## Creating a path
 You can choose to manually create a path by doing the following:
@@ -20,6 +20,8 @@ You can choose to manually create a path by doing the following:
 2. Tap 'Path'.
 3. Give the path a name and tap 'OK'.
 4. Tap the '+ Point' button to add a point to the path at your current location. You can add as many points as you want.
+
+You can also draw a path on the map by tapping 'Draw on map' instead of 'Path' in step 2. The Map tool will open and you can tap the map to place points, then tap 'Create path' at the bottom when you are done.
 
 ## Importing paths
 If you have tracks or routes saved in a GPX file, you can import them into Trail Sense as paths.
@@ -77,21 +79,23 @@ You can choose to automatically simplify paths imported from a GPX file by enabl
 ## Replace path elevations
 To replace all elevations on a path using the digital elevation model (DEM), open the path, tap the menu button in the top-right corner of the screen, and select 'Replace elevations'. If it is taking too long to load (ex. too many points), you can cancel and your path will be unmodified.
 
+## Elevation smoothing
+Path elevations are smoothed to reduce GPS noise. You can adjust this in Settings > Paths > 'Elevation smoothing'. If you have a recent path with elevations, a preview shows its original elevations (gray) and the smoothed elevations. Higher values reduce more noise, but may also remove real climbs and descents.
+
 ## Navigate with a path
-To navigate with a path, open it and tap the 'Navigate' button at the bottom. You will be prompted to choose how you want to follow the path:
+To navigate with a path, open it and use the buttons pinned to the bottom of the screen:
 
-- **Follow to end**: Follow the path from your nearest point on it to its end, taking the shortest route.
-- **Follow to start**: Follow the path from your nearest point on it to its start, taking the shortest route.
-- **Follow full loop**: Follow the path from your nearest point on it to its end, even if the start is closer. This option is only available for loop paths.
-- **Follow full loop in reverse**: The same as following the full loop, but from your nearest point on the path to its start.
-- **Navigate back onto path**: Navigate to the nearest point on the path without following it. By default, this targets a recorded waypoint. To navigate to any position along the path, disable Settings > Paths > 'Only navigate to recorded points'.
+- **Follow to end**: Follow the path in its recorded direction from your nearest point on it to its end.
+- **Follow to start**: Follow the path in the opposite direction from your nearest point on it to its start.
 
-To navigate to a specific point on the path, select the desired waypoint and use its menu to choose 'Navigate'. You will be prompted to choose how you want to navigate there:
+The button for the direction you most likely want is highlighted.
 
-- **Follow path to this point**: Follow the path from your nearest point on it to the selected waypoint.
+To navigate to a specific point on the path, select the desired waypoint and use its menu:
+
+- **Follow to point**: Follow the path from your nearest point on it to the selected waypoint, taking the shortest route.
 - **Navigate directly**: Navigate straight to the selected waypoint without following the path.
 
-Once you have chosen a navigation option, you will be taken to the Navigation tool and it will point you toward the next point on the path. The distance, elevation gain/loss, and ETA will be displayed, along with a progress bar showing how far along the path you are.
+Once you have started navigating, you will be taken to the Navigation tool and it will point you toward the next point on the path. The distance, elevation gain/loss, and ETA will be displayed, along with a progress bar showing how far along the path you are. You can open the path by tapping the path name in the navigation panel.
 
 ## Path visibility
 You can choose which paths are visible on maps by tapping the eye icon on the right side of the path row. They will show up on maps that have the Paths layer enabled.

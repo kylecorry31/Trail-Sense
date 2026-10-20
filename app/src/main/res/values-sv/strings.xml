@@ -896,12 +896,10 @@
     <string name="average_speed_pedometer">Medelhastighet (stegräknare)</string>
     <string name="average_speed_backtrack">Medelhastighet (tillbakaspårning)</string>
     <string name="reset_distance_title">Nollställ avståndet?</string>
-    <string name="navigate_back_onto_path">Navigerar till närmaste spårpunkt</string>
     <string name="beacons">Navigeringsmarkörer</string>
     <string name="pref_start_on_boot_title">Starta vid systemstart</string>
     <string name="pref_enable_analog_title">Analog klocka</string>
     <string name="bearing">Bäring</string>
-    <string name="pref_only_navigate_path_points_title">Navigera endast till registrerade punkter</string>
     <string name="allow_ignore_battery_restrictions_instructions">Noggrannheten kan förbättras om batteribegränsningarna för Trail Sense tas bort.\n\nPå de flesta enheter trycker du på ”%s”, växlar till alla appar och stänger sedan av batterioptimeringen för Trail Sense.\n\nBesök [Don\'t kill my app](https://dontkillmyapp.com/) för anvisningar för din enhet.</string>
     <string name="exporting_map">Exporterar karta</string>
     <string name="map_exported">Kartan har exporterats</string>

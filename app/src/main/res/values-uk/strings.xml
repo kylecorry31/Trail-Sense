@@ -862,14 +862,12 @@
     <string name="average_speed_pedometer">Сер. швидкість (крокомір)</string>
     <string name="average_speed_backtrack">Сер. швидкість (історія маршруту)</string>
     <string name="reset_distance_title">Скинути відстань\?</string>
-    <string name="navigate_back_onto_path">Навігація до найближчої шляхової точки</string>
     <string name="beacons">Маячки</string>
     <string name="pref_start_on_boot_title">Запуск під час увімкнення</string>
     <string name="move_to">Перейти до</string>
     <string name="bearing">Азимут</string>
     <string name="square">Квадрат</string>
     <string name="diamond">Діамант</string>
-    <string name="pref_only_navigate_path_points_title">Перехід лише до записаних точок</string>
     <string name="cross">Хрест</string>
     <string name="error">Помилка</string>
     <string name="warning">Увага</string>

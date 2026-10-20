@@ -805,7 +805,6 @@
     <string name="average_speed_pedometer">Gemiddelde snelheid (stappenteller)</string>
     <string name="average_speed_backtrack">Gemiddelde snelheid (terugweg)</string>
     <string name="reset_distance_title">Afstand opnieuw instellen\?</string>
-    <string name="navigate_back_onto_path">Vind de weg naar het dichtstbijzijnde punt op pad</string>
     <string name="pref_start_on_boot_title">Aanzetten bij opstarten toestel</string>
     <string name="bearing">Peiling</string>
     <plurals name="paths_imported">
@@ -870,7 +869,6 @@
     <string name="kwh_per_meter_squared_format">%s kWh /m²</string>
     <string name="line_style">Lijnenstijl</string>
     <string name="map_projection_mercator">Mercatorprojectie</string>
-    <string name="pref_only_navigate_path_points_title">Alleen padvinden naar opgeslagen punten</string>
     <string name="error">Fout</string>
     <string name="warning">Waarschuwing</string>
     <string name="tide_user_guide_recommendation">Webstedes met officiële getijdentabellen kunnen worden gevonden in de gebruikersgids.</string>
@@ -1664,11 +1662,6 @@
     <string name="pref_gps_power_usage_title">GPS-batterijverbruik</string>
     <string name="replace_elevations_confirmation">Alle padhoogtes vervangen met behulp van het digitale hoogtemodel?</string>
     <string name="replace_elevations">Hoogtes vervangen</string>
-    <string name="path_navigation_follow">Volg naar einde</string>
-    <string name="path_navigation_reverse">Volg naar begin</string>
-    <string name="path_navigation_loop">Volg hele route</string>
-    <string name="path_navigation_reverse_loop">Volg hele route in omgekeerde richting</string>
-    <string name="path_navigation_to_point">Volg pad tot dit punt</string>
     <string name="path_navigation_direct">Direct navigeren</string>
     <string name="gps_accuracy_filter_summary">%1$s nauwkeurigheid, wacht %2$s</string>
     <string name="gps_accuracy_target">Nauwkeurigheid: %1$s</string>

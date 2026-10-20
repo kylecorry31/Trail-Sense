@@ -159,7 +159,7 @@ Settings:
 - **Color by classification**: If enabled, the color of the marker will be based on the page's classification (ex. animal, plant).
 
 ## Location
-This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS.
+This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS. The location marker turns gray if your location is stale.
 
 Settings:
 

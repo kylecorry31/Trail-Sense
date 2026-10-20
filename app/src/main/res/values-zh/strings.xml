@@ -828,12 +828,10 @@
     <string name="current_speed">当前速度</string>
     <string name="reset_distance_title">重设距离？</string>
     <string name="beacons">信标</string>
-    <string name="navigate_back_onto_path">导航至最近的路径点</string>
     <string name="pref_start_on_boot_title">开机启动</string>
     <string name="move_to">移动至</string>
     <string name="bearing">确定方向</string>
     <string name="cross">十字形</string>
-    <string name="pref_only_navigate_path_points_title">仅导航到记录点</string>
     <string name="square">方形</string>
     <string name="diamond">菱形</string>
     <string name="error">错误</string>
@@ -1644,11 +1642,6 @@
     <string name="gps_power_usage_inherit">从 GPS 设置继承</string>
     <string name="replace_elevations">替换海拔</string>
     <string name="replace_elevations_confirmation">使用数字高程模型替换所有路径海拔？</string>
-    <string name="path_navigation_follow">起点到终点</string>
-    <string name="path_navigation_reverse">终点到起点</string>
-    <string name="path_navigation_loop">绕圈</string>
-    <string name="path_navigation_reverse_loop">反向绕圈</string>
-    <string name="path_navigation_to_point">到这个点</string>
     <string name="path_navigation_direct">直接导航</string>
     <string name="gps_accuracy_filter_summary">%1$s 精度，最多等 %2$s</string>
     <string name="gps_accuracy_target">精度：%1$s</string>

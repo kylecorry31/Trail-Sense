@@ -775,7 +775,6 @@
     <string name="pref_start_on_boot_title">Executar ao iniciar</string>
     <string name="bearing">Direção</string>
     <string name="reset_distance_title">Limpar distância\?</string>
-    <string name="pref_only_navigate_path_points_title">Navegar apenas pelos pontos gravados</string>
     <string name="error">Erro</string>
     <string name="map_exported">Mapa exportado</string>
     <string name="camera_capture">Captura</string>
@@ -788,7 +787,6 @@
     <string name="tide_deleted">A maré foi eliminada</string>
     <string name="estimated">Estimado</string>
     <string name="tide_table">Tabela de marés</string>
-    <string name="navigate_back_onto_path">Navegando até ao ponto mais próximo do caminho</string>
     <string name="beacons">Alfinetes</string>
     <string name="instructions">Instruções</string>
     <string name="compass_accuracy">Precisão da bússola</string>

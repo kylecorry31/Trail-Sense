@@ -582,7 +582,6 @@
         <item quantity="other">%d 個停駐點將會被刪除</item>
     </plurals>
     <string name="qr_text_too_long">文字太長，QR 圖碼被截斷</string>
-    <string name="navigate_back_onto_path">導航至最近的路線點</string>
     <string name="warning">警告</string>
     <string name="pref_start_on_boot_title">開機時啟動</string>
     <string name="ascent">上坡</string>
@@ -937,7 +936,6 @@
     <string name="path_slope_flat">平坦</string>
     <string name="weather_overcast">密雲</string>
     <string name="bearing">方位</string>
-    <string name="pref_only_navigate_path_points_title">只導航至已記錄的點</string>
     <string name="camera_capture">拍攝</string>
     <string name="time_until_full">直至充滿</string>
     <string name="path_slope_moderate">中等</string>
@@ -1645,11 +1643,6 @@
     <string name="gps_power_usage_balanced">平衡</string>
     <string name="gps_power_usage_high">高準確度</string>
     <string name="gps_power_usage_inherit">沿用 GPS 設定</string>
-    <string name="path_navigation_follow">追蹤至終點</string>
-    <string name="path_navigation_reverse">追蹤至起點</string>
-    <string name="path_navigation_loop">追蹤完整循環</string>
-    <string name="path_navigation_reverse_loop">反向追蹤完整循環</string>
-    <string name="path_navigation_to_point">追蹤路徑至此點</string>
     <string name="path_navigation_direct">直達導航</string>
     <string name="gps_accuracy_filter_summary">準確度 %1$s，最多等待 %2$s</string>
     <string name="gps_accuracy_target">準確度：%1$s</string>

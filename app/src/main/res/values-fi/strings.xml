@@ -413,7 +413,6 @@
     <string name="grant_permission">Myönnä %s käyttöoikeus</string>
     <string name="whistle_signal_where_are_you">Missä sinä olet\?</string>
     <string name="exporting_map">Karttaa viedään</string>
-    <string name="navigate_back_onto_path">Navigoiminen lähimpään polkupisteeseen</string>
     <string name="packing_lists">Pakkauslistat</string>
     <string name="change_resolution">Muuta resoluutiota</string>
     <string name="low_power_mode_on_message">Virransäästötila päällä, jotkin ominaisuudet saattavat olla poissa käytöstä.</string>
@@ -444,7 +443,6 @@
     <string name="location_disabled">Sijainti on poistettu käytöstä</string>
     <string name="sunset_alert_scheduled">Ilmoitus ajoitettu %s ennen auringonlaskua</string>
     <string name="pref_show_last_signal_beacon_title">Viimeisen puhelinverkkosignaalin merkkimajakka</string>
-    <string name="pref_only_navigate_path_points_title">Navigoi vain tallennettuihin pisteisiin</string>
     <string name="photo_maps">Valokuvakartat</string>
     <string name="screen_flashlight">Näyttö</string>
     <string name="high_tide">Korkea</string>
@@ -1600,10 +1598,5 @@
     <string name="gps_power_usage_inherit">Hae GPS:n asetuksista</string>
     <string name="pref_backtrack_keep_awake_summary">Kun alle 15:n minuutin taajuus</string>
     <string name="pref_backtrack_keep_awake_title">Pidä laite hereillä</string>
-    <string name="path_navigation_follow">Seuraa loppuun</string>
-    <string name="path_navigation_reverse">Seuraa alkuun</string>
-    <string name="path_navigation_loop">Seuraa koko kierros</string>
-    <string name="path_navigation_reverse_loop">Seuraa koko kierros takaperin</string>
-    <string name="path_navigation_to_point">Seuraa polkua tähän pisteeseen</string>
     <string name="path_navigation_direct">Suunnista suoraan</string>
 </resources>

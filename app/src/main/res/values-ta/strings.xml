@@ -471,7 +471,6 @@
     <string name="current_speed">தற்போதைய விரைவு</string>
     <string name="pref_enable_analog_title">அனலாக் கடிகாரம்</string>
     <string name="bearing">தாங்கி</string>
-    <string name="pref_only_navigate_path_points_title">பதிவுசெய்யப்பட்ட புள்ளிகளுக்கு மட்டுமே செல்லவும்</string>
     <string name="file">கோப்பு</string>
     <string name="tide_instructions">உங்கள் பயணத்தின் நீளத்திற்கு குறிப்பு அலைகளை உள்ளிட அதிகாரப்பூர்வ அலை அட்டவணையைப் பயன்படுத்தவும்.</string>
     <string name="permission_alarms_and_reminders">அலாரங்கள் மற்றும் நினைவூட்டல்கள்</string>
@@ -1004,7 +1003,6 @@
     <string name="average_speed_pedometer">சராசரி விரைவு (பெடோமீட்டர்)</string>
     <string name="average_speed_backtrack">சராசரி விரைவு (பின்னடைவு)</string>
     <string name="reset_distance_title">தூரத்தை மீட்டமைக்கவா?</string>
-    <string name="navigate_back_onto_path">அருகிலுள்ள பாதை புள்ளிக்கு செல்லவும்</string>
     <string name="pref_start_on_boot_title">துவக்கத்தில் தொடங்கவும்</string>
     <string name="error">பிழை</string>
     <string name="warning">எச்சரிக்கை</string>

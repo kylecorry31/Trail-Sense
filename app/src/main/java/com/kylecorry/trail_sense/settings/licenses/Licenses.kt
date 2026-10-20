@@ -109,7 +109,7 @@ object Licenses {
                 "arpitagarwal1301",
                 "helloiamcait",
                 "sguinetti",
-                "tetrdd",
+                "dark-uzi",
                 "FrameXX",
                 "ygorigor",
                 "LuccoJ",

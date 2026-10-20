@@ -749,7 +749,6 @@
     <string name="current_speed">Velocità attuale</string>
     <string name="step_length_walk">Cammina in una linea retta, premi stop quando hai fatto</string>
     <string name="average_speed_backtrack">Velocità media (percorso di ritorno)</string>
-    <string name="pref_only_navigate_path_points_title">Naviga solo verso punti registrati</string>
     <string name="file">File</string>
     <plurals name="paths_imported">
         <item quantity="one">%d percorso importato</item>
@@ -927,7 +926,6 @@
     <string name="current_speed_gps">Velocità attuale (GPS)</string>
     <string name="average_speed_pedometer">Velocità media (Pedometro)</string>
     <string name="reset_distance_title">Azzerare la distanza\?</string>
-    <string name="navigate_back_onto_path">Navigazione verso il punto del percorso più vicino</string>
     <string name="done">Fatto</string>
     <string name="tide_semidiurnal">Semidiurna</string>
     <string name="path_slope_moderate">Moderata</string>

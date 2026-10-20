@@ -854,7 +854,6 @@
 \n- Et bien plus encore !</string>
     <string name="distance_alert">Distance d\'alerte</string>
     <string name="current_speed_gps">Vitesse actuelle (GPS)</string>
-    <string name="navigate_back_onto_path">Navigation jusqu’au point de cheminement le plus proche</string>
     <string name="estimate_step_length">Estimer la longueur de foulée</string>
     <string name="tide_semidiurnal">Semi diurne</string>
     <string name="ascent">Ascension</string>
@@ -878,7 +877,6 @@
     <string name="note">Note</string>
     <string name="current_speed_pedometer">Vitesse actuelle (podomètre)</string>
     <string name="average_speed_backtrack">Vitesse moyenne (Repère)</string>
-    <string name="pref_only_navigate_path_points_title">Naviguer uniquement vers les points enregistrés</string>
     <string name="tide_user_guide_recommendation">Les sites Web officiels des tables de marée se trouvent dans le guide de l’utilisateur.</string>
     <string name="map_exported">Carte exportée</string>
     <string name="tide_instructions">Utilisez un tableau des marées officiel pour entrer les marées de référence pour la durée de votre voyage.</string>
@@ -1677,10 +1675,6 @@
     <string name="gps_power_usage_balanced">Équilibré</string>
     <string name="gps_power_usage_high">Haute précision</string>
     <string name="gps_power_usage_inherit">Hériter des paramètres GPS</string>
-    <string name="path_navigation_follow">Suivre jusqu\'à la fin</string>
-    <string name="path_navigation_loop">Suivre le circuit complet</string>
-    <string name="path_navigation_reverse_loop">Suivre le circuit complet dans le sens inverse</string>
-    <string name="path_navigation_to_point">Suivre le chemin jusqu\'à ce point</string>
     <string name="path_navigation_direct">Accéder directement</string>
     <string name="pref_backtrack_min_distance_title">Distance minimale entre deux points</string>
     <string name="pref_backtrack_min_distance_summary">Les points situés à une distance inférieure à celle-ci par rapport au point précédent ne sont pas enregistrés. Définissez cette valeur sur 0 pour enregistrer tous les points.</string>

@@ -759,7 +759,6 @@
     <string name="current_speed_gps">Aktualna prędkość (GPS)</string>
     <string name="average_speed_pedometer">Średnia prędkość (Krokomierz)</string>
     <string name="average_speed_backtrack">Średnia prędkość (Szlak powrotny)</string>
-    <string name="navigate_back_onto_path">Nawigacja do najbliższego punktu ścieżki</string>
     <string name="pref_start_on_boot_title">Uruchom przy starcie</string>
     <string name="activity_recognition_permission_denied">Odmówiono uprawnień dostępu do aktywności fizycznej, nie można włączyć funkcji krokomierza. Możesz to zmienić w ustawieniach.</string>
     <string name="error">Błąd</string>
@@ -773,7 +772,6 @@
     <string name="move_to">Przenieś do</string>
     <string name="path">Ścieżka</string>
     <string name="point_added">Dodano punkt do ścieżki</string>
-    <string name="pref_only_navigate_path_points_title">Nawiguj tylko do zarejestrowanych punktów</string>
     <string name="camera_capture">Przechwyć</string>
     <string name="point">Punkt</string>
     <string name="map_export_error">Nie udało się wyeksportować mapy do wybranego pliku</string>

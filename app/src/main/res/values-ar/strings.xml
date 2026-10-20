@@ -77,7 +77,6 @@
     <string name="direction_south">جنوب</string>
     <string name="direction_north_west">شمال غرب</string>
     <string name="direction_south_west">جنوب غرب</string>
-    <string name="navigate_back_onto_path">الملاحة إلى أقرب نقطة في المسار</string>
     <string name="coordinate_format_mgrs">MGRS</string>
     <string name="pref_coordinate_format_title">تنسيق الإحداثيات</string>
     <string name="pref_display_multi_beacons_summary">إظهار المنارات الأقرب على البوصلة</string>
@@ -476,7 +475,6 @@
     <string name="search">البحث</string>
     <string name="square">مربع</string>
     <string name="diamond">معين</string>
-    <string name="pref_only_navigate_path_points_title">الملاحة فقط إلى النقاط المسجلة</string>
     <string name="no">لا</string>
     <string name="backup">النسخ الاحتياطي</string>
     <plurals name="page_group_summary">

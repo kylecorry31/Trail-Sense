@@ -518,7 +518,6 @@
     <string name="step_length_stand_still">Állj egy helyben</string>
     <string name="step_length_walk">Gyalogolj egyenes vonalban, nyomd meg a stop-ot, ha kész</string>
     <string name="current_speed_pedometer">Jelenlegi sebesség (Lépésszámláló)</string>
-    <string name="pref_only_navigate_path_points_title">Csak felvett pontokhoz navigálás</string>
     <string name="tide_instructions">Használj egy hivatalos árapály táblázatot referencia árapályok megadásához az utazásod idejére.</string>
     <string name="tide_frequency_description">A dagályok száma naponta. A legtöbb árapály félnapos.</string>
     <string name="permission_alarms_and_reminders">Riasztások és emlékeztetők</string>
@@ -726,7 +725,6 @@
     <string name="warning">Figyelmeztetés</string>
     <string name="current_speed_gps">Jelenlegi sebesség (GPS)</string>
     <string name="average_speed_backtrack">Átlagsebesség (Visszakövetés)</string>
-    <string name="navigate_back_onto_path">Navigálás a legközelebbi ösvény ponthoz</string>
     <string name="point_added">Pont hozzáadva az ösvényhez</string>
     <string name="access_background_location_rationale">A Trail Sense helyadatokat használ a háttérben a tengerszinti nyomás kalibrálásához és a pontosabb naplemente-figyelmeztetéshez. [Adatvédelmi Irányelvek Megtekintése](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="onboarding_explore">- Gyalogtúrához, hátizsákos túrához, kempingezéshez és geocachinghez tervezve

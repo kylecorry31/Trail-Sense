@@ -6,13 +6,6 @@ The compass can be used for both orientation and navigation. Your bearing is dis
 
 This feature is not available if your device does not have a compass.
 
-### Compass update frequency
-
-You can change how often the compass updates in Settings > Navigation > Compass > 'Compass update frequency'.
-
-- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
-- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
-
 ### Nearby
 
 You can choose to display nearby beacons on the compass. The following settings control the nearby beacons:
@@ -64,13 +57,14 @@ The compass shows the direction of the sun and moon, allowing you to navigate us
 
 Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, tap the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
 
-When you start navigating to a beacon, Trail Sense reminds you to calibrate your compass. You can tick 'Do not ask again' in the reminder, or turn this off in Settings > Navigation > Calibrate before navigating.
+When you start navigating to a beacon and your compass accuracy is low, Trail Sense reminds you to calibrate your compass. You can tick 'Do not ask again' in the reminder, or turn this off in Settings > Navigation > Calibrate before navigating.
 
 ## Lock screen
-By default, Trail Sense follows your device's lock screen behavior. You can change this in Settings > Navigation:
+By default, Trail Sense follows your device's lock screen behavior. You can change this in Settings > Navigation > 'Show on lock screen':
 
-- **Show on lock screen while navigating**: Keeps Trail Sense visible over your lock screen while you are navigating.
-- **Show on lock screen while open**: Keeps Trail Sense visible over your lock screen whenever the Navigation tool is open.
+- **Never**: Follows your device's lock screen behavior.
+- **While navigating**: Keeps Trail Sense visible over your lock screen while you are navigating.
+- **While open**: Keeps Trail Sense visible over your lock screen whenever the Navigation tool is open.
 
 ## Beacon navigation
 
@@ -86,7 +80,7 @@ While navigating to a beacon, the direction will be displayed on the compass and
 - **Elevation change**: The elevation difference from your current elevation.
 - **Notes**: Any notes you have for the beacon. This will show as an icon if there are notes, and you can tap it to see the notes.
 
-You can stop navigating to a beacon by tapping the 'X' button.
+You can stop navigating to a beacon by tapping the 'X' button. A message with an 'Undo' option will appear in case you cancelled by accident.
 
 You can open the beacon by tapping the beacon name.
 

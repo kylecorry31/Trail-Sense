@@ -29,6 +29,12 @@ The reported accuracy of the compass is shown. If it is low, you can tap this op
 ### Smoothing
 To reduce noise in compass readings, you can increase the smoothing setting. If using a source that has a gyroscope, a value of 1 is recommended. Otherwise, experiment with increasing this value until the compass appears to be working correctly when you rotate your phone. However, if you increase the smoothing too much, Trail Sense may ignore real compass changes.
 
+### Update frequency
+You can change how often the compass updates in the Navigation, Map, Photo Maps, and Augmented Reality tools.
+
+- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
+- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
+
 ### True north
 To display true north instead of magnetic north, enable the 'True north' setting. This will adjust the compass reading to account for magnetic declination, and it will match most maps.
 
@@ -49,7 +55,7 @@ GPS settings can be found in Trail Sense Settings > Sensors > GPS. If your phone
 - **Manual**: This source allows you to manually set your location.
 
 ### GPS settings
-- **Smoothing**: Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. The default is 50%. Higher values can delay responses to changes in movement.
+- **Smoothing**: Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. Higher values can delay responses to changes in movement.
 - **Accuracy filter**: Choose the reported GPS accuracy you prefer before a reading is accepted and the maximum amount of time Trail Sense should wait for it. If the preferred accuracy is not available within that time, Trail Sense accepts the best available recent reading.
 - **GPS power usage**: Controls the power hint for GPS updates. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce location accuracy.
 - **Clear cache**: Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using this option.

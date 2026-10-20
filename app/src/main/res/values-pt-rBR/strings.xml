@@ -808,7 +808,6 @@
     <string name="current_speed_gps">Velocidade atual (GPS)</string>
     <string name="average_speed_pedometer">Velocidade média (Pedômetro)</string>
     <string name="average_speed_backtrack">Velocidade média (Recuar)</string>
-    <string name="navigate_back_onto_path">Navegando até o ponto mais próximo do percurso</string>
     <string name="beacons">Pontos de orientação</string>
     <string name="pref_start_on_boot_title">Executar ao iniciar</string>
     <string name="duration_second_format">%ds</string>
@@ -827,7 +826,6 @@
     <string name="square">Quadrado</string>
     <string name="diamond">Diamante</string>
     <string name="cross">Cruz</string>
-    <string name="pref_only_navigate_path_points_title">Navegar somente até pontos registrados</string>
     <string name="bearing">Rumo</string>
     <plurals name="path_group_summary">
         <item quantity="one">%d percurso</item>

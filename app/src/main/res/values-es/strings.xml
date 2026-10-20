@@ -802,7 +802,6 @@
     <string name="current_speed">Velocidad actual</string>
     <string name="current_speed_pedometer">Velocidad actual (Podómetro)</string>
     <string name="reset_distance_title">¿Reiniciar la distancia?</string>
-    <string name="pref_only_navigate_path_points_title">Navegar solo a puntos guardados</string>
     <string name="off">Apagado</string>
     <string name="activity_recognition_permission_denied">Permisión de actividad física denegada, imposible activar las características del podómetro. Puedes activarlo en los ajustes.</string>
     <string name="beacons">Balizas</string>
@@ -819,7 +818,6 @@
     <string name="current_speed_gps">Velocidad actual (GPS)</string>
     <string name="average_speed_pedometer">Velocidad media (Podómetro)</string>
     <string name="average_speed_backtrack">Velocidad media (Retroceder)</string>
-    <string name="navigate_back_onto_path">Navegando al punto más cercano de la ruta</string>
     <string name="average_speed">Velocidad media</string>
     <string name="allow_ignore_battery_restrictions_instructions">La eliminación de las restricciones de batería para Trail Sense puede mejorar la precisión.\n\nEn la mayoría de los dispositivos, haz clic en \'%s\', luego cambia a todas las aplicaciones y apaga la optimización de la batería para Trail Sense.\n\nVisita [Don\'t kill my app](https://dontkillmyapp.com/) para obtener instrucciones específicas del dispositivo.</string>
     <string name="point">Punto</string>

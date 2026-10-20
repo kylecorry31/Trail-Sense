@@ -75,13 +75,6 @@ You can keep a photo map visible over your lock screen while it is open by enabl
 
 By default, Trail Sense loads more tiles for higher quality when viewing a photo map. You can disable this in Settings > Offline Maps > 'High detail mode' to reduce memory usage at the cost of lower quality.
 
-## Compass update frequency
-
-You can change how often the compass updates in Settings > Offline Maps > Photo Maps > 'Compass update frequency'.
-
-- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
-- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
-
 ## Layers
 Layers are used to display information on the map. For more information on layers, refer to the 'Map Layers' guide.
 

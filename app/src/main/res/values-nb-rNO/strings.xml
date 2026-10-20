@@ -749,14 +749,12 @@
     <string name="calibrate_new_tide">Kalibrere til et nytt tidevann\?</string>
     <string name="pref_show_nearest_tide_title">Vis nærmeste tidevann</string>
     <string name="tide_deleted">Tidevann slettet</string>
-    <string name="navigate_back_onto_path">Navigerer til nærmeste stipunkt</string>
     <string name="beacons">Navigeringsmarkører</string>
     <string name="pref_start_on_boot_title">Start ved enhetsoppstart</string>
     <string name="error">Feil</string>
     <string name="warning">Advarsel</string>
     <string name="square">Kvadrat</string>
     <string name="diamond">Diamant</string>
-    <string name="pref_only_navigate_path_points_title">Bare naviger til registrerte punkter</string>
     <string name="allow_ignore_battery_restrictions_instructions">Fjerning av batterirestriksjoner for Trail Sense kan forbedre nøyaktigheten.
 \n
 \nPå de fleste enheter, trykk \'%s\', så skift til alle apper, og slå av batterioptimalisering for Trail Sense.

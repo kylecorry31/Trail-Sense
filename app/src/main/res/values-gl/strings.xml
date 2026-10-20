@@ -828,12 +828,10 @@
     <string name="average_speed_pedometer">Velocidade media (podómetro)</string>
     <string name="average_speed_backtrack">Velocidade media (Recuar)</string>
     <string name="reset_distance_title">Restablecer distancia?</string>
-    <string name="navigate_back_onto_path">Navegando ata o punto de ruta máis próxima</string>
     <string name="beacons">Balizas</string>
     <string name="pref_start_on_boot_title">Comezar ao arrancar</string>
     <string name="pref_enable_analog_title">reloxo analóxico</string>
     <string name="bearing">Rumbo</string>
-    <string name="pref_only_navigate_path_points_title">Navegar só a puntos rexistrados</string>
     <string name="error">Erro</string>
     <string name="warning">Aviso</string>
     <string name="allow_ignore_battery_restrictions_instructions">Eliminar as restricións da batería para Trail Sense pode mellorar a precisión.\n\nNa maioría dos dispositivos, fai clic en \"%s\", despois troca a tódalas aplicacións e desactiva a optimización da batería para Trail Sense.\n\nVisita [Don\'t kill my app](https://dontkillmyapp.com/) para obter instrucións específicas do dispositivo.</string>
