@@ -120,6 +120,7 @@ class Navigator private constructor(context: Context) {
 
     fun navigateTo(beaconId: Long) {
         pathNavigator.cancel()
+        CoroutineScope(Dispatchers.IO).launch { clearBearing() }
         setBeaconDestination(beaconId)
     }
 
@@ -180,6 +181,7 @@ class Navigator private constructor(context: Context) {
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
         pathNavigator.cancel()
+        cancelBeaconNavigation()
         val navigationBearing = NavigationBearing(
             0,
             bearing,
