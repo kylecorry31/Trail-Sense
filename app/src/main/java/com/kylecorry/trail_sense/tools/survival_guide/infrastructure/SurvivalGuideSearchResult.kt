@@ -14,6 +14,5 @@ data class SurvivalGuideSearchResult(
 data class SurvivalGuideSubsectionSearchResult(
     val score: Float,
     val headingIndex: Int,
-    val heading: String?,
-    val summary: String?
+    val heading: String?
 )

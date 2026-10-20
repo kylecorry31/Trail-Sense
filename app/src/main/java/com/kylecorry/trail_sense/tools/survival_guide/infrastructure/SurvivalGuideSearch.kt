@@ -16,19 +16,17 @@ class SurvivalGuideSearch(context: Context) {
         return strategy.search(query)
     }
 
-    suspend fun getSummary(query: String, result: SurvivalGuideSearchResult): String {
+    suspend fun getSummary(result: SurvivalGuideSearchResult): String {
         val contents = loader.load(result.chapter, true)
         val section = contents.sections[result.headingIndex]
 
-        val builder = StringBuilder()
-        if (shouldUseSubsection(result)) {
-            val subsection = section.subsections[result.bestSubsection!!.headingIndex]
-            builder.append(subsection.content)
+        val content = if (shouldUseSubsection(result)) {
+            section.subsections[result.bestSubsection!!.headingIndex].content
         } else {
-            builder.append(section.content)
+            section.content
         }
 
-        return builder.toString().trim()
+        return content.orEmpty().trim()
     }
 
     companion object {

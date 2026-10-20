@@ -17,18 +17,6 @@ abstract class BaseSurvivalGuideSearch(private val loader: GuideLoader) :
         query: String,
         guide: GuideDetails
     ): List<SurvivalGuideSearchResult> {
-        // TODO: Other languages?
-
-//        Log.d(
-//            "SurvivalGuideFuzzySearch", TextUtils.getKeywords(
-//                query,
-//                preservedWords = preservedWords,
-//                additionalStopWords = additionalStopWords,
-//                additionalContractions = additionalContractions,
-//                additionalStemWords = additionalStemWords
-//            ).joinToString(", ")
-//        )
-
         val sections = guide.sections
 
         val matches = mutableListOf<SurvivalGuideSearchResult>()
@@ -56,8 +44,7 @@ abstract class BaseSurvivalGuideSearch(private val loader: GuideLoader) :
                         SurvivalGuideSubsectionSearchResult(
                             it.third,
                             it.first,
-                            it.second.title,
-                            it.second.summary
+                            it.second.title
                         )
                     }
                 )

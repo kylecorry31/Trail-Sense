@@ -45,7 +45,7 @@ fun <T> T.useSearchSurvivalGuide(query: String): Pair<List<SurvivalGuideSearchRe
                 setResults(searchResults)
                 val firstResult = searchResults.firstOrNull()
                 if (firstResult != null && firstResult.score >= 0.5f) {
-                    setSummary(search.getSummary(query, firstResult))
+                    setSummary(search.getSummary(firstResult))
                 } else {
                     setSummary("")
                 }

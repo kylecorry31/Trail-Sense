@@ -10,7 +10,6 @@
         android:id="@+id/guide_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:rightButtonIcon="@drawable/ic_printer"
         app:showSubtitle="false"
         tools:title="Guide" />
 

@@ -6,7 +6,8 @@ import androidx.navigation.fragment.findNavController
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
 import com.kylecorry.trail_sense.shared.openTool
-import com.kylecorry.trail_sense.tools.survival_guide.infrastructure.SurvivalUtils
+import com.kylecorry.andromeda.fragments.show
+import com.kylecorry.trail_sense.tools.survival_guide.ui.SurvivalGuideBottomSheetFragment
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class QuickActionSurvivalGuide(btn: QuickActionButtonView, fragment: Fragment) :
@@ -18,7 +19,7 @@ class QuickActionSurvivalGuide(btn: QuickActionButtonView, fragment: Fragment) :
 
     override fun onClick() {
         super.onClick()
-        SurvivalUtils.showSurvival(fragment)
+        SurvivalGuideBottomSheetFragment().show(fragment)
     }
 
     override fun onLongClick(): Boolean {
