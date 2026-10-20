@@ -331,21 +331,20 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
     private fun toggleDestinationBearing() {
         inBackground {
-            if (destination is Destination.Beacon) {
-                // TODO: Prompt to cancel navigation?
-                // Don't set destination bearing while navigating to a beacon
-                return@inBackground
-            }
+            when (destination) {
+                null -> if (hasCompass) {
+                    // TODO: Wait for GPS location to be up to date (show a loading indicator)
+                    navigator.navigateToBearing(compass.rawBearing, gps.location)
+                }
 
-            if (destination == null && hasCompass) {
-                // TODO: Wait for GPS location to be up to date (show a loading indicator)
-                navigator.navigateToBearing(compass.rawBearing, gps.location)
-            } else {
-                onMain {
+                is Destination.Bearing -> onMain {
                     if (isBound) {
                         binding.navigationSheet.cancelNavigation()
                     }
                 }
+
+                // Beacons and paths are only cancelled with the navigation sheet's cancel button
+                else -> {}
             }
         }
     }
