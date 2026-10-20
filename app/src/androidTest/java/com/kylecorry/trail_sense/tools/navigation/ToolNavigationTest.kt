@@ -69,7 +69,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText("Bearing")
         isVisible(R.id.navigation_bearing)
 
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        cancelNavigation()
         not { hasText("Bearing") }
     }
 
@@ -108,7 +108,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText(R.id.beacon_title, "Test Beacon")
         back()
 
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        cancelNavigation()
         not { hasText("Test Beacon") }
 
         hasWorkingTrueNorthIndicator()
@@ -204,7 +204,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         navigateToBeacon("Summit")
         hasText(R.id.navigation_distance, "40.41 mi")
 
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        cancelNavigation()
         not { hasText("Summit") }
 
         navigateToBeacon("Camp")
@@ -219,23 +219,29 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         assumeFalse(isStagingBuild)
         relaunchTool {
             seedBeacons()
-            PreferencesSubsystem.getInstance(TestUtils.context).preferences.putBoolean(
-                string(R.string.pref_use_true_north),
-                false
-            )
+            val preferences = PreferencesSubsystem.getInstance(TestUtils.context).preferences
+            preferences.putBoolean(string(R.string.pref_use_true_north), false)
+            // The dialog would delay the check of the north reference label, which is only shown briefly
+            preferences.putBoolean(string(R.string.pref_show_calibrate_on_navigate_dialog), false)
         }
         click(R.id.beaconBtn)
         click("Summit")
         click(string(R.string.navigate))
-        optional { clickOk() }
 
+        hasText(string(R.string.magnetic_north))
         // True bearing of 36 degrees minus the declination of about -14 degrees
         waitFor {
             val text = textOf(R.id.navigation_distance)
             val direction = Regex("(\\d+)° ([NSEW]+)").find(text)!!.groupValues[1].toInt()
             assertEquals(50.0, direction.toDouble(), 3.0)
         }
-        hasText(string(R.string.magnetic_north))
+    }
+
+    private fun cancelNavigation() {
+        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        // The undo snackbar covers the beacon button until it times out
+        hasText(string(R.string.navigation_cancelled))
+        not(waitForTime = 15000) { hasText(string(R.string.navigation_cancelled)) }
     }
 
     private fun navigateToBeacon(name: String) {

@@ -294,7 +294,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
             isVisible(R.id.chart)
         }
 
-        // Add a point
+        // Add a point away from the first so the path can be followed
+        TestUtils.setLocationOverride(Coordinate(42.04, -71.97))
         scrollUntil(R.id.path_scroll) {
             click(R.id.add_point_btn)
         }
