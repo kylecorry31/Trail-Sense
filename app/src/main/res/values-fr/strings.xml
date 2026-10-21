@@ -1686,5 +1686,4 @@
     <string name="compass_update_frequency">Fréquence de mise à jour de la boussole</string>
     <string name="compass_update_frequency_normal">Normal</string>
     <string name="compass_update_frequency_fast">Rapide</string>
-    <string name="path_navigation_reverse">Cliquez ici pour commencer</string>
 </resources>

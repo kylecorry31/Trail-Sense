@@ -1633,11 +1633,6 @@
     <string name="pref_backtrack_keep_awake_title">Mantener el dispositivo despierto</string>
     <string name="delete_packing_list_item">¿Eliminar entrada?</string>
     <string name="map_layer_navigation_show_endpoints">Mostrar puntos de inicio y fin</string>
-    <string name="path_navigation_follow">Seguir hasta el final</string>
-    <string name="path_navigation_reverse">Seguir hasta el inicio</string>
-    <string name="path_navigation_loop">Seguir en bucle</string>
-    <string name="path_navigation_reverse_loop">Seguir en bucle inverso</string>
-    <string name="path_navigation_to_point">Seguir ruta hasta este punto</string>
     <string name="path_navigation_direct">Navigar directo</string>
     <string name="compass_update_frequency">Frecuencia refresco brújula</string>
     <string name="compass_update_frequency_normal">Normal</string>

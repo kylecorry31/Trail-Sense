@@ -1659,17 +1659,14 @@
     <string name="ar_path_appearance_line">线条</string>
     <string name="skip_elevations">跳过海拔</string>
     <string name="quality">质量</string>
-    <string name="follow_path">沿着路径移动</string>
     <string name="path_direction_to_end">到终点</string>
     <string name="path_direction_to_start">到起点</string>
     <string name="path_navigation_follow_to_point">到这个航路点</string>
-    <string name="path_navigation_trailhead">到路线起点</string>
     <string name="elevation_smoothing">高程平滑</string>
     <string name="create_path_on_map">在地图上绘制</string>
     <string name="pref_backtrack_keep_on_stop_title">停止时保留路径</string>
     <string name="pref_backtrack_keep_on_stop_summary">如不保留在 Backtrack 历史后将删除路径</string>
     <string name="recording">记录中</string>
-    <string name="path_navigation_too_short">此路径太短无法照着走</string>
     <string name="pref_navigation_lock_screen_title">显示在锁屏上</string>
     <string name="pref_navigation_lock_screen_while_navigating">导航时</string>
     <string name="pref_navigation_lock_screen_while_open">打开时</string>

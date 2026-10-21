@@ -1661,9 +1661,7 @@
     <string name="ar_path_appearance_line">線條</string>
     <string name="create_path_on_map">在地圖上繪製</string>
     <string name="elevation_smoothing">海拔平滑</string>
-    <string name="follow_path">依循路線</string>
     <string name="path_direction_to_end">至終點</string>
     <string name="path_direction_to_start">至起點</string>
     <string name="path_navigation_follow_to_point">循線至此點</string>
-    <string name="path_navigation_trailhead">循線回起點</string>
 </resources>
