@@ -26,7 +26,9 @@ import com.kylecorry.andromeda.sense.orientation.filter.LowPassOrientationSensor
 import com.kylecorry.sol.math.filters.MovingAverageFilter
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.main.MainActivity
+import com.kylecorry.trail_sense.settings.infrastructure.DebugPreferences
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
+import com.kylecorry.trail_sense.shared.sensors.compass.AdaptiveOrientationSensorFilter
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityOrientationWrapper
@@ -113,8 +115,6 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     }
 
     fun getOrientationSensor(sensorDelay: Int): IOrientationSensor {
-        val smoothing = prefs.compassSmoothing
-
         val baseOrientationSensor = getBaseOrientationSensor(sensorDelay)
 
         // Don't use quick recalibration for custom sensors
@@ -134,24 +134,28 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
                 )
             }
 
+        val smoothing = prefs.compassSmoothing
+        val useSlider = DebugPreferences(context).disableAutoCompassSmoothing
+
         // Smoothing isn't needed
-        if (smoothing <= 1) {
+        if (useSlider && smoothing <= 1) {
             return MagQualityOrientationWrapper(
                 quickRecalibration,
                 Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
             )
         }
 
-        val alpha = Interpolation.map((1 - smoothing / 100f).pow(2), 0f, 1f, 0.005f, 1f)
+        val filter = if (useSlider) {
+            val alpha = Interpolation.map((1 - smoothing / 100f).pow(2), 0f, 1f, 0.005f, 1f)
+            LowPassOrientationSensorFilter(alpha, true)
+        } else {
+            AdaptiveOrientationSensorFilter()
+        }
 
         return MagQualityOrientationWrapper(
-            FilteredOrientationSensor(
-                quickRecalibration,
-                LowPassOrientationSensorFilter(alpha, true)
-            ),
+            FilteredOrientationSensor(quickRecalibration, filter),
             Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
         )
-
     }
 
     private fun getCompassSurfaceRotation(): Int {

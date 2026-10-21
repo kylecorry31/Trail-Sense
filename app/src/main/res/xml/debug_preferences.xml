@@ -10,6 +10,14 @@
         app:key="pref_debug_tap_map_to_set_location"
         app:singleLineTitle="false" />
 
+    <SwitchPreferenceCompat
+        android:summary="Uses the compass smoothing slider instead of the adaptive filter. Reopen the compass to apply"
+        android:title="Disable automatic compass smoothing"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false"
+        app:key="pref_debug_disable_auto_compass_smoothing"
+        app:singleLineTitle="false" />
+
     <Preference
         android:summary="Replaces all weather observations with an exported weather CSV"
         android:title="Import weather CSV"

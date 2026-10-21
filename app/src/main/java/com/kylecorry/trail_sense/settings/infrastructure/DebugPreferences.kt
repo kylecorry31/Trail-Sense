@@ -18,7 +18,20 @@ class DebugPreferences(context: Context) : PreferenceRepo(context) {
             isTapMapToSetLocationEnabled = value
         }
 
+    private var isAutoCompassSmoothingDisabled by BooleanPreference(
+        cache,
+        DISABLE_AUTO_COMPASS_SMOOTHING_KEY,
+        false
+    )
+
+    var disableAutoCompassSmoothing: Boolean
+        get() = isDebug() && isAutoCompassSmoothingDisabled
+        set(value) {
+            isAutoCompassSmoothingDisabled = value
+        }
+
     private companion object {
+        const val DISABLE_AUTO_COMPASS_SMOOTHING_KEY = "pref_debug_disable_auto_compass_smoothing"
         const val TAP_MAP_TO_SET_LOCATION_KEY = "pref_debug_tap_map_to_set_location"
     }
 }
