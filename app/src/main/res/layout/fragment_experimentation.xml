@@ -19,6 +19,12 @@
         android:layout_marginTop="16dp"
         android:text="Update" />
 
+    <com.kylecorry.trail_sense.tools.experimentation.CavePathView
+        android:id="@+id/cave_path"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <TextView
         android:id="@+id/text2"
         android:layout_width="match_parent"
