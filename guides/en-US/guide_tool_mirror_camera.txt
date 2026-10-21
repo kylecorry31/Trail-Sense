@@ -1,6 +1,9 @@
-The Mirror Camera tool can be used as a mirror for yourself, for example if you got something in your eye.
+Use the Mirror Camera tool as a mirror, for example when you get something in your eye.
 
-## Camera
-A front camera preview is displayed with white bars around it (to provide light in dark environments). The preview shows a mirror image.
+## Use the mirror
+The tool shows a mirror image from the front camera. White bars around the preview provide light in dark environments.
 
-You can zoom by pinching the screen or by using the slider.
+To zoom, do one of the following:
+
+- Pinch the screen.
+- Use the slider.

@@ -1,29 +1,39 @@
-The Ballistics tool provides calculators for firearms to help hunters make a shot. Remember to always treat your firearm as if it were loaded and practice safe handling to avoid injury. Be sure to follow local laws and regulations at all times.
+Use the Ballistics tool for firearm calculators that help hunters make a shot.
 
-## Scope
-You can use the Scope calculator to sight in a scope. It is best to take a few shots and measure to the center of the group. Do not change the point where you are aiming between shots.
+**Warning:** Always treat your firearm as if it is loaded, and practice safe handling to avoid injury. Follow local laws and regulations at all times.
 
-- **Adjustment per click**: This is normally found on your scope's dials. If your scope lists inches per 100 yards, that is equivalent to MOA (1/4" @ 100 yd = 1/4 MOA).
+## Sight in a scope
+Use the Scope calculator to find the adjustment needed to sight in a scope. For best results, take a few shots, and measure from the point of aim to the center of the group. Do not change your point of aim between shots.
+
+To calculate the adjustment, fill out the following fields:
+
+- **Adjustment per click**: The adjustment for each click of your scope's dials. This is normally printed on the scope. If your scope lists inches per 100 yards, that is equivalent to MOA (1/4" @ 100 yd = 1/4 MOA).
 - **Distance to target**: The distance to the target you are sighting your scope for.
-- **Windage miss**: The amount your shot group missed the point of aim to either the left or right.
-- **Elevation miss**: The amount your shot group missed the point of aim either above or below.
+- **Windage miss**: How far your shot group missed the point of aim to the left or right.
+- **Elevation miss**: How far your shot group missed the point of aim above or below.
 
-Once you fill out the fields, the scope adjustment amount will be shown at the bottom. The adjustment per click and distance to target will be remembered.
+The scope adjustment appears at the bottom of the screen. Trail Sense remembers the adjustment per click and the distance to target.
 
-## Ballistics
-You can use the Ballistics calculator to determine bullet drop at a given distance. This only works for projectiles that use the G1 drag model.
+## Calculate bullet drop
+Use the Ballistics calculator to find the bullet drop at a given distance. This calculator works only for projectiles that use the G1 drag model.
 
-- **Sight-in range**: The distance you sighted in your rifle at.
+To calculate the bullet drop, fill out the following fields:
+
+- **Sight-in range**: The distance at which you sighted in your rifle.
 - **Scope height**: The height of your scope above the center of the bore.
-- **Muzzle velocity**: The speed of the bullet as it leaves the muzzle. This can normally be found on the ammo box, looked up online, or measured with a chronograph.
-- **Ballistic coefficient**: The ballistic coefficient of the bullet. This can normally be found on the ammo box or looked up online. If you don't provide this, then drag will not be factored in.
+- **Muzzle velocity**: The speed of the bullet as it leaves the muzzle. You can find this on the ammo box, look it up online, or measure it with a chronograph.
+- **Ballistic coefficient**: The ballistic coefficient of the bullet. You can find this on the ammo box or look it up online. If you leave this blank, drag is not factored in.
 
-Once you enter the above fields, a table will display containing the time, range, velocity, and drop. All fields will be remembered.
+A table showing the time, range, velocity, and drop appears below the fields. Trail Sense remembers all fields.
 
-## Energy
-You can use the Energy calculator to determine how much energy your projectile will impact with. You should ensure the energy of your bullet is sufficient for the animal you plan to hunt.
+## Calculate bullet energy
+Use the Energy calculator to find how much energy your projectile has on impact. Make sure the energy of your bullet is sufficient for the animal you plan to hunt.
 
-- **Muzzle velocity**: The speed of the bullet as it leaves the muzzle. This can normally be found on the ammo box, looked up online, or measured with a chronograph.
-- **Bullet weight**: The weight of the bullet. This can normally be found on the ammo box, looked up online, or measured with a scale.
+To calculate the energy, fill out the following fields:
 
-Once you enter the above fields, the energy will be displayed at the bottom. Check with local laws, regulations, and ethics guidelines to determine the minimum energy for a legal and ethical hunt. All fields will be remembered.
+- **Muzzle velocity**: The speed of the bullet as it leaves the muzzle. You can find this on the ammo box, look it up online, or measure it with a chronograph.
+- **Bullet weight**: The weight of the bullet. You can find this on the ammo box, look it up online, or measure it with a scale.
+
+The energy appears at the bottom of the screen. Trail Sense remembers all fields.
+
+Check local laws, regulations, and ethics guidelines to find the minimum energy for a legal and ethical hunt.

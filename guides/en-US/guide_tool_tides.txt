@@ -1,79 +1,96 @@
-The Tides tool helps you keep track of tides at a specific location.
+Use the Tides tool to keep track of the tides at a specific location.
+
+**Warning:** Tide predictions are estimates, and you shouldn't rely on them exclusively. Whenever possible, use an official tide table, and enter its data into Trail Sense for accuracy.
 
 ## Create a tide table
-Before venturing into coastal areas, consult an official tide table for accurate times and water heights. Once you have this information, follow these steps to import it into Trail Sense's Tide tool:
+Before you go to a coastal area, find an official tide table for accurate times and water heights. See the Find official tide tables section. Then enter it in Trail Sense:
 
 1. Tap the tides button in the top-right corner of the screen.
-2. Tap the '+' button in the bottom-right corner.
-3. Optionally, provide a name and location for the tide.
-4. Adjust the tide frequency, indicating how many high tides typically occur in a day (most places have 2, known as Semidiurnal).
+2. Tap the **+** button in the bottom-right corner.
+3. Optional: Enter a name and location for the tide.
+4. Set the tide frequency, which is the number of high tides that usually occur in a day. Most places have 2, which is called semidiurnal.
 5. Scroll down to the tide table section.
-6. Tap either 'H' for high tide or 'L' for low tide to toggle between them.
-7. Select 'Time not set' and enter the date and time of the tide.
-8. Optionally, tap the '-' in the 'Height' column to input the tide's height.
-9. To add another tide, tap the '+' button in the top-left corner of the table.
-10. You can delete a tide by tapping the 'X' icon to the right of the tide.
-11. The tide estimation method can be changed by tapping the 'Estimate method' dropdown. Lunitidal interval uses the moon's position to estimate tides, and may be more accurate in some locations.
-12. Save the tide table by tapping the checkmark in the top-right corner.
+6. Tap **H** for high tide or **L** for low tide to switch between them.
+7. Tap **Time not set**, and enter the date and time of the tide.
+8. Optional: Tap the **-** in the **Height** column, and enter the height of the tide.
+9. To add another tide, tap the **+** button in the top-left corner of the table.
+10. Optional: To choose how Trail Sense estimates tides, tap the **Estimate method** dropdown. See the Estimation methods section.
+11. Tap the checkmark in the top-right corner to save the tide table.
 
-For the best accuracy, input all tides for each relevant day. Trail Sense will distinguish between entered and estimated tides on the tide chart.
+To delete a tide from the table, tap the **X** icon on the right side of the tide.
+
+For the best accuracy, enter all the tides for each relevant day. The tide chart shows which tides you entered and which are estimated.
 
 ### Estimation methods
+Trail Sense can estimate tides with the following methods:
 
-- **Tide clock**: Assumes a fixed tidal cycle and requires at least one known tide to operate.
-- **Lunitidal interval**: Uses the moon's position to estimate tides.
-    - **Auto**: Requires at least one known tide, it will automatically calculate the lunitidal interval.
-    - **Local**: Enter the lunitidal interval in hours and minutes for your location. This requires the location to be set, but does not require a tide table.
-    - **UTC/Greenwich**: Enter the lunitidal interval in hours and minutes for UTC/Greenwich. This does not require a location or tide table.
-- **Tide model (auto)**: Estimates the tide near the entered location or if no location is entered, near you. For most locations, tides should be accurate to within an hour.
+- **Tide clock**: Assumes a fixed tidal cycle. It requires at least one known tide.
+- **Lunitidal interval**: Uses the moon's position to estimate tides. It might be more accurate in some locations.
+    - **Auto**: Calculates the lunitidal interval automatically. It requires at least one known tide.
+    - **Local**: Uses a lunitidal interval that you enter in hours and minutes for your location. It requires a location but not a tide table.
+    - **UTC/Greenwich**: Uses a lunitidal interval that you enter in hours and minutes for UTC/Greenwich. It requires neither a location nor a tide table.
+- **Tide model (auto)**: Estimates the tide near the location you entered or, if you didn't enter one, near you. For most locations, the tides are accurate to within an hour.
 
-## Viewing a tide table
-By default, the Tides tool displays the closest tide to your location when you open it. To change this, go to Settings > Tides > 'Show closest tide' to toggle between displaying the closest tide and the last tide you viewed.
+## View a tide table
+By default, the Tides tool shows the tide closest to your location when you open it. To show the last tide you viewed instead, change **Settings > Tides > Show closest tide**.
 
-To select a different tide, tap the tides button in the top-right corner of the screen. This opens a list of all the tide tables you've created. Simply tap on a tide to view it.
+To view a different tide, do the following:
 
-### Nearby tide
-This shows the tide near your location using an offline tide model. For most locations, tides should be accurate to within an hour, but always use official tide tables if possible. If you are not close to a tide you entered, this will be shown by default.
+1. Tap the tides button in the top-right corner of the screen. A list of the tide tables you created opens.
+2. Tap the tide.
 
-This may be inaccurate in some areas, especially in areas with complicated geography.
+### View the nearby tide
+The nearby tide shows the tide near your location from an offline tide model. For most locations, the tide is accurate to within an hour, but use official tide tables whenever possible. The model might be inaccurate in some areas, especially areas with complicated geography.
 
-The nearby tide table can't be modified or deleted.
+If you aren't close to a tide you entered, the nearby tide is shown by default. You can't edit or delete the nearby tide table.
 
-## Tide chart
-The tide chart displays the tides for the current day. The X-axis represents time, while the Y-axis represents the tide height. A dot marks the current time on the chart. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. Additionally, you can use the arrows to move to the next/previous date or long-press the calendar to quickly jump to today's date.
+## Read the tide chart
+The tide chart shows the tides for the selected day. The X-axis is time, and the Y-axis is tide height. A dot marks the current time. The screen has the following parts:
 
-At the top of the screen, you'll find the current tide level and, if available, the tide's height. A down arrow means a falling tide, while an up arrow means a rising tide.
+- **Top of the screen**: The current tide level and, if available, the tide height. A down arrow means the tide is falling, and an up arrow means the tide is rising.
+- **Bottom of the screen**: A tide table for the selected day. It shows the tide height if you entered it. Otherwise, the height is estimated from the tides you entered. Estimated tides might not be entirely accurate.
 
-The bottom of the screen displays a tide table for the current day. If the tide height is entered, it will be shown here; otherwise, it will be estimated. Estimated tides may not be entirely accurate and are based on the inputted tides.
+Today is selected by default. To select another day, do one of the following:
 
-## Editing a tide table
-You can edit a tide table with the following steps:
+- Tap the calendar icon at the top of the screen.
+- Tap the arrows to move to the next or previous date.
+- Long-press the calendar icon to jump back to today.
 
-1. Tap the tides button in the top-right corner of the screen.
-2. Tap the menu button to the right of the tide you wish to edit.
-3. Select 'Edit'
-4. You'll be taken to the same screen used to create the tide table. Edit the table as needed.
-5. Save your changes by tapping the checkmark in the top-right corner.
-
-## Deleting a tide table
-You can delete a tide table using the following steps:
+## Edit a tide table
+To edit a tide table, do the following:
 
 1. Tap the tides button in the top-right corner of the screen.
-2. Tap the menu button to the right of the tide you want to delete.
-3. Choose 'Delete'
+2. Tap the menu button on the right side of the tide you want to edit.
+3. Select **Edit**.
+4. Edit the table on the screen that opens. It is the same screen you use to create a tide table.
+5. Tap the checkmark in the top-right corner to save your changes.
 
-## Viewing tides on the map
-By default, tides with a location entered will appear on the Tides map layer. To hide/show a tide, follow these steps:
+## Delete a tide table
+To delete a tide table, do the following:
 
 1. Tap the tides button in the top-right corner of the screen.
-2. Tap the menu button to the right of the tide you wish to hide or show.
-3. Select 'Hide' or 'Show'
+2. Tap the menu button on the right side of the tide you want to delete.
+3. Select **Delete**.
 
-## Estimating tides without a tide table
-If you don't have access to a tide table, you can estimate tides using the Tides tool. Keep in mind that this is just an estimate, so it's always best to consult an officially published tide table when possible. If you know whether the tide is currently high or low, you can create a tide table with a single entry (using the current time and tide level), and the Tides tool will estimate the tidal cycle. This should only be used for short-term predictions, as accuracy decreases further away from the reference tide.
+## Show or hide a tide on the map
+By default, tides that have a location appear on the Tides map layer. To hide or show a tide, do the following:
 
-## Finding official tide tables
-To locate an official tide table, search the Internet for tides at your location. Here are some community-recommended sites offering tide tables:
+1. Tap the tides button in the top-right corner of the screen.
+2. Tap the menu button on the right side of the tide you want to hide or show.
+3. Select **Hide** or **Show**.
+
+## Estimate tides without a tide table
+If you don't have a tide table, you can estimate the tides with the Tides tool. This is only an estimate, so use an officially published tide table when possible.
+
+If you know whether the tide is currently high or low, do the following:
+
+1. Create a tide table with a single entry that uses the current time and tide level. See the Create a tide table section.
+2. Save the tide table.
+
+The Tides tool estimates the tidal cycle from that entry. Use this only for short-term predictions, because the accuracy decreases the farther you are from the reference tide.
+
+## Find official tide tables
+To find an official tide table, search the Internet for tides at your location. The following sites are recommended by the community.
 
 ### Worldwide
 - [tides4fishing](https://tides4fishing.com/)
@@ -100,10 +117,7 @@ To locate an official tide table, search the Internet for tides at your location
 - [Tides.net](https://tides.net/)
 
 ## Widgets
-The following widgets can be placed on your device's homescreen or viewed in-app:
+You can place the following widgets on your device's home screen or view them in the app:
 
-- **Tides**: Displays the status of the nearest tide.
-- **Tide chart**: The chart of water level of the nearest tide.
-
-## Disclaimer
-Tide predictions are estimates and should not be relied upon exclusively. Whenever possible, use an official tide table and input the data into Trail Sense for accuracy.
+- **Tides**: Shows the status of the nearest tide.
+- **Tide chart**: Shows the chart of the water level of the nearest tide.

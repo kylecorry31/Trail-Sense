@@ -1,16 +1,19 @@
-The Magnifier tool uses your phone's camera to magnify close-up objects and text.
+Use the Magnifier tool to magnify close-up objects and text with your phone's camera.
 
-## Adjusting zoom
-Drag the zoom slider at the bottom of the screen to increase or decrease magnification. You can also pinch to zoom with two fingers on the camera preview.
+## Zoom in or out
+To change the magnification, do one of the following:
 
-## Focus mode
-Tap the focus button at the bottom-left of the controls to toggle between auto focus and close-up focus modes:
+- Drag the zoom slider at the bottom of the screen.
+- Pinch with two fingers on the camera preview.
 
-- **Auto focus**: Lets the camera automatically focus, useful for objects at varying distances.
-- **Close-up focus**: Locks focus for nearby objects, useful for reading text or inspecting fine details.
+## Change the focus mode
+To switch between focus modes, tap the focus button in the bottom-left corner of the controls. The modes are:
 
-## Torch
-Tap the torch button at the top-right to turn on the flashlight.
+- **Auto focus**: The camera focuses automatically. Use this for objects at varying distances.
+- **Close-up focus**: The focus is locked for nearby objects. Use this to read text or inspect fine details.
 
-## Freezing the image
-Tap the freeze button at the bottom-right of the controls to pause the camera on the current frame. This is useful for examining a captured image without holding the phone still. Tap the button again to return to the live camera view.
+## Turn on the torch
+To turn on the flashlight, tap the torch button in the top-right corner.
+
+## Freeze the image
+To pause the camera on the current frame, tap the freeze button in the bottom-right corner of the controls. This lets you examine the image without holding the phone still. To return to the live camera view, tap the button again.

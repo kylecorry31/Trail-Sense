@@ -1,24 +1,24 @@
-The Convert tool can be used to convert various measurement units.
+Use the Convert tool to convert between coordinate systems and between units of distance, temperature, volume, weight, and time.
 
-## Coordinates
-To convert a location from one coordinate system to another, swipe to the 'Coordinates' tab of the Convert tool (open by default). Then enter the coordinates and the To unit, and the result will be displayed. Trail Sense will automatically detect the coordinate system of the input if it is supported. For a list of supported coordinate systems, tap on the 'To' field.
+## Convert coordinates
+To convert a location from one coordinate system to another, do the following:
 
-## Distance
-To convert a distance from one unit to another, swipe to the 'Distance' tab of the Convert tool. Then enter the distance, From unit, and To unit, and the result will be displayed.
+1. Open the Convert tool.
+2. If the **Coordinates** tab isn't open, swipe to it.
+3. Enter the coordinates.
+4. Select the **To** unit. To see the supported coordinate systems, tap the **To** field.
 
-## Temperature
-To convert a temperature from one unit to another, swipe to the 'Temperature' tab of the Convert tool. Then enter the temperature, From unit, and To unit, and the result will be displayed.
+The result is displayed. If the coordinate system of your input is supported, Trail Sense detects it automatically.
 
-## Volume
-To convert a volume from one unit to another, swipe to the 'Volume' tab of the Convert tool. Then enter the volume, From unit, and To unit, and the result will be displayed.
+## Convert distance, temperature, volume, weight, or time
+To convert a measurement from one unit to another, do the following:
 
-## Weight
-To convert a weight from one unit to another, swipe to the 'Weight' tab of the Convert tool. Then enter the weight, From unit, and To unit, and the result will be displayed.
+1. Swipe to the tab for the type of measurement: **Distance**, **Temperature**, **Volume**, **Weight**, or **Time**.
+2. Enter the value.
+3. Select the **From** unit.
+4. Select the **To** unit.
 
-## Time
-To convert a time from one unit to another, swipe to the 'Time' tab of the Convert tool. Then enter the time, From unit, and To unit, and the result will be displayed.
+The result is displayed.
 
 ## Quick action
-You can enable the Convert quick action in the settings for the tab you want it on.
-
-To use the quick action, tap the Convert quick action button to see a convert sheet for coordinates, distance, and temperature.
+To use the Convert quick action, enable it in the settings for the tab you want it on. Tap the quick action button to open a convert sheet for coordinates, distance, and temperature.
