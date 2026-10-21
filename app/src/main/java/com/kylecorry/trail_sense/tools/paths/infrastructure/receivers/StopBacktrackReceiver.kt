@@ -6,13 +6,22 @@ import android.content.Context
 import android.content.Intent
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class StopBacktrackReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         context ?: return
+        val pendingResult = goAsync()
         val service = Tools.getService(context, PathsToolRegistration.SERVICE_BACKTRACK)
-        runBlocking { service?.disable() }
+        CoroutineScope(Dispatchers.Default).launch {
+            try {
+                service?.disable()
+            } finally {
+                pendingResult.finish()
+            }
+        }
     }
 
     companion object {

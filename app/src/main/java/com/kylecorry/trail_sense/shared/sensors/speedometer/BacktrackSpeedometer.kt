@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
@@ -16,7 +17,10 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.specifications.LocationChangedSpecification
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
@@ -26,6 +30,9 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
     private val prefs by lazy { UserPreferences(context) }
 
     private val mainHandler = Handler(Looper.getMainLooper())
+
+    private val scope = CoroutineScope(Dispatchers.Default)
+    private var loadJob: Job? = null
 
     private var path: LiveData<List<PathPoint>>? = null
 
@@ -94,16 +101,23 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
 
     override fun startImpl() {
         // TODO: Listen for path changes for backtrack ID
-        val backtrack = runBlocking { pathService.getBacktrackPathId() } ?: return
-        val waypoints = pathService.getWaypointsLive(backtrack)
-        path = waypoints
-        mainHandler.post { waypoints.observeForever(pathObserver) }
+        loadJob = scope.launch {
+            val backtrack = pathService.getBacktrackPathId() ?: return@launch
+            val waypoints = pathService.getWaypointsLive(backtrack)
+            onMain {
+                path = waypoints
+                waypoints.observeForever(pathObserver)
+            }
+        }
     }
 
     override fun stopImpl() {
-        val waypoints = path ?: return
-        path = null
-        mainHandler.post { waypoints.removeObserver(pathObserver) }
+        loadJob?.cancel()
+        loadJob = null
+        mainHandler.post {
+            path?.removeObserver(pathObserver)
+            path = null
+        }
     }
 
     private companion object {

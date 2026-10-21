@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.sound.ISoundPlayer
 import com.kylecorry.andromeda.sound.SoundPlayer
 import com.kylecorry.andromeda.sound.ToneGenerator
 import com.kylecorry.luna.concurrency.onDefault
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.luna.time.Throttle
 import com.kylecorry.sol.math.Quaternion
@@ -323,7 +324,9 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
                 } catch (e: Exception) {
                     e.printStackTrace()
                     prefs.metalDetector.isMetalAudioEnabled = false
-                    binding.metalDetectorTitle.rightButton.isVisible = false
+                    onMain {
+                        binding.metalDetectorTitle.rightButton.isVisible = false
+                    }
                 }
             }
         }
