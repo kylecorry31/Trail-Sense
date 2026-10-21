@@ -16,7 +16,7 @@ class SeaLevelCalibrationFactory {
             NullSeaLevelCalibrationStrategy()
         }
 
-        return LoessSeaLevelCalibrationStrategy(
+        return AutoLoessSeaLevelCalibrationStrategy(
             baseStrategy,
             prefs.weather.pressureSmoothing / 100f
         )
