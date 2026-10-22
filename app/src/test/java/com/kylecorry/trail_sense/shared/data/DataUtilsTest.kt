@@ -1,13 +1,15 @@
 package com.kylecorry.trail_sense.shared.data
 
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.math.filters.LoessFilter2D
 import com.kylecorry.sol.units.Reading
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.time.Duration
 import java.time.Instant
+import java.util.Random
+import kotlin.math.pow
 
 class DataUtilsTest {
 
@@ -111,119 +113,138 @@ class DataUtilsTest {
         assertEquals(0f, smoothed[9].value, 1f)
     }
 
+    private val options = DataUtils.AutomaticSmoothingOptions(0.1f, 1f, 50f, 1f)
+
+    private fun gaussian(count: Int, scale: Float = 1f): List<Float> {
+        val random = Random(1)
+        return List(count) { scale * random.nextGaussian().toFloat() }
+    }
+
+    private fun points(ys: List<Float>) = ys.mapIndexed { index, y -> Vector2(index.toFloat(), y) }
+
     @Test
-    fun geospatialPathSmoothingUsesDistanceAlongThePath() {
-        val data = List(20) {
-            Coordinate(it * 0.001, 0.0) to if (it == 10) 100f else 0f
+    fun smoothAutomaticallyOnlySmoothsNoisyData() {
+        val clean = points(gaussian(200, 0.05f))
+        val noisy = points(gaussian(200, 2f))
+
+        // The noise of the clean data is already below the target, so the narrowest span is used
+        smoothAutomatically(clean, 0.5f).zip(clean).forEach { (smoothed, original) ->
+            assertEquals(original.y, smoothed.y, 0.0001f)
+        }
+        assertTrue(smoothAutomatically(noisy, 0.5f).sumOf { it.y.toDouble().let { y -> y * y } } < noisy.sumOf { it.y.toDouble().let { y -> y * y } } / 2)
+    }
+
+    @Test
+    fun smoothAutomaticallySmoothsMoreAsTheSmoothingIncreases() {
+        val data = points(gaussian(200))
+
+        // No smoothing at 0, then wider spans (the energy of adjacent values can tie, since the span is searched in steps)
+        val energies = listOf(0f, 0.25f, 0.5f, 1f).map { smoothing ->
+            smoothAutomatically(data, smoothing).sumOf { it.y.toDouble().let { y -> y * y } }
         }
 
-        val smoothed = DataUtils.smoothGeospatial(
-            data,
-            0.3f,
-            null,
-            DataUtils.GeospatialSmoothingType.Path,
-            { it.first },
-            { it.second }
-        ) { value, smoothedValue -> value.first to smoothedValue }
+        assertEquals(energies.sortedDescending(), energies, "Was $energies")
+        assertTrue(energies.last() < energies.first())
+    }
 
-        assertEquals(data.map { it.first }, smoothed.map { it.first })
-        assertTrue(
-            smoothed[10].second < 50f,
-            "The spike should be reduced, was ${smoothed[10].second}"
+    @Test
+    fun smoothAutomaticallyUsesTheAutomaticAmountByDefault() {
+        val data = points(gaussian(100))
+
+        assertEquals(
+            smoothAutomatically(data, 0.5f),
+            DataUtils.smoothAutomatically(
+                data,
+                options,
+                x = { _, point -> point.x },
+                y = { it.y },
+                merge = { point, y -> point.copy(y = y) }
+            )
         )
     }
 
     @Test
-    fun geospatialSmoothingLimitsTheSpanToTheMaximumDistance() {
-        val data = List(20) {
-            Coordinate(it * 0.001, 0.0) to if (it == 10) 100f else 0f
+    fun smoothAutomaticallyScalesTheSpanByTheMaximumSmoothingFactorAtTheEnds() {
+        val data = points(gaussian(200, 5f))
+        // The noise can't be reduced to the target, so the widest span is used
+        val strict = DataUtils.AutomaticSmoothingOptions(0.0001f, 1f, 50f, 1f, 10f)
+
+        listOf(0.25f, 0.5f, 1f).forEach { smoothing ->
+            val factor = 10f.pow(2 * smoothing - 1)
+            val filter = LoessFilter2D(
+                (0.25f * factor).coerceAtMost(1f),
+                1,
+                minimumSpanSize = 10,
+                maximumSpanDistance = 50f * factor
+            )
+            assertEquals(filter.filter(data), smoothAutomatically(data, smoothing, strict), "Smoothing $smoothing")
         }
+    }
 
-        fun smooth(maximumSpanDistance: Float?) = DataUtils.smoothGeospatial(
+    @Test
+    fun smoothAutomaticallyReturnsTheDataWhenThereIsNothingToSmooth() {
+        val data = gaussian(20, 5f).mapIndexed { index, y -> Vector2(index.toFloat(), y) }
+
+        assertEquals(data, smoothAutomatically(data, 0f))
+        assertEquals(data.take(2), smoothAutomatically(data.take(2), 0.5f))
+        assertEquals(emptyList<Vector2>(), smoothAutomatically(emptyList(), 0.5f))
+    }
+
+    @Test
+    fun smoothAutomaticallyKeepsXAndRemovesNoise() {
+        val trend = List(100) { it * 0.5f }
+        val noise = gaussian(100, 3f)
+        val data = trend.indices.map { Vector2(it.toFloat(), trend[it] + noise[it]) }
+
+        val smoothed = smoothAutomatically(data, 0.5f)
+
+        assertEquals(data.map { it.x }, smoothed.map { it.x })
+        val before = data.indices.sumOf { ((data[it].y - trend[it]) * (data[it].y - trend[it])).toDouble() }
+        val after = smoothed.indices.sumOf { ((smoothed[it].y - trend[it]) * (smoothed[it].y - trend[it])).toDouble() }
+        assertTrue(after < before / 2, "Error went from $before to $after")
+    }
+
+    @Test
+    fun smoothAutomaticallyLeavesOutValuesWithoutAY() {
+        val data = List(30) { Vector2(it.toFloat(), 10f) }
+
+        val smoothed = DataUtils.smoothAutomatically(
             data,
-            0.3f,
-            maximumSpanDistance,
-            DataUtils.GeospatialSmoothingType.Path,
-            { it.first },
-            { it.second }
-        ) { value, smoothedValue -> value.first to smoothedValue }
-
-        val unlimited = smooth(null)
-        val limited = smooth(0.25f)
-
-        assertTrue(
-            limited[10].second > unlimited[10].second,
-            "A narrower span should reduce the spike less, was ${limited[10].second} vs ${unlimited[10].second}"
+            options,
+            x = { _, point -> point.x },
+            y = { if (it.x == 5f) null else it.y },
+            merge = { point, y -> point.copy(y = y) }
         )
+
+        // The unknown y is smoothed as 0, but it must not be treated as noise in the rest of the data
+        assertEquals(10f, smoothed[20].y, 0.01f)
     }
 
     @Test
-    fun geospatialSmoothingOfIdenticalCoordinatesFallsBackToOrder() {
-        // All points share a location (ex. a mocked GPS), so the minimum distance keeps them distinct
-        val data = List(20) { Coordinate.zero to if (it == 10) 100f else 0f }
+    fun smoothAutomaticallyLimitsTheWindowToTheSpanFraction() {
+        val data = gaussian(200, 3f).mapIndexed { index, y -> Vector2(index.toFloat(), y) }
+        val wide = DataUtils.AutomaticSmoothingOptions(0.0001f, 40f, 50f, 1f, spanFraction = 1f)
+        val limited = DataUtils.AutomaticSmoothingOptions(0.0001f, 40f, 50f, 1f, spanFraction = 0.05f)
 
-        val smoothed = DataUtils.smoothGeospatial(
+        val all = smoothAutomatically(data, 0.5f, wide)
+        val few = smoothAutomatically(data, 0.5f, limited)
+
+        // Every window is capped to 10 points, so it can't average as much noise away
+        assertTrue(few.sumOf { it.y.toDouble().let { y -> y * y } } > all.sumOf { it.y.toDouble().let { y -> y * y } })
+    }
+
+    private fun smoothAutomatically(
+        data: List<Vector2>,
+        smoothing: Float,
+        options: DataUtils.AutomaticSmoothingOptions = this.options
+    ): List<Vector2> {
+        return DataUtils.smoothAutomatically(
             data,
-            0.3f,
-            null,
-            DataUtils.GeospatialSmoothingType.Path,
-            { it.first },
-            { it.second }
-        ) { value, smoothedValue -> value.first to smoothedValue }
-
-        assertEquals(20, smoothed.size)
-        assertTrue(smoothed[10].second < 100f, "The spike should be reduced")
-    }
-
-    @Test
-    fun geospatialFromStartSmoothingUsesDistanceFromTheFirstPoint() {
-        val data = List(20) {
-            Coordinate(it * 0.001, 0.0) to if (it == 10) 100f else 0f
-        }
-
-        val smoothed = DataUtils.smoothGeospatial(
-            data,
-            0.3f,
-            null,
-            DataUtils.GeospatialSmoothingType.FromStart,
-            { it.first },
-            { it.second }
-        ) { value, smoothedValue -> value.first to smoothedValue }
-
-        assertEquals(20, smoothed.size)
-        assertTrue(smoothed[10].second < 100f, "The spike should be reduced")
-    }
-
-    @Test
-    fun geospatialNearbySmoothingUsesTheEastNorthOffsetFromTheFirstPoint() {
-        val data = List(20) {
-            Coordinate(it * 0.001, 0.0) to if (it == 10) 100f else 0f
-        }
-
-        val smoothed = DataUtils.smoothGeospatial(
-            data,
-            0.3f,
-            null,
-            DataUtils.GeospatialSmoothingType.Nearby,
-            { it.first },
-            { it.second }
-        ) { value, smoothedValue -> value.first to smoothedValue }
-
-        assertEquals(20, smoothed.size)
-        assertTrue(smoothed[10].second < 100f, "The spike should be reduced")
-    }
-
-    @Test
-    fun geospatialSmoothingOfEmptyDataReturnsEmptyData() {
-        val smoothed = DataUtils.smoothGeospatial(
-            emptyList<Pair<Coordinate, Float>>(),
-            0.1f,
-            null,
-            DataUtils.GeospatialSmoothingType.Path,
-            { it.first },
-            { it.second }
-        ) { value, smoothedValue -> value.first to smoothedValue }
-
-        assertEquals(emptyList<Pair<Coordinate, Float>>(), smoothed)
+            options,
+            smoothing,
+            x = { _, point -> point.x },
+            y = { it.y },
+            merge = { point, y -> point.copy(y = y) }
+        )
     }
 }

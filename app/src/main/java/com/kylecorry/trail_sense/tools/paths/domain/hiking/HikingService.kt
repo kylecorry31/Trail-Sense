@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.tools.paths.domain.hiking
 
-import com.kylecorry.sol.math.filters.LoessFilter2D
-import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
@@ -12,7 +10,6 @@ import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import java.time.Duration
-import kotlin.math.pow
 
 class HikingService : IHikingService {
 
@@ -31,41 +28,16 @@ class HikingService : IHikingService {
     }
 
     override fun correctElevations(points: List<PathPoint>, smoothing: Float): List<PathPoint> {
-        if (points.isEmpty() || smoothing <= 0f) {
-            return points
-        }
-        // The default smoothing is a factor of 1, and each end of the range is 4 times more or less smoothing
-        val factor = MAX_SMOOTHING_FACTOR.pow(2 * smoothing.coerceAtMost(1f) - 1)
-        return DataUtils.smoothGeospatial(
+        val distances by lazy { getDistances(points.map { it.coordinate }, 0.1f) }
+        return DataUtils.smoothAutomatically(
             points,
-            (ELEVATION_SMOOTHNESS * factor).coerceAtMost(1f), // The span distance is the driving factor, but this has to be large enough to include all of the points within it
-            getElevationSmoothingSpan(points, factor),
-            DataUtils.GeospatialSmoothingType.Path,
-            { it.coordinate },
-            { it.elevation ?: 0f }
+            ELEVATION_SMOOTHING_OPTIONS,
+            smoothing,
+            { index, _ -> distances[index] },
+            { it.elevation }
         ) { point, smoothed ->
             point.copy(elevation = if (point.elevation == null) null else smoothed)
         }
-    }
-
-    /**
-     * The distance (in km) to smooth the elevations over. Smoothing a clean recording only removes real
-     * climbs, while a noisy one needs a wide span to average the noise away, so this is the narrowest span
-     * which reduces the estimated noise to [TARGET_ELEVATION_NOISE].
-     * @param factor How much to widen the span (and lower the noise that is acceptable), 1 for the default smoothing
-     */
-    private fun getElevationSmoothingSpan(points: List<PathPoint>, factor: Float): Float {
-        val distances = getDistances(points.map { it.coordinate }, 0.1f)
-        val noise = Statistics.estimateNoise(distances, points.map { it.elevation })
-        val span = LoessFilter2D.getSpanForNoise(
-            distances,
-            noise,
-            TARGET_ELEVATION_NOISE / factor,
-            MIN_ELEVATION_SMOOTHING_SPAN * factor,
-            MAX_ELEVATION_SMOOTHING_SPAN * factor,
-            ELEVATION_SMOOTHING_SPAN_STEP * factor
-        )
-        return span / 1000f
     }
 
     override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
@@ -176,12 +148,12 @@ class HikingService : IHikingService {
 
     companion object {
         // Chosen by minimizing the difference from USGS elevations on real paths (see HikingServiceTest)
-        private const val ELEVATION_SMOOTHNESS = 0.25f
-        private const val TARGET_ELEVATION_NOISE = 1.2f
-        private const val MIN_ELEVATION_SMOOTHING_SPAN = 60f
-        private const val MAX_ELEVATION_SMOOTHING_SPAN = 300f
-        private const val ELEVATION_SMOOTHING_SPAN_STEP = 10f
-        private const val MAX_SMOOTHING_FACTOR = 4f
+        private val ELEVATION_SMOOTHING_OPTIONS = DataUtils.AutomaticSmoothingOptions(
+            targetNoise = 1.2f,
+            minimumSpan = 60f,
+            maximumSpan = 300f,
+            spanStep = 10f
+        )
         const val DEFAULT_ELEVATION_SMOOTHING = 0.5f
         const val DEFAULT_PACE_FACTOR = 1.75f
         const val SCARF_ELEVATION_GAIN_FACTOR = 7.92f
