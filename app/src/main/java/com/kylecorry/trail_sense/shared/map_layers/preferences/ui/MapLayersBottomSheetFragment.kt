@@ -1,6 +1,9 @@
 package com.kylecorry.trail_sense.shared.map_layers.preferences.ui
 
 import android.os.Bundle
+import android.view.View
+import androidx.preference.PreferenceScreen
+import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
@@ -19,5 +22,14 @@ class MapLayersBottomSheetFragment(
             listView?.scrollToPosition(0)
         }
         manager.populatePreferences(preferenceScreen, activity)
+    }
+
+    override fun onCreateAdapter(preferenceScreen: PreferenceScreen): RecyclerView.Adapter<*> {
+        return ReorderablePreferenceAdapter(preferenceScreen)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        manager.attachDragAndDrop(listView, preferenceScreen, activity)
     }
 }

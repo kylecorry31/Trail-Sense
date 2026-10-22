@@ -7,6 +7,8 @@ import androidx.core.text.scale
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceScreen
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
@@ -34,30 +36,57 @@ class MapLayerPreferenceManager(
     private val markdown = DependencyRegistry.get<MarkdownService>()
     private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
 
-    private var lastExpanded: String? = null
+    private var expandedLayerIds: Set<String> = emptySet()
+
+    // Layer ids in the order they are displayed (top layer first) and their headers
+    private val displayedLayerIds = mutableListOf<String>()
+    private val headers = mutableListOf<LayerHeaderPreference>()
 
     var onScrollToTop: (() -> Unit)? = null
+
+    fun attachDragAndDrop(recyclerView: RecyclerView, screen: PreferenceScreen, context: Context) {
+        val callback = LayerReorderCallback(
+            displayedLayerIds,
+            // The expanded layers are hidden during the drag and reopened once it ends
+            onDragStarted = {
+                expandedLayerIds = displayedLayerIds.filterIndexed { index, _ ->
+                    headers[index].isExpanded
+                }.toSet()
+            },
+            onDragEnded = {
+                saveDisplayedOrder()
+                populatePreferences(screen, context)
+            }
+        )
+        ItemTouchHelper(callback).attachToRecyclerView(recyclerView)
+    }
+
+    private fun saveDisplayedOrder() {
+        // Layers that aren't displayed keep their position
+        val activeLayers = repo.getActiveLayerIds(mapId).toMutableList()
+        val slots = activeLayers.indices.filter { displayedLayerIds.contains(activeLayers[it]) }
+        slots.zip(displayedLayerIds.reversed()).forEach { (slot, id) -> activeLayers[slot] = id }
+        repo.setActiveLayerIds(mapId, activeLayers)
+    }
 
     fun populatePreferences(screen: PreferenceScreen, context: Context) {
         val selectedLayers = repo.getActiveLayerIds(mapId).toMutableList()
         val factory = MapLayerViewPreferenceConverterFactory()
         screen.removeAll()
+        headers.clear()
+        displayedLayerIds.clear()
         // Reversing the layers so the highest layer appears at the top of the list like other map apps
         layers.filter { selectedLayers.contains(it.id) }
             .sortedBy { selectedLayers.indexOf(it.id) }
             .reversed()
             .forEachIndexed { index, layer ->
-                if (index > 0) {
-                    val divider = Preference(context)
-                    divider.layoutResource = R.layout.preference_divider
-                    divider.isSelectable = false
-                    screen.addPreference(divider)
-                }
-
                 val header = LayerHeaderPreference(context)
+                header.showDivider = index > 0
+                headers.add(header)
+                displayedLayerIds.add(layer.id)
                 header.title = layer.name
                 header.summary = layer.description
-                header.isExpanded = lastExpanded == layer.id
+                header.isExpanded = expandedLayerIds.contains(layer.id)
                 // NOTE: Up and down are reversed from what is displayed to the user
                 val currentIndex = selectedLayers.indexOf(layer.id)
                 header.canMoveUp = currentIndex < selectedLayers.size - 1
@@ -71,7 +100,7 @@ class MapLayerPreferenceManager(
                         selectedLayers[index] = temp
                         repo.setActiveLayerIds(mapId, selectedLayers)
                         if (header.isExpanded) {
-                            lastExpanded = layer.id
+                            expandedLayerIds = setOf(layer.id)
                         }
                         populatePreferences(screen, context)
                     }
@@ -85,7 +114,7 @@ class MapLayerPreferenceManager(
                         selectedLayers[index] = temp
                         repo.setActiveLayerIds(mapId, selectedLayers)
                         if (header.isExpanded) {
-                            lastExpanded = layer.id
+                            expandedLayerIds = setOf(layer.id)
                         }
                         populatePreferences(screen, context)
                     }
@@ -240,7 +269,7 @@ class MapLayerPreferenceManager(
         additionalLayersPreference.icon?.setTint(Resources.androidTextColorSecondary(context))
         screen.addPreference(additionalLayersPreference)
 
-        lastExpanded = null
+        expandedLayerIds = emptySet()
     }
 
     private fun getAdditionalLayerPickerLabel(

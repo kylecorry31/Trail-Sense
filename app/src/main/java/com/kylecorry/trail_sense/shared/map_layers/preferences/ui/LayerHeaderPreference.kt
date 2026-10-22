@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.kylecorry.trail_sense.R
@@ -34,6 +35,12 @@ class LayerHeaderPreference(context: Context) : Preference(context) {
             notifyChanged()
         }
 
+    var showDivider: Boolean = false
+        set(value) {
+            field = value
+            notifyChanged()
+        }
+
     var onMoveUp: (() -> Unit)? = null
     var onMoveDown: (() -> Unit)? = null
 
@@ -43,6 +50,9 @@ class LayerHeaderPreference(context: Context) : Preference(context) {
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
+        // Lets the drag and drop callback tell layer headers apart from other rows
+        holder.itemView.tag = this
+        holder.findViewById(R.id.layer_divider)?.isVisible = showDivider
         holder.itemView.setOnClickListener {
             onPreferenceClickListener?.onPreferenceClick(this)
         }
