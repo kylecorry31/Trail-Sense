@@ -1,8 +1,8 @@
 # Trail Sense
 
-> Use your Android phone's sensors to assist with wilderness treks or survival situations. Designed for entirely offline use.
+Use your Android phone's sensors to assist with wilderness treks or survival situations. Designed for entirely offline use.
 
-Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
+> Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
 
 <table>
     <tr>
