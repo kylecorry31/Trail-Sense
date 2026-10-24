@@ -72,6 +72,14 @@ object NavigationToolRegistration : ToolRegistration {
                 ToolBroadcast(
                     BROADCAST_DESTINATION_CHANGED,
                     "Destination changed"
+                ),
+                ToolBroadcast(
+                    BROADCAST_NAVIGATION_STARTED,
+                    "Navigation started"
+                ),
+                ToolBroadcast(
+                    BROADCAST_NAVIGATION_STOPPED,
+                    "Navigation stopped"
                 )
             )
         )
@@ -79,4 +87,6 @@ object NavigationToolRegistration : ToolRegistration {
 
     const val MAP_ID = "navigation"
     const val BROADCAST_DESTINATION_CHANGED = "navigation-broadcast-destination-changed"
+    const val BROADCAST_NAVIGATION_STARTED = "navigation-broadcast-navigation-started"
+    const val BROADCAST_NAVIGATION_STOPPED = "navigation-broadcast-navigation-stopped"
 }

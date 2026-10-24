@@ -179,10 +179,15 @@ class PathNavigator(context: Context) {
         }
     }
 
-    fun cancel(pathId: Long) {
-        if (destinationState.value?.path?.id == pathId) {
-            cancel()
+    /**
+     * @return true if the path was being navigated and the navigation was canceled
+     */
+    fun cancel(pathId: Long): Boolean {
+        if (destinationState.value?.path?.id != pathId) {
+            return false
         }
+        cancel()
+        return true
     }
 
     suspend fun awaitRestore() {

@@ -80,8 +80,9 @@ class Navigator private constructor(context: Context) {
 
     suspend fun navigateAlongPath(path: Path, follow: PathFollow) {
         pathNavigator.navigate(path, follow)
-        cancelBeaconNavigation()
+        clearBeaconDestination()
         clearBearing()
+        Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }
 
     private val listenTask = BackgroundTask {
@@ -132,6 +133,7 @@ class Navigator private constructor(context: Context) {
         pathNavigator.cancel()
         CoroutineScope(Dispatchers.IO).launch { clearBearing() }
         setBeaconDestination(beaconId)
+        Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }
 
     private fun setBeaconDestination(beaconId: Long) {
@@ -140,6 +142,14 @@ class Navigator private constructor(context: Context) {
     }
 
     fun cancelBeaconNavigation() {
+        val wasNavigating = getBeaconDestinationId() != null
+        clearBeaconDestination()
+        if (wasNavigating) {
+            Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
+        }
+    }
+
+    private fun clearBeaconDestination() {
         updateBeaconDestination(null)
         prefs.remove(BEACON_DESTINATION_ID_KEY)
     }
@@ -150,7 +160,9 @@ class Navigator private constructor(context: Context) {
     }
 
     fun cancelPathNavigation(pathId: Long) {
-        pathNavigator.cancel(pathId)
+        if (pathNavigator.cancel(pathId)) {
+            Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
+        }
     }
 
     /**
@@ -164,8 +176,12 @@ class Navigator private constructor(context: Context) {
         val pathSession = pathNavigator.currentSession()
 
         pathNavigator.cancel()
-        cancelBeaconNavigation()
+        clearBeaconDestination()
         clearBearing()
+
+        if (beaconId != null || bearing != null || pathSession != null) {
+            Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
+        }
 
         return restore@{
             if (isNavigating()) {
@@ -194,7 +210,7 @@ class Navigator private constructor(context: Context) {
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
         pathNavigator.cancel()
-        cancelBeaconNavigation()
+        clearBeaconDestination()
         val navigationBearing = NavigationBearing(
             0,
             bearing,
@@ -203,6 +219,7 @@ class Navigator private constructor(context: Context) {
             startTime = Instant.now()
         )
         bearings.setBearing(navigationBearing)
+        Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }
 
     suspend fun clearBearing() {
