@@ -9,6 +9,12 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 interface IDraggableLayer : ILayer {
 
     /**
+     * Whether to show a magnified view of the map under the touch while dragging.
+     */
+    val isMagnifierVisible: Boolean
+        get() = false
+
+    /**
      * Called when a touch starts on the map, before any pan or zoom handling.
      * @return true to capture the touch for dragging, which suppresses map panning and zooming
      */

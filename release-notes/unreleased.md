@@ -35,7 +35,7 @@ This is currently just a running list of what is in the 8.3.0 release to make it
 - Fixed clock tool's GPS time on devices running Android 7, 8, and 9
 - Show preview of path simplification
 - Added the ability to create a path by drawing it on the map
-- Drawing a path on the map now supports moving and selecting points, returning to an earlier point, and redo
+- Drawing a path on the map now supports moving points with a magnifier, selecting points, returning to an earlier point, and redo
 - Added an elevation smoothing setting to Paths, with a preview of the smoothed elevations
 - Backtrack paths are now kept when stopped, and the Backtrack history default is longer
 - Tapping the Backtrack notification now opens the path being recorded, which can be stopped from the path details

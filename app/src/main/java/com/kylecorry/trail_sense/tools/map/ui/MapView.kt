@@ -336,12 +336,20 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             onScaleChange?.invoke(resolutionPixels)
         }
 
+        drawRotatedLayers()
+        pop()
+        layerManager.drawOverlay(context, this, this)
+
+        if (isLayerDragging && layerManager.isMagnifierVisible) {
+            magnifier.draw(this, layerTouch, ::drawRotatedLayers)
+        }
+    }
+
+    private fun drawRotatedLayers() {
         push()
         drawer.rotate(-mapAzimuth)
         drawLayers()
         pop()
-        pop()
-        layerManager.drawOverlay(context, this, this)
     }
 
     private fun drawLayers() {
@@ -540,7 +548,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private val gestureDetector = GestureDetector(context, gestureListener)
     private val scaleDetector = ScaleGestureDetector(context, scaleListener)
 
+    private val magnifier = MapMagnifier()
     private var isLayerDragging = false
+    private var layerTouch = PixelCoordinate(0f, 0f)
 
     /**
      * Lets a layer capture a touch that starts on it, so the touch drags something in the layer
@@ -548,7 +558,8 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
      * @return true if the touch belongs to a layer
      */
     private fun handleLayerDrag(event: MotionEvent): Boolean {
-        val pixel = unrotated(PixelCoordinate(event.x, event.y))
+        layerTouch = PixelCoordinate(event.x, event.y)
+        val pixel = unrotated(layerTouch)
         val wasDragging = isLayerDragging
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> isLayerDragging = layerManager.onDragStart(this, this, pixel)

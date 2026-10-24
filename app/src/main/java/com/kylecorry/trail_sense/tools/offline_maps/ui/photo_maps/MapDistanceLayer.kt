@@ -39,6 +39,9 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
     val editState: PathEditState
         get() = editor.state
 
+    override val isMagnifierVisible: Boolean
+        get() = drag?.hasMoved == true
+
     var isEnabled = true
         set(value) {
             field = value

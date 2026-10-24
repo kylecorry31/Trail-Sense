@@ -54,7 +54,7 @@ To measure the distance from your location to a point, long-press the point on t
 ## Edit the points of a measurement
 After you place points, you can edit them in the following ways:
 
-- **Move a point**: Drag the point.
+- **Move a point**: Drag the point. While you drag, a magnified view of the area under your finger appears in the top corner of the map on the opposite side.
 - **Return to a point**: Tap the point to add a new point at the same location. Use this to close a loop or to retrace a section.
 - **Select a point**: Long-press the point. New points are added after the selected point, or before it if you select the start of the path. To deselect the point, long-press it again.
 - **Undo or redo**: Tap the undo or redo button at the bottom of the screen.

@@ -18,6 +18,9 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
     private var onGeoJsonFeatureClickListener: OnGeoJsonFeatureClickListener? = null
     private var dragLayer: IDraggableLayer? = null
 
+    val isMagnifierVisible: Boolean
+        get() = dragLayer?.isMagnifierVisible == true
+
     fun setOnGeoJsonFeatureClickListener(listener: OnGeoJsonFeatureClickListener?) {
         onGeoJsonFeatureClickListener = listener
         layers.filter { it is GeoJsonLayer<*> }.forEach {
