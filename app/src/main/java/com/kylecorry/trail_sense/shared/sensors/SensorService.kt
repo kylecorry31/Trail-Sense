@@ -146,17 +146,15 @@ class SensorService(ctx: Context) {
         if (mode == UserPreferences.AltimeterMode.Override) {
             return OverrideAltimeter(context)
         } else {
-            if (!GPS.isAvailable(context)) {
-                return CachedAltimeter(context)
-            }
-
-            val actualGPS = gps ?: getGPS(frequency, tag = tag)
-
             if (mode.usesDem) {
                 return getDigitalElevationModel(gps, frequency, tag)
             }
 
-            return actualGPS
+            if (!GPS.isAvailable(context)) {
+                return CachedAltimeter(context)
+            }
+
+            return gps ?: getGPS(frequency, tag = tag)
         }
     }
 
