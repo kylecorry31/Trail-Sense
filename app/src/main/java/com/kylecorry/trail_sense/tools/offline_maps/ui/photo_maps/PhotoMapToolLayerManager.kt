@@ -28,6 +28,7 @@ import com.kylecorry.trail_sense.tools.navigation.map_layers.CompassOverlayLayer
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.photo_maps.PhotoMapPreferences
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.PhotoMapTileSource
+import com.kylecorry.trail_sense.tools.paths.domain.PathEditState
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathElevationPrefetcher
 
 class PhotoMapToolLayerManager {
@@ -35,6 +36,7 @@ class PhotoMapToolLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer()
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
+    private var onDistanceEditStateChanged: ((PathEditState) -> Unit)? = null
     private val elevationPrefetcher = PathElevationPrefetcher()
     private var photoMapLayer: TileMapLayer<*>? = null
 
@@ -77,6 +79,8 @@ class PhotoMapToolLayerManager {
             // Hardcoded customization for this tool
             distanceLayer.isEnabled = false
             distanceLayer.onPathChanged = { onDistancePathChange(it) }
+            distanceLayer.onPathDragged = { updateDistance(it) }
+            distanceLayer.onEditStateChanged = { onDistanceEditStateChanged?.invoke(it) }
             lastMapDetails?.let { improveResolution(it.first, it.second) }
 
 
@@ -135,8 +139,10 @@ class PhotoMapToolLayerManager {
 
     private fun onDistancePathChange(points: List<Coordinate>) {
         elevationPrefetcher.update(points)
+        updateDistance(points)
+    }
 
-        // Display distance
+    private fun updateDistance(points: List<Coordinate>) {
         val distance = Geography.getPathDistance(points)
         onDistanceChangedCallback?.invoke(distance)
     }
@@ -152,6 +158,18 @@ class PhotoMapToolLayerManager {
 
     fun undoLastDistanceMeasurement() {
         distanceLayer.undo()
+    }
+
+    fun redoDistanceMeasurement() {
+        distanceLayer.redo()
+    }
+
+    fun getDistanceEditState(): PathEditState {
+        return distanceLayer.editState
+    }
+
+    fun setOnDistanceEditStateChangedCallback(callback: ((PathEditState) -> Unit)?) {
+        onDistanceEditStateChanged = callback
     }
 
     fun getDistanceMeasurementPoints(): List<Coordinate> {

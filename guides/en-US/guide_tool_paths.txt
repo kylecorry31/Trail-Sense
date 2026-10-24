@@ -57,6 +57,8 @@ To draw a path on the map instead, do the following:
 3. Tap the map to place points.
 4. Tap **Create path** at the bottom of the screen.
 
+To move, insert, or undo points before you create the path, see the Edit the points of a measurement section of the Map guide.
+
 ## Import paths from a GPX file
 If you have tracks or routes saved in a GPX file, you can import them as paths. To import paths from a GPX file, do the following:
 

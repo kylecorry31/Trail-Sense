@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.withLayerOpacity
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IDraggableLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.ILayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.GeoJsonLayer
@@ -15,6 +16,7 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
 
     private var layers = listOf<ILayer>()
     private var onGeoJsonFeatureClickListener: OnGeoJsonFeatureClickListener? = null
+    private var dragLayer: IDraggableLayer? = null
 
     fun setOnGeoJsonFeatureClickListener(listener: OnGeoJsonFeatureClickListener?) {
         onGeoJsonFeatureClickListener = listener
@@ -130,6 +132,26 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 // TODO: ERROR HANDLING
             }
         }
+    }
+
+    fun onLongPress(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
+        return layers.reversed().any { it.onLongPress(drawer, map, pixel) }
+    }
+
+    fun onDragStart(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
+        dragLayer = layers.reversed()
+            .filterIsInstance<IDraggableLayer>()
+            .firstOrNull { it.onDragStart(drawer, map, pixel) }
+        return dragLayer != null
+    }
+
+    fun onDrag(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate) {
+        dragLayer?.onDrag(drawer, map, pixel)
+    }
+
+    fun onDragEnd(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate) {
+        dragLayer?.onDragEnd(drawer, map, pixel)
+        dragLayer = null
     }
 
     fun setTime(time: Instant?) {

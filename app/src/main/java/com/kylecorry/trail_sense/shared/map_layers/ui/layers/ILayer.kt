@@ -60,6 +60,14 @@ interface ILayer {
     fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean
 
     /**
+     * Called when the layer is long pressed.
+     * @return true if the long press was handled by this layer, false otherwise
+     */
+    fun onLongPress(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
+        return false
+    }
+
+    /**
      * Called when the layer can start running
      */
     fun start() {

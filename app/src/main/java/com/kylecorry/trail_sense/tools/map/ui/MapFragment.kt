@@ -273,6 +273,11 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 mapDistanceSheetView.undoListener = {
                     manager.undoLastDistanceMeasurement()
                 }
+                mapDistanceSheetView.redoListener = {
+                    manager.redoDistanceMeasurement()
+                }
+                manager.setOnDistanceEditStateChangedCallback(mapDistanceSheetView::setEditState)
+                mapDistanceSheetView.setEditState(manager.getDistanceEditState())
             }
 
         // Update layer values

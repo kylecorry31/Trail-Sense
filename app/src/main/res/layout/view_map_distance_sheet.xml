@@ -11,16 +11,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:flattenButtons="true"
-        app:leftButtonIcon="@drawable/ic_undo"
         app:rightButtonIcon="@drawable/ic_cancel"
         app:title="@string/distance" />
 
-    <Button
-        android:id="@+id/create_path_btn"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/map_distance_hint"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="@string/create_path" />
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/undo_btn"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/undo"
+            app:icon="@drawable/ic_undo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/redo_btn"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/redo"
+            app:icon="@drawable/ic_redo" />
+
+        <Button
+            android:id="@+id/create_path_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/create_path" />
+    </LinearLayout>
 
 </LinearLayout>

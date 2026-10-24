@@ -216,11 +216,11 @@ To measure a distance on a photo map, do the following:
 1. Open the map.
 2. Tap the menu button in the top-right corner.
 3. Select **Measure** or **Create path**.
-4. Tap the map to place markers.
+4. Tap the map to place points.
 
-The total distance is shown at the bottom of the screen. To undo the last marker, tap the undo button in the bottom-left corner. To cancel, tap the **X** button in the bottom-right corner.
+The total distance is shown at the bottom of the screen. To cancel, tap the **X** button in the bottom-right corner. To move, insert, or undo points, see the Edit the points of a measurement section of the Map guide.
 
-To convert the markers you placed into a saved path, tap **Create path** at the bottom of the screen.
+To convert the points you placed into a saved path, tap **Create path** at the bottom of the screen.
 
 To measure the distance from your location to a point, long-press the point on the photo map, and tap **Distance**.
 

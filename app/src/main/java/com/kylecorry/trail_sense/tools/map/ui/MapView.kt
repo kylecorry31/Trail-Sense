@@ -5,6 +5,7 @@ import android.graphics.Matrix
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.GestureDetector
+import android.view.HapticFeedbackConstants
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.widget.OverScroller
@@ -443,7 +444,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             distanceX: Float,
             distanceY: Float
         ): Boolean {
-            if (isPanEnabled) {
+            if (isPanEnabled && !isLayerDragging) {
                 val delta = rotateByAzimuth(distanceX, distanceY)
                 translatePixels(delta.x, delta.y)
             }
@@ -468,7 +469,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             velocityX: Float,
             velocityY: Float
         ): Boolean {
-            if (isPanEnabled && isFlingEnabled) {
+            if (isPanEnabled && isFlingEnabled && !isLayerDragging) {
                 val velocity = rotateByAzimuth(velocityX, velocityY)
                 val startX = FLING_MULTIPLIER / 2
                 val startY = FLING_MULTIPLIER / 2
@@ -491,6 +492,10 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             if (isScaling) return
 
             val pixel = unrotated(PixelCoordinate(e.x, e.y))
+            if (layerManager.onLongPress(this@MapView, this@MapView, pixel)) {
+                performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+                return
+            }
             val location = toCoordinate(pixel)
             onLongPressCallback?.invoke(location)
         }
@@ -535,12 +540,46 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private val gestureDetector = GestureDetector(context, gestureListener)
     private val scaleDetector = ScaleGestureDetector(context, scaleListener)
 
+    private var isLayerDragging = false
+
+    /**
+     * Lets a layer capture a touch that starts on it, so the touch drags something in the layer
+     * rather than panning the map.
+     * @return true if the touch belongs to a layer
+     */
+    private fun handleLayerDrag(event: MotionEvent): Boolean {
+        val pixel = unrotated(PixelCoordinate(event.x, event.y))
+        val wasDragging = isLayerDragging
+        when (event.actionMasked) {
+            MotionEvent.ACTION_DOWN -> isLayerDragging = layerManager.onDragStart(this, this, pixel)
+
+            MotionEvent.ACTION_MOVE -> if (isLayerDragging) {
+                layerManager.onDrag(this, this, pixel)
+            }
+
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> if (isLayerDragging) {
+                isLayerDragging = false
+                layerManager.onDragEnd(this, this, pixel)
+            }
+        }
+
+        val isLayerTouch = wasDragging || isLayerDragging
+        if (isLayerTouch) {
+            invalidate()
+        }
+        return isLayerTouch
+    }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (isInteractive) {
             if (event.actionMasked == MotionEvent.ACTION_DOWN) {
                 scroller.forceFinished(true)
             }
-            scaleDetector.onTouchEvent(event)
+            val isLayerTouch = handleLayerDrag(event)
+            if (!isLayerTouch) {
+                scaleDetector.onTouchEvent(event)
+            }
+            // Layers still get taps and long presses, but a layer drag doesn't pan the map
             gestureDetector.onTouchEvent(event)
         }
         return true

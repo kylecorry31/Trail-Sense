@@ -4,8 +4,10 @@ import android.graphics.Point
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
@@ -286,6 +288,79 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         hasText(Regex("Elevation: \\d+ ft"))
     }
 
+    @Test
+    fun canEditPathOnMap() {
+        startDrawingPath()
+
+        tapAt(pathStart)
+        tapAt(pathEast)
+        tapAt(pathSouth)
+        assertMeasuredPath(listOf(pathStart, pathEast, pathSouth))
+
+        // Tapping an existing point adds a point at the same location, which closes the loop
+        tapAt(pathStart)
+        assertMeasuredPath(listOf(pathStart, pathEast, pathSouth, pathStart))
+
+        click(R.id.undo_btn)
+        assertMeasuredPath(listOf(pathStart, pathEast, pathSouth))
+
+        click(R.id.redo_btn)
+        assertMeasuredPath(listOf(pathStart, pathEast, pathSouth, pathStart))
+
+        // Dragging a point moves it, and undoing reverts the whole drag
+        val moved = Coordinate(pathEast.latitude + 0.0005, pathEast.longitude)
+        drag(pathEast, moved)
+        assertMeasuredPath(listOf(pathStart, moved, pathSouth, pathStart))
+
+        click(R.id.undo_btn)
+        assertMeasuredPath(listOf(pathStart, pathEast, pathSouth, pathStart))
+
+        // The next point is added after the selected point instead of at the end
+        longPressAt(pathEast)
+        val added = Coordinate(pathEast.latitude + 0.0005, pathEast.longitude + 0.0005)
+        tapAt(added)
+        assertMeasuredPath(listOf(pathStart, pathEast, added, pathSouth, pathStart))
+    }
+
+    private fun startDrawingPath() {
+        assumeFalse(isStagingBuild)
+        clickOk()
+        click(R.id.menu_btn)
+        click("Create path")
+    }
+
+    private fun tapAt(coordinate: Coordinate) {
+        val point = getScreenPoint(coordinate)
+        TestUtils.device.click(point.x, point.y)
+        // Taps close together are a double tap, which zooms
+        delay(DOUBLE_TAP_PAUSE_MS)
+    }
+
+    private fun drag(from: Coordinate, to: Coordinate) {
+        val start = getScreenPoint(from)
+        val end = getScreenPoint(to)
+        TestUtils.device.swipe(start.x, start.y, end.x, end.y, 20)
+    }
+
+    private fun assertMeasuredPath(points: List<Coordinate>) {
+        val expected = points.zipWithNext { a, b -> distanceMeters(a, b) }.sum()
+        waitFor {
+            val measured = measuredMeters()
+            // The distance is shown with two decimals in miles, so allow for the rounding
+            assertEquals(expected, measured, expected * 0.03 + 17)
+        }
+    }
+
+    private fun measuredMeters(): Double {
+        var text = ""
+        scenario.onActivity {
+            text = it.findViewById<Toolbar>(R.id.map_distance_title).subtitle.text.toString()
+        }
+        val (value, unit) = Regex("([\\d,.]+) (ft|mi)").find(text)!!.destructured
+        val amount = value.replace(",", "").toDouble()
+        return amount * if (unit == "mi") 1609.344 else 0.3048
+    }
+
     private fun textOf(
         id: Int,
         timeout: Long = AutomationLibrary.DEFAULT_WAIT_FOR_TIMEOUT
@@ -350,8 +425,14 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
     }
 
     companion object {
+        private const val DOUBLE_TAP_PAUSE_MS = 500L
         private val location = Coordinate(42.03, -71.97)
         // About 167 m north of the current location
         private val campLocation = Coordinate(42.0315, -71.97)
+
+        // Points for drawing a path, far enough apart to tap separately
+        private val pathStart = Coordinate(42.0325, -71.9715)
+        private val pathEast = Coordinate(42.0325, -71.9685)
+        private val pathSouth = Coordinate(42.0305, -71.9685)
     }
 }

@@ -336,6 +336,11 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         binding.distanceSheet.undoListener = {
             layerManager.undoLastDistanceMeasurement()
         }
+        binding.distanceSheet.redoListener = {
+            layerManager.redoDistanceMeasurement()
+        }
+        layerManager.setOnDistanceEditStateChangedCallback(binding.distanceSheet::setEditState)
+        binding.distanceSheet.setEditState(layerManager.getDistanceEditState())
     }
 
     private fun stopDistanceMeasurement() {

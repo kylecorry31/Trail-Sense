@@ -1136,6 +1136,7 @@
     <string name="created">Created</string>
     <string name="result_deleted">Result deleted</string>
     <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
     <string name="share_ellipsis">Share…</string>
     <string name="night">Night</string>
     <string name="qr_text_too_long">Text is too long, QR code was truncated</string>
@@ -1324,6 +1325,8 @@
     <string name="create_blank_map">Create blank map</string>
     <string name="create_path">Create path</string>
     <string name="create_path_on_map">Draw on map</string>
+    <string name="path_edit_hint">Tap to add a point. Drag a point to move it. Hold a point to select it.</string>
+    <string name="path_edit_hint_selected">Tap to add a point after the selected one. Drag to move it. Hold to deselect.</string>
     <string name="map_is_not_calibrated">Map is not calibrated</string>
     <!-- As in "a preliminary sketch, outline, or version". Used for maps which aren't fully calibrated. -->
     <string name="draft">Draft</string>
