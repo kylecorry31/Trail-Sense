@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.CachingAltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
@@ -97,7 +98,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
 
-        internal const val version = 39
+        internal const val version = 40
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -639,6 +640,13 @@ class PreferenceMigrator private constructor() {
                 }
                 prefs.remove(showWhileNavigatingKey)
                 prefs.remove(showWhileOpenKey)
+            },
+            PreferenceMigration(39, 40) { context, prefs ->
+                val sessionState = SessionStateSubsystem.getInstance(context).preferences
+                prefs.getLong(Navigator.BEACON_DESTINATION_ID_KEY)?.let {
+                    sessionState.putLong(Navigator.BEACON_DESTINATION_ID_KEY, it)
+                }
+                prefs.remove(Navigator.BEACON_DESTINATION_ID_KEY)
             }
         )
 

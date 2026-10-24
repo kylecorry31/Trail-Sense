@@ -92,7 +92,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             Distance.meters(userPrefs.augmentedReality.beaconViewDistance),
             onFocus = this::onBeaconFocused
         ) {
-            if (navigator.getDestinationId() != it.id) {
+            if (navigator.getBeaconDestinationId() != it.id) {
                 navigator.navigateTo(it)
             } else {
                 navigator.cancelBeaconNavigation()
@@ -477,7 +477,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         binding.arView.focusText = beacon.name + "\n" + formattedDistance
 
         // If the beacon isn't the destination, show the navigate button
-        if (navigator.getDestinationId() != beacon.id) {
+        if (navigator.getBeaconDestinationId() != beacon.id) {
             binding.focusActionButton.setTextDistinct(getString(R.string.navigate))
             binding.focusActionButton.setOnClickListener {
                 guidance.setTarget(BeaconGuidanceTarget(beacon))

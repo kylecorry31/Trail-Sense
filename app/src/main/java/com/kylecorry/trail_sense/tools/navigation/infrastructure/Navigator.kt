@@ -9,7 +9,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.dem.DEM
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
@@ -33,15 +33,15 @@ import java.time.Instant
 
 class Navigator private constructor(context: Context) {
 
-    private val prefs = PreferencesSubsystem.getInstance(context).preferences
+    private val prefs = SessionStateSubsystem.getInstance(context).preferences
     private val userPrefs = DependencyRegistry.get<UserPreferences>()
     private val beacons = BeaconService(context)
     private val bearings = NavigationBearingService.getInstance(context)
     private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
 
     // Flows
-    private val _destinationId = MutableStateFlow(getDestinationId())
-    private val _forceUpdate = MutableStateFlow(0)
+    private val beaconDestinationId = MutableStateFlow(prefs.getLong(BEACON_DESTINATION_ID_KEY))
+    private val beaconDestinationInvalidationKey = MutableStateFlow(0)
 
     // Bearings
     private val navigationBearing = bearings.getBearing()
@@ -66,12 +66,12 @@ class Navigator private constructor(context: Context) {
     // Elevation change?
     // Beacons = always to the beacon, bearings = if off track, then back to the bearing reading otherwise bearing end point (or just the bearing if no location info)
 
-    private val beaconDestination = combine(_destinationId, _forceUpdate) { id, _ ->
+    private val beaconDestination = combine(beaconDestinationId, beaconDestinationInvalidationKey) { id, _ ->
         id?.let { beacons.getBeacon(it) }?.let { Destination.Beacon(it) }
     }
 
     private val pathNavigator = PathNavigator(context)
-    val isRestoringRoute = pathNavigator.isRestoring
+    val isRestoringNavigation = pathNavigator.isRestoring
 
     val destination =
         combine(bearingDestination, beaconDestination, pathNavigator.destination) { bearing, beacon, path ->
@@ -92,6 +92,16 @@ class Navigator private constructor(context: Context) {
 
     init {
         listenTask.start()
+        // Keeps the beacon destination in sync with external changes to the preferences
+        prefs.onChange.subscribe { key ->
+            if (key == BEACON_DESTINATION_ID_KEY) {
+                val id = prefs.getLong(BEACON_DESTINATION_ID_KEY)
+                if (beaconDestinationId.value != id) {
+                    updateBeaconDestination(id)
+                }
+            }
+            true
+        }
     }
 
     fun navigateTo(
@@ -125,15 +135,18 @@ class Navigator private constructor(context: Context) {
     }
 
     private fun setBeaconDestination(beaconId: Long) {
-        prefs.putLong(DESTINATION_ID_KEY, beaconId)
-        _destinationId.value = beaconId
-        _forceUpdate.update { it + 1 }
+        updateBeaconDestination(beaconId)
+        prefs.putLong(BEACON_DESTINATION_ID_KEY, beaconId)
     }
 
     fun cancelBeaconNavigation() {
-        prefs.remove(DESTINATION_ID_KEY)
-        _destinationId.value = null
-        _forceUpdate.update { it + 1 }
+        updateBeaconDestination(null)
+        prefs.remove(BEACON_DESTINATION_ID_KEY)
+    }
+
+    private fun updateBeaconDestination(beaconId: Long?) {
+        beaconDestinationId.value = beaconId
+        beaconDestinationInvalidationKey.update { it + 1 }
     }
 
     fun cancelPathNavigation(pathId: Long) {
@@ -146,7 +159,7 @@ class Navigator private constructor(context: Context) {
      * started navigating somewhere else since
      */
     suspend fun cancelAllNavigation(): suspend () -> Unit {
-        val beaconId = getDestinationId()
+        val beaconId = getBeaconDestinationId()
         val bearing = navigationBearing.firstOrNull()
         val pathSession = pathNavigator.currentSession()
 
@@ -165,13 +178,13 @@ class Navigator private constructor(context: Context) {
     }
 
     private suspend fun isNavigating(): Boolean {
-        return getDestinationId() != null ||
+        return getBeaconDestinationId() != null ||
                 navigationBearing.firstOrNull() != null ||
                 pathNavigator.currentSession() != null
     }
 
-    fun getDestinationId(): Long? {
-        return prefs.getLong(DESTINATION_ID_KEY)
+    fun getBeaconDestinationId(): Long? {
+        return beaconDestinationId.value
     }
 
     suspend fun getDestination(): Destination? {
@@ -242,7 +255,7 @@ class Navigator private constructor(context: Context) {
     }
 
     companion object {
-        const val DESTINATION_ID_KEY = "last_beacon_id_long"
+        internal const val BEACON_DESTINATION_ID_KEY = "last_beacon_id_long"
 
         private var instance: Navigator? = null
 

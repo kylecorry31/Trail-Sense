@@ -89,7 +89,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         restoringJob = CoroutineScope(Dispatchers.Main.immediate).launch {
-            navigator.isRestoringRoute.collect {
+            navigator.isRestoringNavigation.collect {
                 updateNavigation()
             }
         }
@@ -170,7 +170,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         val values = sensorValues
         val destination = destination
         progressView.isVisible = false
-        if (navigator.isRestoringRoute.value) {
+        if (navigator.isRestoringNavigation.value) {
             isVisible = true
             toolbar.title.text = context.getString(R.string.loading)
             toolbar.title.setOnClickListener(null)

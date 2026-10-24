@@ -16,6 +16,7 @@ import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.GPSCacheData
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
@@ -25,6 +26,7 @@ import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
@@ -599,6 +601,21 @@ class PreferenceMigratorTest {
 
         for (mapId in mapIds) {
             assertEquals(layers, repo.getActiveLayerIds(mapId))
+        }
+    }
+
+    @Test
+    fun migration39To40MovesBeaconNavigationToSessionState() {
+        val sessionState = SessionStateSubsystem.getInstance(context).preferences
+        prefs.putLong(Navigator.BEACON_DESTINATION_ID_KEY, 42L)
+
+        try {
+            migrate(39)
+
+            assertEquals(42L, sessionState.getLong(Navigator.BEACON_DESTINATION_ID_KEY))
+            assertFalse(prefs.contains(Navigator.BEACON_DESTINATION_ID_KEY))
+        } finally {
+            sessionState.remove(Navigator.BEACON_DESTINATION_ID_KEY)
         }
     }
 
