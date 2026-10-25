@@ -67,8 +67,6 @@
     <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: Notify location change</ID>
     <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: Should the onFocus method just return a string?</ID>
     <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)</ID>
-    <ID>ForbiddenComment:AutoSunCalibrator.kt:AutoSunCalibrator$// TODO: If the sun and actual are too far apart, return null</ID>
-    <ID>ForbiddenComment:AutoSunCalibrator.kt:AutoSunCalibrator$// TODO: This doesn't factor in the inclination of the device or declination (this value should always be with declination applied)</ID>
     <ID>ForbiddenComment:Automations.kt:Automations$// TODO: Load these from the DB</ID>
     <ID>ForbiddenComment:Automations.kt:Automations$// TODO: Should there be a way to unregister? Maybe only register when something is listening? When to cancel queue?</ID>
     <ID>ForbiddenComment:BacktrackSpeedometer.kt:BacktrackSpeedometer$// TODO: Listen for path changes for backtrack ID</ID>
@@ -133,7 +131,6 @@
     <ID>ForbiddenComment:GeographicImageSource.kt:GeographicImageSource$// TODO: Extract this and make the size configurable (maybe make it part of the region loader?)</ID>
     <ID>ForbiddenComment:GeographicImageSource.kt:GeographicImageSource$// TODO: Move the interpolation out of this class?</ID>
     <ID>ForbiddenComment:GeographicImageUtils.kt:GeographicImageUtils$// TODO: Redo this</ID>
-    <ID>ForbiddenComment:GrayscaleMomentFinder.kt:GrayscaleMomentFinder$// TODO: Count the number of non-zero pixels (or use moment values to determine the shape/size)</ID>
     <ID>ForbiddenComment:GroupableSelectView.kt:GroupableSelectView$// TODO: Don't override anything, just intercept the click action to open folders (let the caller decide what to do on click)</ID>
     <ID>ForbiddenComment:HumidityWeatherField.kt:HumidityWeatherField$// TODO: Build chart into this</ID>
     <ID>ForbiddenComment:ICompassView.kt:ICompassView$// TODO: Replace mappable reference point with a compass marker</ID>

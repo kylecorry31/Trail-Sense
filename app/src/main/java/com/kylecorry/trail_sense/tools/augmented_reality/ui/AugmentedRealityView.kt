@@ -32,7 +32,6 @@ import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
-import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.FormatService
@@ -594,13 +593,6 @@ class AugmentedRealityView : CanvasView {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         previewRect = null
         syncWithCamera()
-    }
-
-    fun switchToGyro() {
-        val lastAzimuth = azimuth
-        orientationSensor = if (hasGyro) gyroOrientationSensor else geomagneticOrientationSensor
-        updateOrientation()
-        calibrationBearingOffset = deltaAngle(azimuth, lastAzimuth)
     }
 
     suspend fun calibrate(calibrator: IARCalibrator, useGyro: Boolean = true) {
