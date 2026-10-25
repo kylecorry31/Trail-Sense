@@ -12,6 +12,7 @@ To delete a note, do the following:
 
 1. Tap the menu button on the right side of the note in the list.
 2. Tap **Delete**.
+3. Tap **OK** to confirm.
 
 ## Share a note as a QR code
 **Note:** The QR code can transfer only the first 1000 characters of a note.
@@ -19,8 +20,8 @@ To delete a note, do the following:
 To share a note as a QR code, do the following:
 
 1. Tap the menu button on the right side of the note in the list.
-2. Tap **QR code**.
+2. Tap **QR Code**.
 3. Scan the QR code with another device to import the note.
 
 ## Quick action
-To use the Note quick action, enable it in the settings for the tab you want it on. Tap the quick action button to create a new note.
+To use the Note quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to create a new note.

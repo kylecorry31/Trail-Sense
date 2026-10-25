@@ -17,14 +17,14 @@ Each layer has the following settings:
 - **Remove layer**: Removes the layer from the active layer list. To add it again, tap **Additional layers**.
 
 ### Add layers
-To add a layer, tap **Additional layers** at the bottom of the layers list.
+To add a layer, tap **Additional layers** at the bottom of the layers list, select the layers to add, and tap **OK**.
 
 Connected plugins can also provide map layers. Plugins are experimental. To use them, do the following:
 
 1. Enable **Settings > Experimental > Plugins**.
 2. Connect the plugin from **Settings > Plugins**.
 
-## Base map
+## Basemap
 Shows a map of the world with colors based on satellite imagery. It has very low resolution and isn't suitable for navigation.
 
 ## Trail maps
@@ -167,12 +167,12 @@ Settings:
 - **Large location indicator**: Makes the location marker larger.
 
 ## Map scale
-Shows a scale bar in the bottom-left corner of the map. Use it to estimate distances on the map.
+Shows a scale bar in the bottom-right corner of the map. Use it to estimate distances on the map.
 
 This layer isn't currently configurable.
 
 ## My elevation
-Shows your elevation in the bottom-right corner of the map.
+Shows your elevation in the bottom-left corner of the map.
 
 This layer isn't currently configurable.
 

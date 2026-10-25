@@ -16,14 +16,14 @@ To search for pages by name, notes, or tags, use the search bar. The results upd
 ## Use built-in pages
 Trail Sense includes built-in pages for common plants, animals, mushrooms, and rocks that are useful for wilderness survival. You can't edit or delete built-in pages, but you can hide them. To manage built-in pages, do one of the following:
 
-- To hide a built-in page, tap the menu button on its row.
+- To hide a built-in page, tap the menu button on its row, select **Hide**, and confirm.
 - To unhide a page or choose which built-in pages are shown, open **Settings > Field Guide > Built-in pages**.
 
 ## Create a page
 To create a page, do the following:
 
 1. Tap the **+** button in the bottom-right corner of the screen.
-2. Add a common name, scientific name, images, notes, and tags.
+2. Enter a name and scientific name, choose a classification, and add images, notes, and tags. The tag types are location, habitat, classification, activity pattern, and human interaction.
 3. Tap the checkmark button in the top-right corner.
 
 If a category was selected when you created the page, the page is prefilled with that category. Pages without a category are shown in the **Other** category.
@@ -34,14 +34,14 @@ To add images to a page, do the following:
 1. Swipe to the last image slot, or use the arrows below the image.
 2. Add an image with the camera or by selecting one from the gallery.
 
-To delete an image or set it as the default, tap the menu button on the image. The default image is the first image of the page. It is shown in the page list and on the Sightings map layer.
+To delete an image, tap the menu button on the image, select **Delete**, and confirm. To set an image as the default, tap the menu button on the image, and select **Set as default**. This option isn't shown for the first image, which is already the default. The default image is the first image of the page. It is shown in the page list and on the Sightings map layer.
 
 ## Edit a page
 You can edit only the pages you created. To edit a page, do the following:
 
 1. Tap the menu button on the page's row.
 2. Select **Edit**.
-3. Change the common name, scientific name, images, notes, or tags.
+3. Change the name, scientific name, classification, images, notes, or tags.
 4. Tap the checkmark button in the top-right corner.
 
 ## Delete a page
@@ -67,11 +67,11 @@ To work with a sighting, open the sightings list, and then do one of the followi
 
 - **Edit**: Tap the sighting, or tap the menu button on the right side of the sighting, and select **Edit**.
 - **Delete**: Tap the menu button on the right side of the sighting, and select **Delete**. You can also delete a sighting while you edit it by tapping the menu button in the top-left corner and selecting **Delete**.
-- **Navigate**: Tap the menu button on the right side of the sighting, and select **Navigate**. The Navigation tool opens with the location of the sighting as the destination.
-- **Create a beacon**: Tap the menu button on the right side of the sighting, and select **Create beacon**. The Beacons tool opens with a new beacon prefilled with the location and name of the sighting.
+- **Navigate**: Tap the menu button on the right side of the sighting, and select **Navigate**. This is available only for sightings that have a location. The Navigation tool opens with the location of the sighting as the destination.
+- **Create a beacon**: Tap the menu button on the right side of the sighting, and select **Create beacon**. This is available only for sightings that have a location. The Beacons tool opens with a new beacon prefilled with the location and name of the sighting.
 
 ## Hide a sighting from the map
 By default, sightings are shown on the Sightings map layer. To hide a sighting, turn off the **Show on map** switch when you create or edit the sighting.
 
 ## Quick action
-To use the Record Sighting quick action, enable it in the settings for the tab you want it on. Tap the quick action button, and select a page. Trail Sense creates a sighting at your current location. A notification at the bottom of the screen has a button to view the sighting.
+To use the Record Sighting quick action, add it to a tab, as described in the Tools guide. Tap the quick action button, and select a page. Trail Sense creates a sighting at your current location. A notification at the bottom of the screen has a button to view the sighting.

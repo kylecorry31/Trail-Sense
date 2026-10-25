@@ -119,7 +119,7 @@ If your phone has a compass, a **View in 3D** button is shown. Tap it to open th
 By default, the Augmented Reality tool uses the camera. To turn this off, disable **Settings > Astronomy > Use camera for 3D viewing**.
 
 ## Quick action
-To use the following quick actions, enable them in the settings for the tab you want them on:
+To use the following quick actions, add them to a tab, as described in the Tools guide:
 
 - **Sunset Alerts** and **Sunrise Alerts**: Tap the quick action button to turn the alert on or off.
 - **Night**: Tap the quick action button to switch to the Night theme. Tap it again to return to your previous theme.

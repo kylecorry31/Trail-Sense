@@ -47,4 +47,4 @@ To calibrate the ruler, do the following:
 For example, if Trail Sense reports 1.5 cm when you measure 1 cm on the physical ruler, enter 1.5 as the ruler scale.
 
 ## Quick action
-To use the Ruler quick action, enable it in the settings for the tab you want it on. Tap the quick action button to display or hide the ruler. While the ruler is displayed, you can also tap it to hide it.
+To use the Ruler quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to display or hide the ruler. While the ruler is displayed, you can also tap it to hide it.

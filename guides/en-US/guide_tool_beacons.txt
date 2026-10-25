@@ -6,9 +6,9 @@ To create a beacon, do the following:
 1. Tap the **+** button in the bottom-right corner of the screen.
 2. Tap **Beacon**.
 3. Enter a name for the beacon.
-4. Enter a location for the beacon. To use your current location, tap the GPS icon next to the location field.
+4. Enter a location for the beacon. To use your current location, tap the location icon next to the location field, select **GPS**, and tap **OK**.
 5. Optional: Fill out the fields you want to record. See the Optional fields section.
-6. Tap the checkmark button in the top-right corner of the screen.
+6. Tap the checkmark button in the top-right corner of the screen. The checkmark appears after you enter a name and a location.
 
 ### Optional fields
 You can fill out the following optional fields:
@@ -26,7 +26,7 @@ You can share a beacon as a QR code and scan it with Trail Sense to create a cop
 To create a beacon from a QR code, do the following:
 
 1. Tap the **+** button in the bottom-right corner of the screen.
-2. Tap **QR code**.
+2. Tap **QR Code**.
 3. Scan the QR code.
 4. Fill out the beacon information as described in the Create a beacon section. The information from the QR code is prefilled.
 
@@ -34,7 +34,7 @@ To create a beacon from a QR code, do the following:
 If you have locations saved in a GPX file, you can import them as beacons. To import beacons from a GPX file, do the following:
 
 1. Tap the **+** button in the bottom-right corner of the screen.
-2. Tap **GPX file**.
+2. Tap **Import GPX**.
 3. Select the GPX file.
 4. Optional: Uncheck any beacons you don't want to import.
 5. Tap **OK** to confirm.
@@ -160,7 +160,7 @@ If no group is open, the menu button's **Delete** option deletes all of your bea
 ## Search and sort beacons
 To search your beacons, use the search bar at the top of the beacon list. The search includes the current group and all of its subgroups.
 
-To sort beacons by distance, time, or name, tap the menu button in the top-right corner, and select **Sort**.
+To sort beacons by distance, time, or name, tap the menu button in the top-right corner, and select the sort option, which shows the current sort, such as **Sort: Closest**.
 
 ## Navigate to the last cell signal
 If Backtrack is on and configured to record cell signal, Trail Sense creates a beacon at the last known location where you had a cell signal. For more information about Backtrack, see the Paths guide. You can do the following:
@@ -174,7 +174,7 @@ You can change the following beacon setting:
 - **Settings > Beacons > Default beacon color**: The color that is preselected when you create a new beacon.
 
 ## Quick action
-To use the Create Beacon quick action, enable it in the settings for the tab you want it on. Tap the quick action button to create a beacon at your current location. The beacon's title is the current date and time. A notification at the bottom of the screen has a button to view the new beacon.
+To use the Create Beacon quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to create a beacon at your current location. The beacon's title is the current date and time. A notification at the bottom of the screen has a button to view the new beacon.
 
 ## Widgets
 You can place the following widgets on your device's home screen or view them in the app:

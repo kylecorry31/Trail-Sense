@@ -4,7 +4,7 @@ Use the Paths tool to record waypoints while you hike and to follow a trail.
 Backtrack records a path automatically while you hike.
 
 ### Start and stop Backtrack
-To start Backtrack, tap the start button in the bottom-right corner of the screen. A notification shows how far you have traveled.
+To start Backtrack, tap the start button in the bottom-right corner of the screen. The first time you start it, Trail Sense might ask you to remove battery restrictions so Backtrack can keep running in the background. You can't start Backtrack while power saving mode is on. A notification shows how far you have traveled.
 
 To stop Backtrack, do one of the following:
 
@@ -48,7 +48,7 @@ To create a path manually, do the following:
 2. Tap **Path**.
 3. Enter a name for the path.
 4. Tap **OK**.
-5. Tap **+ Point** to add a point at your current location. Repeat this for each point you want to add.
+5. Scroll to the bottom of the path, and tap **+ Point** to add a point at your current location. Repeat this for each point you want to add.
 
 To draw a path on the map instead, do the following:
 
@@ -63,7 +63,7 @@ To move, insert, or undo points before you create the path, see the Edit the poi
 If you have tracks or routes saved in a GPX file, you can import them as paths. To import paths from a GPX file, do the following:
 
 1. Tap the **+** button in the bottom-right corner of the screen.
-2. Tap **GPX File**.
+2. Tap **Import GPX**.
 3. Select the GPX file.
 4. Optional: Uncheck any paths you don't want to import.
 5. Tap **OK** to confirm.
@@ -137,6 +137,7 @@ To replace all elevations on a path with elevations from the digital elevation m
 1. Open the path.
 2. Tap the menu button in the top-right corner.
 3. Select **Replace elevations**.
+4. Confirm the replacement.
 
 If loading takes too long, for example because the path has too many points, you can cancel. Your path stays unchanged.
 
@@ -238,13 +239,13 @@ To delete a group, tap the menu button on the group's row, and select **Delete**
 ## Search and sort paths
 To search your paths, use the search bar at the top of the path list. The search includes the current group and all of its subgroups.
 
-To sort paths by distance away, time, length, or name, tap the menu button in the top-right corner, and select **Sort**.
+To sort paths by distance away, time, length, or name, tap the menu button in the top-right corner, and select the sort option, which shows the current sort, such as **Sort: Most recent**.
 
 ## Improve performance
 If the Paths tool is slow, enable **Settings > Paths > Fast path rendering**. Paths render faster but look worse.
 
 ## Quick action
-To use the Backtrack quick action, enable it in the settings for the tab you want it on. The quick action has the following gestures:
+To use the Backtrack quick action, add it to a tab, as described in the Tools guide. The quick action has the following gestures:
 
 - **Tap**: Turns Backtrack on or off.
 - **Long-press**: Opens the Paths tool.

@@ -5,6 +5,8 @@ Use the Weather tool to roughly predict the weather without an Internet connecti
 ## Read the weather prediction
 The weather prediction is shown at the top of the screen. It doesn't use the Internet. It uses the pressure history, historic temperatures (the 30-year average), and the clouds from the Clouds tool.
 
+To see all of the predicted conditions, tap the prediction.
+
 An estimate of when the weather will change is shown below the prediction. The accuracy of the time frame depends on whether the clouds indicate a weather front. If a front is detected, an approximate time is shown. Otherwise, the estimate is vaguer, such as "soon" or "later".
 
 To change how sensitive the prediction is, set **Settings > Weather > Forecast sensitivity**. Higher sensitivity can detect more patterns but might produce more false predictions.
@@ -20,6 +22,8 @@ To start the weather monitor, do one of the following:
 
 - Tap the start icon in the bottom-right corner.
 - Enable **Settings > Weather > Monitor weather**.
+
+The first time you start it, Trail Sense might ask you to remove battery restrictions so the monitor can keep running in the background. You can't start the weather monitor while power saving mode is on.
 
 A notification shows the current prediction and has an option to stop the weather monitor.
 
@@ -37,8 +41,8 @@ To improve the accuracy, grant Trail Sense the Location permission. Trail Sense 
 ### Customize the notification
 In **Settings > Weather**, choose what the notification shows:
 
-- **Pressure**: The current pressure.
-- **Temperature**: The current temperature. For more information, see the Thermometer settings section of the Settings guide.
+- **Show pressure in notification**: The current pressure.
+- **Show temperature in notification**: The current temperature. For more information, see the Thermometer settings section of the Settings guide.
 
 The weather monitor and daily weather notifications show a large, colored icon for the prediction. To turn this off, disable **Settings > Weather > Show colored notification icon**.
 
@@ -104,8 +108,10 @@ Climate normals (historic temperatures) are based on the 30-year average of the 
 
 Historic temperatures are estimated with a custom 30-year "climate normal" model derived from the NASA Global Modeling and Assimilation Office MERRA-2 data (1991 - 2020).
 
-## Quick action
-To use the Weather Monitor quick action, enable it in the settings for the tab you want it on. Tap the quick action button to turn the weather monitor on or off.
+## Quick actions
+The Weather tab has a left and right quick action button at the top of the screen. By default, they open the Clouds and Temperature Estimation tools. To change them, set **Settings > Weather > Left quick action** and **Right quick action**.
+
+To use the Weather Monitor quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn the weather monitor on or off.
 
 ## Widgets
 You can place the following widgets on your device's home screen or view them in the app:

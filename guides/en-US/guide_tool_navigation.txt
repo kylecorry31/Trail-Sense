@@ -67,7 +67,8 @@ The compass is overlaid on a camera viewfinder. While the sighting compass is on
 To navigate to a beacon, do the following:
 
 1. Tap the navigate button in the bottom-right corner. The Beacons tool opens.
-2. Select the beacon to navigate to. For more information, see the Beacons guide.
+2. Tap the beacon to navigate to.
+3. Tap **Navigate**. For more information, see the Beacons guide.
 
 While you navigate, the compass shows the direction to the beacon, and all other nearby beacons become transparent. A navigation panel at the bottom of the screen shows the following information:
 
@@ -99,11 +100,14 @@ To change the length of the bearing line, set **Settings > Navigation > Bearing 
 ## Navigate with a path
 To navigate with a path, use the Paths tool. For more information, see the Paths guide.
 
+## Use the quick action buttons
+The left and right buttons at the top of the screen are quick actions. By default, they open the Paths and Offline Maps tools. To change them, set **Settings > Navigation > Left quick action** and **Right quick action**.
+
 ## Check your location
 Your current location is shown at the top of the screen. To see more details, tap it. The details panel shows the following information:
 
-- **Share**: Copies your location to your clipboard, shares it as a QR code, opens it in a map app, or shares it as a text message.
-- **Format**: The coordinate format used to show your location. This defaults to the format in **Settings > Units > Coordinate format**. Changes you make here are temporary and don't change your default coordinate format.
+- **Share**: Tap the share icon in the top-right corner of the panel to copy your location to your clipboard, share it as a QR code, open it in a map app, or share it as a text message.
+- **Format**: The coordinate format used to show your location. Tap the format under the coordinates to change it. This defaults to the format in **Settings > Units > Coordinate format**. Changes you make here are temporary and don't change your default coordinate format.
 - **Accuracy**: The accuracy of your location.
 - **Satellites**: The number of satellites used to calculate your location.
 - **Time since last fix**: The time since your location was last updated.

@@ -17,7 +17,7 @@ To search for content in the survival guide, do the following:
 3. Optional: Tap a search result in the list at the bottom of the screen to open its chapter with the section expanded. Each result has a brief summary.
 
 ## Quick action
-To use the Survival Guide quick action, enable it in the settings for the tab you want it on.
+To use the Survival Guide quick action, add it to a tab, as described in the Tools guide.
 
 To use the quick action, do the following:
 

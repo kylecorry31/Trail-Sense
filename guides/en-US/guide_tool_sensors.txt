@@ -7,7 +7,7 @@ The sensor list shows the sensors on your device that Trail Sense uses. If the a
 To see all of the sensors on your device, including the ones Trail Sense doesn't use, tap the button in the top-right corner of the screen.
 
 ## Quick action
-To use the Recalibrate Altimeter quick action, enable it in the settings for the tab you want it on.
+To use the Recalibrate Altimeter quick action, add it to a tab, as described in the Tools guide.
 
 Tap the **Recalibrate Altimeter** button. What happens depends on your altimeter mode:
 

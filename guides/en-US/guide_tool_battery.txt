@@ -6,14 +6,14 @@ The battery indicator shows the current battery percentage and, if your device s
 The tool also shows the percentage of time your device spent in deep sleep over up to the last 6 hours. In deep sleep, the device is in a low-power state. Background services can interrupt deep sleep.
 
 ## Estimate the time until charged or dead
-The tool estimates how long it takes for your phone to die or become fully charged, based on the last day's history. The actual time varies with use.
+The tool estimates how long it takes for your phone to die or become fully charged, based on the last day's history. The time is shown at the top of the screen with the label **until empty** or **until full** when there is enough history. The actual time varies with use.
 
 This estimate depends on the battery log. If you turn off **Settings > Battery > Battery log**, the estimate might not be shown.
 
 ## View the battery history
-To view the history of your battery percentage, tap the chart icon in the top-right corner. The chart shows the last day of history recorded by Trail Sense.
+To view the history of your battery percentage, tap the chart icon in the top-left corner. The chart shows up to the last day of history recorded by Trail Sense. The chart icon appears after Trail Sense has recorded at least two readings.
 
-Trail Sense updates the history about every hour. To stop recording it, disable **Settings > Battery > Battery log**. When the battery log is off, the battery history is not shown.
+Trail Sense updates the history about every hour. To stop recording it, disable **Settings > Battery > Battery log**. When the battery log is off, tapping the chart icon offers to open the battery settings instead.
 
 ## Open the system battery settings
 To open your device's battery settings and usage, tap the settings icon in the top-right corner.
@@ -56,4 +56,4 @@ To extend your battery life, do any of the following:
 - Turn off your screen when you aren't using it.
 
 ## Quick action
-To use the Power Saving Mode quick action, enable it in the settings for the tab you want it on. Tap the quick action button to turn power saving mode on or off.
+To use the Power Saving Mode quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn power saving mode on or off.

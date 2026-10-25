@@ -9,7 +9,7 @@ To measure the distance to a lightning strike, do the following:
 The distance to the strike is shown at the top of the screen. If the lightning is close enough to be dangerous, a warning is shown.
 
 ## Tell if a storm is approaching
-The bottom of the screen shows the distance to the most recent strike. Compare it with the distance to the current strike:
+The bottom of the screen shows the time and distance of the previous strike. Compare it with the distance to the current strike:
 
 - **Current distance is less than the previous distance**: The storm is likely approaching.
 - **Current distance is greater than the previous distance**: The storm is likely moving away.

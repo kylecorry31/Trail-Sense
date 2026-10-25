@@ -36,12 +36,13 @@ The color bands on the clinometer dial also show the risk:
 You can measure the height of a tree if you know the distance to it. To estimate the height of a tree, do the following:
 
 1. Tap the ruler icon in the top-right corner.
-2. Tap **Height**.
-3. Enter the distance to the tree.
-4. Align the clinometer with the base of the tree.
-5. Tap and hold the screen.
-6. Realign the clinometer with the top of the tree.
-7. Release the screen to lock the measurement.
+2. Select **Height**, and tap **OK**.
+3. Enter the distance to the tree, and tap **OK**.
+4. Read the instructions, and tap **OK**.
+5. Align the clinometer with the base of the tree.
+6. Tap and hold the screen.
+7. Realign the clinometer with the top of the tree.
+8. Release the screen to lock the measurement.
 
 The height of the tree is shown on the screen.
 
@@ -51,26 +52,28 @@ If you usually measure trees from the same distance, set a default distance in *
 If you know the height of a tree, you can estimate the distance to it. To estimate the distance, do the following:
 
 1. Tap the ruler icon in the top-right corner.
-2. Tap **Distance**.
-3. Enter the height of the tree.
-4. Align the clinometer with the base of the tree.
-5. Tap and hold the screen.
-6. Realign the clinometer with the top of the tree.
-7. Release the screen to lock the measurement.
+2. Select **Distance**, and tap **OK**.
+3. Enter the height of the tree, and tap **OK**.
+4. Read the instructions, and tap **OK**.
+5. Align the clinometer with the base of the tree.
+6. Tap and hold the screen.
+7. Realign the clinometer with the top of the tree.
+8. Release the screen to lock the measurement.
 
 The distance to the tree is shown on the screen.
 
 ## Estimate the distance to a tree of unknown height
 If you don't know the height of a tree, you can use your own height as a reference. To estimate the distance, do the following:
 
-1. Tap the ruler icon in the top-right corner.
-2. Tap **Distance**.
-3. Enter your height.
-4. Stand next to the tree, and note where the top of your head is on the tree.
-5. Walk away from the tree to the place where you want to measure the distance.
-6. Align the clinometer with the base of the tree.
-7. Tap and hold the screen.
-8. Realign the clinometer with the place on the tree where the top of your head was.
-9. Release the screen to lock the measurement.
+1. Stand next to the tree, and note where the top of your head is on the tree.
+2. Walk away from the tree to the place where you want to measure the distance.
+3. Tap the ruler icon in the top-right corner.
+4. Select **Distance**, and tap **OK**.
+5. Enter your height, and tap **OK**.
+6. Read the instructions, and tap **OK**.
+7. Align the clinometer with the base of the tree.
+8. Tap and hold the screen.
+9. Realign the clinometer with the place on the tree where the top of your head was.
+10. Release the screen to lock the measurement.
 
 The distance to the tree is shown on the screen. If you are looking to calculate the height of the tree, use the method described in the previous section with the distance you just measured.
