@@ -18,12 +18,6 @@ data class PackItem(
             return weight * amount
         }
 
-    val desiredWeight: Weight?
-        get() {
-            weight ?: return null
-            return weight * desiredAmount
-        }
-
     val percentPacked: Float
         get() {
             return when {

@@ -40,17 +40,6 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
         }
     }
 
-    fun addLayer(layer: ILayer) {
-        layers = layers + layer
-    }
-
-    fun removeLayer(layer: ILayer) {
-        if (layer is IAsyncLayer) {
-            layer.setHasUpdateListener(null)
-        }
-        layers = layers - layer
-    }
-
     fun setLayers(layers: List<ILayer>) {
         this.layers.filterIsInstance<IAsyncLayer>()
             .forEach { it.setHasUpdateListener(null) }

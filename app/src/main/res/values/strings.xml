@@ -16,7 +16,6 @@
     <string name="reload">Reload</string>
     <string name="disconnect">Disconnect</string>
     <string name="plugin_unavailable">This plugin is unavailable or no longer connected.</string>
-    <string name="clear_plugin_cache">Clear plugin cache</string>
     <string name="connected_plugins">Connected plugins</string>
     <string name="available_plugins">Available plugins</string>
     <string name="plugin_name">Plugin: %s</string>
@@ -97,10 +96,6 @@
     <plurals name="path_group_summary">
         <item quantity="one">%d path</item>
         <item quantity="other">%d paths</item>
-    </plurals>
-    <plurals name="offline_map_group_summary">
-        <item quantity="one">%d map</item>
-        <item quantity="other">%d maps</item>
     </plurals>
     <!--Navigation Tab - Beacon List - Sharesheet-->
     <string name="share_action_send">Send</string>
@@ -253,7 +248,6 @@
     <!--Settings - Sensors - GPS-->
     <string name="gps">GPS</string>
     <string name="location">Location</string>
-    <string name="pref_auto_location_title">Auto adjust location</string>
     <string name="request_permission">Request permission</string>
     <!--    The title for the edit text field the user can supply their current latitude (basically mock GPS)-->
     <!--    The title for the edit text field the user can supply their current longitude (basically mock GPS)-->
@@ -401,7 +395,6 @@
     <string name="delete_beacon_group_message">%s and all its beacons will be deleted.</string>
     <string name="delete_path_group_message">%s and all its paths will be deleted.</string>
     <string name="delete_map_group_message">%s and all its maps will be deleted.</string>
-    <string name="delete_offline_map_group_message">%s and all its maps will be deleted.</string>
     <string name="group">Group</string>
     <string name="no_group">No group</string>
     <string name="tap_sun_moon_hint">Tap sun or moon for position details</string>
@@ -635,7 +628,6 @@
     </plurals>
     <string name="import_btn">Import</string>
     <string name="gps_user">User</string>
-    <string name="gps_stale">Stale</string>
     <string name="gps_searching">Searching</string>
     <string name="unavailable">Unavailable</string>
     <string name="quality_poor">Poor</string>
@@ -711,7 +703,6 @@
     <string name="screen_flashlight">Screen</string>
     <string name="pref_navigation_speedometer_type" translatable="false">pref_navigation_speedometer_type</string>
     <string name="speedometer">Speedometer</string>
-    <string name="since_time">since %s</string>
     <string name="pedometer">Pedometer</string>
     <string name="pref_step_length_title">Step length</string>
     <string name="pref_step_length_holder" translatable="false">pref_step_length_holder</string>
@@ -858,7 +849,6 @@
     <string name="millimeters_format">%s mm</string>
     <string name="unit_yards">Yards</string>
     <string name="base_elevation">Base elevation</string>
-    <string name="base_temperature">Base temperature</string>
     <string name="current_temperature">Current temperature</string>
     <string name="destination_elevation">Destination elevation</string>
     <string name="clear_cache">Clear cache</string>
@@ -1225,7 +1215,6 @@
     <string name="done">Done</string>
     <string name="save_draft">Save draft</string>
     <string name="finish_calibration">Finish calibration</string>
-    <string name="calibrate_map_point">Calibrate with known locations (%1$d / %2$d)</string>
     <string name="calibrate_map_point_title">Point %1$d of %2$d</string>
     <string name="calibrate_map_point_instructions">Tap this location on the map, then enter its real-world coordinates.</string>
     <string name="descent">Descent</string>
@@ -1575,7 +1564,6 @@
     <string name="pref_show_ar_grid_layer" translatable="false">pref_show_ar_grid_layer</string>
     <string name="grid">Grid</string>
     <string name="ar_layer_override_message">Layer settings may be overridden by guidance, such as the Astronomy guide.</string>
-    <string name="date">Date</string>
     <string name="pref_camera_settings" translatable="false">pref_camera_settings</string>
     <!--%s will be distance (ex. 100 ft)-->
     <string name="path_distance_performance_disclaimer">Recommended maximum of %s</string>
@@ -1595,7 +1583,6 @@
     <!--    First %s is the time to turn back (10:24), the second is the countdown to turn back (1h 10m), the third is the time of return (14:24)-->
     <string name="turn_back_instructions">Turn around by %1$s (%2$s) to return at %3$s</string>
     <string name="turn_back_alerts">Turn back alerts</string>
-    <string name="turn_back_alarm_channel">Turn back (Alarm)</string>
     <string name="turn_back_notification_title">It\'s time to turn back</string>
     <!--    The %s is the return time (14:24)-->
     <string name="turn_back_notification_description">Turn back now to return at %s</string>
@@ -1883,9 +1870,6 @@
     <!--A world map that is the background for the map-->
     <string name="basemap">Basemap</string>
     <string name="offline_maps">Offline Maps</string>
-    <string name="offline_map_import_failed">Unable to import map</string>
-    <string name="no_offline_maps">No offline maps</string>
-    <string name="unsupported_offline_map_file">Unsupported map file</string>
     <string name="trail_maps">Trail maps</string>
     <string name="show_labels">Show labels</string>
     <string name="planet_mercury">Mercury</string>
@@ -1900,7 +1884,6 @@
     <string name="map_tool_disclaimer">This tool does not include built-in street maps, satellite imagery, or trail data. It does not download maps from the internet. To display a map background, you must import your own image using the Offline Maps tool. If you need live or preloaded street, satellite, or trail maps, use a dedicated mapping application instead.</string>
     <string name="open_settings">Open settings</string>
     <string name="pref_map_layer_button" translatable="false">pref_map_layer_button</string>
-    <string name="pref_offline_map_files" translatable="false">pref_offline_map_files</string>
     <string name="show_gps_accuracy">Show GPS accuracy</string>
     <string name="large_location_indicator">Large location indicator</string>
     <string name="pref_increase_ar_exposure_at_night" translatable="false">pref_increase_ar_exposure_at_night</string>

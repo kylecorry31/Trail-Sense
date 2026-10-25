@@ -28,9 +28,6 @@ class PackRepo private constructor(context: Context) : IPackRepo {
         return packDao.getAll().map { it.map { mapper.mapToPack(it) } }
     }
 
-    override suspend fun getPacksAsync(): List<Pack> =
-        packDao.getAllAsync().map { mapper.mapToPack(it) }
-
     override suspend fun getPack(packId: Long): Pack? {
         val pack = packDao.get(packId) ?: return null
         return mapper.mapToPack(pack)

@@ -13,8 +13,6 @@ interface IPackRepo {
 
     fun getPacks(): LiveData<List<Pack>>
 
-    suspend fun getPacksAsync(): List<Pack>
-
     suspend fun getPack(packId: Long): Pack?
 
     suspend fun deleteItem(item: PackItem)

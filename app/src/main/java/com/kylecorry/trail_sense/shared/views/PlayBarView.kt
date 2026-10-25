@@ -50,10 +50,6 @@ class PlayBarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         binding.playBarTitle.setImageResource(res)
     }
 
-    fun setShowSubtitle(showSubtitle: Boolean) {
-        binding.playBarTitle.setShowDescription(showSubtitle)
-    }
-
     fun setState(state: FeatureState, frequency: Duration? = null) {
         setState(state == FeatureState.On, frequency)
     }

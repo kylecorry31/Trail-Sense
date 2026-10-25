@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="orange_10">#351000</color>
     <color name="orange_40">#FF6D00</color>
     <color name="tool_icon_color">#FF6D00</color>
     <color name="colorPrimaryLight">#FD750E</color>
@@ -52,7 +51,6 @@
     <color name="md_theme_onSurfaceVariant">#594136</color>
     <color name="md_theme_outline">#8D7164</color>
     <color name="md_theme_outlineVariant">#E2BFB0</color>
-    <color name="md_theme_scrim">#000000</color>
     <color name="md_theme_inverseSurface">#3D2D26</color>
     <color name="md_theme_inverseOnSurface">#FFEDE6</color>
     <color name="md_theme_inversePrimary">#FFB692</color>

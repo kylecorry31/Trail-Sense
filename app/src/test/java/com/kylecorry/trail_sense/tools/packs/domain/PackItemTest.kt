@@ -33,31 +33,6 @@ internal class PackItemTest {
     }
 
     @ParameterizedTest
-    @MethodSource("provideDesiredWeight")
-    fun getDesiredWeight(
-        desiredAmount: Double,
-        weight: Float?,
-        units: WeightUnits?,
-        expected: Float?,
-        expectedUnits: WeightUnits?
-    ) {
-        val item =
-            PackItem(
-                0,
-                0,
-                "",
-                ItemCategory.Other,
-                desiredAmount = desiredAmount,
-                weight = weight?.let {
-                    units?.let { Weight.from(weight, units) }
-                })
-        assertEquals(
-            expected?.let { expectedUnits?.let { Weight.from(expected, expectedUnits) } },
-            item.desiredWeight
-        )
-    }
-
-    @ParameterizedTest
     @MethodSource("providePercentPacked")
     fun getPercentPacked(amount: Double, desiredAmount: Double, expected: Float) {
         val item = PackItem(0, 0, "", ItemCategory.Other, amount, desiredAmount = desiredAmount)
@@ -74,16 +49,6 @@ internal class PackItemTest {
     companion object {
         @JvmStatic
         fun providePackedWeight(): Stream<Arguments> {
-            return Stream.of(
-                Arguments.of(0.0, 1f, WeightUnits.Grams, 0f, WeightUnits.Grams),
-                Arguments.of(1.0, 1f, WeightUnits.Grams, 1f, WeightUnits.Grams),
-                Arguments.of(2.0, 1f, WeightUnits.Grams, 2f, WeightUnits.Grams),
-                Arguments.of(1.0, null, null, null, null),
-            )
-        }
-
-        @JvmStatic
-        fun provideDesiredWeight(): Stream<Arguments> {
             return Stream.of(
                 Arguments.of(0.0, 1f, WeightUnits.Grams, 0f, WeightUnits.Grams),
                 Arguments.of(1.0, 1f, WeightUnits.Grams, 1f, WeightUnits.Grams),

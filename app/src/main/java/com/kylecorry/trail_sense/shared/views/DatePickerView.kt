@@ -35,9 +35,6 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
     private val next: MaterialButton
     private val previous: MaterialButton
     private var onDateChange: (LocalDate) -> Unit = {}
-    private var onCalendarLongPress: () -> Unit = {
-        date = LocalDate.now()
-    }
     private var onSearch: () -> Unit = {}
     private var dayViewDecorator: AndromedaDayViewDecorator? = null
 
@@ -59,7 +56,7 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
         }
 
         calendar.setOnLongClickListener {
-            onCalendarLongPress()
+            date = LocalDate.now()
             true
         }
 
@@ -85,10 +82,6 @@ class DatePickerView(context: Context, attrs: AttributeSet?) : FrameLayout(conte
 
     fun setOnDateChangeListener(listener: (LocalDate) -> Unit) {
         onDateChange = listener
-    }
-
-    fun setOnCalendarLongPressListener(listener: () -> Unit) {
-        onCalendarLongPress = listener
     }
 
     fun setOnSearchListener(listener: () -> Unit) {

@@ -84,7 +84,6 @@
     <ID>ForbiddenComment:CanvasObject.kt:// TODO: Use this on the MapView as well - maybe extract to Andromeda</ID>
     <ID>ForbiddenComment:CellTowerModel.kt:CellTowerModel$// TODO: Load the whole region of the image and get the towers from it</ID>
     <ID>ForbiddenComment:ClimateFragment.kt:ClimateFragment$// TODO: Break these down (ex. borreal, tiaga)</ID>
-    <ID>ForbiddenComment:ClimateFragment.kt:ClimateFragment$// TODO: Eventually add more</ID>
     <ID>ForbiddenComment:ClimateFragment.kt:ClimateFragment$// TODO: List out dangers</ID>
     <ID>ForbiddenComment:ClinometerFragment.kt:ClinometerFragment$// TODO: This should just be clinometer.angle</ID>
     <ID>ForbiddenComment:CloudRepo.kt:CloudRepo$// TODO: Only do this if there was a change</ID>
@@ -103,7 +102,6 @@
     <ID>ForbiddenComment:FeatureRenderer.kt:FeatureRenderer$// TODO: Cache this</ID>
     <ID>ForbiddenComment:FieldGuidePageFragment.kt:FieldGuidePageFragment$// TODO: Handle tag click</ID>
     <ID>ForbiddenComment:FileSubsystem.kt:FileSubsystem$// TODO: Handle maxSize</ID>
-    <ID>ForbiddenComment:Forecast.kt:DailyWeather$// TODO: Is this needed or can Trail Sense figure this out from the hourly data?</ID>
     <ID>ForbiddenComment:FormatService.kt:FormatService$// TODO: Rewrite this</ID>
     <ID>ForbiddenComment:FormatService.kt:FormatService$// TODO: Secondary sort by size</ID>
     <ID>ForbiddenComment:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$// TODO: Determine normal value for metric</ID>
@@ -192,8 +190,6 @@
     <ID>ForbiddenComment:TemperatureWeatherField.kt:TemperatureWeatherField$// TODO: Build chart into this</ID>
     <ID>ForbiddenComment:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$// TODO: No need for multiple units, use a UnitPreference</ID>
     <ID>ForbiddenComment:TideGeoJsonSource.kt:TideGeoJsonSource$// TODO: Limit max locations?</ID>
-    <ID>ForbiddenComment:TideImportService.kt:TideImportService$// TODO: Add support for CSV</ID>
-    <ID>ForbiddenComment:TideImportService.kt:TideImportService$// TODO: Add support for JSON</ID>
     <ID>ForbiddenComment:TideTableRepo.kt:TideTableRepo$// TODO: Only delete the tides if they changed</ID>
     <ID>ForbiddenComment:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$// TODO: This should use the same gap filling logic as above</ID>
     <ID>ForbiddenComment:TileLoader.kt:TileLoader$// TODO: This should be handled by a higher level component</ID>
@@ -307,7 +303,6 @@
     <ID>TooManyFunctions:FormatService.kt:FormatService</ID>
     <ID>TooManyFunctions:GeoJsonExtensions.kt:com.kylecorry.trail_sense.shared.extensions.GeoJsonExtensions.kt</ID>
     <ID>TooManyFunctions:Hooks.kt:com.kylecorry.trail_sense.shared.extensions.Hooks.kt</ID>
-    <ID>TooManyFunctions:IBeaconRepo.kt:IBeaconRepo</ID>
     <ID>TooManyFunctions:IPackRepo.kt:IPackRepo</ID>
     <ID>TooManyFunctions:IPathService.kt:IPathService : ICleanable</ID>
     <ID>TooManyFunctions:IWaypointRepo.kt:IWaypointRepo</ID>

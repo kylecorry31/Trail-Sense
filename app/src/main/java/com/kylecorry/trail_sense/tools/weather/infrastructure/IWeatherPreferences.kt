@@ -17,7 +17,6 @@ interface IWeatherPreferences {
     var barometerOffset: Float
     val pressureHistory: Duration
     val sendStormAlerts: Boolean
-    val dailyForecastChangeThreshold: Float
     val hourlyForecastChangeThreshold: Float
     val stormAlertThreshold: Float
     var dailyWeatherLastSent: LocalDate

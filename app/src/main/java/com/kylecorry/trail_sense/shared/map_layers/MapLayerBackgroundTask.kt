@@ -42,17 +42,6 @@ class MapLayerBackgroundTask {
         }
     }
 
-    fun clearTasks() {
-        synchronized(taskLock) {
-            tasks.clear()
-        }
-        scope.launch {
-            lock.withLock {
-                isDirty = true
-            }
-        }
-    }
-
     fun scheduleUpdate(
         context: Context,
         viewBounds: Rectangle,

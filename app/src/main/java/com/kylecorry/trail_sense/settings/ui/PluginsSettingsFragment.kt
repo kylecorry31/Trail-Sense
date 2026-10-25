@@ -90,21 +90,6 @@ class PluginsSettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
-    private fun confirmDisconnect(plugin: Plugin) {
-        Alerts.dialog(
-            requireContext(),
-            getString(R.string.plugin_disconnect_title),
-            getString(R.string.plugin_disconnect_message, plugin.name)
-        ) { cancelled ->
-            if (!cancelled) {
-                lifecycleScope.launch {
-                    pluginSubsystem.disconnect(plugin)
-                    refreshPlugins()
-                }
-            }
-        }
-    }
-
     private fun openDetails(plugin: Plugin) {
         findNavController().navigateWithAnimation(
             R.id.pluginDetailsFragment,

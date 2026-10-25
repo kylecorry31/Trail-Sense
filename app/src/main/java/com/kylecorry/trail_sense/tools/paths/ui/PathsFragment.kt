@@ -278,7 +278,6 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
             PathAction.ToggleVisibility -> togglePathVisibility(path)
             PathAction.Simplify -> simplifyPath(path)
             PathAction.Move -> movePath(path)
-            else -> {}
         }
     }
 
