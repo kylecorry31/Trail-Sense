@@ -1,127 +1,182 @@
-The Beacons tool can be used to save locations and navigate to them later.
+Use the Beacons tool to save locations and navigate back to them later.
 
-## Creating a beacon
-1. Tap the '+' button in the bottom-right corner of the screen.
-2. Tap 'Beacon'.
+## Create a beacon
+To create a beacon, do the following:
+
+1. Tap the **+** button in the bottom-right corner of the screen.
+2. Tap **Beacon**.
 3. Enter a name for the beacon.
-4. Enter a location for the beacon. You can tap the GPS icon next to the location field to use your current location.
-5. Fill out any of the optional fields you want to record.
+4. Enter a location for the beacon. To use your current location, tap the GPS icon next to the location field.
+5. Optional: Fill out the fields you want to record. See the Optional fields section.
 6. Tap the checkmark button in the top-right corner of the screen.
 
 ### Optional fields
-- **Elevation**: The elevation of the beacon. You can tap the elevation icon next to the elevation field to use your current elevation.
-- **Create at distance**: If you want to place a beacon at a known distance and direction from a location, you can toggle this on. You will then need to enter the distance away and set the direction to the new location before you can save the beacon. The new beacon will be placed at the distance and direction away from the location entered above.
-- **Group**: The group to add the beacon to. Tap a group and tap 'OK' to add the beacon to that group. To create a new group, see the 'Organizing beacons' section below.
+You can fill out the following optional fields:
+
+- **Elevation**: The elevation of the beacon. To use your current elevation, tap the elevation icon next to the elevation field.
+- **Create at distance**: Places the beacon at a known distance and direction from the location you entered. When you turn this on, you must enter the distance and set the direction before you can save the beacon.
+- **Group**: The group to add the beacon to. Tap a group, and tap **OK**. To create a group, see the Organize beacons section.
 - **Color**: The color to use for the beacon.
 - **Icon**: The icon to use for the beacon.
 - **Notes**: Any notes you want to record about the beacon.
 
-### Creating from a QR code
-Beacons can be shared as a QR code by tapping the menu button on the beacon row you want to share, then selecting 'Share...'. You can then share the QR code with Trail Sense to create a beacon from it.
+## Create a beacon from a QR code
+You can share a beacon as a QR code and scan it with Trail Sense to create a copy. To learn how to share a beacon, see the Share a beacon section.
 
-1. Tap the '+' button in the bottom-right corner of the screen.
-2. Tap 'QR code'.
-3. Scan the QR code you want to create a beacon from.
-4. Follow the steps above to fill out the beacon information. Any information from the QR code will be prefilled.
+To create a beacon from a QR code, do the following:
 
-### Creating from a GPX file
-If you have locations saved in a GPX file, you can import them into Trail Sense as beacons.
+1. Tap the **+** button in the bottom-right corner of the screen.
+2. Tap **QR code**.
+3. Scan the QR code.
+4. Fill out the beacon information as described in the Create a beacon section. The information from the QR code is prefilled.
 
-1. Tap the '+' button in the bottom-right corner of the screen.
-2. Tap 'GPX file'.
-3. Select the GPX file you want to load beacons from.
-4. Confirm that you want to import the beacons by tapping 'OK'. You can uncheck any beacons you don't want to import.
-5. The beacons will be created in the current group.
+## Import beacons from a GPX file
+If you have locations saved in a GPX file, you can import them as beacons. To import beacons from a GPX file, do the following:
 
-### Creating from OSM data
-There are several online tools that can be used to query OpenStreetMap data and export it as a GPX file.
+1. Tap the **+** button in the bottom-right corner of the screen.
+2. Tap **GPX file**.
+3. Select the GPX file.
+4. Optional: Uncheck any beacons you don't want to import.
+5. Tap **OK** to confirm.
 
-To use Overpass Turbo:
+Trail Sense creates the beacons in the current group.
+
+## Import beacons from OpenStreetMap data
+Several online tools can query OpenStreetMap data and export it as a GPX file. To use Overpass Turbo, do the following:
 
 1. Open [Overpass Turbo](https://overpass-turbo.eu/).
 2. Adjust the map to the area you want to query.
-3. Enter the query. This will be filled in if you use one of the links below.
-4. Tap 'Run'.
-5. Tap 'Export' and select 'GPX'.
+3. Enter the query. If you use one of the example queries below, the query is filled in for you.
+4. Tap **Run**.
+5. Tap **Export**, and select **GPX**.
 6. Save the GPX file to your device.
-7. Follow the steps above to import the beacons.
+7. Import the file as described in the Import beacons from a GPX file section.
 
-- [**Peaks**](https://overpass-turbo.eu/s/1SVW): Query for mountain peaks. Change the 1000 in the query to the desired elevation in meters for minimum peak height.
+Example queries:
 
-## Viewing a beacon
-Beacons will be shown in the beacon list and will display the distance to the beacon from your current location.
+- [**Peaks**](https://overpass-turbo.eu/s/1SVW): Finds mountain peaks. To set the minimum peak height, change the 1000 in the query to the elevation you want, in meters.
 
-To open a beacon, tap the beacon in the list. This will open the beacon details page. The following information will be shown:
+## View a beacon
+The beacon list shows each beacon and its distance from your current location.
+
+To see the details of a beacon, tap it in the list. The details page shows the following:
+
 - **Name**: The name of the beacon.
 - **Location**: The location of the beacon.
 - **Elevation**: The elevation of the beacon.
 - **Distance**: The distance to the beacon from your current location.
-- **Historic high/low temperature**: The historical average high and low temperature for the beacon's location. See the 'Climate' guide for more information.
+- **Historic high/low temperature**: The historic average high and low temperature for the beacon's location. For more information, see the Climate guide.
 - **Sunrise/sunset**: The sunrise and sunset times for the beacon's location.
 - **Tide**: The estimated tide near the beacon's location.
 - **Notes**: Any notes you recorded about the beacon.
 
 ## Navigate to a beacon
-To navigate to a beacon, open the beacon you want to navigate to and tap the 'Navigate' button at the bottom. This will open the navigation tool with the beacon as the destination. Alternatively, you can tap the menu button on the beacon row you want to navigate to, then select 'Navigate'.
+To navigate to a beacon, do one of the following:
 
-See the 'Navigation' guide for more information on how to use the navigation tool.
+- Open the beacon, and tap **Navigate** at the bottom of the screen.
+- Tap the menu button on the beacon's row, and select **Navigate**.
 
-## Beacon visibility
-You can choose which beacons are visible on the Navigation and Offline Maps tool by tapping the eye icon on the right side of the beacon row. This will toggle the visibility of the beacon.
+The Navigation tool opens with the beacon as the destination. For more information, see the Navigation guide.
 
-To show or hide all beacons in a group, tap the menu button on the group row and select 'Show all' or 'Hide all'.
+## Show or hide beacons on maps
+To choose which beacons are visible in the Navigation and Offline Maps tools, tap the eye icon on the right side of the beacon's row.
+
+To show or hide all beacons in a group, tap the menu button on the group's row, and select **Show all** or **Hide all**.
 
 ## Share a beacon
-You can share a beacon by tapping the menu button on the beacon row you want to share, then selecting 'Share...'. Alternatively, open the beacon and tap the menu button in the top-right, then choose 'Share...'. You can choose from the following options:
+To share a beacon, do the following:
+
+1. Open the menu for the beacon. Tap the menu button on the beacon's row, or open the beacon and tap the menu button in the top-right corner.
+2. Select **Share...**.
+3. Select a sharing option.
+
+The sharing options are:
 
 - **Copy**: Copies the beacon details to your clipboard.
 - **QR code**: Shares a QR code for the beacon.
-- **Maps**: Shares the beacon to a maps application.
+- **Maps**: Shares the beacon to a maps app.
 - **Send**: Shares the beacon details to another app as text.
 
 ## Edit a beacon
-To edit a beacon, open the beacon and tap the edit button at the bottom. Alternatively, tap the menu button on the beacon row you want to edit, then select 'Edit'.
+To edit a beacon, do one of the following:
 
-See the 'Creating a beacon' section above for information on the fields you can edit.
+- Open the beacon, and tap the edit button at the bottom of the screen.
+- Tap the menu button on the beacon's row, and select **Edit**.
+
+For the fields you can edit, see the Create a beacon section.
 
 ## Delete a beacon
-To delete a beacon, tap the menu button on the beacon row you want to remove, then select 'Delete'. Alternatively, open the beacon, tap the menu button in the top-right, and choose 'Delete'.
+To delete a beacon, do one of the following:
 
-## Exporting beacons
-To export beacons, open the group you want to export and tap the menu button in the top-right corner of the screen. Select 'Export', unselect any beacons you don't want to export, then tap 'OK'. The beacons will be exported to a GPX file.
+- Tap the menu button on the beacon's row, and select **Delete**.
+- Open the beacon, tap the menu button in the top-right corner, and select **Delete**.
 
-## Organizing beacons
-You can organize beacons into groups. To create a group, tap the '+' button in the bottom-right of the beacon list and select 'Group'. Give the group a name and tap 'OK'. Tap the group in the list to view the beacons in that group.
+## Export beacons
+To export beacons to a GPX file, do the following:
 
-If you create a beacon or group while the group is open, the new beacon or group will be added to the currently open group.
+1. Open the group you want to export.
+2. Tap the menu button in the top-right corner of the screen.
+3. Select **Export**.
+4. Optional: Unselect any beacons you don't want to export.
+5. Tap **OK**.
 
-To change the group of an existing beacon, tap the menu button on the beacon row you want to move, select 'Move to', and choose the target group.
+## Organize beacons
+You can organize beacons into groups.
 
-To rename a group, tap the menu button on the group row you want to rename, then select 'Rename' and provide a new name.
+### Create a group
+To create a group, do the following:
 
-You can delete a group (along with all beacons within it) by tapping the menu button on the group row you wish to remove, then selecting 'Delete'.
+1. Tap the **+** button in the bottom-right corner of the beacon list.
+2. Select **Group**.
+3. Enter a name for the group.
+4. Tap **OK**.
 
-You can also tap the menu button in the top-right of the beacon list and select 'Delete' to delete the open group (along with all beacons within it). If no group is open, this deletes all of your beacons.
+To view the beacons in a group, tap the group in the list. If you create a beacon or group while a group is open, the new beacon or group is added to the open group.
 
-## Searching for beacons
-To search through your created beacons, use the search bar at the top of the beacon list. This search encompasses the current group and all subgroups. Additionally, you can sort beacons by distance, time, or name by tapping the menu button in the top-right and selecting 'Sort'.
+### Move a beacon to another group
+To move a beacon to another group, do the following:
 
-## Last cell signal beacon
-If you have Backtrack enabled (see the 'Paths' guide) and it is configured to record cell signal, you will see a beacon created for the last known location where you had a cell signal.
+1. Tap the menu button on the beacon's row.
+2. Select **Move to**.
+3. Select the group to move the beacon to.
 
-You can disable this beacon in Settings > Paths > 'Last signal beacon'.
+### Rename a group
+To rename a group, do the following:
 
-You can also choose to navigate to the nearest cell signal by tapping the menu button at the top-right of the beacon list and selecting 'Navigate to nearest cell signal'. This will start navigation to the nearest recorded location that has a cell signal.
+1. Tap the menu button on the group's row.
+2. Select **Rename**.
+3. Enter a new name.
 
-## Settings
-- **Default beacon color**: The color that will be pre-selected when creating a new beacon. This can be changed in Settings > Beacons > 'Default beacon color'.
+### Delete a group
+**Warning:** Deleting a group also deletes all of the beacons in it.
+
+To delete a group, do one of the following:
+
+- Tap the menu button on the group's row, and select **Delete**.
+- Open the group, tap the menu button in the top-right corner of the beacon list, and select **Delete**.
+
+If no group is open, the menu button's **Delete** option deletes all of your beacons.
+
+## Search and sort beacons
+To search your beacons, use the search bar at the top of the beacon list. The search includes the current group and all of its subgroups.
+
+To sort beacons by distance, time, or name, tap the menu button in the top-right corner, and select **Sort**.
+
+## Navigate to the last cell signal
+If Backtrack is on and configured to record cell signal, Trail Sense creates a beacon at the last known location where you had a cell signal. For more information about Backtrack, see the Paths guide. You can do the following:
+
+- To navigate to the nearest recorded location with a cell signal, tap the menu button in the top-right corner of the beacon list, and select **Navigate to nearest cell signal**.
+- To turn off this beacon, disable **Settings > Paths > Last signal beacon**.
+
+## Beacon settings
+You can change the following beacon setting:
+
+- **Settings > Beacons > Default beacon color**: The color that is preselected when you create a new beacon.
 
 ## Quick action
-You can enable the Create Beacon quick action in the settings for the desired tab.
-
-To use the quick action, tap the Beacon quick action button to create a beacon at your current location. The title of the beacon will be set to the current date and time. Once created you will see a notification at the bottom of the screen with a button to view the beacon.
+To use the Create Beacon quick action, enable it in the settings for the tab you want it on. Tap the quick action button to create a beacon at your current location. The beacon's title is the current date and time. A notification at the bottom of the screen has a button to view the new beacon.
 
 ## Widgets
-The following widgets can be placed on your device's homescreen or viewed in-app:
+You can place the following widgets on your device's home screen or view them in the app:
 
-- **Nearby beacons**: Displays the beacons within 1 km (0.62 miles) of your location.
+- **Nearby beacons**: Shows the beacons within 1 km (0.62 miles) of your location.

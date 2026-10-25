@@ -1,81 +1,123 @@
-The Packing Lists tool can be used to plan for a trip and remember to pack all the needed items.
+Use the Packing Lists tool to plan a trip and make sure you pack everything you need.
 
-## Creating a packing list
-To create a new packing list:
+## Create a packing list
+To create a packing list, do the following:
 
-1. Tap the '+' button in the bottom-right corner.
-2. Select 'New packing list'.
-3. Enter a name for the packing list. 
+1. Tap the **+** button in the bottom-right corner.
+2. Select **New packing list**.
+3. Enter a name for the packing list.
 
-## Copying a packing list
-To copy an existing packing list:
+## Copy a packing list
+To copy a packing list, do the following:
 
-1. Tap the menu button on the right of an existing packing list.
-2. Tap 'Copy'.
+1. Tap the menu button on the right side of the packing list.
+2. Tap **Copy**.
 3. Enter a name for the new packing list.
-4. (Optional) Tap the menu button on the top-right and tap 'Clear amounts' to reset the packed amounts.
+4. Optional: Open the new list, tap the menu button in the top-right corner, and select **Clear amounts** to reset the packed amounts.
 
-## Adding items
+## Add an item
+To add an item to a packing list, do the following:
 
-With a packing list open, tap the '+' button in the bottom-right corner. On the create item screen, fill out the fields as described below:
+1. Open the packing list.
+2. Tap the **+** button in the bottom-right corner.
+3. Fill out the fields. See the Item fields section.
+4. Tap the checkmark button in the bottom-right corner to save the item.
 
-- **Name**: The name of the item
-- **Packed amount**: The number of items currently packed, can be blank or a number (with decimal places)
-- **Desired amount**: The number of items you would like to pack, can be blank or a number (with decimal places)
-- **Category**: The category to group this item by, defaults to 'Other'
-- **Weight**: The weight of 1 item in your desired units. Trail Sense will scale this by the amount of packed items to determine the total weight.
-- **Optional**: Marks the item as optional. Optional items show an 'Optional' tag in the list and do not count toward the packed percentage.
+### Item fields
+An item has the following fields:
 
-When finished, tap the check button in the bottom-right corner to save the item.
+- **Name**: The name of the item.
+- **Packed amount**: The number of items currently packed. This can be blank or a number, including decimals.
+- **Desired amount**: The number of items you want to pack. This can be blank or a number, including decimals.
+- **Category**: The category to group the item by. The default is **Other**.
+- **Weight**: The weight of one item in your preferred units. Trail Sense multiplies it by the packed amount to find the total weight.
+- **Optional**: Marks the item as optional. Optional items show an **Optional** tag in the list and don't count toward the packed percentage.
 
-## Editing items
+## Edit an item
+To edit an item, do the following:
 
-With a packing list open, tap the item you want to edit. This will bring you to the same form described in the 'Adding Items' section.
+1. Open the packing list.
+2. Tap the item.
+3. Change the fields. See the Item fields section.
+4. Tap the checkmark button in the bottom-right corner to save the item.
 
-When finished, tap the check button in the bottom-right corner to save the item.
+## Change the packed amount
+To change the packed amount without editing the item, do the following:
 
-## Changing the packed amount
-Tap the menu button on the right of an item and tap 'Add' or 'Subtract' to change the packed amount by a specific number without editing the item.
+1. Tap the menu button on the right side of the item.
+2. Tap **Add** or **Subtract**.
+3. Enter the amount to add or subtract.
 
-## Deleting items
-To delete an item, tap the menu button on the right of the item and tap 'Delete'. You will be asked to confirm before the item is deleted.
+## Mark an item as packed
+To mark an item as packed, do one of the following:
 
-## Marking items as packed
-If you've packed an item, you can either edit it or tap the checkbox next to it to mark it as packed. This will set the packed amount to the desired amount and update the weight (if applicable).
+- Tap the checkbox next to the item.
+- Edit the item.
 
-## Pack weight
-If the items have weight associated with them, the total weight of the pack will be displayed at the top of the screen. The units of the total weight can be changed in Settings > Units > Weight.
+Marking an item as packed sets the packed amount to the desired amount and updates the weight, if the item has one.
 
-## Sorting a packing list
+## Delete an item
+To delete an item, do the following:
 
-Tapping the menu on the top-right of the packing list will allow you to sort your items.
+1. Tap the menu button on the right side of the item.
+2. Tap **Delete**.
+3. Confirm the deletion.
 
-- **Category**: This groups items by category and sorts them by name within the category.
-- **Percent packed (low to high)**: Items which are unpacked show at the top, while packed items move to the bottom. Use this to more easily see what is left to pack.
-- **Percent packed (high to low)**: Items which are packed show at the top, while unpacked items move to the bottom. Use this to more easily see what is already packed.
-- **Weight (low to high)**: Items which take up less weight in your pack sort to the top.
-- **Weight (high to low)**: Items which take up more weight in your pack sort to the top. Use this to see which items are weighing down your pack.
+## Check the pack weight
+If the items have weights, the total weight of the pack is shown at the top of the screen. To change the units, set **Settings > Units > Weight**.
 
-## Deleting a packing list
+## Sort a packing list
+To sort the items in a packing list, do the following:
 
-You can delete a packing list by tapping the menu button on the right of the packing list and tapping 'Delete'. This will permanently delete the packing list and all the items in it.
+1. Open the packing list.
+2. Tap the menu button in the top-right corner.
+3. Select a sort option.
 
-You can also delete from the packing list itself by tapping the menu button on the top-right and tapping 'Delete'.
+The sort options are:
 
-## Renaming a packing list
+- **Category**: Groups items by category and sorts them by name within each category.
+- **Percent packed (low to high)**: Shows unpacked items at the top and moves packed items to the bottom. Use this to see what is left to pack.
+- **Percent packed (high to low)**: Shows packed items at the top and moves unpacked items to the bottom. Use this to see what you already packed.
+- **Weight (low to high)**: Sorts the lightest items to the top.
+- **Weight (high to low)**: Sorts the heaviest items to the top. Use this to see which items weigh down your pack.
 
-You can rename a packing list by tapping the menu button on the right of the packing list and tapping 'Rename'. This will allow you to enter a new name for the packing list.
+## Rename a packing list
+To rename a packing list, do one of the following:
 
-You can also rename from the packing list itself by tapping the menu button on the top-right and tapping 'Rename'.
+- Tap the menu button on the right side of the packing list, and select **Rename**.
+- Open the packing list, tap the menu button in the top-right corner, and select **Rename**.
 
-## Clearing packed amounts
+Then enter a new name.
 
-You can clear the packed amounts of all the items in a packing list by tapping the menu button on the right of the packing list and tapping 'Clear amounts'. You can also do this from within the packing list by tapping the menu button on the top-right. This will set all the packed amounts to 0, but will not delete the items.
+## Clear the packed amounts
+To set the packed amounts of all items to 0 without deleting the items, do one of the following:
 
-## Exporting a packing list
-You can export a packing list by tapping the menu button on the right of the packing list and tapping 'Export'. This will prompt you to save a .csv file to your device. This file can be imported by Trail Sense or used in the 'LighterPack' website.
+- Tap the menu button on the right side of the packing list, and select **Clear amounts**.
+- Open the packing list, tap the menu button in the top-right corner, and select **Clear amounts**.
 
-## Importing a packing list
-You can import a packing list by tapping the '+' button in the bottom-right corner and tapping 'Import packing list'. This will prompt you to select a .csv file from your device. The csv file must be in the format exported by Trail Sense or LighterPack.
+## Delete a packing list
+**Warning:** Deleting a packing list permanently deletes all of the items in it.
 
-You will be prompted to enter a name for the newly imported packing list. If the list had previously packed amounts, they will be imported, but you can clear them by following the steps in the 'Clearing packed amounts' section.
+To delete a packing list, do one of the following:
+
+- Tap the menu button on the right side of the packing list, and select **Delete**.
+- Open the packing list, tap the menu button in the top-right corner, and select **Delete**.
+
+## Export a packing list
+To export a packing list, do the following:
+
+1. Tap the menu button on the right side of the packing list.
+2. Tap **Export**.
+3. Save the .csv file to your device.
+
+You can import the file into Trail Sense or use it on the LighterPack website.
+
+## Import a packing list
+To import a packing list, do the following:
+
+1. Tap the **+** button in the bottom-right corner.
+2. Tap **Import packing list**.
+3. Select a .csv file from your device. The file must be in the format exported by Trail Sense or LighterPack.
+4. Enter a name for the new packing list.
+
+If the list had packed amounts, they are imported. To clear them, see the Clear the packed amounts section.

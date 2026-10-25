@@ -1,102 +1,132 @@
-The Astronomy tool can be used to see when the sun or moon is up. It can also be used to know when astronomical events are happening, such as a meteor shower or lunar eclipse.
+Use the Astronomy tool to see when the sun and moon are up and when astronomical events, such as meteor showers and eclipses, happen at your location.
 
-With the exception of the time until sunrise or sunset (always today), all information shown on the page is for the selected date. By default, today is selected, but you can change it by tapping the calendar icon at the top of the screen. On the calendar, you will see the moon phase, meteor showers, and eclipses for each day. Additionally, you can use the arrows to move to the next/previous date or long-press the calendar to quickly jump to today's date.
+All information on the screen is for the selected date, except the time until sunrise or sunset, which is always for today.
 
-You can also tap the search icon to find the next occurrence of an astronomical event at your location, such as the next full moon or meteor shower.
+## Choose a date
+Today is selected by default. To view another date, do one of the following:
 
-## Time until sunrise/sunset
+- Tap the calendar icon at the top of the screen. The calendar shows the moon phase, meteor showers, and eclipses for each day.
+- Tap the arrows to move to the next or previous date.
+- Long-press the calendar icon to jump back to today.
 
-The time until sunrise or sunset is shown at the top of the screen. This respects the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see the Sun section below.
+## Find the next astronomical event
+To find the next occurrence of an event at your location, such as the next full moon or meteor shower, tap the search icon at the top of the screen.
 
-## Chart
-The chart shows the position of the sun and moon throughout the day. The X-axis is time, and the Y-axis is the altitude or height in the sky. You can tap on the sun or moon icon in the chart to see its current position or tap the chart to see its position at a different time. When you do this, a slider will appear so you can see its position at a different time of the day.
+## Read the chart
+The chart shows the position of the sun and moon throughout the day. The X-axis is the time, and the Y-axis is the altitude (height in the sky). You can do the following:
 
-You can also choose to keep the current time centered in the chart by enabling 'Keep sun/moon centered' in Settings > Astronomy. This will keep the current time centered in the chart when you have today selected and will show 12 hours before and after the current time. If you have a different date selected, it will show the entire day instead.
+- To see the current position of the sun or moon, tap its icon on the chart.
+- To see its position at another time, tap the chart. A slider appears so you can move to a different time of day.
 
-You can enable 'Show sunrise/set bands' in Settings > Astronomy to shade the chart by twilight stage (civil, nautical, astronomical, and full darkness) instead of a single night shade. See the Sun section below for a description of each stage.
+Chart settings:
+
+- **Settings > Astronomy > Keep sun/moon centered**: Keeps the current time centered in the chart and shows 12 hours before and after it. This applies only when today is selected. For other dates, the chart shows the entire day.
+- **Settings > Astronomy > Show sunrise/set bands**: Shades the chart by twilight stage (civil, nautical, astronomical, and full darkness) instead of a single night shade. See the Sun section for a description of each stage.
 
 ## Sun
-All times related to the sun respect the 'Sunrise/sunset times' in Settings > Astronomy. For a description of each time, see below.
+The time until sunrise or sunset is shown at the top of the screen. The time of sunrise, sunset, and noon and the length of the day are shown below the chart. All sun times follow the **Settings > Astronomy > Sunrise / sunset times** setting.
 
-The time until sunrise or sunset is shown at the top of the screen.
+To see more details about the sun for the selected date, tap the sun section below the chart:
 
-The time of sunrise, sunset, and noon is shown below the chart, as well as the length of the day. If you tap this section, you will see more details about the sun for the current day:
-
-- **Actual**: This is the actual time of sunrise, sunset, and noon. It is the time when the sun is at the horizon.
-- **Civil**: This is the time of sunrise, sunset, and noon when the sun is between 0 and 6 degrees below the horizon. There is enough light to see objects clearly.
-- **Nautical**: This is the time of sunrise, sunset, and noon when the sun is between 6 and 12 degrees below the horizon. The horizon is still visible, but it is too dark to see objects clearly.
-- **Astronomical**: This is the time of sunrise, sunset, and noon when the sun is between 12 and 18 degrees below the horizon. It is completely dark, but it is perfect for stargazing.
-- **Peak altitude**: This is the highest point the sun reaches in the sky. It is shown in degrees above the horizon.
-- **Daylight**: This is the amount of time when the sun is up.
-- **Night**: This is the amount of time when the sun is down.
-- **Season**: This is the astronomical season based on the Earth's position around the sun. It will be one of the following: spring, summer, fall, or winter.
-- **Altitude**: This is the current angle of the sun above the horizon. It is shown in degrees.
-- **Direction**: This is the current direction the sun is in. It is shown in degrees.
+- **Actual**: The time of sunrise, sunset, and noon, when the sun is at the horizon.
+- **Civil**: The time of sunrise, sunset, and noon when the sun is between 0 and 6 degrees below the horizon. There is enough light to see objects clearly.
+- **Nautical**: The time of sunrise, sunset, and noon when the sun is between 6 and 12 degrees below the horizon. The horizon is still visible, but it is too dark to see objects clearly.
+- **Astronomical**: The time of sunrise, sunset, and noon when the sun is between 12 and 18 degrees below the horizon. It is completely dark, which is ideal for stargazing.
+- **Peak altitude**: The highest point the sun reaches in the sky, in degrees above the horizon.
+- **Daylight**: The amount of time the sun is up.
+- **Night**: The amount of time the sun is down.
+- **Season**: The astronomical season, based on the Earth's position around the sun (spring, summer, fall, or winter).
+- **Altitude**: The current angle of the sun above the horizon, in degrees.
+- **Direction**: The current direction of the sun, in degrees.
 
 ## Moon
-The time of moonrise, moonset, and lunar noon are shown below the chart, as well as the current moon phase and illumination percentage. If you tap this section, you will see more details about the moon for the current day:
+The time of moonrise, moonset, and lunar noon, the current moon phase, and the illumination percentage are shown below the chart.
 
-- **Times**: This is the time of moonrise, moonset, and lunar noon.
-- **Moon phase**: This is the current phase of the moon as it appears in the sky.
-- **Illumination**: This is the percentage of the moon that is illuminated. A full moon is 100% illuminated, and a new moon is 0% illuminated.
-- **Peak altitude**: This is the highest point the moon reaches in the sky. It is shown in degrees above the horizon.
-- **Supermoon**: This is when the moon is closer to the Earth than normal, making it appear larger and brighter in the sky.
+To see more details about the moon for the selected date, tap the moon section below the chart:
+
+- **Times**: The time of moonrise, moonset, and lunar noon.
+- **Moon phase**: The current phase of the moon as it appears in the sky.
+- **Illumination**: The percentage of the moon that is illuminated. A full moon is 100% illuminated, and a new moon is 0% illuminated.
+- **Peak altitude**: The highest point the moon reaches in the sky, in degrees above the horizon.
+- **Supermoon**: Indicates that the moon is closer to the Earth than normal, which makes it appear larger and brighter.
 
 ## Meteor showers
-If a meteor shower peak is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the shower, as well as the average number of meteors per hour. You can tap on the shower to see more details:
+If a meteor shower peaks on the selected date at your location, it appears in the list with its start, peak, and end times and the average number of meteors per hour.
 
-- **Times**: This is the start, peak, and end times of the shower.
-- **Name**: This is the name of the shower.
-- **Rate**: This is the average number of meteors per hour.
-- **Peak altitude**: This is the highest point the radiant (area where the meteors appear to come from) reaches in the sky. It is shown in degrees above the horizon.
-- **Peak direction**: This is the direction the radiant is in.
+To see more details, tap the shower:
+
+- **Times**: The start, peak, and end times of the shower.
+- **Name**: The name of the shower.
+- **Rate**: The average number of meteors per hour.
+- **Peak altitude**: The highest point the radiant reaches in the sky, in degrees above the horizon. The radiant is the area where the meteors appear to come from.
+- **Peak direction**: The direction of the radiant.
 
 ## Lunar eclipses
-If a lunar eclipse is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the eclipse, as well as how much of the moon is eclipsed. You can tap on the eclipse to see more details:
+If a lunar eclipse happens on the selected date at your location, it appears in the list with its start, peak, and end times and how much of the moon is eclipsed.
 
-- **Times**: This is the start, peak, and end times of the eclipse.
-- **Duration**: This is the duration of the eclipse.
-- **Obscuration**: This is the percentage of the moon that is eclipsed.
-- **Magnitude**: This is the magnitude of the eclipse. It is the fraction of the moon's diameter that is eclipsed.
-- **Peak altitude**: This is the altitude of the moon at the peak of the eclipse. It is shown in degrees above the horizon.
-- **Peak direction**: This is the direction the moon is in at the peak of the eclipse.
+To see more details, tap the eclipse:
+
+- **Times**: The start, peak, and end times of the eclipse.
+- **Duration**: How long the eclipse lasts.
+- **Obscuration**: The percentage of the moon that is eclipsed.
+- **Magnitude**: The fraction of the moon's diameter that is eclipsed.
+- **Peak altitude**: The altitude of the moon at the peak of the eclipse, in degrees above the horizon.
+- **Peak direction**: The direction of the moon at the peak of the eclipse.
 
 ## Solar eclipses
-If a solar eclipse is happening on the selected date at your location, it will show in the list. It displays the start, peak, and end times of the eclipse, as well as how much of the sun is eclipsed. You can tap on the eclipse to see more details:
+If a solar eclipse happens on the selected date at your location, it appears in the list with its start, peak, and end times and how much of the sun is eclipsed.
 
-- **Times**: This is the start, peak, and end times of the eclipse.
-- **Duration**: This is the duration of the eclipse.
-- **Obscuration**: This is the percentage of the sun that is eclipsed.
-- **Magnitude**: This is the magnitude of the eclipse. It is the fraction of the sun's diameter that is eclipsed.
-- **Peak altitude**: This is the altitude of the sun at the peak of the eclipse, shown in degrees above the horizon.
-- **Peak direction**: This is the direction the sun is in at the peak of the eclipse.
+To see more details, tap the eclipse:
 
-## Sunset alerts
-Alerts can be set for sunset to avoid being caught outside in the dark. To set an alert, open Settings > Astronomy and enable 'Sunset alerts'. You can adjust the 'Sunset alert time' setting to determine how far in advance you want to be notified. There is also a quick action available for the sunset alert. See below for more information.
+- **Times**: The start, peak, and end times of the eclipse.
+- **Duration**: How long the eclipse lasts.
+- **Obscuration**: The percentage of the sun that is eclipsed.
+- **Magnitude**: The fraction of the sun's diameter that is eclipsed.
+- **Peak altitude**: The altitude of the sun at the peak of the eclipse, in degrees above the horizon.
+- **Peak direction**: The direction of the sun at the peak of the eclipse.
 
-You can choose to use the alarm audio channel for this alert by enabling Settings > Astronomy > Use alarm for sunset alert. This will play a sound as an alarm even if media and notifications are muted. 
+## Set a sunset alert
+Use a sunset alert to avoid being caught outside in the dark. To set a sunset alert, do the following:
 
-## Sunrise alerts
-Alerts can be configured for sunrise to ensure you don't miss the beginning of the day. To set up an alert, go to Settings > Astronomy and turn on 'Sunrise alerts'. You can adjust the 'Sunrise alert time' setting to decide how much advance notice you want. Additionally, there is a quick action option available for the sunrise alert. Refer to the information below for further details.
+1. Open **Settings > Astronomy**.
+2. Under **Alerts**, enable **Sunset**.
+3. Optional: Set **Sunset alert time** to choose how far in advance you are notified.
+4. Optional: Enable **Use alarm for sunset alert** to play the alert on the alarm audio channel, which sounds even if media and notifications are muted.
 
-You can choose to use the alarm audio channel for this alert by enabling Settings > Astronomy > Use alarm for sunrise alert. This will play a sound as an alarm even if media and notifications are muted. 
+You can also toggle the alert with the Sunset Alerts quick action. See the Quick action section.
 
-## Astronomy alerts
-Alerts can be set for astronomical events to ensure you don't miss them. To set an alert, open Settings > Astronomy and enable the alerts you want to be notified about for your location. You can receive notifications for meteor showers, lunar eclipses, and solar eclipses. The alert will be shown up to 24 hours in advance of the event start time.
+## Set a sunrise alert
+Use a sunrise alert to make sure you don't miss the start of the day. To set a sunrise alert, do the following:
+
+1. Open **Settings > Astronomy**.
+2. Under **Alerts**, enable **Sunrise**.
+3. Optional: Set **Sunrise alert time** to choose how far in advance you are notified.
+4. Optional: Enable **Use alarm for sunrise alert** to play the alert on the alarm audio channel, which sounds even if media and notifications are muted.
+
+You can also toggle the alert with the Sunrise Alerts quick action. See the Quick action section.
+
+## Set astronomy alerts
+Use astronomy alerts to make sure you don't miss meteor showers, lunar eclipses, and solar eclipses. To set an alert, do the following:
+
+1. Open **Settings > Astronomy**.
+2. Under **Alerts**, enable the events you want to be notified about.
+
+Alerts are for events at your location and are shown up to 24 hours before the event starts.
 
 ## View in 3D
-If your phone has a compass, you will see a 'View in 3D' button. Tapping this will open the Augmented Reality tool with the selected date and allow you to see where the sun and moon will be throughout the day using your camera.
+If your phone has a compass, a **View in 3D** button is shown. Tap it to open the Augmented Reality tool with the selected date and see where the sun and moon will be throughout the day.
 
-You can choose to disable the camera when tapped by disabling the 'Settings > Astronomy > Use camera for 3D viewing' setting.
+By default, the Augmented Reality tool uses the camera. To turn this off, disable **Settings > Astronomy > Use camera for 3D viewing**.
 
 ## Quick action
-You can enable the Sunset Alert and Sunrise Alert quick action in the settings for the tab where you want it to appear.
+To use the following quick actions, enable them in the settings for the tab you want them on:
 
-To use the quick action, tap the sunset alert or sunrise alert quick action button to toggle it on or off.
+- **Sunset Alerts** and **Sunrise Alerts**: Tap the quick action button to turn the alert on or off.
+- **Night**: Tap the quick action button to switch to the Night theme. Tap it again to return to your previous theme.
 
 ## Widgets
-The following widgets can be placed on your device's homescreen or viewed in-app:
+You can place the following widgets on your device's home screen or view them in the app:
 
 - **Sun**: Shows the time of the next sunrise or sunset.
 - **Moon**: Shows the phase of the moon.
-- **Sun & moon chart**: The chart of the height of the sun and moon in the sky.
+- **Sun & moon chart**: Shows the height of the sun and moon in the sky.

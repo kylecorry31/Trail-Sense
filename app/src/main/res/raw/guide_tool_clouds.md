@@ -1,18 +1,36 @@
-The Clouds tool assists you in tracking and predicting weather patterns by identifying clouds. If your phone is equipped with a barometer, Trail Sense can merge cloud observations with barometer readings to enhance weather prediction on the Weather tool.
+Use the Clouds tool to identify clouds and log them to help predict the weather. If your phone has a barometer, Trail Sense combines your cloud observations with barometer readings to improve the weather prediction in the Weather tool.
 
-## Cloud log
-In the cloud log, you'll find the last 48 hours of cloud observations. Each row includes the observation time, cloud type, and potential weather indications. Tap on a row for more details about the cloud, including its description, possible weather outcomes, precipitation chances, and common precipitation types it can generate. To delete an observation, use the menu button located on the right of each row. Additionally, you can tap on the cloud image to view a larger version.
+## Log a cloud
+To log a cloud, tap the **+** button in the bottom-right corner, and then choose how to identify the cloud:
 
-## Logging a cloud
-To log a cloud, tap the '+' button at the bottom-right. You can choose to use a picture of the cloud from your device's files or camera, or manually identify the cloud.
+- **Camera or File**: Trail Sense tries to identify the cloud for you. See the Identify a cloud automatically section.
+- **Manual**: You choose the cloud type yourself. See the Identify a cloud manually section.
 
-### Automatic identification
-If you opt to use the camera or a file, Trail Sense will make an attempt to identify the cloud for you. It will display its confidence in each cloud type and allow you to select the cloud types you wish to log using the checkboxes. By default, it selects the most likely cloud type(s). You can also adjust the observation time by tapping on the time at the top of the screen. Once you're satisfied with the observation, tap the checkmark button at the top-right of the screen.
+### Identify a cloud automatically
+To identify a cloud automatically, do the following:
 
-### Manual identification
-If you choose to manually identify the cloud, you will see a list of cloud types. Use the checkboxes to select the cloud types you want to log. You can also adjust the observation time by tapping on the time at the top of the screen. Once you're satisfied with the observation, tap the checkmark button at the top-right of the screen.
+1. Take a picture of the cloud with the camera, or choose a picture from your device's files.
+2. Review the confidence that Trail Sense shows for each cloud type. By default, the most likely cloud types are selected.
+3. Optional: Use the checkboxes to select the cloud types you want to log.
+4. Optional: Tap the time at the top of the screen to change the observation time.
+5. Tap the checkmark button in the top-right corner.
+
+### Identify a cloud manually
+To identify a cloud manually, do the following:
+
+1. In the list of cloud types, use the checkboxes to select the cloud types you want to log.
+2. Optional: Tap the time at the top of the screen to change the observation time.
+3. Tap the checkmark button in the top-right corner.
+
+## View the cloud log
+The cloud log shows the last 48 hours of cloud observations. Each row shows the observation time, the cloud type, and potential weather indications. You can do the following:
+
+- To see more details about a cloud, tap its row. The details include a description, possible weather outcomes, precipitation chances, and the common precipitation types the cloud can produce.
+- To see a larger version of the cloud image, tap the image.
+- To delete an observation, tap the menu button on the right side of its row.
 
 ## Quick action
-You can enable the Cloud Scanner quick action in the settings for the tab where you want it to appear.
+To use the Cloud Scanner quick action, enable it in the settings for the tab you want it on. The quick action has the following gestures:
 
-Tapping the quick action button will open your camera to take a picture of a cloud to identify. Long-pressing the button will open the Clouds tool.
+- **Tap**: Opens your camera so you can take a picture of a cloud to identify.
+- **Long-press**: Opens the Clouds tool.

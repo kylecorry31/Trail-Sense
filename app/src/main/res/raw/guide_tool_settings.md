@@ -1,274 +1,312 @@
+Use Settings to customize Trail Sense, calibrate your sensors, and back up your data. Each section below describes a group of settings and the path to open it.
+
 ## Units
-The units can be adjusted in Settings > Units. By default, the units are set based on your device's language settings.
+Open **Settings > Units** to change the units. By default, the units are set from your device's language settings. You can change the following units:
 
-- **Distance**: The unit to display distance measurements.
-- **Pressure**: The unit to display barometric pressure measurements.
-- **Temperature**: The unit to display temperature measurements.
-- **Weight**: The unit to display weight measurements.
-- **Coordinate format**: The format to display geographic coordinates.
-- **Location share map**: The link to use when sharing a location.
-- **Use 24-hour format**: Whether to use a 24-hour clock.
-- **Add leading zero to time**: Whether to add a leading zero to the time (for example, 01:00 instead of 1:00).
+- **Distance**: The unit for distance measurements.
+- **Pressure**: The unit for barometric pressure measurements.
+- **Temperature**: The unit for temperature measurements.
+- **Weight**: The unit for weight measurements.
+- **Coordinate format**: The format for geographic coordinates.
+- **Location share map**: The link to use when you share a location.
+- **Use 24-hour format**: Uses a 24-hour clock.
+- **Add leading zero to time**: Adds a leading zero to the time, for example 01:00 instead of 1:00.
 
-## Sensors > Compass
-Compass settings can be found in Trail Sense Settings > Sensors > Compass. Some devices may not have a compass sensor, but you will still be able to set declination.
+## Compass settings
+Open **Settings > Sensors > Compass** to change the compass settings. If your device doesn't have a compass sensor, you can still set the declination.
 
-### Azimuth
-The current compass direction (azimuth) is displayed at the top of the compass settings. As you change settings, it will update to show the new direction.
+### Check the compass direction and accuracy
+The compass settings show the following:
 
-### Calibrate
-The reported accuracy of the compass is shown. If it is low, you can tap this option to view instructions on how to calibrate.
+- **Azimuth**: The current compass direction is shown at the top of the compass settings. It updates as you change settings.
+- **Calibrate**: Shows the reported accuracy of the compass. If the accuracy is low, tap this option to see instructions for calibrating the compass.
 
-### Source
-- **Magnetometer + Gyro**: This is the default source and should work on most devices. It uses the magnetometer and gyroscope sensors to determine the direction. When the gyroscope is added in, the reading is typically less noisy. This source is provided by your phone's manufacturer.
-- **Magnetometer**: This source only uses the magnetometer sensor to determine the direction. This source is provided by your phone's manufacturer.
-- **Magnetometer + Gyro (Custom)**: This source is similar to the Magnetometer + Gyro source, but the calculations are done by Trail Sense. If the Magnetometer + Gyro source is not working correctly, try this source.
-- **Legacy (Trail Sense)**: This source is similar to the Magnetometer source, but the calculations are done by Trail Sense. If the Magnetometer source is not working correctly, try this source.
-- **Legacy (Android)**: This source is provided by Android and is not recommended to use. It is only included for compatibility with older devices, but could potentially work well on some devices.
+### Choose a compass source
+Choose from the following sources:
 
-### Smoothing
-To reduce noise in compass readings, you can increase the smoothing setting. If using a source that has a gyroscope, a value of 1 is recommended. Otherwise, experiment with increasing this value until the compass appears to be working correctly when you rotate your phone. However, if you increase the smoothing too much, Trail Sense may ignore real compass changes.
+- **Magnetometer + Gyro**: The default source, which should work on most devices. It uses the magnetometer and gyroscope to determine the direction. Adding the gyroscope typically makes the reading less noisy. Your phone's manufacturer provides this source.
+- **Magnetometer**: Uses only the magnetometer to determine the direction. Your phone's manufacturer provides this source.
+- **Magnetometer + Gyro (Custom)**: Similar to **Magnetometer + Gyro**, but Trail Sense does the calculations. If **Magnetometer + Gyro** doesn't work correctly, try this source.
+- **Legacy (Trail Sense)**: Similar to **Magnetometer**, but Trail Sense does the calculations. If **Magnetometer** doesn't work correctly, try this source.
+- **Legacy (Android)**: Provided by Android. It isn't recommended. It is included only for compatibility with older devices, but it might work well on some devices.
 
-### Update frequency
-You can change how often the compass updates in the Navigation, Map, Photo Maps, and Augmented Reality tools.
+### Reduce compass noise
+To reduce noise in the compass readings, increase **Smoothing**. If your source uses a gyroscope, a value of 1 is recommended. Otherwise, increase the value until the compass works correctly when you rotate your phone. If you increase the smoothing too much, Trail Sense might ignore real compass changes.
 
-- **Normal** reduces sensor updates to help save battery. Approximately 17 Hz.
-- **Fast** updates more frequently for smoother movement, but may use more battery. Approximately 50 Hz.
+### Change the update frequency
+**Update frequency** sets how often the compass updates in the Navigation, Map, Photo Maps, and Augmented Reality tools. The options are:
 
-### True north
-To display true north instead of magnetic north, enable the 'True north' setting. This will adjust the compass reading to account for magnetic declination, and it will match most maps.
+- **Normal**: Reduces sensor updates to save battery. This is approximately 17 Hz.
+- **Fast**: Updates more often for smoother movement but might use more battery. This is approximately 50 Hz.
 
-### Magnetic declination
-Magnetic declination is the difference between magnetic north and true north. You should ensure this is correct regardless of whether you are using true north or magnetic north.
+### Show true north
+To show true north instead of magnetic north, enable **True north**. This adjusts the compass reading for magnetic declination, and it matches most maps.
 
-### Auto adjust declination
-Enabling the 'Auto adjust declination' setting will automatically adjust the declination based on your location.
+### Set the declination
+Magnetic declination is the difference between magnetic north and true north. Make sure it is correct, whether you use true north or magnetic north. The declination settings are:
 
-### Declination override
-If you would prefer to manually set the declination, you can disable the 'Auto adjust declination' setting and use the 'Declination override' setting to set the declination. You can find the declination for your location on most maps or online. You can also tap the 'Set override from GPS' option to set the declination based on your current location (only sets it once).
+- **Auto adjust declination**: Adjusts the declination automatically based on your location.
+- **Declination override**: Sets the declination manually. To use it, disable **Auto adjust declination**. You can find the declination for your location on most maps or online.
+- **Set override from GPS**: Sets the declination override from your current location. It sets the value only once.
 
-## Sensors > GPS
-GPS settings can be found in Trail Sense Settings > Sensors > GPS. If your phone supports it, multiple GNSS systems will be used (such as GPS, GLONASS, Galileo, and BeiDou).
+## GPS settings
+Open **Settings > Sensors > GPS** to change the GPS settings. If your phone supports it, Trail Sense uses multiple GNSS systems, such as GPS, GLONASS, Galileo, and BeiDou.
 
-### Source
-- **GPS**: This source determines your location using your device's GPS.
-- **Manual**: This source allows you to manually set your location.
+### Choose a GPS source
+Choose from the following sources:
 
-### GPS settings
-- **Smoothing**: Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, while 100% provides the strongest smoothing. Higher values can delay responses to changes in movement.
-- **Accuracy filter**: Choose the reported GPS accuracy you prefer before a reading is accepted and the maximum amount of time Trail Sense should wait for it. If the preferred accuracy is not available within that time, Trail Sense accepts the best available recent reading.
-- **GPS power usage**: Controls the power hint for GPS updates. When using reduced power settings, some devices may shut down the GPS while stationary or perform other actions that may reduce location accuracy.
-- **Clear cache**: Trail Sense automatically caches your last location to quickly load details in certain tools. You can clear this cache temporarily using this option.
+- **GPS**: Determines your location with your device's GPS.
+- **Manual**: Lets you set your location manually. Use **Location override** to set the location.
 
-### Manual settings
-- **Location override**: Sets the location to use when the Manual source is selected.
+### Tune the GPS
+Use the following settings to tune the GPS:
 
-## Sensors > Altimeter
-The altimeter is used to measure altitude. To adjust altimeter settings, go to Trail Sense Settings > Sensors > Altimeter.
+- **Smoothing**: Use the 0–100% slider to reduce GPS position noise. At 0%, smoothing is disabled. Low values closely follow new GPS readings, and 100% provides the strongest smoothing. Higher values can delay responses to changes in movement.
+- **Accuracy filter**: Sets the GPS accuracy you prefer before a reading is accepted, and the maximum time Trail Sense waits for it. If the preferred accuracy isn't available in that time, Trail Sense accepts the best recent reading.
+- **GPS power usage**: Controls the power hint for GPS updates (**Battery saving**, **Balanced**, or **High accuracy**). When you use reduced power settings, some devices shut down the GPS while stationary or take other actions that can reduce location accuracy.
+- **Clear cache**: Trail Sense caches your last location to load details quickly in some tools. This option clears the cache temporarily.
 
-### Elevation
-The current elevation is displayed at the top of the altimeter settings. As you change settings, it will update to show the new elevation.
+## Altimeter settings
+Open **Settings > Sensors > Altimeter** to change the altimeter settings. The altimeter measures altitude.
 
-### Source
-- **GPS + Barometer**: This is the default source and should work on most devices with a barometer. It combines the GPS and barometer to determine the altitude.
-- **GPS**: This source only uses the GPS to determine the altitude. It is less accurate than the GPS + Barometer source.
-- **Barometer**: This source only uses the barometer to determine the altitude. It is more accurate than the GPS source, but may drift over time and you will need to calibrate it before use.
-- **DEM + Barometer**: Combines a digital elevation model (DEM) with the barometer to determine altitude.
-- **DEM**: A digital elevation model (DEM) that determines elevation using your GPS location and a map.
-- **Manual**: This source allows you to manually set the altitude. This is useful if you know the altitude of your location and it will not change.
+The current elevation is shown at the top of the altimeter settings. It updates as you change settings.
+
+### Choose an altimeter source
+Choose from the following sources:
+
+- **GPS + Barometer**: The default source, which should work on most devices that have a barometer. It combines the GPS and barometer to determine the altitude.
+- **GPS**: Uses only the GPS to determine the altitude. It is less accurate than **GPS + Barometer**.
+- **Barometer**: Uses only the barometer to determine the altitude. It is more accurate than **GPS**, but it can drift over time, and you must calibrate it before you use it.
+- **DEM + Barometer**: Combines a digital elevation model (DEM) with the barometer to determine the altitude.
+- **DEM**: Uses a digital elevation model (DEM) to determine the elevation from your GPS location and a map.
+- **Manual**: Lets you set the altitude manually. Use this if you know the altitude of your location and it won't change.
 
 ### GPS + Barometer settings
-- **Force calibration interval**: You can choose to force the altimeter to recalibrate using the GPS every so often. This is useful to compensate for drift in the barometer, which may be due to changes in weather or location.
-- **Continuous calibration**: You can choose to continuously calibrate the altimeter using the GPS. This is useful if you are moving around a lot and want the most accurate altitude reading. When this is enabled, it prefers the barometer reading, but will slightly adjust it based on the GPS reading.
-- **Reset calibration**: You can choose to reset the calibration of the altimeter. This is useful if you are in a new location and want to recalibrate the barometer.
+The following settings are available:
 
-### GPS settings
-- **Samples**: The number of GPS samples to use when determining the altitude. A higher number will give a more accurate reading, but will take longer to calculate.
+- **Force calibration interval**: Forces the altimeter to recalibrate with the GPS regularly. Use this to compensate for barometer drift caused by changes in weather or location.
+- **Continuous calibration**: Calibrates the altimeter with the GPS continuously. Use this if you move around a lot and want the most accurate altitude. When it is enabled, Trail Sense prefers the barometer reading and adjusts it slightly based on the GPS reading.
+- **Reset calibration**: Resets the calibration of the altimeter. Use this when you are in a new location and want to recalibrate the barometer.
 
-### DEM settings
-- **Digital elevation model (DEM)**: Tapping this will prompt you to download and import a digital elevation model. Models are available in a variety of sizes at https://kylecorry.com/Trail-Sense/dem.html. Once you import the model, you can delete the file from your device. If you already have a model loaded and select a new model, the old one will be removed. If no model is loaded, a low accuracy built-in model will be used. It is recommended to download one of the larger models if you are able to. The DEM will not be included in the backup due to the size.
-- **Remove DEM**: Tapping this will prompt you to delete the DEM file. This is irreversible and you will need to import another file to use the DEM.
+### GPS settings for the altimeter
+The following setting is available:
 
-### Barometer / manual settings
-- **Elevation override**: If you are using the barometer or manual source, you can set the elevation manually. This is useful if you know the elevation of your location. If using the barometer source, this setting is used to calibrate the barometer and will change as you move.
-- **Set override from GPS**: You can choose to set the elevation override using the GPS if you don't know your current elevation (only sets it once).
-- **Set override from barometer**: If you know the current sea level pressure for your location, you can set the elevation override using the barometer (only sets it once). Only available on devices with a barometer.
+- **Samples**: The number of GPS samples used to determine the altitude. A higher number gives a more accurate reading but takes longer to calculate.
 
-## Sensors > Barometer
-The barometer is used to measure air pressure. It can be used to predict the weather or determine your altitude. To adjust barometer settings, go to Trail Sense Settings > Sensors > Barometer.
+### Import a digital elevation model (DEM)
+To import a digital elevation model, do the following:
 
-If you have the Weather Monitor (see the Weather tool) enabled, you will see a chart of the barometric pressure history as recorded by your device. The colored line represents the calibrated pressure while the gray line represents the raw pressure. When you adjust the settings, the chart will update to show the new calibrated pressure. The goal is to have the colored line smoothly follow the gray line.
+1. Download a model from https://kylecorry.com/Trail-Sense/dem.html.
+2. Open **Settings > Sensors > Altimeter**.
+3. Tap **Digital elevation model (DEM)**.
+4. Select the file you downloaded.
 
-### Sea level pressure
-Barometric pressure changes with altitude, which makes it difficult to compare pressure readings from different locations. To make pressure readings more consistent, enable the 'Sea level pressure' setting. This will adjust the pressure reading to what it would be at sea level. Using this setting will increase the accuracy of weather predictions.
+After you import the model, you can delete the downloaded file from your device.
 
-### Smoothing
-To reduce noise in pressure readings, increase the smoothing setting. A value of around 15% is recommended. However, if you increase the smoothing too much, Trail Sense may ignore real pressure changes.
+If you already have a model loaded and you select a new model, the old model is removed. If no model is loaded, Trail Sense uses a low accuracy built-in model. The DEM isn't included in backups because of its size.
+
+To delete the DEM, tap **Remove DEM**, and confirm. This can't be undone. To use the DEM again, you must import another file.
+
+### Barometer and manual settings
+The following settings are available:
+
+- **Elevation override**: Sets the elevation manually when you use the barometer or manual source. Use this if you know the elevation of your location. With the barometer source, this setting calibrates the barometer and changes as you move.
+- **Set override from GPS**: Sets the elevation override from the GPS if you don't know your current elevation. It sets the value only once.
+- **Set override from barometer**: Sets the elevation override from the barometer if you know the current sea level pressure for your location. It sets the value only once. This is available only on devices that have a barometer.
+
+## Barometer settings
+Open **Settings > Sensors > Barometer** to change the barometer settings. The barometer measures air pressure. You can use it to predict the weather or determine your altitude.
+
+If the weather monitor is on (see the Weather guide), a chart shows the barometric pressure history recorded by your device. The colored line is the calibrated pressure, and the gray line is the raw pressure. The chart updates as you change settings. Adjust the settings until the colored line follows the gray line smoothly.
+
+### Use sea level pressure
+Barometric pressure changes with altitude, which makes it hard to compare pressure readings from different locations. To make readings more consistent, enable **Sea level pressure**. This adjusts the reading to what it would be at sea level, and it improves the accuracy of weather predictions.
+
+### Reduce pressure noise
+To reduce noise in the pressure readings, increase **Smoothing**. A value of about 15% is recommended. If you increase the smoothing too much, Trail Sense might ignore real pressure changes.
 
 ### Factor in temperature
-To get a more accurate pressure reading, you can factor in the temperature. This will make the reading more prone to noise from your phone's thermometer, but it will also give you a more accurate reading of the actual air pressure.
+To get a more accurate air pressure reading, enable **Factor in temperature**. The reading is then more affected by noise from your phone's thermometer, but it more accurately reflects the actual air pressure.
 
-### Barometer offset
-To calibrate the barometer, you can adjust the barometer offset. After tapping on the 'Barometer offset' setting, enter the current pressure as reported by a reliable source (must match your 'sea level pressure' setting - most weather websites report sea level pressure). This will adjust the current pressure to match the reported pressure. Note, if you are using sea level pressure the calibration accuracy will vary with the GPS accuracy.
+### Calibrate the barometer
+To calibrate the barometer, do the following:
 
-You can tap 'Reset calibration' to reset the calibration of the barometer. This will remove any offset that was previously set.
+1. Find the current pressure from a reliable source, such as a weather website. The pressure must match your **Sea level pressure** setting.
+2. Open **Settings > Sensors > Barometer**.
+3. Tap **Barometer offset**.
+4. Enter the pressure you found.
 
-## Sensors > Thermometer
-Thermometer settings can be found in Trail Sense Settings > Sensors > Thermometer.
+Trail Sense adjusts the current pressure to match the pressure you entered. If you use sea level pressure, the calibration accuracy varies with the GPS accuracy.
 
-### Source
-On most phones, you should use the historic temperature source as it will be more accurate.
+To remove the offset you set, tap **Reset calibration**.
 
-- **Historic** temperature is estimated from 30 years of historical data. It's usually accurate, but not during extreme weather. You can calibrate it if it's wrong for your location.
-- **Sensor** temperature is read from the phone's built-in thermometer. It's often inaccurate because it's affected by the phone's CPU and battery. You can calibrate it to improve its accuracy. If you power off your phone for a while, you will get a more accurate reading from the sensor.
+## Thermometer settings
+Open **Settings > Sensors > Thermometer** to change the thermometer settings.
 
-### Smoothing
-To reduce noise in temperature readings, you can increase the smoothing setting. If using the historic temperature source, this is normally not needed.
+### Choose a temperature source
+On most phones, use the historic temperature source because it is more accurate. Choose from the following sources:
 
-If the Weather Monitor (see the Weather tool) is enabled, you will see a chart of the temperature history as recorded by your device. The colored line represents the calibrated temperature while the gray line represents the raw temperature. When you adjust the settings, the chart will update to show the new calibrated temperature. The goal is to have the colored line smoothly follow the gray line.
+- **Historic**: Estimates the temperature from 30 years of historic data. It is usually accurate, but not during extreme weather. You can calibrate it if it's wrong for your location.
+- **Sensor**: Reads the temperature from the phone's built-in thermometer. It is often inaccurate because the phone's CPU and battery affect it. You can calibrate it to improve its accuracy. If you power off your phone for a while, the sensor gives a more accurate reading.
 
-#### Updating recorded temperatures
+### Reduce temperature noise
+To reduce noise in the temperature readings, increase **Smoothing**. You normally don't need this with the historic source.
 
-If you change the temperature source to 'Historic', you can choose to update all previously recorded temperatures. This will replace the old temperatures with the estimated temperature from the historic data. This is useful if you previously recorded temperatures with the sensor and then switched to historic temperatures.
+If the weather monitor is on (see the Weather guide), a chart shows the temperature history recorded by your device. The colored line is the calibrated temperature, and the gray line is the raw temperature. The chart updates as you change settings. Adjust the settings until the colored line follows the gray line smoothly.
 
-### Calibrating
+### Update recorded temperatures
+If you change the temperature source to **Historic**, you can update all previously recorded temperatures. This replaces the old temperatures with the temperature estimated from the historic data. Use this if you recorded temperatures with the sensor and then switched to historic temperatures.
+
+### Calibrate the thermometer
+**Warning:** Check your phone's manual for its designed operating temperatures, and don't exceed them during calibration.
+
+To calibrate the thermometer, do the following:
 
 1. Reset the thermometer calibration in Trail Sense.
 2. Put your phone in a cold place for 10 minutes.
-3. Note the temperature shown in Trail Sense as the minimum phone temperature.
-4. Note the actual temperature of the cold place using an actual thermometer.
+3. Note the temperature Trail Sense shows as the minimum phone temperature.
+4. Note the actual temperature of the cold place with a real thermometer.
 5. Put your phone in a warm place for 10 minutes.
-6. Note the temperature shown in Trail Sense as the maximum phone temperature.
-7. Note the actual temperature of the warm place using an actual thermometer.
-8. Go to the Thermometer sensor settings in Trail Sense and enter the minimum and maximum temperatures you recorded, along with the actual temperatures you recorded.
+6. Note the temperature Trail Sense shows as the maximum phone temperature.
+7. Note the actual temperature of the warm place with a real thermometer.
+8. Open **Settings > Sensors > Thermometer**.
+9. Enter the minimum and maximum temperatures you noted, along with the actual temperatures.
 
-**Caution:** Refer to your phone's manual to identify the designed operating temperatures, do not exceed these when performing calibration.
+## Camera settings
+Open **Settings > Sensors > Camera** to change the camera settings.
 
-## Sensors > Camera
-Camera settings can be found in Trail Sense Settings > Sensors > Camera.
+### Choose an augmented reality projection
+The projection method sets how points are displayed on the camera view. If points don't align with the real world, try changing the projection method. Choose from the following methods:
 
-### Augmented reality projection
-The projection method determines how points get displayed onto the camera view. If you are experiencing issues with the points not aligning with the real world, try changing the projection method.
+- **Estimated intrinsics**: The default method, which should work on most devices. It uses the camera's properties to estimate the projection.
+- **Manufacturer intrinsics**: Similar to **Estimated intrinsics**, but the manufacturer does the calculations. On some devices, this method doesn't work correctly.
+- **Perspective**: A simple method that factors in the distance of the point from the camera. It is similar to intrinsics but might be less accurate in some cases.
+- **Linear**: The simplest and fastest method. It doesn't factor in distances.
 
-- **Estimated Intrinsics**: This is the default method and should work on most devices. It uses the camera's properties to estimate the projection.
-- **Manual Intrinsics**: This is similar to the estimated intrinsics method, except that the calculations are done by the manufacturer. On some devices this does not work correctly.
-- **Perspective**: This is a simple projection method that factors in the distance of the point from the camera. It is similar to intrinsics, but may be less accurate in some cases.
-- **Linear**: This is the simplest projection method (also the fastest). It does not factor in distances.
+## Cell signal settings
+Open **Settings > Sensors > Cell signal** to change the following cell signal settings:
 
-## Sensors > Cell signal
-Cell signal settings can be found in Trail Sense Settings > Sensors > Cell signal.
+- **Refresh signal cache**: Your phone reports the current cell signal strength, but the report might be outdated. This option forces a refresh of the cell signal cache to get the current signal strength. The Paths tool (Backtrack) uses this only when **Settings > Paths > Record cell signal** is enabled.
 
-### Refresh signal cache
-Your phone reports the current cell signal strength, but it may be outdated. You can choose to forcefully refresh the cell signal cache to get the current signal strength. This feature is only used by the Paths tool (Backtrack) when Settings > Paths > Record cell signal is enabled.
+## Sensor details
+Open **Settings > Sensors > Sensor details** to open the Sensors tool, which lists the values of the sensors on your device. For more information, see the Sensors guide.
 
 ## Privacy
-Privacy settings can be adjusted in Settings > Privacy.
+**Note:** Trail Sense doesn't use the Internet, and all data is stored locally on your device.
 
-- **Location**: Tapping this will take you to the GPS settings, where you can choose to use a mocked location.
-- **Prevent screenshots**: Prevents screenshots from being taken while the app is open.
+Open **Settings > Privacy** to change the following privacy settings:
 
-**Note**: Trail Sense does not use the Internet and all data is stored locally on your device.
+- **Location**: Opens the GPS settings, where you can choose to use a mocked location.
+- **Prevent screenshots**: Prevents screenshots while the app is open.
 
 ## Errors
-Some tools such as Navigation and Astronomy display error banners at the top of the screen. These banners can be disabled in Settings > Errors.
+Some tools, such as Navigation and Astronomy, show error banners at the top of the screen. To turn off banners, open **Settings > Errors**. The following banners can appear:
 
-- **Compass unavailable**: The compass is not available on your device.
-- **GPS unavailable**: The GPS is not available on your device.
-- **Location not set**: The location is mocked but has not been set (uses 0, 0).
+- **Compass unavailable**: The compass isn't available on your device.
+- **GPS unavailable**: The GPS isn't available on your device.
+- **Location not set**: The location is mocked but hasn't been set. The location is 0, 0.
 - **Compass accuracy**: The compass accuracy is low.
-- **GPS timeouts**: The GPS has timed out and was unable to determine your location.
-- **Location permission**: Trail Sense does not have permission to access your location.
+- **GPS timeouts**: The GPS timed out and couldn't determine your location.
+- **Location permission**: Trail Sense doesn't have permission to access your location.
 
-## Experimental
-Experimental features can be enabled in Settings > Experimental. These features are not ready for general use and may not work as expected.
+## Back up and restore your data
+When you switch to a new device or reinstall the app, back up your data and settings first. Open **Settings > Backup / Restore** to use the following options:
 
-### Tools
-- **Show metal direction**: Shows the experimental metal direction indicator in the Metal Detector tool. This requires a compass and gyroscope. See the Metal Detector tool guide for details.
-- **Cliff Height**: Makes the Cliff Height tool available in the tool list.
+- **Backup**: Creates a backup of your data and settings as an unencrypted zip file. The file contains location data, so send it only to people you trust.
+- **Restore**: Restores a backup of your data and settings. **Warning:** This permanently overwrites your current data and settings. You can restore from an older version of the app but not from a newer version.
+- **Automatic backup**: Creates a backup of your data and settings every day in the folder you choose. It keeps only the last 2 backups.
+- **Include trail maps in backups**: Includes Mapsforge (.map) files in backups. These files can be large.
 
-### Camera
-- **Zero shutter lag**: Prioritizes capture speed over image quality when taking photos within Trail Sense.
+## Tool settings
+The settings for each tool are listed in the Tools section of the settings page. For more information, see the guide for each tool.
 
-### Weather
-- **Show pressure forecast on chart**: Extends the pressure chart in the Weather tool with the forecasted pressure.
+The **Tools** entry at the top of that section lets you customize the bottom navigation, quick actions, and in-app widgets. For more information, see the Tools guide.
 
-### Use large tile cache
-By default, each map layer keeps a tile cache sized for the current screen. Enable this setting to let each map layer retain more tiles. This may reduce tile reloading while using maps, but it can significantly increase memory usage when several map layers are enabled.
+## Theme
+Open **Settings > Theme** to change the following theme settings:
+
+- **Theme**: The theme for the app.
+  - **Light**: A theme with a white background.
+  - **Dark**: A theme with a dark background.
+  - **Black**: A theme with a black background.
+  - **System**: A theme that follows the system settings.
+  - **System (black)**: A theme that follows the system settings and uses a black background when dark mode is enabled.
+  - **Sunrise/sunset**: A theme that changes between light and dark based on the time of day.
+  - **Night**: A theme with a black background and a red filter to help maintain night vision.
+- **Dynamic colors**: Uses your device's dynamic colors in the app. If this is disabled or unavailable, the colors in Trail Sense are shades of orange.
+- **Compass dynamic colors**: Uses your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
+- **Default widget theme**: The default theme for widgets. You can override it in the widget customization options on your home screen.
+- **Compact mode**: Uses a more compact layout for the bottom bar, which is thinner and doesn't show labels.
+- **Show all bottom navigation labels**: Shows labels for all items in the bottom navigation bar instead of only the selected item.
+- **Fullscreen in night mode**: Uses fullscreen mode when the night theme is enabled. To show the system UI, swipe from the top.
+
+## About
+Open **Settings > About** to find the following information about Trail Sense:
+
+- **Version**: The version of the app you are using.
+- **Privacy policy**: A link to the privacy policy.
+- **Email developer**: A link to email the developer for feedback or support.
+- **GitHub**: A link to the GitHub repository (source code) for Trail Sense.
+- **Diagnostics**: Opens the Diagnostics tool, which detects common issues that affect the tools in Trail Sense.
+- **Licenses**: A list of the open source licenses used in Trail Sense.
+
+## Recover from crashes with safe mode
+If Trail Sense crashes several times in a row, it enters safe mode. Safe mode disables map tile layers and opens to Settings by default, so you can disable any features that might be causing the issue. Safe mode turns off automatically after 20 seconds.
+
+## Experimental settings
+Experimental features aren't ready for general use and might not work as expected. To use them, open **Settings > Experimental**.
+
+### Experimental tools
+The following experimental options are available:
+
+- **Show metal direction**: Shows the experimental metal direction indicator in the Metal Detector tool. This requires a compass and gyroscope. For more information, see the Metal Detector guide.
+- **Cliff Height**: Adds the Cliff Height tool to the tool list.
+- **Show pressure forecast on chart**: Adds the forecasted pressure to the pressure chart in the Weather tool.
+
+### Zero shutter lag
+Prioritizes capture speed over image quality when you take photos in Trail Sense.
+
+### Use large map tile cache
+By default, each map layer keeps a tile cache sized for the current screen. Enable this setting to let each map layer keep more tiles. This can reduce tile reloading while you use maps, but it can significantly increase memory use when several map layers are enabled.
 
 ### Use legacy file picker
-If the system file picker is not working correctly on your device, enable this setting to use the legacy file picker instead. It might help, but this is just a potential workaround for an upstream issue.
-
-### Plugins
-Plugins allow other installed apps to add features to Trail Sense. Right now they are limited to additional map layers.
-
-To use plugins, enable Settings > Experimental > Plugins. After enabling plugins, a Plugins page will appear in Settings where you can connect or disconnect available plugins.
-
-Connect a plugin by tapping on it in the 'Available plugins' section. Only connect plugins that you trust. You can tap on a connected plugin to see details about what features it adds, reload it, open its app, or disconnect.
-
-**Plugins are not currently available on the Google Play version of Trail Sense.**
-
-#### Privacy and Security
-
-Trail Sense will not communicate with plugins you haven't explicitly connected. Once connected, Trail Sense asks the plugin what features it adds and does not send any of your data over.
-
-When a map layer plugin is connected and the layer is enabled on the map, Trail Sense checks to make sure it has the precise location permission granted. If it does not, you will need to grant it to the plugin to use and Trail Sense will not load map data from it until that is done. If that is granted, Trail Sense will send the viewport bounds of the map to the plugin to load features and tiles.
-
-If the plugin's signature changes, it will be disconnected, and you will need to reconnect.
+If the system file picker doesn't work correctly on your device, enable this setting to use the legacy file picker instead. This is only a possible workaround for an upstream issue, and it might not help.
 
 ### Widget icon compatibility mode
 Enable this if icons are missing from your widgets on some devices.
 
 ### Notification grouping
-Android 16 introduces forced notification grouping for apps. This normally puts all of Trail Sense's notifications into one group, which can be hard to read at a glance.
+Android 16 forces notification grouping for apps. This normally puts all of Trail Sense's notifications into one group, which can be hard to read at a glance. These options work around that behavior, so they might not work consistently. Choose from the following options:
 
-- **System**: Let Android control the grouping.
-- **Ungroup all**: Workaround for ungrouping all notifications in Trail Sense.
-- **Ungroup alerts**: Workaround for ungrouping alerts (ex. storm, sunset) in Trail Sense.
+- **System**: Lets Android control the grouping.
+- **Ungroup all**: Ungroups all notifications in Trail Sense.
+- **Ungroup alerts**: Ungroups alerts, such as storm and sunset alerts, in Trail Sense.
 
-This is a workaround to bypass the forced behavior on Android 16, so it may not work consistently.
+### Plugins
+Plugins let other installed apps add features to Trail Sense. Right now, plugins are limited to additional map layers.
 
-## Backup / restore
-When switching to a new device or reinstalling the app, it may be helpful to backup your data and settings. This can be done in Settings > Backup / Restore.
+**Warning:** Connect only plugins that you trust.
 
-- **Backup**: Creates a backup of your data and settings. This will save as a zip file which is unencrypted and contains location data, so only send it to people you trust.
-- **Restore**: Restores a backup of your data and settings. This will permanently overwrite your current data and settings. You can restore from an older version of the app, but cannot restore from a newer version.
-- **Automatic backup**: Creates a backup of your data and settings every day in the folder of your choosing. It will only keep the last 2 backups.
-- **Include trail maps in backups**: Whether Mapsforge (.map) files are included in backups. These files can be large.
+**Note:** Plugins aren't currently available in the Google Play version of Trail Sense.
 
-## Tools
-Settings for each tool can be adjusted in the Settings > Tools section. For more information, see the guide for each tool.
+To connect a plugin, do the following:
 
-## Theme
-Theme related settings can be adjusted in Settings > Theme.
+1. Enable **Settings > Experimental > Plugins**. A **Plugins** page appears in Settings.
+2. Open **Settings > Plugins**.
+3. In the **Available plugins** section, tap the plugin.
 
-- **Theme**: The theme to use for the app.
-  - **Light**: A theme with a white background.
-  - **Dark**: A theme with a dark background.
-  - **Black**: A theme with a black background.
-  - **System**: A theme that follows the system settings.
-  - **System (black)**: A theme that follows the system settings with a black background when dark mode is enabled.
-  - **Sunrise/sunset**: A theme that changes between light and dark based on the time of day.
-  - **Night**: A theme with a black background and a red filter to help maintain night vision.
-- **Dynamic colors**: Whether to use your device's dynamic colors in the app, if disabled or unavailable colors in Trail Sense will be a shade of orange.
-- **Compass dynamic colors**: Whether to use your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
-- **Default widget theme**: The default theme for widgets. This can be overridden through the widget customization options on your homescreen.
-- **Compact mode**: Whether to use a more compact layout for the bottom bar (thinner and does not display labels).
-- **Show all bottom navigation labels**: Whether to show labels for all items in the bottom navigation bar instead of only the selected item.
-- **Fullscreen in night mode**: Whether to use fullscreen mode when the night theme is enabled. Swipe from the top to show the system UI.
+To see what features a connected plugin adds, reload it, open its app, or disconnect it, tap the connected plugin.
 
-## About
-You can find additional information about Trail Sense in Settings > About.
+#### Plugin privacy and security
+Trail Sense handles plugins as follows:
 
-- **Version**: The version of the app you are using.
-- **Privacy policy**: A link to the privacy policy.
-- **Email developer**: A link to send an email to the developer for feedback or support.
-- **GitHub**: A link to the GitHub repository (source code) for Trail Sense.
-- **Licenses**: A list of open source licenses used in Trail Sense.
+- Trail Sense doesn't communicate with plugins you haven't explicitly connected.
+- After you connect a plugin, Trail Sense asks the plugin what features it adds. Trail Sense doesn't send any of your data to the plugin.
+- When a map layer plugin is connected and its layer is enabled on the map, Trail Sense checks that it has the precise location permission. If it doesn't, you must grant the permission to the plugin, and Trail Sense doesn't load map data from the plugin until you do. After you grant it, Trail Sense sends the viewport bounds of the map to the plugin to load features and tiles.
+- If the plugin's signature changes, Trail Sense disconnects the plugin, and you must reconnect it.
 
 ## Quick action
-You can enable the Settings quick action in the settings for the tab where you want it to appear.
+To use the Settings quick action, enable it in the settings for the tab you want it on. The quick action has the following gestures:
 
-To use the quick action, tap the quick action button and settings page for the active tool will be opened. Long-press the quick action to open the app settings.
-
-## Safe mode
-If Trail Sense crashes multiple times in a row, it will enter Safe Mode. This disables map tile layers and opens to Settings by default. You will be able to access Settings and disable any features that may be causing the issue. Safe mode will disable automatically after 20 seconds.
+- **Tap**: Opens the settings page for the active tool.
+- **Long-press**: Opens the app settings.

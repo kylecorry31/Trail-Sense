@@ -1,15 +1,26 @@
-The White Noise tool can be used to help you fall asleep while camping or backpacking.
+Use the White Noise tool to help you fall asleep while you camp or backpack.
 
-## Usage
-Tap the white noise button to toggle the white noise on and off. A notification will be displayed while the white noise is playing, and you can tap it at any time to stop the white noise.
+## Play white noise
+Tap the white noise button to turn the white noise on or off. A notification is shown while the white noise plays. To stop the white noise at any time, tap the notification.
 
-## Sound selection
-You can choose your preferred sleep sound using the dropdown below the button. This selection will be saved for future uses of the white noise tool.
+## Choose a sound
+To choose a sleep sound, use the dropdown below the button. Trail Sense remembers your choice for next time. The available sounds are:
 
-## Sleep timer
-You can set a sleep timer to automatically stop the white noise after a certain amount of time. To set the sleep timer, enable the sleep timer switch and enter the amount of time you want the white noise to play for. The sleep timer will start counting down as soon as you start the white noise.
+- White noise
+- Pink noise
+- Brown noise
+- Crickets
+- Crickets (no chirping)
+- Ocean waves
+- Fan
+
+## Set a sleep timer
+To stop the white noise automatically after a set time, do the following:
+
+1. Turn on the sleep timer switch.
+2. Enter how long you want the white noise to play.
+
+The sleep timer starts counting down when you start the white noise.
 
 ## Quick action
-You can enable the White Noise quick action in the settings for the tab you want it on.
-
-To use the quick action, tap the White Noise quick action button to toggle it on or off.
+To use the White Noise quick action, enable it in the settings for the tab you want it on. Tap the quick action button to turn the white noise on or off.

@@ -1,14 +1,17 @@
-The Turn Back tool can be used to alert you when to turn back on a hike to return at a specific time.
+Use the Turn Back tool to get an alert that tells you when to turn back on a hike so you return at a specific time.
 
-## Return time
-You can set the return time by tapping the input field and selecting a time from the time picker. The return time is the time that you want to return to your current location if you start the hike now.
+## Set a return time
+The return time is the time you want to be back at your current location if you start the hike now. To set a return time, do the following:
 
-Once the return time has been set, an alert will be displayed a little before halfway through the hike to remind you to turn back if you want to return on time. The time until the turn back time is displayed at the top of the screen.
+1. Tap the input field.
+2. Select a time in the time picker.
 
-You can choose to use the alarm audio channel for this alert by enabling Settings > Turn Back > Use alarm for turn back alert. This will play a sound as an alarm even if media and notifications are muted. 
+After you set the return time, an alert is shown a little before the halfway point of the hike to remind you to turn back if you want to return on time. The time until you need to turn back is shown at the top of the screen.
 
-### Return before dark
-If you tap the 'Return before dark' button, the return time will be set to sunset. This is useful if you want to make sure you return before it gets dark.
+To play the alert on the alarm audio channel, which sounds even if media and notifications are muted, enable **Settings > Turn Back > Use alarm for turn back alert**.
+
+## Return before dark
+To set the return time to sunset, tap **Return before dark**. Use this to make sure you return before it gets dark.
 
 ## Cancel the alert
-You can cancel the alert by tapping the 'Cancel' button at the bottom of the screen. This will clear the return time and the alert.
+To clear the return time and the alert, tap **Cancel** at the bottom of the screen.

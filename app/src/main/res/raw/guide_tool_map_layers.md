@@ -1,182 +1,182 @@
-Layers are used to display information on the map; they are configurable on the Navigation, Offline Maps, and Map tool. See the respective tool guides for how to access the layer settings.
+Layers display information on the map. You can configure layers in the Navigation, Offline Maps, and Map tools. See the guide for each tool to learn how to open its layer settings.
 
-Some layers are time dependent (marked below). When viewing these layers in the Map tool, you can change the map time to see them at different times. In other tools, they always display the current time.
+Some layers are time dependent, and the sections below mark them. In the Map tool, you can change the map time to see these layers at different times. In other tools, they always show the current time.
 
-On the layer settings panel, the higher up a layer is in the list, the more 'on top' it will be drawn on the map. You can use the arrows on the left side to adjust the order of the layers.
+## Manage layers
+### Reorder layers
+In the layer settings panel, a layer higher in the list is drawn on top of the layers below it. To change the order, use the arrows on the left side of each layer.
 
-Tap the layer's name to expand its settings.
-
-You can use the 'Additional layers' button at the bottom of the layers list to add additional layers. Connected plugins may also provide additional map layers. Plugins are experimental and must be enabled in Settings > Experimental > Plugins, then connected from Settings > Plugins.
+### Change the settings of a layer
+To expand the settings of a layer, tap its name.
 
 Each layer has the following settings:
 
-- **Visible**: Determines if the layer is shown on the map. When it is not visible, the layer header will be grayed out.
-- **Opacity**: Determines how transparent the layer is. 0 is fully transparent and 100 is fully opaque.
-- **Copy settings to other maps**: Copy the layer settings to other maps. Tapping this will open a dialog where you can choose which maps to copy the settings to.
-- **Remove layer**: Remove this layer from the active layer list. You can re-add it via the 'Additional layers' button.
+- **Visible**: Shows or hides the layer on the map. When a layer is hidden, its header is grayed out.
+- **Opacity**: Sets how transparent the layer is. 0 is fully transparent, and 100 is fully opaque.
+- **Copy settings to other maps**: Copies the layer settings to other maps. Tap it, and choose the maps to copy the settings to in the dialog.
+- **Remove layer**: Removes the layer from the active layer list. To add it again, tap **Additional layers**.
+
+### Add layers
+To add a layer, tap **Additional layers** at the bottom of the layers list.
+
+Connected plugins can also provide map layers. Plugins are experimental. To use them, do the following:
+
+1. Enable **Settings > Experimental > Plugins**.
+2. Connect the plugin from **Settings > Plugins**.
 
 ## Base map
-This layer shows a map of the world with colors based on satellite imagery. It is very low resolution and not suitable for navigation.
+Shows a map of the world with colors based on satellite imagery. It has very low resolution and isn't suitable for navigation.
 
 ## Trail maps
-This layer shows visible trail maps from the Offline Maps tool.
+Shows the visible trail maps from the Offline Maps tool.
 
 Settings:
-- **Manage maps**: Links to the Offline Maps tool.
+
+- **Manage maps**: Opens the Offline Maps tool.
 
 ## Elevation
-This layer shows the elevation from the digital elevation model (DEM) as color.
+Shows the elevation from the digital elevation model (DEM) as color.
 
 Settings:
 
-- **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
-- **Color**: The color scale of the pixels. The color will change based on elevation.
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
+- **Digital elevation model (DEM)**: Opens **Settings > Altimeter**, where you configure the DEM source.
+- **Color**: The color scale of the pixels. The color changes based on elevation.
+- **High resolution**: Increases the resolution when you are zoomed out. This might be slower.
 
 ## Hillshade
-This layer draws shadows to help see elevation in the terrain from the digital elevation model (DEM).
+Draws shadows from the DEM to help you see the elevation of the terrain.
 
 Settings:
 
-- **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
-- **Draw accurate shadows**: If enabled, shadows will be drawn using the position of the sun and moon (time dependent), but the 3D appearance may be reduced.
-- **Multi-direction shading**: If enabled, shadows will be calculated from multiple light directions to enhance terrain details.
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
+- **Digital elevation model (DEM)**: Opens **Settings > Altimeter**, where you configure the DEM source.
+- **Draw accurate shadows**: Draws shadows using the position of the sun and moon (time dependent). This might reduce the 3D appearance.
+- **Multi-direction shading**: Calculates shadows from multiple light directions to enhance terrain details.
+- **High resolution**: Increases the resolution when you are zoomed out. This might be slower.
 
 ## Slope
-This layer colors the terrain by steepness using the digital elevation model (DEM).
+Colors the terrain by steepness using the DEM.
 
 Settings:
 
-- **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
-- **Color**: The color scale of the pixels. The color will change based on slope steepness.
+- **Digital elevation model (DEM)**: Opens **Settings > Altimeter**, where you configure the DEM source.
+- **Color**: The color scale of the pixels. The color changes based on the steepness of the slope.
   - **Green to red**: Green for flat areas, yellow for moderate slopes, and red for steep slopes.
   - **White to red**: White for flat areas, yellow for moderate slopes, and red for steep slopes.
   - **Grayscale**: Black for flat areas to white for steep slopes.
-- **Smooth**: If enabled, the slope colors will be smoothed so you can better see gradual changes.
-- **Hide flat ground**: If enabled, flat ground (slope below 10 degrees) will be invisible.
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
+- **Smooth**: Smooths the slope colors so you can see gradual changes.
+- **Hide flat ground**: Makes flat ground (a slope below 10 degrees) invisible.
+- **High resolution**: Increases the resolution when you are zoomed out. This might be slower.
 
 ## Ruggedness
-This layer colors the terrain by how much the elevation changes around it (ruggedness index).
-
-Low ruggedness is green, moderate is yellow/orange, and highly rugged terrain is red.
+Colors the terrain by how much the elevation changes around it (the ruggedness index). Low ruggedness is green, moderate ruggedness is yellow or orange, and highly rugged terrain is red.
 
 Settings:
 
-- **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
+- **Digital elevation model (DEM)**: Opens **Settings > Altimeter**, where you configure the DEM source.
+- **High resolution**: Increases the resolution when you are zoomed out. This might be slower.
 
 ## Aspect
-This layer colors the terrain by aspect (the direction the slope is facing) using the digital elevation model (DEM).
-
-Green = North, Blue = East, Red = South, Orange = West
+Colors the terrain by aspect (the direction the slope is facing) using the DEM. Green is north, blue is east, red is south, and orange is west.
 
 Settings:
 
-- **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
-- **High resolution**: If enabled, the resolution will be increased when zoomed out. This may be slower.
+- **Digital elevation model (DEM)**: Opens **Settings > Altimeter**, where you configure the DEM source.
+- **High resolution**: Increases the resolution when you are zoomed out. This might be slower.
 
 ## Photo maps
-This layer shows visible Photo maps, with the most zoomed-in map appearing on top. You can add new maps in the Offline Maps tool.
+Shows the visible photo maps, with the most zoomed-in map on top. To add maps, use the Offline Maps tool.
 
 Settings:
 
-- **Load PDF tiles**: If enabled, PDF tiles will be loaded for maps that have a PDF version available. This is slower but provides higher resolution maps.
+- **Load PDF tiles**: Loads PDF tiles for maps that have a PDF version. This is slower but provides higher resolution maps.
 
 ## Contours
-This layer shows contour lines generated from the digital elevation model (DEM) and can be used to see the steepness and elevation of map features.
+Shows contour lines generated from the DEM. Use them to see the steepness and elevation of map features.
 
 Settings:
 
-- **Digital elevation model (DEM)**: Links to Settings > Altimeter to configure the DEM source.
-- **Show labels**: Determines if contour labels are shown on the map.
-- **Color**: The color of the contour lines, some options are color scales which change based on elevation.
+- **Digital elevation model (DEM)**: Opens **Settings > Altimeter**, where you configure the DEM source.
+- **Show labels**: Shows or hides the contour labels.
+- **Color**: The color of the contour lines. Some options are color scales that change based on elevation.
 
-## Solar Eclipse
-This layer shows the solar eclipse visibility (time dependent).
-
-Black = total eclipse, Gray = partial eclipse
+## Solar eclipse
+Shows the solar eclipse visibility (time dependent). Black is a total eclipse, and gray is a partial eclipse.
 
 Settings:
 
-- **Smooth**: If enabled, the eclipse visibility will be smoothed so you can better see gradual changes. Makes it harder to see where the total eclipse is though.
-- **Show path**: If enabled, the path of the eclipse is shown instead of the current visibility.
+- **Smooth**: Smooths the eclipse visibility so you can see gradual changes. This makes it harder to see where the total eclipse is.
+- **Show path**: Shows the path of the eclipse instead of the current visibility.
 
-## Lunar Eclipse
-This layer shows the lunar eclipse visibility (time dependent).
-
-Orange = eclipse is visible
+## Lunar eclipse
+Shows the lunar eclipse visibility (time dependent). Orange means the eclipse is visible.
 
 Settings:
 
-- **Show path**: If enabled, the path of the eclipse is shown instead of the current visibility.
+- **Show path**: Shows the path of the eclipse instead of the current visibility.
 
 ## Night
-This layer shows where it is nighttime based on the sun's altitude (time dependent).
-
-Black = sun well below horizon, Gray = sun just below horizon
+Shows where it is nighttime based on the sun's altitude (time dependent). Black means the sun is well below the horizon, and gray means the sun is just below the horizon.
 
 Settings:
 
-- **Smooth**: If enabled, the darkness will be smoothed so you can better see gradual changes between day and night.
+- **Smooth**: Smooths the darkness so you can see gradual changes between day and night.
 
 ## Cell towers
-This layer shows nearby cell towers with the accuracy of the tower's location shown as a circle under the tower. These are approximate tower locations from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. You can tap on a cell tower to navigate to it.
+Shows nearby cell towers. A circle under each tower shows the accuracy of the tower's location. The tower locations are approximate and come from OpenCelliD, Mozilla Location Service, and FCC Antenna Registrations. To navigate to a cell tower, tap it.
 
 ## Paths
-This layer shows visible paths. You can add new paths in the Paths tool.
+Shows the visible paths. To add paths, use the Paths tool.
 
 Settings:
 
-- **Background color**: The background color to render behind paths for increased visibility.
+- **Background color**: The background color drawn behind paths to make them easier to see.
 
 ## Beacons
-This layer shows visible beacons. You can add new beacons in the Beacons tool. You can tap on a beacon to navigate to it.
+Shows the visible beacons. To add beacons, use the Beacons tool. To navigate to a beacon, tap it.
 
 ## Navigation
-This layer draws a line between your location and the destination point you are navigating to.
+Draws a line between your location and the destination you are navigating to.
 
 Settings:
 
-- **Show start and end points**: If enabled, the start and end points of the navigation path will be displayed on the map (solid circle for start, flag in a circle for end).
-- **Background color**: The background color to render behind the navigation path for increased visibility.
+- **Show start and end points**: Shows the start and end points of the navigation path on the map. The start is a solid circle, and the end is a flag in a circle.
+- **Background color**: The background color drawn behind the navigation path to make it easier to see.
 
 ## Tides
-This layer shows visible tides (time dependent). You can add new tides in the Tides tool.
+Shows the visible tides (time dependent). To add tides, use the Tides tool.
 
 Settings:
 
-- **Show modeled tides on coastline**: If enabled, tides will be loaded from the built-in model on the coastline.
-- **Show tide phase**: If enabled, tides will display the current phase direction instead of the high/low tide icon.
+- **Show modeled tides on coastline**: Loads tides from the built-in model on the coastline.
+- **Show tide phase**: Shows the current phase direction of the tide instead of the high or low tide icon.
 
 ## Sightings
-This layer shows your field guide sightings with location data. The icon displayed represents the classification of the field guide entry (plant, bird, mammal, etc.). You can tap on a sighting to navigate to it.
+Shows your field guide sightings that have location data. The icon represents the classification of the field guide entry, such as plant, bird, or mammal. To navigate to a sighting, tap it.
 
 Settings:
 
-- **Show images**: If enabled, the field guide page's image will be displayed instead of the category icon.
-- **Color by classification**: If enabled, the color of the marker will be based on the page's classification (ex. animal, plant).
+- **Show images**: Shows the image of the field guide page instead of the category icon.
+- **Color by classification**: Colors the marker based on the classification of the page, such as animal or plant.
 
 ## Location
-This layer shows your location, which direction you are facing (if you have a compass), and the accuracy of your GPS. The location marker turns gray if your location is stale.
+Shows your location, the direction you are facing (if your device has a compass), and the accuracy of your GPS. The location marker turns gray if your location is stale.
 
 Settings:
 
-- **Show GPS accuracy**: Determines if the GPS accuracy circle is visible.
-- **Large location indicator**: If enabled, the location marker will be larger.
+- **Show GPS accuracy**: Shows or hides the GPS accuracy circle.
+- **Large location indicator**: Makes the location marker larger.
 
-## Scale
-This layer shows a scale bar in the bottom-left corner of the map, which can be used to estimate distances on the map.
+## Map scale
+Shows a scale bar in the bottom-left corner of the map. Use it to estimate distances on the map.
 
-This layer is not currently configurable.
+This layer isn't currently configurable.
 
-## Elevation
-This layer shows your elevation in the bottom-right corner of the map.
+## My elevation
+Shows your elevation in the bottom-right corner of the map.
 
-This layer is not currently configurable.
+This layer isn't currently configurable.
 
 ## Compass
-This layer shows a compass in the top-right corner of the map. It shows where true north is on the map.
+Shows a compass in the top-right corner of the map. The compass shows where true north is on the map.
 
-This layer is not currently configurable.
+This layer isn't currently configurable.

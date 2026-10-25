@@ -1,10 +1,17 @@
-The Temperature Estimation tool can be used to estimate the temperature at a different elevation.
+Use the Temperature Estimation tool to estimate the temperature at a different elevation and to estimate how the temperature feels with wind and humidity.
 
-# Estimating temperature
-To estimate the temperature at another elevation, you need to know your current elevation and the current temperature, as well as the elevation at which you want to estimate the temperature.
+## Estimate the temperature at another elevation
+To estimate the temperature at another elevation, you need to know your current elevation, the current temperature, and the elevation you want the estimate for. Do the following:
 
-To estimate the temperature:
+1. Tap **Autofill**, or enter your elevation in **Base elevation** and the temperature at your location in **Current temperature**.
+2. Enter the elevation you want the estimate for in **Destination elevation**.
 
-1. Either tap 'Autofill' or enter the 'Base elevation' (your elevation) and 'Base temperature' (the temperature at your location).
-2. Then enter the 'Destination elevation' (the elevation at which you want to estimate the temperature).
-3. The estimated temperature will be shown at the top of the screen.
+The estimated temperature is shown at the top of the screen.
+
+## Estimate how the temperature feels
+To adjust the estimate to how the temperature feels, do one or both of the following:
+
+- To factor in wind chill, enter the **Wind speed**.
+- To factor in the heat index, enter the **Humidity**, from 0 to 100.
+
+The estimated temperature at the top of the screen changes to show how the temperature feels. If you don't enter a destination elevation, the estimate is for your current elevation.

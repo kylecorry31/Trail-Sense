@@ -1,52 +1,62 @@
-Trail Sense is composed of a number of tools that are designed for hiking, backpacking, camping, and geocaching.
+Trail Sense is a set of tools designed for hiking, backpacking, camping, and geocaching. Use the Tools screen to search and open tools.
 
-## Bottom navigation
-The Navigation, Map, Weather (if available), and Astronomy tools are available in the bottom navigation bar by default. These tools are also available in the tool list.
+## Open a tool
+To see all of the tools in Trail Sense, tap **Tools** in the bottom navigation bar. Tap a tool to open it.
 
-You can change which tools (up to 7) appear in the bottom navigation in Settings > Tools > 'Bottom navigation slot'.
+To search for a tool, use the search bar at the top of the tool list.
 
-All other tools can be found in the Tools bottom navigation item on the far right.
+### Use the tool options
+To see more options for a tool, long-press the tool in the tool list:
 
-## Tool list
-The tool list can be accessed by tapping the Tools item in the bottom navigation bar. This will show a list of all tools available in Trail Sense.
-
-Tapping on a tool will open it.
-
-You can also long-press on a tool to see more options:
-- **About**: Provides more details about what the tool does.
-- **Pin/unpin**: Allows you to pin the tool to the top of the list.
+- **About**: Shows more details about what the tool does.
+- **Pin/unpin**: Pins the tool to the top of the list, or unpins it.
 - **User guide**: Opens the user guide for the tool.
 - **Settings**: Opens the settings for the tool.
-- **Experimental**: Shown for tools that are still in development. These tools may not be fully functional.
-- **Add to homescreen**: This will add a shortcut to the tool on your device's homescreen.
+- **Experimental**: Shown for tools that are still in development. These tools might not be fully functional.
+- **Add to homescreen**: Adds a shortcut to the tool on your device's home screen.
 
-## Pinned tools
-You can pin tools to the top of the tool list by long-pressing on a tool and selecting 'Pin'. This will make the tool appear at the top of the tool list. You can unpin a tool by long-pressing on it and selecting 'Unpin'.
+## Customize the bottom navigation
+By default, the Navigation, Map, Weather (if available), and Astronomy tools are in the bottom navigation bar. These tools are also in the tool list. All other tools are under **Tools**, the item on the far right.
 
-You can also pin/unpin tools in bulk by tapping the edit icon to the right of the pinned tools header.
+To change which tools appear in the bottom navigation, set **Settings > Tools > Bottom navigation slot**. You can have up to 7 tools.
 
-## Sorting tools
-You can change the order of the tools by tapping the sort icon to the right of the tools header. This will allow you to sort by:
+## Pin tools
+To pin a tool to the top of the tool list, long-press the tool, and select **Pin**. To unpin it, long-press the tool, and select **Unpin**.
+
+To pin or unpin several tools at once, tap the edit icon on the right side of the pinned tools header.
+
+## Sort tools
+To change the order of the tools, tap the sort icon on the right side of the tools header, and select a sort option:
+
 - **Name**: Sorts alphabetically by tool name.
 - **Category**: Groups tools by category and sorts alphabetically within each category.
 
-## Search
-You can search for a specific tool using the search bar at the top of the tool list. 
+## Open a user guide
+A user guide is available for each tool. To open it, do one of the following:
 
-## User guide
-A user guide is available for each tool. You can access the user guide by long-pressing on a tool and selecting 'User Guide'. You can also access the user guide by opening the 'User Guide' tool in the tool list.
+- Long-press the tool in the tool list, and select **User guide**.
+- Open the **User Guide** tool in the tool list.
+- Use the User Guide quick action, which opens the guide for the active tool.
 
-## Settings
-You can access the app settings by tapping the settings icon in the top right corner of the tool list. You can also access the settings by opening the 'Settings' tool in the tool list.
+## Open the settings
+To open the app settings, do one of the following:
 
-## Quick actions
-You can enable quick actions at the top of the tool list in 'Settings > Tools > Quick actions'.
+- Tap the settings icon in the top-right corner of the tool list.
+- Open the **Settings** tool in the tool list.
 
-The quick actions can also be accessed by long pressing the bottom navigation. In addition to the quick actions you selected, you will also see contextual quick actions for the active tool, such as the user guide or settings.
+## Use quick actions
+To choose which quick actions are available, open **Settings > Tools > Quick actions**.
 
-You can find more information about each quick action by viewing the user guide for its respective tool. All quick actions that begin with 'Tool:' will open the tool when tapped.
+To use quick actions, long-press the bottom navigation. In addition to the quick actions you selected, you see contextual quick actions for the active tool, such as the user guide or settings.
 
-## In-app widgets
-In-app widgets can be accessed by long pressing the bottom navigation and changing to the 'Widgets' tab. For the most part, these are the same widgets that you can place on your device's homescreen.
+All quick actions that begin with **Tool:** open the tool when you tap them. For more information about a quick action, see the user guide for its tool.
 
-You can customize which widgets are shown in-app in 'Settings > Tools > In-app widgets'.
+## Use in-app widgets
+To open the in-app widgets, do one of the following:
+
+- Long-press the bottom navigation, and switch to the **Widgets** tab.
+- Use the Widgets quick action.
+
+For the most part, in-app widgets are the same as the widgets you can place on your device's home screen.
+
+To choose which widgets are shown in the app, open **Settings > Tools > In-app widgets**.

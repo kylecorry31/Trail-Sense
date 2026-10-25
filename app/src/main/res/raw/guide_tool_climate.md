@@ -1,34 +1,39 @@
-The Climate tool displays historical climate data for a given location.
+Use the Climate tool to view historic climate data for a location, so you know what conditions to expect.
 
-## Temperature
-The historical high and low temperatures are displayed at the top of the screen for the selected date. The chart also displays high temperatures as a red line and the low temperatures as a blue line.
+## Read the temperature chart
+The historic high and low temperatures for the selected date are shown at the top of the screen. On the chart, high temperatures are a red line and low temperatures are a blue line. The freezing point is shown at the bottom of the chart as a filled area.
 
-The freezing point is displayed in the bottom portion of the chart as a filled area.
+## Check precipitation
+The historic monthly precipitation totals for the selected location are also shown.
 
-## Precipitation
-The historical monthly precipitation totals for your selected location are also shown. Be extra cautious when creating campfires during dry seasons.
+**Warning:** Be extra cautious when you build campfires during dry seasons.
 
-## Climate classification
-The climate for your current location is classified based on temperatures and precipitation. Different climates have different vegetation types as well as unique hazards that you should be aware of. 
+## Learn your climate classification
+The tool classifies the climate at your location based on temperatures and precipitation. Different climates have different vegetation types and unique hazards that you should be aware of.
 
-## Ecology
-The ecology section shows details about animal and plant activity at the location.
+## Check animal activity
+The ecology section shows details about animal activity at the location. It shows the following, where applicable:
 
-It currently shows the following where applicable:
-- Biting flies/mosquitoes
+- Biting flies and mosquitoes
 - Ticks
 
-Each entry shows an estimated active period (for example, "Active from May to September"). Tap the activity text to view more detailed timing ranges.
+Each entry shows an estimated active period, for example "Active from May to September". To see more detailed timing ranges, tap the activity text.
 
-## Changing the date
-To change the date, you can tap the calendar icon above the chart and select a date. Additionally, you can use the arrows to move to the next/previous date or long-press the calendar to quickly jump to today's date.
+## Change the date
+To change the date, do one of the following:
 
-Tapping on one of the lines on the chart will also change the date to the point you tapped.
+- Tap the calendar icon above the chart, and select a date.
+- Tap the arrows to move to the next or previous date.
+- Long-press the calendar icon to jump back to today.
+- Tap a point on one of the chart lines.
 
-## Changing the location
-By default, your current location is used. If you want to change this, enter a new location in the input field below the chart. You can also change the elevation using the elevation input field.
+## Change the location
+By default, the tool uses your current location. To use a different location, do the following:
 
-## Accuracy
-Climate normals are based on the 30-year average of the historical data and indicate what the weather usually is. The actual values may differ for a variety of reasons but should remain fairly close to the historical values. Large differences are normally due to a storm or other weather event.
+1. Enter a new location in the input field above the chart.
+2. Optional: Enter a new elevation in the elevation input field.
 
-Historic temperatures and precipitation are estimated using a custom 30-year "climate normal" model derived from the NASA Global Modeling and Assimilation Office - MERRA-2 and ERA5 data respectively (1991 - 2020).
+## Understand the accuracy
+Climate normals are based on the 30-year average of historic data and show what the weather is usually like. Actual values can differ for many reasons but should stay fairly close to the historic values. Large differences are usually caused by a storm or other weather event.
+
+Historic temperatures and precipitation are estimated with a custom 30-year "climate normal" model (1991 - 2020). The model is derived from NASA Global Modeling and Assimilation Office MERRA-2 data for temperature and ERA5 data for precipitation.

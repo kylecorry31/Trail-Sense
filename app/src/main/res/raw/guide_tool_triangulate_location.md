@@ -1,30 +1,39 @@
-The Triangulate Location tool can be used to determine the coordinates of a location using two known locations. This can be used to either determine your location if the GPS is not working, or to determine the coordinates of a location in the distance.
+Use the Triangulate Location tool to find the coordinates of a location from two known locations. You can use it to find your own location if your GPS isn't working, or to find the coordinates of a location in the distance.
 
-## Determine your location
-If your GPS is not working and you want to determine your current location, you will first need to see two known locations. Ideally, these locations are at least 60 degrees apart for the best accuracy. The locations can be beacons or you can determine them using a map. For a guide on how to get the coordinates of a location from a map, see the 'Offline Maps' guide in the 'Calibrating photo maps' > 'Calibrating from the Map Grid' section. Once you have the coordinates of the two known locations, you can use the following steps to determine your location:
+## Find your location
+If your GPS isn't working, you can find your current location from two known locations that you can see. For the best accuracy, choose locations that are at least 60 degrees apart.
 
-1. Select 'My location' as the location to triangulate.
-2. Enter the coordinates for the first known location and record the direction from where you are to that location as Location 1. You can tap the camera icon on the right side of the direction field to sight the location using the camera.
-3. Repeat for Location 2 using the second known location.
-4. If your location can be determined, it will be displayed at the top of the screen.
+The known locations can be beacons, or you can get their coordinates from a map. To learn how to get the coordinates of a location from a map, see the Calibrate from the map grid section of the Offline Maps guide.
 
-## Determine a destination's location
-If you are able to see a destination from multiple locations, you can use the Triangulate Location tool to determine the coordinates of the destination.
+To find your location, do the following:
 
-1. Select 'Destination' as the location to triangulate.
-2. Record your location and record the direction from where you are to that location as Location 1. You can tap the GPS icon next to the location field to use your current location. You can tap the camera icon on the right side of the direction field to sight the location using the camera.
-3. Move to a new location that's at least 30 m / 100 ft from the first location and repeat for Location 2. You can put away your phone while you move; the tool will save what you entered.
-4. If the destination can be determined, it will be displayed at the top of the screen.
+1. Select **My location** as the location to triangulate.
+2. Enter the coordinates of the first known location.
+3. Enter the direction from where you are to that location as **Location 1**. To sight the location with the camera, tap the camera icon on the right side of the direction field.
+4. Repeat steps 2 and 3 for the second known location as **Location 2**.
 
-## Triangulation map
-As you enter locations, the map at the top of the screen will update to show the intersection of the two lines. You can use this to verify that the locations you entered are correct. The map always has North at the top.
+Your location is shown at the top of the screen, if it can be determined.
 
-## Share options
-Once you triangulate a location, you have several options:
+## Find the location of a destination
+If you can see a destination from several locations, you can find its coordinates. To find the location of a destination, do the following:
 
-- **Beacon**: Create a beacon at the triangulated location. This will open the Beacons tool. For more information on beacons, see the 'Beacons' guide.
-- **Navigate**: Navigate to the triangulated location. This will open the Navigation tool. For more information on navigation, see the 'Navigation' guide.
-- **Share...**: Share the triangulated location. This will open the share menu, where you can copy the coordinates, share as a QR code, open in a map app, or share with another app (e.g. a text message).
+1. Select **Destination** as the location to triangulate.
+2. Enter your location. To use your current location, tap the GPS icon next to the location field.
+3. Enter the direction from where you are to the destination as **Location 1**. To sight the destination with the camera, tap the camera icon on the right side of the direction field.
+4. Move to a new location that is at least 30 m / 100 ft from the first location. You can put your phone away while you move, because the tool saves what you entered.
+5. Repeat steps 2 and 3 for **Location 2**.
 
-## Reset
-You can reset the tool by tapping the reset button at the bottom of the screen.
+The location of the destination is shown at the top of the screen, if it can be determined.
+
+## Check the triangulation map
+As you enter locations, the map at the top of the screen updates to show where the two lines intersect. Use it to check that the locations you entered are correct. North is always at the top of the map.
+
+## Use the triangulated location
+After you triangulate a location, you can choose from the following options:
+
+- **Beacon**: Creates a beacon at the triangulated location. The Beacons tool opens. For more information, see the Beacons guide.
+- **Navigate**: Navigates to the triangulated location. The Navigation tool opens. For more information, see the Navigation guide.
+- **Share...**: Opens the share menu, where you can copy the coordinates, share them as a QR code, open them in a map app, or share them with another app, such as a text message.
+
+## Reset the tool
+To reset the tool, tap the reset button at the bottom of the screen.
