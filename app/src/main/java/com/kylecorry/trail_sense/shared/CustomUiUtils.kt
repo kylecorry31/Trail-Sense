@@ -323,6 +323,19 @@ object CustomUiUtils {
         }
     }
 
+    fun confirmDiscardChanges(context: Context, onDiscard: () -> Unit) {
+        Alerts.dialog(
+            context,
+            context.getString(R.string.unsaved_changes),
+            context.getString(R.string.unsaved_changes_message),
+            okText = context.getString(R.string.dialog_leave)
+        ) { cancelled ->
+            if (!cancelled) {
+                onDiscard()
+            }
+        }
+    }
+
     fun disclaimer(
         context: Context,
         title: String,

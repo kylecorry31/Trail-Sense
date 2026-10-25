@@ -14,7 +14,6 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.sensors.ISpeedometer
 import com.kylecorry.andromeda.core.ui.ReactiveComponent
@@ -38,7 +37,6 @@ import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
-import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -275,16 +273,9 @@ fun <T> T.useUnsavedChangesPrompt(hasChanges: Boolean) where T : Fragment, T : R
     val activity = useActivity() as? FragmentActivity
     useBackPressedCallback(hasChanges, activity) {
         if (hasChanges && activity != null) {
-            Alerts.dialog(
-                activity,
-                getString(R.string.unsaved_changes),
-                getString(R.string.unsaved_changes_message),
-                okText = getString(R.string.dialog_leave)
-            ) { cancelled ->
-                if (!cancelled) {
-                    remove()
-                    activity.onBackPressedDispatcher.onBackPressed()
-                }
+            CustomUiUtils.confirmDiscardChanges(activity) {
+                remove()
+                activity.onBackPressedDispatcher.onBackPressed()
             }
             true
         } else {

@@ -41,6 +41,7 @@ import com.kylecorry.trail_sense.shared.extensions.useIntPreference
 import com.kylecorry.trail_sense.shared.extensions.useNavController
 import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
+import com.kylecorry.trail_sense.shared.extensions.useUnsavedChangesPrompt
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
 import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
@@ -211,6 +212,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         // Distance
+        val (hasUnsavedPath, setHasUnsavedPath) = useState(false)
+        useUnsavedChangesPrompt(hasUnsavedPath)
+
         val stopDistanceMeasurement = useCallback<Unit>(mapDistanceSheetView, manager) {
             manager.stopDistanceMeasurement()
             mapDistanceSheetView.hide()
@@ -230,8 +234,9 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 navController,
                 manager,
                 pathService,
-                navigation.location
-            ) { location: Coordinate?, startWithUserLocation: Boolean ->
+                navigation.location,
+                setHasUnsavedPath
+            ) { location: Coordinate?, startWithUserLocation: Boolean, createPath: Boolean ->
                 val initialPoints = listOfNotNull(
                     if (startWithUserLocation) navigation.location else null,
                     location
@@ -239,7 +244,14 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 manager.startDistanceMeasurement(initialPoints)
                 mapDistanceSheetView.show()
                 mapDistanceSheetView.cancelListener = {
-                    stopDistanceMeasurement()
+                    if (createPath && manager.getDistanceEditState().canUndo) {
+                        CustomUiUtils.confirmDiscardChanges(
+                            requireContext(),
+                            stopDistanceMeasurement
+                        )
+                    } else {
+                        stopDistanceMeasurement()
+                    }
                 }
                 mapDistanceSheetView.createPathListener = {
                     inBackground {
@@ -261,6 +273,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                         }
 
                         onMain {
+                            stopDistanceMeasurement()
                             navController.navigateWithAnimation(
                                 R.id.pathDetailsFragment,
                                 Bundle().apply {
@@ -276,7 +289,10 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 mapDistanceSheetView.redoListener = {
                     manager.redoDistanceMeasurement()
                 }
-                manager.setOnDistanceEditStateChangedCallback(mapDistanceSheetView::setEditState)
+                manager.setOnDistanceEditStateChangedCallback {
+                    mapDistanceSheetView.setEditState(it)
+                    setHasUnsavedPath(createPath && it.canUndo)
+                }
                 mapDistanceSheetView.setEditState(manager.getDistanceEditState())
             }
 
@@ -402,7 +418,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                                     manager.setSelectedLocation(null)
                                 },
                                 ActionItem(getString(R.string.distance), R.drawable.ruler) {
-                                    startDistanceMeasurement(location, true)
+                                    startDistanceMeasurement(location, true, false)
                                     manager.setSelectedLocation(null)
                                 },
                             ),
@@ -441,8 +457,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         // Menu
         useClickCallback(menuButton, startDistanceMeasurement, adjustLayers) {
             val actions = listOf<Pair<String, () -> Unit>>(
-                getString(R.string.measure) to { startDistanceMeasurement(null, false) },
-                getString(R.string.create_path) to { startDistanceMeasurement(null, false) },
+                getString(R.string.measure) to { startDistanceMeasurement(null, false, false) },
+                getString(R.string.create_path) to { startDistanceMeasurement(null, false, true) },
                 getString(R.string.layers) to adjustLayers,
                 getString(R.string.trace) to { setLockMode(MapLockMode.Trace) }
             )
@@ -459,7 +475,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val startPathCreation = useArgument<Boolean>(ARG_START_PATH_CREATION) ?: false
         useEffect(manager, startPathCreation) {
             if (startPathCreation) {
-                startDistanceMeasurement(null, false)
+                startDistanceMeasurement(null, false, true)
             }
         }
 
