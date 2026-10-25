@@ -266,11 +266,6 @@ class FileSubsystem private constructor(private val context: Context) {
         get(filename, true)
     }
 
-    suspend fun createTempDirectory(): File = onIO {
-        val filename = "${TEMP_DIR}/${UUID.randomUUID()}"
-        getDirectory(filename, true)
-    }
-
     fun getLocalPath(file: File): String {
         return local.getRelativePath(file)
     }

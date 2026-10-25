@@ -272,7 +272,6 @@
     <ID>SwallowedException:PreferenceMigrator.kt:PreferenceMigrator.Companion$e: Exception</ID>
     <ID>SwallowedException:RestoreCommand.kt:RestoreCommand$e: BackupService.InvalidBackupException</ID>
     <ID>SwallowedException:RestoreCommand.kt:RestoreCommand$e: BackupService.NewerBackupException</ID>
-    <ID>SwallowedException:SpeciesImportService.kt:SpeciesImportService$e: Exception</ID>
     <ID>SwallowedException:WhiteNoiseService.kt:WhiteNoiseService.Companion$e: Exception</ID>
     <ID>TooGenericExceptionCaught:AndromedaExtensions.kt:e: Exception</ID>
     <ID>TooGenericExceptionCaught:CachedTileCleanupWorker.kt:CachedTileCleanupWorker$e: Exception</ID>
@@ -296,7 +295,6 @@
     <ID>TooGenericExceptionCaught:QuickActionWhistle.kt:QuickActionWhistle$e: Exception</ID>
     <ID>TooGenericExceptionCaught:ScanQRFragment.kt:ScanQRFragment$e: Exception</ID>
     <ID>TooGenericExceptionCaught:SightingCompassView.kt:SightingCompassView$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:SpeciesImportService.kt:SpeciesImportService$e: Exception</ID>
     <ID>TooGenericExceptionCaught:TemperatureServiceExtensions.kt:e: Exception</ID>
     <ID>TooGenericExceptionCaught:ToolWhistleFragment.kt:ToolWhistleFragment$e: Exception</ID>
     <ID>TooGenericExceptionCaught:TrailSenseTextView.kt:TrailSenseTextView$e: Exception</ID>
