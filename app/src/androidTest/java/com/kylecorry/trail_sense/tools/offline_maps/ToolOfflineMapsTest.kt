@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
@@ -69,7 +70,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         }
 
         // Offline maps disclaimer
-        optional { clickOk() }
+        clickOkIfShown()
 
         hasText(R.id.map_list_title, string(R.string.offline_maps))
         hasText(string(R.string.no_maps))
@@ -260,9 +261,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         }
 
         click("Next")
-        optional {
-            clickOk()
-        }
+        clickOkIfShown()
 
         hasText("Test Map")
         hasText("Rotation: 0°")

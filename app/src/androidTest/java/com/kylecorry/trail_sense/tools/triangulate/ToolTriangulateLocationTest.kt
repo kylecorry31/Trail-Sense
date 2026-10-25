@@ -8,7 +8,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
@@ -56,9 +56,7 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         }
 
         click(string(R.string.navigate))
-        optional {
-            clickOk()
-        }
+        clickOkIfShown()
         isVisible(R.id.navigation_title)
         hasText(string(R.string.location))
         backUntil {

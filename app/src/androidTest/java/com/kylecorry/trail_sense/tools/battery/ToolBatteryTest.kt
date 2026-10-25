@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
@@ -59,7 +60,7 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         scrollUntil {
             click("Airplane mode")
         }
-        optional {
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) {
             hasText("Network")
         }
         backUntil { isVisible(R.id.battery_title) }

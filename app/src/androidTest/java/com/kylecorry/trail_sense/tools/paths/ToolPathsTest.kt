@@ -25,6 +25,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
@@ -102,7 +104,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Open import and verify the picker opens, then back out
         click(R.id.add_btn)
         click(string(R.string.import_gpx))
-        optional { hasText(string(R.string.pick_file)) }
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.pick_file)) }
         back(false)
         hasText(R.id.paths_title, string(R.string.paths))
     }
@@ -121,7 +123,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
     fun canCreatePathOnMap() {
         click(R.id.add_btn)
         click(string(R.string.create_path_on_map))
-        optional { clickOk() }
+        clickOkIfShown()
         hasText("Distance")
         hasText("Create path")
 
@@ -132,7 +134,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(R.id.map, xPercent = 0.7f, yPercent = 0.3f)
         hasText(Regex("[1-9]\\d*(\\.\\d+)? (mi|ft)"))
 
+        // Cancelling a path with points asks before discarding it
         click(toolbarButton(R.id.map_distance_title, Side.Right))
+        click(string(R.string.dialog_leave))
         backUntil { isVisible(R.id.paths_title) }
     }
 
@@ -163,7 +167,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         clickListItemMenu(string(R.string.move_to), index = 2)
         click("Dest Group")
         click(string(R.string.move))
-        optional { hasText(string(R.string.moved_to, "Dest Group")) }
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.moved_to, "Dest Group")) }
 
         // Delete moved group (open Dest Group first)
         click("Dest Group")
@@ -201,7 +205,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Merge "Empty Path 2" into "Empty Path"
         clickListItemMenu(string(R.string.merge))
         click("Empty Path", exact = true)
-        optional { hasText(string(R.string.merging)) }
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.merging)) }
         not { hasText("Empty Path 2") }
 
         // Simplify path
@@ -392,7 +396,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
                 hasText(option)
             }
         }
-        optional {
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) {
             scrollToStart()
         }
     }

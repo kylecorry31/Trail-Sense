@@ -13,7 +13,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
@@ -136,9 +136,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
     private fun navigate() {
         click(string(R.string.navigate))
 
-        optional {
-            clickOk()
-        }
+        clickOkIfShown()
 
         isVisible(R.id.navigation_title)
         hasText("Test beacon")
@@ -319,7 +317,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
 
         click("Summit")
         click(string(R.string.navigate))
-        optional { clickOk() }
+        clickOkIfShown()
 
         hasText(R.id.navigation_sheet_title, "Summit")
         hasText(R.id.navigation_distance, "40.41 mi")

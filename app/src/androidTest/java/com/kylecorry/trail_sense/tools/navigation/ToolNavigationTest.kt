@@ -11,7 +11,9 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
@@ -48,7 +50,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
     }
 
     private fun canAdjustLayers() {
-        optional {
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) {
             longClick(R.id.radar_compass)
             scrollUntil { hasText("Location") }
             scrollUntil { hasText("Beacons") }
@@ -90,7 +92,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         click("Test Beacon")
         hasText(R.id.beacon_title, "Test Beacon")
         click(string(R.string.navigate))
-        optional { clickOk() }
+        clickOkIfShown()
 
         hasText("Test Beacon")
         hasText(Regex("1.000000°,\\s+-1.000000°"))
@@ -130,7 +132,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         back()
 
         click(toolbarButton(R.id.navigation_title, Side.Right))
-        optional { clickOk() }
+        clickOkIfShown()
         isVisible(R.id.map_list_title)
         back()
     }
@@ -249,7 +251,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         click(name)
         click(string(R.string.navigate))
         // Calibration reminder (only shown when the compass accuracy is poor)
-        optional { clickOk() }
+        clickOkIfShown()
     }
 
     private fun textOf(id: Int): String {

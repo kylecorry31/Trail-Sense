@@ -233,12 +233,27 @@ object AutomationLibrary {
         return TestUtils.getString(id, *args)
     }
 
-    fun optional(block: () -> Unit) {
+    /**
+     * Runs the block, ignoring failures. Pass a [waitForTime] when the block is only a quick check
+     * for something that is usually absent, otherwise every miss costs the default timeout.
+     */
+    fun optional(waitForTime: Long? = null, block: () -> Unit) {
         try {
-            block()
+            if (waitForTime == null) {
+                block()
+            } else {
+                withWaitForTimeOverride(waitForTime, block)
+            }
         } catch (_: Throwable) {
             // Do nothing
         }
+    }
+
+    /**
+     * Dismisses a confirmation dialog which only appears in some states (ex. already navigating).
+     */
+    fun clickOkIfShown() {
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) { clickOk() }
     }
 
     fun not(waitForTime: Long? = null, block: () -> Unit) {
@@ -521,9 +536,11 @@ object AutomationLibrary {
     ) {
         var scrollsDone = 0
         var failedScrollCount = 0
+        // The content may still be loading on the first attempt, but scrolling waits for it to settle
+        var attemptTimeout = SCROLL_WAIT_FOR_TIMEOUT
         while (scrollsDone < maxScrolls) {
             try {
-                withWaitForTimeOverride(SCROLL_WAIT_FOR_TIMEOUT) {
+                withWaitForTimeOverride(attemptTimeout) {
                     action()
                 }
                 // Action succeeded, no need to scroll further
@@ -544,6 +561,7 @@ object AutomationLibrary {
                 } else {
                     failedScrollCount = 0
                     scrollsDone++
+                    attemptTimeout = SCROLLED_WAIT_FOR_TIMEOUT
                 }
             }
         }
@@ -599,8 +617,10 @@ object AutomationLibrary {
         }
     }
 
-    const val BACK_WAIT_FOR_TIMEOUT = 2000L
+    const val BACK_WAIT_FOR_TIMEOUT = 1000L
     const val SCROLL_WAIT_FOR_TIMEOUT = 1000L
+    const val SCROLLED_WAIT_FOR_TIMEOUT = 300L
+    const val OPTIONAL_WAIT_FOR_TIMEOUT = 2000L
     const val DEFAULT_WAIT_FOR_TIMEOUT = 7000L
     const val GPS_WAIT_FOR_TIMEOUT = 35000L
 }
