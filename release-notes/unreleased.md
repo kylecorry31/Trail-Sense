@@ -8,25 +8,27 @@ This contains a list of the changes in Trail Sense 8.3.0.
 
 ### Path Navigation
 
-- Added path navigation
+You can now follow paths to their start, end, or a specific point along the path. Once you start following the path, the Navigation and Map tools will show the remaining distance, elevation change, direction to the next point, and estimated time to arrival. The Navigation map layer will show arrows along the path indicating the direction of travel.
+
+TODO: Screenshot of new buttons on path overview screen
+
+TODO: Screenshot of path navigation on the Navigation tool
 
 ### DEM Elevations
 
-- Added the ability to replace a path's elevations with elevations from the digital elevation model
-- Automatically populate the DEM elevations for paths created on the map
+If you create a path from the map, the elevations will automatically be taken from the digital elevation model (DEM). To replace the elevations with DEM data for an existing path, use the new option on the path details screen.
 
 ### Elevation Smoothing
 
-- Added an elevation smoothing setting to Paths, with a preview of the smoothed elevations
-- Improved the elevation smoothing algorithm
+The smoothing of path elevations was improved to work better on paths with noisy elevation data. You can now also change how much smoothing is applied to paths via settings.
 
-### Backtrack
+TODO: Screenshot of elevation smoothing setting and preview
 
-- Added a minimum distance between recorded Backtrack points setting
-- Backtrack no longer keeps the device awake by default
-- Changed default backtrack frequency to 1 minute
-- Backtrack paths are now kept when stopped, and the Backtrack history default is longer
-- Tapping the Backtrack notification now opens the path being recorded, which can be stopped from the path details
+### Backtrack Improvements
+
+Backtrack should use less battery while recording paths at a frequency below 15 minutes, as it no longer keeps the device awake continuously. Because of this, the default backtrack frequency has been changed to 1 minute which is more in line with how most users want it to record paths out of the box. A new minimum distance between recorded points setting has also been added so it will avoid recording points when you are taking a break.
+
+The behavior of the notification has been improved to open the path when tapped rather than opening the Paths tool. The screen that opens (path details) will let you stop the recording directly from there. Finally, when you do stop recording, the path will be kept until you manually delete it instead of remaining a temporary path.
 
 ### Draw on Map
 
