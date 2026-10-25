@@ -96,10 +96,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
 
     override val stormAlertThreshold: Float
         get() {
-            if (!sendStormAlerts) {
-                return HPA_STORM_MEDIUM
-            }
-
             return when (cache.getString(context.getString(R.string.pref_storm_alert_sensitivity))) {
                 "low" -> HPA_STORM_LOW
                 "high" -> HPA_STORM_HIGH
