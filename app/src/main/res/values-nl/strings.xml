@@ -1660,7 +1660,7 @@
     <string name="map_layer_navigation_show_endpoints">Begin- en eindpunten weergeven</string>
     <string name="compass_update_frequency_normal">Normaal</string>
     <string name="compass_update_frequency_fast">Snel</string>
-    <string name="compass_update_frequency">Bijwerkfrequentie kompas</string>
+    <string name="compass_update_frequency">Bijwerkfrequentie</string>
     <string name="ar_path_appearance">Uiterlijk</string>
     <string name="ar_path_appearance_line">Lijn</string>
     <string name="ar_path_appearance_ribbon">Lint</string>
@@ -1678,4 +1678,7 @@
     <string name="pref_navigation_lock_screen_while_navigating">Tijdens navigeren</string>
     <string name="navigation_cancelled">Navigatie geannuleerd</string>
     <string name="pref_navigation_lock_screen_while_open">Wanneer app open is</string>
+    <string name="redo">Opnieuw doen</string>
+    <string name="path_edit_hint">Tik om een punt te maken. Veeg een punt om te verplaatsen. Houd ingedrukt om te selecteren.</string>
+    <string name="path_edit_hint_selected">Tik om een punt te maken na de geselecteerde. Veeg om te verplaatsen. Houd ingedrukt om te deselecteren.</string>
 </resources>
