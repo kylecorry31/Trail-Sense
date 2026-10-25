@@ -1674,4 +1674,24 @@
     <string name="compass_update_frequency">Fréquence de mise à jour de la boussole</string>
     <string name="compass_update_frequency_normal">Normal</string>
     <string name="compass_update_frequency_fast">Rapide</string>
+    <string name="recording">Enregistrement</string>
+    <string name="pref_navigation_lock_screen_title">Afficher sur l\'écran de verrouillage</string>
+    <string name="pref_navigation_lock_screen_while_navigating">Lors de la navigation</string>
+    <string name="pref_navigation_lock_screen_while_open">Tant que la page est ouverte</string>
+    <string name="pref_backtrack_keep_on_stop_title">Conserver la trajectoire à l\'arrêt</string>
+    <string name="pref_backtrack_keep_on_stop_summary">Sinon, le chemin d\'accès est supprimé une fois l\'historique « Backtrack » effacé.</string>
+    <string name="quality">Qualité</string>
+    <string name="redo">Refaire</string>
+    <string name="create_path_on_map">Tracer sur la carte</string>
+    <string name="path_edit_hint">Appuyez pour ajouter un point. Faites glisser un point pour le déplacer. Maintenez un point enfoncé pour le sélectionner.</string>
+    <string name="path_edit_hint_selected">Appuyez pour ajouter un point après celui sélectionné. Faites glisser pour le déplacer. Maintenez enfoncé pour désélectionner.</string>
+    <string name="skip_elevations">Ignorer les cotes de niveau</string>
+    <string name="elevation_smoothing">Lissage de l\'altitude</string>
+    <string name="navigation_cancelled">Navigation annulée</string>
+    <string name="path_direction_to_end">Suivre jusqu\'à la fin</string>
+    <string name="path_direction_to_start">Suivre jusqu\'au départ</string>
+    <string name="path_navigation_follow_to_point">Suivre jusqu\'au point</string>
+    <string name="ar_path_appearance">Apparence</string>
+    <string name="ar_path_appearance_ribbon">Ruban</string>
+    <string name="ar_path_appearance_line">Ligne</string>
 </resources>
