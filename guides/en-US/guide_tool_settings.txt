@@ -34,7 +34,7 @@ Choose from the following sources:
 To reduce noise in the compass readings, increase **Smoothing**. If your source uses a gyroscope, a value of 1 is recommended. Otherwise, increase the value until the compass works correctly when you rotate your phone. If you increase the smoothing too much, Trail Sense might ignore real compass changes.
 
 ### Change the update frequency
-**Compass update frequency** sets how often the compass updates in the Navigation, Map, Photo Maps, and Augmented Reality tools. The options are:
+**Update frequency** sets how often the compass updates in the Navigation, Map, Photo Maps, and Augmented Reality tools. The options are:
 
 - **Normal**: Reduces sensor updates to save battery. This is approximately 17 Hz.
 - **Fast**: Updates more often for smoother movement but might use more battery. This is approximately 50 Hz.
