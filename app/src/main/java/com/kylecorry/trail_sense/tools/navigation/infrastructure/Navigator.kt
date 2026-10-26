@@ -190,6 +190,9 @@ class Navigator private constructor(context: Context) {
             beaconId?.let { setBeaconDestination(it) }
             bearing?.let { bearings.setBearing(it) }
             pathSession?.let { pathNavigator.restore(it) }
+            if (beaconId != null || bearing != null || pathSession != null) {
+                Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
+            }
         }
     }
 
