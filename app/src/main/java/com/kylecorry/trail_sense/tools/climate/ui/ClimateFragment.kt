@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.views.DatePickerView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.tools.climate.domain.BiologicalActivityType
 import com.kylecorry.trail_sense.tools.climate.domain.PhenologyService
+import com.kylecorry.trail_sense.tools.climate.domain.PollenService
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import com.kylecorry.luna.hooks.Ref
 import java.time.LocalDate
@@ -128,6 +129,13 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         val activityPatterns =
             useBackgroundMemo(date.year, location, elevation, cancelWhenRerun = true) {
                 PhenologyService(weatherSubsystem).getYearlyActiveDays(
+                    date.year, location, elevation, calibrated = false
+                )
+            }
+
+        val pollenPatterns =
+            useBackgroundMemo(date.year, location, elevation, cancelWhenRerun = true) {
+                PollenService(weatherSubsystem).getYearlyPollenPeriods(
                     date.year, location, elevation, calibrated = false
                 )
             }
@@ -247,30 +255,27 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         }
 
         // Activity
-        useEffect(activityPatterns, ecologyDescriptionView, formatter) {
-            val activeEntries = activityPatterns?.entries
+        useEffect(activityPatterns, pollenPatterns, ecologyDescriptionView, formatter) {
+            val activityEntries = activityPatterns?.entries
                 ?.filter { it.value.isNotEmpty() }
+                ?.map { getBiologicalActivityName(it.key) to it.value }
+                ?.sortedBy { it.first }
                 ?: emptyList()
+            val pollenEntries = pollenPatterns?.entries
+                ?.filter { it.value.isNotEmpty() }
+                ?.map { "${it.key} pollen" to it.value }
+                ?: emptyList()
+            val activeEntries = activityEntries + pollenEntries
 
             ecologyDescriptionView.text = activeEntries
-                .sortedBy { getBiologicalActivityName(it.key) }
-                .joinToString("\n") {
-                    "${getBiologicalActivityName(it.key)}: ${formatActivity(formatter, it.value)}"
-                }
+                .joinToString("\n") { "${it.first}: ${formatActivity(formatter, it.second)}" }
 
             ecologyDescriptionView.isVisible = activeEntries.isNotEmpty()
             ecologyTitleView.isVisible = activeEntries.isNotEmpty()
             ecologyDescriptionView.setOnClickListener {
                 val fullText = activeEntries
-                    .sortedBy { getBiologicalActivityName(it.key) }
                     .joinToString("\n\n") {
-                        "${getBiologicalActivityName(it.key)}\n${
-                            formatActivity(
-                                formatter,
-                                it.value,
-                                true
-                            )
-                        }"
+                        "${it.first}\n${formatActivity(formatter, it.second, true)}"
                     }
 
                 dialog(getString(R.string.ecology), fullText, cancelText = null)
