@@ -61,6 +61,10 @@ import com.kylecorry.trail_sense.tools.navigation.ui.NavigationSheetView
 import com.kylecorry.trail_sense.tools.offline_maps.ui.photo_maps.MapDistanceSheet
 import com.kylecorry.trail_sense.tools.paths.infrastructure.commands.CreatePathCommand
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeFeatureExtractor
+import org.mapsforge.core.model.LatLong
+import androidx.navigation.NavController
+import com.kylecorry.trail_sense.main.getAppService
 import java.time.Instant
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -421,6 +425,15 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                                     startDistanceMeasurement(location, true, false)
                                     manager.setSelectedLocation(null)
                                 },
+                                // PROOF OF CONCEPT: extract a trail or POI from the visible trail maps
+                                ActionItem("Path from map", R.drawable.ic_tool_backtrack) {
+                                    manager.setSelectedLocation(null)
+                                    createPathFromTrailMap(location, pathService, navController)
+                                },
+                                ActionItem("Beacon from map", R.drawable.ic_location) {
+                                    manager.setSelectedLocation(null)
+                                    createBeaconFromTrailMap(location, navController)
+                                },
                             ),
                             subtitle = getString(
                                 R.string.elevation_value,
@@ -496,6 +509,75 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             sensorStatusBadges.setSensors(gps as ISatelliteGPS, compass)
             sensorStatusBadges.setOnClickListener {
                 ImproveAccuracyAlerter(context).alert(sensorStatusBadges.getSensors())
+            }
+        }
+    }
+
+    // PROOF OF CONCEPT
+    private fun createPathFromTrailMap(
+        location: Coordinate,
+        pathService: PathService,
+        navController: NavController
+    ) {
+        inBackground {
+            val start = System.currentTimeMillis()
+            val skipElevations = AtomicBoolean(false)
+            var pathId: Long? = null
+            var message = "No trail found near this location"
+            Alerts.withCancelableLoading(
+                requireContext(),
+                getString(R.string.loading),
+                cancelText = getString(R.string.skip_elevations),
+                onCancel = { skipElevations.set(true) }
+            ) {
+                val path = MapsforgeFeatureExtractor.withVisibleMaps {
+                    it.extractPath(LatLong(location.latitude, location.longitude))
+                } ?: return@withCancelableLoading
+
+                val elapsed = System.currentTimeMillis() - start
+                message = "${path.points.size} points, ${path.pieces} pieces, " +
+                        "${path.tilesRead} tiles${if (path.capped) " (capped)" else ""}, $elapsed ms"
+
+                pathId = CreatePathCommand(
+                    pathService,
+                    getAppService<UserPreferences>().paths,
+                    path.name,
+                    shouldSkipElevations = skipElevations::get
+                ).execute(path.points.map { Coordinate(it.latitude, it.longitude) })
+            }
+
+            onMain {
+                Alerts.toast(requireContext(), message)
+                pathId?.let {
+                    navController.navigateWithAnimation(
+                        R.id.pathDetailsFragment,
+                        Bundle().apply { putLong("path_id", it) }
+                    )
+                }
+            }
+        }
+    }
+
+    // PROOF OF CONCEPT
+    private fun createBeaconFromTrailMap(location: Coordinate, navController: NavController) {
+        inBackground {
+            val poi = MapsforgeFeatureExtractor.withVisibleMaps {
+                it.extractPoi(LatLong(location.latitude, location.longitude))
+            }
+
+            onMain {
+                if (poi == null) {
+                    Alerts.toast(requireContext(), "No named map feature found near this location")
+                    return@onMain
+                }
+
+                val params = mutableMapOf("label" to poi.name)
+                poi.elevation?.let { params["ele"] = it.toString() }
+                val uri = GeoUri(Coordinate(poi.position.latitude, poi.position.longitude), null, params)
+                navController.navigateWithAnimation(
+                    R.id.placeBeaconFragment,
+                    Bundle().apply { putParcelable("initial_location", uri) }
+                )
             }
         }
     }
