@@ -10,6 +10,7 @@ import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundBottomSheetDialogFragment
 import com.kylecorry.andromeda.pickers.Pickers
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.R
@@ -19,6 +20,10 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.domain.BuiltInCoordinateFormat
 import com.kylecorry.trail_sense.shared.sharing.Share
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeGeocoder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.Instant
 
@@ -29,6 +34,8 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
     private var format = BuiltInCoordinateFormat.DecimalDegrees
+    private val geocoder = MapsforgeGeocoder()
+    private var lastGeocoded: Coordinate? = null
 
     private val intervalometer = CoroutineTimer {
         updateUI()
@@ -96,6 +103,7 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
         binding.locationTitle.title.text = formatService.formatLocation(gps.location, format)
         binding.satellites.text = getString(R.string.num_satellites, gps.satellites ?: 0)
+        updatePlaceName(gps.location)
 
         val accuracy = gps.horizontalAccuracy
         binding.accuracy.isVisible = accuracy != null
@@ -108,6 +116,21 @@ class LocationBottomSheet : BoundBottomSheetDialogFragment<FragmentLocationBindi
 
         val timeAgo = Duration.between(gps.eventTime, Instant.now())
         binding.time.text = getString(R.string.time_ago, formatService.formatDuration(timeAgo))
+    }
+
+    private fun updatePlaceName(location: Coordinate) {
+        val last = lastGeocoded
+        if (last != null && last.distanceTo(location) < 100f) {
+            return
+        }
+        lastGeocoded = location
+        CoroutineScope(Dispatchers.Main).launch {
+            val place = geocoder.reverse(location)
+            if (isBound) {
+                binding.placeName.text = place
+                binding.placeName.isVisible = place != null
+            }
+        }
     }
 
     override fun generateBinding(

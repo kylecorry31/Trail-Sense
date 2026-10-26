@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.sort.ClosestBeaconSort
+import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.trail_maps.mapsforge.MapsforgeGeocoder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,7 +115,8 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                     listOfNotNull(
                         getContext().getString(R.string.gps),
                         getContext().getString(R.string.beacon),
-                        if (owner != null) context.getString(R.string.map) else null
+                        if (owner != null) context.getString(R.string.map) else null,
+                        if (owner != null) "Search (trail maps)" else null
                     ),
                     0
                 ) {
@@ -155,6 +157,8 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                                 }
                             )
                         }
+
+                        3 -> searchTrailMaps()
                     }
                 }
             }
@@ -163,6 +167,27 @@ class CoordinateInputView(context: Context?, attrs: AttributeSet? = null) :
                 autofillListener?.invoke()
                 autofill()
                 true
+            }
+        }
+    }
+
+    private fun searchTrailMaps() {
+        Pickers.text(context, "Search places", null, "", hint = "Name") { query ->
+            if (query.isNullOrBlank()) return@text
+            CoroutineScope(Dispatchers.Main).launch {
+                val near = getAppService<SensorSubsystem>().lastKnownLocation
+                val result = MapsforgeGeocoder().search(query, near, maxChunks = 40)
+                val places = result.places
+                Pickers.item(
+                    context,
+                    "${places.size} results (${result.ms} ms)",
+                    places.map { "${it.name} (${it.kind}) ${formatService.formatLocation(it.coordinate)}" }
+                ) { index ->
+                    if (index != null) {
+                        coordinate = places[index].coordinate
+                        onChange()
+                    }
+                }
             }
         }
     }
