@@ -191,6 +191,12 @@
         </service>
 
         <service
+            android:name=".tools.navigation.infrastructure.NavigationForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location" />
+
+        <service
             android:name=".tools.pedometer.infrastructure.StepCounterService"
             android:enabled="true"
             android:exported="false"

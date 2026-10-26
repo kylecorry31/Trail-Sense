@@ -788,6 +788,10 @@
     <string name="map_perspective_instructions">Outline the map</string>
     <string name="pref_navigation_lock_screen_mode" translatable="false">pref_navigation_lock_screen_mode</string>
     <string name="pref_navigation_lock_screen_title">Show on lock screen</string>
+    <string name="pref_navigation_background" translatable="false">pref_navigation_background</string>
+    <string name="pref_navigation_background_title">Navigate in background</string>
+    <string name="pref_navigation_background_interval" translatable="false">pref_navigation_background_interval</string>
+    <string name="pref_navigation_background_interval_title">Background update interval</string>
     <string name="pref_navigation_lock_screen_while_navigating">While navigating</string>
     <string name="pref_navigation_lock_screen_while_open">While open</string>
     <string name="pref_navigation_lock_screen_when_open_title">Show on lock screen while open</string>

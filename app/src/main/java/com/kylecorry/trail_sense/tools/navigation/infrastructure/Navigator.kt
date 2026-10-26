@@ -93,6 +93,14 @@ class Navigator private constructor(context: Context) {
 
     init {
         listenTask.start()
+        Tools.subscribe(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED) {
+            if (userPrefs.navigation.navigateInBackground) {
+                NavigationForegroundService.start(context)
+            }
+        }
+        Tools.subscribe(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED) {
+            NavigationForegroundService.stop(context)
+        }
         // Keeps the beacon destination in sync with external changes to the preferences
         prefs.onChange.subscribe { key ->
             if (key == BEACON_DESTINATION_ID_KEY) {

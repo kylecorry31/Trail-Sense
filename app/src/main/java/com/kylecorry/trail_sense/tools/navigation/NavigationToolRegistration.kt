@@ -2,11 +2,13 @@ package com.kylecorry.trail_sense.tools.navigation
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerDefinition
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreference
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceType
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationForegroundService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
@@ -14,6 +16,7 @@ import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.ToolDiagnosticFactory
@@ -66,6 +69,15 @@ object NavigationToolRegistration : ToolRegistration {
                         SensorsToolRegistration.BROADCAST_LOCATION_CHANGED,
                         BROADCAST_DESTINATION_CHANGED
                     )
+                )
+            ),
+            notificationChannels = listOf(
+                ToolNotificationChannel(
+                    NavigationForegroundService.CHANNEL_ID,
+                    context.getString(R.string.navigation),
+                    context.getString(R.string.navigation),
+                    Notify.CHANNEL_IMPORTANCE_LOW,
+                    muteSound = true
                 )
             ),
             broadcasts = listOf(

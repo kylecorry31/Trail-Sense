@@ -14,6 +14,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
 
 class NavigationPreferences(private val context: Context) : ICompassStylePreferences {
 
@@ -50,6 +51,18 @@ class NavigationPreferences(private val context: Context) : ICompassStylePrefere
 
     val showMultipleBeacons: Boolean
         get() = !sensors.hasCompass() || cache.getBoolean(context.getString(R.string.pref_display_multi_beacons)) ?: true
+
+    val navigateInBackground by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_navigation_background),
+        true
+    )
+
+    val backgroundUpdateInterval: Duration
+        get() {
+            val raw = cache.getString(context.getString(R.string.pref_navigation_background_interval))
+            return Duration.ofSeconds(raw?.toLongOrNull() ?: 60L)
+        }
 
     val showNearbyBeaconsOnlyOnLinearCompass by BooleanPreference(
         cache,

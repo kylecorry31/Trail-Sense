@@ -34,6 +34,24 @@
             app:key="@string/pref_show_calibrate_on_navigate_dialog"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:title="@string/pref_navigation_background_title"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_background"
+            app:singleLineTitle="false" />
+
+        <ListPreference
+            app:defaultValue="60"
+            app:dependency="@string/pref_navigation_background"
+            app:entries="@array/navigation_background_interval_entries"
+            app:entryValues="@array/navigation_background_interval_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_navigation_background_interval"
+            app:singleLineTitle="false"
+            app:title="@string/pref_navigation_background_interval_title"
+            app:useSimpleSummaryProvider="true" />
+
         <ListPreference
             app:defaultValue="never"
             app:entries="@array/navigation_lock_screen_entries"
