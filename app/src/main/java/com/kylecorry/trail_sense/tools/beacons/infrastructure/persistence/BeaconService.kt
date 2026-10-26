@@ -11,11 +11,13 @@ import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconGroup
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.domain.IBeacon
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.geofence.BeaconGeofenceRegistrar
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 
 class BeaconService(context: Context) : IBeaconService {
 
     private val repo = BeaconRepo.getInstance(context)
+    private val geofences = BeaconGeofenceRegistrar(context)
 
     private val loaderWithoutCounts =
         GroupLoader(this::getGroupWithoutCount, this::getChildrenWithoutCounts)
@@ -114,6 +116,7 @@ class BeaconService(context: Context) : IBeaconService {
         if (navigator.getBeaconDestinationId() == beacon.id) {
             navigator.cancelBeaconNavigation()
         }
+        geofences.remove(beacon)
         repo.deleteBeacon(BeaconEntity.from(beacon))
     }
 

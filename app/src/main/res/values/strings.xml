@@ -534,6 +534,7 @@
     <string name="min_temp_calibrated">Min ambient temperature (calibrated)</string>
     <string name="min_temp_uncalibrated">Min phone temperature (uncalibrated)</string>
     <string name="create_at_distance">Create at distance</string>
+    <string name="beacon_geofence_alert">Alert when nearby</string>
     <string name="backtrack">Backtrack</string>
     <string name="backtrack_notification_channel_description">Backtrack location updates</string>
     <string name="create_beacon">Create beacon</string>

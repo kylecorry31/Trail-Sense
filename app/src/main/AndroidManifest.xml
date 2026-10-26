@@ -303,6 +303,10 @@
             android:enabled="true"
             android:exported="false" />
         <receiver
+            android:name="com.kylecorry.trail_sense.tools.beacons.infrastructure.geofence.BeaconGeofenceReceiver"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
             android:name="com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightOffReceiver"
             android:enabled="true"
             android:exported="false" />

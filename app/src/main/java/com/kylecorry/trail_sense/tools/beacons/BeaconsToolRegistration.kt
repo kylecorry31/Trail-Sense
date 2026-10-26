@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.GeoUri
+import com.kylecorry.andromeda.notify.Notify
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.extensions.getLongProperty
@@ -14,6 +15,7 @@ import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.beacons.quickactions.QuickActionPlaceBeacon
+import com.kylecorry.trail_sense.tools.beacons.services.BeaconGeofenceToolService
 import com.kylecorry.trail_sense.tools.beacons.widgets.AppWidgetNearbyBeacons
 import com.kylecorry.trail_sense.tools.beacons.widgets.NearbyBeaconsToolWidgetView
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
@@ -22,6 +24,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tool
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolBroadcast
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolCategory
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolIntentHandler
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolNotificationChannel
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolQuickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolSummarySize
@@ -92,6 +95,15 @@ object BeaconsToolRegistration : ToolRegistration {
             broadcasts = listOf(
                 ToolBroadcast(BROADCAST_BEACONS_CHANGED, "Beacons changed")
             ),
+            notificationChannels = listOf(
+                ToolNotificationChannel(
+                    NOTIFICATION_CHANNEL_GEOFENCE,
+                    "Beacon geofence alerts",
+                    "Alerts when you get close to a beacon",
+                    Notify.CHANNEL_IMPORTANCE_HIGH
+                )
+            ),
+            services = listOf(BeaconGeofenceToolService(context)),
             initialize = {
                 DependencyRegistry.addSingleton(BeaconService(it))
             },
@@ -141,4 +153,6 @@ object BeaconsToolRegistration : ToolRegistration {
     const val BROADCAST_BEACONS_CHANGED = "beacons-broadcast-beacons-changed"
     const val WIDGET_NEARBY_BEACONS = "beacons-widget-nearby-beacons"
     const val MAP_LAYER_BEACONS = "beacon"
+    const val SERVICE_GEOFENCE = "beacons-service-geofence"
+    const val NOTIFICATION_CHANNEL_GEOFENCE = "beacon-geofence"
 }

@@ -50,6 +50,9 @@ class CreateBeaconForm {
         binding.bearingTo.setOnBearingChangeListener { bearing, isTrueNorth ->
             updateData(data.copy(bearingTo = bearing, bearingIsTrueNorth = isTrueNorth))
         }
+        binding.geofenceAlert.setOnCheckedChangeListener { _, isChecked ->
+            updateData(data.copy(geofenceEnabled = isChecked))
+        }
         binding.comment.addTextChangedListener { updateData(data.copy(notes = getNotes(binding))) }
     }
 

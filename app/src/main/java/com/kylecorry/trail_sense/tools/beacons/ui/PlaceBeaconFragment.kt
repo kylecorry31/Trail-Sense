@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.promptIfUnsavedChanges
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.geofence.BeaconGeofenceRegistrar
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
 import com.kylecorry.trail_sense.tools.beacons.ui.form.CreateBeaconData
 import com.kylecorry.trail_sense.tools.beacons.ui.form.CreateBeaconForm
@@ -35,6 +36,7 @@ import com.kylecorry.trail_sense.tools.beacons.ui.form.IsBeaconFormDataComplete
 class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private val beaconService by lazy { BeaconService(requireContext()) }
+    private val geofences by lazy { BeaconGeofenceRegistrar(requireContext()) }
 
     private val formatter by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
@@ -66,6 +68,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
 
     private fun setEditingBeaconValues(beacon: Beacon) {
         val data = CreateBeaconData.from(beacon)
+            .copy(geofenceEnabled = geofences.isEnabled(beacon.id))
         hasChanges = DoesBeaconFormDataHaveChanges(data)
         fill(data)
     }
@@ -242,6 +245,7 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         binding.beaconLocation.coordinate = data.coordinate
         binding.beaconElevation.elevation = data.elevation?.convertTo(units)
         binding.comment.setText(data.notes)
+        binding.geofenceAlert.isChecked = data.geofenceEnabled
         updateBeaconGroupName()
         updateColor()
         updateIcon()
@@ -251,7 +255,8 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
         val beacon = form.data.toBeacon() ?: return
         inBackground {
             onIO {
-                beaconService.add(beacon)
+                val id = beaconService.add(beacon)
+                geofences.setEnabled(beacon.copy(id = id), form.data.geofenceEnabled)
             }
 
             onMain {

@@ -25,7 +25,8 @@ data class CreateBeaconData(
     val color: AppColor = AppColor.Orange,
     val notes: String = "",
     val isVisible: Boolean = true,
-    val icon: BeaconIcon? = null
+    val icon: BeaconIcon? = null,
+    val geofenceEnabled: Boolean = false
 ) {
 
     fun toBeacon(
