@@ -225,8 +225,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             false
         )
         elevationDataView.setShowDescription(true)
-        elevationDataView.title = "↑ $gainText"
-        elevationDataView.description = "↓ $lossText"
+        elevationDataView.title = "▲ $gainText"
+        elevationDataView.description = "▼ $lossText"
         elevationDataView.contentDescription =
             "${context.getString(R.string.ascent)} $gainText, ${context.getString(R.string.descent)} $lossText"
         distanceDataView.isVisible = true
