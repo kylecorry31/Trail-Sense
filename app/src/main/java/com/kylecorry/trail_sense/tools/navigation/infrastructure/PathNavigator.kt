@@ -11,6 +11,8 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathGuidance
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationSession
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationSessionProgress
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRouteBuilder
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService

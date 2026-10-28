@@ -14,7 +14,7 @@ sealed class Destination {
         val route = PathRoute(points)
     }
 
-    class Bearing(
+    data class Bearing(
         val bearing: com.kylecorry.sol.units.Bearing,
         val isTrueNorth: Boolean,
         val declination: Float,

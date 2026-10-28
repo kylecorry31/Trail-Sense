@@ -1,11 +1,10 @@
-package com.kylecorry.trail_sense.tools.navigation.domain
+package com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence
 
 import android.content.Context
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.main.persistence.ICleanable
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingDao
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingEntity
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex

@@ -52,8 +52,6 @@ import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
-import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyle
-import com.kylecorry.trail_sense.tools.navigation.domain.CompassStyleChooser
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock

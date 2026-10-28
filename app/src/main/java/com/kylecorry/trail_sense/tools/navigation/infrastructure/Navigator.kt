@@ -3,11 +3,9 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.concurrency.BackgroundTask
-import com.kylecorry.sol.science.geophysics.Geophysics
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
@@ -17,8 +15,9 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
-import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingService
+import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingCalculator
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.CoroutineScope
@@ -234,44 +233,28 @@ class Navigator private constructor(context: Context) {
         destination: Destination,
         declination: Float
     ): Bearing {
-        val target = when (destination) {
-            is Destination.Path -> destination.route.guidance.target
-            is Destination.Beacon -> destination.beacon.coordinate
-            is Destination.Bearing -> {
-                if (destination.startingLocation == null || !userPrefs.navigation.lockBearingToLocation) {
-                    return destination.bearing
-                }
-                destination.targetLocation!!
-            }
+        // The starting location is ignored when the user disables bearing locking
+        val target = if (destination is Destination.Bearing && !userPrefs.navigation.lockBearingToLocation) {
+            destination.copy(startingLocation = null)
+        } else {
+            destination
         }
-
-        return fromTrueNorth(
-            myLocation.bearingTo(target),
-            userPrefs.compass.useTrueNorth,
-            declination
+        return NavigationBearingCalculator.getBearing(
+            myLocation,
+            target,
+            declination,
+            userPrefs.compass.useTrueNorth
         )
     }
 
     private fun getDeclination(location: Coordinate): Float {
-        return if (userPrefs.useAutoDeclination) {
-            Geophysics.getGeomagneticDeclination(
-                location,
-                locationSubsystem.elevation.meters().value
-            )
-        } else {
+        return NavigationBearingCalculator.getDeclination(
+            location,
+            locationSubsystem.elevation.meters().value,
+            System.currentTimeMillis(),
+            userPrefs.useAutoDeclination,
             userPrefs.declinationOverride
-        }
-    }
-
-    private fun fromTrueNorth(
-        bearing: Bearing,
-        useTrueNorth: Boolean,
-        declination: Float
-    ): Bearing {
-        if (useTrueNorth) {
-            return bearing
-        }
-        return DeclinationUtils.fromTrueNorthBearing(bearing, declination)
+        )
     }
 
     companion object {
