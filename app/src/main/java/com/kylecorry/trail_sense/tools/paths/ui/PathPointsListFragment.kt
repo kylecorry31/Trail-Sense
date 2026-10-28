@@ -45,25 +45,29 @@ class PathPointsListFragment : BoundBottomSheetDialogFragment<FragmentPathPoints
             formatService,
             {
                 onCreateBeaconListener(it)
-                dismiss()
+                dismissAfterMenuCloses()
             },
             { onDeletePointListener(it) },
             {
                 onNavigateToPointListener(it)
-                dismiss()
+                dismissAfterMenuCloses()
             },
             {
                 onNavigateDirectlyToPointListener(it)
-                dismiss()
+                dismissAfterMenuCloses()
             },
             {
                 onViewPointListener(it)
-                dismiss()
+                dismissAfterMenuCloses()
             },
             canFollow
         )
 
         itemStrategy.display(itemBinding, item)
+    }
+
+    private fun dismissAfterMenuCloses() {
+        binding.root.post { dismiss() }
     }
 
     override fun generateBinding(
