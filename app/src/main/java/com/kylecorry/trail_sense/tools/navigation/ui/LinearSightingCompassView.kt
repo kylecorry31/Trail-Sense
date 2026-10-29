@@ -31,6 +31,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
     private var showSightingCompass = false
     private var isStarted = false
     private var isResumed = false
+    private var layoutObserver: ViewTreeObserver? = null
     private val lock = Any()
     private val binding by lazy { ViewLinearSightingCompassBinding.bind(this) }
 
@@ -109,7 +110,9 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             }
             isResumed = true
             showSightingCompass = false
-            viewTreeObserver.addOnGlobalLayoutListener(globalLayoutListener)
+            layoutObserver = viewTreeObserver.also {
+                it.addOnGlobalLayoutListener(globalLayoutListener)
+            }
         }
         if (isVisible) {
             start()
@@ -125,7 +128,8 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
                 return
             }
             isResumed = false
-            viewTreeObserver.removeOnGlobalLayoutListener(globalLayoutListener)
+            layoutObserver?.takeIf { it.isAlive }?.removeOnGlobalLayoutListener(globalLayoutListener)
+            layoutObserver = null
         }
         stop()
     }

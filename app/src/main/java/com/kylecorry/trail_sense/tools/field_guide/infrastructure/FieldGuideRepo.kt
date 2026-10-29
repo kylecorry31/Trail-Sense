@@ -101,7 +101,7 @@ class FieldGuideRepo private constructor(private val context: Context) : IFieldG
         @Synchronized
         fun getInstance(context: Context): FieldGuideRepo {
             if (instance == null) {
-                instance = FieldGuideRepo(context)
+                instance = FieldGuideRepo(context.applicationContext)
             }
             return instance!!
         }

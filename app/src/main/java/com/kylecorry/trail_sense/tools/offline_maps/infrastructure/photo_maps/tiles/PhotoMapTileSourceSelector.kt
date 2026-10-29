@@ -19,7 +19,7 @@ import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.tiles.TileSource
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapState
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
-import java.util.concurrent.ConcurrentLinkedQueue
+import java.util.concurrent.ConcurrentHashMap
 
 class PhotoMapTileSourceSelector(
     private val context: Context,
@@ -36,7 +36,7 @@ class PhotoMapTileSourceSelector(
         .filter { it.state == OfflineMapState.Ready }
         .sortedBy { it.distancePerPixel() }
 
-    private var recentMaps = ConcurrentLinkedQueue<PhotoMap>()
+    private val recentMaps: MutableSet<PhotoMap> = ConcurrentHashMap.newKeySet()
 
     override suspend fun loadTile(context: Context, tile: Tile, params: Bundle): Bitmap? {
         val loaders = getRegionLoaders(tile.getBounds())
@@ -49,10 +49,8 @@ class PhotoMapTileSourceSelector(
 
     override suspend fun cleanup() {
         super.cleanup()
-        val lastUsed = mutableListOf<PhotoMap>()
-        while (recentMaps.isNotEmpty()) {
-            recentMaps.poll()?.let { lastUsed.add(it) }
-        }
+        val lastUsed = recentMaps.toList()
+        lastUsed.forEach { recentMaps.remove(it) }
 
         decoderCache.recycleInactive(lastUsed)
     }
