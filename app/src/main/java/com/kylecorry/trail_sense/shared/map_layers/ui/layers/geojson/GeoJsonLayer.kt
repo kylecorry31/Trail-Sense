@@ -11,8 +11,8 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.isClickable
-import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapViewState
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IAsyncLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
@@ -41,6 +41,9 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     val renderer = GeoJsonRenderer()
     @Volatile private var isStopped = false
     private var isInvalid = true
+
+    @Volatile
+    private var viewState: MapViewState? = null
     private var updateListener: (() -> Unit)? = null
     private val sourceCleanupTask = BackgroundTask {
         source.cleanup()
@@ -154,11 +157,21 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         if (isStopped) return
         isWidget = map.isWidget
         renderer.draw(context, drawer, map)
+    }
+
+    override fun onViewChanged(state: MapViewState) {
+        viewState = state
+        renderer.onViewChanged(state)
+        requestUpdate(state)
+    }
+
+    private fun requestUpdate(state: MapViewState) {
+        if (isStopped) return
         taskRunner.scheduleUpdate(
-            context,
-            drawer.getBounds(45f),
-            map.mapBounds,
-            map.mapProjection,
+            state.context,
+            state.viewBounds,
+            state.bounds,
+            state.projection,
             isInvalid
         )
     }
@@ -174,6 +187,7 @@ open class GeoJsonLayer<T : GeoJsonSource>(
     override fun invalidate() {
         isInvalid = true
         renderer.invalidate()
+        viewState?.let { requestUpdate(it) }
     }
 
     override fun onClick(

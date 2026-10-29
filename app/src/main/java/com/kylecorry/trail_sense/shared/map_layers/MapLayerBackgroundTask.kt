@@ -17,8 +17,10 @@ import kotlin.math.roundToInt
 
 class MapLayerBackgroundTask {
 
-    private var lastRunBounds: CoordinateBounds? = null
-    private var lastRunZoom: Int? = null
+    private class RunKey(val bounds: CoordinateBounds, val zoom: Int)
+
+    @Volatile
+    private var lastRun: RunKey? = null
     private var lastQueuedBounds: CoordinateBounds? = null
     private var lastQueuedZoom: Int? = null
 
@@ -26,6 +28,7 @@ class MapLayerBackgroundTask {
     private val runner = CoroutineQueueRunner(1, queuePolicy = BufferOverflow.DROP_OLDEST)
     private val lock = Mutex()
     private val taskLock = Any()
+    @Volatile
     private var isDirty = true
 
     private val tasks =
@@ -56,23 +59,22 @@ class MapLayerBackgroundTask {
             Parallel.forEach(taskCopy.map { { it(context, viewBounds, bounds, projection) } })
         }
     ) {
+        val zoom = projection.zoom.roundToInt()
+        val newBounds = if (snapToTiles) {
+            TileMath.snapToTiles(bounds, zoom)
+        } else {
+            bounds
+        }
+
+        // This runs on every draw, so avoid launching a coroutine when nothing has changed
+        if (isUpToDate(newBounds, zoom, isInvalid)) {
+            return
+        }
 
         scope.launch {
-            val zoom = projection.zoom.roundToInt()
-            val newBounds = if (snapToTiles) {
-                TileMath.snapToTiles(bounds, zoom)
-            } else {
-                bounds
-            }
-
             lock.withLock {
                 // If the bounds/meters per pixel have already been ran or queued, exit
-                if (!isDirty && !isInvalid && areBoundsEqual(
-                        newBounds,
-                        lastRunBounds ?: CoordinateBounds.empty
-                    ) &&
-                    zoom == lastRunZoom
-                ) {
+                if (isUpToDate(newBounds, zoom, isInvalid)) {
                     return@launch
                 }
 
@@ -86,8 +88,8 @@ class MapLayerBackgroundTask {
 //                    return@launch
 //                }
 
-                val runPercentScaleDifferent = lastRunZoom?.let {
-                    it != zoom
+                val runPercentScaleDifferent = lastRun?.let {
+                    it.zoom != zoom
                 } ?: false
 
 
@@ -95,8 +97,8 @@ class MapLayerBackgroundTask {
                     it != zoom
                 } ?: false
 
-                val runPercentTranslateDifference = lastRunBounds?.let {
-                    it.center.distanceTo(newBounds.center) / newBounds.width().meters().value
+                val runPercentTranslateDifference = lastRun?.let {
+                    it.bounds.center.distanceTo(newBounds.center) / newBounds.width().meters().value
                 } ?: 0f
 
                 val queuedPercentTranslateDifference = lastQueuedBounds?.let {
@@ -111,8 +113,7 @@ class MapLayerBackgroundTask {
                 // Otherwise queue it up
                 val run = suspend {
                     lock.withLock {
-                        lastRunBounds = newBounds
-                        lastRunZoom = zoom
+                        lastRun = RunKey(newBounds, zoom)
                     }
                     update(context, viewBounds, newBounds, projection)
                 }
@@ -133,6 +134,14 @@ class MapLayerBackgroundTask {
 
     fun stop() {
         runner.cancel()
+    }
+
+    private fun isUpToDate(bounds: CoordinateBounds, zoom: Int, isInvalid: Boolean): Boolean {
+        val lastRun = lastRun ?: return false
+        return !isDirty && !isInvalid && zoom == lastRun.zoom && areBoundsEqual(
+            bounds,
+            lastRun.bounds
+        )
     }
 
     private fun areBoundsEqual(bounds1: CoordinateBounds, bound2: CoordinateBounds): Boolean {

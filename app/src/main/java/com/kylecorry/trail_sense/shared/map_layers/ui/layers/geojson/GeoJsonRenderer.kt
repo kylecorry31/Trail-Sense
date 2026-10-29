@@ -6,6 +6,7 @@ import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.trail_sense.shared.extensions.normalize
+import com.kylecorry.trail_sense.shared.map_layers.MapViewState
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.GeoJsonLineStringRenderer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.features.GeoJsonPointRenderer
@@ -67,6 +68,12 @@ class GeoJsonRenderer : IGeoJsonRenderer {
         polygonRenderer.draw(context, drawer, map)
         lineStringRenderer.draw(context, drawer, map)
         pointRenderer.draw(context, drawer, map)
+    }
+
+    override fun onViewChanged(state: MapViewState) {
+        lineStringRenderer.onViewChanged(state)
+        pointRenderer.onViewChanged(state)
+        polygonRenderer.onViewChanged(state)
     }
 
     override fun invalidate() {

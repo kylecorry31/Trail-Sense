@@ -24,9 +24,9 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.concurrency.CustomDispatchers
-import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapViewState
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.tiles.ImageTile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
@@ -158,14 +158,6 @@ open class TileMapLayer<T : TileSource>(
             return
         }
 
-        // Load tiles if needed
-        taskRunner.scheduleUpdate(
-            context,
-            drawer.getBounds(45f), // TODO: Cache this
-            map.mapBounds,
-            map.mapProjection
-        )
-
         // Render loaded tiles
         var shouldSaveLayer = false
         try {
@@ -179,6 +171,19 @@ open class TileMapLayer<T : TileSource>(
                 drawer.pop()
             }
         }
+    }
+
+    override fun onViewChanged(state: MapViewState) {
+        if (SafeMode.isEnabled()) {
+            return
+        }
+
+        taskRunner.scheduleUpdate(
+            state.context,
+            state.viewBounds,
+            state.bounds,
+            state.projection
+        )
     }
 
     override fun drawOverlay(context: Context, drawer: ICanvasDrawer, map: IMapView) {

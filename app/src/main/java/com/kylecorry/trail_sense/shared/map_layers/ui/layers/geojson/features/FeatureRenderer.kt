@@ -7,8 +7,8 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.main.errors.SafeMode
-import com.kylecorry.trail_sense.shared.getBounds
 import com.kylecorry.trail_sense.shared.map_layers.MapLayerBackgroundTask
+import com.kylecorry.trail_sense.shared.map_layers.MapViewState
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import kotlinx.coroutines.CancellationException
@@ -22,6 +22,9 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
     private var backgroundAction: (suspend (context: Context, viewBounds: Rectangle, bounds: CoordinateBounds, mapProjection: IMapViewProjection, features: List<GeoJsonFeature>) -> Unit)? =
         null
     private val taskRunner = MapLayerBackgroundTask()
+
+    @Volatile
+    private var viewState: MapViewState? = null
 
     override fun setFeatures(features: List<GeoJsonFeature>) {
         this@FeatureRenderer.features = filterFeatures(features)
@@ -55,32 +58,41 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
         }
 
         draw(context, drawer, map, features)
+    }
 
-        if (backgroundAction != null) {
-            taskRunner.scheduleUpdate(
-                context,
-                drawer.getBounds(45f), // TODO: Cache this
-                map.mapBounds,
-                map.mapProjection,
-                isInvalid,
-                snapToTiles = false
-            ) { context, viewBounds, bounds, projection ->
-                isInvalid = false
-                try {
-                    backgroundAction?.invoke(context, viewBounds, bounds, projection, features)
-                    updateListener?.invoke()
-                } catch (e: CancellationException) {
-                    throw e
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                    isInvalid = true
-                }
+    override fun onViewChanged(state: MapViewState) {
+        viewState = state
+        requestUpdate(state)
+    }
+
+    private fun requestUpdate(state: MapViewState) {
+        if (backgroundAction == null || SafeMode.isEnabled()) {
+            return
+        }
+        taskRunner.scheduleUpdate(
+            state.context,
+            state.viewBounds,
+            state.bounds,
+            state.projection,
+            isInvalid,
+            snapToTiles = false
+        ) { context, viewBounds, bounds, projection ->
+            isInvalid = false
+            try {
+                backgroundAction?.invoke(context, viewBounds, bounds, projection, features)
+                updateListener?.invoke()
+            } catch (e: CancellationException) {
+                throw e
+            } catch (e: Throwable) {
+                e.printStackTrace()
+                isInvalid = true
             }
         }
     }
 
     override fun invalidate() {
         isInvalid = true
+        viewState?.let { requestUpdate(it) }
     }
 
     protected fun notifyListeners() {
