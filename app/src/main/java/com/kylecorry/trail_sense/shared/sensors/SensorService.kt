@@ -46,6 +46,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.compass.MockCompass
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AutoInitializeBarometricAltimeter
@@ -237,7 +238,11 @@ class SensorService(ctx: Context) {
     }
 
     fun hasCompass(): Boolean {
-        return Sensors.hasCompass(context)
+        return !isCompassForcedUnavailable() && Sensors.hasCompass(context)
+    }
+
+    private fun isCompassForcedUnavailable(): Boolean {
+        return userPrefs.debug.compassUnavailable
     }
 
     fun hasGyroscope(): Boolean {
@@ -249,6 +254,9 @@ class SensorService(ctx: Context) {
         orientationSensor: IOrientationSensor? = null,
         delay: Int = MOTION_SENSOR_DELAY
     ): ICompass {
+        if (isCompassForcedUnavailable()) {
+            return MockCompass()
+        }
         return CompassProvider(context, userPrefs.compass).get(
             delay,
             orientationSensor

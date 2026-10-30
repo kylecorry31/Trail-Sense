@@ -18,7 +18,20 @@ class DebugPreferences(context: Context) : PreferenceRepo(context) {
             isTapMapToSetLocationEnabled = value
         }
 
+    private var isCompassUnavailableEnabled by BooleanPreference(
+        cache,
+        COMPASS_UNAVAILABLE_KEY,
+        false
+    )
+
+    var compassUnavailable: Boolean
+        get() = isDebug() && isCompassUnavailableEnabled
+        set(value) {
+            isCompassUnavailableEnabled = value
+        }
+
     private companion object {
         const val TAP_MAP_TO_SET_LOCATION_KEY = "pref_debug_tap_map_to_set_location"
+        const val COMPASS_UNAVAILABLE_KEY = "pref_debug_compass_unavailable"
     }
 }
