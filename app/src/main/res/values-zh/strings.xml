@@ -1662,4 +1662,9 @@
     <string name="redo">重做</string>
     <string name="path_edit_hint">轻按添加一个点。拖动一个点来移动它。按住一个点来选中它。</string>
     <string name="path_edit_hint_selected">轻按在已选择的点的后面添加一个点。拖动进行移动操作。按住取消选择。</string>
+    <string name="navigation_elevation_format">(海拔 %s)</string>
+    <string name="navigation_remaining">剩余</string>
+    <string name="navigation_facing">对面</string>
+    <string name="navigation_traveled">人流密集的</string>
+    <string name="navigation_arrive_format">%s 抵达</string>
 </resources>
