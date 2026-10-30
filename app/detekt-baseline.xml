@@ -12,7 +12,6 @@
     <ID>ComplexCondition:FragmentToolTriangulate.kt:FragmentToolTriangulate$location1 == null || location2 == null || direction1 == null || direction2 == null</ID>
     <ID>ComplexCondition:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$shape == GEO_JSON_PROPERTY_MARKER_SHAPE_CIRCLE || (shape == null &amp;&amp; iconRes == null &amp;&amp; bitmap == null)</ID>
     <ID>ComplexCondition:LineClipper.kt:LineClipper$!(start.x &lt; bounds.left &amp;&amp; end.x &lt; bounds.left || start.x &gt; bounds.right &amp;&amp; end.x &gt; bounds.right || start.y &lt; bounds.bottom &amp;&amp; end.y &lt; bounds.bottom || start.y &gt; bounds.top &amp;&amp; end.y &gt; bounds.top)</ID>
-    <ID>ComplexCondition:MapLayerBackgroundTask.kt:MapLayerBackgroundTask$!isDirty &amp;&amp; !isInvalid &amp;&amp; areBoundsEqual( newBounds, lastRunBounds ?: CoordinateBounds.empty ) &amp;&amp; zoom == lastRunZoom</ID>
     <ID>ComplexCondition:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$image == null &amp;&amp; imagePath != null &amp;&amp; width &gt; 0 &amp;&amp; height &gt; 0</ID>
     <ID>ComplexCondition:PhotoMapEntity.kt:PhotoMapEntity$percentX1 != null &amp;&amp; percentY1 != null &amp;&amp; longitude1 != null &amp;&amp; latitude1 != null</ID>
     <ID>ComplexCondition:PhotoMapEntity.kt:PhotoMapEntity$percentX2 != null &amp;&amp; percentY2 != null &amp;&amp; longitude2 != null &amp;&amp; latitude2 != null</ID>
@@ -71,7 +70,6 @@
     <ID>ForbiddenComment:Automations.kt:Automations$// TODO: Should there be a way to unregister? Maybe only register when something is listening? When to cancel queue?</ID>
     <ID>ForbiddenComment:BacktrackSpeedometer.kt:BacktrackSpeedometer$// TODO: Listen for path changes for backtrack ID</ID>
     <ID>ForbiddenComment:BaseMapTileSource.kt:BaseMapTileSource$// TODO: Derive this using calibration points</ID>
-    <ID>ForbiddenComment:BaseSurvivalGuideSearch.kt:BaseSurvivalGuideSearch$// TODO: Other languages?</ID>
     <ID>ForbiddenComment:BeaconCompassLayer.kt:BeaconCompassLayer$// TODO: Load the icon here</ID>
     <ID>ForbiddenComment:BeaconSharesheet.kt:BeaconSharesheet$// TODO: Share other details</ID>
     <ID>ForbiddenComment:CalibrateBarometerFragment.kt:CalibrateBarometerFragment$// TODO: Only call this on change</ID>
@@ -99,7 +97,6 @@
     <ID>ForbiddenComment:DiagnosticsFragment.kt:DiagnosticsFragment$// TODO: Keep the mapping of tools to diagnostics and the mapping of ID to diagnostic</ID>
     <ID>ForbiddenComment:EnhancedImageView.kt:EnhancedImageView$// TODO: Center the rotated image</ID>
     <ID>ForbiddenComment:EnhancedImageView.kt:EnhancedImageView$// TODO: Use a flag instead</ID>
-    <ID>ForbiddenComment:FeatureRenderer.kt:FeatureRenderer$// TODO: Cache this</ID>
     <ID>ForbiddenComment:FieldGuidePageFragment.kt:FieldGuidePageFragment$// TODO: Handle tag click</ID>
     <ID>ForbiddenComment:FileSubsystem.kt:FileSubsystem$// TODO: Handle maxSize</ID>
     <ID>ForbiddenComment:FormatService.kt:FormatService$// TODO: Rewrite this</ID>
@@ -112,11 +109,6 @@
     <ID>ForbiddenComment:FragmentToolMetalDetector.kt:FragmentToolMetalDetector$// TODO: Once a better orientation is calculated, use that</ID>
     <ID>ForbiddenComment:FragmentToolPedometer.kt:FragmentToolPedometer$// TODO: Use pedometer subsystem topics</ID>
     <ID>ForbiddenComment:FragmentToolSurvivalGuideList.kt:FragmentToolSurvivalGuideList$// TODO: Scroll to the heading</ID>
-    <ID>ForbiddenComment:FragmentToolSurvivalGuideReader.kt:FragmentToolSurvivalGuideReader$// TODO: Bullet point continuation does not render properly on a separate page</ID>
-    <ID>ForbiddenComment:FragmentToolSurvivalGuideReader.kt:FragmentToolSurvivalGuideReader$// TODO: Extract this to a shared markdown printer</ID>
-    <ID>ForbiddenComment:FragmentToolSurvivalGuideReader.kt:FragmentToolSurvivalGuideReader$// TODO: Find a better way to do this</ID>
-    <ID>ForbiddenComment:FragmentToolSurvivalGuideReader.kt:FragmentToolSurvivalGuideReader$// TODO: Images are overlapping text</ID>
-    <ID>ForbiddenComment:FragmentToolSurvivalGuideReader.kt:FragmentToolSurvivalGuideReader$// TODO: Indented bullet points do not work properly when on a separate page</ID>
     <ID>ForbiddenComment:FragmentToolTriangulate.kt:FragmentToolTriangulate$// TODO: Display distance between locations</ID>
     <ID>ForbiddenComment:FragmentToolTriangulate.kt:FragmentToolTriangulate$// TODO: Display the distance to the location in the title</ID>
     <ID>ForbiddenComment:GaussianAltimeterWrapper.kt:GaussianAltimeterWrapper$// TODO: Add this to IAltimeter</ID>
@@ -147,7 +139,6 @@
     <ID>ForbiddenComment:MapLayersBottomSheet.kt:MapLayersBottomSheet$// TODO: Show loading indicator once plugin layers are in place</ID>
     <ID>ForbiddenComment:MapPickers.kt:MapPickers$// TODO: Add sort</ID>
     <ID>ForbiddenComment:MapRepo.kt:MapRepo$// TODO: Save the size in the DB</ID>
-    <ID>ForbiddenComment:MapToolWidgetView.kt:MapToolWidgetView$// TODO: Do something with the scale bar (center it or render it like the radar compass)</ID>
     <ID>ForbiddenComment:MapView.kt:MapView$// TODO: If map bounds changed, invalidate layers</ID>
     <ID>ForbiddenComment:MapView.kt:MapView$// TODO: This doesn't work for world maps</ID>
     <ID>ForbiddenComment:MapViewLayerManager.kt:MapViewLayerManager$// TODO: ERROR HANDLING</ID>
@@ -155,12 +146,10 @@
     <ID>ForbiddenComment:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$// TODO: Return the CI or only include samples that are confident</ID>
     <ID>ForbiddenComment:MoveBeaconCommand.kt:MoveBeaconCommand$// TODO: Consolidate with move beacon group</ID>
     <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: Listen for navigation and automatically hide/show with override ability (for navigation tool)</ID>
-    <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: These don't change</ID>
     <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: This should be tracked by a service (for background navigation)</ID>
     <ID>ForbiddenComment:Navigator.kt:Navigator$// TODO: Standardized navigation instructions</ID>
     <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Extract this logic to the flashlight (if camera is in use)</ID>
     <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Move selected beacon updating to a coroutine</ID>
-    <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Prompt to cancel navigation?</ID>
     <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Wait for GPS location to be up to date (show a loading indicator)</ID>
     <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Each error condition should be responsible for its own display and dismissal</ID>
     <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Improve architecture using the strategy pattern and remove this class all together</ID>
@@ -193,7 +182,6 @@
     <ID>ForbiddenComment:TideTableRepo.kt:TideTableRepo$// TODO: Only delete the tides if they changed</ID>
     <ID>ForbiddenComment:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$// TODO: This should use the same gap filling logic as above</ID>
     <ID>ForbiddenComment:TileLoader.kt:TileLoader$// TODO: This should be handled by a higher level component</ID>
-    <ID>ForbiddenComment:TileMapLayer.kt:TileMapLayer$// TODO: Cache this</ID>
     <ID>ForbiddenComment:TileMapLayer.kt:TileMapLayer$// TODO: This isn't the ideal place to do cleanup since garbage can build up. Likely need some sort of LRU cache for all intermediates.</ID>
     <ID>ForbiddenComment:TileQueue.kt:TileQueue$// TODO: Allow cancellation of a job - likely means storing the actual jobs somewhere</ID>
     <ID>ForbiddenComment:ToolAction.kt:ToolAction$// TODO: Indicate required parameters, so it can be matched with a broadcast</ID>
@@ -294,7 +282,6 @@
     <ID>TooGenericExceptionCaught:WhiteNoiseService.kt:WhiteNoiseService.Companion$e: Exception</ID>
     <ID>TooManyFunctions:AppDatabase.kt:AppDatabase : RoomDatabase</ID>
     <ID>TooManyFunctions:AstronomyService.kt:AstronomyService</ID>
-    <ID>TooManyFunctions:BeaconDao.kt:BeaconDao</ID>
     <ID>TooManyFunctions:CachedTileDao.kt:CachedTileDao</ID>
     <ID>TooManyFunctions:Converters.kt:Converters</ID>
     <ID>TooManyFunctions:CustomUiUtils.kt:CustomUiUtils</ID>
@@ -302,6 +289,7 @@
     <ID>TooManyFunctions:FileSubsystem.kt:FileSubsystem</ID>
     <ID>TooManyFunctions:FormatService.kt:FormatService</ID>
     <ID>TooManyFunctions:GeoJsonExtensions.kt:com.kylecorry.trail_sense.shared.extensions.GeoJsonExtensions.kt</ID>
+    <ID>TooManyFunctions:HikingService.kt:HikingService</ID>
     <ID>TooManyFunctions:Hooks.kt:com.kylecorry.trail_sense.shared.extensions.Hooks.kt</ID>
     <ID>TooManyFunctions:IPackRepo.kt:IPackRepo</ID>
     <ID>TooManyFunctions:IPathService.kt:IPathService : ICleanable</ID>
@@ -324,7 +312,6 @@
     <ID>UnusedParameter:PathsFragment.kt:PathsFragment$data: Bundle</ID>
     <ID>UnusedParameter:PathsSettingsFragment.kt:PathsSettingsFragment$data: Bundle</ID>
     <ID>UnusedParameter:PedometerSettingsFragment.kt:PedometerSettingsFragment$data: Bundle</ID>
-    <ID>UnusedParameter:SurvivalGuideSearch.kt:SurvivalGuideSearch$query: String</ID>
     <ID>UnusedParameter:TileMapLayer.kt:TileMapLayer$data: Bundle</ID>
     <ID>UnusedParameter:ToolServiceQuickAction.kt:ToolServiceQuickAction$data: Bundle</ID>
     <ID>UnusedParameter:ToolServiceTile.kt:ToolServiceTile$data: Bundle</ID>
