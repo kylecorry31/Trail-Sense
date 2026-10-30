@@ -193,7 +193,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
 
         click("Navigate")
         hasText(Regex(".*-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°.*"))
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click(R.id.navigation_cancel)
 
         longClick(R.id.map)
         click("Distance")
@@ -256,9 +256,8 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         click("Navigate", exact = true)
 
         hasText(R.id.navigation_sheet_title, "Camp")
-        // 0.0015 degrees of latitude is 167 m, due north
-        hasText(R.id.navigation_distance, Regex("54[78] ft"))
-        hasText(R.id.navigation_distance, "0° N")
+        // 0.0015 degrees of latitude is 167 m
+        hasText(R.id.navigation_primary_value, Regex("54[78] ft"))
     }
 
     @Test

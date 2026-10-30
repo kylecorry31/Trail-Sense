@@ -639,8 +639,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText(R.id.navigation_sheet_title, "Durfee Short")
         isVisible(R.id.navigation_progress)
         // The route's distance is covered by PathRouteBuilderTest
-        hasText(R.id.navigation_distance, Regex("\\d+(\\.\\d+)? mi"))
-        hasText(R.id.navigation_eta, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
+        hasText(R.id.navigation_primary_value, Regex("\\d+(\\.\\d+)? mi"))
+        hasText(R.id.navigation_secondary_value, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
 
         // Following a different direction replaces the route
         backUntil { isVisible(R.id.path_scroll) }

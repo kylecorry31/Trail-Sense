@@ -320,8 +320,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         clickOkIfShown()
 
         hasText(R.id.navigation_sheet_title, "Summit")
-        hasText(R.id.navigation_distance, "40.41 mi")
-        hasText(R.id.navigation_distance, "36° NE")
+        hasText(R.id.navigation_primary_value, "40.41 mi")
     }
 
     @Test

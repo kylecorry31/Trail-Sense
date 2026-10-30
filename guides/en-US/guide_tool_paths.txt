@@ -164,7 +164,7 @@ To navigate to a specific point on the path, select the waypoint, and use its me
 - **Follow to point**: Follows the path from your nearest point on it to the selected waypoint, using the shortest route.
 - **Navigate directly**: Navigates straight to the selected waypoint without following the path.
 
-When you start navigating, the Navigation tool opens and points you toward the next point on the path. It shows the distance, elevation gain and loss, and ETA, and a progress bar shows how far along the path you are. To open the path, tap the path name in the navigation panel.
+When you start navigating, the Navigation tool opens and points you toward the next point on the path. It shows the distance, elevation gain and loss, and ETA, and a progress bar shows how far along the path you are. To open the path, tap the path name in the navigation panel. For more information, see the Navigation panel section of the Navigation guide.
 
 ## Show or hide paths on maps
 To choose which paths are visible on maps, tap the eye icon on the right side of the path's row. Paths are shown on maps that have the Paths layer enabled.

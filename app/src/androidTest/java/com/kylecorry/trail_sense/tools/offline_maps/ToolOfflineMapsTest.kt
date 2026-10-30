@@ -397,7 +397,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         click("Navigate")
         hasText("Test Map", index = 1)
         hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click(R.id.navigation_cancel)
 
         longClick(R.id.map)
         click("Distance")

@@ -76,7 +76,7 @@ To navigate to a beacon, do one of the following:
 - Open the beacon, and tap **Navigate** at the bottom of the screen.
 - Tap the menu button on the beacon's row, and select **Navigate**.
 
-The Navigation tool opens with the beacon as the destination. For more information, see the Navigation guide.
+The Navigation tool opens with the beacon as the destination. For information about the navigation panel, see the Navigation panel section of the Navigation guide.
 
 ## Show or hide beacons on maps
 To choose which beacons are visible in the Navigation and Offline Maps tools, tap the eye icon on the right side of the beacon's row.

@@ -470,7 +470,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
                     gps.location,
                     altimeter.altitude,
                     speedometer.speed.value,
-                    declination
+                    declination,
+                    compass.rawBearing
                 )
                 binding.navigationSheet.show(currentDestination, destination != null)
             } else {

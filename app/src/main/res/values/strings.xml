@@ -2065,4 +2065,13 @@
     <string name="ar_path_appearance">Appearance</string>
     <string name="ar_path_appearance_ribbon">Ribbon</string>
     <string name="ar_path_appearance_line">Line</string>
+    <!-- %s is an elevation (ex. 500 ft). Ele. is short for elevation -->
+    <string name="navigation_elevation_format">(Ele. %s)</string>
+    <string name="navigation_remaining">Remaining</string>
+    <string name="navigation_traveled">Traveled</string>
+    <string name="navigation_facing">Facing</string>
+    <string name="navigation_remaining_gain">Remaining gain</string>
+    <string name="navigation_remaining_loss">Remaining loss</string>
+    <!-- %s is the time of arrival (ex. 5:00 PM) -->
+    <string name="navigation_arrive_format">Arrive %s</string>
 </resources>

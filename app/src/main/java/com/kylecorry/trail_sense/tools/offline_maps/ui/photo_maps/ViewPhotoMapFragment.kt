@@ -267,7 +267,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             gps.location,
             altimeter.altitude,
             gps.speed.value,
-            compass.declination
+            compass.declination,
+            compass.bearing.value
         )
         binding.navigationSheet.setTrueNorthOverride(true)
         binding.navigationSheet.show(beacon, true)

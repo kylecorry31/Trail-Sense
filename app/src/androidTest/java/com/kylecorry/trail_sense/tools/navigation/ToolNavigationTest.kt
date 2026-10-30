@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.navigation
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
@@ -17,15 +16,11 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
-import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
-import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
-import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import org.junit.Assert.assertEquals
 import org.junit.Assume.assumeFalse
 import org.junit.Test
 
@@ -68,11 +63,14 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
             { click(R.id.linear_compass, waitForTime = 0) }
         )
 
-        hasText("Bearing")
-        isVisible(R.id.navigation_bearing)
+        hasText(R.id.navigation_sheet_title, Regex("\\d+° [NSEW]+"))
+        isVisible(R.id.navigation_arrow)
+        hasText(R.id.navigation_target_bearing, Regex("\\d+° [NSEW]+"))
+        hasText(R.id.navigation_tertiary_label, string(R.string.navigation_facing))
+        hasText(R.id.navigation_tertiary_value, Regex("\\d+° [NSEW]+"))
 
         cancelNavigation()
-        not { hasText("Bearing") }
+        not { isVisible(R.id.navigation_sheet) }
     }
 
     private fun canNavigate() {
@@ -97,17 +95,16 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText("Test Beacon")
         hasText(Regex("1.000000°,\\s+-1.000000°"))
         hasText("100 ft")
-        hasText(R.id.navigation_distance, Regex("\\d+(\\.\\d+)? (ft|mi)"))
-        hasText(R.id.navigation_distance, Regex("\\d+° [NSEW]+"))
-        hasText(R.id.navigation_eta, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
-        hasText(R.id.navigation_eta, Regex("\\d+:\\d+?\\s(AM|PM)"))
-        hasText(R.id.navigation_elevation, Regex("[-+]?\\d+ ft"))
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Left))
-        hasText("Test Comment")
-        clickOk()
+        isVisible(R.id.navigation_arrow)
+        hasText(R.id.navigation_primary_value, Regex("\\d+(\\.\\d+)? (ft|mi)"))
+        hasText(R.id.navigation_secondary_value, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
+        hasText(R.id.navigation_secondary_label, Regex("Arrive \\d+:\\d+\\s(AM|PM)"))
+        hasText(R.id.navigation_tertiary_value, Regex("\\d+ ft"))
 
-        click("Test Beacon")
+        // The notes are shown on the beacon
+        click(R.id.navigation_sheet_title)
         hasText(R.id.beacon_title, "Test Beacon")
+        hasText("Test Comment")
         back()
 
         cancelNavigation()
@@ -192,11 +189,11 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
 
         hasText(R.id.navigation_sheet_title, "Summit")
         hasText("42.500000°,  -71.500000°")
-        hasText("Elevation: 1000 ft")
-        hasText(R.id.navigation_distance, "40.41 mi")
-        hasText(R.id.navigation_distance, "36° NE")
-        hasText(R.id.navigation_elevation, "+1000 ft")
-        hasText(R.id.navigation_eta, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
+        hasText("(Ele. 1000 ft)")
+        hasText(R.id.navigation_primary_value, "40.41 mi")
+        hasText(R.id.navigation_tertiary_value, "1000 ft")
+        hasText(R.id.navigation_tertiary_label, string(R.string.navigation_remaining_gain))
+        hasText(R.id.navigation_secondary_value, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
     }
 
     @Test
@@ -204,43 +201,19 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         openWithSavedBeacons()
 
         navigateToBeacon("Summit")
-        hasText(R.id.navigation_distance, "40.41 mi")
+        hasText(R.id.navigation_primary_value, "40.41 mi")
 
         cancelNavigation()
         not { hasText("Summit") }
 
         navigateToBeacon("Camp")
         hasText(R.id.navigation_sheet_title, "Camp")
-        hasText(R.id.navigation_distance, "0.69 mi")
-        hasText(R.id.navigation_distance, "0° N")
+        hasText(R.id.navigation_primary_value, "0.69 mi")
         not { hasText("Summit") }
     }
 
-    @Test
-    fun directionIsRelativeToMagneticNorthWhenSelected() {
-        assumeFalse(isStagingBuild)
-        relaunchTool {
-            seedBeacons()
-            val preferences = PreferencesSubsystem.getInstance(TestUtils.context).preferences
-            preferences.putBoolean(string(R.string.pref_use_true_north), false)
-            // The dialog would delay the check of the north reference label, which is only shown briefly
-            preferences.putBoolean(string(R.string.pref_show_calibrate_on_navigate_dialog), false)
-        }
-        click(R.id.beaconBtn)
-        click("Summit")
-        click(string(R.string.navigate))
-
-        hasText(string(R.string.magnetic_north))
-        // True bearing of 36 degrees minus the declination of about -14 degrees
-        waitFor {
-            val text = textOf(R.id.navigation_distance)
-            val direction = Regex("(\\d+)° ([NSEW]+)").find(text)!!.groupValues[1].toInt()
-            assertEquals(50.0, direction.toDouble(), 3.0)
-        }
-    }
-
     private fun cancelNavigation() {
-        click(toolbarButton(R.id.navigation_sheet_title, Side.Right))
+        click(R.id.navigation_cancel)
         // The undo snackbar covers the beacon button until it times out
         hasText(string(R.string.navigation_cancelled))
         not(waitForTime = 15000) { hasText(string(R.string.navigation_cancelled)) }
@@ -252,17 +225,5 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         click(string(R.string.navigate))
         // Calibration reminder (only shown when the compass accuracy is poor)
         clickOkIfShown()
-    }
-
-    private fun textOf(id: Int): String {
-        return waitFor {
-            val texts = mutableListOf<String>()
-            val root = view(id).uiObject
-            TestUtils.matchesSelfOrChild(root) {
-                it.text?.let { text -> texts.add(text) }
-                false
-            }
-            texts.joinToString(" ")
-        }
     }
 }

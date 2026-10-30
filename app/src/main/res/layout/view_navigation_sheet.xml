@@ -1,18 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_sheet"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorSurfaceContainer"
     android:orientation="vertical">
 
-    <com.kylecorry.trail_sense.shared.views.Toolbar
-        android:id="@+id/navigation_sheet_title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:leftButtonIcon="@drawable/ic_tool_notes"
-        app:rightButtonIcon="@drawable/ic_cancel" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="4dp"
+        android:paddingBottom="12dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/navigation_arrow"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_navigation_arrow" />
+
+            <TextView
+                android:id="@+id/navigation_target_bearing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textSize="11sp"
+                tools:text="15° N" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navigation_text_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/navigation_sheet_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:drawableStartCompat="@drawable/ic_location"
+                tools:text="Campsite" />
+
+            <TextView
+                android:id="@+id/navigation_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="11sp"
+                tools:text="42, -72 (Elevation: 500 ft)" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/navigation_cancel"
+            style="@style/Widget.App.QuickActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_cancel" />
+    </LinearLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/navigation_progress"
@@ -20,60 +87,89 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="12dp"
         android:max="1000"
         android:visibility="gone"
         app:trackCornerRadius="2dp"
-        app:trackThickness="3dp" />
+        app:trackThickness="6dp" />
 
     <LinearLayout
+        android:id="@+id/navigation_stats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:paddingBottom="@dimen/default_bottom_margin"
-        android:gravity="center_vertical"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/navigation_distance"
+        <LinearLayout
+            android:id="@+id/navigation_primary_stat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            app:dataPointIcon="@drawable/ruler" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/navigation_bearing"
+            <TextView
+                android:id="@+id/navigation_primary_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                tools:text="0.45 mi" />
+
+            <TextView
+                android:id="@+id/navigation_primary_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                tools:text="Remaining" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navigation_secondary_stat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            app:dataPointIcon="@drawable/ic_compass_icon" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/navigation_elevation"
+            <TextView
+                android:id="@+id/navigation_secondary_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                tools:text="10m" />
+
+            <TextView
+                android:id="@+id/navigation_secondary_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                tools:text="Arrive 5:00 PM" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navigation_tertiary_stat"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:gravity="center"
-            app:dataPointIcon="@drawable/ic_altitude" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <com.kylecorry.trail_sense.shared.views.DataPointView
-            android:id="@+id/navigation_eta"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            app:dataPointIcon="@drawable/ic_tool_clock" />
+            <TextView
+                android:id="@+id/navigation_tertiary_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                tools:text="▲ 10 ft" />
 
+            <TextView
+                android:id="@+id/navigation_tertiary_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                tools:text="Remaining gain" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
