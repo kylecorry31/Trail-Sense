@@ -30,7 +30,7 @@ internal class Snap(
 internal class RouteGeometry(private val routePoints: List<Coordinate>) {
     private val latitudes = DoubleArray(routePoints.size) { routePoints[it].latitude }
     private val longitudes = DoubleArray(routePoints.size) { routePoints[it].longitude }
-    private val cumulativeDistances = HikingService().getDistances(routePoints).toFloatArray()
+    private val cumulativeDistances = HikingService.getDistances(routePoints).toFloatArray()
     private val lastSegment = routePoints.lastIndex - 1
     val length: Float = cumulativeDistances.last()
 

@@ -22,8 +22,8 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.CustomUiUtils
+import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
@@ -32,9 +32,9 @@ import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.views.DataPointView
 import com.kylecorry.trail_sense.shared.views.Toolbar
-import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
+import com.kylecorry.trail_sense.tools.navigation.domain.guidance.Guidance
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlinx.coroutines.CoroutineScope
@@ -54,10 +54,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private val formatter = DependencyRegistry.get<FormatService>()
     private val navigator = DependencyRegistry.get<Navigator>()
 
-    private val useTrueNorth = prefs.compass.useTrueNorth
-
     private val navigationService = NavigationService()
-    private val hikingService = HikingService()
 
     private var destination: Destination? = null
     private var isNavigating: Boolean = false
@@ -211,12 +208,39 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         }
     }
 
+    private fun getGuidance(destination: Destination, values: NavigationSensorValues): Guidance {
+        return navigator.getGuidance(
+            destination,
+            values.location,
+            values.elevation,
+            values.declination,
+            useTrueNorthOverride
+        )
+    }
+
+    private fun getEta(guidance: Guidance, values: NavigationSensorValues): Duration? {
+        val speed = values.speed.convertTo(
+            DistanceUnits.Meters, TimeUnits.Seconds
+        ).value
+        val hikingSpeed = Speed.from(
+            navigationService.getHikingSpeed(speed),
+            DistanceUnits.Meters,
+            TimeUnits.Seconds
+        )
+        val remainingDistance = guidance.remainingDistance ?: return null
+        return HikingService.getHikingDuration(
+            remainingDistance,
+            guidance.remainingElevationGain ?: Distance.meters(0f),
+            hikingSpeed
+        )
+    }
+
     private fun updatePathNavigation(destination: Destination.Path, values: NavigationSensorValues) {
-        val guidance = destination.route.guidance
-        progressView.progress = (guidance.progress * progressView.max).roundToInt()
+        val guidance = getGuidance(destination, values)
+        progressView.progress = ((guidance.progress ?: 0f) * progressView.max).roundToInt()
         progressView.isVisible = true
-        val gain = guidance.remainingElevationGain.convertTo(prefs.baseDistanceUnits)
-        val loss = guidance.remainingElevationLoss.convertTo(prefs.baseDistanceUnits)
+        val gain = (guidance.remainingElevationGain ?: Distance.meters(0f)).convertTo(prefs.baseDistanceUnits)
+        val loss = (guidance.remainingElevationLoss ?: Distance.meters(0f)).convertTo(prefs.baseDistanceUnits)
         elevationDataView.isVisible = gain.value.absoluteValue > 0 || loss.value.absoluteValue > 0
         val gainText = formatter.formatDistance(gain, Units.getDecimalPlaces(gain.units), false)
         val lossText = formatter.formatDistance(
@@ -233,7 +257,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         bearingDataView.isVisible = false
         distanceDataView.description = ""
         distanceDataView.setShowDescription(false)
-        updateDestinationDistance(guidance.remainingDistance.meters().value)
+        updateDestinationDistance(guidance.remainingDistance?.meters()?.value ?: 0f)
         toolbar.title.text = destination.path.name ?: context.getString(R.string.path)
         toolbar.subtitle.isVisible = false
         toolbar.leftButton.isVisible = false
@@ -241,30 +265,17 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             openPath(destination.path.id)
         }
         toolbar.subtitle.setOnClickListener(null)
-        etaDataView.isVisible = true
-        val speed = values.speed.convertTo(
-            DistanceUnits.Meters, TimeUnits.Seconds
-        ).value
-        val remainingDuration = hikingService.getHikingDuration(
-            guidance.remainingDistance,
-            guidance.remainingElevationGain,
-            Speed.from(
-                navigationService.getHikingSpeed(speed),
-                DistanceUnits.Meters,
-                TimeUnits.Seconds
-            )
-        )
-        updateEta(remainingDuration)
+        updateEta(getEta(guidance, values))
     }
 
     private fun updateBearingNavigation(
         destination: Destination.Bearing,
         values: NavigationSensorValues
     ) {
-        val bearing = navigator.getBearing(values.location, destination, values.declination)
-        updateDestinationDirection(bearing.value, true)
+        val guidance = getGuidance(destination, values)
+        updateDestinationDirection(guidance.targetBearing.value, true)
         updateDestinationElevation(null)
-        etaDataView.isVisible = false
+        updateEta(getEta(guidance, values))
         toolbar.title.text = context.getString(R.string.bearing)
         toolbar.subtitle.isVisible = false
         toolbar.leftButton.isVisible = false
@@ -276,21 +287,13 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         values: NavigationSensorValues
     ) {
         val beacon = destination.beacon
-        val vector = navigationService.navigate(
-            values.location,
-            values.elevation.meters().value,
-            beacon,
-            values.declination,
-            useTrueNorthOverride ?: useTrueNorth
+        val guidance = getGuidance(destination, values)
+        updateDestinationDirection(guidance.targetBearing.value)
+        updateDestinationElevation(
+            guidance.remainingElevationGain?.value ?: guidance.remainingElevationLoss?.value?.times(-1f)
         )
-
-        updateDestinationDirection(vector.direction.value)
-        updateDestinationElevation(vector.altitudeChange)
-        updateDestinationEta(
-            values.location, values.elevation.meters().value, values.speed.convertTo(
-                DistanceUnits.Meters, TimeUnits.Seconds
-            ).value, beacon
-        )
+        updateDestinationDistance(guidance.remainingDistance?.meters()?.value ?: 0f)
+        updateEta(getEta(guidance, values))
 
         // TODO: These don't change
         toolbar.title.text = beacon.name
@@ -360,31 +363,20 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         }
     }
 
-    private fun updateDestinationEta(
-        location: Coordinate,
-        elevation: Float,
-        speed: Float,
-        beacon: Beacon
-    ) {
-        etaDataView.isVisible = true
-        updateDestinationDistance(location.distanceTo(beacon.coordinate))
-
-        // ETA
-        val eta = navigationService.eta(location, elevation, speed, beacon)
-        updateEta(eta)
-    }
-
     private fun updateDestinationDistance(meters: Float) {
         val distance = Distance.meters(meters).convertTo(prefs.baseDistanceUnits).toRelativeDistance()
         distanceDataView.title = formatter.formatDistance(distance, Units.getDecimalPlaces(distance.units), false)
     }
 
-    private fun updateEta(duration: Duration) {
-        etaDataView.title = formatter.formatDuration(duration, false)
-        etaDataView.description = formatter.formatTime(
-            ZonedDateTime.now().plus(duration).toLocalTime(),
-            includeSeconds = false
-        )
+    private fun updateEta(duration: Duration?) {
+        etaDataView.isVisible = duration != null
+        if (duration != null) {
+            etaDataView.title = formatter.formatDuration(duration, false)
+            etaDataView.description = formatter.formatTime(
+                ZonedDateTime.now().plus(duration).toLocalTime(),
+                includeSeconds = false
+            )
+        }
     }
 
     private fun updateDestinationElevation(elevationChange: Float?) {

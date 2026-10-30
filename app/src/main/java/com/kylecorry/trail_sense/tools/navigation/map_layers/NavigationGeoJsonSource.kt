@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.geojson.GeoJsonObject
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.lineString
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getPreferences
@@ -24,7 +23,6 @@ import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 
 class NavigationGeoJsonSource : GeoJsonSource {
 
-    private val prefs = DependencyRegistry.get<UserPreferences>()
     private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
     private val navigator = DependencyRegistry.get<Navigator>()
 
@@ -104,7 +102,7 @@ class NavigationGeoJsonSource : GeoJsonSource {
         myLocation: Coordinate,
         bearing: Destination.Bearing
     ): List<MappablePath> {
-        return if (bearing.startingLocation != null && prefs.navigation.lockBearingToLocation) {
+        return if (bearing.startingLocation != null) {
             listOf(
                 createPath(
                     bearing.startingLocation,

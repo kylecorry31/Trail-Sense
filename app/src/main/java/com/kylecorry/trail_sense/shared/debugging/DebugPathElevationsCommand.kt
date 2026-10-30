@@ -12,10 +12,8 @@ class DebugPathElevationsCommand(
     private val smoothed: List<PathPoint>
 ) : DebugCommand() {
 
-    private val hikingService = HikingService()
-
     override fun executeDebug() {
-        val distances = hikingService.getDistances(smoothed.map { it.coordinate })
+        val distances = HikingService.getDistances(smoothed.map { it.coordinate })
         val header = listOf(listOf("distance", "raw", "smoothed"))
         val data = header + distances.zip(raw.sortedByDescending { it.id }
             .zip(smoothed)).map {

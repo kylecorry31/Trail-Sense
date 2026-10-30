@@ -26,7 +26,6 @@ class AugmentedRealityPathLayerManager(
 
     private var bounds: CoordinateBounds? = null
     private val pathService = PathService.Companion.getInstance(context)
-    private val hikingService = HikingService()
     private val prefs = getAppService<UserPreferences>().paths
     private val pathLoader = PathLoader(pathService)
     private var paths = emptyList<Path>()
@@ -83,7 +82,7 @@ class AugmentedRealityPathLayerManager(
             val path = pathsById[it.key] ?: return@mapNotNull null
 
             val correctedPoints = if (shouldCorrectElevations) {
-                hikingService.correctElevations(
+                HikingService.correctElevations(
                     it.value.sortedBy { it.id },
                     prefs.elevationSmoothing
                 ).reversed()

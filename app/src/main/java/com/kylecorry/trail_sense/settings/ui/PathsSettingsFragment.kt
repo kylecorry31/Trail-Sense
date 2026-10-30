@@ -40,7 +40,6 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
     private var prefBacktrack: SwitchPreferenceCompat? = null
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val prefs by lazy { UserPreferences(requireContext()) }
-    private val hikingService = HikingService()
     private val elevationSmoothingChart
         get() = findPreference<ElevationSmoothingChartPreference>(getString(R.string.pref_holder_elevation_smoothing_chart))
     private var elevationPreviewPath = emptyList<PathPoint>()
@@ -97,7 +96,7 @@ class PathsSettingsFragment : AndromedaPreferenceFragment() {
         elevationPreviewJob?.cancel()
         elevationPreviewJob = viewLifecycleOwner.lifecycleScope.launch {
             delay(PREVIEW_DEBOUNCE_MS.milliseconds)
-            val smoothed = onDefault { hikingService.correctElevations(elevationPreviewPath, smoothing) }
+            val smoothed = onDefault { HikingService.correctElevations(elevationPreviewPath, smoothing) }
             elevationSmoothingChart?.plot(smoothed)
         }
     }

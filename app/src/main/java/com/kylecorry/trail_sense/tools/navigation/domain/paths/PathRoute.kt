@@ -17,15 +17,14 @@ class PathRoute(
     private val clock: Clock = Clock.systemUTC()
 ) {
     private val coordinates = pathPoints.map { it.coordinate }
-    private val hikingService = HikingService()
     private val geometry = RouteGeometry(coordinates)
     private val length = geometry.length
     private val pathId = pathPoints.first().pathId
-    private val cumulativeElevationLossGain = hikingService.getCumulativeElevationLossGain(pathPoints)
+    private val cumulativeElevationLossGain = HikingService.getCumulativeElevationLossGain(pathPoints)
     private val cumulativeElevationLoss = cumulativeElevationLossGain.first
     private val cumulativeElevationGain = cumulativeElevationLossGain.second
     private val cumulativeScarfsDistance = FloatArray(coordinates.size) {
-        hikingService.getScarfsDistance(
+        HikingService.getScarfsDistance(
             Distance.meters(geometry.distanceAt(it)),
             Distance.meters(cumulativeElevationGain[it])
         ).meters().value
@@ -54,7 +53,7 @@ class PathRoute(
         val match = matchLocation(location, tolerance, currentTime)
         val guidance = getGuidance(location, match, tolerance)
         state.time = currentTime
-        state.distanceAlong = guidance.distanceAlong
+        state.distanceAlong = guidance.distanceAlong.meters().value
         state.location = location
         state.guidance = guidance
         return guidance
@@ -84,7 +83,7 @@ class PathRoute(
             },
             remainingElevationGain = remainingElevationGain,
             remainingElevationLoss = remainingElevationLoss,
-            distanceAlong = if (arrived) length else match.distanceAlong,
+            distanceAlong = Distance.meters(if (arrived) length else match.distanceAlong),
             progress = getProgress(match, arrived),
         )
     }

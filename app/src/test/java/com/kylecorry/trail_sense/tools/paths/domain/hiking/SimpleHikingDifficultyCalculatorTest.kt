@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 
 class SimpleHikingDifficultyCalculatorTest {
 
-    private val calculator = SimpleHikingDifficultyCalculator(HikingService())
+    private val calculator = SimpleHikingDifficultyCalculator
 
     @Test
     fun aShortFlatPathIsEasy() {

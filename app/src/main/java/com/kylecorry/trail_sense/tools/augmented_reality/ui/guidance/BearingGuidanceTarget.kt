@@ -6,12 +6,11 @@ import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.Spheric
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 
 data class BearingGuidanceTarget(
-    val destination: Destination.Bearing,
-    val lockBearingToLocation: Boolean
+    val destination: Destination.Bearing
 ) : ARGuidanceTarget {
     override suspend fun refresh(request: ARGuidanceRefreshRequest): ARGuidanceTargetState {
         val targetLocation = destination.targetLocation
-        val point = if (lockBearingToLocation && targetLocation != null) {
+        val point = if (targetLocation != null) {
             GeographicARPoint(targetLocation)
         } else {
             SphericalARPoint(

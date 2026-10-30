@@ -24,15 +24,15 @@ class BearingGuidanceTargetTest {
     @Test
     fun lockedBearingUsesGeographicDestination() = runBlocking {
         val destination = Destination.Bearing(Bearing.from(90f), false, 15f, start)
-        val state = BearingGuidanceTarget(destination, true).refresh(request)
+        val state = BearingGuidanceTarget(destination).refresh(request)
         assertEquals(destination.targetLocation, (state.point as GeographicARPoint).location)
     }
 
     @Test
     fun unlockedBearingPreservesNorthReference() = runBlocking {
         for (trueNorth in listOf(true, false)) {
-            val destination = Destination.Bearing(Bearing.from(90f), trueNorth, 15f, start)
-            val state = BearingGuidanceTarget(destination, false).refresh(request)
+            val destination = Destination.Bearing(Bearing.from(90f), trueNorth, 15f)
+            val state = BearingGuidanceTarget(destination).refresh(request)
             val coordinate = (state.point as SphericalARPoint).coordinate
             assertEquals(90f, coordinate.bearing, 0.001f)
             assertEquals(trueNorth, coordinate.isTrueNorth)
@@ -42,7 +42,7 @@ class BearingGuidanceTargetTest {
     @Test
     fun bearingWithoutLocationFallsBackToDirection() = runBlocking {
         val destination = Destination.Bearing(Bearing.from(45f), true, 0f)
-        val state = BearingGuidanceTarget(destination, true).refresh(request)
+        val state = BearingGuidanceTarget(destination).refresh(request)
         assertEquals(45f, (state.point as SphericalARPoint).coordinate.bearing, 0.001f)
     }
 }

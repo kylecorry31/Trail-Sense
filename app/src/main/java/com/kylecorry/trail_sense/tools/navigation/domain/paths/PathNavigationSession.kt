@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.domain.paths
 
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.ProguardIgnore
 import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 
@@ -41,8 +42,8 @@ data class PathNavigationSessionProgress(
         get() = Coordinate(latitude, longitude)
 
     companion object {
-        fun of(distance: Float, location: Coordinate): PathNavigationSessionProgress {
-            return PathNavigationSessionProgress(distance, location.latitude, location.longitude)
+        fun of(distance: Distance, location: Coordinate): PathNavigationSessionProgress {
+            return PathNavigationSessionProgress(distance.meters().value, location.latitude, location.longitude)
         }
     }
 }

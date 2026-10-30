@@ -114,7 +114,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             gps
         )
     }
-    private val hikingService = HikingService()
     private var isRecording = false
     private val pathService by lazy { PathService.getInstance(requireContext()) }
 
@@ -350,7 +349,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         inBackground {
             onDefault {
                 this@PathOverviewFragment.waypoints =
-                    hikingService.correctElevations(
+                    HikingService.correctElevations(
                         waypoints.sortedBy { it.id },
                         prefs.paths.elevationSmoothing
                     ).reversed()
@@ -399,9 +398,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private suspend fun updateHikingStats() = onDefault {
         val reversed = waypoints.reversed()
-        difficulty = hikingService.getHikingDifficulty(reversed)
+        difficulty = HikingService.getHikingDifficulty(reversed)
         calculatedDuration =
-            hikingService.getHikingDuration(reversed, paceFactor)
+            HikingService.getHikingDuration(reversed, paceFactor)
     }
 
     private fun movePath() {
@@ -416,7 +415,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         onDefault {
             val path = waypoints.reversed()
 
-            val (loss, gain) = hikingService.getElevationLossGain(path)
+            val (loss, gain) = HikingService.getElevationLossGain(path)
 
             val units = prefs.baseDistanceUnits
             elevationGain = gain.convertTo(units)
@@ -424,7 +423,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             elevationRange =
                 path.mapNotNull { it.elevation?.let { Distance.meters(it).convertTo(units) } }
                     .range()
-            slopes = hikingService.getSlopes(path)
+            slopes = HikingService.getSlopes(path)
             slopes.forEach {
                 it.first.slope = it.third
             }

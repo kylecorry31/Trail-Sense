@@ -14,9 +14,9 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import java.time.Duration
 import kotlin.math.pow
 
-class HikingService : IHikingService {
+object HikingService {
 
-    override fun getDistances(points: List<Coordinate>, minDistance: Float): List<Float> {
+    fun getDistances(points: List<Coordinate>, minDistance: Float = 0f): List<Float> {
         if (points.isEmpty()) {
             return emptyList()
         }
@@ -30,7 +30,10 @@ class HikingService : IHikingService {
         }
     }
 
-    override fun correctElevations(points: List<PathPoint>, smoothing: Float): List<PathPoint> {
+    fun correctElevations(
+        points: List<PathPoint>,
+        smoothing: Float = DEFAULT_ELEVATION_SMOOTHING
+    ): List<PathPoint> {
         if (points.isEmpty() || smoothing <= 0f) {
             return points
         }
@@ -68,11 +71,11 @@ class HikingService : IHikingService {
         return span / 1000f
     }
 
-    override fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
-        return SimpleHikingDifficultyCalculator(this).calculate(points)
+    fun getHikingDifficulty(points: List<PathPoint>): HikingDifficulty {
+        return SimpleHikingDifficultyCalculator.calculate(points)
     }
 
-    override fun getAveragePace(difficulty: HikingDifficulty, factor: Float): Speed {
+    fun getAveragePace(difficulty: HikingDifficulty, factor: Float = DEFAULT_PACE_FACTOR): Speed {
         val milesPerHour = when (difficulty) {
             HikingDifficulty.Easy -> 1.5f
             HikingDifficulty.Moderate -> 1.4f
@@ -101,7 +104,7 @@ class HikingService : IHikingService {
         return elevations
     }
 
-    override fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
+    fun getElevationLossGain(path: List<PathPoint>): Pair<Distance, Distance> {
         val (losses, gains) = getCumulativeElevationLossGain(path)
         return Distance.meters(losses.lastOrNull() ?: 0f) to Distance.meters(gains.lastOrNull() ?: 0f)
     }
@@ -127,7 +130,7 @@ class HikingService : IHikingService {
         return losses to gains
     }
 
-    override fun getSlopes(path: List<PathPoint>): List<Triple<PathPoint, PathPoint, Float>> {
+    fun getSlopes(path: List<PathPoint>): List<Triple<PathPoint, PathPoint, Float>> {
         return path.zipWithNext { a, b -> Triple(a, b, getSlope(a, b)) }
     }
 
@@ -138,7 +141,7 @@ class HikingService : IHikingService {
         )
     }
 
-    override fun getHikingDuration(
+    fun getHikingDuration(
         path: List<PathPoint>,
         pace: Speed
     ): Duration {
@@ -161,29 +164,27 @@ class HikingService : IHikingService {
         return Distance.meters(distance.meters().value + SCARF_ELEVATION_GAIN_FACTOR * elevationGain.meters().value)
     }
 
-    override fun getHikingDuration(
+    fun getHikingDuration(
         path: List<PathPoint>,
-        paceFactor: Float,
-        difficulty: HikingDifficulty?
+        paceFactor: Float = DEFAULT_PACE_FACTOR,
+        difficulty: HikingDifficulty? = null
     ): Duration {
         val diff = difficulty ?: getHikingDifficulty(path)
         return getHikingDuration(path, getAveragePace(diff, paceFactor))
     }
 
-    override fun getElevationGain(path: List<PathPoint>): Distance {
+    fun getElevationGain(path: List<PathPoint>): Distance {
         return Geography.getElevationGain(path.mapNotNull { it.elevation }.map { Distance.meters(it) })
     }
 
-    companion object {
-        // Chosen by minimizing the difference from USGS elevations on real paths (see HikingServiceTest)
-        private const val ELEVATION_SMOOTHNESS = 0.25f
-        private const val TARGET_ELEVATION_NOISE = 1.2f
-        private const val MIN_ELEVATION_SMOOTHING_SPAN = 60f
-        private const val MAX_ELEVATION_SMOOTHING_SPAN = 300f
-        private const val ELEVATION_SMOOTHING_SPAN_STEP = 10f
-        private const val MAX_SMOOTHING_FACTOR = 4f
-        const val DEFAULT_ELEVATION_SMOOTHING = 0.5f
-        const val DEFAULT_PACE_FACTOR = 1.75f
-        const val SCARF_ELEVATION_GAIN_FACTOR = 7.92f
-    }
+    // Chosen by minimizing the difference from USGS elevations on real paths (see HikingServiceTest)
+    private const val ELEVATION_SMOOTHNESS = 0.25f
+    private const val TARGET_ELEVATION_NOISE = 1.2f
+    private const val MIN_ELEVATION_SMOOTHING_SPAN = 60f
+    private const val MAX_ELEVATION_SMOOTHING_SPAN = 300f
+    private const val ELEVATION_SMOOTHING_SPAN_STEP = 10f
+    private const val MAX_SMOOTHING_FACTOR = 4f
+    const val DEFAULT_ELEVATION_SMOOTHING = 0.5f
+    const val DEFAULT_PACE_FACTOR = 1.75f
+    const val SCARF_ELEVATION_GAIN_FACTOR = 7.92f
 }

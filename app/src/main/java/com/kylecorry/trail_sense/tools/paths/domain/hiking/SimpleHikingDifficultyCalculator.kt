@@ -12,7 +12,7 @@ import kotlin.math.absoluteValue
 import kotlin.math.max
 
 // Adapted from https://www.smcgov.org/parks/county-hiking-trail-difficulty-rating-system
-class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService) {
+object SimpleHikingDifficultyCalculator {
 
     fun calculate(points: List<PathPoint>): HikingDifficulty {
         // Distance
@@ -26,7 +26,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
         }
 
         // Gain / Loss
-        val gainLoss = hikingService.getElevationLossGain(points)
+        val gainLoss = HikingService.getElevationLossGain(points)
         val loss = gainLoss.first.convertTo(DistanceUnits.Feet).value
         val gain = gainLoss.second.convertTo(DistanceUnits.Feet).value
         val elevationChange = max(gain, -loss)
@@ -37,7 +37,7 @@ class SimpleHikingDifficultyCalculator(private val hikingService: IHikingService
         }
 
         // Slopes
-        val slopes = hikingService.getSlopes(points)
+        val slopes = HikingService.getSlopes(points)
         val maxSlope = slopes.maxByOrNull { it.third.absoluteValue }?.third?.absoluteValue ?: 0f
 
         val rating = if (maxSlope >= 25) {

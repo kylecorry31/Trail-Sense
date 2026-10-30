@@ -453,10 +453,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
                 guidance.setTarget(when (it) {
                     is Destination.Beacon -> BeaconGuidanceTarget(it.beacon)
                     is Destination.Path -> PathGuidanceTarget(it)
-                    is Destination.Bearing -> BearingGuidanceTarget(
-                        it,
-                        userPrefs.navigation.lockBearingToLocation
-                    )
+                    is Destination.Bearing -> BearingGuidanceTarget(it)
                 })
             }
         }

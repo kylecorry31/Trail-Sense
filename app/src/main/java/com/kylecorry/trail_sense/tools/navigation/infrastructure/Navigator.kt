@@ -5,8 +5,11 @@ import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
+import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
@@ -16,6 +19,8 @@ import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearingCalculator
+import com.kylecorry.trail_sense.tools.navigation.domain.guidance.Guidance
+import com.kylecorry.trail_sense.tools.navigation.domain.guidance.GuidanceInput
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
@@ -25,7 +30,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.firstOrNull
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -45,13 +49,17 @@ class Navigator private constructor(context: Context) {
     // Bearings
     private val navigationBearing = bearings.getBearing()
 
-    private val bearingDestination = navigationBearing.map {
-        it?.let {
+    private val bearingInvalidationKey = MutableStateFlow(0)
+
+    private val bearingDestination = combine(navigationBearing, bearingInvalidationKey) { bearing, _ ->
+        bearing?.let {
+            // The start location is hidden when the bearing is not locked to it, so it is not seen by consumers
+            val startLocation = it.startLocation.takeIf { userPrefs.navigation.lockBearingToLocation }
             Destination.Bearing(
                 Bearing.from(it.bearing),
                 userPrefs.compass.useTrueNorth,
-                getDeclination(it.startLocation ?: locationSubsystem.location),
-                it.startLocation,
+                getDeclination(startLocation ?: locationSubsystem.location),
+                startLocation,
                 userPrefs.navigation.bearingDistance
             )
         }
@@ -92,6 +100,13 @@ class Navigator private constructor(context: Context) {
 
     init {
         listenTask.start()
+        val lockBearingKey = context.getString(R.string.pref_lock_bearing_to_location)
+        PreferencesSubsystem.getInstance(context).preferences.onChange.subscribe { key ->
+            if (key == lockBearingKey) {
+                bearingInvalidationKey.update { it + 1 }
+            }
+            true
+        }
         // Keeps the beacon destination in sync with external changes to the preferences
         prefs.onChange.subscribe { key ->
             if (key == BEACON_DESTINATION_ID_KEY) {
@@ -233,17 +248,30 @@ class Navigator private constructor(context: Context) {
         destination: Destination,
         declination: Float
     ): Bearing {
-        // The starting location is ignored when the user disables bearing locking
-        val target = if (destination is Destination.Bearing && !userPrefs.navigation.lockBearingToLocation) {
-            destination.copy(startingLocation = null)
-        } else {
-            destination
-        }
-        return NavigationBearingCalculator.getBearing(
+        return getGuidance(
+            destination,
             myLocation,
-            target,
-            declination,
-            userPrefs.compass.useTrueNorth
+            locationSubsystem.elevation,
+            declination
+        ).targetBearing
+    }
+
+    fun getGuidance(
+        destination: Destination,
+        location: Coordinate,
+        elevation: Distance,
+        declination: Float,
+        useTrueNorthOverride: Boolean? = null
+    ): Guidance {
+        val compassUsesTrueNorth = userPrefs.compass.useTrueNorth
+        // Bearings are recorded against the compass setting, so the override does not apply to them
+        val useTrueNorth = if (destination is Destination.Bearing) {
+            compassUsesTrueNorth
+        } else {
+            useTrueNorthOverride ?: compassUsesTrueNorth
+        }
+        return destination.getGuidance(
+            GuidanceInput(location, elevation, declination, useTrueNorth)
         )
     }
 

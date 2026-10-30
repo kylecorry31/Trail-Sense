@@ -13,8 +13,6 @@ class HikingServiceTest {
 
     @Test
     fun getDifficulty() = runBlocking {
-        val hikingService = HikingService()
-
         val paths = mapOf(
             // Short with a steep finish (USGS shows 12 m of climb in the last 50 m)
             "paths/durfee short.gpx" to HikingDifficulty.Moderate,
@@ -32,27 +30,26 @@ class HikingServiceTest {
 
         for ((key, value) in paths) {
             // Correct elevations to match how they would be in the app
-            val points = hikingService.correctElevations(TestData.loadGpxPoints(key))
-            val difficulty = hikingService.getHikingDifficulty(points)
+            val points = HikingService.correctElevations(TestData.loadGpxPoints(key))
+            val difficulty = HikingService.getHikingDifficulty(points)
             assertEquals(value, difficulty)
         }
     }
 
     @Test
     fun correctedElevationsMatchUsgs() {
-        val hikingService = HikingService()
         val elevationErrors = mutableListOf<Float>()
         val gainLossErrors = mutableListOf<Float>()
 
         // The USGS paths are the recorded paths with the elevations replaced by the USGS 3DEP elevation (scripts/fill_usgs_elevations.py)
         for (name in USGS_PATHS) {
-            val corrected = hikingService.correctElevations(TestData.loadGpxPoints("paths/$name.gpx"))
+            val corrected = HikingService.correctElevations(TestData.loadGpxPoints("paths/$name.gpx"))
             val usgs = TestData.loadGpxPoints("paths/usgs/$name.gpx")
 
             elevationErrors.addAll(corrected.indices.map { corrected[it].elevation!! - usgs[it].elevation!! })
 
-            val (loss, gain) = hikingService.getElevationLossGain(corrected)
-            val (usgsLoss, usgsGain) = hikingService.getElevationLossGain(usgs)
+            val (loss, gain) = HikingService.getElevationLossGain(corrected)
+            val (usgsLoss, usgsGain) = HikingService.getElevationLossGain(usgs)
             val gainError = gain.meters().value - usgsGain.meters().value
             val lossError = usgsLoss.meters().value - loss.meters().value
             val totalChange = usgsGain.meters().value - usgsLoss.meters().value
@@ -69,13 +66,12 @@ class HikingServiceTest {
 
     @Test
     fun lowSmoothingDoesNotThrowPointsOffThePath() {
-        val hikingService = HikingService()
         val failures = mutableListOf<String>()
 
         for (name in USGS_PATHS) {
             val recorded = TestData.loadGpxPoints("paths/$name.gpx")
             for (smoothing in listOf(0.05f, 0.1f, 0.25f, 0.4f)) {
-                val corrected = hikingService.correctElevations(recorded, smoothing)
+                val corrected = HikingService.correctElevations(recorded, smoothing)
                 val worst = corrected.indices.maxOf { (corrected[it].elevation!! - recorded[it].elevation!!).absoluteValue }
                 if (worst > MAX_CORRECTION_METERS) {
                     failures.add("$name at $smoothing moved a point by $worst m")

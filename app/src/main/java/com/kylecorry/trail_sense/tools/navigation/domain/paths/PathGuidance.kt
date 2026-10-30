@@ -12,6 +12,6 @@ data class PathGuidance(
     val remainingRoute: List<PathPoint>,
     val remainingElevationGain: Distance,
     val remainingElevationLoss: Distance,
-    val distanceAlong: Float,
+    val distanceAlong: Distance,
     val progress: Float
 )

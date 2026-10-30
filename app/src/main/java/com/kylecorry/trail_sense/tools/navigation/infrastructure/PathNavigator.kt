@@ -37,7 +37,6 @@ class PathNavigator(context: Context) {
     private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
     private val store = PathNavigationStore()
     private val paths = PathService.getInstance(context)
-    private val hikingService = HikingService()
     private val destinationState = MutableStateFlow<Destination.Path?>(null)
     private val restoringState = MutableStateFlow(false)
     val isRestoring = restoringState.asStateFlow()
@@ -120,7 +119,7 @@ class PathNavigator(context: Context) {
     private suspend fun build(): Pair<PathNavigationSession, Destination.Path>? {
         val session = store.load() ?: return null
         val path = paths.getPath(session.pathId) ?: return null
-        val points = hikingService.correctElevations(
+        val points = HikingService.correctElevations(
             paths.getWaypoints(session.pathId).sortedBy { it.id },
             prefs.elevationSmoothing
         )
