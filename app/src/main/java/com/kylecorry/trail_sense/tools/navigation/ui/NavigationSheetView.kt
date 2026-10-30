@@ -22,6 +22,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
+import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
@@ -40,6 +41,7 @@ import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.extensions.flatten
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.domain.guidance.Guidance
@@ -52,6 +54,7 @@ import kotlinx.coroutines.launch
 import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
+import kotlin.math.ceil
 import kotlin.math.roundToInt
 
 class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
@@ -60,6 +63,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private val prefs = DependencyRegistry.get<UserPreferences>()
     private val formatter = DependencyRegistry.get<FormatService>()
     private val navigator = DependencyRegistry.get<Navigator>()
+    private val hasCompass = DependencyRegistry.get<SensorService>().hasCompass()
 
     private val navigationService = NavigationService()
 
@@ -105,6 +109,18 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
         cancelButton.flatten()
         cancelButton.setOnClickListener { cancelNavigation() }
+        reserveTargetBearingWidth()
+    }
+
+    // The bearing sits next to the title, so it must not resize as the text changes
+    private fun reserveTargetBearingWidth() {
+        val paint = targetBearingView.paint
+        val widest = CompassDirection.entries.maxOf {
+            paint.measureText(
+                "${formatter.formatDegrees(WIDEST_BEARING_DEGREES)} ${formatter.formatDirection(it)}"
+            )
+        }
+        targetBearingView.minWidth = ceil(widest).toInt()
     }
 
     override fun onAttachedToWindow() {
@@ -314,10 +330,14 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             context.getString(R.string.navigation_traveled)
         )
         secondaryStat.hide()
-        tertiaryStat.show(
-            formatBearing(values.bearing.value),
-            context.getString(R.string.navigation_facing)
-        )
+        if (hasCompass) {
+            tertiaryStat.show(
+                formatBearing(values.bearing.value),
+                context.getString(R.string.navigation_facing)
+            )
+        } else {
+            tertiaryStat.hide()
+        }
     }
 
     private fun updatePathNavigation(
@@ -354,11 +374,26 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private fun updateDirection(guidance: Guidance, values: NavigationSensorValues) {
         arrowView.isVisible = true
         targetBearingView.isVisible = true
+        targetBearingView.text = formatBearing(guidance.targetBearing.value)
+
+        if (!hasCompass) {
+            arrowView.setImageResource(R.drawable.ic_compass_unavailable)
+            arrowView.rotation = 0f
+            arrowView.imageTintList =
+                ColorStateList.valueOf(Resources.androidTextColorSecondary(context))
+            arrowView.contentDescription = context.getString(R.string.compass_unavailable)
+            arrowView.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
+            targetBearingView.setTextColor(Resources.androidTextColorPrimary(context))
+            return
+        }
+
+        arrowView.setImageResource(R.drawable.ic_navigation_arrow)
+        arrowView.contentDescription = null
+        arrowView.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
         val turn = deltaAngle(values.bearing.value, guidance.targetBearing.value)
         val color = getDirectionColor(turn.absoluteValue)
         arrowView.rotation = turn
         arrowView.imageTintList = ColorStateList.valueOf(color)
-        targetBearingView.text = formatBearing(guidance.targetBearing.value)
         targetBearingView.setTextColor(color)
     }
 
@@ -462,6 +497,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
         // At or beyond this many degrees from the target, the direction is fully "wrong"
         private const val WRONG_DIRECTION_DEGREES = 45f
+
+        // Three digits of the widest glyph
+        private const val WIDEST_BEARING_DEGREES = 888f
 
         private const val STAT_ICON_SIZE_RATIO = 0.8f
 
