@@ -1694,4 +1694,11 @@
     <string name="ar_path_appearance">Apparence</string>
     <string name="ar_path_appearance_ribbon">Ruban</string>
     <string name="ar_path_appearance_line">Ligne</string>
+    <string name="navigation_elevation_format">(Élév. %s)</string>
+    <string name="navigation_remaining">Restant</string>
+    <string name="navigation_traveled">A voyagé</string>
+    <string name="navigation_facing">Face à</string>
+    <string name="navigation_remaining_gain">Gain restant</string>
+    <string name="navigation_remaining_loss">Perte résiduelle</string>
+    <string name="navigation_arrive_format">Arrivée à %s</string>
 </resources>
