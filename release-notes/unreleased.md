@@ -41,6 +41,11 @@ The behavior of the notification has been improved to open the path when tapped 
 
 ## Navigation
 
+### Navigation Sheet
+The navigation sheet was redesigned to improve readability. A new arrow indicator shows the direction to follow, and it will change between green and red depending on whether you are facing the correct direction.
+
+TODO: Screenshot of the redesigned navigation sheet
+
 ### Map Layer Improvements
 
 - The navigation layer is now enabled by default on the radar compass and has a background color setting
