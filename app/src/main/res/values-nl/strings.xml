@@ -1681,4 +1681,10 @@
     <string name="redo">Opnieuw doen</string>
     <string name="path_edit_hint">Tik om een punt te maken. Veeg een punt om te verplaatsen. Houd ingedrukt om te selecteren.</string>
     <string name="path_edit_hint_selected">Tik om een punt te maken na de geselecteerde. Veeg om te verplaatsen. Houd ingedrukt om te deselecteren.</string>
+    <string name="navigation_elevation_format">(Ele. %s)</string>
+    <string name="navigation_remaining">Resterend</string>
+    <string name="navigation_traveled">Gereisd</string>
+    <string name="navigation_remaining_gain">Resterende stijging</string>
+    <string name="navigation_remaining_loss">Resterende daling</string>
+    <string name="navigation_arrive_format">Aankomst %s</string>
 </resources>
