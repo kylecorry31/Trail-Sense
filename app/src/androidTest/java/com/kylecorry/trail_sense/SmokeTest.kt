@@ -203,7 +203,7 @@ class SmokeTest {
 
     private fun smokeTestUserGuide() {
         click("Flashlight")
-        hasText("The Flashlight tool")
+        hasText("Use the Flashlight tool")
         back()
     }
 
