@@ -189,7 +189,8 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
 
         hasText(R.id.navigation_sheet_title, "Summit")
         hasText("42.500000°,  -71.500000°")
-        hasText("(Ele. 1000 ft)")
+        // Non-breaking spaces keep the elevation together if the subtitle wraps
+        hasText("(Ele. 1000 ft)")
         hasText(R.id.navigation_primary_value, "40.41 mi")
         hasText(R.id.navigation_tertiary_value, "1000 ft")
         hasText(R.id.navigation_tertiary_label, string(R.string.navigation_remaining_gain))

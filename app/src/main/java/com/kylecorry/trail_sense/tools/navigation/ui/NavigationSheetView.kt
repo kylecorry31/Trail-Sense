@@ -74,6 +74,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private var restoringJob: Job? = null
 
     // VIEWS
+    private val textContainer: View
     private val titleView: TextView
     private val subtitleView: TextView
     private val cancelButton: MaterialButton
@@ -86,6 +87,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
     init {
         inflate(context, R.layout.view_navigation_sheet, this)
+        textContainer = findViewById(R.id.navigation_text_container)
         titleView = findViewById(R.id.navigation_sheet_title)
         subtitleView = findViewById(R.id.navigation_subtitle)
         cancelButton = findViewById(R.id.navigation_cancel)
@@ -217,9 +219,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         isVisible = true
         cancelButton.isVisible = isNavigating
 
-        titleView.setOnClickListener(null)
+        textContainer.setAction(null)
         subtitleView.isVisible = false
-        subtitleView.setOnClickListener(null)
         progressView.isVisible = false
 
         val guidance = getGuidance(destination, values)
@@ -237,7 +238,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         titleView.text = context.getString(R.string.loading)
         titleView.contentDescription = null
         titleView.setStartIcon(null, TITLE_ICON_SIZE_RATIO)
-        titleView.setOnClickListener(null)
+        textContainer.setAction(null)
         subtitleView.isVisible = false
         progressView.isVisible = false
         cancelButton.isVisible = false
@@ -282,19 +283,19 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     ) {
         val beacon = destination.beacon
         setTitle(R.drawable.ic_location, R.string.beacon, beacon.name)
-        titleView.setOnClickListener { openBeacon(beacon.id) }
+        textContainer.setAction { openBeacon(beacon.id) }
         subtitleView.isVisible = true
         subtitleView.text = formatter.join(
             formatter.formatLocation(beacon.coordinate),
             beacon.elevation?.let {
+                // Keep the elevation together if the subtitle wraps
                 context.getString(
                     R.string.navigation_elevation_format,
                     formatter.formatElevation(Distance.meters(it))
-                )
+                ).replace(' ', NON_BREAKING_SPACE)
             },
             separator = FormatService.Separator.Space
         )
-        subtitleView.setOnClickListener { openBeacon(beacon.id) }
 
         updateRemainingStat(guidance)
         updateEtaStat(guidance, values)
@@ -350,7 +351,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             R.string.path,
             destination.path.name ?: context.getString(R.string.path)
         )
-        titleView.setOnClickListener { openPath(destination.path.id) }
+        textContainer.setAction { openPath(destination.path.id) }
         progressView.isVisible = true
         progressView.progress = ((guidance.progress ?: 0f) * progressView.max).roundToInt()
 
@@ -381,20 +382,14 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             arrowView.rotation = 0f
             arrowView.imageTintList =
                 ColorStateList.valueOf(Resources.androidTextColorSecondary(context))
-            arrowView.contentDescription = context.getString(R.string.compass_unavailable)
-            arrowView.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_YES
-            targetBearingView.setTextColor(Resources.androidTextColorPrimary(context))
             return
         }
 
         arrowView.setImageResource(R.drawable.ic_navigation_arrow)
-        arrowView.contentDescription = null
-        arrowView.importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
         val turn = deltaAngle(values.bearing.value, guidance.targetBearing.value)
         val color = getDirectionColor(turn.absoluteValue)
         arrowView.rotation = turn
         arrowView.imageTintList = ColorStateList.valueOf(color)
-        targetBearingView.setTextColor(color)
     }
 
     private fun getDirectionColor(offset: Float): Int {
@@ -419,7 +414,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
             )
         }
         secondaryStat.show(
-            duration?.let { formatter.formatDuration(it, false) },
+            duration?.let { formatter.formatDuration(it, it.toHours() >= LONG_DURATION_HOURS) },
             context.getString(R.string.navigation_arrive_format, arrival)
         )
     }
@@ -437,7 +432,12 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
     private fun formatRelativeDistance(distance: Distance): String {
         val relative = distance.convertTo(prefs.baseDistanceUnits).toRelativeDistance()
-        return formatter.formatDistance(relative, Units.getDecimalPlaces(relative.units), false)
+        val decimalPlaces = if (relative.value >= LARGE_DISTANCE_THRESHOLD) {
+            0
+        } else {
+            Units.getDecimalPlaces(relative.units)
+        }
+        return formatter.formatDistance(relative, decimalPlaces, false)
     }
 
     private fun formatElevationChange(distance: Distance): String {
@@ -501,10 +501,23 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         // Three digits of the widest glyph
         private const val WIDEST_BEARING_DEGREES = 888f
 
+        // Distances this large (in their displayed units) drop their decimals to keep the stat narrow
+        private const val LARGE_DISTANCE_THRESHOLD = 100f
+
+        // Durations this long drop their minutes to keep the stat narrow
+        private const val LONG_DURATION_HOURS = 100L
+
+        private const val NON_BREAKING_SPACE = ' '
+
         private const val STAT_ICON_SIZE_RATIO = 0.8f
 
         private const val TITLE_ICON_SIZE_RATIO = 1.1f
     }
+}
+
+private fun View.setAction(action: (() -> Unit)?) {
+    setOnClickListener(action?.let { { it() } })
+    isClickable = action != null
 }
 
 private fun TextView.setStartIcon(@DrawableRes icon: Int?, sizeRatio: Float) {
