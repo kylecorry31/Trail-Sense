@@ -38,21 +38,6 @@ Trail Sense is an offline multi-tool Android app for hiking, backpacking, campin
 
 <img src="fastlane/metadata/android/en-US/images/featureGraphic.png">
 
-See the [User Guide](https://kylecorry.com/Trail-Sense/user-guide/) for a guide on how to use Trail Sense (also available in app, just search on the Tools tab for User Guide).
-
-See the [Technical Blog / Research](https://kylecorry.com/research/categories/trail-sense/)
-
-## Table of Contents
-
-- [Features](#features)
-- [Privacy](#privacy)
-  - [Permissions](#permissions)
-- [Contributing](#contributing)
-- [Copying](#copying)
-- [FAQ](#faq)
-- [Open Source Credits](#open-source-credits)
-- [License](#license)
-
 ## Features
 
 - Navigate using beacons (waypoints), paths, and bearings
@@ -65,7 +50,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - Use your phone as a flashlight
 - [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
-See https://github.com/users/kylecorry31/projects/2 for my current priority order of new features. There are no dates associated with these items. Since Trail Sense is a hobby project that I also use daily, priorities may change as my interests and needs evolve.
+See the [project board](https://github.com/users/kylecorry31/projects/2) for the current priority order of planned features. There are no associated release dates. Since Trail Sense is a hobby project that I also use daily, priorities may change as my interests and needs evolve.
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/discussions/new/choose)
 
@@ -94,9 +79,15 @@ See the need for a new feature? [Post it here!](https://github.com/kylecorry31/T
   </tr>
 </table>
 
+## Documentation
+
+See the [User Guide](https://kylecorry.com/Trail-Sense/user-guide/) for a guide on how to use Trail Sense. This is also available in the app, just search on the Tools tab for User Guide.
+
+See the [Technical Blog / Research](https://kylecorry.com/research/categories/trail-sense/) for technical details about how I implemented a few of the features.
+
 ## Privacy
 
-Location information gathered by this application does not leave your device (as a matter of fact, this app doesn't use the Internet at all). The altitude and pressure history for the last 48 hours is stored in local app storage - this is used to determine weather forecasts. The last known location is also stored in app preferences to allow faster load times and support app functionality when the GPS can not be reached. The beacons and paths store their location information in a local SQLite database. All of this information is cleared when you clear the app storage or delete it.
+Trail Sense does not require an Internet connection. All app data, including location history, is stored in the app's private local storage, which is inaccessible to other apps. This data is cleared when you clear Trail Sense's app storage or uninstall it.
 
 ### Permissions
 #### Sensitive
