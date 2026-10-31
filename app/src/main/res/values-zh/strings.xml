@@ -1667,4 +1667,6 @@
     <string name="navigation_facing">对面</string>
     <string name="navigation_traveled">人流密集的</string>
     <string name="navigation_arrive_format">%s 抵达</string>
+    <string name="navigation_remaining_gain">剩余前近距离</string>
+    <string name="navigation_remaining_loss">剩余后退距离</string>
 </resources>
