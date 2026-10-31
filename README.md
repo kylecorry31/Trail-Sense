@@ -1,8 +1,8 @@
 # Trail Sense
 
-Use your Android phone's sensors to assist with wilderness treks or survival situations. Designed for entirely offline use.
+Trail Sense is an offline multi-tool app for hiking, backpacking, camping, wilderness survival, foraging, and hunting.
 
-> Trail Sense is a tool, and just like any other tool that you bring into the wilderness, it's essential to have backup equipment and skills.
+> Trail Sense is a tool, and like any other tool you bring into the wilderness, it's essential to have backup equipment and the skills to stay safe without it. Never rely on it alone.
 
 <table>
     <tr>
@@ -43,8 +43,6 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 
 ## Table of Contents
 
-- [Feature Roadmap](#feature-roadmap)
-- [Goals](#goals)
 - [Features](#features)
 - [Privacy](#privacy)
   - [Permissions](#permissions)
@@ -55,28 +53,20 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-See https://github.com/users/kylecorry31/projects/2 for my current priority order of issues. There are no dates associated with the roadmap items. Since Trail Sense is a hobby project that I also use daily, priorities may change as my interests and needs evolve.
-
-## Goals
-- Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
-- Features must provide some benefits to people using the app while hiking, in a survival situation, etc.
-- Features should make use of the sensors on a phone rather than relying on stored information such as guides
-- Features must be based on peer-reviewed science or be verified against real world data
-- [Use Cases](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
 ## Features
 
-- Designed for hiking, backpacking, camping, foraging, and hunting
-- Place beacons and navigate to them
-- Follow paths
+- Navigate using beacons (waypoints), paths, and bearings
 - Retrace your steps with backtrack
 - Use a photo as a map
-- Load offline maps
+- View offline maps
 - Plan what to pack
 - Be alerted before the sun sets
 - Predict the weather and tides
 - Use your phone as a flashlight
 - [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
+
+See https://github.com/users/kylecorry31/projects/2 for my current priority order of new features. There are no dates associated with these items. Since Trail Sense is a hobby project that I also use daily, priorities may change as my interests and needs evolve.
 
 See the need for a new feature? [Post it here!](https://github.com/kylecorry31/Trail-Sense/discussions/new/choose)
 
@@ -156,7 +146,7 @@ Please change the following if you are using this as the base for your app:
 - App icon (optional)
 
 ## FAQ
-The FAQ has moved [to the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/Frequently-Asked-Questions-(FAQ))
+The FAQ can be found [on the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/Frequently-Asked-Questions-(FAQ))
 
 ## Open Source Credits
 
