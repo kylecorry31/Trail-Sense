@@ -15,7 +15,7 @@ To detect metal, do the following:
 2. Hold your phone 2-3 inches (5-8 cm) above the area you want to scan with the screen facing up.
 3. Move your phone slowly, keeping the distance and orientation consistent.
 
-When the detector finds metal, the phone vibrates and shows a detection indicator.
+When the detector finds metal, the phone vibrates and shows a detection indicator next to the reading. To turn the vibration on or off, tap the vibration icon in the top-left corner.
 
 ## Read the screen
 The screen shows the following:

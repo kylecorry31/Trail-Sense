@@ -88,7 +88,6 @@
     <string name="pref_use_sea_level_pressure_title">Lufttrykk ved havnivå</string>
     <string name="pref_altimeter_calibration_title">Høydemåler</string>
     <string name="request_permission">Be om posisjonstillatelse</string>
-    <string name="pref_auto_location_title">Automatisk justering av posisjon</string>
     <string name="compass_declination">Misvisning</string>
     <string name="fahrenheit">Fahrenheit</string>
     <string name="pref_use_24_hour_title">Bruk 24-timersklokke</string>
@@ -346,7 +345,6 @@
     <string name="precise_temp_f_format">%s °F</string>
     <string name="unavailable">Utilgjengelig</string>
     <string name="gps_searching">Søker</string>
-    <string name="gps_stale">Foreldet</string>
     <string name="gps_user">Bruker</string>
     <string name="magnetometer">Magnetometer</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
@@ -459,7 +457,6 @@
     <string name="liters">Liter</string>
     <string name="clear_cache">Tøm hurtiglager</string>
     <string name="destination_elevation">Destinasjonshøyde</string>
-    <string name="base_temperature">Utgangspunkttemperatur</string>
     <string name="base_elevation">Utgangspunkthøyde</string>
     <string name="hygiene">Hygiene</string>
     <string name="documents">Dokumenter</string>
@@ -726,7 +723,6 @@
     <string name="steps">Skritt</string>
     <string name="distance_alert_distance_reached">Du har nådd %s</string>
     <string name="temperature_history">Temperaturhistorikk - siste %s</string>
-    <string name="since_time">siden %s</string>
     <string name="humidity_history">Luftfuktighetshistorikk - siste %s</string>
     <string name="distance_alert">Distansevarsel</string>
     <string name="remove_distance_alert">Fjerne distansevarsel (%s)\?</string>
@@ -923,7 +919,6 @@
     <string name="pref_include_leading_zero_title">Legg til ledende null i klokkeslett</string>
     <string name="autofill_source">Auto-utfyll kilde</string>
     <string name="gps_unavailable_resolution">Aktiver posisjon eller endre posisjonskilde til \'Bare telefon\' eller \'Høy nøyaktighet\'</string>
-    <string name="calibrate_map_point">Kalibrer med kjente steder (%1$d / %2$d)</string>
     <string name="map_calibration">Kartkalibrering</string>
     <string name="map_calibration_instructions">Velg to punkt som du både kan identifisere på kartet og i virkeligheten. For hvert punkt, trykk på punktets nøyaktige posisjon, deretter angi de virkelige koordinatene.\n \nGode kalibreringspunkter er langt unna hverandre og lett gjenkjennbare. Som for eksempel starten av en sti, parkeringsplass, et skilt, et landemerke, kryss mellom kartrutenett, eller et stikryss.\n\nHvis begge punkter er gyldige, trykk \"Fullfør kalibrering\". Hvis du kun har ett punkt, eller vil fullføre senere, trykk på \"Lagre utkast\".</string>
     <string name="accelerometer">Akselerometer</string>
@@ -993,7 +988,6 @@
     <string name="pref_start_camera_in_3d_view_summary">Åpner kameraet når du trykker knappen Vis i 3D</string>
     <string name="layers">Lag</string>
     <string name="grid">Rutenett</string>
-    <string name="date">Dato</string>
     <string name="view_in_3d">Vis i 3D</string>
     <string name="visible">Synlig</string>
     <string name="cloud_scanner">Sky-skanner</string>
@@ -1249,16 +1243,12 @@
     <string name="clock_source_device">Enhetens tid</string>
     <string name="clock_source_gps">GPS-tid</string>
     <string name="offline_maps">Offline-kart</string>
-    <string name="offline_map_import_failed">Kan ikke importere kart</string>
-    <string name="no_offline_maps">Ingen offline-kart</string>
-    <string name="unsupported_offline_map_file">Kartfil som ikke støttes</string>
     <string name="manage_maps">Håndter kart</string>
     <string name="map_type_photo">Foto</string>
     <plurals name="offline_map_group_summary">
         <item quantity="one">%d kart</item>
         <item quantity="other">%d kart</item>
     </plurals>
-    <string name="delete_offline_map_group_message">%s og alle kartene i den vil bli slettet.</string>
     <string name="photo_map_disclaimer">Ha alltid med et fysisk kart som reserve og kontroller nøyaktigheten til Trail Sense.\n\nKartfiler er ikke inkludert i Trail Sense og må bli lastet ned eller kalibrert fra et bilde. Du kan finne kart å laste ned på https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="load_pdf_tiles">Last PDF-fliser</string>
     <string name="load_pdf_tiles_summary">PDF-kart vil bli skarpere, men ytelsen kan bli påvirket</string>
@@ -1276,7 +1266,6 @@
     <string name="reload">Last inn på nytt</string>
     <string name="disconnect">Koble fra</string>
     <string name="plugin_unavailable">Dette programtillegget er utilgjengelig eller ikke lenger tilkoblet.</string>
-    <string name="clear_plugin_cache">Tøm mellomlagring for programtillegg</string>
     <string name="connected_plugins">Tilkoblede programtillegg</string>
     <string name="available_plugins">Tilgjengelige programtillegg</string>
     <string name="plugin_name">Programtillegg: %s</string>

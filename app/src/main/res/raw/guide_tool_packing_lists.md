@@ -71,7 +71,8 @@ To sort the items in a packing list, do the following:
 
 1. Open the packing list.
 2. Tap the menu button in the top-right corner.
-3. Select a sort option.
+3. Select **Sort**.
+4. Select a sort option, and tap **OK**.
 
 The sort options are:
 
@@ -90,10 +91,11 @@ To rename a packing list, do one of the following:
 Then enter a new name.
 
 ## Clear the packed amounts
-To set the packed amounts of all items to 0 without deleting the items, do one of the following:
+To set the packed amounts of all items to 0 without deleting the items, do the following:
 
-- Tap the menu button on the right side of the packing list, and select **Clear amounts**.
-- Open the packing list, tap the menu button in the top-right corner, and select **Clear amounts**.
+1. Open the packing list.
+2. Tap the menu button in the top-right corner.
+3. Select **Clear amounts**.
 
 ## Delete a packing list
 **Warning:** Deleting a packing list permanently deletes all of the items in it.

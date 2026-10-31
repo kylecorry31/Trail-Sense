@@ -214,7 +214,7 @@ When you switch to a new device or reinstall the app, back up your data and sett
 
 - **Backup**: Creates a backup of your data and settings as an unencrypted zip file. The file contains location data, so send it only to people you trust.
 - **Restore**: Restores a backup of your data and settings. **Warning:** This permanently overwrites your current data and settings. You can restore from an older version of the app but not from a newer version.
-- **Automatic backup**: Creates a backup of your data and settings every day in the folder you choose. It keeps only the last 2 backups.
+- **Automatic backup**: Creates a backup of your data and settings every day at about 10 PM in the folder you choose. It keeps only the last 2 backups.
 - **Include trail maps in backups**: Includes Mapsforge (.map) files in backups. These files can be large.
 
 ## Tool settings
@@ -241,7 +241,7 @@ Open **Settings > Theme** to change the following theme settings:
 - **Fullscreen in night mode**: Uses fullscreen mode when the night theme is enabled. To show the system UI, swipe from the top.
 
 ## About
-Open **Settings > About** to find the following information about Trail Sense:
+Scroll to the **About** section at the bottom of **Settings** to find the following information about Trail Sense:
 
 - **Version**: The version of the app you are using.
 - **Privacy policy**: A link to the privacy policy.
@@ -251,7 +251,7 @@ Open **Settings > About** to find the following information about Trail Sense:
 - **Licenses**: A list of the open source licenses used in Trail Sense.
 
 ## Recover from crashes with safe mode
-If Trail Sense crashes several times in a row, it enters safe mode. Safe mode disables map tile layers and opens to Settings by default, so you can disable any features that might be causing the issue. Safe mode turns off automatically after 20 seconds.
+If Trail Sense starts three times in a row, each within 30 seconds of the previous start, such as when it keeps crashing, it enters safe mode. Safe mode disables map tile layers and opens to Settings by default, so you can disable any features that might be causing the issue. Safe mode turns off automatically after 20 seconds.
 
 ## Experimental settings
 Experimental features aren't ready for general use and might not work as expected. To use them, open **Settings > Experimental**.
@@ -306,7 +306,7 @@ Trail Sense handles plugins as follows:
 - If the plugin's signature changes, Trail Sense disconnects the plugin, and you must reconnect it.
 
 ## Quick action
-To use the Settings quick action, enable it in the settings for the tab you want it on. The quick action has the following gestures:
+To use the Settings quick action, add it to a tab, as described in the Tools guide. The quick action has the following gestures:
 
 - **Tap**: Opens the settings page for the active tool.
 - **Long-press**: Opens the app settings.

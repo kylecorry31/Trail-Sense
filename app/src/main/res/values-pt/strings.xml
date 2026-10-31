@@ -212,7 +212,6 @@
     <string name="elevation_from_pressure">Substituição do barômetro</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="request_permission">Solicitar permissão</string>
-    <string name="pref_auto_location_title">Ajustar automaticamente a localização</string>
     <string name="location">Localização</string>
     <string name="compass_accuracy_improved">Precisão da bússola melhorada para %s</string>
     <string name="compass_reported_accuracy">Precisão reportada: %s</string>
@@ -350,7 +349,6 @@
     <string name="quality_poor">Baixa</string>
     <string name="unavailable">Indisponível</string>
     <string name="gps_searching">A procurar</string>
-    <string name="gps_stale">Interrompido</string>
     <string name="gps_user">Utilizador</string>
     <string name="import_btn">Importar</string>
     <string name="export">Exportar</string>
@@ -524,7 +522,6 @@
     <string name="pref_map_url_source_title">Mapa de partilha da localização</string>
     <string name="clear_cache">Limpar ficheiros temporários</string>
     <string name="destination_elevation">Elevação do local de destino</string>
-    <string name="base_temperature">Temperatura de base</string>
     <string name="base_elevation">Elevação de base</string>
     <string name="unit_yards">Jardas</string>
     <string name="yards_format">%s yd</string>
@@ -751,7 +748,6 @@
     <string name="map_projection_equidistant">Equidistante</string>
     <string name="distance_unset">Distância não definida</string>
     <string name="duration_second_format">%ds</string>
-    <string name="since_time">desde %s</string>
     <string name="activity_recognition_permission_denied">Permissão de atividade física negada, não foi possível ligar os recursos do pedómetro. Pode ativar nas configurações.</string>
     <string name="temp_f_short">°F</string>
     <string name="soon">Em breve</string>
@@ -977,7 +973,6 @@
     <string name="autofill_source">Fonte do preenchimento automático</string>
     <string name="data_source">Fonte: %s</string>
     <string name="map_calibration_instructions">Toque num local conhecido no mapa e insira as coordenadas do mundo real. Pode guardar a calibração clicando no botão \"Feito\". \n \nExemplos de bons pontos de calibração são um estacionamento, um ponto de sinalização, um ponto de referência ou um cruzamento ao longo de um trilho.</string>
-    <string name="calibrate_map_point">Calibrar com localizações conhecidas (%1$d / %2$d)</string>
     <string name="map_calibration">Calibração do mapa</string>
     <string name="compass_source_mag_gyro">Magnetómetro + Giroscópio</string>
     <string name="compass_source_legacy_ts">Legado (Trail Sense)</string>
@@ -1140,7 +1135,6 @@
     <string name="visible">Visível</string>
     <string name="grid">Grade</string>
     <string name="ar_layer_override_message">As configurações de camada podem ser substituídas por orientações, como o guia Astronomia.</string>
-    <string name="date">Data</string>
     <string name="path_distance_performance_disclaimer">Máximo recomendado de %s</string>
     <string name="ar_calibration_disclaimer">Antes de cada uso da ferramenta de Realidade Aumentada, verifique se os ícones de sol ou lua estão alinhados corretamente com o mundo real. Caso contrário, toque no ícone da bússola no canto superior esquerdo do ecrã e siga as instruções para calibrar.</string>
     <string name="no_recorded_cell_signal_nearby">Nenhum sinal da rede móvel foi registado nas proximidades</string>
@@ -1419,7 +1413,6 @@
     <string name="pref_navigation_draw_compass_dial_bezel_summary">Desenhar marcações de grau ao redor do mostrador da bússola</string>
     <string name="pref_navigation_show_azimuth_indicator_title">Mostrar indicador do azimute</string>
     <string name="pref_navigation_show_azimuth_indicator_summary">Destacar o rumo atual na bússola</string>
-    <string name="delete_offline_map_group_message">%s e todos os seus mapas serão apagados.</string>
     <string name="pref_bubble_level_threshold_title">Limiar de nível</string>
     <string name="guide_map_layers">Camadas do Mapa</string>
     <string name="clock_source_device">Hora do dispositivo</string>

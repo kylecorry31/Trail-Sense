@@ -21,4 +21,4 @@ To convert a measurement from one unit to another, do the following:
 The result is displayed.
 
 ## Quick action
-To use the Convert quick action, enable it in the settings for the tab you want it on. Tap the quick action button to open a convert sheet for coordinates, distance, and temperature.
+To use the Convert quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to open a convert sheet for coordinates, distance, and temperature.

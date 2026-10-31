@@ -11,11 +11,11 @@ Before you go to a coastal area, find an official tide table for accurate times 
 4. Set the tide frequency, which is the number of high tides that usually occur in a day. Most places have 2, which is called semidiurnal.
 5. Scroll down to the tide table section.
 6. Tap **H** for high tide or **L** for low tide to switch between them.
-7. Tap **Time not set**, and enter the date and time of the tide.
+7. Tap **Time not set (required)**, select the date, tap **OK**, select the time, and tap **OK**.
 8. Optional: Tap the **-** in the **Height** column, and enter the height of the tide.
 9. To add another tide, tap the **+** button in the top-left corner of the table.
 10. Optional: To choose how Trail Sense estimates tides, tap the **Estimate method** dropdown. See the Estimation methods section.
-11. Tap the checkmark in the top-right corner to save the tide table.
+11. Tap the checkmark in the top-right corner to save the tide table. The checkmark appears after you set the time of at least one tide.
 
 To delete a tide from the table, tap the **X** icon on the right side of the tide.
 
@@ -25,10 +25,9 @@ For the best accuracy, enter all the tides for each relevant day. The tide chart
 Trail Sense can estimate tides with the following methods:
 
 - **Tide clock**: Assumes a fixed tidal cycle. It requires at least one known tide.
-- **Lunitidal interval**: Uses the moon's position to estimate tides. It might be more accurate in some locations.
-    - **Auto**: Calculates the lunitidal interval automatically. It requires at least one known tide.
-    - **Local**: Uses a lunitidal interval that you enter in hours and minutes for your location. It requires a location but not a tide table.
-    - **UTC/Greenwich**: Uses a lunitidal interval that you enter in hours and minutes for UTC/Greenwich. It requires neither a location nor a tide table.
+- **Lunitidal interval (auto)**: Uses the moon's position to estimate tides. It might be more accurate in some locations. It calculates the lunitidal interval automatically and requires at least one known tide.
+- **Lunitidal interval (local)**: Uses the moon's position and a lunitidal interval that you enter in hours and minutes for your location. It requires a location but not a tide table.
+- **Lunitidal interval (UTC/Greenwich)**: Uses the moon's position and a lunitidal interval that you enter in hours and minutes for UTC/Greenwich. It requires neither a location nor a tide table.
 - **Tide model (auto)**: Estimates the tide near the location you entered or, if you didn't enter one, near you. For most locations, the tides are accurate to within an hour.
 
 ## View a tide table

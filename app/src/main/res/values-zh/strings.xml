@@ -52,7 +52,6 @@
     <string name="pref_elevation_override_sea_level_dialog_msg">以百帕为单位输入现在海平面的气压</string>
     <string name="pref_altimeter_calibration_title">高度表</string>
     <string name="request_permission">请求权限</string>
-    <string name="pref_auto_location_title">自动调整位置</string>
     <string name="location">定位</string>
     <string name="compass_accuracy_improved">指南针的精确度提升至 %s</string>
     <string name="compass_reported_accuracy">报告的准确度： %s</string>
@@ -388,7 +387,6 @@
     <string name="export">导出</string>
     <string name="unavailable">不可用</string>
     <string name="gps_searching">正在搜索</string>
-    <string name="gps_stale">已过期</string>
     <string name="gps_user">用户</string>
     <string name="magnetometer">磁强计</string>
     <string name="acceleration_m_s2_format">%s m/s²</string>
@@ -570,7 +568,6 @@
     <string name="pref_map_url_source_title">位置分享地图</string>
     <string name="clear_cache">清除缓存</string>
     <string name="destination_elevation">目的地海拔</string>
-    <string name="base_temperature">基础温度</string>
     <string name="base_elevation">基础海拔</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">删除背包？</string>
@@ -788,7 +785,6 @@
     <string name="tool_temperature_estimation_title">温度预估</string>
     <string name="tool_temperature_estimation_description">预测不同海拔、风速和湿度的气温</string>
     <string name="pressure_tendency">趋势</string>
-    <string name="since_time">从 %s 开始</string>
     <string name="humidity_history">历史湿度 — 过去 %s</string>
     <string name="temperature_history">历史温度 — 过去 %s</string>
     <string name="average_speed">平均速度</string>
@@ -953,7 +949,6 @@
     <string name="print">打印</string>
     <string name="astronomy_direction_peak">仰角方向</string>
     <string name="autofill_source">自动填充源</string>
-    <string name="calibrate_map_point">用已知位置校准 (%1$d / %2$d)</string>
     <string name="map_calibration">地图校准</string>
     <string name="map_calibration_instructions">选取在此地图和真实世界中均可识别的两个点。在地图上轻触每个点的准确位置，然后输入其真实世界坐标。\n \n这两个点最好相距很远，易于识别，如小道的起点、停车场、指示牌、地标、地图网格交点或道路汇合点。\n\n如果确认两个点均有效，轻触完成校准。如果只有一个点或想稍后完成，轻触保存草图。</string>
     <string name="compass_source_mag_gyro">磁力计+陀螺仪</string>
@@ -1088,7 +1083,6 @@
     <string name="ar_calibration_instructions_hint">若要校准“增强现实”工具，请点击屏幕左上角的图标，然后按出现的说明操作。</string>
     <string name="layers">图层</string>
     <string name="visible">可见</string>
-    <string name="date">日期</string>
     <string name="ar_layer_override_message">图层设置可能会被指南（例如“天文学”指南）覆盖。</string>
     <string name="astronomy_altitude">仰角</string>
     <string name="grid">网格</string>
@@ -1535,7 +1529,6 @@
     <string name="plugin_connect_message">仅在信任 %s 时才连接。</string>
     <string name="plugin_disconnect_title">断开插件连接？</string>
     <string name="plugin_disconnect_message">断开 %s 连接？</string>
-    <string name="clear_plugin_cache">清除插件缓存</string>
     <string name="plugin_name">插件：%s</string>
     <string name="map_layers">地图层</string>
     <string name="tile_layer">瓦片层</string>
@@ -1548,9 +1541,6 @@
     <string name="clock_source_device">设备时间</string>
     <string name="clock_source_gps">GPS 时间</string>
     <string name="offline_maps">离线地图</string>
-    <string name="offline_map_import_failed">无法导入地图</string>
-    <string name="no_offline_maps">无离线地图</string>
-    <string name="unsupported_offline_map_file">不支持的地图文件</string>
     <string name="map_type_photo">照片</string>
     <string name="manage_maps">管理地图</string>
     <plurals name="offline_map_group_summary">
@@ -1594,7 +1584,6 @@
     <string name="elapsed_time">流逝时间</string>
     <string name="references">参照</string>
     <string name="alarm">警报</string>
-    <string name="turn_back_alarm_channel">折返（警报）</string>
     <plurals name="clock_device_time_slow">
         <item quantity="other">设备时钟慢了 %d 秒</item>
     </plurals>
@@ -1613,7 +1602,6 @@
     <string name="map_error_unable_to_copy">无法复制地图文件</string>
     <string name="color_by_classification">按分类着色</string>
     <string name="bearing_length_max">最大：%s</string>
-    <string name="delete_offline_map_group_message">将删除 %s 及其所有地图。</string>
     <string name="until_sunset">直到日落</string>
     <string name="scientific_name">学名</string>
     <string name="field_guide_name_display">名称显示</string>

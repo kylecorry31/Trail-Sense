@@ -138,7 +138,6 @@
     <string name="pref_elevation_override_sea_level_dialog_title">Digite a pressão ao nível do mar</string>
     <string name="pref_auto_declination_summary">Com base em sua localização atual</string>
     <string name="location">Localização</string>
-    <string name="pref_auto_location_title">Ajuste automático de localização</string>
     <string name="request_permission">Solicitar permissão</string>
     <string name="calibrate">Calibrar</string>
     <string name="calibrate_compass_dialog_title">Calibrar bússola</string>
@@ -321,7 +320,6 @@
     <string name="cumulus_desc">Nuvens baixas e fofas que parecem bolas de algodão. São espaçadas e normalmente são brancas com manchas mais escuras abaixo.</string>
     <string name="unavailable">Indisponível</string>
     <string name="gps_searching">Procurando</string>
-    <string name="gps_stale">Obsoleto</string>
     <string name="gps_user">Usuário</string>
     <string name="import_btn">Importar</string>
     <string name="export">Exportar</string>
@@ -575,7 +573,6 @@
     <string name="pref_map_url_source_title">Mapa de compartilhamento da localização</string>
     <string name="clear_cache">Limpar o cache</string>
     <string name="destination_elevation">Altitude de destino</string>
-    <string name="base_temperature">Temperatura base</string>
     <string name="base_elevation">Altitude base</string>
     <string name="weight_per_item">Peso por item</string>
     <string name="pack_sort_weight_high_to_low">Peso (alto a baixo)</string>
@@ -811,7 +808,6 @@
     <string name="beacons">Pontos de orientação</string>
     <string name="pref_start_on_boot_title">Executar ao iniciar</string>
     <string name="duration_second_format">%ds</string>
-    <string name="since_time">desde %s</string>
     <string name="pref_default_path_color_title">Cor padrão do percurso</string>
     <string name="humidity_history">Histórico de umidade - último %s</string>
     <string name="temperature_history">Histórico de temperatura - último %s</string>
@@ -915,7 +911,6 @@
     <string name="i_agree">Eu concordo</string>
     <string name="samples">Amostras</string>
     <string name="sensor_summary">Bússola, GPS, altímetro, barômetro etc.</string>
-    <string name="calibrate_map_point">Calibrar com localizações conhecidas (%1$d / %2$d)</string>
     <string name="low_pressure_system_description">Associado a um clima ruim, céu nublado e temperaturas mais quentes.</string>
     <plurals name="map_group_summary">
         <item quantity="one">%d mapa</item>
@@ -1081,7 +1076,6 @@
     <string name="audio_error_messsage">Ocorreu um erro ao tentar reproduzir o áudio.</string>
     <string name="layers">Camadas</string>
     <string name="grid">Grade</string>
-    <string name="date">Data</string>
     <string name="tool_quick_action_name">Ferramenta: %s</string>
     <string name="pref_start_camera_in_3d_view_title">Use a câmera para visualização em 3D</string>
     <string name="pref_start_camera_in_3d_view_summary">Abre a câmera quando você tocar no botão \"Visualizar em 3D\"</string>

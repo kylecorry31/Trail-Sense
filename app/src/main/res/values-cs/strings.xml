@@ -131,7 +131,6 @@
     <string name="pref_elevation_override_title">Přepsání nadmořské výšky</string>
     <string name="elevation_from_pressure">Nastavení přepisu z barometru</string>
     <string name="request_permission">Vyžádat oprávnění</string>
-    <string name="pref_auto_location_title">Automatické nastavení polohy</string>
     <string name="compass_accuracy_improved">Přesnost kompasu se zlepšila na %s</string>
     <string name="compass_reported_accuracy">Uváděná přesnost: %s</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Několikrát zatočte telefonem ve tvaru osmičky nebo do všech směrů a po dokončení klikněte na tlačítko %s.
@@ -273,7 +272,6 @@
     <string name="pref_backtrack_save_cell_title">Nahrát telefonní signál</string>
     <string name="pref_step_length_title">Délka kroku</string>
     <string name="gps_user">Uživatel</string>
-    <string name="gps_stale">Zastaralá</string>
     <string name="contents">Obsah</string>
     <string name="export">Exportovat</string>
     <string name="help">Pomoc</string>
@@ -486,7 +484,6 @@
     <string name="gravity">Gravitace</string>
     <string name="magnetometer">Magnetometr</string>
     <string name="speedometer">Tachometr</string>
-    <string name="since_time">od %s</string>
     <string name="pedometer">Krokoměr</string>
     <string name="tool_notes_title">Poznámky</string>
     <string name="cross">Kříž</string>
@@ -690,7 +687,6 @@
     <string name="pref_flashlight_toggle_with_volume_title">Přepínání pomocí tlačítek hlasitosti</string>
     <string name="unit_yards">Yardy</string>
     <string name="base_elevation">Výchozí nadmořská výška</string>
-    <string name="base_temperature">Výchozí teplota</string>
     <string name="liter_format">%s l</string>
     <string name="milliliter_format">%s ml</string>
     <string name="quart_format">%s qt</string>
@@ -964,7 +960,6 @@
     <string name="peak_time">Špička</string>
     <string name="magnitude">Rozsah</string>
     <string name="weather_alert_hot_description">Připravte se na vysoké teploty. Dodržujte zvláštní opatření proti vyčerpání z horka a úpalu.</string>
-    <string name="calibrate_map_point">Kalibrovat se známými lokalitami (%1$d / %2$d)</string>
     <string name="source">Zdroj</string>
     <string name="now_value">Aktuálně: %s</string>
     <string name="for_historic_temperatures">Pro historické teploty</string>
@@ -1130,7 +1125,6 @@
     <string name="visible">Viditelné</string>
     <string name="grid">Mřížka</string>
     <string name="ar_layer_override_message">Nastavení rozložení mohou být přepsány pokyny, například průvodcem astronomie.</string>
-    <string name="date">Datum</string>
     <string name="ar_calibration_disclaimer">Před každým použitím nástroje Rozšířená realita ověřte, že se ikony slunce nebo měsíce nacházejí ve správné pozici oproti reálnému světu. Pokud ne, klepněte na ikonu kompasu v levém horním rohu obrazovky a následujte pokyny pro kalibraci.</string>
     <string name="pref_enable_analog_title">Analogové hodiny</string>
     <string name="no_recorded_cell_signal_nearby">Poblíž nenalezen žádný zaznamenaný mobilní signál</string>

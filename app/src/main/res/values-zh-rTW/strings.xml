@@ -15,7 +15,6 @@
     <string name="altimeter_mode_gps_barometer">GPS + 氣壓計</string>
     <string name="pref_elevation_override_sea_level_dialog_title">輸入海平面氣壓</string>
     <string name="request_permission">請求權限</string>
-    <string name="pref_auto_location_title">自動調整位置</string>
     <string name="compass_accuracy_improved">指南針準確度已改善至 %s</string>
     <string name="calibrate_compass_dialog_title">校正指南針</string>
     <string name="calibrate">校正</string>
@@ -332,7 +331,6 @@
     <string name="turn_back_alerts">折返警報</string>
     <string name="open_photo_map">開啟照片地圖</string>
     <string name="cloud_scanner">雲掃描器</string>
-    <string name="date">日期</string>
     <string name="grid">網格</string>
     <string name="visible">可見</string>
     <string name="layers">圖層</string>
@@ -426,7 +424,6 @@
     <string name="pref_privacy_screenshot_protection_title">防止螢幕截圖</string>
     <string name="yards_format">%s 碼</string>
     <string name="base_elevation">基準海拔</string>
-    <string name="base_temperature">基準溫度</string>
     <string name="pounds_format">%s 磅</string>
     <string name="grams_format">%s 克</string>
     <string name="days">天</string>
@@ -566,7 +563,6 @@
     <string name="acceleration_m_s2_format">%s 米／秒²</string>
     <string name="magnetometer">磁強計</string>
     <string name="pref_backtrack_save_cell_summary">在停駐點記錄手機訊號。不使用網路。</string>
-    <string name="since_time">自從 %s</string>
     <string name="pref_meteor_showers_title">流星雨</string>
     <string name="on_map">在地圖上</string>
     <string name="import_gpx">匯入 GPX</string>
@@ -815,7 +811,6 @@
     <string name="cirrostratus_desc">覆蓋天空的高雲族。它是透明的，通常會在太陽周圍形成光暈。</string>
     <string name="altocumulus_desc">中層蓬鬆的雲看起來像棉花球。它們通常是白色的，下面有深色斑塊，可以是間隔的或片狀的。</string>
     <string name="privacy_and_location">隱私和位置</string>
-    <string name="gps_stale">過時</string>
     <string name="gps_searching">正在搜尋</string>
     <string name="unavailable">不可用</string>
     <string name="beacon_export_error">無法匯出信標</string>
@@ -946,7 +941,6 @@
     <string name="point">點</string>
     <string name="tide_instructions">使用官方潮汐表輸入你行程期間的參考潮汐。</string>
     <string name="tide_user_guide_recommendation">可在使用者指南中找到官方潮汐表網站。</string>
-    <string name="calibrate_map_point">使用已知位置進行校正（%1$d／%2$d）</string>
     <string name="path_slope_steep">陡峭</string>
     <string name="weather_warm_front">溫暖</string>
     <string name="historic">歷史性</string>
@@ -1517,7 +1511,6 @@
     <string name="reload">重新載入</string>
     <string name="disconnect">斷開連接</string>
     <string name="plugin_unavailable">此插件不可用或已斷開連接。</string>
-    <string name="clear_plugin_cache">清除插件快取</string>
     <string name="connected_plugins">已連接的插件</string>
     <string name="available_plugins">可用的插件</string>
     <string name="plugin_name">插件：%s</string>
@@ -1539,9 +1532,6 @@
     <string name="include_mapsforge_backups">備份中應包含路線地圖</string>
     <string name="include_mapsforge_backups_summary">Mapsforge（.map）檔案可能很大</string>
     <string name="offline_maps">離線地圖</string>
-    <string name="offline_map_import_failed">無法匯入地圖</string>
-    <string name="no_offline_maps">沒有離線地圖</string>
-    <string name="unsupported_offline_map_file">不支援的地圖檔案</string>
     <string name="trail_maps">路線地圖</string>
     <string name="map_layer_trail_maps_description">你已儲存路線地圖</string>
     <string name="manage_maps">管理地圖</string>
@@ -1553,7 +1543,6 @@
     <string name="plugin_connect_message">僅當你信任 %s 時才連接。</string>
     <string name="plugin_disconnect_title">斷開連接插件？</string>
     <string name="plugin_disconnect_message">斷開連接 %s？</string>
-    <string name="delete_offline_map_group_message">%s 及其所有地圖將被刪除。</string>
     <string name="map_calibration_error_implausible_scale">校準比例看起來不太合理。請檢查地圖點和座標。</string>
     <string name="photo_map_disclaimer">總是攜帶一份紙質地圖作為備用，並驗證 Trail Sense 的準確度。\n\nTrail Sense 不包含地圖檔案，必須以下載地圖或從照片進行校正。你可以在 https://kylecorry.com/Trail-Sense/offline_maps.html 找到可下載的地圖</string>
     <string name="map_layer_elevation_description">根據數位海拔模型而為海拔著色</string>
@@ -1618,7 +1607,6 @@
     <string name="pref_pedometer_history_days_title">步數紀錄</string>
     <string name="active_time">活動時間</string>
     <string name="active_duration">活動中：%s</string>
-    <string name="turn_back_alarm_channel">折返（警報）</string>
     <string name="bearing_length">方位角線長</string>
     <string name="bearing_length_description">啟用方位角時，方位角的線段長度</string>
     <string name="attribution">署名</string>

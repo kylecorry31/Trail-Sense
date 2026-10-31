@@ -78,7 +78,6 @@
     <string name="elevation_from_pressure">Set override from barometer</string>
     <string name="pref_altimeter_calibration_title">高度計</string>
     <string name="request_permission">Request permission</string>
-    <string name="pref_auto_location_title">Auto adjust location</string>
     <string name="location">Location</string>
     <string name="compass_accuracy_improved">Compass accuracy improved to %s</string>
     <string name="compass_reported_accuracy">Reported accuracy: %s</string>

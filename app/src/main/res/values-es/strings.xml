@@ -136,7 +136,6 @@
     <string name="degree_format">%.0f°</string>
     <string name="elevation_diff_format">%1$s%2$s</string>
     <string name="request_permission">Solicitar permiso</string>
-    <string name="pref_auto_location_title">Ajustar ubicación automáticamente</string>
     <string name="location">Ubicación</string>
     <string name="no_data">Sin datos</string>
     <string name="units_inhg_short">pulgadas</string>
@@ -394,7 +393,6 @@
         <item quantity="other">%d balizas importadas</item>
     </plurals>
     <string name="gps_user">Usuario</string>
-    <string name="gps_stale">Obsoleto</string>
     <string name="quality_poor">Baja</string>
     <string name="time_ago">Hace %s</string>
     <string name="network_5g">5G</string>
@@ -578,7 +576,6 @@
     <string name="pref_auto_low_power_title">Ahorro de energía automático</string>
     <string name="daylight">Horas de luz</string>
     <string name="find_next_occurrence">Encontrar la siguiente ocurrencia</string>
-    <string name="base_temperature">Temperatura base</string>
     <string name="base_elevation">Elevación base</string>
     <string name="destination_elevation">Elevación de destino</string>
     <string name="clear_cache">Vaciar caché</string>
@@ -783,7 +780,6 @@
     <string name="estimated">Estimado</string>
     <string name="disclaimer_estimated_tide">Las mareas estimadas podrían no ser precisas. Use una tabla de mareas oficial para saber los tiempos exactos.</string>
     <string name="disclaimer_estimated_tide_title">Marea estimada</string>
-    <string name="since_time">desde %s</string>
     <string name="temperature_history">Historial de temperatura - últimas %s</string>
     <string name="explore">Explorar</string>
     <string name="file">Archivo</string>
@@ -932,7 +928,6 @@
     <string name="astronomy_altitude_peak">Altitud máxima</string>
     <string name="print">Imprimir</string>
     <string name="autofill_source">Autocompletar las fuentes</string>
-    <string name="calibrate_map_point">Calibrar con ubicaciones conocidas (%1$d/%2$d)</string>
     <string name="map_calibration">Calibración del mapa</string>
     <string name="accelerometer">Acelerómetro</string>
     <string name="map_calibration_instructions">Elige dos puntos que puedas identificar tanto en el mapa como en el mundo real. Para cada uno, pulsa en su lugar exacto en el mapa e introduce sus coordenadas reales.\n \nPuntos buenos son los que están muy separados y son fáciles de reconocer, como un inicio de sendero, estacionamiento, señal, punto de referencia, intersección de la cuadrícula del mapa o cruce de senderos.\n\nSi ambos puntos son válidos, pulsa \"Terminar calibración\". Si sólo tiene un punto o deseas terminar más tarde, pulsa en \"Guardar borrador\".</string>
@@ -1063,7 +1058,6 @@
     <string name="astronomy_altitude">Altitud</string>
     <string name="visible">Visible</string>
     <string name="grid">Red</string>
-    <string name="date">Fecha</string>
     <string name="layers">Capas</string>
     <string name="ar_layer_override_message">Las guías como la guía de Astronomía, pueden anular la configuración de capas.</string>
     <string name="ar_calibration_disclaimer">Antes de cada uso de Realidad Aumentada, comprueba que los iconos del sol o la luna están correctamente alineados con el mundo real. Si no es así, haz clic en el icono de la brújula en la parte superior izquierda de la pantalla y sigue las instrucciones para calibrarlos.</string>
@@ -1518,7 +1512,6 @@
     <string name="reload">Recargar</string>
     <string name="disconnect">Desconectar</string>
     <string name="plugin_unavailable">El plugin no está disponible o no está conectado.</string>
-    <string name="clear_plugin_cache">Limpiar caché del plugin</string>
     <string name="plugin_name">Plugin: %s</string>
     <string name="brightness">Brillo</string>
     <plurals name="offline_map_group_summary">
@@ -1526,7 +1519,6 @@
         <item quantity="many">%d mapas</item>
         <item quantity="other">%d mapas</item>
     </plurals>
-    <string name="delete_offline_map_group_message">%s y todos sus mapas serán eliminados.</string>
     <string name="clock_source_device">Hora del dispositivo</string>
     <string name="clock_source_gps">Hora GPS</string>
     <string name="photo_map_disclaimer">Lleva siempre un mapa físico de respaldo y verifica la precisión de Trail Sense.\n\nLos archivos de mapas no están incluidos con Trail Sense y debes descargarlos o calibrarlos a partir de una foto. Puedes encontrar mapas para descargar en https://kylecorry.com/Trail-Sense/offline_maps.html</string>
@@ -1534,9 +1526,6 @@
     <string name="include_mapsforge_backups">Incluir mapas de recorridos en copias de seguridad</string>
     <string name="include_mapsforge_backups_summary">Los archivos (.map) de Mapsforge pueden ser grandes</string>
     <string name="offline_maps">Mapas Offline</string>
-    <string name="offline_map_import_failed">No se pudo importar el mapa</string>
-    <string name="no_offline_maps">Sin mapas offline</string>
-    <string name="unsupported_offline_map_file">Archivo de mapa no reconocido</string>
     <string name="trail_maps">Mapas de recorridos</string>
     <string name="map_layer_trail_maps_description">Mapas de recorridos guardados</string>
     <string name="map_type_trail">Recorrido</string>
@@ -1586,7 +1575,6 @@
     </plurals>
     <string name="alarm">Alarma</string>
     <string name="references">Referencias</string>
-    <string name="turn_back_alarm_channel">Volver (Alarma)</string>
     <string name="scientific_name">Nombre científico</string>
     <string name="field_guide_name_display">Nombre mostrado</string>
     <string name="common_name">Nombre común</string>

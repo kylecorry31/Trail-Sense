@@ -11,12 +11,12 @@ You can move around the map in the following ways:
 
 The GPS button has three states. Each tap moves to the next state:
 
-1. The map is centered on your location.
-2. The map is locked to your location and orientation.
-3. The map is unlocked.
+1. The map is centered on your location. You can't pan the map, but you can zoom.
+2. The map is locked to your location and orientation. You can't pan the map, but you can zoom. This state is skipped if your device doesn't have a compass.
+3. The map is unlocked, so you can pan it freely.
 
 ## Change the map time
-If a time-dependent layer, such as tides or solar eclipse, is enabled, a clock button appears in the top-right corner. To change the time used by these layers, do the following:
+If a time-dependent layer, such as tides or solar eclipse, is enabled, a clock button appears above the zoom buttons. To change the time used by these layers, do the following:
 
 1. Tap the clock button.
 2. Drag the slider to change the time, or tap the time text to enter a specific time.
@@ -47,7 +47,7 @@ To measure the distance between points, do the following:
 2. Select **Measure** or **Create path**.
 3. Tap the map to place points.
 
-The total distance is shown at the bottom of the screen. The start of the path is shown as a dot and the end is shown as a flag. To cancel, tap the **X** button in the bottom-right corner.
+The total distance is shown at the bottom of the screen. The start of the path is shown as a dot and the end is shown as a flag. To cancel, tap the **X** button next to the distance at the bottom of the screen.
 
 To measure the distance from your location to a point, long-press the point on the map, and tap **Distance**. The long-press menu also shows the distance, direction, and elevation difference from your location to the point.
 
@@ -75,10 +75,11 @@ To trace a map onto paper, do the following:
 
 1. Tap the menu button in the top-right corner.
 2. Select **Trace**.
-3. Move into a shady area, or block out the sun with a cloth.
-4. Place paper over your screen so you can see the map through the paper.
-5. Trace the map with a pen or pencil. Avoid markers or pens that can bleed through the paper, and be careful not to slide the paper.
-6. When you finish, tap the lock icon in the bottom-right corner to turn off trace mode.
+3. The first time, read the instructions, and tap **OK**. The screen brightness is set to maximum, and the map can't be moved or zoomed.
+4. Move into a shady area, or block out the sun with a cloth.
+5. Place paper over your screen so you can see the map through the paper.
+6. Trace the map with a pen or pencil. Avoid markers or pens that can bleed through the paper, and be careful not to slide the paper.
+7. When you finish, tap the lock icon in the bottom-right corner to turn off trace mode.
 
 The bottom navigation is disabled until you turn off trace mode.
 

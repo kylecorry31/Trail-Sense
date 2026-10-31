@@ -8,8 +8,8 @@ The known locations can be beacons, or you can get their coordinates from a map.
 To find your location, do the following:
 
 1. Select **My location** as the location to triangulate.
-2. Enter the coordinates of the first known location.
-3. Enter the direction from where you are to that location as **Location 1**. To sight the location with the camera, tap the camera icon on the right side of the direction field.
+2. Enter the coordinates of the first known location. To pick them from a beacon or the map, tap the location icon on the left side of the field, select a source, and tap **OK**.
+3. Enter the direction from where you are to that location as **Location 1**. To type the bearing, tap **Enter manually**, enter the bearing, turn on **True north** if the bearing is relative to true north, and tap **OK**. To sight the location with the camera, tap the camera icon on the right side of the direction field.
 4. Repeat steps 2 and 3 for the second known location as **Location 2**.
 
 Your location is shown at the top of the screen, if it can be determined.
@@ -18,8 +18,8 @@ Your location is shown at the top of the screen, if it can be determined.
 If you can see a destination from several locations, you can find its coordinates. To find the location of a destination, do the following:
 
 1. Select **Destination** as the location to triangulate.
-2. Enter your location. To use your current location, tap the GPS icon next to the location field.
-3. Enter the direction from where you are to the destination as **Location 1**. To sight the destination with the camera, tap the camera icon on the right side of the direction field.
+2. Enter your location. To use your current location, tap the location icon on the left side of the location field, select **GPS**, and tap **OK**.
+3. Enter the direction from where you are to the destination as **Location 1**. To type the bearing, tap **Enter manually**, enter the bearing, turn on **True north** if the bearing is relative to true north, and tap **OK**. To sight the destination with the camera, tap the camera icon on the right side of the direction field.
 4. Move to a new location that is at least 30 m / 100 ft from the first location. You can put your phone away while you move, because the tool saves what you entered.
 5. Repeat steps 2 and 3 for **Location 2**.
 

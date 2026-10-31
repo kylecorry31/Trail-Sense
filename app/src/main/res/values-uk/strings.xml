@@ -83,7 +83,6 @@
     <string name="quality_poor">Заслабко</string>
     <string name="unavailable">Недоступно</string>
     <string name="gps_searching">Пошук</string>
-    <string name="gps_stale">Застаріло</string>
     <string name="gps_user">Користувач</string>
     <string name="import_btn">Імпорт</string>
     <plurals name="beacons_exported">
@@ -244,7 +243,6 @@
     <string name="elevation_override_updated_toast">Значення висоти буде зсунуто на задане число</string>
     <string name="pref_altimeter_calibration_title">Висотомір</string>
     <string name="request_permission">Запит дозволу</string>
-    <string name="pref_auto_location_title">Автоматично відстежувати переміщення</string>
     <string name="location">Місцеперебування</string>
     <string name="compass_accuracy_improved">Точність компаса поліпшено: %s</string>
     <string name="gps">GPS</string>
@@ -590,7 +588,6 @@
     <string name="pref_map_url_source_title">Мапа спільних геолокацій</string>
     <string name="clear_cache">Очистити кеш</string>
     <string name="destination_elevation">Висота призначення</string>
-    <string name="base_temperature">Основна температура</string>
     <string name="weight_per_item">Вага на одиницю</string>
     <string name="pack_sort_weight_high_to_low">Вага (від більшої до меншої)</string>
     <string name="pack_sort_weight_low_to_high">Вага (від меншої до більшої)</string>
@@ -843,7 +840,6 @@
     <string name="weather_no_change">Без змін</string>
     <string name="soon">Скоро</string>
     <string name="very_soon">Дуже скоро</string>
-    <string name="since_time">з %s</string>
     <string name="humidity_history">Історія вологості – остан. %s</string>
     <string name="temperature_history">Історія температури - остан. %s</string>
     <string name="tool_temperature_estimation_title">Оцінка температури</string>
@@ -994,7 +990,6 @@
     <string name="loading">Завантаження</string>
     <string name="print">Друк</string>
     <string name="autofill_source">Джерело автозаповнення</string>
-    <string name="calibrate_map_point">Відкалібруйте за відомими місцями (%1$d / %2$d)</string>
     <string name="illumination">Освітлення</string>
     <string name="map_calibration">Калібрування мапи</string>
     <string name="compass_source_legacy_android">Старе (Android)</string>
@@ -1143,7 +1138,6 @@
     <string name="lunitidal_interval_utc">Місячний інтервал (UTC/Ґрінвіч)</string>
     <string name="ar_calibration_instructions_hint">Щоб відкалібрувати засіб доповненої реальності, торкніться піктограми у верхньому лівому кутку екрана і дотримуйтесь указівок, що з\'являться.</string>
     <string name="grid">Сітка</string>
-    <string name="date">Дата</string>
     <string name="mirror_camera">Віддзеркалити камеру</string>
     <string name="tool_turn_back">Повернення назад</string>
     <string name="return_time">Час повернення</string>

@@ -51,7 +51,6 @@
     <string name="pref_elevation_override_title">Gebruik manuele hoogte</string>
     <string name="elevation_from_pressure">Gebruik hoogte van luchtdruk</string>
     <string name="pref_altimeter_calibration_title">Hoogtemeter</string>
-    <string name="pref_auto_location_title">Locatie automatisch aanpassen</string>
     <string name="location">Locatie</string>
     <string name="compass_accuracy_improved">Nauwkeurigheid kompas verbeterd naar %s</string>
     <string name="compass_reported_accuracy">Vastgestelde nauwkeurigheid: %s</string>
@@ -207,7 +206,6 @@
     <string name="quality_poor">Slecht</string>
     <string name="unavailable">Onbeschikbaar</string>
     <string name="gps_searching">Zoekend</string>
-    <string name="gps_stale">Verouderd</string>
     <string name="gps_user">Gebruiker</string>
     <string name="import_btn">Importeren</string>
     <plurals name="beacons_exported">
@@ -493,7 +491,6 @@
     <string name="pref_map_url_source_title">Locatie delen kaart</string>
     <string name="clear_cache">Cache wissen</string>
     <string name="destination_elevation">Bestemmingshoogte</string>
-    <string name="base_temperature">Basistemperatuur</string>
     <string name="base_elevation">Basishoogte</string>
     <string name="yards_format">%s wv</string>
     <string name="find_next_occurrence">Volgende gebeurtenis zoeken</string>
@@ -847,7 +844,6 @@
         <item quantity="other">%d paden</item>
     </plurals>
     <string name="delete_path_group_message">%s en al zijn paden zullen worden verwijderd.</string>
-    <string name="since_time">sinds %s</string>
     <string name="cross">Kruis</string>
     <string name="pref_default_path_style_title">Stijl standaardpad</string>
     <string name="pref_default_path_color_title">Kleur standaardpad</string>
@@ -949,7 +945,6 @@
     <string name="i_agree">Accepteren</string>
     <string name="map_is_not_calibrated">Kaart is niet gekalibreerd</string>
     <string name="hot">Heet</string>
-    <string name="calibrate_map_point">Calibreer met bekende locaties (%1$d / %2$d)</string>
     <string name="gps_elevation_accuracy">GPS-hoogtenauwkeurigheid</string>
     <string name="restore">Herstel</string>
     <string name="compass_source_legacy_android">Verouderd (Android)</string>
@@ -1108,7 +1103,6 @@
     <string name="astronomy_altitude">Hoogte</string>
     <string name="layers">Lagen</string>
     <string name="visible">Weergeven</string>
-    <string name="date">Datum</string>
     <string name="pref_enable_analog_title">Analoge klok</string>
     <string name="navigate_to_nearest_cell_signal">Navigeer naar dichtstbijzijnde zendmast</string>
     <string name="tool_quick_action_name">Hulpmiddel: %s</string>
@@ -1551,7 +1545,6 @@
     <string name="plugin_connect_message">Maak alleen verbinding met %s als je het vertrouwt.</string>
     <string name="plugin_disconnect_title">Plug-in verbreken?</string>
     <string name="plugin_disconnect_message">Verbinding met %s verbreken?</string>
-    <string name="clear_plugin_cache">Plug-in cache wissen</string>
     <string name="plugin_name">Plug-in: %s</string>
     <string name="map_layers">Kaartlagen</string>
     <string name="tile_layer">Tegellaag</string>
@@ -1565,15 +1558,11 @@
     <string name="clock_source_gps">GPS-tijd</string>
     <string name="map_type_photo">Foto</string>
     <string name="manage_maps">Kaarten beheren</string>
-    <string name="offline_map_import_failed">Kaart importeren mislukt</string>
-    <string name="unsupported_offline_map_file">Niet-ondersteund kaartbestand</string>
     <string name="offline_maps">Netloze kaarten</string>
-    <string name="no_offline_maps">Geen netloze kaarten</string>
     <plurals name="offline_map_group_summary">
         <item quantity="one">%d kaart</item>
         <item quantity="other">%d kaarten</item>
     </plurals>
-    <string name="delete_offline_map_group_message">%s en al zijn kaarten zullen worden verwijderd.</string>
     <string name="include_mapsforge_backups_summary">Mapsforge-bestanden (.map) kunnen groot zijn</string>
     <string name="include_mapsforge_backups">Wandelkaarten opnemen in back-ups</string>
     <string name="trail_maps">Wandelkaarten</string>
@@ -1613,7 +1602,6 @@
     <string name="elapsed_time">Verlopen tijd</string>
     <string name="references">Referenties</string>
     <string name="alarm">Wekker</string>
-    <string name="turn_back_alarm_channel">Keer terug (wekker)</string>
     <string name="clock_device_time_accurate">Apparaatklok is accuraat</string>
     <plurals name="clock_device_time_slow">
         <item quantity="one">Apparaatklok is %d seconde traag</item>

@@ -140,7 +140,6 @@
     <string name="compass_accuracy_improved">羅經準繩有見進步，現為 %s</string>
     <string name="gps">GPS</string>
     <string name="location">定位</string>
-    <string name="pref_auto_location_title">自動調校定位</string>
     <string name="altimeter_mode_gps_barometer">GPS + 氣壓計</string>
     <string name="pref_display_multi_beacons_title">顯示就近嘅地標</string>
     <string name="pref_display_multi_beacons_summary">羅經上面顯示喺左近嘅地標</string>
@@ -300,7 +299,6 @@
     <string name="pref_auto_low_power_summary">一旦電量出現安全缺口時</string>
     <string name="unit_yards">碼</string>
     <string name="base_elevation">基礎海拔</string>
-    <string name="base_temperature">基礎氣溫</string>
     <string name="destination_elevation">目標海拔</string>
     <string name="clear_cache">清除快取</string>
     <string name="pref_map_url_source_title">位置分享地圖</string>
@@ -331,7 +329,6 @@
     </plurals>
     <string name="import_btn">匯入</string>
     <string name="gps_user">使用者</string>
-    <string name="gps_stale">過氣</string>
     <string name="gps_searching">搜尋緊</string>
     <string name="unavailable">欠奉</string>
     <string name="quality_poor">不良</string>
@@ -640,7 +637,6 @@
     <string name="waypoint_time_format">%1$s %2$s</string>
     <string name="unsaved_changes_message">您改動過嗰啲嘢，就唔會儲存個囉噃。</string>
     <string name="pref_daily_weather_time_title">每日氣象時間</string>
-    <string name="since_time">自 %s 起</string>
     <string name="speedometer">速度計</string>
     <string name="weather_exported">氣象已匯出</string>
     <string name="weather_monitoring_disabled">氣象監測已停用</string>
@@ -842,7 +838,6 @@
     <string name="map_auto_rotated">經校正，地圖轉向已調整</string>
     <string name="pin">置頂</string>
     <string name="no_sensor_message">您部機冇配備%s感應器</string>
-    <string name="calibrate_map_point">用已知位置校正 (%1$d / %2$d)</string>
     <string name="direction_not_set">方位未設定</string>
     <string name="augmented_reality">擴充實境</string>
     <string name="augmented_reality_description">用您個相機鏡頭做視野，一窺就近嘅地標同日月</string>
@@ -977,7 +972,6 @@
     <string name="obscuration">掩蓋面積比</string>
     <string name="astronomy_altitude">仰角</string>
     <string name="sighting_compass">觀摩羅經</string>
-    <string name="date">日子</string>
     <string name="precipitation_snow_grains">毛毛雪</string>
     <string name="temporary">臨時</string>
     <string name="ar_calibration_disclaimer">每次用「擴充實境」架生之前，請查驗個太陽或月亮公仔係咪已經同真實世界對齊。若果唔齊整，請撳一下畫面左上角嘅羅經公仔並跟指示校正。</string>

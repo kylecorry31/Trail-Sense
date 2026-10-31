@@ -67,20 +67,10 @@ The compass is overlaid on a camera viewfinder. While the sighting compass is on
 To navigate to a beacon, do the following:
 
 1. Tap the navigate button in the bottom-right corner. The Beacons tool opens.
-2. Select the beacon to navigate to. For more information, see the Beacons guide.
+2. Tap the beacon to navigate to.
+3. Tap **Navigate**. For more information, see the Beacons guide.
 
-While you navigate, the compass shows the direction to the beacon, and all other nearby beacons become transparent. A navigation panel at the bottom of the screen shows the following information:
-
-- **Name**: The name of the beacon you are navigating to.
-- **Coordinates**: The coordinates of the beacon.
-- **Distance**: The distance to the beacon.
-- **Bearing**: The bearing to the beacon.
-- **ETA**: The estimated time of arrival at the beacon.
-- **Elevation**: The elevation of the beacon.
-- **Elevation change**: The elevation difference from your current elevation.
-- **Notes**: Any notes you have for the beacon. If the beacon has notes, an icon is shown. Tap it to see the notes.
-
-To open the beacon, tap its name.
+While you navigate, the compass shows the direction to the beacon, and all other nearby beacons become transparent. For information about the navigation panel at the bottom of the screen, see the Navigation panel section.
 
 To stop navigating, tap the **X** button. If you cancel by accident, tap **Undo** in the message that appears.
 
@@ -88,7 +78,7 @@ To stop navigating, tap the **X** button. If you cancel by accident, tap **Undo*
 To create a beacon from your current location, long-press the navigation icon in the bottom-right corner. The Beacons tool opens with the location and elevation prefilled.
 
 ## Navigate with a bearing
-To navigate with a bearing, tap the compass to set the bearing. The bearing is shown on the compass and in the navigation panel.
+To navigate with a bearing, tap the compass to set the bearing. The bearing is shown on the compass and in the navigation panel. For more information, see the Navigation panel section.
 
 To clear the bearing, tap the compass again or tap the **X** button.
 
@@ -99,11 +89,47 @@ To change the length of the bearing line, set **Settings > Navigation > Bearing 
 ## Navigate with a path
 To navigate with a path, use the Paths tool. For more information, see the Paths guide.
 
+## Navigation panel
+While you navigate, a navigation panel at the bottom of the screen shows the following information:
+
+- **Arrow**: Points in the direction you need to go, relative to the direction your phone is facing. The bearing to the target is shown below the arrow. The arrow and bearing change from green to red the further you are from the right direction.
+- **Title**: An icon for the type of navigation, followed by the name of the beacon or path, or the bearing.
+
+The rest of the panel depends on what you are navigating to.
+
+### Beacon
+The panel shows the following information when you navigate to a beacon:
+
+- **Name**: The name of the beacon. Tap it to open the beacon.
+- **Coordinates and elevation**: The coordinates and elevation of the beacon. Tap them to open the beacon.
+- **Remaining**: The distance to the beacon.
+- **Arrive**: The estimated time to reach the beacon. The estimated time of arrival is shown below it.
+- **Remaining gain** or **Remaining loss**: The elevation difference from your current elevation. It is shown only if the beacon has an elevation.
+
+### Path
+The panel shows the following information when you navigate with a path:
+
+- **Name**: The name of the path. Tap it to open the path.
+- **Progress bar**: How far along the path you are.
+- **Remaining**: The distance to the end of the path.
+- **Arrive**: The estimated time to reach the end of the path. The estimated time of arrival is shown below it.
+- **Elevation gain and loss**: The remaining elevation gain, with the remaining elevation loss below it.
+
+### Bearing
+The panel shows the following information when you navigate with a bearing:
+
+- **Bearing**: The bearing you are following.
+- **Traveled**: The distance you have traveled from your initial location. It is shown only if **Settings > Navigation > Lock bearing to location** is enabled.
+- **Facing**: The direction your phone is facing.
+
+## Use the quick action buttons
+The left and right buttons at the top of the screen are quick actions. By default, they open the Paths and Offline Maps tools. To change them, set **Settings > Navigation > Left quick action** and **Right quick action**.
+
 ## Check your location
 Your current location is shown at the top of the screen. To see more details, tap it. The details panel shows the following information:
 
-- **Share**: Copies your location to your clipboard, shares it as a QR code, opens it in a map app, or shares it as a text message.
-- **Format**: The coordinate format used to show your location. This defaults to the format in **Settings > Units > Coordinate format**. Changes you make here are temporary and don't change your default coordinate format.
+- **Share**: Tap the share icon in the top-right corner of the panel to copy your location to your clipboard, share it as a QR code, open it in a map app, or share it as a text message.
+- **Format**: The coordinate format used to show your location. Tap the format under the coordinates to change it. This defaults to the format in **Settings > Units > Coordinate format**. Changes you make here are temporary and don't change your default coordinate format.
 - **Accuracy**: The accuracy of your location.
 - **Satellites**: The number of satellites used to calculate your location.
 - **Time since last fix**: The time since your location was last updated.

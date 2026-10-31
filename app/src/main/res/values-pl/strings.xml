@@ -294,7 +294,6 @@
     <string name="pref_adjust_for_temperature_summary">Użyj temperatury w przeliczeniach ciśnienia nad poziomem morza</string>
     <string name="pref_adjust_for_temperature_title">Współczynnik temperatury</string>
     <string name="pref_elevation_override_title">Nadpisanie wysokości</string>
-    <string name="pref_auto_location_title">Automatyczna korekcja lokalizacji</string>
     <string name="coordinate_format_utm">UTM</string>
     <string name="set_inclination_instructions">Naciśnij lub przytrzymaj w dowolnym miejscu, aby zablokować lub odblokować</string>
     <string name="create_at_distance">Utwórz w odległości</string>
@@ -371,7 +370,6 @@
     <string name="set">Ustaw</string>
     <string name="location_disabled">Lokalizacja jest wyłączona</string>
     <string name="gps_cache">Pamięć podręczna GPS</string>
-    <string name="gps_stale">Nieaktualna</string>
     <string name="pref_daily_weather_notification_title">Powiadomienia codziennej prognozy pogody</string>
     <string name="todays_forecast">Prognoza na dziś</string>
     <string name="battery_usage">Użycie baterii: %s</string>
@@ -663,7 +661,6 @@
     <string name="longest">Najdłuższe</string>
     <string name="show">Pokaż</string>
     <string name="hide">Ukryj</string>
-    <string name="base_temperature">Temperatura bazowa</string>
     <string name="precipitation_chance">Prawdopodobieństwo opadów: %s</string>
     <string name="easy">Łatwe</string>
     <string name="hard">Trudne</string>
@@ -706,7 +703,6 @@
     <string name="off">Wyłączone</string>
     <string name="no_qr_code_found">Nie wykryto kodu QR</string>
     <string name="saved_to_note">Zapisano do notatki</string>
-    <string name="since_time">od %s</string>
     <string name="humidity_history">Historia wilgotności - ostatnio %s</string>
     <string name="temperature_history">Historia temperatury - ostatnio %s</string>
     <string name="pref_auto_simplify_paths_title">Uprość ścieżki podczas importowania</string>
@@ -968,7 +964,6 @@
     <string name="tide_semidiurnal">Półdobowy</string>
     <string name="tide_frequency_description">Liczba przypływów dziennie. Większość pływów jest półdobowa.</string>
     <string name="tide_instructions">Użyj oficjalnej tabeli pływów, aby wprowadzić pływy referencyjne do długości podróży.</string>
-    <string name="calibrate_map_point">Skalibruj ze znanymi lokalizacjami (%1$d/%2$d)</string>
     <string name="ascent">Wzniesienie</string>
     <string name="descent">Opadanie</string>
     <string name="path_slope_flat">Płaskie</string>
@@ -1077,7 +1072,6 @@
     <string name="visible">Widoczność</string>
     <string name="grid">Siatka</string>
     <string name="ar_layer_override_message">Ustawienia warstw mogą być nadpisywane przez poradniki, np. Astronomiczny.</string>
-    <string name="date">Data</string>
     <string name="path_distance_performance_disclaimer">Zalecane maksymalnie %s</string>
     <string name="ar_calibration_disclaimer">Przed każdym użyciem Rzeczywistosci Rozszerzonej zweryfikuj, czy slońce i księżyc pokrywają się z właściwym położeniem. Aby skalibrować położenie, naciśnij Kompas w lewym górnym rogu ekranu oraz postępuj zgodnie z wyświetlonymi instrukcjami.</string>
     <string name="no_recorded_cell_signal_nearby">Brak pobliskich zarejestrowanych sygnalów sieci</string>
@@ -1496,7 +1490,6 @@
     <string name="reload">Odśwież</string>
     <string name="disconnect">Rozłącz</string>
     <string name="plugin_unavailable">Wtyczka niedostępna lub niepołączona.</string>
-    <string name="clear_plugin_cache">Wyczyść pamięć podręczną wtyczki</string>
     <string name="connected_plugins">Połączone wtyczki</string>
     <string name="available_plugins">Dostępne wtyczki</string>
     <string name="plugin_name">Wtyczka: %s</string>
@@ -1510,7 +1503,6 @@
         <item quantity="many">%d map</item>
         <item quantity="other">%d map</item>
     </plurals>
-    <string name="delete_offline_map_group_message">%s oraz wszystkie mapy zostaną usunięte.</string>
     <string name="clock_source_device">Czas urządzenia</string>
     <string name="clock_source_gps">Czas GPS</string>
     <string name="map_calibration_error_same_pixel">Wybierz dwa różne punkty na mapie.</string>
@@ -1519,9 +1511,6 @@
     <string name="manage_maps">Zarządzaj mapami</string>
     <string name="map_calibration_error_implausible_scale">Kalibracja jest niewiarygodna. Sprawdź punkty oraz współrzędne.</string>
     <string name="offline_maps">Mapy offline</string>
-    <string name="offline_map_import_failed">Nie można zaimportować mapy</string>
-    <string name="no_offline_maps">Brak map offline</string>
-    <string name="unsupported_offline_map_file">Nieprawidłowy plik mapy</string>
     <string name="map_type_photo">Zdjęcie</string>
     <string name="photo_map_disclaimer">Zawsze noś przy sobie mapę fizyczną jako zapasowe narzędzie oraz weryfikuj dokładność Trail Sense.\n\nTrail sense nie zawiera plików map, które należy pobrać oddzielnie lub zaimportować ze zdjęcia. Możesz pobrać pliki map z https://kylecorry.com/Trail-Sense/offline_maps.html</string>
     <string name="include_mapsforge_backups">Załącz mapy szlaków w kopii zapasowej</string>

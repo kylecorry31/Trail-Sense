@@ -3,8 +3,8 @@ Use the Turn Back tool to get an alert that tells you when to turn back on a hik
 ## Set a return time
 The return time is the time you want to be back at your current location if you start the hike now. To set a return time, do the following:
 
-1. Tap the input field.
-2. Select a time in the time picker.
+1. Tap the **Return time** field.
+2. Select a time in the time picker, and tap **OK**.
 
 After you set the return time, an alert is shown a little before the halfway point of the hike to remind you to turn back if you want to return on time. The time until you need to turn back is shown at the top of the screen.
 

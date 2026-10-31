@@ -8,10 +8,10 @@ To search for a tool, use the search bar at the top of the tool list.
 ### Use the tool options
 To see more options for a tool, long-press the tool in the tool list:
 
-- **About**: Shows more details about what the tool does.
+- **About**: Shows more details about what the tool does. Only shown for tools with a description.
 - **Pin/unpin**: Pins the tool to the top of the list, or unpins it.
-- **User guide**: Opens the user guide for the tool.
-- **Settings**: Opens the settings for the tool.
+- **User Guide**: Opens the user guide for the tool.
+- **Settings**: Opens the settings for the tool. Only shown for tools that have settings.
 - **Experimental**: Shown for tools that are still in development. These tools might not be fully functional.
 - **Add to homescreen**: Adds a shortcut to the tool on your device's home screen.
 
@@ -23,10 +23,10 @@ To change which tools appear in the bottom navigation, set **Settings > Tools > 
 ## Pin tools
 To pin a tool to the top of the tool list, long-press the tool, and select **Pin**. To unpin it, long-press the tool, and select **Unpin**.
 
-To pin or unpin several tools at once, tap the edit icon on the right side of the pinned tools header.
+To pin or unpin several tools at once, tap the edit icon on the right side of the pinned tools header, check the tools to pin, and tap **OK**.
 
 ## Sort tools
-To change the order of the tools, tap the sort icon on the right side of the tools header, and select a sort option:
+To change the order of the tools, tap the sort icon on the right side of the tools header. Select a sort option, and tap **OK**:
 
 - **Name**: Sorts alphabetically by tool name.
 - **Category**: Groups tools by category and sorts alphabetically within each category.
@@ -34,7 +34,7 @@ To change the order of the tools, tap the sort icon on the right side of the too
 ## Open a user guide
 A user guide is available for each tool. To open it, do one of the following:
 
-- Long-press the tool in the tool list, and select **User guide**.
+- Long-press the tool in the tool list, and select **User Guide**.
 - Open the **User Guide** tool in the tool list.
 - Use the User Guide quick action, which opens the guide for the active tool.
 
@@ -45,9 +45,13 @@ To open the app settings, do one of the following:
 - Open the **Settings** tool in the tool list.
 
 ## Use quick actions
-To choose which quick actions are available, open **Settings > Tools > Quick actions**.
+To choose which quick actions are available on the Tools tab, open **Settings > Tools > Quick actions**. They are shown at the top of the Tools tab.
+
+The Navigation, Weather, and Astronomy tabs each have a left and right quick action button at the top of the screen. To change them, open **Settings > Navigation**, **Settings > Weather**, or **Settings > Astronomy**, and set **Left quick action** and **Right quick action**.
 
 To use quick actions, long-press the bottom navigation. In addition to the quick actions you selected, you see contextual quick actions for the active tool, such as the user guide or settings.
+
+For most quick actions, long-press the quick action button to open the tool it belongs to.
 
 All quick actions that begin with **Tool:** open the tool when you tap them. For more information about a quick action, see the user guide for its tool.
 

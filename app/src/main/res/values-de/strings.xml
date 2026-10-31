@@ -139,7 +139,6 @@
     <string name="elevation_override_updated_toast">Höhe festgelegt</string>
     <string name="pref_elevation_override_title">Höhe setzen</string>
     <string name="compass_accuracy_improved">Kompassgenauigkeit verbessert zu %s</string>
-    <string name="pref_auto_location_title">Automatisches Anpassen des Ortes</string>
     <string name="pref_max_beacon_distance_title">Entfernung für nahegelegene Wegpunkte</string>
     <string name="never">Nie</string>
     <string name="altimeter_mode_gps_barometer">GPS + Barometer</string>
@@ -387,7 +386,6 @@
     <string name="import_btn">Importieren</string>
     <string name="unavailable">Nicht verfügbar</string>
     <string name="gps_searching">Suche</string>
-    <string name="gps_stale">Veraltet</string>
     <string name="privacy_and_location">Datenschutz und Standort</string>
     <string name="gps_user">Benutzer</string>
     <string name="quality_poor">Schlecht</string>
@@ -580,7 +578,6 @@
     <string name="pref_map_url_source_title">Kartenformat beim Senden eines Standorts</string>
     <string name="clear_cache">Cache leeren</string>
     <string name="destination_elevation">Zielhöhe</string>
-    <string name="base_temperature">Basistemperatur</string>
     <string name="base_elevation">Basishöhe</string>
     <string name="coordinate_format_usng">USNG</string>
     <string name="delete_pack">Packliste löschen\?</string>
@@ -820,7 +817,6 @@
         <item quantity="one">%d Gezeit</item>
         <item quantity="other">%d Gezeiten</item>
     </plurals>
-    <string name="since_time">seit %s</string>
     <string name="humidity_history">Luftfeuchtigkeitsverlauf - letzte %s</string>
     <string name="temperature_history">Temperaturverlauf - letzte %s</string>
     <string name="disclaimer_estimated_tide_title">Geschätzte Gezeit</string>
@@ -970,7 +966,6 @@
     <string name="print">Drucken</string>
     <string name="autofill_source">Daten automatisch ausfüllen</string>
     <string name="illumination">Beleuchtung</string>
-    <string name="calibrate_map_point">Mit bekannten Orten kalibrieren (%1$d / %2$d)</string>
     <string name="pref_keep_map_facing_up_title">Karte zeigt nach oben</string>
     <string name="rate">Rate</string>
     <string name="season">Jahreszeit</string>
@@ -1182,7 +1177,6 @@
     <string name="tool_long_press_hint_toast">Lange drücken um mehr Optionen zu sehen</string>
     <string name="view_distance">Entfernung anzeigen</string>
     <string name="reset_calibration_question">Kalibrierung zurücksetzen?</string>
-    <string name="date">Datum</string>
     <string name="cloud_scanner">Wolkenradar</string>
     <string name="star">Stern</string>
     <string name="left">Links</string>
@@ -1495,7 +1489,6 @@
     <string name="tile_layer">Kachelebene</string>
     <string name="disconnect">Verbindung trennen</string>
     <string name="plugin_unavailable">Dieses Plugin ist nicht verfügbar oder nicht mehr verbunden.</string>
-    <string name="clear_plugin_cache">Plugin-Cache leeren</string>
     <string name="connected_plugins">Verbundene Plugins</string>
     <string name="available_plugins">Verfügbare Plugins</string>
     <string name="plugin_name">Plugin: %s</string>
@@ -1529,7 +1522,6 @@
     <string name="reload">Neu laden</string>
     <string name="quick_action_recalibrate_altimeter">Höhenmesser neu kalibrieren</string>
     <string name="recalibrating">Kalibriere neu</string>
-    <string name="delete_offline_map_group_message">%s und alle seine Karten werden gelöscht.</string>
     <string name="clock_source_device">Gerätezeit</string>
     <string name="clock_source_gps">GPS-Zeit</string>
     <string name="clock_device_time_accurate">Geräteuhr ist akkurat</string>

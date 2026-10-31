@@ -130,7 +130,6 @@
     <string name="calibrate_compass_dialog_content">உங்கள் தொலைபேசியை படம் 8 வடிவத்தில் அல்லது எல்லா திசைகளிலும் பல முறை சுழற்றுங்கள், முடிந்ததும் %s ஐக் சொடுக்கு செய்க.</string>
     <string name="calibrate_compass_on_navigate_dialog_content">உங்கள் தொலைபேசியை படம் 8 வடிவத்தில் அல்லது எல்லா திசைகளிலும் பல முறை சுழற்றுங்கள், முடிந்ததும் %s ஐக் சொடுக்கு செய்க.\n\n பயன்பாட்டு அமைப்புகளில் இந்த எச்சரிக்கை முடக்கப்படலாம்.</string>
     <string name="gps">உலக இடம் காட்டும் அமைப்பு</string>
-    <string name="pref_auto_location_title">ஆட்டோ சரிசெய்தல் இருப்பிடம்</string>
     <string name="request_permission">இசைவு கோருங்கள்</string>
     <string name="pref_altimeter_calibration_title">உயரமானி</string>
     <string name="elevation_from_pressure">காற்றழுத்தமானியிலிருந்து மேலெழுதலை அமைக்கவும்</string>
@@ -397,7 +396,6 @@
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">நியாயமான வானிலை குறிக்கலாம். உயரமாக வளர்ந்தால், அடுத்த %d மணிநேரங்களில் மழைப்பொழிவு அல்லது இடியுடன் கூடிய மழை பெய்யக்கூடும்.</string>
     <string name="privacy_and_location">தனியுரிமை மற்றும் இருப்பிடம்</string>
     <string name="gps_user">பயனர்</string>
-    <string name="gps_stale">பழைய</string>
     <string name="gps_searching">தேடுகிறது</string>
     <string name="beam_distance">%s பீம் தூரம்</string>
     <string name="tool_light_meter_title">ஒளி மீட்டர்</string>
@@ -429,7 +427,6 @@
     <string name="find_next_occurrence">அடுத்த நிகழ்வைக் கண்டறி</string>
     <string name="yards_format">%s yd</string>
     <string name="millimeters_format">%s மிமீ</string>
-    <string name="base_temperature">அடிப்படை வெப்பநிலை</string>
     <string name="destination_elevation">இலக்கு உயரம்</string>
     <string name="pint_format">%s pt</string>
     <string name="quart_format">%s</string>
@@ -476,7 +473,6 @@
     <string name="permission_alarms_and_reminders">அலாரங்கள் மற்றும் நினைவூட்டல்கள்</string>
     <string name="change_resolution">தீர்மானத்தை மாற்றவும்</string>
     <string name="done">முடிந்தது</string>
-    <string name="calibrate_map_point">அறியப்பட்ட இடங்களுடன் அளவீடு செய்யுங்கள் ( %1$d / %2$d)</string>
     <string name="descent">இறக்கம்</string>
     <string name="ascent">ஏற்றம்</string>
     <string name="lowest_point_elevation">மிகக் குறைந்த புள்ளி</string>
@@ -736,7 +732,6 @@
     <string name="high_tide">உயர்ந்த</string>
     <string name="low_tide">குறைந்த</string>
     <string name="half_tide">பாதி</string>
-    <string name="since_time">%s என்பதால்</string>
     <string name="pedometer">பெடோமீட்டர்</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">அதிகபட்ச %d விண்கற்கள் / ம</string>
     <string name="pref_meteor_showers_title">விண்கல் மழை</string>
@@ -1124,7 +1119,6 @@
     <string name="use_gyroscope_after_calibration">அளவுத்திருத்தத்திற்குப் பிறகு கைரோச்கோப் பயன்படுத்தவும்</string>
     <string name="use_gyroscope_after_calibration_description">திசைகாட்டிக்கு பதிலாக (காந்த சறுக்கலைத் தவிர்க்கிறது)</string>
     <string name="projection_type">பெரிதாக்கப்பட்ட ரியாலிட்டி ப்ரொசெக்சன்</string>
-    <string name="date">திகதி</string>
     <string name="ar_calibration_disclaimer">பெரிதாக்கப்பட்ட ரியாலிட்டி கருவியின் ஒவ்வொரு பயன்பாட்டிற்கும் முன்பு, சூரியன் அல்லது சந்திரன் சின்னங்களை சரிபார்க்கவும் உண்மையான உலகத்துடன் சரியாக இணைக்கப்பட்டுள்ளது. இல்லையென்றால், திரையின் மேல் இடதுபுறத்தில் உள்ள திசைகாட்டி ஐகானைக் சொடுக்கு செய்து, அளவீடு செய்வதற்கான வழிமுறைகளைப் பின்பற்றவும்.</string>
     <string name="pref_start_camera_in_3d_view_title">3D பார்வைக்கு கேமராவைப் பயன்படுத்தவும்</string>
     <string name="return_time">திரும்பும் நேரம்</string>

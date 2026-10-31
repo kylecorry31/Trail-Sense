@@ -224,7 +224,6 @@
     <string name="sensors">เซ็นเซอร์</string>
     <string name="pref_auto_declination_summary">อิงจากตำแหน่งปัจจุบันของคุณ</string>
     <string name="location">ตำแหน่ง</string>
-    <string name="pref_auto_location_title">ปรับตำแหน่งอัตโนมัติ</string>
     <string name="satellites">ดาวเทียม</string>
     <string name="num_satellites">%d ดวง</string>
     <string name="clear_cache">ล้างแคช</string>
@@ -271,7 +270,6 @@
     <string name="guide_map_layers">ชั้นเลเยอร์แผนที่</string>
     <string name="layers">เลเยอร์</string>
     <string name="gps_signal_lost">สัญญาณ GPS ขาดหาย</string>
-    <string name="gps_stale">คาดเคลื่อน</string>
     <string name="reduce_pdf_resolution">ลดความละเอียดไฟล์ PDF</string>
     <string name="compass_dynamic_colors_summary">ใช้สีแบบไดนามิกสำหรับการนำทางด้วยเข็มทิศ</string>
     <string name="default_widget_theme">ธีมของวิดเจ็ตเรื่มต้น</string>

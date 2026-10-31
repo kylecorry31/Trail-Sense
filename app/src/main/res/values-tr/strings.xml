@@ -48,7 +48,6 @@
     <string name="quality_poor">Zayıf</string>
     <string name="unavailable">Kullanılamıyor</string>
     <string name="gps_searching">Aranıyor</string>
-    <string name="gps_stale">Vakti geçmiş</string>
     <string name="gps_user">Kullanıcı</string>
     <string name="import_btn">İçeri Aktar</string>
     <plurals name="beacons_exported">
@@ -257,7 +256,6 @@
     <string name="elevation_from_pressure">Üzerine yazma değerini barometreden ayarla</string>
     <string name="pref_altimeter_calibration_title">Yükseklik ölçer</string>
     <string name="request_permission">İzin talep et</string>
-    <string name="pref_auto_location_title">Konumu otomatik ayarla</string>
     <string name="location">Konum</string>
     <string name="gps">GPS</string>
     <string name="compass_accuracy_improved">Pusula verisi doğruluğu %s\'a yükseltildi</string>
@@ -610,7 +608,6 @@
     <string name="pref_map_url_source_title">Konum paylaşımı haritası</string>
     <string name="clear_cache">Ön belleği temizle</string>
     <string name="destination_elevation">Hedef yüksekliği</string>
-    <string name="base_temperature">Temel sıcaklık</string>
     <string name="base_elevation">Temel yükseklik</string>
     <string name="unit_yards">Yarda</string>
     <string name="yards_format">%s yd</string>
@@ -747,7 +744,6 @@
     <string name="duration_second_format">%dsn</string>
     <string name="weather_no_change">Değişmiyor</string>
     <string name="weather_storm">Fırtına</string>
-    <string name="since_time">%s\'den beri</string>
     <string name="humidity_history">Nem geçmişi - son %s</string>
     <string name="instructions">Talimatlar</string>
     <string name="clinometer_measure_height_title">Hedefe uzaklık</string>
@@ -963,7 +959,6 @@
     <string name="triangulate_destination_location_1_instructions">Konumunuzu ve hedef noktasına olan yönü kaydedin.</string>
     <string name="allow_ignore_battery_restrictions">%s için pil kısıtlamalarını yok sayma izni ver</string>
     <string name="i_agree">Kabul Ediyorum</string>
-    <string name="calibrate_map_point">Bilinen konumlarla kalibre et (%1$d / %2$d)</string>
     <string name="gps_elevation_accuracy">GPS yükseklik doğruluğu</string>
     <string name="restore">Geri yükle</string>
     <string name="compass_source_legacy_android">Eski (Android)</string>
@@ -1085,7 +1080,6 @@
     <string name="visible">Görünür</string>
     <string name="grid">Izgara</string>
     <string name="ar_layer_override_message">Katman ayarları, gök bilim kılavuzu gibi yönlendirmelerle geçersiz kılınabilir.</string>
-    <string name="date">Tarih</string>
     <string name="ar_calibration_disclaimer">Artırılmış Gerçeklik aracını her kullanmadan önce, güneş veya ay simgelerinin gerçek dünyaya uygun şekilde hizalandığını doğrulayın. Değilse, ekranın sol üst köşesindeki pusula simgesine tıklayın ve kalibre etmek için talimatları izleyin.</string>
     <string name="pref_enable_analog_title">Analog saat</string>
     <string name="no_recorded_cell_signal_nearby">Yakınlarda kayıtlı telefon sinyali yok</string>
@@ -1439,7 +1433,6 @@
     <string name="plugin_connect_title">Eklenti bağlansın mı?</string>
     <string name="disconnect">Bağlantıyı Kes</string>
     <string name="plugin_unavailable">Bu eklenti kullanılamıyor veya artık bağlı değil.</string>
-    <string name="clear_plugin_cache">Eklenti önbelliğini temizle</string>
     <string name="plugin_connect_message">Yalnızca güveniyorsanız %s adresine bağlanın.</string>
     <string name="plugin_disconnect_title">Eklentinin bağlantısı kesilsin mi?</string>
 </resources>

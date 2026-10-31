@@ -114,7 +114,6 @@
     <string name="elevation_from_pressure">Aseta ohitus barometrista</string>
     <string name="pref_altimeter_calibration_title">Korkeusmittari</string>
     <string name="request_permission">Pyydä lupaa</string>
-    <string name="pref_auto_location_title">Säädä sijainti automaattisesti</string>
     <string name="location">Sijainti</string>
     <string name="gps">GPS</string>
     <string name="compass_accuracy_improved">Kompassin tarkkuus parannettu muotoon %s</string>
@@ -378,7 +377,6 @@
     <string name="hot">Kuuma</string>
     <string name="location_not_mocked">Käytetään todellista sijaintia</string>
     <string name="solar_panel_instructions">Aseta puhelimesi aurinkopaneelin etupuolelle aloittaaksesi.</string>
-    <string name="calibrate_map_point">Kalibroi tunnetuilla paikoilla (%1$d / %2$d)</string>
     <string name="on">Päällä</string>
     <string name="gps_elevation_accuracy">GPS-korkeustarkkuus</string>
     <string name="battery_health_over_voltage">Ylijännite</string>
@@ -427,14 +425,12 @@
     <string name="us_ounces_volume">Yhdysvaltain unssia</string>
     <string name="error_banners">Virhebannerit</string>
     <string name="yes">Kyllä</string>
-    <string name="gps_stale">Tunkkainen</string>
     <string name="seconds">Sekuntia</string>
     <string name="network_no_signal">Ei signaalia</string>
     <string name="qr_code_scanner">QR-koodinlukija</string>
     <string name="notifications_channel">Ilmoitukset (%s)</string>
     <string name="unit_feet">Jalkaa</string>
     <string name="peak_time">Huippu</string>
-    <string name="base_temperature">Lähtökorkeuden lämpötila</string>
     <string name="square">Neliö</string>
     <string name="for_historic_temperatures">Historiallisille lämpötiloille</string>
     <string name="camera_permission_denied">Kameran käyttöoikeus evätty, joten kameraominaisuuksia ei voitu ottaa käyttöön. Voit ottaa ne käyttöön asetuksista.</string>
@@ -945,7 +941,6 @@
     <string name="no_sensor_message">Laitteessa ei ole %s anturia</string>
     <string name="enter_manually">Määritä manuaalisesti</string>
     <string name="direction_not_set">Suuntaa ei ole asetettu</string>
-    <string name="since_time">%s asti</string>
     <string name="triangulate_destination_location_1_instructions">Tallenna sijaintisi ja suunta kohteeseen.</string>
     <string name="astronomy_altitude">Korkeus</string>
     <string name="kwh_per_meter_squared_format">%s kWh / m²</string>
@@ -1062,7 +1057,6 @@
     <string name="feature_unavailable">%s ei ole käytettävissä</string>
     <string name="ar_calibration_instructions_hint">Kalibroidaksesi Parannetun todellisuuden, paina kuvaketta ruudun vasemassa yläkulmassa ja seuraa ohjeita.</string>
     <string name="grid">Ruudukko</string>
-    <string name="date">Päiväys</string>
     <string name="no_recorded_cell_signal_nearby">Ei tallennettua matkapuhelinverkon signaalia lähistöllä</string>
     <string name="navigate_to_nearest_cell_signal">Navigoi lähimpään matkapuhelinverkon signaaliin</string>
     <string name="pref_start_camera_in_3d_view_summary">Avaa kameran kun painat 3D-katselun painiketta</string>
@@ -1474,7 +1468,6 @@
     <string name="reload">Lataa uudelleen</string>
     <string name="disconnect">Katkaise yhteys</string>
     <string name="plugin_unavailable">Tämä liitännäinen ei ole saatavilla tai se ei ole enää yhdistettynä.</string>
-    <string name="clear_plugin_cache">Tyhjennä liittännäisten välimuisti</string>
     <string name="connected_plugins">Yhdistetyt liitännäiset</string>
     <string name="available_plugins">Saatavilla olevat liitännäiset</string>
     <string name="plugin_name">Liitännäiset: %s</string>
@@ -1486,7 +1479,6 @@
         <item quantity="one">%d kartta</item>
         <item quantity="other">%d karttaa</item>
     </plurals>
-    <string name="delete_offline_map_group_message">%s ja kaikki sen kartat tullaan poistamaan.</string>
     <string name="clock_source_device">Laitteen aika</string>
     <string name="clock_source_gps">GPS:n aika</string>
     <string name="current_temperature">Nykyinen lämpötila</string>
@@ -1500,9 +1492,6 @@
     <string name="target">Kohde</string>
     <string name="not_visible">Ei näkyvissä</string>
     <string name="offline_maps">Offline-kartat</string>
-    <string name="offline_map_import_failed">Karttaa ei voitu tuoda</string>
-    <string name="no_offline_maps">Ei offline-karttoja</string>
-    <string name="unsupported_offline_map_file">Tukematon karttatiedosto</string>
     <string name="map_type_photo">Kuva</string>
     <string name="manage_maps">Hallinnoi karttoja</string>
     <string name="brightness">Kirkkaus</string>
@@ -1540,7 +1529,6 @@
         <item quantity="one">%d askel</item>
         <item quantity="other">%d askelta</item>
     </plurals>
-    <string name="turn_back_alarm_channel">Käänny takaisin (Hälytys)</string>
     <string name="references">Viittaukset</string>
     <string name="invalid_trail_map">Epäkelpo reittikartta</string>
     <string name="invalid_trail_map_message">Reittikarttatiedosto on epäkelpo tai se puuttuu. Saatat haluta poistaa tämän kartan ja tuoda uuden sen tilalle.</string>

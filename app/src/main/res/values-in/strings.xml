@@ -232,7 +232,6 @@
     <string name="calibrate">Kalibrasi</string>
     <string name="calibrate_compass_dialog_title">Kalibrasi kompas</string>
     <string name="calibrate_compass_dialog_content">Putar telepon anda dalam pola angka 8 atau ke segala arah beberapa kali, klik %s setelah selesai.</string>
-    <string name="pref_auto_location_title">Sesuaikan lokasi secara otomatis</string>
     <string name="elevation_override_updated_toast">Penggantian ketinggian diperbarui</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Masukkan tekanan saat ini di permukaan laut dalam hPa</string>
     <string name="never">Tidak pernah</string>
@@ -384,7 +383,6 @@
     <string name="cirrocumulus">Cirrocumulus</string>
     <string name="altocumulus">Altocumulus</string>
     <string name="gps_user">Pengguna</string>
-    <string name="gps_stale">Usang</string>
     <string name="gps_searching">Mencari</string>
     <string name="network_3g">3G</string>
     <string name="barometer">Barometer</string>
@@ -551,7 +549,6 @@
     <string name="network_2g">2G</string>
     <string name="right_quick_action">Tindakan cepat kanan</string>
     <string name="left_quick_action">Tindakan cepat kiri</string>
-    <string name="since_time">sejak %s</string>
     <string name="pedometer">Pedometer</string>
     <string name="pref_step_length_title">Panjang langkah</string>
     <string name="pref_meteor_showers_title">Hujan meteor</string>
@@ -676,7 +673,6 @@
     <string name="daylight">Siang hari</string>
     <string name="us_gallons">Galon AS</string>
     <string name="base_elevation">Ketinggian dasar</string>
-    <string name="base_temperature">Temperatur dasar</string>
     <string name="destination_elevation">Ketinggian tujuan</string>
     <string name="cross">Menyilang</string>
     <string name="precipitation_snow_grains">Butiran salju</string>
@@ -941,7 +937,6 @@
     <string name="exported">Diekspor</string>
     <string name="map_file">File (JPG, PNG, PDF, Mapsforge)</string>
     <string name="tide_frequency_description">Jumlah pasang tinggi per hari. Sebagian besar pasang bersifat semidiurnal.</string>
-    <string name="calibrate_map_point">Kalibrasi dengan lokasi yang diketahui (%1$d / %2$d)</string>
     <string name="descent">Turun</string>
     <string name="ascent">Naik</string>
     <string name="aspect">Aspek</string>
@@ -1133,7 +1128,6 @@
     <string name="hide_all">Sembunyikan semua</string>
     <string name="grid">Kisi</string>
     <string name="ar_layer_override_message">Pengaturan lapisan mungkin diganti oleh panduan, seperti panduan Astronomi.</string>
-    <string name="date">Tanggal</string>
     <string name="path_distance_performance_disclaimer">Maksimum yang disarankan adalah %s</string>
     <string name="ar_calibration_disclaimer">Sebelum setiap penggunaan alat Realitas Tertambah, verifikasi bahwa ikon matahari atau bulan sejajar dengan dunia nyata. Jika tidak, klik ikon kompas di kiri atas layar dan ikuti petunjuk untuk mengkalibrasi.</string>
     <string name="no_recorded_cell_signal_nearby">Tidak ada sinyal seluler yang tercatat di sekitar</string>
@@ -1530,7 +1524,6 @@
     <string name="reload">Muat ulang</string>
     <string name="disconnect">Putuskan sambungan</string>
     <string name="plugin_unavailable">Plugin ini tidak tersedia atau tidak lagi terhubung.</string>
-    <string name="clear_plugin_cache">Hapus cache plugin</string>
     <string name="connected_plugins">Plugin yang terhubung</string>
     <string name="available_plugins">Plugin yang tersedia</string>
     <string name="plugin_name">Plugin: %s</string>
@@ -1545,7 +1538,6 @@
     <plurals name="offline_map_group_summary">
         <item quantity="other">%d peta</item>
     </plurals>
-    <string name="delete_offline_map_group_message">%s dan seluruh peta terkait akan dihapus.</string>
     <string name="clock_source_device">Waktu perangkat</string>
     <string name="brightness">Kecerahan</string>
     <string name="scientific_name">Nama ilmiah</string>
@@ -1594,14 +1586,10 @@
     <plurals name="step_count">
         <item quantity="other">%d langkah</item>
     </plurals>
-    <string name="turn_back_alarm_channel">Kembali (Alarm)</string>
     <string name="references">Referensi</string>
     <string name="include_mapsforge_backups">Sertakan peta jalur dalam cadangan</string>
     <string name="include_mapsforge_backups_summary">File Mapsforge (.map) dapat berukuran besar</string>
     <string name="offline_maps">Peta Offline</string>
-    <string name="offline_map_import_failed">Tidak dapat mengimpor peta</string>
-    <string name="no_offline_maps">Tidak ada peta offline</string>
-    <string name="unsupported_offline_map_file">File peta tidak didukung</string>
     <string name="trail_maps">Peta jalur</string>
     <string name="bearing_length">Panjang arah</string>
     <string name="bearing_length_description">Panjang garis arah ketika arah aktif</string>

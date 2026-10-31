@@ -178,7 +178,6 @@
     <string name="compass_accuracy_improved">A precisión do compás mellorou a %s</string>
     <string name="gps">GPS</string>
     <string name="location">Localización</string>
-    <string name="pref_auto_location_title">Axuste automático da localización</string>
     <string name="request_permission">Solicitar permiso</string>
     <string name="pref_altimeter_calibration_title">Altímetro</string>
     <string name="elevation_from_pressure">Establecer a corrección dende o barómetro</string>
@@ -416,7 +415,6 @@
     </plurals>
     <string name="import_btn">Importar</string>
     <string name="gps_user">Usuario</string>
-    <string name="gps_stale">Obsoleto</string>
     <string name="gps_searching">Procurando</string>
     <string name="unavailable">Non dispoñible</string>
     <string name="quality_poor">Baixa</string>
@@ -471,7 +469,6 @@
     <string name="pref_daily_weather_time_title">Hora meteorolóxica diaria</string>
     <string name="screen_flashlight">Pantalla</string>
     <string name="speedometer">velocímetro</string>
-    <string name="since_time">dende %s</string>
     <string name="pedometer">podómetro</string>
     <string name="pref_step_length_title">Lonxitude da zancada</string>
     <string name="no_tides">Sen mareas</string>
@@ -567,7 +564,6 @@
     <string name="millimeters_format">%s mm</string>
     <string name="unit_yards">Iardas</string>
     <string name="base_elevation">Elevación da base</string>
-    <string name="base_temperature">Temperatura base</string>
     <string name="destination_elevation">Elevación do destino</string>
     <string name="clear_cache">Borrar a caché</string>
     <string name="pref_map_url_source_title">Mapa para compartir localización</string>
@@ -853,7 +849,6 @@
     <string name="permission_alarms_and_reminders">Alarmas e recordatorios</string>
     <string name="change_resolution">Trocar resolución</string>
     <string name="done">Feito</string>
-    <string name="calibrate_map_point">Calibrar con localizacións coñecidas (%1$d / %2$d)</string>
     <string name="descent">Descenso</string>
     <string name="ascent">Ascenso</string>
     <string name="lowest_point_elevation">Punto máis baixo</string>
@@ -1060,7 +1055,6 @@
     <string name="visible">Visible</string>
     <string name="grid">Grade</string>
     <string name="ar_layer_override_message">A configuración das capas pode ser anulada pola guía, como a guía de astronomía.</string>
-    <string name="date">Data</string>
     <string name="path_distance_performance_disclaimer">Máximo recomendado de %s</string>
     <string name="ar_calibration_disclaimer">Antes de cada uso da ferramenta de realidade aumentada, verifica cas iconas do sol ou da lúa estean correctamente aliñadas co mundo real. Se non, fai clic na icona da compás na parte superior esquerda da pantalla e segue as instrucións para calibrar.</string>
     <string name="no_recorded_cell_signal_nearby">Non hai sinal móbil rexistrada preto</string>
@@ -1445,7 +1439,6 @@
     <string name="reload">Recargar</string>
     <string name="disconnect">Desconectar</string>
     <string name="plugin_unavailable">Este complemento non está dispoñible ou xa non está.</string>
-    <string name="clear_plugin_cache">Limpar caché de complementos</string>
     <string name="connected_plugins">Complementos conectados</string>
     <string name="available_plugins">Complementos dispoñibles</string>
     <string name="plugin_name">Complemento: %s</string>
@@ -1490,7 +1483,6 @@
     <string name="hide_field_guide_page_message">%1$s\n\nPodes voltar amosar esta páxina nos axustes da Guía de campo.</string>
     <string name="common_name">Nome común</string>
     <string name="both_names">Ambos os nomes</string>
-    <string name="delete_offline_map_group_message">%s e tódolos seus mapas eliminaranse.</string>
     <string name="clock_source_device">Hora do dispositivo</string>
     <string name="clock_source_gps">Hora do GPS</string>
     <string name="clock_device_time_accurate">O reloxo do dispositivo é preciso</string>
@@ -1542,15 +1534,11 @@
         <item quantity="one">%d paso</item>
         <item quantity="other">%d pasos</item>
     </plurals>
-    <string name="turn_back_alarm_channel">Voltar atrás (Alarma)</string>
     <string name="references">Referencias</string>
     <string name="include_mapsforge_backups">Incluír mapas de rutas nas copias de seguridade</string>
     <string name="include_mapsforge_backups_summary">Os ficheiros Mapsforge (.map) poden ser grandes</string>
     <string name="location_required_for_cell_signals">Requírese permiso de localización para ver os sinais de telefonía móbil próximos</string>
     <string name="offline_maps">Mapas sen conexión</string>
-    <string name="offline_map_import_failed">Non se puido importar o mapa</string>
-    <string name="no_offline_maps">Non hai mapas sen conexión</string>
-    <string name="unsupported_offline_map_file">Ficheiro de mapa non compatible</string>
     <string name="trail_maps">Mapas de rutas</string>
     <string name="bearing_length">Lonxitude do rumbo</string>
     <string name="bearing_length_description">A lonxitude da liña do rumbo cando hai un rumbo activo</string>

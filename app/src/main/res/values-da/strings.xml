@@ -161,7 +161,6 @@
     <string name="compass_reported_accuracy">Rapporteret nøjagtighed: %s</string>
     <string name="gps">GPS</string>
     <string name="pref_altimeter_calibration_title">Højdemåler</string>
-    <string name="pref_auto_location_title">Automatisk justering af placering</string>
     <string name="elevation_from_pressure">Indstil tilsidesættelse fra barometer</string>
     <string name="pref_elevation_override_sea_level_dialog_msg">Indtast det aktuelle tryk ved havoverfladen i hPa</string>
     <string name="request_permission">Anmod om tilladelse</string>
@@ -196,7 +195,6 @@
     <string name="none">Ingen</string>
     <string name="pref_show_last_signal_beacon_title">Sidste signalbeacon</string>
     <string name="moved_to">Flyttet til %s</string>
-    <string name="base_temperature">Udgangspunktets temperatur</string>
     <string name="clear_cache">Ryd cache</string>
     <string name="pref_map_url_source_title">Positionsdelingskort</string>
     <string name="liter_format">%s l</string>
@@ -491,7 +489,6 @@
     <string name="backtrack">Backtrack</string>
     <string name="noon">Middag</string>
     <string name="low_tide_letter">L</string>
-    <string name="gps_stale">Forældet</string>
     <string name="gps_searching">Søger</string>
     <string name="network_2g">2G</string>
     <string name="network_3g">3G</string>
@@ -688,7 +685,6 @@
     <string name="low_tide">Lav</string>
     <string name="half_tide">Halv</string>
     <string name="time_not_set">Tid ikke indstillet</string>
-    <string name="since_time">siden %s</string>
     <string name="pref_step_length_title">Skridtlængde</string>
     <string name="on_map">På kort</string>
     <string name="gps_cache">GPS Cache</string>

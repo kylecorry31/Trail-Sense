@@ -11,6 +11,8 @@ To make water safe to drink, you must filter it and then boil it. Do the followi
 
 When the timer expires, the water is likely safe to drink.
 
-By default, the timer uses your current elevation to calculate the boiling time. To choose a boiling time yourself, tap the 1-minute or 3-minute button at the bottom of the screen.
+By default, the timer is set to **Auto**, which uses your current elevation to calculate the boiling time. To choose a boiling time yourself, tap **1m** or **3m** at the bottom of the screen.
+
+To stop the timer before it expires, tap **Cancel**.
 
 To play the timer on the alarm audio channel, which sounds even if media and notifications are muted, enable **Settings > Water Boil Timer > Use alarm for water boil timer**.

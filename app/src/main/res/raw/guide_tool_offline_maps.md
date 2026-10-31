@@ -21,7 +21,7 @@ The import options are:
 
 - **File (JPG, PNG, PDF, Mapsforge)**: Choose an image, PDF, or Mapsforge `.map` file from your device. If your PDF contains geospatial data, Trail Sense uses it to calibrate the photo map automatically.
 - **Camera**: Take a picture of a map. Make sure the entire map is in the frame.
-- **Blank**: Generates a blank photo map from a location and a map size. By default, the map is centered on your current location. The size is the distance from the center to the corner. This option doesn't require calibration.
+- **Blank**: Generates a blank photo map from a location and a map size. By default, the map is centered on your current location. The size is the distance from the center to the corner. This option doesn't require calibration. Enter the center and size, tap **OK**, and then enter a name for the map.
 - **Group**: Creates a group for organizing maps.
 
 If you import a map from an image or a non-geospatial PDF, Trail Sense opens the calibration screen. See the Calibrate a photo map section.
@@ -46,7 +46,7 @@ To calibrate a photo map with two known locations, do the following:
 8. Optional: When you have two calibration points, tap **Preview** to see the calibrated map with nearby paths and beacons.
 9. Tap **Finish calibration** to save the calibration.
 
-To select locations more accurately, pinch to zoom or use the zoom buttons in the bottom-right corner. To recenter the map on your screen, tap the recenter button in the top-right corner.
+To select locations more accurately, pinch to zoom or use the zoom buttons in the bottom-right corner. To recenter the map on your screen, tap the recenter button in the top-left corner.
 
 Calibration automatically aligns the map with north facing up. The calculated rotation is shown under the map name at the top of the screen.
 
@@ -54,7 +54,7 @@ To save an incomplete calibration at any point, tap **Next**, and then tap **Sav
 
 If Trail Sense reports that the calibration is invalid, check the following:
 
-- The two map points are different.
+- The two map points are different, and they aren't directly beside or above each other.
 - The two real-world coordinates are different.
 - The distance between the selected map points is roughly proportional to their real-world distance.
 
@@ -101,15 +101,15 @@ Photo maps open in the map viewer. The viewer has the following controls:
 
 - **Pan**: Drag the map.
 - **Zoom**: Pinch the map, or tap the zoom buttons in the bottom-right corner.
-- **Recenter**: Tap the recenter button in the top-right corner.
+- **Recenter**: Tap the recenter button in the top-left corner.
 - **Scale**: The map's scale is shown in the bottom-right corner.
 - **Compass**: The compass icon in the top-right corner always points north.
 
 To center a photo map on your location, tap the GPS button in the bottom-right corner. The button has three states, and each tap moves to the next state:
 
-1. The map is centered on your location.
-2. The map is locked to your location and orientation.
-3. The map is unlocked.
+1. The map is centered on your location. You can't pan the map, but you can zoom.
+2. The map is locked to your location and orientation. You can't pan the map, but you can zoom. This state is skipped if your device doesn't have a compass.
+3. The map is unlocked, so you can pan it freely.
 
 Photo map settings:
 
@@ -161,7 +161,7 @@ To delete a group, tap the menu button on the group's row, and select **Delete**
 ## Search and sort maps
 To search your maps, use the search bar at the top of the map list. The search includes the current group and all of its subgroups.
 
-To sort maps by distance, time, or name, tap the menu button in the top-right corner, and select **Sort**.
+To sort maps by distance, time, or name, tap the menu button in the top-right corner, and select the sort option, which shows the current sort, such as **Sort: Most recent**.
 
 The map list shows a preview of each image or PDF photo map on the left side of its row. To turn off the previews, disable **Settings > Offline Maps > Show map previews**.
 
@@ -170,6 +170,8 @@ A **Draft** tag means the map isn't shown on the map layers:
 
 - **Photo map**: Calibrate the map before you can use it.
 - **Trail map**: The file is probably missing or invalid. Delete the map, and import it again.
+
+A red **File missing** tag means Trail Sense can't find the map file. This can happen to an **External** map if you moved or deleted the original file.
 
 ## Rename a map
 To rename a map, do the following:
@@ -233,10 +235,11 @@ To trace a photo map onto paper, do the following:
 1. Open the map.
 2. Tap the menu button in the top-right corner.
 3. Select **Trace**.
-4. Move into a shady area, or block out the sun with a cloth.
-5. Place paper over your screen so you can see the map through the paper.
-6. Trace the map with a pen or pencil. Avoid markers or pens that can bleed through the paper, and be careful not to slide the paper.
-7. When you finish, tap the lock icon in the bottom-right corner to turn off trace mode.
+4. The first time, read the instructions, and tap **OK**. The screen brightness is set to maximum, and the map can't be moved or zoomed.
+5. Move into a shady area, or block out the sun with a cloth.
+6. Place paper over your screen so you can see the map through the paper.
+7. Trace the map with a pen or pencil. Avoid markers or pens that can bleed through the paper, and be careful not to slide the paper.
+8. When you finish, tap the lock icon in the bottom-right corner to turn off trace mode.
 
 The bottom navigation is disabled until you turn off trace mode.
 
@@ -252,7 +255,7 @@ To change the resolution of a photo map, do the following:
 The resolutions are:
 
 - **Low**: The lowest quality and smallest file size.
-- **Medium**: Moderate quality and file size.
+- **Moderate**: Moderate quality and file size.
 - **High**: The highest quality and largest file size.
 
 By default, Trail Sense reduces the map resolution when you import a map. To turn this off, disable **Settings > Offline Maps > Reduce photo resolution** or **Reduce PDF resolution**.
@@ -285,7 +288,7 @@ Some trail map files include attribution. To edit it, do the following:
 If a trail map has attribution, it is shown on the map when the layer is displayed.
 
 ## Quick action
-To use the Open Photo Map quick action, enable it in the settings for the tab you want it on. The quick action has the following gestures:
+To use the Open Photo Map quick action, add it to a tab, as described in the Tools guide. The quick action has the following gestures:
 
 - **Tap**: Opens the active photo map and locks it to your location. If no photo map is active, the map list is displayed.
 - **Long-press**: Opens the Offline Maps tool.

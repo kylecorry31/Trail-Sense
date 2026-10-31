@@ -94,7 +94,6 @@
     <string name="calibrate_compass_dialog_title">Βαθμονόμηση πυξίδας</string>
     <string name="astronomy">Αστρονομία</string>
     <string name="weather">Καιρός</string>
-    <string name="pref_auto_location_title">Αυτόματη προσαρμογή τοποθεσίας</string>
     <string name="pref_coordinate_format_title">Μορφή συντεταγμένων</string>
     <string name="share_action_send">Αποστολή</string>
     <string name="altimeter_mode_gps_barometer">GPS + Βαρόμετρο</string>
@@ -381,7 +380,6 @@
     <string name="pref_flashlight_timeout_title">Απενεργοποίηση ύστερα από</string>
     <string name="qr_code">Κωδικός QR</string>
     <string name="us_ounces_volume">Ουγγιά ΗΠΑ</string>
-    <string name="gps_stale">Ελλιπές</string>
     <string name="seconds">Δευτερόλεπτα</string>
     <string name="network_no_signal">Καθόλου σήμα</string>
     <string name="qr_code_scanner">Σαρωτής Κωδικών QR</string>
@@ -661,7 +659,6 @@
     <string name="battery_warning">Προειδοποίηση εξάντλησης της μπαταρίας</string>
     <string name="tides">Παλίρροιες</string>
     <string name="privacy">Ιδιωτικό Απόρρητο</string>
-    <string name="since_time">από %s</string>
     <string name="battery_power_wireless">Ασύρματα</string>
     <string name="error_occurred_message">Το Trail Sense αντιμετώπισε κάποιο σφάλμα. Παρακαλούμε αποστείλετε Email στον προγραμματιστή για να διορθωθεί το πρόβλημα.</string>
     <string name="pref_tiles_enabled_title">Πλακίδια συστήματος</string>
@@ -834,7 +831,6 @@
         <item quantity="one">%d διαδρομή εισήχθη</item>
         <item quantity="other">%d διαδρομές εισήχθησαν</item>
     </plurals>
-    <string name="calibrate_map_point">Βαθμονόμηση με βάση γνωστές τοποθεσίες (%1$d / %2$d)</string>
     <string name="path_slope">Κλίση</string>
     <string name="clouds_clear">Ανέφελος</string>
     <string name="path_slope_steep">Απότομη</string>
@@ -940,7 +936,6 @@
     <string name="high_amount">Υψηλό (%s)</string>
     <string name="magnitude">Κλίμακα</string>
     <string name="base_elevation">Υψομετρική βάση</string>
-    <string name="base_temperature">Βασική θερμοκρασία</string>
     <string name="error_banners">Μηνύματα σφάλματος</string>
     <string name="gps_timeouts">Λήξη χρόνου GPS</string>
     <string name="no_resolution">Χωρίς ανάλυση</string>

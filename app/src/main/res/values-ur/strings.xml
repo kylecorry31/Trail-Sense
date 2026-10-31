@@ -14,7 +14,6 @@
     <string name="reload">دوبارہ لوڈ کریں</string>
     <string name="disconnect">منقطع</string>
     <string name="plugin_unavailable">یہ پلگ ان دستیاب نہیں ہے یا اب منسلک نہیں ہے۔</string>
-    <string name="clear_plugin_cache">پلگ ان کیشے کو صاف کریں۔</string>
     <string name="connected_plugins">پلگ اِن منسلک ہے</string>
     <string name="available_plugins">پلگ اِن دستیاب ہے</string>
     <string name="plugin_name">پلگ اِن: %s</string>

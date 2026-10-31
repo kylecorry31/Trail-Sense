@@ -219,7 +219,6 @@
     <string name="overlay_layer">Överlagringslager</string>
     <string name="disconnect">Koppla från</string>
     <string name="plugin_unavailable">Den här insticksmodulen är inte tillgänglig eller är inte längre ansluten.</string>
-    <string name="clear_plugin_cache">Rensa insticksmodulens cacheminne</string>
     <string name="connected_plugins">Anslutna insticksmoduler</string>
     <string name="plugin_connect_message">Anslut bara till %s om du litar på insticksmodulen.</string>
     <string name="plugin_disconnect_title">Koppla från insticksmodulen?</string>
@@ -309,7 +308,6 @@
     <string name="do_not_ask_again">Fråga inte igen</string>
     <string name="compass_reported_accuracy">Rapporterad noggrannhet: %s</string>
     <string name="compass_accuracy_improved">Kompassens noggrannhet förbättrades till %s</string>
-    <string name="pref_auto_location_title">Justera position automatiskt</string>
     <string name="request_permission">Begär behörighet</string>
     <string name="pref_altimeter_calibration_title">Höjdmätare</string>
     <string name="elevation_from_pressure">Ange åsidosättning från barometern</string>
@@ -367,7 +365,6 @@
     <string name="delete_beacon_group_message">%s och alla dess navigeringsmarkörer kommer att tas bort.</string>
     <string name="delete_path_group_message">%s och alla dess spår kommer att tas bort.</string>
     <string name="delete_map_group_message">%s och alla dess kartor kommer att tas bort.</string>
-    <string name="delete_offline_map_group_message">%s och alla dess kartor kommer att tas bort.</string>
     <string name="group">Grupp</string>
     <string name="no_group">Ingen grupp</string>
     <string name="tap_sun_moon_hint">Tryck på solen eller månen för positionsinformation</string>
@@ -520,7 +517,6 @@
         <item quantity="one">%d navigeringsmarkör exporterades</item>
         <item quantity="other">%d navigeringsmarkörer exporterades</item>
     </plurals>
-    <string name="gps_stale">Inaktuell</string>
     <string name="time_ago">för %s sedan</string>
     <string name="network_5g">5G</string>
     <string name="network_4g">4G</string>
@@ -568,7 +564,6 @@
     <string name="pref_daily_weather_time_title">Tid för dagligt väder</string>
     <string name="screen_flashlight">Skärm</string>
     <string name="speedometer">Hastighetsmätare</string>
-    <string name="since_time">sedan %s</string>
     <string name="pedometer">Stegräknare</string>
     <string name="pref_step_length_title">Steglängd</string>
     <string name="no_tides">Inga tidvatten</string>
@@ -665,7 +660,6 @@
     <string name="millimeters_format">%s mm</string>
     <string name="unit_yards">Yard</string>
     <string name="base_elevation">Utgångshöjd</string>
-    <string name="base_temperature">Utgångstemperatur</string>
     <string name="destination_elevation">Målets höjd</string>
     <string name="pref_map_url_source_title">Karta för delad plats</string>
     <string name="cup_format">%s cup</string>
@@ -930,7 +924,6 @@
     <string name="done">Klar</string>
     <string name="save_draft">Spara utkast</string>
     <string name="finish_calibration">Slutför kalibrering</string>
-    <string name="calibrate_map_point">Kalibrera med kända platser (%1$d/%2$d)</string>
     <string name="calibrate_map_point_title">Punkt %1$d av %2$d</string>
     <string name="calibrate_map_point_instructions">Tryck på den här platsen på kartan och ange sedan dess verkliga koordinater.</string>
     <string name="descent">Nedstigning</string>
@@ -1159,7 +1152,6 @@
     <string name="hide_all">Dölj alla</string>
     <string name="grid">Rutnät</string>
     <string name="ar_layer_override_message">Lagerinställningarna kan åsidosättas av vägledning, till exempel astronomiguiden.</string>
-    <string name="date">Datum</string>
     <string name="path_distance_performance_disclaimer">Rekommenderat maximum är %s</string>
     <string name="ar_calibration_disclaimer">Kontrollera före varje användning att sol- eller månikonerna i verktyget för förstärkt verklighet är korrekt inriktade mot verkligheten. Om de inte är det trycker du på kompassikonen längst upp till vänster på skärmen och följer kalibreringsinstruktionerna.</string>
     <string name="no_recorded_cell_signal_nearby">Ingen registrerad mobilsignal i närheten</string>
@@ -1175,7 +1167,6 @@
     <string name="return_time">Återkomsttid</string>
     <string name="turn_back_instructions">Vänd tillbaka senast kl. %1$s (%2$s) för att vara tillbaka kl. %3$s</string>
     <string name="turn_back_alerts">Varningar om att vända tillbaka</string>
-    <string name="turn_back_alarm_channel">Vänd tillbaka (alarm)</string>
     <string name="turn_back_notification_title">Det är dags att vända tillbaka</string>
     <string name="turn_back_notification_description">Vänd tillbaka nu för att vara tillbaka kl. %s</string>
     <string name="return_before_dark">Återvänd före mörkrets inbrott</string>
@@ -1407,9 +1398,6 @@
     <string name="map">Karta</string>
     <string name="basemap">Baskarta</string>
     <string name="offline_maps">Offlinekartor</string>
-    <string name="offline_map_import_failed">Det gick inte att importera kartan</string>
-    <string name="no_offline_maps">Inga offlinekartor</string>
-    <string name="unsupported_offline_map_file">Kartfilen stöds inte</string>
     <string name="trail_maps">Vandringskartor</string>
     <string name="show_labels">Visa etiketter</string>
     <string name="planet_mercury">Merkurius</string>

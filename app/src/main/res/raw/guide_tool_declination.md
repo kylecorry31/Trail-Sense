@@ -9,4 +9,7 @@ To find the declination, do the following:
 The declination is shown at the top of the screen. A declination arrow, like the one on a map, is shown in the middle of the screen.
 
 ## Adjust the Trail Sense compass for declination
-By default, the Trail Sense compass uses true north. To adjust it for declination, open **Settings > Sensors > Compass**.
+By default, the Trail Sense compass uses true north and adjusts for the declination at your location automatically. To change this, open **Settings > Sensors > Compass**, and do one of the following:
+
+- To use magnetic north, turn off **True north**.
+- To enter your own declination, turn off **Auto adjust declination**, and set **Declination override**. To fill it in with the declination for your current location, tap **Set override from GPS**.

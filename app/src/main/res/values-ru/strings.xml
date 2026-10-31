@@ -129,7 +129,6 @@
     <string name="pref_elevation_override_title">Смещение</string>
     <string name="elevation_from_pressure">Задать смещение с помощью барометра</string>
     <string name="request_permission">Запрос разрешения</string>
-    <string name="pref_auto_location_title">Автоматически отслеживать перемещение</string>
     <string name="compass_accuracy_improved">Точность компаса поднялась: %s</string>
     <string name="compass_reported_accuracy">Текущая точность: %s</string>
     <string name="calibrate_compass_on_navigate_dialog_content">Проведите ваше устройство восьмеркой или во всех направлениях несколько раз и нажмите %s.
@@ -371,7 +370,6 @@
     <string name="cirrus">Перистые</string>
     <string name="unavailable">Недоступен</string>
     <string name="gps_searching">Поиск</string>
-    <string name="gps_stale">Устаревший</string>
     <string name="gps_user">Пользователь</string>
     <string name="import_btn">Импорт</string>
     <string name="export">Экспорт</string>
@@ -596,7 +594,6 @@
     <string name="liter_format">%s л</string>
     <string name="clear_cache">Очистить кэш</string>
     <string name="destination_elevation">Высота места назначения</string>
-    <string name="base_temperature">Базовая температура</string>
     <string name="base_elevation">Базовая высота</string>
     <string name="unit_yards">Ярды</string>
     <string name="yards_format">%s ярд</string>
@@ -820,7 +817,6 @@
     <string name="weather_no_change">Без изменений</string>
     <string name="very_soon">Очень скоро</string>
     <string name="temperature_history">История температуры - последняя %s</string>
-    <string name="since_time">с %s</string>
     <string name="tool_temperature_estimation_title">Оценка температуры</string>
     <string name="humidity_history">История влажности - последняя %s</string>
     <string name="tool_temperature_estimation_description">Предсказать температуру на другой высоте</string>
@@ -968,7 +964,6 @@
     <string name="create_blank_map">Создать пустую карту</string>
     <string name="photo_maps">Фотографии карт</string>
     <string name="illumination">Освещение</string>
-    <string name="calibrate_map_point">Калибрировать по известным местоположениям (%1$d / %2$d)</string>
     <string name="compass_source_legacy_android">Старый (Android)</string>
     <string name="triangulate_self_location_1_instructions">Выберите известное место которое вы можете увидеть и записать направление от того места где вы находитесь.</string>
     <string name="solar_eclipses">Солнечные затмения</string>
@@ -1113,7 +1108,6 @@
     <string name="visible">Видимый</string>
     <string name="grid">Сетка</string>
     <string name="ar_layer_override_message">Настройки слоев могут быть переопределены по руководству, таким как руководство по Астрономии.</string>
-    <string name="date">Дата</string>
     <string name="show_dial_ticks_on_nearby_radar">Показать насечки на ближнем радаре</string>
     <string name="map_calibration_instructions">Коснитесь известного местоположения на карте, затем введите реальные координаты. Вы можете сохранить калибровку нажав кнопку «Готово». \n \nПримерами хороших точек калибровки являются парковка, указатель, ориентир или перекресток вдоль тропы.</string>
     <string name="map_file">Файл (JPG, PNG, PDF)</string>

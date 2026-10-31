@@ -333,7 +333,6 @@
     <string name="elevation_override_updated_toast">עקיפת הגובה עודכנה</string>
     <string name="pref_show_sun_moon_compass_title">הצגת שמש/ירח במצפן</string>
     <string name="sun_astronomical">אסטרונומי</string>
-    <string name="pref_auto_location_title">התאמה אוטומטית של המיקום</string>
     <string name="never">אף פעם</string>
     <string name="pref_monitor_weather_title">ניטור מזג האוויר</string>
     <string name="pref_forecast_sensitivity_title">רגישות התחזית</string>
@@ -512,7 +511,6 @@
         <item quantity="two">%d משואות מיובאות</item>
         <item quantity="other">%d משואות מיובאות</item>
     </plurals>
-    <string name="gps_stale">ישן</string>
     <string name="network_4g">4G</string>
     <string name="barometer">ברומטר</string>
     <string name="cell_signal">אות סלולרי</string>
@@ -572,7 +570,6 @@
     <string name="pedometer">מד צעדים</string>
     <string name="pref_meteor_showers_title">מטר מטאורים</string>
     <string name="pedometer_disclaimer">הדיוק והשימוש בסוללה של מד הצעדים תלויים ביצרן ההתקן ובאורך הפסיעה שהוזן. נסה את זה בבית עבור קצת כדי לאמת את התרקנות הסוללה ודיוק לפני השימוש במסלול.</string>
-    <string name="since_time">מאז %s</string>
     <string name="rename">שינוי שם</string>
     <string name="meteor_shower">מטר מטאורים</string>
     <string name="pref_odometer_reset_daily_title">איפוס יומי</string>
@@ -636,7 +633,6 @@
     <string name="pref_privacy_screenshot_protection_title">מניעת צילומי מסך</string>
     <string name="pref_experimental_metal_direction_title">הצגת כיוון מתכת</string>
     <string name="pref_auto_low_power_summary">כשהסוללה שלך חלשה</string>
-    <string name="base_temperature">טמפרטורת בסיס</string>
     <string name="cup_format">%s כוס</string>
     <string name="pint_format">%s pt</string>
     <string name="ounces_volume_format">%s אונק</string>
@@ -925,7 +921,6 @@
         <item quantity="two">%d מפות</item>
         <item quantity="other">%d מפות</item>
     </plurals>
-    <string name="calibrate_map_point">כיול עם מיקומים ידועים (%1$d / %2$d)</string>
     <string name="descent">מוצא</string>
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">עשוי להצביע על מזג אוויר בהיר ל-%d שעות הבאות אם יהיה ערפילי, אחרת זה עשוי להצביע על משקעים בקרוב.</string>
     <string name="then_weather">ואז %s</string>
@@ -1085,7 +1080,6 @@
     <string name="use_gyroscope_after_calibration">יש להשתמש בג\'ירוסקופ לאחר הכיול</string>
     <string name="layers">שכבות</string>
     <string name="visible">גלוי</string>
-    <string name="date">תאריך</string>
     <string name="sunrise_alert_notification_text">השמש תזרח ב-%s</string>
     <string name="grains">גרגירים</string>
     <string name="service_restart_channel_description">התראה לאיתחול שירותים</string>

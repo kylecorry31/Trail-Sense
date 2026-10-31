@@ -216,7 +216,6 @@
     <string name="compass_declination_override">Deklinazioa ordezkatu</string>
     <string name="none">Bat ere ez</string>
     <string name="satellites">sateliteak</string>
-    <string name="gps_stale">Zaharkituta</string>
     <string name="map_scale_verbal">Hitzez</string>
     <string name="precise_temp_c_format">%s °C</string>
     <string name="precise_temp_f_format">%s °F</string>
@@ -360,7 +359,6 @@
     <string name="calibrate_compass_on_navigate_dialog_content">Biratu zure mugikorra 8 formako patroi bat irudikatuz edo norabide guztietan behin baino gehiagotan, %s sakatu amaitzean.
 \n
 \nAbisu hau ken daiteke aplikazioaren ezarpenetan.</string>
-    <string name="pref_auto_location_title">Automatikoki doitu kokapena</string>
     <string name="elevation_override_updated_toast">Altueraren ordezkapena eguneratua</string>
     <string name="pref_adjust_for_temperature_summary">Erabili tenperatura presio atmosferikoaren bihurketetan</string>
     <string name="pref_display_multi_beacons_title">Erakutsi gertuko balizak</string>

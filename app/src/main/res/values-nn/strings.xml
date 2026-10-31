@@ -176,7 +176,6 @@
     <string name="compass_accuracy_improved">Kompassgrannsemd betra til %s</string>
     <string name="gps">GPS</string>
     <string name="location">Stad</string>
-    <string name="pref_auto_location_title">Finn stad automatisk</string>
     <string name="request_permission">Spør om løyve</string>
     <string name="pref_altimeter_calibration_title">Høgdemålar</string>
     <string name="pref_elevation_override_title">Overstyr høgdemålar</string>
@@ -322,7 +321,6 @@
     <string name="millimeters_format">%s mm</string>
     <string name="unit_yards">Yards</string>
     <string name="base_elevation">Grunnhøgd</string>
-    <string name="base_temperature">Grunntemperatur</string>
     <string name="current_temperature">Temperaturen no</string>
     <string name="destination_elevation">Målhøgd</string>
     <string name="liter_format">%s l</string>

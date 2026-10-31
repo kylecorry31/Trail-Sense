@@ -90,7 +90,6 @@
     <string name="three">3</string>
     <string name="water_purification_step_1">تصفية الماء</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">قد تشير إلى طقس جيد. إذا كانت تنمو أطول، قد تشير إلى هطول أمطار أو عاصفة رعدية في الـ %d ساعات القادمة.</string>
-    <string name="date">التاريخ</string>
     <string name="pref_email_title">التواصل مع المطور</string>
     <string name="start">البدء</string>
     <string name="notification_channel_clock_sync">مزامنة الساعة</string>
@@ -172,11 +171,9 @@
     <string name="location">الموقع</string>
     <string name="pref_sunset_alert_time_title">وقت تنبيه الغروب</string>
     <string name="group">مجموعة</string>
-    <string name="gps_stale">قديم</string>
     <string name="quality_poor">ضعيف</string>
     <string name="solid">صلب</string>
     <string name="celsius">مئوية</string>
-    <string name="pref_auto_location_title">تعديل الموقع تلقائيًا</string>
     <string name="discharging_fast">التفريغ السريع (%s)</string>
     <string name="tap_to_turn_off">اضغط للإطفاء</string>
     <string name="pressure_tendency_format_2">%s / 3 ساعات</string>
@@ -458,7 +455,6 @@
     <string name="clinometer_rotate_device">أمسك الهاتف عموديًا</string>
     <string name="temp_f_short">°ف</string>
     <string name="weather_storm">عاصفة</string>
-    <string name="since_time">منذ %s</string>
     <string name="distance_alert">تنبيه المسافة</string>
     <string name="photo_maps">خرائط الصور</string>
     <string name="pref_show_temperature_in_notification_title">إظهار درجة الحرارة في الإشعار</string>

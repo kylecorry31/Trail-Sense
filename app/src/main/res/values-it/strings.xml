@@ -154,7 +154,6 @@
     <string name="elevation_from_pressure">Impostare gli override del barometro</string>
     <string name="pref_altimeter_calibration_title">Altimetro</string>
     <string name="request_permission">Richiesta permessi</string>
-    <string name="pref_auto_location_title">Rergolazione automatica posizione</string>
     <string name="location">Posizione</string>
     <string name="compass_accuracy_improved">Accuratezza della bussola migliorata a %s</string>
     <string name="compass_reported_accuracy">Accuratezza riportata: %s</string>
@@ -187,7 +186,6 @@
     <string name="quality_poor">Debole</string>
     <string name="unavailable">Non disponibile</string>
     <string name="gps_searching">Ricerca</string>
-    <string name="gps_stale">Non aggiornato</string>
     <string name="gps_user">Utente</string>
     <string name="clouds">Nuvole</string>
     <string name="how">Come</string>
@@ -523,7 +521,6 @@
     <string name="diamond">Diamante</string>
     <string name="cross">Croce</string>
     <string name="cumulus_forecast" tools:ignore="PluralsCandidate">Può indicare bel tempo. Se cresce in altezza, può indicare precipitazioni o temporali nelle prossime %d ore.</string>
-    <string name="since_time">da %s</string>
     <string name="pref_include_leading_zero_title">Aggiungi lo zero iniziale all\'ora</string>
     <string name="pref_step_length_title">Lunghezza del passo</string>
     <string name="time_until_full">fino alla ricarica</string>
@@ -703,7 +700,6 @@
     <string name="simplify">Semplificare</string>
     <string name="pref_flashlight_toggle_with_volume_title">Attiva con i pulsanti del volume</string>
     <string name="pref_auto_low_power_title">Risparmio energetico automatico</string>
-    <string name="base_temperature">Temperatura al punto di partenza</string>
     <string name="destination_elevation">Altitudine della destinazione</string>
     <string name="seconds_format">%s s</string>
     <string name="grams_format">%s g</string>
@@ -964,7 +960,6 @@
     <string name="ascent">Ascesa</string>
     <string name="lowest_point_elevation">Altitudine minima</string>
     <string name="tide_frequency_description">Numero di alte maree per giornata. La maggior parte delle maree sono semidiurne.</string>
-    <string name="calibrate_map_point">Calibra con coordinate note (%1$d / %2$d)</string>
     <string name="highest_point_elevation">Altitudine massima</string>
     <string name="path_slope_flat">Pianeggiante</string>
     <string name="then_weather">poi %s</string>
@@ -1096,7 +1091,6 @@
     <string name="audio_error_messsage">Si è verificato un errore durante la riproduzione audio.</string>
     <string name="layers">Livelli</string>
     <string name="visible">Visibile</string>
-    <string name="date">Data</string>
     <string name="use_gyroscope_after_calibration_description">Invece della bussola (evita la deriva magnetica)</string>
     <string name="reset_calibration_question">Azzerare la calibrazione?</string>
     <string name="use_path_elevation">Usa l\'altitudine del percorso</string>
@@ -1229,7 +1223,6 @@
     <string name="reload">Ricarica</string>
     <string name="disconnect">Disconnetti</string>
     <string name="plugin_unavailable">Il plugin non è disponibile o non è connesso.</string>
-    <string name="clear_plugin_cache">Svuota la cache del plugin</string>
     <string name="connected_plugins">Plugin connessi</string>
     <string name="available_plugins">Plugin disponibili</string>
     <string name="plugin_connect_title">Connetti il plugin?</string>
@@ -1261,7 +1254,6 @@
     <string name="pref_navigation_draw_compass_dial_bezel_summary">Traccia delle tacche di gradi attorno al quadrante della bussola</string>
     <string name="pref_navigation_show_azimuth_indicator_title">Mostra l\'indicatore di azimut</string>
     <string name="pref_navigation_show_azimuth_indicator_summary">Evidenziare la direzione attuale della bussola</string>
-    <string name="delete_offline_map_group_message">%s e tutte le sue mappe verranno eliminate.</string>
     <string name="pref_bubble_level_threshold_title">Livello di soglia</string>
     <string name="map_error_unable_to_copy">Non è possibile copiare il file della mappa</string>
     <string name="guide_map_layers">Livello della mappa</string>
@@ -1330,7 +1322,6 @@
     <string name="show_all">Mostra tutto</string>
     <string name="hide_all">Nascondi tutto</string>
     <string name="tool_magnifier_title">Lente d\'ingrandimento</string>
-    <string name="turn_back_alarm_channel">Torna indietro (sveglia)</string>
     <string name="references">Riferimenti</string>
     <string name="survival_guide_disclaimer">Questa guida fornisce esclusivamente informazioni generali a scopo didattico. Non costituisce formazione professionale, consulenza medica, diagnosi o trattamento medico e non sostituisce i servizi di emergenza, il personale sanitario qualificato, le indicazioni locali o le istruzioni del produttore/del prodotto. In caso di emergenza, contattare i servizi di emergenza il prima possibile, seguire le loro istruzioni e non perdere tempo consultando questa guida prima di chiedere aiuto. Non fare affidamento esclusivamente su questa guida, su Trail Sense o sul telefono come unico piano di sicurezza o mezzo di comunicazione. Condizioni, rischi, leggi e pratiche raccomandate variano a seconda del luogo e della situazione; verificare le informazioni prima di agire e usare il proprio giudizio.</string>
     <string name="survival_guide_empty_desc">Cerca argomenti relativi alla sopravvivenza come acqua, cure mediche, cibo, meteo, riparo o tecniche di navigazione.</string>
@@ -1520,9 +1511,6 @@
     <string name="map_layer_tides_description">Le tue tabelle delle maree salvate e le maree costiere simulate</string>
     <string name="map">Mappa</string>
     <string name="basemap">Mappa di base</string>
-    <string name="offline_map_import_failed">Impossibile importare la mappa</string>
-    <string name="no_offline_maps">Nessuna mappa offline</string>
-    <string name="unsupported_offline_map_file">File di mappa non supportato</string>
     <string name="show_labels">Mostra etichette</string>
     <string name="planet_mercury">Mercurio</string>
     <string name="planet_venus">Venere</string>

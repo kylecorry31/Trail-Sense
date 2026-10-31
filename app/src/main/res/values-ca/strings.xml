@@ -142,7 +142,6 @@
     <string name="elevation_from_pressure">Utilitzar les dades del baròmetre per l\'altitud</string>
     <string name="pref_altimeter_calibration_title">Altímetre</string>
     <string name="request_permission">Sol·licitar permís</string>
-    <string name="pref_auto_location_title">Ajusta la ubicació automàticament</string>
     <string name="location">Ubicació</string>
     <string name="gps">GPS</string>
     <string name="compass_accuracy_improved">Precisió de brúixola millorada en %s</string>
@@ -424,7 +423,6 @@
     <string name="current_speed_gps">Velocitat actual (GPS)</string>
     <string name="permission_alarms_and_reminders">Alarmes i recordatoris</string>
     <string name="map_export_error">No es pot exportar el mapa al fitxer escollit</string>
-    <string name="calibrate_map_point">Calibra amb ubicacions conegudes (%1$d/%2$d)</string>
     <string name="updating_weather">S’està actualitzant el temps</string>
     <string name="camera_unavailable">La càmera no està disponible</string>
     <string name="coordinate_input_invalid_location">La ubicació no és vàlida</string>

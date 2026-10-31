@@ -182,7 +182,6 @@
     <string name="map_perspective_instructions">Rajzold körbe a térképet</string>
     <string name="pref_tiles_enabled_title">Rendszer csempék</string>
     <string name="location_mocked">Utánzott hely használata</string>
-    <string name="base_temperature">Kezdő hőmérséklet</string>
     <string name="clear_cache">Gyorsítótár ürítése</string>
     <string name="destination_elevation">Cél magasság</string>
     <string name="pref_map_url_source_title">Helymegosztó térkép</string>
@@ -303,7 +302,6 @@
     <string name="calibrate_compass_dialog_title">Iránytű kalibrálása</string>
     <string name="theme_light">Világos</string>
     <string name="location">Hely</string>
-    <string name="pref_auto_location_title">Hely automatikus állítása</string>
     <string name="elevation_override_updated_toast">Magasság-felülírás frissítve</string>
     <string name="pref_elevation_override_sea_level_dialog_title">Tengerszinti nyomás megadása</string>
     <string name="how">Hogyan</string>
@@ -674,7 +672,6 @@
     <string name="tomorrows_forecast">Holnapi előrejelzés</string>
     <string name="service_update_frequency">Frissít %s-nként</string>
     <string name="screen_flashlight">Kijelző</string>
-    <string name="since_time">%s óta</string>
     <string name="pedometer">Lépésszámláló</string>
     <string name="pref_step_length_title">Lépéshossz</string>
     <string name="on_map">Térképen</string>
@@ -790,7 +787,6 @@
 \nOSGB (pl. TG 51409 13177)</string>
     <string name="pref_gps_override_title">Hely felülírása</string>
     <string name="stratus_desc">Alacsony felhő, mely beborítja az eget. Nincsenek éles árnyékok és ködös lehet az idő.</string>
-    <string name="gps_stale">Elévült</string>
     <string name="onboarding_user_guide">Tanuld meg a Trail Sense funkcióinak használatát a felhasználói útmutatóval. Elérhető az Eszközök fül legalján. \n \nTovábbi útmutatók hamarosan.</string>
     <string name="unavailable">Nem elérhető</string>
     <string name="quality_poor">Rossz</string>
@@ -928,7 +924,6 @@
     <string name="i_agree">Egyetértek</string>
     <string name="map_is_not_calibrated">A térkép nincs kalibrálva</string>
     <string name="hot">Forró</string>
-    <string name="calibrate_map_point">Kalibrálás ismert helyekkel (%1$d / %2$d)</string>
     <string name="gps_elevation_accuracy">GPS magasság pontossága</string>
     <string name="restore">Visszaállítás</string>
     <string name="compass_source_legacy_android">Régi (Android)</string>
@@ -1132,7 +1127,6 @@
     <string name="visible">Látható</string>
     <string name="grid">Rács</string>
     <string name="ar_layer_override_message">A réteg beállításokat felülírhatják az útmutatók, mint például a Csillagászati útmutató.</string>
-    <string name="date">Dátum</string>
     <string name="audio_error_messsage">Hiba történt a hang lejátszásakor.</string>
     <string name="view_distance">Látótávolság</string>
     <string name="theme_system_black">Rendszer (fekete)</string>
@@ -1327,7 +1321,6 @@
     <string name="reload">Újratöltés</string>
     <string name="disconnect">Leválasztás</string>
     <string name="plugin_unavailable">Ez a bővítmény nem elérhető, vagy már nincs csatlakoztatva.</string>
-    <string name="clear_plugin_cache">Bővitmény-gyorsítótár ürítése</string>
     <string name="connected_plugins">Csatlakoztatott bővítmények</string>
     <string name="available_plugins">Elérhető bővítmények</string>
     <string name="plugin_name">Bővítmény: %s</string>

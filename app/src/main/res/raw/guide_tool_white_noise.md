@@ -23,4 +23,4 @@ To stop the white noise automatically after a set time, do the following:
 The sleep timer starts counting down when you start the white noise.
 
 ## Quick action
-To use the White Noise quick action, enable it in the settings for the tab you want it on. Tap the quick action button to turn the white noise on or off.
+To use the White Noise quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn the white noise on or off.

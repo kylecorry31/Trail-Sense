@@ -72,7 +72,6 @@
     <string name="altimeter_mode_gps_barometer">GPS + Baromètre</string>
     <string name="override_from_gps">Définir la priorité du GPS</string>
     <string name="compass_auto_declination">Réglage automatique de la déclinaison</string>
-    <string name="pref_auto_location_title">Réglage automatique de l\'emplacement</string>
     <string name="request_permission">Demande d\'autorisation</string>
     <string name="location">Emplacement</string>
     <string name="compass_reported_accuracy">Précision estimée : %s</string>
@@ -459,7 +458,6 @@
     <string name="pref_daily_weather_time_title">Heure quotidienne météo</string>
     <string name="screen_flashlight">Écran</string>
     <string name="speedometer">Tachymètre</string>
-    <string name="since_time">depuis %s</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d météores / h</string>
     <string name="pedometer_disclaimer">La précision et l\'autonomie de la batterie du podomètre dépendent du fabricant de votre appareil et de la longueur de pas que vous avez saisie. Testez-le un peu chez vous pour vérifier son autonomie et sa précision avant de l\'utiliser en randonnée.</string>
     <string name="no_maps">Pas de cartes</string>
@@ -606,7 +604,6 @@
     <string name="no_packing_lists">Pas de listes</string>
     <string name="unit_yards">Yards</string>
     <string name="milliliters">Millilitres</string>
-    <string name="base_temperature">Température de base</string>
     <string name="pounds_format">%s lb</string>
     <string name="kilograms_format">%s kg</string>
     <string name="minutes">Minutes</string>
@@ -768,7 +765,6 @@
 \n4. Relâchez pour verrouiller et voir la distance de la cible</string>
     <string name="no_qr_code_found">Aucun code QR détecté</string>
     <string name="gps_searching">Recherche</string>
-    <string name="gps_stale">Obsolète</string>
     <string name="error_banners">Bandes d\'erreur</string>
     <string name="compass_accuracy">Précision de la boussole</string>
     <string name="clinometer_measure_height_title">Distance de la cible</string>
@@ -953,7 +949,6 @@
     <string name="backup_restore">Sauvegarde / restauration</string>
     <string name="historic_temperatures">Températures historiques</string>
     <string name="loading">Chargement</string>
-    <string name="calibrate_map_point">Calibrer avec des emplacements connus (%1$d / %2$d)</string>
     <string name="notifications_channel">Notifications (%s)</string>
     <string name="at_time">à %s</string>
     <string name="data_source">Source : %s</string>
@@ -1133,7 +1128,6 @@
     <string name="tool_quick_action_name">Outil : %s</string>
     <string name="magnetic_north_description">Indique le pôle Nord magnétique. Cette valeur correspondra à celle de la plupart des boussoles.</string>
     <string name="grid">Grille</string>
-    <string name="date">Date</string>
     <string name="pref_start_camera_in_3d_view_summary">Ouvrir la caméra quand vous cliquez sur le bouton de vue en 3D</string>
     <string name="audio_error_messsage">Une erreur est survenue lors de la lecture audio.</string>
     <string name="navigate_to_nearest_cell_signal">Aller au signal cellulaire le plus proche</string>
@@ -1567,7 +1561,6 @@
     <string name="reload">Actualiser</string>
     <string name="disconnect">Déconnecter</string>
     <string name="plugin_unavailable">Ce plugin n\'est pas disponible ou n\'est plus connecté.</string>
-    <string name="clear_plugin_cache">Vider le cache du plugin</string>
     <string name="plugin_name">Plugin : %s</string>
     <string name="brightness">Luminosité</string>
     <plurals name="offline_map_group_summary">
@@ -1575,7 +1568,6 @@
         <item quantity="many">%d cartes</item>
         <item quantity="other">%d cartes</item>
     </plurals>
-    <string name="delete_offline_map_group_message">%s et toutes ses cartes seront supprimées.</string>
     <string name="clock_source_device">Heure de l\'appareil</string>
     <string name="clock_source_gps">Heure GPS</string>
     <string name="photo_map_disclaimer">Ayez toujours une carte papier à portée de main à titre de secours et vérifiez la précision de Trail Sense.\n\nLes fichiers cartographiques ne sont pas fournis avec Trail Sense et doivent être téléchargés ou calibrés à partir d\'une photo. Vous trouverez des cartes à télécharger sur https://kylecorry.com/Trail-Sense/offline_maps.html</string>
@@ -1583,9 +1575,6 @@
     <string name="include_mapsforge_backups">Inclure les cartes des sentiers dans les sauvegardes</string>
     <string name="include_mapsforge_backups_summary">Les fichiers Mapsforge (.map) peuvent être volumineux</string>
     <string name="offline_maps">Cartes hors ligne</string>
-    <string name="offline_map_import_failed">Impossible d\'importer la carte</string>
-    <string name="no_offline_maps">Aucune carte hors ligne</string>
-    <string name="unsupported_offline_map_file">Fichier de carte non pris en charge</string>
     <string name="trail_maps">Cartes des sentiers</string>
     <string name="map_layer_trail_maps_description">Vos cartes de sentiers enregistrées</string>
     <string name="manage_maps">Gérer les cartes</string>
@@ -1624,7 +1613,6 @@
     <string name="elapsed_time">Temps écoulé</string>
     <string name="references">Références</string>
     <string name="alarm">Alarme</string>
-    <string name="turn_back_alarm_channel">Faire demi-tour (Alarme)</string>
     <string name="clock_device_time_accurate">L\'horloge de l\'appareil est précise</string>
     <plurals name="clock_device_time_slow">
         <item quantity="one">L\'horloge de l\'appareil est en retard de %d seconde</item>

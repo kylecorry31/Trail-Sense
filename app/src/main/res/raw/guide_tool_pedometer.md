@@ -8,11 +8,11 @@ To set your step length, open **Settings > Pedometer**, and enter a value for st
 1. Go outside to a place with a clear view of the sky and a straight path where you can walk at least 50 steps. Wear your hiking gear.
 2. Open **Settings > Pedometer**.
 3. Tap **Estimate step length**.
-4. Tap start, and stand still until Trail Sense tells you to walk.
+4. Tap **Start**, and stand still until Trail Sense tells you to walk.
 5. Walk in a straight line. You can put your phone in your pocket or hold it by your side.
 6. Optional: For the best results, stand still for a moment when you finish.
-7. Tap stop.
-8. Choose whether to save the step length.
+7. Tap **Stop**.
+8. To use the estimate, tap **Save**. To discard it and try again, tap the reset button.
 
 ## Track distance, speed, and pace
 To track your distance, do the following:
@@ -20,6 +20,8 @@ To track your distance, do the following:
 1. Tap the start button in the bottom-right corner of the screen.
 2. If you are asked, grant the Physical Activity permission. This lets Trail Sense access your phone's pedometer.
 3. Put your phone away, and begin your hike.
+
+You can't turn on the pedometer while power saving mode is on.
 
 The following information is shown at the top of the screen:
 
@@ -32,7 +34,7 @@ The current speed and pace are calculated over the last 10 seconds. By default, 
 ## Pause and reset the pedometer
 To stop the pedometer at any point, such as while you rest or at a campsite, tap the stop button in the bottom-right corner. Stopping the pedometer doesn't reset the distance, so you can resume by tapping start again.
 
-To start a new measurement, tap the reset button.
+To start a new measurement, tap the reset button, and confirm.
 
 ## Reset the pedometer daily
 By default, the pedometer starts a new session when you first record steps on a new day. To turn this off, disable **Settings > Pedometer > Reset daily**.
@@ -57,12 +59,14 @@ To get a notification when you reach a distance, do the following:
 2. Tap the alert icon in the top-right corner of the screen.
 3. Enter the distance you want to be alerted at.
 
+To remove the alert, tap the alert icon again, and confirm.
+
 The alert uses the total distance. For example, if you already traveled 4 km and want an alert after another 1 km, set the alert to 5 km. Or you can reset the pedometer and set the alert to 1 km.
 
 To play the alert on the alarm audio channel, which sounds even if media and notifications are muted, enable **Settings > Pedometer > Use alarm for distance alert**.
 
 ## Quick action
-To use the Pedometer quick action, enable it in the settings for the tab you want it on. Tap the quick action button to turn the pedometer on or off.
+To use the Pedometer quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn the pedometer on or off.
 
 ## Widgets
 You can place the following widgets on your device's home screen or view them in the app:
