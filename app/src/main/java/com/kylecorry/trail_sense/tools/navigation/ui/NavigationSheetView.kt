@@ -42,6 +42,7 @@ import com.kylecorry.trail_sense.shared.extensions.flatten
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.views.StatView
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.domain.guidance.Guidance
@@ -81,9 +82,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private val arrowView: ImageView
     private val targetBearingView: TextView
     private val progressView: LinearProgressIndicator
-    private val primaryStat: Stat
-    private val secondaryStat: Stat
-    private val tertiaryStat: Stat
+    private val primaryStat: StatView
+    private val secondaryStat: StatView
+    private val tertiaryStat: StatView
 
     init {
         inflate(context, R.layout.view_navigation_sheet, this)
@@ -94,21 +95,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         arrowView = findViewById(R.id.navigation_arrow)
         targetBearingView = findViewById(R.id.navigation_target_bearing)
         progressView = findViewById(R.id.navigation_progress)
-        primaryStat = Stat(
-            findViewById(R.id.navigation_primary_stat),
-            findViewById(R.id.navigation_primary_value),
-            findViewById(R.id.navigation_primary_label)
-        )
-        secondaryStat = Stat(
-            findViewById(R.id.navigation_secondary_stat),
-            findViewById(R.id.navigation_secondary_value),
-            findViewById(R.id.navigation_secondary_label)
-        )
-        tertiaryStat = Stat(
-            findViewById(R.id.navigation_tertiary_stat),
-            findViewById(R.id.navigation_tertiary_value),
-            findViewById(R.id.navigation_tertiary_label)
-        )
+        primaryStat = findViewById(R.id.navigation_primary_stat)
+        secondaryStat = findViewById(R.id.navigation_secondary_stat)
+        tertiaryStat = findViewById(R.id.navigation_tertiary_stat)
         cancelButton.flatten()
         cancelButton.setOnClickListener { cancelNavigation() }
         reserveTargetBearingWidth()
@@ -466,31 +455,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
     }
 
-    private class Stat(
-        private val container: View,
-        private val value: TextView,
-        private val label: TextView
-    ) {
-        fun show(
-            valueText: String?,
-            labelText: String,
-            @DrawableRes valueIcon: Int? = null,
-            @DrawableRes labelIcon: Int? = null,
-            description: String? = null
-        ) {
-            container.isVisible = valueText != null
-            container.contentDescription = description
-            value.text = valueText
-            label.text = labelText
-            value.setStartIcon(valueIcon, STAT_ICON_SIZE_RATIO)
-            label.setStartIcon(labelIcon, STAT_ICON_SIZE_RATIO)
-        }
-
-        fun hide() {
-            container.isVisible = false
-        }
-    }
-
     companion object {
         // Within this many degrees of the target, the user is considered to be heading the right way
         private const val ON_TARGET_DEGREES = 5f
@@ -508,8 +472,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         private const val LONG_DURATION_HOURS = 100L
 
         private const val NON_BREAKING_SPACE = ' '
-
-        private const val STAT_ICON_SIZE_RATIO = 0.8f
 
         private const val TITLE_ICON_SIZE_RATIO = 1.1f
     }
