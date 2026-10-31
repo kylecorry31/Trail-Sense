@@ -53,8 +53,6 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [Open Source Credits](#open-source-credits)
 - [License](#license)
 
-## Feature Roadmap
-
 ## Features
 
 - Navigate using beacons (waypoints), paths, and bearings
