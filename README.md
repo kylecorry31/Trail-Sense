@@ -55,7 +55,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 - [License](#license)
 
 ## Feature Roadmap
-See https://github.com/users/kylecorry31/projects/2 for the current priority order of issues. There are no dates associated with the roadmap items; priorities may change based on user feedback and development progress.
+See https://github.com/users/kylecorry31/projects/2 for my current priority order of issues. There are no dates associated with the roadmap items. Since Trail Sense is a hobby project that I also use daily, priorities may change as my interests and needs evolve.
 
 ## Goals
 - Trail Sense must not use the Internet in any way, as I want the entire app usable when there is no Internet connection
@@ -66,14 +66,15 @@ See https://github.com/users/kylecorry31/projects/2 for the current priority ord
 
 ## Features
 
-- Designed for hiking, backpacking, camping, and geocaching
+- Designed for hiking, backpacking, camping, foraging, and hunting
 - Place beacons and navigate to them
 - Follow paths
 - Retrace your steps with backtrack
 - Use a photo as a map
+- Load offline maps
 - Plan what to pack
 - Be alerted before the sun sets
-- Predict the weather
+- Predict the weather and tides
 - Use your phone as a flashlight
 - [And much more!](https://github.com/kylecorry31/Trail-Sense/wiki/Use-Cases)
 
