@@ -2,6 +2,7 @@
 
 Trail Sense is an offline multi-tool Android app for hiking, backpacking, camping, wilderness survival, foraging, and hunting.
 
+> [!IMPORTANT]
 > Trail Sense is a tool, and like any other tool you bring into the wilderness, it's essential to have backup equipment and the skills to stay safe without it. Never rely on it alone.
 
 <table>
