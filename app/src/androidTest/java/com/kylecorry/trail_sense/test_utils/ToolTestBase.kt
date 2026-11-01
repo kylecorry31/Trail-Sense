@@ -103,6 +103,7 @@ open class ToolTestBase(
 
 
         TestUtils.setWaitForIdleTimeout()
+        TestUtils.hideSystemErrorDialogs()
         if (packageName == null) {
             TestUtils.setupApplication()
 

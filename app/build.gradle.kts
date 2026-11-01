@@ -105,6 +105,16 @@ android {
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
+        managedDevices {
+            localDevices {
+                create("smallPhoneApi36") {
+                    device = "Small Phone"
+                    apiLevel = 36
+                    systemImageSource = "aosp-atd"
+                    testedAbi = "x86_64"
+                }
+            }
+        }
         unitTests.all {
             it.useJUnitPlatform()
         }
