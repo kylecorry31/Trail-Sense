@@ -3,8 +3,8 @@ Use the Lightning Strike Distance tool to calculate how far away a lightning str
 ## Measure the distance to a lightning strike
 To measure the distance to a lightning strike, do the following:
 
-1. Tap the lightning icon immediately after you see lightning.
-2. Tap the thunder icon immediately after you hear thunder.
+1. Tap **Lightning** immediately after you see lightning.
+2. Tap **Thunder** immediately after you hear thunder.
 
 The distance to the strike is shown at the top of the screen. If the lightning is close enough to be dangerous, a warning is shown.
 

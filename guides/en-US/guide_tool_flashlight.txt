@@ -47,7 +47,7 @@ To turn the flashlight on or off when you press either volume button, enable **S
 To use the following quick actions, add them to a tab, as described in the Tools guide:
 
 - **Flashlight**: Tap the quick action button to turn the flashlight on or off. Long-press it to open the Flashlight tool.
-- **Screen Flashlight**: Tap the quick action button to open the screen flashlight.
+- **Screen flashlight**: Tap the quick action button to open the screen flashlight.
 
 ## Widgets
 You can place the following widgets on your device's home screen or view them in the app:

@@ -56,4 +56,4 @@ To extend your battery life, do any of the following:
 - Turn off your screen when you aren't using it.
 
 ## Quick action
-To use the Power Saving Mode quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn power saving mode on or off.
+To use the Power saving mode quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn power saving mode on or off.

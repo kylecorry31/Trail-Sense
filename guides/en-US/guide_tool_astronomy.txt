@@ -93,7 +93,7 @@ Use a sunset alert to avoid being caught outside in the dark. To set a sunset al
 3. Optional: Set **Sunset alert time** to choose how far in advance you are notified.
 4. Optional: Enable **Use alarm for sunset alert** to play the alert on the alarm audio channel, which sounds even if media and notifications are muted.
 
-You can also toggle the alert with the Sunset Alerts quick action. See the Quick action section.
+You can also toggle the alert with the Sunset alerts quick action. See the Quick action section.
 
 ## Set a sunrise alert
 Use a sunrise alert to make sure you don't miss the start of the day. To set a sunrise alert, do the following:
@@ -103,7 +103,7 @@ Use a sunrise alert to make sure you don't miss the start of the day. To set a s
 3. Optional: Set **Sunrise alert time** to choose how far in advance you are notified.
 4. Optional: Enable **Use alarm for sunrise alert** to play the alert on the alarm audio channel, which sounds even if media and notifications are muted.
 
-You can also toggle the alert with the Sunrise Alerts quick action. See the Quick action section.
+You can also toggle the alert with the Sunrise alerts quick action. See the Quick action section.
 
 ## Set astronomy alerts
 Use astronomy alerts to make sure you don't miss meteor showers, lunar eclipses, and solar eclipses. To set an alert, do the following:
@@ -111,7 +111,7 @@ Use astronomy alerts to make sure you don't miss meteor showers, lunar eclipses,
 1. Open **Settings > Astronomy**.
 2. Under **Alerts**, enable the events you want to be notified about.
 
-Alerts are for events at your location and are shown up to 24 hours before the event starts.
+Alerts are for events at your location and are shown within 24 hours before the event peaks.
 
 ## View in 3D
 If your phone has a compass, a **View in 3D** button is shown. Tap it to open the Augmented Reality tool with the selected date and see where the sun and moon will be throughout the day.
@@ -121,7 +121,7 @@ By default, the Augmented Reality tool uses the camera. To turn this off, disabl
 ## Quick action
 To use the following quick actions, add them to a tab, as described in the Tools guide:
 
-- **Sunset Alerts** and **Sunrise Alerts**: Tap the quick action button to turn the alert on or off.
+- **Sunset alerts** and **Sunrise alerts**: Tap the quick action button to turn the alert on or off.
 - **Night**: Tap the quick action button to switch to the Night theme. Tap it again to return to your previous theme.
 
 ## Widgets

@@ -207,7 +207,7 @@ To create a beacon from a photo map, do the following:
 1. Long-press a point on the map.
 2. Select **Beacon**.
 
-The **Create Beacon** screen opens with the location filled in. For more information, see the Beacons guide.
+The **Create beacon** screen opens with the location filled in. For more information, see the Beacons guide.
 
 ## Use paths on a photo map
 Your paths appear on photo maps. To create a path from a photo map, see the Measure a distance on a photo map section. For more information, see the Paths guide.
@@ -288,7 +288,7 @@ Some trail map files include attribution. To edit it, do the following:
 If a trail map has attribution, it is shown on the map when the layer is displayed.
 
 ## Quick action
-To use the Open Photo Map quick action, add it to a tab, as described in the Tools guide. The quick action has the following gestures:
+To use the Open photo map quick action, add it to a tab, as described in the Tools guide. The quick action has the following gestures:
 
 - **Tap**: Opens the active photo map and locks it to your location. If no photo map is active, the map list is displayed.
 - **Long-press**: Opens the Offline Maps tool.

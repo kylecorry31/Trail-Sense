@@ -210,7 +210,7 @@ Some tools, such as Navigation and Astronomy, show error banners at the top of t
 - **Location permission**: Trail Sense doesn't have permission to access your location.
 
 ## Back up and restore your data
-When you switch to a new device or reinstall the app, back up your data and settings first. Open **Settings > Backup / Restore** to use the following options:
+When you switch to a new device or reinstall the app, back up your data and settings first. Open **Settings > Backup / restore** to use the following options:
 
 - **Backup**: Creates a backup of your data and settings as an unencrypted zip file. The file contains location data, so send it only to people you trust.
 - **Restore**: Restores a backup of your data and settings. **Warning:** This permanently overwrites your current data and settings. You can restore from an older version of the app but not from a newer version.

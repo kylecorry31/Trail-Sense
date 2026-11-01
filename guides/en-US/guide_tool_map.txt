@@ -38,7 +38,7 @@ To create a beacon from the map, do the following:
 1. Long-press a point on the map.
 2. Select **Beacon**.
 
-The **Create Beacon** screen opens with the location filled in. For more information about beacons, see the Beacons guide.
+The **Create beacon** screen opens with the location filled in. For more information about beacons, see the Beacons guide.
 
 ## Measure a distance
 To measure the distance between points, do the following:
