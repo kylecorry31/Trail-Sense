@@ -257,7 +257,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
 
         hasText(R.id.navigation_sheet_title, "Camp")
         // 0.0015 degrees of latitude is 167 m
-        hasText(R.id.navigation_primary_value, Regex("54[78] ft"))
+        hasText(R.id.navigation_primary_stat, Regex("54[78] ft"), childId = R.id.stat_value)
     }
 
     @Test

@@ -86,10 +86,11 @@ object AutomationLibrary {
         text: Regex,
         checkDescendants: Boolean = true,
         index: Int = 0,
+        childId: Int? = null,
         waitForTime: Long? = null
     ) {
         waitFor(resolveWaitForTime(waitForTime)) {
-            view(id, index = index, packageName = packageName).hasText(
+            view(id, childId = childId, index = index, packageName = packageName).hasText(
                 text,
                 checkDescendants = checkDescendants
             )

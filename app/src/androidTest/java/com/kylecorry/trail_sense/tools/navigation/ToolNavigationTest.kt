@@ -66,8 +66,8 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText(R.id.navigation_sheet_title, Regex("\\d+° [NSEW]+"))
         isVisible(R.id.navigation_arrow)
         hasText(R.id.navigation_target_bearing, Regex("\\d+° [NSEW]+"))
-        hasText(R.id.navigation_tertiary_label, string(R.string.navigation_facing))
-        hasText(R.id.navigation_tertiary_value, Regex("\\d+° [NSEW]+"))
+        hasText(R.id.navigation_tertiary_stat, string(R.string.navigation_facing), childId = R.id.stat_label)
+        hasText(R.id.navigation_tertiary_stat, Regex("\\d+° [NSEW]+"), childId = R.id.stat_value)
 
         cancelNavigation()
         not { isVisible(R.id.navigation_sheet) }
@@ -96,10 +96,10 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText(Regex("1.000000°,\\s+-1.000000°"))
         hasText("100 ft")
         isVisible(R.id.navigation_arrow)
-        hasText(R.id.navigation_primary_value, Regex("\\d+(\\.\\d+)? (ft|mi)"))
-        hasText(R.id.navigation_secondary_value, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
-        hasText(R.id.navigation_secondary_label, Regex("Arrive \\d+:\\d+\\s(AM|PM)"))
-        hasText(R.id.navigation_tertiary_value, Regex("\\d+ ft"))
+        hasText(R.id.navigation_primary_stat, Regex("\\d+(\\.\\d+)? (ft|mi)"), childId = R.id.stat_value)
+        hasText(R.id.navigation_secondary_stat, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"), childId = R.id.stat_value)
+        hasText(R.id.navigation_secondary_stat, Regex("Arrive \\d+:\\d+\\s(AM|PM)"), childId = R.id.stat_label)
+        hasText(R.id.navigation_tertiary_stat, Regex("\\d+ ft"), childId = R.id.stat_value)
 
         // The notes are shown on the beacon
         click(R.id.navigation_sheet_title)
@@ -191,10 +191,10 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText("42.500000°,  -71.500000°")
         // Non-breaking spaces keep the elevation together if the subtitle wraps
         hasText("(Ele. 1000 ft)")
-        hasText(R.id.navigation_primary_value, "40.41 mi")
-        hasText(R.id.navigation_tertiary_value, "1000 ft")
-        hasText(R.id.navigation_tertiary_label, string(R.string.navigation_remaining_gain))
-        hasText(R.id.navigation_secondary_value, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"))
+        hasText(R.id.navigation_primary_stat, "40.41 mi", childId = R.id.stat_value)
+        hasText(R.id.navigation_tertiary_stat, "1000 ft", childId = R.id.stat_value)
+        hasText(R.id.navigation_tertiary_stat, string(R.string.navigation_remaining_gain), childId = R.id.stat_label)
+        hasText(R.id.navigation_secondary_stat, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"), childId = R.id.stat_value)
     }
 
     @Test
@@ -202,14 +202,14 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         openWithSavedBeacons()
 
         navigateToBeacon("Summit")
-        hasText(R.id.navigation_primary_value, "40.41 mi")
+        hasText(R.id.navigation_primary_stat, "40.41 mi", childId = R.id.stat_value)
 
         cancelNavigation()
         not { hasText("Summit") }
 
         navigateToBeacon("Camp")
         hasText(R.id.navigation_sheet_title, "Camp")
-        hasText(R.id.navigation_primary_value, "0.69 mi")
+        hasText(R.id.navigation_primary_stat, "0.69 mi", childId = R.id.stat_value)
         not { hasText("Summit") }
     }
 
