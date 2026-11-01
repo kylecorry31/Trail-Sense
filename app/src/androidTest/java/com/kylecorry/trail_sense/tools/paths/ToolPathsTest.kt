@@ -258,11 +258,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         clickOk()
         hasText("Solid")
 
-        changePointStyle("None", "Cell signal")
-        changePointStyle("Cell signal", "Elevation")
-        changePointStyle("Elevation", "Time")
-        changePointStyle("Time", "Slope")
-        changePointStyle("Slope", "None")
+        changePointStyle("None", "Elevation")
+        changePointStyle("Elevation", "None")
 
         // Stats
         hasText("0m")

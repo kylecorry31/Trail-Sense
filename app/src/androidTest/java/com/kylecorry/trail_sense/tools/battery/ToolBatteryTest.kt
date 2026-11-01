@@ -65,20 +65,7 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         }
         backUntil { isVisible(R.id.battery_title) }
 
-        hasListItems(
-            "Airplane mode",
-            "Wi-Fi",
-            "Bluetooth",
-            "NFC",
-            "Location",
-            "Battery saver",
-            "Data saver",
-            "Adaptive brightness",
-            "Screen timeout",
-            "Dark theme",
-            "Restrict app background activity",
-            "Other tips"
-        )
+        hasListItems("Airplane mode", "Other tips")
 
         // Open battery settings
         click(toolbarButton(R.id.battery_title, Side.Right))

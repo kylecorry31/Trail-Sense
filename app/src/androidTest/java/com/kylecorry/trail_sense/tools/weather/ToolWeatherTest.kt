@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
+import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -49,7 +50,11 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         }
 
         // Wait for a pressure reading
-        scrollUntil { hasText(string(R.string.pressure)) }
+        waitFor(15000) {
+            // The readings may still be loading while scrolling
+            scrollToStart()
+            scrollUntil { hasText(string(R.string.pressure)) }
+        }
         hasText(Regex("\\d+(\\.\\d+)? in"))
 
         // Historic temperature

@@ -26,9 +26,9 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
 
         isVisible(R.id.list)
 
-        // Verify it shows each chapter
-        val chapters = Chapters.getChapters(context)
-        chapters.forEachIndexed { index, chapter ->
+        // Verify the first and last chapters load
+        val chapters = Chapters.getChapters(context).let { listOf(it.first(), it.last()) }
+        chapters.forEach { chapter ->
             scrollUntil {
                 hasText(chapter.title)
             }

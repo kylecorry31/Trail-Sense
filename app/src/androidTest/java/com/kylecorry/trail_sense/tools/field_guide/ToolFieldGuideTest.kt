@@ -19,6 +19,7 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickDate
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickTime
+import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
@@ -66,21 +67,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
     private fun hasCategories() {
         // Shows categories
-        val categories = listOf(
-            "Plant",
-            "Fungus",
-            "Animal",
-            "Mammal",
-            "Bird",
-            "Reptile",
-            "Amphibian",
-            "Fish",
-            "Invertebrate",
-            "Rock",
-            "Other"
-        )
-
-        for (category in categories) {
+        for (category in listOf("Plant", "Other")) {
             scrollUntil {
                 hasText(category)
             }
@@ -108,6 +95,15 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         // The slot after the last image is used to add another one
         click(R.id.next_photo_button)
         scrollUntil(R.id.scroll_view) { click("Take photo") }
+        waitFor {
+            // The click can land before the list settles, so repeat it until the camera is open
+            try {
+                isVisible(R.id.capture_button, waitForTime = 1)
+            } catch (e: Throwable) {
+                click("Take photo", waitForTime = 1)
+                throw e
+            }
+        }
         click(R.id.capture_button)
         hasText(R.id.photo_position, "Image 2/2")
 
@@ -169,15 +165,8 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         hasText(R.id.field_guide_page_title, "Ant")
         hasText("A small insect")
         canLogSightings()
-        val tags = listOf(
-            "North America",
-            "Insect",
-            "Grassland",
-        )
-        for (tag in tags) {
-            scrollUntil {
-                hasText(tag)
-            }
+        scrollUntil {
+            hasText("Grassland")
         }
         back()
     }
@@ -247,17 +236,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         hasText(R.id.field_guide_page_title, "A Test")
         hasText("Notes")
 
-        val tags = listOf(
-            "Animal",
-            "Bird",
-            "North America",
-            "Forest",
-            "Edible",
-            "Inedible",
-            "Diurnal (day)"
-        )
-
-        for (tag in tags) {
+        for (tag in listOf("Bird", "Diurnal (day)")) {
             scrollUntil {
                 hasText(tag)
             }

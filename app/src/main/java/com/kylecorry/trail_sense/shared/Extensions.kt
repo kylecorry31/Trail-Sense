@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared
 
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
@@ -131,6 +132,16 @@ fun NavController.navigateWithAnimation(
     @IdRes resId: Int,
     args: Bundle? = null
 ) {
+    val animationsEnabled = Settings.Global.getFloat(
+        context.contentResolver,
+        Settings.Global.ANIMATOR_DURATION_SCALE,
+        1f
+    ) > 0f
+    if (!animationsEnabled) {
+        navigate(resId, args)
+        return
+    }
+
     try {
         val builder = NavOptions.Builder()
             .setEnterAnim(R.anim.slide_in_right)

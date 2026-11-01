@@ -419,7 +419,15 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS) {
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Calibrate")
         hasText("Point 1 of 2")
-        click("Next")
+        waitFor {
+            // The click can land before the page settles, so repeat it until the next step shows
+            try {
+                hasText("Finish calibration", waitForTime = 1)
+            } catch (e: Throwable) {
+                click("Next", waitForTime = 1)
+                throw e
+            }
+        }
         click("Finish calibration")
         isVisible(R.id.map)
 
