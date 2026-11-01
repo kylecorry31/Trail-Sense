@@ -107,11 +107,11 @@ android {
         animationsDisabled = true
         managedDevices {
             localDevices {
-                create("smallPhoneApi36") {
+                create("smallPhoneApi30") {
                     device = "Small Phone"
-                    apiLevel = 36
+                    apiLevel = 30
                     systemImageSource = "aosp-atd"
-                    testedAbi = "x86_64"
+                    testedAbi = "x86"
                 }
             }
         }

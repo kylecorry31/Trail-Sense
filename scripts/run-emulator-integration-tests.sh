@@ -17,7 +17,7 @@ if ! [[ "$timeout_seconds" =~ ^[1-9][0-9]*$ ]]; then
   exit 2
 fi
 
-gradle_args=(smallPhoneApi36DebugAndroidTest)
+gradle_args=(smallPhoneApi30DebugAndroidTest)
 if [ "$#" -ge 1 ] && [ -n "$1" ]; then
   gradle_args+=("-Pandroid.testInstrumentationRunnerArguments.class=$1")
 fi

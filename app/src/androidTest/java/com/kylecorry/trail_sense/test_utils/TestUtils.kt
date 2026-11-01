@@ -16,7 +16,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry
 import androidx.test.runner.lifecycle.Stage
-import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Configurator
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
@@ -169,18 +168,6 @@ object TestUtils {
 
     fun runShellCommand(command: String) {
         device.executeShellCommand(command)
-    }
-
-    /**
-     * Prevents ANR/crash dialogs from other apps (ex. the system or Digital Wellbeing on a freshly booted emulator)
-     * from covering the app under test, including any that are already showing
-     */
-    fun hideSystemErrorDialogs() {
-        runShellCommand("settings put global hide_error_dialogs 1")
-        repeat(5) {
-            val wait = device.findObject(By.res("android", "aerr_wait")) ?: return
-            wait.click()
-        }
     }
 
     fun clearAppData(packageName: String) {
