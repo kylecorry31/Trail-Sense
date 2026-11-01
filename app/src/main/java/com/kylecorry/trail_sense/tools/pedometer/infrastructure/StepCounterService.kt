@@ -31,6 +31,17 @@ import com.kylecorry.trail_sense.tools.pedometer.domain.ActiveTimeCalculator
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import com.kylecorry.trail_sense.tools.pedometer.domain.StepLengthPaceCalculator
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import java.time.Duration
 
 class StepCounterService : AndromedaService() {
@@ -49,6 +60,9 @@ class StepCounterService : AndromedaService() {
 
     private var lastSteps = -1
     private var lastTime = -1L
+
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val steps = MutableStateFlow(0L)
 
     private val addStepsTask = BackgroundTask {
         addStepsQueue.enqueue {
@@ -72,6 +86,20 @@ class StepCounterService : AndromedaService() {
         }
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        // The foreground notification already shows the initial 0 steps, so skip the first value.
+        steps
+            .map { formatDistance(StepLengthPaceCalculator(prefs.pedometer.stepLength).distance(it)) }
+            .distinctUntilChanged()
+            .drop(1)
+            .onEach {
+                notificationSubsystem.send(NOTIFICATION_ID, getNotification(it))
+                delay(NOTIFICATION_MIN_INTERVAL.toMillis())
+            }
+            .launchIn(scope)
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         getAppService<Logger>().info(TAG, "Started (restarted by system: ${intent == null})")
         return tryStartForegroundOrNotify {
@@ -84,7 +112,7 @@ class StepCounterService : AndromedaService() {
     }
 
     override fun getForegroundInfo(): ForegroundInfo {
-        return ForegroundInfo(NOTIFICATION_ID, getNotification(Distance.meters(0f)))
+        return ForegroundInfo(NOTIFICATION_ID, getNotification(formatDistance(Distance.meters(0f))))
     }
 
     private fun onPedometer(): Boolean {
@@ -93,15 +121,13 @@ class StepCounterService : AndromedaService() {
     }
 
     private suspend fun onStepsChanged(data: Bundle?) {
-        val steps = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: 0L
-        val paceCalculator = StepLengthPaceCalculator(prefs.pedometer.stepLength)
-        val distance = paceCalculator.distance(steps)
-        notificationSubsystem.send(NOTIFICATION_ID, getNotification(distance))
+        steps.value = data?.getLong(PedometerToolRegistration.BROADCAST_PARAM_STEPS) ?: 0L
     }
 
     override fun onDestroy() {
         getAppService<Logger>().info(TAG, "Stopped")
         isRunning = false
+        scope.cancel()
         pedometer.stop(this::onPedometer)
         stopService(true)
         addStepsTask.stop()
@@ -110,11 +136,19 @@ class StepCounterService : AndromedaService() {
         super.onDestroy()
     }
 
-    private fun getNotification(distance: Distance): Notification {
+    private fun formatDistance(distance: Distance): String {
         val convertedDistance = distance
             .convertTo(prefs.baseDistanceUnits)
             .toRelativeDistance()
 
+        return formatService.formatDistance(
+            convertedDistance,
+            Units.getDecimalPlaces(convertedDistance.units),
+            false
+        )
+    }
+
+    private fun getNotification(text: String): Notification {
         val openIntent = NavigationUtils.pendingIntent(this, R.id.fragmentToolPedometer)
         val stopIntent = Intent(this, StopPedometerReceiver::class.java)
         val stopPendingIntent =
@@ -129,11 +163,7 @@ class StepCounterService : AndromedaService() {
             this,
             CHANNEL_ID,
             getString(R.string.pedometer),
-            formatService.formatDistance(
-                convertedDistance,
-                Units.getDecimalPlaces(convertedDistance.units),
-                false
-            ),
+            text,
             R.drawable.steps,
             intent = openIntent,
             group = NOTIFICATION_GROUP_PEDOMETER,
@@ -147,6 +177,7 @@ class StepCounterService : AndromedaService() {
         const val NOTIFICATION_ID = 1279812
         private const val TAG = "StepCounterService"
         private const val NOTIFICATION_GROUP_PEDOMETER = "trail_sense_pedometer"
+        private val NOTIFICATION_MIN_INTERVAL = Duration.ofSeconds(5)
 
         var isRunning = false
             private set
