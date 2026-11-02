@@ -1701,4 +1701,5 @@
     <string name="navigation_remaining_gain">Gain restant</string>
     <string name="navigation_remaining_loss">Perte résiduelle</string>
     <string name="navigation_arrive_format">Arrivée à %s</string>
+    <string name="bottom_navigation">Barre de navigation inférieure</string>
 </resources>
