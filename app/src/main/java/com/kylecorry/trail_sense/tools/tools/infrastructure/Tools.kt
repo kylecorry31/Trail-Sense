@@ -47,7 +47,6 @@ import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.packs.PackingListsToolRegistration
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
-import com.kylecorry.trail_sense.tools.permits.PermitsToolRegistration
 import com.kylecorry.trail_sense.tools.qr.QRCodeScannerToolRegistration
 import com.kylecorry.trail_sense.tools.ruler.RulerToolRegistration
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
@@ -112,7 +111,6 @@ object Tools {
         FieldGuideToolRegistration,
         SignalFinderToolRegistration,
         BallisticsToolRegistration,
-        PermitsToolRegistration,
         DeclinationToolRegistration,
         MapToolRegistration,
         MagnifierToolRegistration
@@ -288,7 +286,6 @@ object Tools {
     const val FIELD_GUIDE = 42L
     const val SIGNAL_FINDER = 43L
     const val BALLISTICS = 44L
-    const val PERMITS = 45L
     const val DECLINATION = 46L
     const val MAP = 47L
     const val MAGNIFIER = 48L

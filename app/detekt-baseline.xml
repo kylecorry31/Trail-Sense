@@ -43,7 +43,6 @@
     <ID>EmptyFunctionBlock:BeaconCompassLayer.kt:BeaconCompassLayer${ }</ID>
     <ID>EmptyFunctionBlock:BearingCompassLayer.kt:BearingCompassLayer${ }</ID>
     <ID>EmptyFunctionBlock:BearingToCompassLayer.kt:BearingToCompassLayer${ }</ID>
-    <ID>EmptyFunctionBlock:FragmentToolPermits.kt:FragmentToolPermits${ }</ID>
     <ID>EmptyFunctionBlock:MarkerCompassLayer.kt:MarkerCompassLayer${ }</ID>
     <ID>EmptyFunctionBlock:NavigationCompassLayer.kt:NavigationCompassLayer${ }</ID>
     <ID>EmptyFunctionBlock:ProgressBar.kt:ProgressBar${ }</ID>
