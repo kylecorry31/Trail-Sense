@@ -18,6 +18,7 @@ import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import com.kylecorry.trail_sense.tools.navigation.ui.NavigationColors
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
 import com.kylecorry.trail_sense.tools.paths.ui.PathBackgroundColor
 
@@ -102,23 +103,8 @@ class NavigationGeoJsonSource : GeoJsonSource {
         myLocation: Coordinate,
         bearing: Destination.Bearing
     ): List<MappablePath> {
-        return if (bearing.startingLocation != null) {
-            listOf(
-                createPath(
-                    bearing.startingLocation,
-                    bearing.targetLocation!!,
-                    Destination.Bearing.defaultColor
-                )
-            )
-        } else {
-            listOf(
-                createPath(
-                    myLocation,
-                    myLocation.plus(bearing.bearingDistance, bearing.trueBearing),
-                    Destination.Bearing.defaultColor
-                )
-            )
-        }
+        val (start, end) = bearing.getLine(myLocation)
+        return listOf(createPath(start, end, NavigationColors.bearing))
     }
 
     private fun createPath(start: Coordinate, end: Coordinate, @ColorInt color: Int): MappablePath {

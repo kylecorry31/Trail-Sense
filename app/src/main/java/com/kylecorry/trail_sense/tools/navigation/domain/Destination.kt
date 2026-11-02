@@ -3,7 +3,6 @@ package com.kylecorry.trail_sense.tools.navigation.domain
 import com.kylecorry.sol.science.geography.Geography
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.tools.navigation.domain.guidance.Guidance
 import com.kylecorry.trail_sense.tools.navigation.domain.guidance.GuidanceInput
 import com.kylecorry.trail_sense.tools.navigation.domain.guidance.GuidanceProvider
@@ -12,6 +11,16 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import kotlin.math.absoluteValue
 
 sealed class Destination : GuidanceProvider {
+
+    /**
+     * @param compassUsesTrueNorth whether the compass is set to true north
+     * @param override a north reference to use instead of the compass's, if any
+     * @return whether guidance for this destination should be relative to true north
+     */
+    open fun usesTrueNorth(compassUsesTrueNorth: Boolean, override: Boolean?): Boolean {
+        return override ?: compassUsesTrueNorth
+    }
+
     class Path(
         val path: com.kylecorry.trail_sense.tools.paths.domain.Path,
         points: List<PathPoint>
@@ -55,6 +64,16 @@ sealed class Destination : GuidanceProvider {
                 return startingLocation?.plus(bearingDistance, trueBearing)
             }
 
+        // Bearings are recorded against the compass setting, so the override does not apply
+        override fun usesTrueNorth(compassUsesTrueNorth: Boolean, override: Boolean?): Boolean {
+            return compassUsesTrueNorth
+        }
+
+        fun getLine(current: Coordinate): Pair<Coordinate, Coordinate> {
+            val start = startingLocation ?: current
+            return start to start.plus(bearingDistance, trueBearing)
+        }
+
         override fun getGuidance(input: GuidanceInput): Guidance {
             val target = targetLocation
             val vector = target?.let { Geography.navigate(input.location, it, input.declination, input.useTrueNorth) }
@@ -82,7 +101,6 @@ sealed class Destination : GuidanceProvider {
         companion object {
             val defaultBearingDistance: Distance = Distance.kilometers(5f).meters()
             val maxBearingDistance: Distance = Distance.kilometers(20f).meters()
-            val defaultColor: Int = AppColor.Blue.color
         }
     }
 

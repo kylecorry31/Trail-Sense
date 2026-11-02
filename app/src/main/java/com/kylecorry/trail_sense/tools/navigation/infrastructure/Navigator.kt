@@ -263,13 +263,10 @@ class Navigator private constructor(context: Context) {
         declination: Float,
         useTrueNorthOverride: Boolean? = null
     ): Guidance {
-        val compassUsesTrueNorth = userPrefs.compass.useTrueNorth
-        // Bearings are recorded against the compass setting, so the override does not apply to them
-        val useTrueNorth = if (destination is Destination.Bearing) {
-            compassUsesTrueNorth
-        } else {
-            useTrueNorthOverride ?: compassUsesTrueNorth
-        }
+        val useTrueNorth = destination.usesTrueNorth(
+            userPrefs.compass.useTrueNorth,
+            useTrueNorthOverride
+        )
         return destination.getGuidance(
             GuidanceInput(location, elevation, declination, useTrueNorth)
         )

@@ -39,7 +39,6 @@ import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.colors.AppColor
 import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
 import com.kylecorry.trail_sense.shared.hooks.HookTriggers
 import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
@@ -398,19 +397,14 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         inBackground {
             onIO {
                 loadBeaconsRunner.skipIfRunning {
-                    val destinationBeacon = (destination as? Destination.Beacon)?.beacon
-                    if (!isNearbyEnabled) {
-                        nearbyBeacons = listOfNotNull(destinationBeacon)
-                        return@skipIfRunning
-                    }
-
-                    nearbyBeacons = (navigationService.getNearbyBeacons(
+                    nearbyBeacons = navigationService.getVisibleBeacons(
                         gps.location,
                         beacons,
+                        (destination as? Destination.Beacon)?.beacon,
+                        isNearbyEnabled,
                         nearbyCount,
-                        8f,
                         nearbyDistance
-                    ) + listOfNotNull(destinationBeacon)).distinctBy { it.id }
+                    )
                 }
             }
         }
@@ -421,11 +415,8 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
     }
 
     private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
-        return (destination as? Destination.Beacon)?.beacon ?: getFacingBeacon(nearby)
-    }
-
-    private fun getFacingBeacon(nearby: Collection<Beacon>): Beacon? {
-        return navigationService.getFacingBeacon(
+        return navigationService.getSelectedBeacon(
+            (destination as? Destination.Beacon)?.beacon,
             gps.location,
             compass.rawBearing,
             nearby,
@@ -647,7 +638,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
         inBackground {
             val destBearing = getDestinationBearing()
             val destinationBeacon = (destination as? Destination.Beacon)?.beacon
-            val destColor = destinationBeacon?.color ?: AppColor.Blue.color
+            val destColor = destinationBeacon?.color ?: NavigationColors.bearing
 
             val direction = destBearing?.let {
                 MappableBearing(it, destColor)

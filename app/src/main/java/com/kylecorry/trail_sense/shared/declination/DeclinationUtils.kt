@@ -18,6 +18,20 @@ object DeclinationUtils {
     }
 
     /**
+     * Converts a bearing from True North to the given north reference
+     * @param bearing the bearing to convert (in True North)
+     * @param declination the declination in degrees
+     * @param useTrueNorth true to leave the bearing in true north, false to convert it to magnetic north
+     */
+    fun fromTrueNorthBearing(
+        bearing: Float,
+        declination: Float,
+        useTrueNorth: Boolean
+    ): Float {
+        return if (useTrueNorth) bearing else fromTrueNorthBearing(bearing, declination)
+    }
+
+    /**
      * Converts a bearing from True North
      * @param bearing the bearing to convert (in True North)
      * @param declination the declination in degrees

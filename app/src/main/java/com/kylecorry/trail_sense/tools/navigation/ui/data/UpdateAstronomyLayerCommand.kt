@@ -10,6 +10,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
+import com.kylecorry.trail_sense.tools.navigation.domain.astronomy.NavAstronomyService
 import com.kylecorry.trail_sense.tools.navigation.ui.IMappableReferencePoint
 import com.kylecorry.trail_sense.tools.navigation.ui.MappableReferencePoint
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
@@ -22,9 +23,11 @@ class UpdateAstronomyLayerCommand(
     private val declination: () -> Float,
     private val isActive: () -> Boolean
 ) : CoroutineCommand {
+    private val astronomyService = NavAstronomyService()
+
     override suspend fun execute() = onDefault {
         val markers = mutableListOf<IMappableReferencePoint>()
-        val astro = NavAstronomyDataCommand(gps).execute()
+        val astro = astronomyService.getData(gps.location)
         val moonSize = Resources.dp(context, 24f).toInt()
         val moonImage = MoonPhaseImageMapper(context).getPhaseImage(
             astro.moonPhaseAngle,
@@ -86,10 +89,6 @@ class UpdateAstronomyLayerCommand(
     }
 
     private fun fromTrueNorth(bearing: Float): Float {
-        return if (prefs.compass.useTrueNorth) {
-            bearing
-        } else {
-            DeclinationUtils.fromTrueNorthBearing(bearing, declination())
-        }
+        return DeclinationUtils.fromTrueNorthBearing(bearing, declination(), prefs.compass.useTrueNorth)
     }
 }

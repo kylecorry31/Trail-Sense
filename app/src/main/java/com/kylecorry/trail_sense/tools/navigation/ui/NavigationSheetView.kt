@@ -47,12 +47,10 @@ import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.domain.guidance.Guidance
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
 import kotlin.math.ceil
@@ -248,23 +246,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
     }
 
-    private fun getEta(guidance: Guidance, values: NavigationSensorValues): Duration? {
-        val speed = values.speed.convertTo(
-            DistanceUnits.Meters, TimeUnits.Seconds
-        ).value
-        val hikingSpeed = Speed.from(
-            navigationService.getHikingSpeed(speed),
-            DistanceUnits.Meters,
-            TimeUnits.Seconds
-        )
-        val remainingDistance = guidance.remainingDistance ?: return null
-        return HikingService.getHikingDuration(
-            remainingDistance,
-            guidance.remainingElevationGain ?: Distance.meters(0f),
-            hikingSpeed
-        )
-    }
-
     private fun updateBeaconNavigation(
         destination: Destination.Beacon,
         guidance: Guidance,
@@ -395,7 +376,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     }
 
     private fun updateEtaStat(guidance: Guidance, values: NavigationSensorValues) {
-        val duration = getEta(guidance, values)
+        val duration = navigationService.eta(guidance, values.speed)
         val arrival = duration?.let {
             formatter.formatTime(
                 ZonedDateTime.now().plus(it).toLocalTime(),

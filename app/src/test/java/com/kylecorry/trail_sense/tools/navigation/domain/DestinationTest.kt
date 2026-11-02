@@ -184,6 +184,53 @@ internal class DestinationTest {
         assertTrue(guidance.targetBearing.value in 340f..359f)
     }
 
+    @ParameterizedTest(name = "compass true north {0}, override {1}")
+    @MethodSource("provideNorthOverrides")
+    fun `override replaces the compass north reference except for bearings`(
+        compassUsesTrueNorth: Boolean,
+        override: Boolean?,
+        expected: Boolean
+    ) {
+        val beacon = Destination.Beacon(Beacon(1, "", Coordinate(0.0, 0.01), color = Color.BLACK))
+        val bearing = Destination.Bearing(Bearing.from(45f), isTrueNorth = true, declination = 0f)
+
+        assertEquals(expected, beacon.usesTrueNorth(compassUsesTrueNorth, override))
+        assertEquals(expected, pathDestination().usesTrueNorth(compassUsesTrueNorth, override))
+        assertEquals(compassUsesTrueNorth, bearing.usesTrueNorth(compassUsesTrueNorth, override))
+    }
+
+    @Test
+    fun `bearing line starts at the starting location`() {
+        val destination = Destination.Bearing(
+            Bearing.from(90f),
+            isTrueNorth = true,
+            declination = 0f,
+            startingLocation = origin,
+            bearingDistance = Distance.meters(1000f)
+        )
+
+        val (start, end) = destination.getLine(Coordinate(5.0, 5.0))
+
+        assertEquals(origin, start)
+        assertEquals(destination.targetLocation, end)
+    }
+
+    @Test
+    fun `bearing line without a starting location starts at the current location`() {
+        val current = Coordinate(10.0, 10.0)
+        val destination = Destination.Bearing(
+            Bearing.from(90f),
+            isTrueNorth = false,
+            declination = 10f,
+            bearingDistance = Distance.meters(1000f)
+        )
+
+        val (start, end) = destination.getLine(current)
+
+        assertEquals(current, start)
+        assertEquals(current.plus(Distance.meters(1000f), Bearing.from(100f)), end)
+    }
+
     @Test
     fun `path guidance reports the progress along the path`() {
         val destination = pathDestination()
@@ -265,6 +312,15 @@ internal class DestinationTest {
         fun provideNorthReferences(): Stream<Arguments> = Stream.of(
             Arguments.of(true, 90f),
             Arguments.of(false, 80f)
+        )
+
+        // Compass uses true north, override, expected true north
+        @JvmStatic
+        fun provideNorthOverrides(): Stream<Arguments> = Stream.of(
+            Arguments.of(true, null, true),
+            Arguments.of(false, null, false),
+            Arguments.of(true, false, false),
+            Arguments.of(false, true, true)
         )
 
         // Beacon elevation, current elevation, expected gain, expected loss
