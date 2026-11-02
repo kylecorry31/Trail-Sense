@@ -44,7 +44,7 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
-        app:title="@string/general">
+        app:title="@string/bottom_navigation">
 
         <SwitchPreferenceCompat
             app:defaultValue="false"

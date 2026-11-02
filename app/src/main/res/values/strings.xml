@@ -1468,6 +1468,7 @@
     <string name="fused_altimeter_force_calibration_summary">Forces a GPS calibration every %s</string>
     <string name="pref_use_dynamic_colors" translatable="false">pref_use_dynamic_colors</string>
     <string name="dynamic_colors">Dynamic colors</string>
+    <string name="bottom_navigation">Bottom navigation</string>
     <string name="compact_mode">Compact mode</string>
     <string name="pref_show_all_bottom_navigation_labels">Show all bottom navigation labels</string>
     <string name="pref_use_dynamic_colors_on_compass" translatable="false">pref_use_dynamic_colors_on_compass</string>
