@@ -242,16 +242,26 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
         }
     }
 
-    /** The point under the touch. The most recently added wins when points share a location. */
+    /**
+     * The point under the touch. When points share a location, the selected point wins (new points
+     * are selected when added), followed by the one latest in the path.
+     */
     private fun findPoint(
         drawer: ICanvasDrawer,
         pixels: List<PixelCoordinate>,
         pixel: PixelCoordinate
     ): Int? {
         val touchRadius = drawer.dp(TOUCH_RADIUS_DP)
-        return pixels.indices.reversed()
+        val selected = editor.selectedIndex
+        return pixels.indices
             .filter { distance(pixels[it], pixel) <= touchRadius }
-            .minByOrNull { distance(pixels[it], pixel) }
+            .minWithOrNull(
+                compareBy<Int>(
+                    { distance(pixels[it], pixel) },
+                    { it != selected },
+                    { -it }
+                )
+            )
     }
 
     private fun distance(a: PixelCoordinate, b: PixelCoordinate): Float {

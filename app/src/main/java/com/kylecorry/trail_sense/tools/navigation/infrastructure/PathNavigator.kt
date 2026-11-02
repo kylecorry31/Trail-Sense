@@ -181,14 +181,16 @@ class PathNavigator(context: Context) {
     }
 
     /**
-     * @return true if the path was being navigated and the navigation was canceled
+     * @return true if the path was being navigated (or its route was being built) and the navigation was canceled
      */
     fun cancel(pathId: Long): Boolean {
-        if (destinationState.value?.path?.id != pathId) {
-            return false
+        synchronized(lock) {
+            if (currentSession()?.pathId != pathId) {
+                return false
+            }
+            cancel()
+            return true
         }
-        cancel()
-        return true
     }
 
     suspend fun awaitRestore() {

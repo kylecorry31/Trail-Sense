@@ -89,7 +89,8 @@ class PathRoute(
     }
 
     private fun getRemainingElevationLossGain(currentPoint: Snap): Pair<Distance, Distance> {
-        return Distance.meters(cumulativeElevationLoss.last() - cumulativeElevationLoss.at(currentPoint)) to
+        // The cumulative losses are negative, but the remaining loss is reported as a positive distance
+        return Distance.meters(cumulativeElevationLoss.at(currentPoint) - cumulativeElevationLoss.last()) to
                 Distance.meters(cumulativeElevationGain.last() - cumulativeElevationGain.at(currentPoint))
     }
 

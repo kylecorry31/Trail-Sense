@@ -210,8 +210,9 @@ class PathRouteTest {
         val guidance = route.navigate(location)
         val remaining = listOf(points[0].copy(coordinate = location, elevation = 50f)) + points.drop(1)
         assertEquals(50f, guidance.remainingElevationGain.meters().value, 0.1f)
+        assertEquals(50f, guidance.remainingElevationLoss.meters().value, 0.1f)
         assertEquals(
-            HikingService.getElevationLossGain(remaining).first.meters().value,
+            -HikingService.getElevationLossGain(remaining).first.meters().value,
             guidance.remainingElevationLoss.meters().value, 0.1f
         )
         assertEquals(location.distanceTo(points.last().coordinate), guidance.remainingDistance.meters().value, 0.1f)

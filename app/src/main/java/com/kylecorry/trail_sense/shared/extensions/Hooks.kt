@@ -593,10 +593,7 @@ fun ReactiveComponent.useTimer(
     runnable: suspend () -> Unit
 ) {
     val runnableRef = useRef(runnable)
-
-    useEffect(runnable) {
-        runnableRef.current = runnable
-    }
+    runnableRef.current = runnable
 
     val timer = useMemo {
         CoroutineTimer(scope, observeOn, actionBehavior) {
