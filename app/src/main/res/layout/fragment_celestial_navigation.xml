@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.kylecorry.trail_sense.shared.views.Toolbar
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flattenButtons="true"
+        app:leftButtonIcon="@drawable/ic_delete"
+        app:rightButtonIcon="@drawable/ic_settings"
+        app:title="Celestial navigation" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.kylecorry.trail_sense.shared.views.CameraView
+            android:id="@+id/camera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.kylecorry.trail_sense.tools.celestial_navigation.ui.StarPhotoView
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/black"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/fullscreen"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="8dp"
+            android:background="#99000000"
+            android:contentDescription="Fullscreen"
+            android:src="@drawable/ic_fullscreen" />
+
+        <LinearLayout
+            android:id="@+id/overlay_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/overlay_capture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Capture" />
+
+            <Button
+                android:id="@+id/overlay_solve"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Solve" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#99000000"
+            android:padding="8dp"
+            android:textColor="@color/white" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/mode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Spinner
+                android:id="@+id/detection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/method"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp">
+
+            <Button
+                android:id="@+id/capture"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="Capture" />
+
+            <Button
+                android:id="@+id/solve"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:text="Solve" />
+
+            <Button
+                android:id="@+id/live"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Camera" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+            <TextView
+                android:id="@+id/results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:padding="8dp"
+                android:textIsSelectable="true"
+                android:textSize="11sp" />
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

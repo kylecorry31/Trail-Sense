@@ -10,6 +10,8 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.alerts.dialog
+import com.kylecorry.andromeda.alerts.Alerts
+import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.Colors.withAlpha
 import com.kylecorry.andromeda.core.ui.setTextDistinct
@@ -48,6 +50,13 @@ import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomySubsystem
 import com.kylecorry.trail_sense.tools.astronomy.ui.format.PlanetMapper
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARCalibratorFactory
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARDiscCalibrator
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.ARStarCalibrator
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.BrightDiscFinder
+import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
+import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
+import com.kylecorry.andromeda.camera.ImageCaptureSettings
+import androidx.camera.core.ImageCapture
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceManager
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.ARGuidanceRefreshRequest
@@ -175,6 +184,18 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     // Calibration
     private val calibrationFactory = ARCalibratorFactory()
     private val astronomyService = AstronomyService()
+    private val calibrationPrefs by lazy {
+        requireContext().getSharedPreferences("ar_calibration_experiment", 0)
+    }
+    private var isAutoCalibrated = false
+    private var isCalibrating = false
+    private var lastAutoCalibration = 0L
+    private var pendingAutoDelta: Pair<Long, Float>? = null
+
+    private val autoCalibrationTimer = CoroutineTimer(actionBehavior = TimerActionBehavior.Skip) {
+        if (!isBound) return@CoroutineTimer
+        tryAutoCalibrate()
+    }
 
     private var visibleLayersOverride by state<List<ARLayer>?>(null)
     private var visibleLayers by state<List<ARLayer>>(emptyList())
@@ -278,6 +299,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             dialog(getString(R.string.reset_calibration_question)) { cancelled ->
                 if (!cancelled) {
                     binding.arView.resetCalibration()
+                    isAutoCalibrated = false
                 }
             }
             true
@@ -325,6 +347,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         updateGuidanceButtonState()
         guidanceLocationUpdater.interval(1000)
         refreshGuidance()
+        autoCalibrationTimer.interval(1000)
     }
 
     // TODO: Move this to the AR view
@@ -336,7 +359,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             if (it) {
                 binding.camera.isVisible = true
                 binding.camera.start(
-                    readFrames = false, shouldStabilizePreview = false
+                    readFrames = false,
+                    shouldStabilizePreview = false,
+                    captureSettings = ImageCaptureSettings(
+                        quality = 100,
+                        captureMode = ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY
+                    )
                 )
             } else {
                 binding.camera.isInvisible = true
@@ -366,6 +394,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         pathLayerManager?.stop()
         layerManagementUpdater.stop()
         guidanceLocationUpdater.stop()
+        autoCalibrationTimer.stop()
     }
 
     override fun onUpdate() {
@@ -605,8 +634,29 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     }
 
     private fun startCalibration() {
-        binding.calibrationPanel.isVisible = true
         val isSunUp = astronomyService.isSunUp(binding.arView.location)
+        val isAuto = calibrationPrefs.getBoolean("auto", true)
+        val options = listOf(
+            if (isSunUp) "Center the sun" else "Center the moon",
+            "Photo: stars (night, hold still)",
+            "Photo: ${if (isSunUp) "sun" else "moon"} anywhere in frame",
+            "Auto calibrate from sun / moon in frame: ${if (isAuto) "ON" else "OFF"}"
+        )
+        android.app.AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.calibrate))
+            .setItems(options.toTypedArray()) { _, which ->
+                when (which) {
+                    0 -> startCenteredCalibration(isSunUp)
+                    1 -> calibrateFromStars()
+                    2 -> calibrateFromDisc(manual = true)
+                    3 -> calibrationPrefs.edit().putBoolean("auto", !isAuto).apply()
+                }
+            }
+            .show()
+    }
+
+    private fun startCenteredCalibration(isSunUp: Boolean) {
+        binding.calibrationPanel.isVisible = true
         dialog(
             getString(R.string.calibrate),
             getString(
@@ -629,7 +679,145 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
                 calibrationFactory.getMoonCalibrator(binding.arView.location)
             }
             binding.arView.calibrate(calibrator, useGyro)
+            isAutoCalibrated = true
             stopCalibration()
+        }
+    }
+
+    private fun calibrateFromStars() {
+        if (isCalibrating) return
+        isCalibrating = true
+        Alerts.toast(requireContext(), "Hold still, taking a star photo...")
+        inBackground {
+            try {
+                val calibrator = ARStarCalibrator()
+                val delta = applyCalibration(calibrator)
+                val result = calibrator.lastResult
+                val message = if (delta == null || result == null) {
+                    "Star calibration failed: ${calibrator.failureReason ?: "unknown"}"
+                } else {
+                    "Compass was off by %.2f°\n%d stars detected, %d identified, fit %.3f°\nTilt: sensor %.2f°, stars %.2f°\nTotal offset now %.2f°".format(
+                        delta, result.stars, result.matched, result.rmsDegrees,
+                        result.sensorAltitude, result.starAltitude, binding.arView.calibrationOffset
+                    )
+                }
+                onMain { dialog("Star calibration", message, cancelText = null) }
+            } finally {
+                isCalibrating = false
+            }
+        }
+    }
+
+    private fun bodyReference(): Pair<String, AugmentedRealityCoordinate>? {
+        if (timeOverride != null) return null
+        val location = binding.arView.location
+        val (name, position) = when {
+            astronomyService.isSunUp(location) -> "sun" to astronomyService.getSunPosition(location)
+            astronomyService.isMoonUp(location) -> "moon" to astronomyService.getMoonPosition(location)
+            else -> return null
+        }
+        if (position.altitude < 0) return null
+        return name to AugmentedRealityCoordinate(
+            AugmentedRealityUtils.toEastNorthUp(position.azimuth.value, position.altitude, Float.MAX_VALUE),
+            true
+        )
+    }
+
+    private fun discCalibrator(name: String, reference: AugmentedRealityCoordinate): ARDiscCalibrator {
+        val finder = if (name == "sun") {
+            BrightDiscFinder(minPeak = 245, minContrast = 30)
+        } else {
+            BrightDiscFinder(minPeak = 150, minContrast = 80)
+        }
+        return ARDiscCalibrator(reference, finder)
+    }
+
+    /**
+     * The first calibration goes through the normal path (which may switch to the gyroscope),
+     * later ones adjust the existing calibration.
+     */
+    private suspend fun applyCalibration(calibrator: com.kylecorry.trail_sense.tools.augmented_reality.domain.calibration.IARCalibrator): Float? {
+        return if (!isAutoCalibrated) {
+            val before = binding.arView.calibrationOffset
+            binding.arView.calibrate(calibrator, userPrefs.augmentedReality.useGyroOnlyAfterCalibration)
+            val after = binding.arView.calibrationOffset
+            if (after == 0f && before != 0f) null else {
+                isAutoCalibrated = true
+                after
+            }
+        } else {
+            binding.arView.recalibrate(calibrator)
+        }
+    }
+
+    private fun calibrateFromDisc(manual: Boolean) {
+        if (isCalibrating) return
+        val (name, reference) = bodyReference() ?: run {
+            if (manual) Alerts.toast(requireContext(), "The sun and moon are not up")
+            return
+        }
+        isCalibrating = true
+        inBackground {
+            try {
+                val calibrator = discCalibrator(name, reference)
+                val delta = applyCalibration(calibrator)
+                val result = calibrator.lastResult
+                if (manual) {
+                    val message = if (delta == null || result == null) {
+                        "Could not find the $name in the frame"
+                    } else {
+                        "Compass was off by %.2f°\nTilt error %.2f°\nDisc radius %.0f px\nTotal offset now %.2f°".format(
+                            delta, result.altitudeError, result.radiusPixels, binding.arView.calibrationOffset
+                        )
+                    }
+                    onMain { dialog("Calibrate from the $name", message, cancelText = null) }
+                } else if (delta != null) {
+                    onMain { Alerts.toast(requireContext(), "Auto calibrated from the $name (%+.1f°)".format(delta)) }
+                }
+            } finally {
+                isCalibrating = false
+            }
+        }
+    }
+
+    /**
+     * Calibrates whenever the sun or moon is in the frame. Two detections in a row must agree so
+     * that a light or reflection doesn't cause a bad calibration.
+     */
+    private fun tryAutoCalibrate() {
+        if (isCalibrating || !isCameraEnabled) return
+        if (!calibrationPrefs.getBoolean("auto", true)) return
+        val now = System.currentTimeMillis()
+        if (now - lastAutoCalibration < 10_000) return
+        val (name, reference) = bodyReference() ?: return
+        val pixel = binding.arView.toPixel(reference, nanIfBehindCamera = true)
+        val margin = 0.1f
+        if (!pixel.x.isFinite() || !pixel.y.isFinite() ||
+            pixel.x < binding.arView.width * margin || pixel.x > binding.arView.width * (1 - margin) ||
+            pixel.y < binding.arView.height * margin || pixel.y > binding.arView.height * (1 - margin)
+        ) {
+            pendingAutoDelta = null
+            return
+        }
+        isCalibrating = true
+        inBackground {
+            var confirmed = false
+            try {
+                // Measure without applying first
+                val delta = discCalibrator(name, reference).calibrateBearing(binding.arView, binding.camera)
+                val previous = pendingAutoDelta
+                pendingAutoDelta = delta?.let { System.currentTimeMillis() to it }
+                confirmed = delta != null && previous != null &&
+                        System.currentTimeMillis() - previous.first < 3000 &&
+                        kotlin.math.abs(previous.second - delta) < 1f
+            } finally {
+                isCalibrating = false
+            }
+            if (confirmed) {
+                pendingAutoDelta = null
+                lastAutoCalibration = System.currentTimeMillis()
+                onMain { calibrateFromDisc(manual = false) }
+            }
         }
     }
 

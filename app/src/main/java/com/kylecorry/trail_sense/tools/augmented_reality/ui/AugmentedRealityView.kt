@@ -608,6 +608,20 @@ class AugmentedRealityView : CanvasView {
         calibrationBearingOffset = offset
     }
 
+    /**
+     * Adjusts the existing calibration without resetting it first, so a failed attempt keeps the
+     * previous calibration
+     */
+    suspend fun recalibrate(calibrator: IARCalibrator): Float? {
+        val camera = camera ?: return null
+        val delta = calibrator.calibrateBearing(this, camera) ?: return null
+        calibrationBearingOffset += delta
+        return delta
+    }
+
+    val calibrationOffset: Float
+        get() = calibrationBearingOffset
+
     fun resetCalibration() {
         calibrationBearingOffset = 0f
         orientationSensor = geomagneticOrientationSensor
