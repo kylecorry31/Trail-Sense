@@ -34,9 +34,8 @@ class TideModelTest {
 
         val harmonics = TideModel.getHarmonics(context, Coordinate(-0.5, -51.5))!!.harmonics
 
-        assertEquals(35.82f, harmonics.first { it.constituent == TideConstituent.S1 }.amplitude, 0.001f)
-        assertEquals(30.22f, harmonics.first { it.constituent == TideConstituent.S2 }.amplitude, 0.001f)
-        assertEquals(5.04f, harmonics.first { it.constituent == TideConstituent.T2 }.amplitude, 0.001f)
+        assertEquals(34.8f, harmonics.first { it.constituent == TideConstituent.S1 }.amplitude, 0.001f)
+        assertEquals(29.11f, harmonics.first { it.constituent == TideConstituent.S2 }.amplitude, 0.001f)
     }
 
     @Test
@@ -270,6 +269,7 @@ class TideModelTest {
 
         val absoluteErrors = errors.map { it.absoluteValue }
 
+        println("Average: ${Statistics.mean(absoluteErrors).roundToInt()} m")
         println("50%: ${Statistics.quantile(absoluteErrors, 0.5f).roundToInt()} m")
         println("90%: ${Statistics.quantile(absoluteErrors, 0.9f).roundToInt()} m")
         println("Min: ${absoluteErrors.minOrNull()?.roundToInt()} m")
@@ -279,8 +279,8 @@ class TideModelTest {
         val absAverageError = Statistics.mean(absoluteErrors)
         val abs90QuantileError = Statistics.quantile(absoluteErrors, 0.9f)
 
-        assertEquals("Average", 0f, absAverageError, 20f)
-        assertEquals("90% Quantile", 0f, abs90QuantileError, 45f)
+        assertEquals("Average", 0f, absAverageError, 18f)
+        assertEquals("90% Quantile", 0f, abs90QuantileError, 38f)
     }
 
     private val rhodeIsland = Coordinate(41.49008, -71.312796)

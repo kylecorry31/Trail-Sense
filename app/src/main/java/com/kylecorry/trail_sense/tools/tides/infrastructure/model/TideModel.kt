@@ -32,7 +32,7 @@ object TideModel {
 
     // Image data source
     private val size = Size(720, 360)
-    private val condensedSize = Size(128, 105)
+    private val condensedSize = Size(128, 187)
     private const val MIN_AMPLITUDE = 0f
     private val minPhase = -180.0
     private const val MAX_PHASE = 180.0
@@ -45,29 +45,30 @@ object TideModel {
             maxChannels = 2
         ),
         precision = 0,
+        valuePixelOffset = 0.375f,
         interpolationOrder = 0
     )
 
     private val imageReader = ImagePixelReader(condensedSize, interpolate = false)
 
     private val amplitudes = mapOf(
-        TideConstituent.TWO_N2 to 13.116927146911621,
-        TideConstituent.J1 to 13.746432304382324,
-        TideConstituent.K1 to 263.0484313964844,
-        TideConstituent.K2 to 55.006473541259766,
-        TideConstituent.M2 to 496.5640869140625,
-        TideConstituent.M4 to 42.92106628417969,
-        TideConstituent.MF to 17.715930938720703,
-        TideConstituent.MM to 18.341230392456055,
-        TideConstituent.N2 to 101.52593994140625,
-        TideConstituent.O1 to 149.45440673828125,
-        TideConstituent.P1 to 175.63946533203125,
-        TideConstituent.Q1 to 22.561424255371094,
-        TideConstituent.S1 to 381.7482604980469,
-        TideConstituent.S2 to 299.8392333984375,
-        TideConstituent.SA to 253.0474395751953,
-        TideConstituent.SSA to 3.453131914138794,
-        TideConstituent.T2 to 79.61186981201172,
+        TideConstituent.TWO_N2 to 35.56275549847536,
+        TideConstituent.J1 to 19.412979257244974,
+        TideConstituent.K1 to 293.3113250528193,
+        TideConstituent.K2 to 136.46533354466658,
+        TideConstituent.M2 to 474.86596786348304,
+        TideConstituent.M4 to 136.47406934806256,
+        TideConstituent.MF to 26.572228727370458,
+        TideConstituent.MM to 38.84598557092541,
+        TideConstituent.N2 to 103.29374829685771,
+        TideConstituent.O1 to 163.9411557453155,
+        TideConstituent.P1 to 451.8839299352376,
+        TideConstituent.Q1 to 31.236619378928776,
+        TideConstituent.S1 to 377.99887291694716,
+        TideConstituent.S2 to 289.4945379157524,
+        TideConstituent.SA to 360.68906021801223,
+        TideConstituent.SSA to 8.627993152193596,
+        TideConstituent.T2 to 487.1148982834704,
     )
 
     private data class LargeAmplitude(
@@ -78,9 +79,37 @@ object TideModel {
     )
 
     private val largeAmplitudes = listOf(
-        LargeAmplitude(TideConstituent.S1, 257, 181, 3582.0),
-        LargeAmplitude(TideConstituent.S2, 257, 181, 3022.0),
-        LargeAmplitude(TideConstituent.T2, 257, 181, 504.0),
+        LargeAmplitude(TideConstituent.P1, 218, 85, 909.0),
+        LargeAmplitude(TideConstituent.P1, 217, 86, 1101.0),
+        LargeAmplitude(TideConstituent.P1, 218, 86, 891.0),
+        LargeAmplitude(TideConstituent.S1, 218, 85, 1612.0),
+        LargeAmplitude(TideConstituent.S1, 219, 85, 580.0),
+        LargeAmplitude(TideConstituent.S1, 217, 86, 1598.0),
+        LargeAmplitude(TideConstituent.S1, 218, 86, 1828.0),
+        LargeAmplitude(TideConstituent.S1, 257, 180, 1145.0),
+        LargeAmplitude(TideConstituent.S1, 257, 181, 3480.0),
+        LargeAmplitude(TideConstituent.S1, 258, 181, 1203.0),
+        LargeAmplitude(TideConstituent.S1, 257, 182, 1120.0),
+        LargeAmplitude(TideConstituent.S1, 258, 182, 2270.0),
+        LargeAmplitude(TideConstituent.S2, 218, 85, 2851.0),
+        LargeAmplitude(TideConstituent.S2, 219, 85, 1210.0),
+        LargeAmplitude(TideConstituent.S2, 217, 86, 3101.0),
+        LargeAmplitude(TideConstituent.S2, 218, 86, 3030.0),
+        LargeAmplitude(TideConstituent.S2, 257, 180, 1611.0),
+        LargeAmplitude(TideConstituent.S2, 257, 181, 2911.0),
+        LargeAmplitude(TideConstituent.S2, 258, 181, 958.0),
+        LargeAmplitude(TideConstituent.S2, 257, 182, 727.0),
+        LargeAmplitude(TideConstituent.S2, 258, 182, 1846.0),
+        LargeAmplitude(TideConstituent.SA, 218, 85, 1106.0),
+        LargeAmplitude(TideConstituent.SA, 219, 85, 566.0),
+        LargeAmplitude(TideConstituent.SA, 217, 86, 1361.0),
+        LargeAmplitude(TideConstituent.SA, 218, 86, 1069.0),
+        LargeAmplitude(TideConstituent.T2, 219, 84, 710.0),
+        LargeAmplitude(TideConstituent.T2, 218, 85, 2186.0),
+        LargeAmplitude(TideConstituent.T2, 219, 85, 1110.0),
+        LargeAmplitude(TideConstituent.T2, 217, 86, 2687.0),
+        LargeAmplitude(TideConstituent.T2, 218, 86, 2115.0),
+        LargeAmplitude(TideConstituent.T2, 258, 182, 559.0),
     )
 
     suspend fun getHarmonics(
