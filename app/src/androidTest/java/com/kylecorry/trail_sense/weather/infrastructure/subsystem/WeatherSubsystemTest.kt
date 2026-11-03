@@ -2,24 +2,21 @@ package com.kylecorry.trail_sense.weather.infrastructure.subsystem
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
-import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Location
-import com.kylecorry.sol.units.Temperature
-import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertBias
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertWithin
+import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricMonthlyTemperatureRangeRepo
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
 import java.time.Month
 
 internal class WeatherSubsystemTest {
@@ -80,216 +77,41 @@ internal class WeatherSubsystemTest {
     }
 
     @Test
-    fun temperature() = runBlocking {
-        // Source of truth: https://weatherspark.com/
-        val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val subsystem = WeatherSubsystem.getInstance(context)
-
-        val maximumError = 10.5f
-        val maxQuantile50Error = 2f
-        val maxQuantile90Error = 6f
-
+    fun monthlyTemperatureModel() = runBlocking {
+        // Reference: the full resolution MERRA-2 sea level monthly highs and lows (°C) at 100 points in hiking areas
+        // and across the land of the world, from generate-temperature-test-data.py in the Earth Model project, so
+        // this shows the error added by shrinking the model.
         val errors = mutableListOf<Float>()
-
-        val places = listOf(
-            TemperaturePlace(
-                "New York",
-                41.714,
-                -74.006,
-                30,
-                TemperatureDay(1, 29, 28, 39),
-                TemperatureDay(3, 12, 34, 48),
-                TemperatureDay(6, 2, 61, 76),
-                TemperatureDay(7, 21, 71, 85),
-                TemperatureDay(9, 16, 63, 76),
-                TemperatureDay(12, 3, 37, 48)
-            ),
-            TemperaturePlace(
-                "Orlando",
-                28.538,
-                -81.379,
-                98,
-                TemperatureDay(1, 15, 52, 70),
-                TemperatureDay(2, 25, 55, 74),
-                TemperatureDay(5, 15, 69, 87),
-                TemperatureDay(7, 22, 76, 91),
-                TemperatureDay(9, 28, 73, 87),
-                TemperatureDay(12, 4, 58, 74)
-            ),
-            TemperaturePlace(
-                "Los Angeles",
-                34.052,
-                -118.244,
-                289,
-                TemperatureDay(3, 23, 53, 70),
-                TemperatureDay(7, 1, 64, 81),
-                TemperatureDay(8, 25, 66, 85),
-                TemperatureDay(9, 30, 63, 81),
-                TemperatureDay(12, 25, 48, 67)
-            ),
-//            Place(
-//                "Quito",
-//                -0.230,
-//                -78.525,
-//                9364,
-//                Day(2, 2, 49, 64),
-//                Day(4, 25, 49, 64),
-//                Day(7, 16, 48, 65),
-//                Day(9, 20, 48, 66)
-//            ),
-            TemperaturePlace(
-                "London",
-                51.509,
-                -0.126,
-                82,
-                TemperatureDay(2, 7, 39, 47),
-                TemperatureDay(3, 18, 42, 53),
-                TemperatureDay(6, 15, 55, 69),
-                TemperatureDay(9, 1, 60, 74),
-                TemperatureDay(9, 7, 56, 69),
-                TemperatureDay(11, 16, 44, 53)
-            ),
-            TemperaturePlace(
-                "Anchorage",
-                61.218,
-                -149.900,
-                98,
-                TemperatureDay(1, 17, 13, 23),
-                TemperatureDay(3, 5, 17, 32),
-                TemperatureDay(7, 20, 55, 68),
-                TemperatureDay(9, 11, 46, 59),
-                TemperatureDay(11, 6, 22, 32)
-            ),
-            TemperaturePlace(
-                "Amesterdam",
-                52.374,
-                4.890,
-                43,
-                TemperatureDay(2, 8, 34, 42),
-                TemperatureDay(3, 13, 37, 48),
-                TemperatureDay(6, 11, 51, 65),
-                TemperatureDay(8, 5, 57, 71),
-                TemperatureDay(9, 13, 52, 65),
-                TemperatureDay(11, 20, 39, 48)
-            ),
-            TemperaturePlace(
-                "Stockholm",
-                59.333,
-                18.065,
-                95,
-                TemperatureDay(2, 8, 22, 32),
-                TemperatureDay(3, 19, 27, 40),
-                TemperatureDay(6, 4, 47, 64),
-                TemperatureDay(7, 22, 56, 72),
-                TemperatureDay(9, 4, 49, 64),
-                TemperatureDay(11, 19, 32, 40)
-            ),
-            TemperaturePlace(
-                "Rio de Janeiro",
-                -22.903,
-                -43.208,
-                16,
-                TemperatureDay(2, 12, 76, 88),
-                TemperatureDay(5, 19, 69, 79),
-                TemperatureDay(7, 22, 65, 77),
-                TemperatureDay(10, 10, 69, 79),
-                TemperatureDay(12, 25, 75, 86)
-            ),
-            TemperaturePlace(
-                "Honolulu",
-                21.307,
-                -157.858,
-                59,
-                TemperatureDay(1, 28, 68, 79),
-                TemperatureDay(4, 1, 70, 81),
-                TemperatureDay(6, 27, 75, 85),
-                TemperatureDay(9, 23, 76, 87),
-                TemperatureDay(10, 14, 75, 85),
-                TemperatureDay(12, 13, 71, 81)
-            ),
-            TemperaturePlace(
-                "Tokyo",
-                35.689,
-                139.692,
-                141,
-                TemperatureDay(1, 26, 36, 48),
-                TemperatureDay(3, 20, 43, 56),
-                TemperatureDay(6, 27, 70, 79),
-                TemperatureDay(9, 9, 77, 87),
-                TemperatureDay(9, 18, 70, 79),
-                TemperatureDay(12, 4, 44, 56)
-            ),
-            TemperaturePlace(
-                "Bangkok",
-                13.754,
-                100.501,
-                39,
-                TemperatureDay(1, 1, 71, 88),
-                TemperatureDay(4, 15, 80, 95),
-                TemperatureDay(10, 12, 78, 89)
-            ),
-            TemperaturePlace(
-                "Sydney",
-                -33.868,
-                151.207,
-                190,
-                TemperatureDay(1, 25, 68, 80),
-                TemperatureDay(3, 22, 64, 76),
-                TemperatureDay(5, 29, 52, 65),
-                TemperatureDay(7, 19, 47, 62),
-                TemperatureDay(9, 22, 50, 65),
-                TemperatureDay(11, 26, 63, 76)
-            ),
-//            Place(
-//                "Antarctica",
-//                -77.846,
-//                166.676,
-//                446,
-//                Day(1, 5, 25, 33),
-//                Day(4, 18, -10, -1),
-//                Day(8, 11, -18, -9),
-//                Day(9, 28, -12, -1),
-//                Day(11, 22, 16, 24)
-//            )
-        )
-
-        for (place in places) {
-            for (day in place.days) {
-                var actual = subsystem.getTemperatureRange(
-                    LocalDate.of(2022, day.month, day.day),
-                    Coordinate(place.latitude, place.longitude),
-                    Distance.feet(place.elevation.toFloat()),
-                    false
-                )
-                actual = actual.copy(
-                    start = actual.start.convertTo(TemperatureUnits.Fahrenheit),
-                    end = actual.end.convertTo(TemperatureUnits.Fahrenheit)
-                )
-                val expected = Range(
-                    Temperature.from(day.low.toFloat(), TemperatureUnits.Fahrenheit),
-                    Temperature.from(day.high.toFloat(), TemperatureUnits.Fahrenheit)
-                )
-
-                errors.add(actual.start.value - expected.start.value)
-                errors.add(actual.end.value - expected.end.value)
-
-                assertEquals(
-                    place.name,
-                    expected.start.value,
-                    actual.start.value,
-                    maximumError
-                )
-                assertEquals(
-                    place.name,
-                    expected.end.value,
-                    actual.end.value,
-                    maximumError
-                )
+        for (point in loadTemperaturePoints()) {
+            val actual = HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRanges(point.location)
+            Month.entries.forEachIndexed { i, month ->
+                val range = actual[month]!!
+                errors.add(range.end.celsius().value - point.highs[i])
+                errors.add(range.start.celsius().value - point.lows[i])
             }
         }
 
-        assertQuantile(errors, maxQuantile50Error, 0.5f, "Temperature")
-        assertQuantile(errors, maxQuantile90Error, 0.9f, "Temperature")
+        assertQuantile(errors, 0.3f, 0.5f, "Temperature")
+        assertQuantile(errors, 0.6f, 0.9f, "Temperature")
+        assertQuantile(errors, 1f, 0.99f, "Temperature")
+        assertWithin(errors, 1.5f, 1f, "Temperature")
+        assertBias(errors, 0.1f, "Temperature")
+    }
+
+    private fun loadTemperaturePoints(): List<TemperaturePoint> {
+        val assets = InstrumentationRegistry.getInstrumentation().context.assets
+        return assets.open("temperature_tests/points.csv").bufferedReader().readLines()
+            .drop(1)
+            .filter { it.isNotBlank() }
+            .map { line ->
+                val row = line.split(",")
+                val values = row.drop(2).map { it.toFloat() }
+                TemperaturePoint(
+                    Coordinate(row[0].toDouble(), row[1].toDouble()),
+                    values.take(12),
+                    values.drop(12)
+                )
+            }
     }
 
     @Test
@@ -345,19 +167,10 @@ internal class WeatherSubsystemTest {
             )
         }
 
-    private class TemperaturePlace(
-        val name: String,
-        val latitude: Double,
-        val longitude: Double,
-        val elevation: Int,
-        vararg val days: TemperatureDay
-    )
-
-    private class TemperatureDay(
-        val month: Int,
-        val day: Int,
-        val low: Int,
-        val high: Int
+    private class TemperaturePoint(
+        val location: Coordinate,
+        val highs: List<Float>,
+        val lows: List<Float>
     )
 
     private class PrecipitationPoint(
