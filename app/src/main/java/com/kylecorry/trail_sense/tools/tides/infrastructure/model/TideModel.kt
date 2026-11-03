@@ -31,12 +31,12 @@ object TideModel {
     private val locationToPixelCache = MemoryLRUCache<Coordinate, PixelCoordinate?>(size = 20)
 
     // Image data source
-    private val size = Size(720, 360)
-    private val condensedSize = Size(128, 187)
+    private val size = Size(1440, 720)
+    private val condensedSize = Size(128, 172)
     private const val MIN_AMPLITUDE = 0f
     private val minPhase = -180.0
     private const val MAX_PHASE = 180.0
-    private const val SEARCH_SIZE = 5
+    private const val SEARCH_SIZE = 8
 
     private val source = GeographicImageSource(
         EncodedDataImageReader(
@@ -45,30 +45,30 @@ object TideModel {
             maxChannels = 2
         ),
         precision = 0,
-        valuePixelOffset = 0.375f,
+        valuePixelOffset = 0.25f,
         interpolationOrder = 0
     )
 
     private val imageReader = ImagePixelReader(condensedSize, interpolate = false)
 
     private val amplitudes = mapOf(
-        TideConstituent.TWO_N2 to 35.56275549847536,
-        TideConstituent.J1 to 19.412979257244974,
-        TideConstituent.K1 to 293.3113250528193,
-        TideConstituent.K2 to 136.46533354466658,
-        TideConstituent.M2 to 474.86596786348304,
-        TideConstituent.M4 to 136.47406934806256,
-        TideConstituent.MF to 26.572228727370458,
-        TideConstituent.MM to 38.84598557092541,
-        TideConstituent.N2 to 103.29374829685771,
-        TideConstituent.O1 to 163.9411557453155,
-        TideConstituent.P1 to 451.8839299352376,
-        TideConstituent.Q1 to 31.236619378928776,
-        TideConstituent.S1 to 377.99887291694716,
-        TideConstituent.S2 to 289.4945379157524,
-        TideConstituent.SA to 360.68906021801223,
-        TideConstituent.SSA to 8.627993152193596,
-        TideConstituent.T2 to 487.1148982834704,
+        TideConstituent.TWO_N2 to 35.562755148866074,
+        TideConstituent.J1 to 19.412978757674825,
+        TideConstituent.K1 to 293.3113265854845,
+        TideConstituent.K2 to 136.46533334158224,
+        TideConstituent.M2 to 474.8659738027007,
+        TideConstituent.M4 to 136.47406850713315,
+        TideConstituent.MF to 26.57222851875556,
+        TideConstituent.MM to 38.845984640449046,
+        TideConstituent.N2 to 107.99308333748937,
+        TideConstituent.O1 to 163.9411506321465,
+        TideConstituent.P1 to 282.97924579874797,
+        TideConstituent.Q1 to 31.17831745303195,
+        TideConstituent.S1 to 368.84208613374,
+        TideConstituent.S2 to 321.04079565433807,
+        TideConstituent.SA to 360.6890664468158,
+        TideConstituent.SSA to 8.62799275024558,
+        TideConstituent.T2 to 487.1148963104638,
     )
 
     private data class LargeAmplitude(
@@ -79,37 +79,54 @@ object TideModel {
     )
 
     private val largeAmplitudes = listOf(
-        LargeAmplitude(TideConstituent.P1, 218, 85, 909.0),
-        LargeAmplitude(TideConstituent.P1, 217, 86, 1101.0),
-        LargeAmplitude(TideConstituent.P1, 218, 86, 891.0),
-        LargeAmplitude(TideConstituent.S1, 218, 85, 1612.0),
-        LargeAmplitude(TideConstituent.S1, 219, 85, 580.0),
-        LargeAmplitude(TideConstituent.S1, 217, 86, 1598.0),
-        LargeAmplitude(TideConstituent.S1, 218, 86, 1828.0),
-        LargeAmplitude(TideConstituent.S1, 257, 180, 1145.0),
-        LargeAmplitude(TideConstituent.S1, 257, 181, 3480.0),
-        LargeAmplitude(TideConstituent.S1, 258, 181, 1203.0),
-        LargeAmplitude(TideConstituent.S1, 257, 182, 1120.0),
-        LargeAmplitude(TideConstituent.S1, 258, 182, 2270.0),
-        LargeAmplitude(TideConstituent.S2, 218, 85, 2851.0),
-        LargeAmplitude(TideConstituent.S2, 219, 85, 1210.0),
-        LargeAmplitude(TideConstituent.S2, 217, 86, 3101.0),
-        LargeAmplitude(TideConstituent.S2, 218, 86, 3030.0),
-        LargeAmplitude(TideConstituent.S2, 257, 180, 1611.0),
-        LargeAmplitude(TideConstituent.S2, 257, 181, 2911.0),
-        LargeAmplitude(TideConstituent.S2, 258, 181, 958.0),
-        LargeAmplitude(TideConstituent.S2, 257, 182, 727.0),
-        LargeAmplitude(TideConstituent.S2, 258, 182, 1846.0),
-        LargeAmplitude(TideConstituent.SA, 218, 85, 1106.0),
-        LargeAmplitude(TideConstituent.SA, 219, 85, 566.0),
-        LargeAmplitude(TideConstituent.SA, 217, 86, 1361.0),
-        LargeAmplitude(TideConstituent.SA, 218, 86, 1069.0),
-        LargeAmplitude(TideConstituent.T2, 219, 84, 710.0),
-        LargeAmplitude(TideConstituent.T2, 218, 85, 2186.0),
-        LargeAmplitude(TideConstituent.T2, 219, 85, 1110.0),
-        LargeAmplitude(TideConstituent.T2, 217, 86, 2687.0),
-        LargeAmplitude(TideConstituent.T2, 218, 86, 2115.0),
-        LargeAmplitude(TideConstituent.T2, 258, 182, 559.0),
+        LargeAmplitude(TideConstituent.P1, 105, 75, 774.0),
+        LargeAmplitude(TideConstituent.P1, 6, 76, 909.0),
+        LargeAmplitude(TideConstituent.P1, 7, 76, 688.0),
+        LargeAmplitude(TideConstituent.P1, 29, 76, 1101.0),
+        LargeAmplitude(TideConstituent.P1, 30, 76, 891.0),
+        LargeAmplitude(TideConstituent.S1, 105, 75, 619.0),
+        LargeAmplitude(TideConstituent.S1, 6, 76, 1612.0),
+        LargeAmplitude(TideConstituent.S1, 7, 76, 1150.0),
+        LargeAmplitude(TideConstituent.S1, 8, 76, 867.0),
+        LargeAmplitude(TideConstituent.S1, 29, 76, 1598.0),
+        LargeAmplitude(TideConstituent.S1, 30, 76, 1828.0),
+        LargeAmplitude(TideConstituent.S1, 40, 126, 1329.0),
+        LargeAmplitude(TideConstituent.S1, 41, 126, 1946.0),
+        LargeAmplitude(TideConstituent.S1, 42, 126, 508.0),
+        LargeAmplitude(TideConstituent.S1, 69, 126, 3480.0),
+        LargeAmplitude(TideConstituent.S1, 70, 126, 3233.0),
+        LargeAmplitude(TideConstituent.S1, 14, 127, 883.0),
+        LargeAmplitude(TideConstituent.S1, 15, 127, 2436.0),
+        LargeAmplitude(TideConstituent.S1, 16, 127, 4575.0),
+        LargeAmplitude(TideConstituent.S2, 105, 75, 1650.0),
+        LargeAmplitude(TideConstituent.S2, 6, 76, 2851.0),
+        LargeAmplitude(TideConstituent.S2, 7, 76, 2097.0),
+        LargeAmplitude(TideConstituent.S2, 8, 76, 1238.0),
+        LargeAmplitude(TideConstituent.S2, 29, 76, 3101.0),
+        LargeAmplitude(TideConstituent.S2, 30, 76, 3030.0),
+        LargeAmplitude(TideConstituent.S2, 40, 126, 2626.0),
+        LargeAmplitude(TideConstituent.S2, 41, 126, 2112.0),
+        LargeAmplitude(TideConstituent.S2, 42, 126, 516.0),
+        LargeAmplitude(TideConstituent.S2, 69, 126, 2911.0),
+        LargeAmplitude(TideConstituent.S2, 70, 126, 2636.0),
+        LargeAmplitude(TideConstituent.S2, 14, 127, 559.0),
+        LargeAmplitude(TideConstituent.S2, 15, 127, 1681.0),
+        LargeAmplitude(TideConstituent.S2, 16, 127, 2509.0),
+        LargeAmplitude(TideConstituent.S2, 17, 127, 1184.0),
+        LargeAmplitude(TideConstituent.SA, 105, 75, 996.0),
+        LargeAmplitude(TideConstituent.SA, 6, 76, 1106.0),
+        LargeAmplitude(TideConstituent.SA, 7, 76, 843.0),
+        LargeAmplitude(TideConstituent.SA, 29, 76, 1361.0),
+        LargeAmplitude(TideConstituent.SA, 30, 76, 1069.0),
+        LargeAmplitude(TideConstituent.T2, 80, 75, 710.0),
+        LargeAmplitude(TideConstituent.T2, 105, 75, 1959.0),
+        LargeAmplitude(TideConstituent.T2, 6, 76, 2186.0),
+        LargeAmplitude(TideConstituent.T2, 7, 76, 1662.0),
+        LargeAmplitude(TideConstituent.T2, 8, 76, 652.0),
+        LargeAmplitude(TideConstituent.T2, 29, 76, 2687.0),
+        LargeAmplitude(TideConstituent.T2, 30, 76, 2115.0),
+        LargeAmplitude(TideConstituent.T2, 16, 127, 628.0),
+        LargeAmplitude(TideConstituent.T2, 17, 127, 503.0),
     )
 
     suspend fun getHarmonics(
@@ -197,8 +214,8 @@ object TideModel {
                 val largeAmplitude =
                     largeAmplitudes.firstOrNull {
                         it.constituent == harmonic &&
-                                it.x == pixel.x.roundToInt() &&
-                                it.y == pixel.y.roundToInt()
+                                it.x == x &&
+                                it.y == y
                     }?.amplitude?.toFloat()
 
                 val amplitude = (largeAmplitude ?: Interpolation.lerp(
