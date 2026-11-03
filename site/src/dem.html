@@ -5,11 +5,17 @@
     A digital elevation model (DEM) is an elevation map which can be used in place of GPS or barometric altitude
     readings for a more stable reading. The Trail Sense models are generated using ETOPO data. The larger the model, the
     more accurate it will be.
-    The largest model has a horizontal resolution of 15 arc seconds, which is 1 / 240 degrees or around 400 meters.
+    The largest model has a horizontal resolution of 15 arc seconds, which is 1 / 240 degrees or around 400 meters. The
+    mini model is built into the app.
   </p>
-  <p>Quantiles are calculated using a random sampling of 100 locations. Your results may vary.</p>
+  <p>
+    Quantiles are how far off the model is at 50% and 90% of locations. For example, with a 90% quantile of ± 40m, nine
+    out of ten locations are within 40m of the actual elevation. They are calculated by comparing the models to the
+    Copernicus DEM (a more detailed 90 meter model) at around 330 random locations in hiking areas around the world,
+    such as the Alps, the Himalayas, the Appalachians, and the Midwest. Your results may vary.
+  </p>
   <p>The water mask indicates whether a model can distinguish between land and water, which allows map layers to be rendered more accurately.</p>
-  <h3>Version <a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/tag/dem-0.4.0">0.4.0</a>
+  <h3>Version <a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/tag/dem-0.5.0">0.5.0</a>
   </h3>
   <table>
     <thead>
@@ -24,29 +30,40 @@
     <tbody>
       <tr>
         <td>High</td>
-        <td>± 3m</td>
-        <td>± 16m</td>
+        <td>± 8m</td>
+        <td>± 40m</td>
         <td>Yes</td>
-        <td><a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/download/dem-0.4.0/dem-0.4.0-high.zip">Download (310 MB)</a></td>
+        <td><a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/download/dem-0.5.0/dem-0.5.0-high.zip">Download (310 MB)</a></td>
       </tr>
       <tr>
         <td>Medium</td>
-        <td>± 8m</td>
-        <td>± 24m</td>
+        <td>± 12m</td>
+        <td>± 46m</td>
         <td>No</td>
-        <td><a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/download/dem-0.4.0/dem-0.4.0-medium.zip">Download (95 MB)</a></td>
+        <td><a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/download/dem-0.5.0/dem-0.5.0-medium.zip">Download (95 MB)</a></td>
       </tr>
       <tr>
         <td>Low</td>
-        <td>± 11m</td>
-        <td>± 40m</td>
+        <td>± 20m</td>
+        <td>± 90m</td>
         <td>No</td>
-        <td><a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/download/dem-0.4.0/dem-0.4.0-low.zip">Download (21 MB)</a></td>
+        <td><a href="https://github.com/kylecorry31/Trail-Sense-Earth-Model/releases/download/dem-0.5.0/dem-0.5.0-low.zip">Download (18 MB)</a></td>
+      </tr>
+      <tr>
+        <td>Mini (built in)</td>
+        <td>± 34m</td>
+        <td>± 181m</td>
+        <td>No</td>
+        <td>Built in (2 MB)</td>
       </tr>
     </tbody>
   </table>
   <p><small>NOAA National Centers for Environmental Information. 2022: ETOPO 2022 15 Arc-Second Global Relief Model. NOAA
     National Centers for Environmental Information. <a
       href="https://doi.org/10.25921/fd45-gt74">https://doi.org/10.25921/fd45-gt74</a>. Accessed 2023-05-26.</small></p>
+  <p><small>Accuracy was measured using the Copernicus DEM, via <a href="https://open-meteo.com">open-meteo</a>.
+    ESA - Users, who, in their research, use the Copernicus DEM, are requested to use the following DOI when citing the
+    data source in their publications: <a
+      href="https://doi.org/10.5270/ESA-c5d3d65">https://doi.org/10.5270/ESA-c5d3d65</a>.</small></p>
 </section>
 {{{includes.footer}}}

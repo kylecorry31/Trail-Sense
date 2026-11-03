@@ -282,12 +282,7 @@ object DEM {
 
             val hasWaterMask = tiles.any { it.hasWaterMask }
             val sources = tiles.map {
-                val valuePixelOffset = if (isExternal) {
-                    0.5f
-                } else {
-                    // Built-in is heavily compressed, therefore this value was experimentally determined to have the best accuracy
-                    0.7f
-                }
+                val valuePixelOffset = 0.5f
                 val decoder = when {
                     it.compressionMethod == "8-bit" && it.hasWaterMask ->
                         EncodedDataImageReader.scaledDecoderWithMask(it.a, it.b)
