@@ -111,6 +111,16 @@ class EncodedDataImageReader(
             }
         }
 
+        fun squaredDecoder(a: Double): PixelDecoder {
+            return object : PixelDecoder {
+                override val channels = 1
+                override fun decode(pixel: Int, dest: FloatArray) {
+                    val value = pixel.red / a
+                    dest[0] = (value * value).toFloat()
+                }
+            }
+        }
+
         fun split16BitDecoder(a: Double = 1.0, b: Double = 0.0): PixelDecoder {
             return object : PixelDecoder {
                 override val channels = 2

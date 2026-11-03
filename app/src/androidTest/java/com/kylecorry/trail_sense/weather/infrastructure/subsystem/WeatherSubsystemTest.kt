@@ -11,7 +11,9 @@ import com.kylecorry.sol.units.Temperature
 import com.kylecorry.sol.units.TemperatureUnits
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertBias
 import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertWithin
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -39,9 +41,9 @@ internal class WeatherSubsystemTest {
             location(-6.221323527569555, -57.75469757904136) to "Am",
             location(-12.755153459727236, -60.129570938783964) to "As",
             location(26.427732529097433, 11.642537825154815) to "BWh",
-            location(39.48769607422648, -118.76175636637248) to "BWk",
+            location(37.11, 79.93) to "BWk",
             location(10.889781243153859, 17.840790318309242) to "BSh",
-            location(40.61674146229803, -103.23676957636688) to "BSk",
+            location(-31.5, 24.5) to "BSk",
             location(34.760618265160815, -5.4566297837873625) to "Csa",
             location(45.52684910275576, -122.77664603487463) to "Csb",
             location(25.440252914660682, 83.93974525268311) to "Cwa",
@@ -54,7 +56,7 @@ internal class WeatherSubsystemTest {
             location(42.4474624964996, 122.11758394841614) to "Dwa",
             location(49.097957757816225, 127.3216568354164) to "Dwb",
             location(54.35765122332575, 126.62354956462677) to "Dwc",
-            location(63.00675660364513, 130.85668059453226) to "Dwd",
+            location(62.5, 135.5) to "Dwd",
             location(42, -72, 0f) to "Dfa",
             location(45.38076187098529, -69.35700638127085) to "Dfb",
             location(54.770550236146356, -74.47190511134566) to "Dfc",
@@ -292,133 +294,41 @@ internal class WeatherSubsystemTest {
 
     @Test
     fun precipitation() = runBlocking {
-        // Source of truth: https://weatherspark.com/
+        // Reference: the full resolution ERA5 precipitation (in mm) at 100 points in hiking areas and across the land
+        // of the world, from generate-precipitation-test-data.py in the Earth Model project, so this shows the error
+        // added by shrinking the model.
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val subsystem = WeatherSubsystem.getInstance(context)
 
-        val maximumError = 2f
-        val maxQuantile50Error = 0.5f
-        val maxQuantile90Error = 1f
-
+        // Errors in mm for each month
         val errors = mutableListOf<Float>()
-
-        val places = listOf(
-            PrecipitationPlace(
-                "New York",
-                41.714,
-                -74.006,
-                mapOf(
-                    Month.JANUARY to 2.3f + 0.61f,
-                    Month.FEBRUARY to 2.2f + 0.61f,
-                    Month.MARCH to 3.2f + 0.3f,
-                    Month.APRIL to 3.7f,
-                    Month.MAY to 3.6f,
-                    Month.JUNE to 3.6f,
-                    Month.JULY to 3.5f,
-                    Month.AUGUST to 3.6f,
-                    Month.SEPTEMBER to 3.5f,
-                    Month.OCTOBER to 3.5f,
-                    Month.NOVEMBER to 3.4f + 0.04f,
-                    Month.DECEMBER to 3.3f + 0.3f
-                )
-            ),
-            PrecipitationPlace(
-                "Orlando",
-                28.538,
-                -81.379,
-                mapOf(
-                    Month.JANUARY to 2.3f,
-                    Month.FEBRUARY to 2.4f,
-                    Month.MARCH to 2.9f,
-                    Month.APRIL to 2.4f,
-                    Month.MAY to 2.9f,
-                    Month.JUNE to 5.7f,
-                    Month.JULY to 5.6f,
-                    Month.AUGUST to 5.6f,
-                    Month.SEPTEMBER to 5.1f,
-                    Month.OCTOBER to 2.8f,
-                    Month.NOVEMBER to 1.8f,
-                    Month.DECEMBER to 1.9f
-                )
-            ),
-            PrecipitationPlace(
-                "Los Angeles",
-                34.052,
-                -118.244,
-                mapOf(
-                    Month.JANUARY to 2.6f,
-                    Month.FEBRUARY to 3.3f,
-                    Month.MARCH to 2.1f,
-                    Month.APRIL to 0.8f,
-                    Month.MAY to 0.2f,
-                    Month.JUNE to 0.1f,
-                    Month.JULY to 0.0f,
-                    Month.AUGUST to 0.0f,
-                    Month.SEPTEMBER to 0.2f,
-                    Month.OCTOBER to 0.5f,
-                    Month.NOVEMBER to 1.0f,
-                    Month.DECEMBER to 2.1f
-                )
-            ),
-            PrecipitationPlace(
-                "London",
-                51.509,
-                -0.126,
-                mapOf(
-                    Month.JANUARY to 1.8f,
-                    Month.FEBRUARY to 1.4f,
-                    Month.MARCH to 1.2f,
-                    Month.APRIL to 1.2f,
-                    Month.MAY to 1.5f,
-                    Month.JUNE to 1.6f,
-                    Month.JULY to 1.4f,
-                    Month.AUGUST to 1.5f,
-                    Month.SEPTEMBER to 1.6f,
-                    Month.OCTOBER to 2.2f,
-                    Month.NOVEMBER to 2.1f,
-                    Month.DECEMBER to 2.0f
-                )
-            ),
-            PrecipitationPlace(
-                "Bangkok",
-                13.754,
-                100.501,
-                mapOf(
-                    Month.JANUARY to 0.2f,
-                    Month.FEBRUARY to 0.4f,
-                    Month.MARCH to 1.0f,
-                    Month.APRIL to 2.2f,
-                    Month.MAY to 4.5f,
-                    Month.JUNE to 4.4f,
-                    Month.JULY to 4.1f,
-                    Month.AUGUST to 5.0f,
-                    Month.SEPTEMBER to 8.6f,
-                    Month.OCTOBER to 6.9f,
-                    Month.NOVEMBER to 1.8f,
-                    Month.DECEMBER to 0.2f
-                )
-            )
-        )
-
-        for (place in places) {
-            val all = subsystem.getMonthlyPrecipitation(Coordinate(place.latitude, place.longitude))
-            for (month in place.months) {
-                val actual = all[month.key]!!.convertTo(DistanceUnits.Inches).value
-                val expected = month.value
-
-                errors.add(actual - expected)
-
-                assertEquals(
-                    place.name + " - " + month.key,
-                    expected,
-                    actual,
-                    maximumError
-                )
+        for (point in loadPrecipitationPoints()) {
+            val actual = subsystem.getMonthlyPrecipitation(point.location)
+            Month.entries.forEachIndexed { i, month ->
+                val predicted = actual[month]!!.convertTo(DistanceUnits.Millimeters).value
+                errors.add(predicted - point.months[i])
             }
         }
 
-        assertQuantile(errors, maxQuantile50Error, 0.5f, "Precipitation")
-        assertQuantile(errors, maxQuantile90Error, 0.9f, "Precipitation")
+        assertQuantile(errors, 6f, 0.5f, "Precipitation")
+        assertQuantile(errors, 25f, 0.9f, "Precipitation")
+        assertQuantile(errors, 70f, 0.99f, "Precipitation")
+        assertWithin(errors, 25f, 0.9f, "Precipitation")
+        assertBias(errors, 1f, "Precipitation")
+    }
+
+    private fun loadPrecipitationPoints(): List<PrecipitationPoint> {
+        val assets = InstrumentationRegistry.getInstrumentation().context.assets
+        return assets.open("precipitation_tests/points.csv").bufferedReader().readLines()
+            .drop(1)
+            .filter { it.isNotBlank() }
+            .map { line ->
+                val row = line.split(",")
+                PrecipitationPoint(
+                    Coordinate(row[0].toDouble(), row[1].toDouble()),
+                    row.drop(2).map { it.toFloat() }
+                )
+            }
     }
 
     private fun location(latitude: Number, longitude: Number, elevation: Number? = null): Location =
@@ -450,11 +360,9 @@ internal class WeatherSubsystemTest {
         val high: Int
     )
 
-    private class PrecipitationPlace(
-        val name: String,
-        val latitude: Double,
-        val longitude: Double,
-        val months: Map<Month, Float>
+    private class PrecipitationPoint(
+        val location: Coordinate,
+        val months: List<Float>
     )
 
 

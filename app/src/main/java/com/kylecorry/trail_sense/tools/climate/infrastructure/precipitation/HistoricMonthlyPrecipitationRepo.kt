@@ -19,14 +19,14 @@ internal object HistoricMonthlyPrecipitationRepo {
     private val cache = MemoryLRUCache<PixelCoordinate, Map<Month, Distance>>(size = 5)
 
     // Image data source
-    private val size = Size(360, 180)
+    private val size = Size(1440, 720)
 
     private val sources = Month.entries.associateWith { month ->
         val file = "precipitation/precipitation-${month.value}.webp"
         GeographicImageSource(
             EncodedDataImageReader(
                 SingleImageReader(size, AssetInputStreamable(file)),
-                decoder = EncodedDataImageReader.split16BitDecoder(),
+                decoder = EncodedDataImageReader.squaredDecoder(4.4),
                 maxChannels = 1
             ),
             interpolationOrder = 0
