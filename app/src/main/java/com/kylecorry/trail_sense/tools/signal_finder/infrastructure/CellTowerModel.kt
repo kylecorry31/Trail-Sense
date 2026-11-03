@@ -2,29 +2,34 @@ package com.kylecorry.trail_sense.tools.signal_finder.infrastructure
 
 import android.graphics.Rect
 import android.util.Size
+import androidx.core.graphics.red
+import com.kylecorry.andromeda.bitmaps.BitmapUtils.use
+import com.kylecorry.andromeda.bitmaps.operations.getPixels
 import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.sol.math.MathExtensions.roundNearest
-import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.ApproximateCoordinate
 import com.kylecorry.trail_sense.shared.data.AssetInputStreamable
-import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
-import com.kylecorry.trail_sense.shared.data.GeographicImageSource
+import com.kylecorry.trail_sense.shared.data.ImageReader
 import com.kylecorry.trail_sense.shared.data.SingleImageReader
-import com.kylecorry.trail_sense.shared.data.TiledImageReader
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlin.math.ceil
+import kotlin.math.floor
 
 object CellTowerModel {
 
-    // Image data source
-    private const val RESOLUTION = 0.01
-    private val size = Size(9000, 6000)
-    private const val ROWS = 3
-    private const val COLUMNS = 4
+    private const val CELLS_PER_DEGREE = 192
+    private const val RESOLUTION = 1.0 / CELLS_PER_DEGREE
+    private val size = Size(1024, 384)
+    private val reader = SingleImageReader(size, AssetInputStreamable("cell_towers/cell_towers.webp"))
 
     // Accounts for errors in the dataset
     private const val ACCURACY_SCALE = 2f
+
+    private val indexLock = Mutex()
+    private var index: CellTowerIndex? = null
 
     fun getAccuracy(towerLocation: Coordinate): Distance {
         return Distance.meters(
@@ -37,116 +42,73 @@ object CellTowerModel {
         )
     }
 
-    private fun getTileReader(
-        rows: Int,
-        columns: Int,
-        tileSize: Size,
-        files: List<String>
-    ): TiledImageReader {
-        val tileWidth = tileSize.width
-        val tileHeight = tileSize.height
-        val readers = mutableListOf<Pair<Rect, SingleImageReader>>()
-        for (r in 0 until rows) {
-            for (c in 0 until columns) {
-                val index = r * columns + c
-                if (index >= files.size) {
-                    break
-                }
-                val file = files[index]
-                val rect = Rect(
-                    c * tileWidth,
-                    r * tileHeight,
-                    (c + 1) * tileWidth,
-                    (r + 1) * tileHeight
-                )
-                readers.add(
-                    rect to SingleImageReader(
-                        Size(tileWidth, tileHeight),
-                        AssetInputStreamable(file)
-                    )
-                )
+    private suspend fun getIndex(): CellTowerIndex = indexLock.withLock {
+        index ?: CellTowerIndex.open(ImageByteSource(reader), CELLS_PER_DEGREE).also { index = it }
+    }
+
+    // The index is stored as the pixels of an image (a byte per pixel, read left to right, top to bottom), so
+    // only the rows with the requested bytes are decoded
+    private class ImageByteSource(private val reader: ImageReader) : CellTowerIndex.ByteSource {
+        override suspend fun read(offset: Int, size: Int): ByteArray {
+            val imageSize = reader.getSize()
+            val width = imageSize.width
+            val firstRow = offset / width
+            val lastRow = minOf((offset + size - 1) / width, imageSize.height - 1)
+            if (firstRow > lastRow) {
+                return ByteArray(0)
             }
+
+            var bytes: ByteArray? = null
+            reader.getRegion(Rect(0, firstRow, width, lastRow + 1))?.use {
+                val pixels = getPixels()
+                bytes = ByteArray(pixels.size) { i -> pixels[i].red.toByte() }
+            }
+            val rows = bytes ?: throw IllegalStateException("Cell tower model not found")
+
+            val start = offset - firstRow * width
+            return rows.copyOfRange(start, minOf(start + size, rows.size))
         }
-        return TiledImageReader(readers)
     }
 
-    private fun getFiles(count: Int): List<String> {
-        val files = mutableListOf<String>()
-        for (i in 0 until count) {
-            files.add("cell_towers/cell_towers_$i.webp")
-        }
-        return files
-    }
-
-    private val source = GeographicImageSource(
-        EncodedDataImageReader(
-            getTileReader(ROWS, COLUMNS, size, getFiles(ROWS * COLUMNS)),
-            decoder = EncodedDataImageReader.scaledDecoder(1.0, 0.0, false),
-            maxChannels = 1
-        ),
-        interpolationOrder = 0
-    )
-
-    // TODO: Load the whole region of the image and get the towers from it
     suspend fun getTowers(
         bounds: CoordinateBounds,
         count: Int? = null
     ): List<ApproximateCoordinate> = onIO {
-        val locations = mutableListOf<Coordinate>()
+        val index = getIndex()
 
-        val latitudes = Interpolation.getMultiplesBetween(
-            bounds.south - RESOLUTION,
-            bounds.north + RESOLUTION,
-            RESOLUTION
-        )
+        val minRow = floor((bounds.south + 90) * CELLS_PER_DEGREE).toInt().coerceAtLeast(0)
+        val maxRow = ceil((bounds.north + 90) * CELLS_PER_DEGREE).toInt()
+            .coerceAtMost(180 * CELLS_PER_DEGREE)
 
-        val longitudes = Interpolation.getMultiplesBetween(
-            bounds.west - RESOLUTION,
-            bounds.east + RESOLUTION,
-            RESOLUTION
-        )
-
-        latitudes.forEach { lat ->
-            longitudes.forEach { lon ->
-                locations.add(Coordinate(lat, lon))
-            }
+        // The bounds wrap around the antimeridian when the west is east of the east
+        val columnRanges = if (bounds.west <= bounds.east) {
+            listOf(bounds.west to bounds.east)
+        } else {
+            listOf(bounds.west to 180.0, -180.0 to bounds.east)
         }
 
-        // Remove locations that are outside the geofence
-        locations.removeIf { !bounds.contains(it) }
-
-        getTowers(locations)
+        columnRanges.flatMap { (west, east) ->
+            val minColumn = floor((west + 180) * CELLS_PER_DEGREE).toInt().coerceAtLeast(0)
+            val maxColumn = ceil((east + 180) * CELLS_PER_DEGREE).toInt()
+                .coerceAtMost(360 * CELLS_PER_DEGREE)
+            index.getCells(minRow, maxRow, minColumn, maxColumn)
+        }.mapNotNull { cell ->
+            val location = Coordinate(
+                (cell shr 32).toInt() * RESOLUTION - 90,
+                cell.toInt() * RESOLUTION - 180
+            )
+            if (bounds.contains(location)) {
+                ApproximateCoordinate(
+                    location.latitude,
+                    location.longitude,
+                    getAccuracy(location)
+                )
+            } else {
+                null
+            }
+        }
             .sortedBy { it.coordinate.distanceTo(bounds.center) }
             .take(count ?: Int.MAX_VALUE)
-    }
-
-    private suspend fun getTowers(
-        locations: List<Coordinate>
-    ): List<ApproximateCoordinate> = onIO {
-        val pixelsToLoad = locations.associate {
-            val rounded = it.copy(
-                latitude = it.latitude.roundNearest(RESOLUTION),
-                longitude = it.longitude.roundNearest(RESOLUTION)
-            )
-            val pixel = source.getPixel(rounded)
-            pixel to rounded
-        }
-
-        val results = source.read(pixelsToLoad.keys.toList())
-            .mapNotNull {
-                val data = it.second
-                if (data.isEmpty()) {
-                    return@mapNotNull null
-                }
-                val location = pixelsToLoad[it.first] ?: return@mapNotNull null
-                val hasTower = data[0].toInt() > 0
-                if (!hasTower) {
-                    return@mapNotNull null
-                }
-                ApproximateCoordinate(location.latitude, location.longitude, getAccuracy(location))
-            }
-
-        results
     }
 
 }
