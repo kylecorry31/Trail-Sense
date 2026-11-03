@@ -280,9 +280,9 @@ class TideModelTest {
         val abs50QuantileError = Statistics.quantile(absoluteErrors, 0.5f)
         val abs90QuantileError = Statistics.quantile(absoluteErrors, 0.9f)
 
-        assertEquals("Average", 0f, absAverageError, 17f)
-        assertEquals("50% Quantile", 0f, abs50QuantileError, 11f)
-        assertEquals("90% Quantile", 0f, abs90QuantileError, 36f)
+        assertEquals("Average", 0f, absAverageError, 16f)
+        assertEquals("50% Quantile", 0f, abs50QuantileError, 10f)
+        assertEquals("90% Quantile", 0f, abs90QuantileError, 34f)
     }
 
     private val rhodeIsland = Coordinate(41.49008, -71.312796)
@@ -379,7 +379,7 @@ class TideModelTest {
     ): Float {
         assertEquals(index.toString(), expected.isHigh, actual.isHigh)
         val delta = Duration.between(actual.time, expected.time).seconds / 60f
-        assertEquals(index.toString(), 0f, delta, 80f)
+        assertEquals(index.toString(), 0f, delta, 65f)
         return delta
     }
 
