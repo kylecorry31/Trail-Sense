@@ -3,23 +3,23 @@ package com.kylecorry.trail_sense.tools.tides
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.sol.math.optimization.GoldenSearchExtremaFinder
-import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.oceanography.Oceanography
 import com.kylecorry.sol.science.oceanography.waterlevel.HarmonicWaterLevelCalculator
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertBias
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertQuantile
+import com.kylecorry.trail_sense.test_utils.TestStatistics.assertWithin
 import com.kylecorry.trail_sense.tools.tides.infrastructure.model.TideModel
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-import kotlin.math.absoluteValue
 
 /**
- * Compares the tide model against the high and low tide times NOAA predicts (March 15-17, 2025, GMT) at 70 harmonic
+ * Compares the tide model against the high and low tide times NOAA predicts (March 15-17 of 2020, 2025 and 2030, GMT) at 70 harmonic
  * reference stations spread across the US coasts, Alaska, Hawaii, and the Pacific. Many of the stations are in bays
  * and estuaries, where a global model is least accurate, so the errors are larger than for open coast.
  *
@@ -30,12 +30,20 @@ class TideModelNoaaTest {
     private class Station(val location: Coordinate, val tides: List<Pair<Boolean, LocalDateTime>>)
 
     @Test
-    fun matchesNoaaPredictions() = runBlocking {
+    fun matchesNoaaPredictions() = checkAgainstNoaa("noaa_tide_predictions.csv")
+
+    @Test
+    fun matchesNoaaPredictions2020() = checkAgainstNoaa("noaa_tide_predictions_2020.csv")
+
+    @Test
+    fun matchesNoaaPredictions2030() = checkAgainstNoaa("noaa_tide_predictions_2030.csv")
+
+    private fun checkAgainstNoaa(fixture: String) = runBlocking {
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val context = instrumentation.targetContext
         DependencyRegistry.addSingleton(FileSubsystem.getInstance(context))
 
-        val stations = loadStations(instrumentation.context.assets.open("noaa_tide_predictions.csv").bufferedReader().readLines())
+        val stations = loadStations(instrumentation.context.assets.open(fixture).bufferedReader().readLines())
 
         // Errors in minutes, or 6 hours if the model has no tide for the station or no tide of that type nearby
         val errors = stations.flatMap { station ->
@@ -56,22 +64,15 @@ class TideModelNoaaTest {
             }
         }
 
-        val absoluteErrors = errors.map { it.absoluteValue }
-        val average = Statistics.mean(absoluteErrors)
-        val median = Statistics.quantile(absoluteErrors, 0.5f)
-        val quantile90 = Statistics.quantile(absoluteErrors, 0.9f)
-        val within30Minutes = absoluteErrors.count { it <= 30 } / absoluteErrors.size.toFloat()
+        val missing = errors.count { it == NO_PREDICTION_MINUTES }
 
-        println("Stations: ${stations.size}, tides: ${errors.size}")
-        println("Average: $average min")
-        println("50%: $median min")
-        println("90%: $quantile90 min")
-        println("Within 30 minutes: ${within30Minutes * 100}%")
-
-        assertEquals("Average", 0f, average, MAX_AVERAGE_MINUTES)
-        assertEquals("50% Quantile", 0f, median, MAX_MEDIAN_MINUTES)
-        assertEquals("90% Quantile", 0f, quantile90, MAX_QUANTILE_90_MINUTES)
-        assertTrue("Within 30 minutes: $within30Minutes", within30Minutes >= MIN_WITHIN_30_MINUTES)
+        println("Stations: ${stations.size}, tides: ${errors.size}, missing: $missing")
+        assertQuantile(errors, MAX_MEDIAN_MINUTES, 0.5f, "Tide")
+        assertQuantile(errors, MAX_QUANTILE_90_MINUTES, 0.9f, "Tide")
+        assertWithin(errors, 30f, MIN_WITHIN_30_MINUTES, "Tide")
+        assertWithin(errors, 60f, MIN_WITHIN_60_MINUTES, "Tide")
+        assertBias(errors.filter { it != NO_PREDICTION_MINUTES }, MAX_BIAS_MINUTES, "Tide")
+        assertTrue("Missing predictions: $missing", missing <= MAX_MISSING)
     }
 
     private fun loadStations(lines: List<String>): List<Station> {
@@ -89,9 +90,11 @@ class TideModelNoaaTest {
 
     private companion object {
         const val NO_PREDICTION_MINUTES = 360f
-        const val MAX_AVERAGE_MINUTES = 59f
-        const val MAX_MEDIAN_MINUTES = 15f
+        const val MAX_MISSING = 0
+        const val MAX_MEDIAN_MINUTES = 20f
         const val MAX_QUANTILE_90_MINUTES = 200f
-        const val MIN_WITHIN_30_MINUTES = 0.62f
+        const val MIN_WITHIN_30_MINUTES = 0.65f
+        const val MIN_WITHIN_60_MINUTES = 0.75f
+        const val MAX_BIAS_MINUTES = 15f
     }
 }

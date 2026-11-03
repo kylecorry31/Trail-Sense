@@ -31,7 +31,7 @@ mockitoKotlin = "6.4.0"
 mapsforge = "32021e8ff7"
 orion = "1.1.0"
 roomVersion = "2.8.5"
-sol = "19.2.5"
+sol = "19.4.0"
 workRuntimeKtx = "2.12.0"
 preferenceKtx = "1.2.1"
 
