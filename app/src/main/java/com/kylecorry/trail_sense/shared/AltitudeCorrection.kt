@@ -16,12 +16,12 @@ object AltitudeCorrection : GeoidService {
     private var cache = MemoryLRUCache<PixelCoordinate, Float>(size = 5)
 
     // Image data source
-    private const val a = 1.3232228755950928
-    private const val b = 106.9103012084961
+    private const val a = 1.3424748182296753
+    private const val b = 106.53070831298828
     private const val file = "geoids.webp"
     private val source = GeographicImageSource(
         EncodedDataImageReader(
-            SingleImageReader(Size(360, 180), AssetInputStreamable(file)),
+            SingleImageReader(Size(540, 270), AssetInputStreamable(file)),
             maxChannels = 1,
             decoder = EncodedDataImageReader.scaledDecoder(a, b)
         ),
