@@ -26,7 +26,7 @@ internal object HistoricMonthlyPrecipitationRepo {
         GeographicImageSource(
             EncodedDataImageReader(
                 SingleImageReader(size, AssetInputStreamable(file)),
-                decoder = EncodedDataImageReader.squaredDecoder(4.4),
+                decoder = EncodedDataImageReader.squaredDecoder(4.417794704437256),
                 maxChannels = 1
             ),
             interpolationOrder = 0
