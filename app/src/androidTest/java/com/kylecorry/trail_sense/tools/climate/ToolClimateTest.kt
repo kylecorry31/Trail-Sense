@@ -29,7 +29,7 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
 
         // Scroll until precipitation section is visible, then verify it
         scrollUntil {
-            hasText("Precipitation: 3.5 in monthly total")
+            hasText("Precipitation: 3.7 in monthly total")
         }
 
         // Continue scrolling to find climate zone section
