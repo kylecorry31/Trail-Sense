@@ -385,6 +385,10 @@ h4 {
   text-shadow: 0 0 12px var(--ink), 0 0 28px var(--ink);
 }
 
+.hero-accent {
+  color: var(--accent);
+}
+
 .hero .lede {
   font-size: 19px;
   line-height: 1.6;
