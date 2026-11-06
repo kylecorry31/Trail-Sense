@@ -446,7 +446,7 @@ h4 {
 .phone {
   margin: 0;
   border: 7px solid #232a39;
-  border-radius: 38px;
+  border-radius: 14px;
   background: #000;
   overflow: hidden;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
@@ -567,7 +567,7 @@ h4 {
   width: 190px;
   flex: none;
   border-bottom: 0;
-  border-radius: 32px 32px 0 0;
+  border-radius: 14px 14px 0 0;
   box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.45);
 }
 
