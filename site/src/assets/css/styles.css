@@ -369,14 +369,6 @@ h4 {
   mask-composite: intersect;
 }
 
-.hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(90deg, var(--ink) 0%, var(--ink) 30%, transparent 62%);
-}
-
 .hero-inner {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -390,12 +382,14 @@ h4 {
   line-height: 1.04;
   letter-spacing: -0.03em;
   margin-bottom: 20px;
+  text-shadow: 0 0 12px var(--ink), 0 0 28px var(--ink);
 }
 
 .hero .lede {
   font-size: 19px;
   line-height: 1.6;
-  color: var(--ink-muted);
+  color: #c3c8d2;
+  text-shadow: 0 0 8px var(--ink), 0 0 18px var(--ink), 0 0 28px var(--ink);
   max-width: 30em;
   margin: 0 0 32px;
 }
@@ -461,10 +455,6 @@ h4 {
 }
 
 @media (max-width: 860px) {
-  .hero::after {
-    background: linear-gradient(180deg, var(--ink) 0%, var(--ink) 40%, transparent 75%);
-  }
-
   .hero-inner {
     grid-template-columns: 1fr;
     gap: 40px;
