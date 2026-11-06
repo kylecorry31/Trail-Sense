@@ -2066,9 +2066,13 @@
     <!-- %s is an elevation (ex. 500 ft). Ele. is short for elevation -->
     <string name="navigation_elevation_format">(Ele. %s)</string>
     <string name="navigation_remaining">Remaining</string>
+    <!-- Distance traveled so far along the path -->
     <string name="navigation_traveled">Traveled</string>
+    <!-- The compass direction the user is pointing the device (ex. Facing N) -->
     <string name="navigation_facing">Facing</string>
+    <!-- Total elevation gain (climbing) left on the path -->
     <string name="navigation_remaining_gain">Remaining gain</string>
+    <!-- Total elevation loss (descending) left on the path -->
     <string name="navigation_remaining_loss">Remaining loss</string>
     <!-- %s is the time of arrival (ex. 5:00 PM) -->
     <string name="navigation_arrive_format">Arrive %s</string>
