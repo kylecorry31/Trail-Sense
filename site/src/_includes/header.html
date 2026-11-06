@@ -30,9 +30,8 @@
       </a>
       <nav class="site-nav" aria-label="Main">
         <a href="/user-guide/">User Guide</a>
-        <a href="/book.html">Book</a>
-        <a href="/offline_maps.html">Maps</a>
-        <a href="/dem.html">DEM</a>
+        <a href="/#resources">Resources</a>
+        <a href="/faq.html">FAQ</a>
         <a href="https://github.com/kylecorry31/Trail-Sense" target="_blank" rel="noopener">GitHub</a>
       </nav>
       <button type="button" class="theme-toggle" id="theme-toggle" hidden>
@@ -52,7 +51,7 @@
     document.querySelectorAll(".site-nav a").forEach(function (link) {
       var path = link.pathname.replace(/index\.html$/, "");
       var here = location.pathname.replace(/index\.html$/, "");
-      if (link.host === location.host && (here === path || (path.endsWith("/") && here.startsWith(path) && path.length > 1))) {
+      if (!link.hash && link.host === location.host && (here === path || (path.endsWith("/") && here.startsWith(path) && path.length > 1))) {
         link.setAttribute("aria-current", "page");
       }
     });

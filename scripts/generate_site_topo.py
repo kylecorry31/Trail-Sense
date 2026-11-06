@@ -86,6 +86,17 @@ def simplify(points, tolerance):
     return np.vstack([left[:-1], right])
 
 
+def smooth_path(points):
+    """Draws quadratic curves through the midpoints of the polyline so corners are rounded."""
+    if len(points) < 3:
+        return "M" + " ".join(f"{x:.1f} {y:.1f}" for x, y in points)
+    mids = (points[:-1] + points[1:]) / 2
+    path = f"M{points[0][0]:.1f} {points[0][1]:.1f}L{mids[0][0]:.1f} {mids[0][1]:.1f}"
+    for point, mid in zip(points[1:-1], mids[1:]):
+        path += f"Q{point[0]:.1f} {point[1]:.1f} {mid[0]:.1f} {mid[1]:.1f}"
+    return path + f"L{points[-1][0]:.1f} {points[-1][1]:.1f}"
+
+
 def build_svg(elevation, width, height, interval, index_every, sigma):
     peak_y, peak_x = np.unravel_index(elevation.argmax(), elevation.shape)
     left, top = peak_x - width // 2, peak_y - height // 2
@@ -107,8 +118,8 @@ def build_svg(elevation, width, height, interval, index_every, sigma):
         for segment in segments:
             if len(segment) < 14:
                 continue
-            points = simplify(segment, 0.7)
-            path += "M" + " ".join(f"{x:.1f} {y:.1f}" for x, y in points)
+            points = simplify(segment, 1.5)
+            path += smooth_path(points)
         if path:
             is_index = int(round(level / interval)) % index_every == 0
             lines.append(
@@ -128,7 +139,7 @@ def main():
     parser.add_argument("--height", type=int, default=540, help="Output height in pixels")
     parser.add_argument("--interval", type=int, default=50, help="Contour interval in meters")
     parser.add_argument("--index-every", type=int, default=5, help="Emphasize every Nth contour")
-    parser.add_argument("--smoothing", type=float, default=3, help="Gaussian sigma in pixels")
+    parser.add_argument("--smoothing", type=float, default=5, help="Gaussian sigma in pixels")
     parser.add_argument("--cache-dir", help="Directory for downloaded tiles (default: temporary)")
     parser.add_argument("--output", default=DEFAULT_OUTPUT)
     args = parser.parse_args()

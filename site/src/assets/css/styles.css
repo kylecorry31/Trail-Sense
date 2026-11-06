@@ -315,6 +315,12 @@ h4 {
     flex-wrap: wrap;
     gap: 0 16px;
     padding-top: 10px;
+    padding-bottom: 8px;
+  }
+
+  .brand {
+    font-size: 14px;
+    letter-spacing: 0.12em;
   }
 
   .theme-toggle {
@@ -324,13 +330,14 @@ h4 {
   .site-nav {
     order: 3;
     flex-basis: 100%;
-    margin: 0 -8px;
-    overflow-x: auto;
-    padding-bottom: 8px;
-    scrollbar-width: none;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin: 6px -8px 0;
   }
 
   .site-nav a {
+    padding: 6px 10px;
+    font-size: 14px;
     white-space: nowrap;
   }
 }

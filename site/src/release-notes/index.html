@@ -1,0 +1,16 @@
+{{{includes.header}}}
+<section class="wrap page-head">
+  <h1>Release Notes</h1>
+  <p>What changed in each version of Trail Sense.</p>
+</section>
+
+<section class="wrap guide-list">
+  <div class="card-grid">
+    {{#collections.release-notes.items}}
+    <a href="{{ url }}" class="card">
+      <h3>{{ title }}</h3>
+    </a>
+    {{/collections.release-notes.items}}
+  </div>
+</section>
+{{{includes.footer}}}

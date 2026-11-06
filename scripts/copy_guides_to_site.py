@@ -102,3 +102,39 @@ title: "{title}"
             copy_images(content, root + "/site/src/assets/images")
 
             f.write(new_content)
+
+# Copy release notes (unreleased notes are not published)
+release_notes_source = root + "/release-notes"
+release_notes_destination = root + "/site/src/release-notes"
+release_notes_images_destination = root + "/site/src/assets/images/release-notes"
+
+for filename in os.listdir(release_notes_destination):
+    if filename.endswith(".md"):
+        os.remove(release_notes_destination + "/" + filename)
+shutil.rmtree(release_notes_images_destination, ignore_errors=True)
+
+for filename in os.listdir(release_notes_source):
+    version = filename[:-3]
+    if not re.fullmatch(r'\d+\.\d+\.\d+', version) or not filename.endswith(".md"):
+        continue
+
+    with open(release_notes_source + "/" + filename, 'r', encoding='utf8') as f:
+        content = f.read()
+
+    content = re.sub(r'\A# .*\n+', '', content)
+    major, minor, patch = (int(part) for part in version.split('.'))
+    content = re.sub(r'\]\(\./(\d+\.\d+\.\d+)\.md\)', r'](/release-notes/\1/)', content)
+    content = re.sub(r'(src=|\]\()"?images/', lambda m: m.group(0).replace('images/', '/assets/images/release-notes/'), content)
+
+    with open(release_notes_destination + "/" + filename, 'w', encoding='utf8') as f:
+        f.write(f"""---
+title: "{version}"
+order: {major * 1000000 + minor * 1000 + patch}
+---
+
+{process_markdown_content(content)}
+""")
+
+    images_source = release_notes_source + "/images/" + version
+    if os.path.isdir(images_source):
+        shutil.copytree(images_source, release_notes_images_destination + "/" + version)

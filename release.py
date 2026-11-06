@@ -52,9 +52,7 @@ with open(changelog, "r") as changelog_file:
     changelog_contents = changelog_file.read()
 
 detailed_release_notes_url = (
-    "https://github.com/kylecorry31/Trail-Sense/blob/main/release-notes/"
-    + version_name
-    + ".md"
+    "https://kylecorry.com/Trail-Sense/release-notes/" + version_name + "/"
 )
 release_notes = (
     "[Read the detailed release notes]("

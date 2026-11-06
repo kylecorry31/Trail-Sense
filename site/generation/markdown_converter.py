@@ -55,10 +55,10 @@ def get_collection_metadata(collection_path):
                 items.append(meta)
     metadata = {}
 
-    sort_method = lambda item: item['date'] if 'date' in item else item['title']
-    
-    # Reverse sort if any item contains a date
-    sort_reverse = any('date' in item for item in items)
+    sort_method = lambda item: item['order'] if 'order' in item else item['date'] if 'date' in item else item['title']
+
+    # Reverse sort if any item contains a date or an explicit order
+    sort_reverse = any('date' in item or 'order' in item for item in items)
 
     metadata['items'] = sorted(items, key=sort_method, reverse=sort_reverse)
 
