@@ -417,8 +417,6 @@ h4 {
   gap: 20px;
   height: 540px;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent);
-  mask-image: linear-gradient(to bottom, #000 78%, transparent);
 }
 
 .hero-phones .phone {
