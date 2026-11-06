@@ -895,12 +895,20 @@ a.card:hover {
   color: var(--muted);
 }
 
+.faq section h2:first-child {
+  font-size: 26px;
+  margin: 56px 0 14px;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .faq details {
   border-top: 1px solid var(--line);
   padding: 14px 0;
+  scroll-margin-top: 72px;
 }
 
-.faq details:last-child {
+.faq details:last-of-type {
   border-bottom: 1px solid var(--line);
 }
 
