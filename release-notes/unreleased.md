@@ -103,3 +103,4 @@ TODO: Screenshot of the redesigned navigation sheet
 - Dropped support for Android 6
 - Fixed clock tool's GPS time on devices running Android 7, 8, and 9
 - Fixed the Photo Maps compass declination waiting for the first GPS reading
+- Improved built-in DEM, tide, temperature, and precipitation models
