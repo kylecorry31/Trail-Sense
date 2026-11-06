@@ -11,6 +11,7 @@ import com.kylecorry.luna.concurrency.onIO
 class SingleImageReader(
     private val imageSize: Size,
     private val streamable: InputStreamable,
+    private val premultiplied: Boolean = true,
 ) : ImageReader {
     override fun getSize(): Size {
         return imageSize
@@ -23,7 +24,10 @@ class SingleImageReader(
             val bitmap = BitmapUtils.decodeRegion(
                 image,
                 rect,
-                BitmapFactory.Options().also { it.inPreferredConfig = config },
+                BitmapFactory.Options().also {
+                    it.inPreferredConfig = config
+                    it.inPremultiplied = premultiplied
+                },
                 autoClose = false
             ) ?: return@onIO null
 

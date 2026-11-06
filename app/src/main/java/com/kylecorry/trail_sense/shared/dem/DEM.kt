@@ -26,7 +26,10 @@ import com.kylecorry.trail_sense.shared.data.EncodedDataImageReader
 import com.kylecorry.trail_sense.shared.data.GeographicImageSource
 import com.kylecorry.trail_sense.shared.data.LocalInputStreamable
 import com.kylecorry.trail_sense.shared.data.SingleImageReader
+import com.kylecorry.trail_sense.shared.data.WebpByteRangeReader
 import com.kylecorry.trail_sense.shared.extensions.ThreadParallelExecutor
+import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -39,6 +42,7 @@ object DEM {
         val hasWaterMask: Boolean = false
     )
 
+    private const val PEAKS_PATH = "dem/peaks.webp"
     private const val CACHE_DISTANCE = 10f
     private const val CACHE_SIZE = 500
     private var cache =
@@ -47,6 +51,7 @@ object DEM {
     private var tileCache = MemoryLRUCache<String, ElevationBitmap>(16)
     private var cachedSources: List<GeographicImageSource>? = null
     private var cachedHasWaterMask: Boolean = false
+    private var cachedPeaks: PeakOverlay? = null
     private var cachedIsExternal: Boolean? = null
     private val sourcesLock = Mutex()
 
@@ -60,7 +65,7 @@ object DEM {
             onIO {
                 tryOrDefault(DEMElevation(0f, null, hasData = false)) {
                     val data = source.read(location, neighbors)
-                    val elevation = data[0]
+                    val elevation = addPeaks(data[0], location)
                     if (hasWaterMask) {
                         val waterType = toElevationType(data.getOrElse(1) { 0f })
                         DEMElevation(elevation, waterType)
@@ -120,6 +125,8 @@ object DEM {
                 val neighbors = getNeighborSources(sources[i], allSources)
                 sources[i].read(latitudes, longitudes, output, neighbors)
             }
+
+            cachedPeaks?.addTo(latitudes, longitudes, output.data, channels)
 
             ElevationBitmap(output, latitudes, longitudes, hasWaterMask)
         }
@@ -322,10 +329,38 @@ object DEM {
                 )
             }
             cachedSources = sources
+            cachedPeaks = loadPeaks(isExternal)
             cachedHasWaterMask = hasWaterMask
             cachedIsExternal = isExternal
             sources
         }
+    }
+
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
+    private suspend fun loadPeaks(isExternal: Boolean): PeakOverlay? = onIO {
+        try {
+            val image = if (isExternal) {
+                val files = DependencyRegistry.get<FileSubsystem>()
+                if (!files.get(PEAKS_PATH).exists()) {
+                    return@onIO null
+                }
+                LocalInputStreamable(PEAKS_PATH)
+            } else {
+                AssetInputStreamable(PEAKS_PATH)
+            }
+            WebpByteRangeReader.open(image)?.let { PeakOverlay.open(it) }
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private suspend fun addPeaks(elevation: Float, location: Coordinate): Float {
+        if (elevation <= 0f) {
+            return elevation
+        }
+        return elevation + (cachedPeaks?.getOffset(location.latitude, location.longitude, elevation) ?: 0f)
     }
 
     fun invalidateCache() {
@@ -333,6 +368,7 @@ object DEM {
         pixelCache = MemoryLRUCache(1)
         tileCache = MemoryLRUCache(16)
         cachedSources = null
+        cachedPeaks = null
         cachedHasWaterMask = false
         cachedIsExternal = null
     }
