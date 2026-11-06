@@ -469,6 +469,10 @@ h4 {
   padding: 80px 0;
 }
 
+.section-alt {
+  background: var(--surface-2);
+}
+
 .section-head {
   max-width: 680px;
   margin-bottom: 36px;
@@ -483,10 +487,6 @@ h4 {
 .section-head p {
   margin: 0;
   color: var(--muted);
-}
-
-.section-alt {
-  background: var(--surface-2);
 }
 
 @media (max-width: 640px) {
@@ -592,6 +592,22 @@ h4 {
   }
 }
 
+/* SUBSECTIONS */
+
+.subsection {
+  margin-top: 64px;
+}
+
+.subsection > h3 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.subsection > p {
+  margin: 0 0 20px;
+  color: var(--muted);
+}
+
 /* TOOL LINKS */
 
 .chips {
@@ -641,7 +657,7 @@ h4 {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
-.book h2 {
+.book h3 {
   font-size: clamp(26px, 3.2vw, 32px);
   letter-spacing: -0.025em;
 }
@@ -658,7 +674,7 @@ h4 {
     gap: 24px;
   }
 
-  .book-cover {
+  .book .book-cover {
     max-width: 160px;
   }
 }
@@ -948,10 +964,6 @@ th {
   .split {
     grid-template-columns: 1fr;
   }
-}
-
-.legal {
-  max-width: 800px;
 }
 
 .legal p,
