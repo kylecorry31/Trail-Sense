@@ -1,17 +1,34 @@
 {{{includes.header}}}
-
-<section id="posts">
-    <div class="container">
-        <h2 class="mb-2">User Guide</h2>
-        <div class="items">
-            {{#collections.user-guide.items}}
-            <a href="{{ url }}" class="hidden-link">
-                <div class="item">
-                    <h3>{{ title }}</h3>
-                </div>
-            </a>
-            {{/collections.user-guide.items}}
-        </div>
-    </div>
+<section class="wrap page-head">
+  <h1>User Guide</h1>
+  <p>Step-by-step guides for every tool and setting in Trail Sense.</p>
+  <input type="search" id="guide-filter" class="filter" placeholder="Filter guides" aria-label="Filter guides" />
 </section>
+
+<section class="wrap guide-list">
+  <div class="card-grid" id="guide-items">
+    {{#collections.user-guide.items}}
+    <a href="{{ url }}" class="card">
+      <h3>{{ title }}</h3>
+    </a>
+    {{/collections.user-guide.items}}
+  </div>
+  <p class="empty" id="guide-empty">No guides match your search.</p>
+</section>
+
+<script>
+  var filter = document.getElementById("guide-filter");
+  var cards = document.querySelectorAll("#guide-items .card");
+  var empty = document.getElementById("guide-empty");
+  filter.addEventListener("input", function () {
+    var query = filter.value.trim().toLowerCase();
+    var shown = 0;
+    cards.forEach(function (card) {
+      var match = card.textContent.toLowerCase().indexOf(query) !== -1;
+      card.hidden = !match;
+      if (match) shown++;
+    });
+    empty.style.display = shown === 0 ? "block" : "none";
+  });
+</script>
 {{{includes.footer}}}

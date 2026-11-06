@@ -1,17 +1,17 @@
 {{{includes.header}}}
+<section class="wrap page-head">
+  <h1>Survival Guide</h1>
+  <p>A wilderness survival guide for hikers, backpackers, and campers. It is also available as a <a
+      href="/book.html">downloadable book</a>.</p>
+</section>
 
-<section id="posts">
-    <div class="container">
-        <h2 class="mb-2">Survival Guide</h2>
-        <div class="items">
-            {{#collections.survival-guide.items}}
-            <a href="{{ url }}" class="hidden-link">
-                <div class="item">
-                    <h3>{{ title }}</h3>
-                </div>
-            </a>
-            {{/collections.survival-guide.items}}
-        </div>
-    </div>
+<section class="wrap guide-list">
+  <div class="card-grid">
+    {{#collections.survival-guide.items}}
+    <a href="{{ url }}" class="card">
+      <h3>{{ title }}</h3>
+    </a>
+    {{/collections.survival-guide.items}}
+  </div>
 </section>
 {{{includes.footer}}}

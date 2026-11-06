@@ -1,6 +1,9 @@
 {{{includes.header}}}
-<div class="container">
-    <h2>{{ item.title }}</h2>
+<article class="wrap prose-wrap">
+  <p class="breadcrumb"><a href="/user-guide/">&larr; User Guide</a></p>
+  <h1 class="page-title">{{ item.title }}</h1>
+  <div class="prose">
     {{{ item.content }}}
-</div>
+  </div>
+</article>
 {{{includes.footer}}}
