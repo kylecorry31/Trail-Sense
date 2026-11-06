@@ -262,6 +262,7 @@ h4 {
 
 .site-nav {
   display: flex;
+  align-items: center;
   gap: 4px;
   margin-left: auto;
 }
@@ -297,6 +298,7 @@ h4 {
 
 .site-nav a {
   padding: 8px 12px;
+  white-space: nowrap;
   border-radius: 999px;
   color: var(--ink-muted);
   text-decoration: none;
@@ -310,7 +312,7 @@ h4 {
   background: rgba(255, 255, 255, 0.08);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 820px) {
   .header-inner {
     flex-wrap: wrap;
     gap: 0 16px;
@@ -359,8 +361,12 @@ h4 {
   z-index: -1;
   background: url('/assets/images/topo.svg') center / cover no-repeat;
   opacity: 0.22;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 10%, rgba(0, 0, 0, 0.15) 75%);
-  mask-image: radial-gradient(ellipse at center, #000 10%, rgba(0, 0, 0, 0.15) 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 10%, rgba(0, 0, 0, 0.15) 75%),
+    linear-gradient(180deg, #000 55%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(ellipse at center, #000 10%, rgba(0, 0, 0, 0.15) 75%),
+    linear-gradient(180deg, #000 55%, transparent 100%);
+  mask-composite: intersect;
 }
 
 .hero::after {
@@ -1070,4 +1076,40 @@ th {
   .footer-brand {
     grid-column: 1 / -1;
   }
+}
+
+/* HEADER CTA */
+
+.site-nav .nav-cta {
+  margin-left: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+.site-nav .nav-cta:hover {
+  background: var(--accent-hover);
+  color: var(--on-accent);
+}
+
+/* FOOTER BOTTOM */
+
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--ink-line);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+.footer-bottom a {
+  color: inherit;
+}
+
+.footer-bottom a:hover {
+  color: var(--accent);
+}
+
+#download {
+  scroll-margin-top: calc(40vh - 80px);
 }
