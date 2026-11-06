@@ -136,7 +136,7 @@ Please change the following if you are using this as the base for your app:
 - App icon (optional)
 
 ## FAQ
-The FAQ can be found [on the wiki](https://github.com/kylecorry31/Trail-Sense/wiki/Frequently-Asked-Questions-(FAQ))
+The FAQ can be found [on the website](https://kylecorry.com/Trail-Sense/faq.html)
 
 ## Open Source Credits
 

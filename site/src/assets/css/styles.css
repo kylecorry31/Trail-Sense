@@ -895,6 +895,28 @@ a.card:hover {
   color: var(--muted);
 }
 
+.faq details {
+  border-top: 1px solid var(--line);
+  padding: 14px 0;
+}
+
+.faq details:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.faq details[open] > summary {
+  margin-bottom: 0.75em;
+}
+
+.faq details > :last-child {
+  margin-bottom: 0;
+}
+
 code {
   font-family: var(--mono);
   font-size: 0.9em;

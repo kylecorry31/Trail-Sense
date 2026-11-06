@@ -1,0 +1,281 @@
+{{{includes.header}}}
+<article class="wrap prose-wrap" id="faq">
+  <h1 class="page-title">Frequently Asked Questions</h1>
+  <div class="prose faq">
+    <p>
+      There is a Diagnostics tool in Trail Sense to detect common issues and offer solutions. You can access it via
+      Trail Sense Settings &gt; Diagnostics.
+    </p>
+
+    <details>
+      <summary>Should I rely on Trail Sense?</summary>
+      <p>
+        No. Trail Sense is a tool and you should have appropriate backups (just like any other tool). I'm the only
+        developer and it is a hobby project (that I use), so I may get things wrong or it may have bugs. It is not a
+        substitute for common sense or skills. Besides Trail Sense, your phone could break, run out of battery, or
+        malfunction in some way that makes it unusable - so don't rely on a single device/tool (especially one as
+        complex as a smartphone).
+      </p>
+    </details>
+
+    <details>
+      <summary>How can I install Trail Sense?</summary>
+      <p>There are 3 official sources for Trail Sense:</p>
+      <ul>
+        <li>GitHub (releases tab or Obtainium)</li>
+        <li>Google Play Store</li>
+        <li>F-Droid</li>
+      </ul>
+      <p>
+        You can find the links to these in the
+        <a href="https://github.com/kylecorry31/Trail-Sense#readme" target="_blank" rel="noopener">readme</a> of the
+        repository. GitHub is the preferred source since I have the most control over that and it receives the fastest
+        updates, but all of them are valid.
+      </p>
+      <p>
+        If you download Trail Sense from somewhere else, then you are on your own and you should be aware that it may
+        not work properly or contain malware.
+      </p>
+    </details>
+
+    <details>
+      <summary>Translations are missing or incorrect</summary>
+      <p>
+        Translations for Trail Sense are community sourced through
+        <a href="https://hosted.weblate.org/projects/trail-sense/trail-sense-android" target="_blank"
+          rel="noopener">Weblate</a>, and I am unable to verify their accuracy (other than English and a very small
+        amount of Spanish). Please use Weblate to add or fix translations. Alternatively, you can create an issue on
+        GitHub or email me at <a href="mailto:trailsense@protonmail.com">trailsense@protonmail.com</a> to provide the
+        missing or corrected translation - or tell me to remove a translation so it can be re-translated by the
+        community.
+      </p>
+      <p>Use the following filter on Weblate to see which strings are in need of translation: <code>state:&lt;translated</code></p>
+    </details>
+
+    <details>
+      <summary>Trail Sense sends too many notifications</summary>
+      <ul>
+        <li>All notifications from Trail Sense can be disabled/re-enabled under their respective settings</li>
+        <li>
+          Android requires background processes that access your location or use a sensor to send a notification (ex.
+          Backtrack, weather monitor, and sunset alert). On most supported Android versions, you can disable the
+          "Updates" notification channel to hide these notifications.
+          (<a href="https://www.howtogeek.com/715614/what-are-android-notification-channels/" target="_blank"
+            rel="noopener">What are Android notification channels?</a>)
+        </li>
+        <li>
+          The processes that you may see notifications from frequently are Weather, Sunset Alert, Backtrack, and
+          Pedometer. All of these processes can be disabled in Trail Sense settings.
+          <ul>
+            <li>Weather: On the Weather tool, turn off Weather Monitor or hide the "Weather Monitor" notification channel (Android's settings)</li>
+            <li>Backtrack: On the Paths tool, turn off Backtrack or hide the "Backtrack" notification channel (Android's settings)</li>
+            <li>Pedometer: On the Pedometer tool, turn off the Pedometer or disable the "Pedometer" notification channel (Android's settings)</li>
+            <li>Sunset Alert: Under "Astronomy" settings in Trail Sense, disable Sunset Alerts</li>
+          </ul>
+        </li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Will there be an iOS version?</summary>
+      <p>
+        No - unfortunately I don't have a Mac or iPhone, and wouldn't be able to develop and test an iOS version.
+      </p>
+    </details>
+
+    <details>
+      <summary>Will Wear OS support be added?</summary>
+      <p>
+        I'm not sure how difficult it would be to port it to Wear OS (I imagine it would be a significant amount of
+        work/or some features would be left out). But, unfortunately, I do not have a Wear OS device, so it is not
+        feasible for me right now. If I ever get one in the future, I will consider adding support. Here's an
+        <a href="https://github.com/kylecorry31/Trail-Sense/issues/1467" target="_blank" rel="noopener">issue</a> to
+        track it with some additional reasons.
+      </p>
+    </details>
+
+    <details>
+      <summary>Can I request a new feature?</summary>
+      <p>
+        Yes, see
+        <a href="https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#request-a-feature"
+          target="_blank" rel="noopener">how to request a feature</a>.
+      </p>
+    </details>
+
+    <details>
+      <summary>When can I expect new releases?</summary>
+      <p>
+        I try to create a release every month or two, but don't have a set release schedule. Translations through
+        Weblate get bundled into the main releases.
+      </p>
+    </details>
+
+    <details>
+      <summary>Why don't I see the weather tab?</summary>
+      <p>
+        In order to predict the weather, your device needs to have a barometer sensor. Not all devices have this, you
+        can verify by using the Diagnostics tool.
+      </p>
+    </details>
+
+    <details>
+      <summary>The pressure graph isn't populating or is very jagged, how can I fix it?</summary>
+      <p>
+        This may indicate that readings are being missed due to battery restrictions. You may need to mark Trail Sense
+        as exempt from battery optimizations:
+        <a href="https://dontkillmyapp.com/" target="_blank" rel="noopener">how to make Trail Sense exempt</a>.
+      </p>
+    </details>
+
+    <details>
+      <summary>Why does Trail Sense think a storm is approaching?</summary>
+      <p><strong>Causes</strong></p>
+      <ol>
+        <li>The pressure is falling rapidly, which is typically a sign of an approaching storm</li>
+        <li>Your altitude is changing quickly (ex. driving), which appears as a rapid pressure drop</li>
+      </ol>
+      <p><strong>Possible solutions</strong></p>
+      <ol>
+        <li>Try adjusting the forecast and storm sensitivity under Weather settings to make it less sensitive to pressure changes</li>
+        <li>Experiment with the "altitude outlier removal", "altitude smoothing", and "pressure smoothing" settings under the Barometer settings</li>
+        <li>Disable the weather monitor if you are travelling by car</li>
+      </ol>
+    </details>
+
+    <details>
+      <summary>The compass isn't working or is inaccurate</summary>
+      <ul>
+        <li>Try restarting your device</li>
+        <li>
+          View the Diagnostics tool (Trail Sense Settings &gt; Diagnostics) to see if it detects any issues. If your
+          device is missing a magnetometer or accelerometer, the compass will be unavailable.
+        </li>
+        <li>
+          Adjust the compass smoothing under Trail Sense Settings &gt; Settings &gt; Compass. Decrease it if the
+          compass is unresponsive, increase it if the compass is jittering.
+        </li>
+        <li>Recalibrate the compass by rotating your device in all directions or in a figure-8 pattern</li>
+        <li>
+          If you are using True North, ensure your location is accurate (GPS settings) or you enter the correct
+          declination for your location
+        </li>
+      </ul>
+    </details>
+
+    <details id="gps">
+      <summary>The GPS isn't working or is inaccurate</summary>
+      <ol>
+        <li>Ensure you have a clear view of the sky</li>
+        <li>
+          Open the Diagnostics tool to see if any GPS errors are detected. This will include a check for availability,
+          permission, accuracy, and overrides.
+        </li>
+        <li>
+          If you choose not to grant the location permission, ensure the location override is properly set (Settings
+          &gt; Sensors &gt; GPS &gt; Location override).
+        </li>
+        <li>Turn off the "require satellite fix" setting (Settings &gt; Sensors &gt; GPS &gt; Require satellite fix).</li>
+        <li>
+          Verify that high accuracy / precise location is enabled for Trail Sense. You can typically find this in your
+          device's settings under location, privacy, or app settings.
+        </li>
+      </ol>
+    </details>
+
+    <details>
+      <summary>The sunrise/sunset times are wrong</summary>
+      <p>
+        The astronomy tool needs to know your location to determine the correct times. Please see the FAQ for
+        <a href="#gps">"The GPS isn't working or is inaccurate"</a>.
+      </p>
+    </details>
+
+    <details>
+      <summary>How can I report a bug?</summary>
+      <p>
+        See
+        <a href="https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md#report-a-bug-or-ask-a-question"
+          target="_blank" rel="noopener">how to report a bug or ask a question</a>.
+      </p>
+    </details>
+
+    <details>
+      <summary>The tides are inaccurate</summary>
+      <p>
+        The tide tool is designed for you to enter tides from an official source. Do not rely on the estimated tides,
+        as they may be inaccurate since tides are a very complex thing to predict without huge amounts of data.
+      </p>
+    </details>
+
+    <details>
+      <summary>I can't turn off the flashlight/white noise or they won't turn on</summary>
+      <p>
+        Please verify your notification settings for Trail Sense by long pressing the Trail Sense app icon, then
+        opening App Settings, then opening Notifications. Ensure that Trail Sense has notifications enabled and that
+        the Flashlight and White Noise channels are active.
+      </p>
+    </details>
+
+    <details>
+      <summary>Flashlight notifications don't go away instantly when I turn it off</summary>
+      <p>
+        Unfortunately, Android requires that notifications are present for certain services for at least 5 seconds,
+        there is no way to get around this as it is a system "feature". On newer versions of Android, this problem may
+        be resolved.
+      </p>
+    </details>
+
+    <details>
+      <summary>Why are Trail Sense's notifications grouped on Android 16?</summary>
+      <p>
+        Unfortunately Google decided that all notifications are grouped on Android 16 and there is no way for Trail
+        Sense to opt-out. See
+        <a href="https://github.com/kylecorry31/Trail-Sense/issues/2992" target="_blank" rel="noopener">the issue</a>
+        for details.
+      </p>
+    </details>
+
+    <details>
+      <summary>Does Trail Sense work on custom ROMs?</summary>
+      <p>
+        Trail Sense should work on most if not all custom ROMs. Due to the nature of custom ROM development, it may
+        not be as stable and support may vary by manufacturer.
+      </p>
+      <p>
+        GrapheneOS is officially supported and has been confirmed to work well. If you see lag spikes while using the
+        Navigation, Photo Maps, or Map tools you may want to consider disabling the "hardened memory allocator" under
+        the system app info for Trail Sense. I'm looking to improve performance with the hardened memory allocator
+        enabled.
+      </p>
+    </details>
+
+    <details>
+      <summary>Why does the sensor quality say "Unknown"?</summary>
+      <p>
+        Some devices don't report sensor quality (more common with barometer / thermometer) and therefore Trail Sense
+        shows "Unknown" rather than "Poor/Moderate/Good/Unavailable". If you are receiving a value from the sensor and
+        it appears to be sufficiently accurate then you do not need to worry about having "Unknown" there.
+      </p>
+    </details>
+
+    <details>
+      <summary>Why aren't maps visible?</summary>
+      <p>
+        Trail Sense does not include built-in street maps, satellite imagery, or trail data. It does not download maps
+        from the internet (or have internet access). To display a map background, you must import your own image using
+        the Photo Maps tool. If you need live or preloaded street, satellite, or trail maps, use a dedicated mapping
+        application instead.
+      </p>
+      <p>
+        See the <a href="/user-guide/">user guides</a> for Map, Photo Maps, Beacons, and Paths for more information.
+      </p>
+    </details>
+
+    <details>
+      <summary>Where can I learn how to use Trail Sense?</summary>
+      <p>See the User Guide tool in app or view it on the web in the <a href="/user-guide/">User Guide</a>.</p>
+    </details>
+  </div>
+</article>
+{{{includes.footer}}}
