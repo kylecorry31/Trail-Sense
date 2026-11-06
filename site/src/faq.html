@@ -23,6 +23,17 @@
         </p>
       </details>
 
+      <details id="not-just-a-compass">
+        <summary>Is Trail Sense just a compass app?</summary>
+        <p>
+          No, Trail Sense is an offline multi-tool for hiking, backpacking, camping, wilderness survival, foraging, and
+          hunting. It has a compass, but it also lets you place beacons and navigate to them, follow paths, retrace your
+          steps with Backtrack, use a photo as a map, plan what to pack, predict the weather, be alerted before the sun
+          sets, use your phone as a flashlight, and much more. If you only want a simple compass, there are plenty of
+          other apps for that. See the <a href="/user-guide/">User Guide</a> for all of the tools.
+        </p>
+      </details>
+
       <details id="install">
         <summary>How can I install Trail Sense?</summary>
         <p>There are 3 official sources for Trail Sense:</p>
@@ -300,7 +311,13 @@
       </details>
 
       <details id="compass">
-        <summary>The compass isn't working or is inaccurate</summary>
+        <summary>The compass isn't working, never moves, or is inaccurate</summary>
+        <p>
+          The compass needs a magnetometer sensor, and not all phones have one. If your phone doesn't, there is nothing
+          I can do to make the compass work since it is hardware, but you can still use the rest of Trail Sense (it is a
+          lot more than a compass app). Trail Sense shows a message when it can't find a compass, which you can
+          <a href="#error-banners">hide</a>. If your phone does have a compass sensor, try the following:
+        </p>
         <ul>
           <li>Try restarting your device</li>
           <li>
@@ -329,6 +346,29 @@
         </ul>
       </details>
 
+      <details id="elevation">
+        <summary>The elevation is inaccurate or changes when I'm not moving</summary>
+        <p>
+          Trail Sense gets your elevation from the altimeter source set under Settings &gt; Sensors &gt; Altimeter. GPS
+          elevation is not very accurate, and a barometer drifts as the weather changes, so the elevation can change
+          even when you aren't moving. Things to try:
+        </p>
+        <ol>
+          <li>
+            Import a <a href="/dem.html">digital elevation model (DEM)</a> and use the DEM source (or DEM + Barometer
+            if your phone has a barometer). A DEM looks up the elevation for your GPS location from a map, so you will
+            get a smoother elevation reading than with the GPS elevation. The larger the model, the more accurate it
+            is.
+          </li>
+          <li>
+            Use the GPS + Barometer source if your phone has a barometer. It combines both and is more accurate than the
+            GPS alone.
+          </li>
+          <li>Increase the number of GPS samples. A higher number is more accurate but takes longer to calculate.</li>
+        </ol>
+        <p>See the <a href="/user-guide/guide_tool_settings/">Settings user guide</a> for more on the altimeter settings.</p>
+      </details>
+
       <details id="error-banners">
         <summary>How do I hide the error banners at the top of a tool?</summary>
         <p>
@@ -349,6 +389,21 @@
 
     <section>
       <h2>Notifications and background services</h2>
+
+      <details id="battery">
+        <summary>Does Trail Sense drain my battery?</summary>
+        <p>
+          Trail Sense doesn't use the Internet, but some of its tools run in the background (ex. the weather monitor,
+          Backtrack, the pedometer, and sunset alerts), and those use some battery. The Battery tool shows which
+          services are running, how often they run, and how much they affect your battery life. To stop a service, tap
+          the X next to it, or turn it off in its tool.
+        </p>
+        <p>
+          Power saving mode (also in the Battery tool) stops some services, such as Backtrack and Weather, and you can
+          turn on Automatic power saving (Settings &gt; Battery) to have it turn on when your battery is low. See the
+          <a href="/user-guide/guide_tool_battery/">Battery user guide</a> for more details.
+        </p>
+      </details>
 
       <details id="too-many-notifications">
         <summary>Trail Sense sends too many notifications</summary>
@@ -488,8 +543,9 @@
           No, Trail Sense doesn't have Internet access, and all of your data stays on your device. Each permission is
           only used by the tools that need it (ex. location for navigation and weather, camera for the sighting
           compass). You can deny any of them and the tools that depend on them will be limited or unavailable. For
-          example, if you don't grant the location permission you can set your location manually under Settings &gt;
-          Sensors &gt; GPS.
+          example, the compass doesn't need your location, but it is used for True North, navigating to beacons,
+          creating paths, and getting sunrise/sunset times. If you don't grant the location permission, you can set
+          your location manually under Settings &gt; Sensors &gt; GPS (or just ignore the request).
         </p>
         <p>
           See the <a href="https://github.com/kylecorry31/Trail-Sense#permissions" target="_blank"
@@ -515,6 +571,15 @@
 
     <section>
       <h2>Other</h2>
+
+      <details id="pedometer-distance">
+        <summary>The pedometer distance is wrong</summary>
+        <p>
+          The pedometer counts your steps and calculates the distance from your step length, so the distance is only as
+          accurate as your step length. Set it under Settings &gt; Pedometer, or have Trail Sense estimate it: see the
+          <a href="/user-guide/guide_tool_pedometer/">Pedometer user guide</a> for instructions.
+        </p>
+      </details>
 
       <details id="tides">
         <summary>The tides are inaccurate</summary>
