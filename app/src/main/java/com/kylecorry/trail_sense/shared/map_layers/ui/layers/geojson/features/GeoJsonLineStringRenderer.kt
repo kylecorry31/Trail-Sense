@@ -15,6 +15,7 @@ import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonLineString
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.MathExtensions.toDegrees
+import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.math.geometry.Rectangle
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.lists.Lists
@@ -337,6 +338,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             val p1y = labelPoint[1]
 
             val rotationDelta = atan2(p1y - p0y, p1x - p0x).toDegrees()
+            val azimuth = map.mapAzimuth
 
 
             var labelsDrawn = 0
@@ -348,7 +350,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 matrix.mapPoints(labelPoint)
 
                 val center = PixelCoordinate(labelPoint[0], labelPoint[1])
-                val drawAngle = placement.angle + rotationDelta
+                val drawAngle = toUprightAngle(placement.angle + rotationDelta - azimuth) + azimuth
 
                 drawer.push()
                 drawer.rotate(drawAngle, center.x, center.y)
@@ -357,6 +359,11 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
                 labelsDrawn++
             }
         }
+    }
+
+    private fun toUprightAngle(angle: Float): Float {
+        val wrapped = deltaAngle(0f, angle)
+        return if (wrapped.absoluteValue > 90f) wrapped + 180f else wrapped
     }
 
     private fun PixelCoordinate.midpoint(other: PixelCoordinate): PixelCoordinate {
