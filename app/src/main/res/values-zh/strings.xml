@@ -1666,4 +1666,8 @@
     <string name="navigation_remaining">剩余</string>
     <string name="navigation_arrive_format">%s 抵达</string>
     <string name="bottom_navigation">底部导航栏</string>
+    <string name="navigation_traveled">已走距离</string>
+    <string name="navigation_facing">朝向</string>
+    <string name="navigation_remaining_gain">剩余爬升高度</string>
+    <string name="navigation_remaining_loss">剩余下降高度</string>
 </resources>
