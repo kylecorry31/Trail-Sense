@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import java.io.IOException
+import java.nio.ByteBuffer
+import java.nio.ByteOrder
 
 class GeoPointFileTest {
 
@@ -183,8 +185,9 @@ class GeoPointFileTest {
         assertNull(open(GeoPointFileBuilder(version = 2).add(1.0, 1.0).build()))
         assertNull(open(GeoPointFileBuilder(cellDegrees = 7).build()))
         assertNull(open(GeoPointFileBuilder(fields = listOf(GeoPointFileBuilder.Field("value", 5))).build()))
-        // Cut off in the directory
-        assertNull(open(valid.copyOf(valid.size - 12)))
+        // Cut off in the directory, which follows the header and metadata
+        val metadataBytes = ByteBuffer.wrap(valid, 8, 4).order(ByteOrder.LITTLE_ENDIAN).int
+        assertNull(open(valid.copyOf(16 + metadataBytes + 6)))
     }
 
     @Test

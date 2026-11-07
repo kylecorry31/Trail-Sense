@@ -6,6 +6,8 @@ import kotlin.math.floor
 /**
  * The square cells of a [GeoPointFile] and the positions within them. Cells are numbered in rows from the south pole,
  * and each row from the antimeridian east. A position within a cell is y * steps + x, in steps of 10^-decimals degrees.
+ *
+ * A position within a cell is stored as a Morton code of its x and y.
  */
 class GeoPointGrid(val cellDegrees: Int, decimals: Int) {
 
@@ -18,6 +20,9 @@ class GeoPointGrid(val cellDegrees: Int, decimals: Int) {
     val cellCount = rows * columns
     private val stepsPerDegree = Arithmetic.power(10, decimals).toLong()
     private val steps = cellDegrees * stepsPerDegree
+
+    // The bits per axis of a position within a cell
+    private val bits = 64 - java.lang.Long.numberOfLeadingZeros(steps - 1)
 
     /**
      * The cells that cover an area, row by row. The area can extend past the antimeridian (a west of -190 is 170).
@@ -35,8 +40,20 @@ class GeoPointGrid(val cellDegrees: Int, decimals: Int) {
         return cells
     }
 
-    fun isPosition(position: Long): Boolean {
-        return position >= 0 && position / steps < steps
+    /**
+     * The position (y * steps + x) of a Morton code of a position within a cell. The bits of x are at the even bits of
+     * the code and the bits of y at the odd bits.
+     */
+    fun getPosition(code: Long): Long {
+        require(code ushr (2 * bits) == 0L) { "A position is outside of its cell" }
+        var y = 0L
+        var x = 0L
+        for (i in 0 until bits) {
+            x = x or (((code shr (2 * i)) and 1L) shl i)
+            y = y or (((code shr (2 * i + 1)) and 1L) shl i)
+        }
+        require(y < steps && x < steps) { "A position is outside of its cell" }
+        return y * steps + x
     }
 
     // Subtracting whole steps before dividing gives the closest double to the stored decimal

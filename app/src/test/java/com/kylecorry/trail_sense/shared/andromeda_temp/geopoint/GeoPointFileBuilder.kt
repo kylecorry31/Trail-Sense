@@ -8,7 +8,7 @@ import java.util.zip.Deflater
 import kotlin.math.roundToLong
 
 /**
- * Writes a geo point file the way the earth model generator does (scripts/geo_points.py), for tests.
+ * Writes a geo point file the way the earth model generator does, for tests.
  */
 class GeoPointFileBuilder(
     private val cellDegrees: Int = 5,
@@ -21,12 +21,13 @@ class GeoPointFileBuilder(
 ) {
     class Field(val name: String, val bytes: Int, val step: Double = 1.0, val offset: Double = 0.0)
 
-    private class Point(val cell: Int, val position: Long, val values: LongArray)
+    private class Point(val cell: Int, val code: Long, val values: LongArray)
 
     private val points = ArrayList<Point>()
     private val columns = 360 / cellDegrees
     private val scale = (1..decimals).fold(1L) { value, _ -> value * 10 }
     private val steps = cellDegrees * scale
+    private val bits = 64 - java.lang.Long.numberOfLeadingZeros(steps - 1)
 
     /**
      * Adds a point with the stored (not scaled) value of each field.
@@ -35,13 +36,13 @@ class GeoPointFileBuilder(
         val latitudeSteps = ((latitude + 90) * scale).roundToLong().coerceIn(0, 180 * scale - 1)
         val longitudeSteps = Math.floorMod(((longitude + 180) * scale).roundToLong(), 360 * scale)
         val cell = (latitudeSteps / steps * columns + longitudeSteps / steps).toInt()
-        val position = (latitudeSteps % steps) * steps + longitudeSteps % steps
-        points.add(Point(cell, position, LongArray(fields.size) { values.getOrElse(it) { 1 } }))
+        val code = interleave(latitudeSteps % steps, longitudeSteps % steps)
+        points.add(Point(cell, code, LongArray(fields.size) { values.getOrElse(it) { 1 } }))
         return this
     }
 
     fun build(): ByteArray {
-        val sorted = points.sortedWith(compareBy({ it.cell }, { it.position }))
+        val sorted = points.sortedWith(compareBy({ it.cell }, { it.code }))
         val byCell = sorted.groupBy { it.cell }.toSortedMap()
 
         val blocks = ArrayList<Triple<Int, Int, ByteArray>>()
@@ -105,10 +106,10 @@ class GeoPointFileBuilder(
         }
         cells.forEach { writeVarint(raw, it.second.size.toLong()) }
         for ((_, cellPoints) in cells) {
-            var position = 0L
+            var code = 0L
             for (point in cellPoints) {
-                writeVarint(raw, point.position - position)
-                position = point.position
+                writeVarint(raw, point.code - code)
+                code = point.code
             }
         }
         val all = cells.flatMap { it.second }
@@ -128,6 +129,16 @@ class GeoPointFileBuilder(
         }
         deflater.end()
         return compressed.toByteArray()
+    }
+
+    // The bits of x at the even bits of the code and of y at the odd bits
+    private fun interleave(y: Long, x: Long): Long {
+        var code = 0L
+        for (i in 0 until bits) {
+            code = code or (((x shr i) and 1L) shl (2 * i))
+            code = code or (((y shr i) and 1L) shl (2 * i + 1))
+        }
+        return code
     }
 
     private fun writeVarint(output: ByteArrayOutputStream, value: Long) {
