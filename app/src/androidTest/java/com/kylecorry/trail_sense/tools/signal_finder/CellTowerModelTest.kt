@@ -35,8 +35,8 @@ class CellTowerModelTest {
             closest?.coordinate?.distanceTo(tower) ?: Float.MAX_VALUE
         }
 
-        assertQuantile(errors, 500f, 0.5f, "Cell towers")
-        assertQuantile(errors, 650f, 0.9f, "Cell towers")
+        assertQuantile(errors, 400f, 0.5f, "Cell towers")
+        assertQuantile(errors, 600f, 0.9f, "Cell towers")
         assertWithin(errors, 1000f, 0.99f, "Cell towers")
     }
 
