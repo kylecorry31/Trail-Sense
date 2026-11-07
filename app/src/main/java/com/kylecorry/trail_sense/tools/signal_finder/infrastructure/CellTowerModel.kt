@@ -67,6 +67,7 @@ object CellTowerModel {
             .take(count ?: Int.MAX_VALUE)
     }
 
+    @Suppress("SwallowedException")
     private suspend fun getFile(): GeoPointFile? = mutex.withLock {
         towers?.let { return@withLock it }
         val file = try {
