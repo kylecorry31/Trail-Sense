@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.shared.io
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.AssetFileDescriptor
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -106,6 +107,10 @@ class FileSubsystem private constructor(private val context: Context) {
 
     suspend fun streamAsset(path: String): InputStream? = onIO {
         assetFiles.stream(path)
+    }
+
+    suspend fun openAssetDescriptor(path: String): AssetFileDescriptor = onIO {
+        context.assets.openFd(path)
     }
 
     suspend fun output(uri: Uri): OutputStream? = onIO {

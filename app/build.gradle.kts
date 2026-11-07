@@ -42,6 +42,8 @@ android {
     androidResources {
         // Support for auto-generated locales for per-app language settings
         generateLocaleConfig = true
+        // Geo point files are already internally compressed, and are read at any offset (which needs them uncompressed)
+        noCompress += "tsgeo"
     }
     buildFeatures {
         // Support for view binding

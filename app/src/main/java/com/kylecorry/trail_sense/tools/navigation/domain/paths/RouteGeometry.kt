@@ -5,6 +5,7 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.sol.math.trigonometry.Trigonometry
 import com.kylecorry.sol.science.geology.Geology
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.andromeda_temp.BinarySearch
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
 import kotlin.math.PI
 import kotlin.math.abs
@@ -126,7 +127,7 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
     // The first segment that ends at or after the distance. The last segment is never searched
     // since it is the fallback.
     private fun segmentContaining(distance: Float): Int {
-        return firstIndex(lastSegment) { cumulativeDistances[it + 1] >= distance }
+        return BinarySearch.firstIndex(lastSegment) { cumulativeDistances[it + 1] >= distance }
     }
 
     private fun segmentLength(segment: Int): Float {
@@ -143,18 +144,6 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         val latitude = Interpolation.lerp(fraction.toDouble(), latitudes[segment], latitudes[segment + 1])
         val longitudeChange = Coordinate.toLongitude(longitudes[segment + 1] - longitudes[segment])
         return Coordinate(latitude, longitudes[segment] + fraction * longitudeChange)
-    }
-
-    // Binary search for the first index below count where the condition holds (or count if none),
-    // given the condition is false for all indices before it and true for all after
-    private inline fun firstIndex(count: Int, condition: (Int) -> Boolean): Int {
-        var low = 0
-        var high = count
-        while (low < high) {
-            val mid = (low + high) ushr 1
-            if (condition(mid)) high = mid else low = mid + 1
-        }
-        return low
     }
 
     /**
