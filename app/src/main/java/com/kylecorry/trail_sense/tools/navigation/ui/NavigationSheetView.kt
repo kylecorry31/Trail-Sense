@@ -38,6 +38,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.colors.AppColor
+import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.shared.extensions.flatten
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
@@ -140,6 +141,9 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         updateNavigation()
     }
 
+    /**
+     * @param useTrueNorth the north reference of the navigation sensor values, or null to use the compass setting
+     */
     fun setTrueNorthOverride(useTrueNorth: Boolean?) {
         useTrueNorthOverride = useTrueNorth
         updateNavigation()
@@ -211,11 +215,12 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         progressView.isVisible = false
 
         val guidance = getGuidance(destination, values)
-        updateDirection(guidance, values)
+        val facingBearing = getFacingBearing(destination, values)
+        updateDirection(guidance, facingBearing)
 
         when (destination) {
             is Destination.Beacon -> updateBeaconNavigation(destination, guidance, values)
-            is Destination.Bearing -> updateBearingNavigation(guidance, values)
+            is Destination.Bearing -> updateBearingNavigation(guidance, facingBearing)
             is Destination.Path -> updatePathNavigation(destination, guidance, values)
         }
     }
@@ -289,7 +294,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         }
     }
 
-    private fun updateBearingNavigation(guidance: Guidance, values: NavigationSensorValues) {
+    private fun updateBearingNavigation(guidance: Guidance, facingBearing: Float) {
         setTitle(
             R.drawable.ic_compass_icon,
             R.string.bearing,
@@ -303,7 +308,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         secondaryStat.hide()
         if (hasCompass) {
             tertiaryStat.show(
-                formatBearing(values.bearing.value),
+                formatBearing(facingBearing),
                 context.getString(R.string.navigation_facing)
             )
         } else {
@@ -342,7 +347,17 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         )
     }
 
-    private fun updateDirection(guidance: Guidance, values: NavigationSensorValues) {
+    private fun getFacingBearing(destination: Destination, values: NavigationSensorValues): Float {
+        val compassUsesTrueNorth = prefs.compass.useTrueNorth
+        return DeclinationUtils.convertBearing(
+            values.bearing.value,
+            values.declination,
+            useTrueNorthOverride ?: compassUsesTrueNorth,
+            destination.usesTrueNorth(compassUsesTrueNorth, useTrueNorthOverride)
+        )
+    }
+
+    private fun updateDirection(guidance: Guidance, facingBearing: Float) {
         arrowView.isVisible = true
         targetBearingView.isVisible = true
         targetBearingView.text = formatBearing(guidance.targetBearing.value)
@@ -356,7 +371,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         }
 
         arrowView.setImageResource(R.drawable.ic_navigation_arrow)
-        val turn = deltaAngle(values.bearing.value, guidance.targetBearing.value)
+        val turn = deltaAngle(facingBearing, guidance.targetBearing.value)
         val color = getDirectionColor(turn.absoluteValue)
         arrowView.rotation = turn
         arrowView.imageTintList = ColorStateList.valueOf(color)

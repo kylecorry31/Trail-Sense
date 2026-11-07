@@ -17,7 +17,6 @@ import com.kylecorry.andromeda.sense.altitude.BarometricAltimeter
 import com.kylecorry.andromeda.sense.altitude.FusedAltimeter
 import com.kylecorry.andromeda.sense.barometer.Barometer
 import com.kylecorry.andromeda.sense.barometer.IBarometer
-import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.hygrometer.Hygrometer
 import com.kylecorry.andromeda.sense.hygrometer.IHygrometer
 import com.kylecorry.andromeda.sense.light.ILightSensor
@@ -46,6 +45,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.sensors.compass.INorthReferencedCompass
 import com.kylecorry.trail_sense.shared.sensors.compass.MockCompass
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.altimeter.AltimeterWrapper
@@ -253,7 +253,7 @@ class SensorService(ctx: Context) {
     fun getCompass(
         orientationSensor: IOrientationSensor? = null,
         delay: Int = MOTION_SENSOR_DELAY
-    ): ICompass {
+    ): INorthReferencedCompass {
         if (isCompassForcedUnavailable()) {
             return MockCompass()
         }

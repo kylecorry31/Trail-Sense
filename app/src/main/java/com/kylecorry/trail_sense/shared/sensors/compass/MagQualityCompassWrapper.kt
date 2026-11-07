@@ -8,9 +8,10 @@ import com.kylecorry.sol.units.Bearing
 
 class MagQualityCompassWrapper(
     private val compass: ICompass,
-    private val magnetometer: IMagnetometer
+    private val magnetometer: IMagnetometer,
+    override val useTrueNorth: Boolean
 ) :
-    AbstractSensor(), ICompass {
+    AbstractSensor(), INorthReferencedCompass {
     override val bearing: Bearing
         get() = compass.bearing
 

@@ -14,11 +14,11 @@ sealed class Destination : GuidanceProvider {
 
     /**
      * @param compassUsesTrueNorth whether the compass is set to true north
-     * @param override a north reference to use instead of the compass's, if any
+     * @param trueNorthOverride a north reference to use instead of the compass's, if any
      * @return whether guidance for this destination should be relative to true north
      */
-    open fun usesTrueNorth(compassUsesTrueNorth: Boolean, override: Boolean?): Boolean {
-        return override ?: compassUsesTrueNorth
+    open fun usesTrueNorth(compassUsesTrueNorth: Boolean, trueNorthOverride: Boolean?): Boolean {
+        return trueNorthOverride ?: compassUsesTrueNorth
     }
 
     class Path(
@@ -65,7 +65,7 @@ sealed class Destination : GuidanceProvider {
             }
 
         // Bearings are recorded against the compass setting, so the override does not apply
-        override fun usesTrueNorth(compassUsesTrueNorth: Boolean, override: Boolean?): Boolean {
+        override fun usesTrueNorth(compassUsesTrueNorth: Boolean, trueNorthOverride: Boolean?): Boolean {
             return compassUsesTrueNorth
         }
 

@@ -15,7 +15,6 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
@@ -40,6 +39,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
 import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.compass.INorthReferencedCompass
+import com.kylecorry.trail_sense.shared.sensors.compass.getTrueNorthBearing
 import com.kylecorry.trail_sense.shared.sharing.ActionItem
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.shared.views.LocationDataPointView
@@ -65,7 +66,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(tag = "ViewPhotoMapFragment") }
     private val altimeter by lazy { sensorService.getAltimeter(tag = "ViewPhotoMapFragment") }
-    private lateinit var compass: ICompass
+    private lateinit var compass: INorthReferencedCompass
     private val declinationProvider by lazy { DeclinationFactory().getDeclinationStrategy(prefs, gps) }
     private val hasCompass by lazy { sensorService.hasCompass() }
     private val beaconService by lazy { BeaconService(requireContext()) }
@@ -135,10 +136,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         observe(altimeter) { updateDestination() }
         compass.declination = declinationProvider.getDeclination()
         observe(compass) {
-            val bearing = compass.rawBearing
-            binding.map.userAzimuth = compass.bearing
+            val bearing = compass.getTrueNorthBearing()
+            binding.map.userAzimuth = bearing
             if (mapLockMode == MapLockMode.Compass) {
-                binding.map.mapAzimuth = bearing
+                binding.map.mapAzimuth = bearing.value
             }
             updateDestination()
         }
@@ -268,7 +269,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             altimeter.altitude,
             gps.speed.value,
             compass.declination,
-            compass.bearing.value
+            compass.getTrueNorthBearing().value
         )
         binding.navigationSheet.setTrueNorthOverride(true)
         binding.navigationSheet.show(beacon, true)
@@ -474,7 +475,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                 binding.map.mapCenter = gps.location
 
                 // Rotate
-                binding.map.mapAzimuth = -compass.rawBearing
+                binding.map.mapAzimuth = compass.getTrueNorthBearing().value
 
                 // Show as locked
                 binding.lockBtn.setIconResource(R.drawable.ic_compass_icon)

@@ -22,7 +22,6 @@ import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.sense.clinometer.Clinometer
-import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.time.CoroutineTimer
@@ -47,6 +46,8 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.compass.INorthReferencedCompass
+import com.kylecorry.trail_sense.shared.sensors.compass.getTrueNorthBearing
 import com.kylecorry.trail_sense.shared.sharing.Share
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
@@ -71,7 +72,7 @@ import java.time.Instant
 
 class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
 
-    private lateinit var compass: ICompass
+    private lateinit var compass: INorthReferencedCompass
     private val gps by lazy { sensorService.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY, tag = "NavigatorFragment") }
     private lateinit var clinometer: Clinometer
     private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
@@ -596,11 +597,7 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             it.declination = declination
         }
 
-        val actualBearing = if (useTrueNorth) {
-            compass.bearing
-        } else {
-            compass.bearing.withDeclination(declination)
-        }
+        val actualBearing = compass.getTrueNorthBearing()
         binding.radarCompassMap.userAzimuth = actualBearing
         binding.radarCompassMap.mapAzimuth = actualBearing.value
     }

@@ -25,7 +25,6 @@ import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useTopic
 import com.kylecorry.andromeda.preferences.IPreferences
-import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.signal.ICellSignalSensor
 import com.kylecorry.luna.time.CoroutineTimer
@@ -46,6 +45,8 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
+import com.kylecorry.trail_sense.shared.sensors.compass.INorthReferencedCompass
+import com.kylecorry.trail_sense.shared.sensors.compass.getTrueNorthBearing
 import com.kylecorry.trail_sense.shared.views.CoordinateInputView
 import com.kylecorry.trail_sense.shared.views.ElevationInputView
 import com.kylecorry.trail_sense.shared.views.SearchView
@@ -78,7 +79,7 @@ fun ReactiveComponent.useCellSignalSensor(
     }
 }
 
-fun ReactiveAndromedaFragment.useCompassSensor(delay: Int = SensorService.MOTION_SENSOR_DELAY): ICompass {
+fun ReactiveAndromedaFragment.useCompassSensor(delay: Int = SensorService.MOTION_SENSOR_DELAY): INorthReferencedCompass {
     val sensors = useService<SensorService>()
     return useMemo(sensors, delay) { sensors.getCompass(delay = delay) }
 }
@@ -134,15 +135,15 @@ fun ReactiveAndromedaFragment.useNavigationSensors(
         }
     }
 
-    val defaultCompassReading = useMemo(compass) {
-        compass.bearing
-    }
-
     val declinationProvider = useMemo(prefs, gps) {
         DeclinationFactory().getDeclinationStrategy(prefs, gps)
     }
     val declination = useMemo(gps.location) { declinationProvider.getDeclination() }
     useEffect(compass, declination) { compass.declination = if (trueNorth) declination else 0f }
+
+    val getBearing = { if (trueNorth) compass.getTrueNorthBearing() else compass.bearing }
+
+    val defaultCompassReading = useMemo(compass) { getBearing() }
 
     val (location, locationAccuracy, gpsSpeed) = useTopic(
         gps,
@@ -166,9 +167,7 @@ fun ReactiveAndromedaFragment.useNavigationSensors(
         }
     }
 
-    val bearing = useTopic(compass, defaultCompassReading) {
-        compass.bearing
-    }
+    val bearing = useTopic(compass, defaultCompassReading) { getBearing() }
 
     return useMemo(
         location,

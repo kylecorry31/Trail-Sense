@@ -10,7 +10,6 @@ import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
 import com.kylecorry.andromeda.sense.compass.Compass
 import com.kylecorry.andromeda.sense.compass.FilteredCompass
-import com.kylecorry.andromeda.sense.compass.ICompass
 import com.kylecorry.andromeda.sense.compass.LegacyCompass
 import com.kylecorry.andromeda.sense.magnetometer.LowPassMagnetometer
 import com.kylecorry.andromeda.sense.magnetometer.Magnetometer
@@ -28,6 +27,7 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.settings.infrastructure.ICompassPreferences
 import com.kylecorry.trail_sense.shared.sensors.compass.CompassSource
+import com.kylecorry.trail_sense.shared.sensors.compass.INorthReferencedCompass
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityCompassWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.MagQualityOrientationWrapper
 import com.kylecorry.trail_sense.shared.sensors.compass.MockCompass
@@ -36,7 +36,7 @@ import kotlin.math.pow
 
 class CompassProvider(private val context: Context, private val prefs: ICompassPreferences) {
 
-    fun get(sensorDelay: Int, existingOrientationSensor: IOrientationSensor? = null): ICompass {
+    fun get(sensorDelay: Int, existingOrientationSensor: IOrientationSensor? = null): INorthReferencedCompass {
         val useTrueNorth = prefs.useTrueNorth
 
         var source = prefs.source
@@ -73,7 +73,8 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         return MagQualityCompassWrapper(
             compass,
-            Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL)
+            Magnetometer(context, SensorManager.SENSOR_DELAY_NORMAL),
+            useTrueNorth
         )
     }
 

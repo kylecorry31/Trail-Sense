@@ -362,8 +362,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
         useEffect(navigationSheetView, destination, navigation) {
             if (destination != null) {
-                navigationSheetView.updateNavigationSensorValues(navigation)
                 navigationSheetView.setTrueNorthOverride(true)
+                navigationSheetView.updateNavigationSensorValues(navigation)
                 navigationSheetView.show(destination, true)
             } else {
                 navigationSheetView.hide()

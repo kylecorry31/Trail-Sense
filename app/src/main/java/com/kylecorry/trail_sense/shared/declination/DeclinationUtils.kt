@@ -32,6 +32,26 @@ object DeclinationUtils {
     }
 
     /**
+     * Converts a bearing between north references
+     * @param bearing the bearing to convert
+     * @param declination the declination in degrees
+     * @param isTrueNorth true if the bearing is in true north, false if it is in magnetic north
+     * @param toTrueNorth true to convert the bearing to true north, false to convert it to magnetic north
+     */
+    fun convertBearing(
+        bearing: Float,
+        declination: Float,
+        isTrueNorth: Boolean,
+        toTrueNorth: Boolean
+    ): Float {
+        return when {
+            isTrueNorth == toTrueNorth -> bearing
+            toTrueNorth -> Bearing.getBearing(bearing + declination)
+            else -> fromTrueNorthBearing(bearing, declination)
+        }
+    }
+
+    /**
      * Converts a bearing from True North
      * @param bearing the bearing to convert (in True North)
      * @param declination the declination in degrees
