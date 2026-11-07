@@ -4,12 +4,15 @@ import android.net.Uri
 import android.os.ParcelFileDescriptor
 import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
+import com.kylecorry.andromeda.files.AssetFileSystem
+import com.kylecorry.andromeda.files.CacheFileSystem
 import com.kylecorry.luna.result.Result
 import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.dem.DigitalElevationModelLoader
 import com.kylecorry.trail_sense.shared.dem.map_layers.ContourGeoJsonSource
 import com.kylecorry.trail_sense.shared.dem.map_layers.HillshadeMapTileSource
 import com.kylecorry.trail_sense.shared.extensions.findNavController
@@ -57,6 +60,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZonedDateTime
+import kotlinx.coroutines.flow.collect
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
@@ -88,6 +92,7 @@ import java.time.format.DateTimeFormatter
 class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
 
     private var timeShiftMillis = 0L
+    private var loadedDem = false
 
     override fun seedData() {
         setUpDisplay()
@@ -100,6 +105,9 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
             Tools.getService(context, PathsToolRegistration.SERVICE_BACKTRACK)?.disable()
         }
         restoreSystemTime()
+        if (loadedDem) {
+            runBlocking { DigitalElevationModelLoader().clear() }
+        }
         TestUtils.runShellCommand("wm size reset")
         TestUtils.runShellCommand("wm density reset")
         demoMode("exit")
@@ -194,16 +202,19 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
     @Test
     fun heroNavigation() {
         val tuckerman = TestData.loadGpxPoints("paths/tuckermans ravine.gpx")
-        val onTheTrail = tuckerman[TUCKERMAN_CURRENT_INDEX].coordinate
-        open(Tools.NAVIGATION, onTheTrail, tuckerman[TUCKERMAN_CURRENT_INDEX].elevation ?: 0f) {
-            // Twice as far out as the default, to see more of the trail
+        val current = tuckerman[TUCKERMAN_CURRENT_INDEX]
+        // The route is built from where navigation starts, so start down the trail and hike up
+        val start = tuckerman[TUCKERMAN_START_INDEX]
+        open(Tools.NAVIGATION, start.coordinate, start.elevation ?: 0f) {
+            loadHighResolutionDem()
+            // Further out than the default, to see more of the trail
             PreferencesSubsystem.getInstance(context).preferences
-                .putFloat("cache_radar_compass_state_scale", 4f)
+                .putFloat("cache_radar_compass_state_scale", 3.8f)
             showCompassLayers(
                 BaseMapTileSource.SOURCE_ID,
                 ContourGeoJsonSource.SOURCE_ID,
-                NavigationGeoJsonSource.SOURCE_ID,
                 PathGeoJsonSource.SOURCE_ID,
+                NavigationGeoJsonSource.SOURCE_ID,
                 BeaconGeoJsonSource.SOURCE_ID,
                 MyLocationGeoJsonSource.SOURCE_ID
             )
@@ -216,7 +227,12 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
             }
         }
         isVisible(R.id.navigation_sheet_title, waitForTime = 15000)
-        capture("hero_navigation", settle = 4000)
+        UserPreferences(context).altitudeOverride = current.elevation ?: 0f
+        // Jumping far along the path is only accepted once a second update confirms it
+        TestUtils.setLocationOverride(tuckerman[TUCKERMAN_CURRENT_INDEX - 1].coordinate)
+        delay(4000)
+        TestUtils.setLocationOverride(current.coordinate)
+        capture("hero_navigation", settle = 6000)
     }
 
     @Test
@@ -249,6 +265,25 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
         UserPreferences(context).altitudeOverride = elevation
         seed()
         scenario = TestUtils.startWithTool(toolId) { navController = it.findNavController()!! }
+    }
+
+    /**
+     * Replaces the built-in elevation model with the high resolution one, if it was added to the
+     * test assets (it is too large to commit).
+     */
+    private fun loadHighResolutionDem() {
+        val assets = AssetFileSystem(InstrumentationRegistry.getInstrumentation().context)
+        if (!assets.list("dem").contains(HIGH_DEM_ASSET)) {
+            return
+        }
+        val cache = CacheFileSystem(context)
+        runBlocking {
+            cache.outputStream(HIGH_DEM_ASSET).use { output ->
+                assets.stream("dem/$HIGH_DEM_ASSET").use { it.copyTo(output) }
+            }
+            DigitalElevationModelLoader().load(cache.getUri(HIGH_DEM_ASSET)).collect()
+        }
+        loadedDem = true
     }
 
     private fun setMapResolution(metersPerPixel: Float) {
@@ -498,6 +533,7 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
             )
         }
 
+        const val HIGH_DEM_ASSET = "dem-0.6.0-high.zip"
         const val SCREENSHOT_DIRECTORY = "Pictures/TrailSenseStoreScreenshots"
         const val TRAIL_MAP_DEVICE_PATH = "/data/local/tmp/rhode-island.map"
 
@@ -516,9 +552,10 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
         )
 
         // Indices into the Tuckerman Ravine GPX, which goes up from Pinkham Notch and back down
-        // Heading about north on the trail, which is the direction the emulator's compass reads
-        // so the user is already facing where the path goes (about half a mile from the summit)
-        const val TUCKERMAN_CURRENT_INDEX = 92
+        // About a mile and a quarter from the summit. The emulator's compass has to face the trail
+        // (about 299 degrees true): adb emu sensor set magnetic-field 34.9:9.9:-32.5
+        const val TUCKERMAN_START_INDEX = 20
+        const val TUCKERMAN_CURRENT_INDEX = 68
         const val TUCKERMAN_SUMMIT_INDEX = 110
 
         // Partway around the Durfee Hill loop, the map hero's hike
