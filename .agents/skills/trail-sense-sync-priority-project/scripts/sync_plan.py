@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Read-only: compare the Trail Sense Priorities project against the repo's open issues.
 
-Prints JSON with the items to remove (closed or community available), the open issues
+Prints JSON with the items to remove (closed, community only, or epic), the open issues
 that are not in the project yet, the current project order for choosing positions, and the
 items that sit outside their priority section (High, then Medium, then Low) or have no single
 priority label.
@@ -13,7 +13,8 @@ import sys
 OWNER = "kylecorry31"
 REPO = "kylecorry31/Trail-Sense"
 PROJECT_NUMBER = 2
-COMMUNITY_LABEL = "Status: Community Available"
+COMMUNITY_ONLY_LABEL = "Status: Community Only"
+EPIC_LABEL = "Type: Epic"
 PRIORITIES = {"Priority: High": 0, "Priority: Medium": 1, "Priority: Low": 2}
 
 QUERY = """
@@ -82,7 +83,7 @@ def find_misplaced(order):
 
 def main():
     project, items = project_items()
-    in_project, remove_closed, remove_community, order, skipped = set(), [], [], [], 0
+    in_project, remove_closed, remove_community_only, remove_epics, order, skipped = set(), [], [], [], [], 0
 
     for item in items:
         issue = item["content"]
@@ -95,8 +96,10 @@ def main():
         entry = {"number": number, "title": issue["title"]}
         if issue["state"] != "OPEN":
             remove_closed.append(entry)
-        elif COMMUNITY_LABEL in labels:
-            remove_community.append(entry)
+        elif COMMUNITY_ONLY_LABEL in labels:
+            remove_community_only.append(entry)
+        elif EPIC_LABEL in labels:
+            remove_epics.append(entry)
         else:
             order.append({
                 **entry,
@@ -111,7 +114,7 @@ def main():
     new = []
     for issue in open_issues:
         labels = [l["name"] for l in issue["labels"]]
-        if issue["number"] in in_project or COMMUNITY_LABEL in labels:
+        if issue["number"] in in_project or COMMUNITY_ONLY_LABEL in labels or EPIC_LABEL in labels:
             continue
         new.append({
             "number": issue["number"],
@@ -126,7 +129,8 @@ def main():
         "project": {"id": project["id"], "title": project["title"]},
         "skipped_non_issue_items": skipped,
         "remove_closed": remove_closed,
-        "remove_community": remove_community,
+        "remove_community_only": remove_community_only,
+        "remove_epics": remove_epics,
         "new": sorted(new, key=lambda i: i["number"]),
         "no_single_priority": [e for e in order if not e["priority"]],
         "misplaced": find_misplaced(order),
