@@ -4,21 +4,20 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.shared.colors.AppColor
-import com.kylecorry.trail_sense.shared.map_layers.IMappableLocation
 
 data class Beacon(
     override val id: Long,
     override val name: String,
-    override val coordinate: Coordinate,
+    val coordinate: Coordinate,
     val visible: Boolean = true,
     val comment: String? = null,
     override val parentId: Long? = null,
-    override val elevation: Float? = null,
+    val elevation: Float? = null,
     val temporary: Boolean = false,
     val owner: BeaconOwner = BeaconOwner.User,
-    @ColorInt override val color: Int = Color.BLACK,
-    override val icon: BeaconIcon? = null
-) : IBeacon, IMappableLocation {
+    @ColorInt val color: Int = Color.BLACK,
+    val icon: BeaconIcon? = null
+) : IBeacon {
     override val isGroup = false
     override val count: Int? = null
 
