@@ -8,9 +8,13 @@ This contains a list of the changes in Trail Sense 8.3.0.
 
 You can now follow paths to their start, end, or a specific point along the path. Once you start following the path, the Navigation and Map tools will show the remaining distance, elevation change, direction to the next point, and estimated time to arrival. The Navigation map layer will show arrows along the path indicating the direction of travel.
 
-TODO: Screenshot of new buttons on path overview screen
+<p align="center">
+    <img src="images/8.3.0/path_overview.png" height="640" alt="Path overview with follow buttons" />
+</p>
 
-TODO: Screenshot of path navigation on the Navigation tool
+<p align="center">
+    <img src="images/8.3.0/navigation_sheet.png" height="640" alt="Path navigation on the Navigation tool" />
+</p>
 
 ### DEM Elevations
 
@@ -20,7 +24,9 @@ If you create a path from the map, the elevations will automatically be taken fr
 
 The smoothing of path elevations was improved to work better on paths with noisy elevation data. You can now also change how much smoothing is applied to paths via settings.
 
-TODO: Screenshot of elevation smoothing setting and preview
+<p align="center">
+    <img src="images/8.3.0/elevation_smoothing.png" height="640" alt="Elevation smoothing setting" />
+</p>
 
 ### Backtrack Improvements
 
@@ -28,7 +34,9 @@ Backtrack should use less battery while recording paths at a frequency below 15 
 
 The behavior of the notification has been improved to open the path when tapped rather than opening the Paths tool. The screen that opens (path details) will let you stop the recording directly from there. Finally, when you do stop recording, the path will be kept until you manually delete it instead of remaining a temporary path.
 
-TODO: Screenshot of backtrack recording in progress banner
+<p align="center">
+    <img src="images/8.3.0/backtrack_banner.png" height="640" alt="Backtrack recording banner" />
+</p>
 
 ### Draw on Map
 
@@ -36,26 +44,34 @@ Creating a path on the map is now easier and more intuitive. You can drag placed
 
 A shortcut was added from the Path tool's add path menu to draw the path on the map. This opens the map tool with the "Create path" mode enabled.
 
-TODO: Screenshot of drawing a path on the map
+<p align="center">
+    <img src="images/8.3.0/draw_path.png" height="640" alt="Drawing a path on the map" />
+</p>
 
 ### Simplification Preview
 
 When you attempt to simplify a path, you can now preview what the simplification will look like at different levels before saving it. You will see both your raw path and the simplified version in a dialog.
 
-TODO: Screenshot of simplification dialog
+<p align="center">
+    <img src="images/8.3.0/simplify.png" height="640" alt="Simplification dialog" />
+</p>
 
 ## Navigation
 
 ### Navigation Sheet
 The navigation sheet was redesigned to improve readability. A new arrow indicator shows the direction to follow, and it will change between green and red depending on whether you are facing the correct direction.
 
-TODO: Screenshot of the redesigned navigation sheet
+<p align="center">
+    <img src="images/8.3.0/beacon_navigation.png" height="640" alt="Redesigned navigation sheet" />
+</p>
 
 ### Map Layer Improvements
 
 The navigation layer has been enabled by default on the Navigation tool so you can see a path you are following on the compass. It also received a background color setting to make the paths stand out and it will now show the start and end points of the path to help you orient yourself.
 
-TODO: Screenshot of navigation layer with start and end
+<p align="center">
+    <img src="images/8.3.0/navigation_layer.png" height="640" alt="Navigation layer with start and end" />
+</p>
 
 ### Minor Changes
 
@@ -81,7 +97,9 @@ The guidance target now shows the active path or bearing navigation targets when
 
 You can now control what accuracy is acceptable for a GPS reading and how long Trail Sense should wait before accepting a less accurate reading.
 
-TODO: Screenshot of settings screen
+<p align="center">
+    <img src="images/8.3.0/accuracy_filter.png" height="640" alt="GPS accuracy filter" />
+</p>
 
 ### Smoothing
 
