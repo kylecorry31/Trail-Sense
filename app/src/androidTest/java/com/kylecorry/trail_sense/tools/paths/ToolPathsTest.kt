@@ -632,7 +632,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(string(R.string.path_direction_to_end))
 
         isVisible(R.id.navigation_title)
-        assertFalse(PathNavigationStore().load()!!.reversed)
+        assertEquals(PathFollow.Direction(PathDirection.ToEnd), PathNavigationStore().load()!!.follow)
         hasText(R.id.navigation_sheet_title, "Durfee Short")
         isVisible(R.id.navigation_progress)
         // The route's distance is covered by PathRouteBuilderTest
@@ -644,7 +644,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(string(R.string.path_direction_to_start))
 
         isVisible(R.id.navigation_title)
-        assertTrue(PathNavigationStore().load()!!.reversed)
+        assertEquals(PathFollow.Direction(PathDirection.ToStart), PathNavigationStore().load()!!.follow)
     }
 
     @Test
@@ -672,7 +672,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(string(R.string.path_navigation_follow_to_point))
 
         isVisible(R.id.navigation_title)
-        assertNotNull(PathNavigationStore().load()!!.destinationPointId)
+        assertTrue(PathNavigationStore().load()!!.follow is PathFollow.ToPoint)
 
         backUntil { isVisible(R.id.path_scroll) }
         click(toolbarButton(R.id.path_title, Side.Right))
