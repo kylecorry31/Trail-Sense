@@ -288,7 +288,7 @@ internal class DestinationTest {
 
     // The route only searches near the previous position, so it is placed at the location first
     private fun Destination.Path.navigateTo(location: Coordinate) {
-        route.restorePosition(origin.distanceTo(location), location)
+        route.restorePosition(Distance.meters(origin.distanceTo(location)), location)
         route.navigate(location, null)
     }
 

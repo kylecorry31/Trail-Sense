@@ -72,7 +72,7 @@ class PathNavigator(context: Context) {
      * is cleared.
      */
     fun navigate(path: Path, follow: PathFollow) {
-        val newSession = PathNavigationSession.of(path.id, follow, locationSubsystem.location)
+        val newSession = PathNavigationSession(path.id, follow, locationSubsystem.location)
         synchronized(lock) {
             cancel()
             store.save(newSession)
@@ -126,7 +126,9 @@ class PathNavigator(context: Context) {
         currentCoroutineContext().ensureActive()
         val route = PathRouteBuilder.buildRoute(points, session.start, session.follow) ?: return null
         val destination = Destination.Path(path, route)
-        session.progress?.let { destination.route.restorePosition(it.distance, it.location) }
+        session.progress?.let {
+            destination.route.restorePosition(it.distanceAlong, it.location)
+        }
         destination.route.navigate(locationSubsystem.location, locationSubsystem.locationAccuracy)
         return session to destination
     }
@@ -141,7 +143,7 @@ class PathNavigator(context: Context) {
             val current = session
             if (current != null && destinationState.value === destination) {
                 val updated = current.copy(
-                    progress = PathNavigationSessionProgress.of(guidance.distanceAlong, location)
+                    progress = PathNavigationSessionProgress(guidance.distanceAlong, location)
                 )
                 session = updated
                 store.save(updated)

@@ -33,8 +33,8 @@ class PathRoute(
     private val state = NavigationState()
 
     @Synchronized
-    fun restorePosition(distanceAlong: Float, location: Coordinate) {
-        state.restore(distanceAlong.coerceIn(0f, length), location)
+    fun restorePosition(distanceAlong: Distance, location: Coordinate) {
+        state.restore(distanceAlong.meters().value.coerceIn(0f, length), location)
     }
 
     /** The guidance from the latest [navigate], which must have been called at least once. */
