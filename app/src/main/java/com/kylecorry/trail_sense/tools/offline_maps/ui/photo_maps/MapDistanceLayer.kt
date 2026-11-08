@@ -12,10 +12,10 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toCoordinate
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconIcon
-import com.kylecorry.trail_sense.tools.navigation.ui.DrawerBitmapLoader
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.BitmapMapMarker
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.CircleMapMarker
-import com.kylecorry.trail_sense.tools.navigation.ui.markers.MapMarker
+import com.kylecorry.trail_sense.shared.bitmap.DrawerBitmapLoader
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.markers.BitmapMapMarker
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.markers.CircleMapMarker
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.markers.MapMarker
 import com.kylecorry.trail_sense.tools.paths.domain.PathEditState
 import com.kylecorry.trail_sense.tools.paths.domain.PathEditor
 import kotlin.math.hypot

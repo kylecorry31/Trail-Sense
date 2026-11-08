@@ -15,6 +15,8 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.shared.extensions.getValuesBetween
+import com.kylecorry.trail_sense.shared.map_layers.IMappableBearing
+import com.kylecorry.trail_sense.shared.map_layers.IMappableReferencePoint
 
 class LinearCompassView : BaseCompassView {
 

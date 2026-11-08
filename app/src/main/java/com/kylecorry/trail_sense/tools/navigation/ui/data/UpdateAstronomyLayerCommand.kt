@@ -11,8 +11,8 @@ import com.kylecorry.trail_sense.shared.commands.CoroutineCommand
 import com.kylecorry.trail_sense.shared.declination.DeclinationUtils
 import com.kylecorry.trail_sense.tools.astronomy.ui.MoonPhaseImageMapper
 import com.kylecorry.trail_sense.tools.navigation.domain.astronomy.NavAstronomyService
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappableReferencePoint
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableReferencePoint
+import com.kylecorry.trail_sense.shared.map_layers.IMappableReferencePoint
+import com.kylecorry.trail_sense.shared.map_layers.MappableReferencePoint
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
 
 class UpdateAstronomyLayerCommand(

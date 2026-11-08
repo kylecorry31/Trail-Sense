@@ -4,8 +4,8 @@ import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappableBearing
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableBearing
+import com.kylecorry.trail_sense.shared.map_layers.IMappableBearing
+import com.kylecorry.trail_sense.shared.map_layers.MappableBearing
 
 class BearingToCompassLayer : ICompassLayer {
 

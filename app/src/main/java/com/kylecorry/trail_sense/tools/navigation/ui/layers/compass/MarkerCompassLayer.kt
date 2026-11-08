@@ -1,7 +1,7 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.layers.compass
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappableReferencePoint
+import com.kylecorry.trail_sense.shared.map_layers.IMappableReferencePoint
 
 open class MarkerCompassLayer : ICompassLayer {
 

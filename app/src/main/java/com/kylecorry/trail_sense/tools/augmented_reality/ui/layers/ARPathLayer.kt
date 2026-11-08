@@ -21,10 +21,10 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.ARMarker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.CanvasCircle
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
-import com.kylecorry.trail_sense.tools.navigation.ui.MappablePath
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableLocation
+import com.kylecorry.trail_sense.shared.map_layers.MappablePath
+import com.kylecorry.trail_sense.shared.map_layers.MappableLocation
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.shared.map_layers.IMappablePath
 
 /**
  * An augmented reality layer that displays paths

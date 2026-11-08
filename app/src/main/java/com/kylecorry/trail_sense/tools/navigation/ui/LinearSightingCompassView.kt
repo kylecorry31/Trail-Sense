@@ -19,6 +19,8 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.ViewLinearSightingCompassBinding
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
+import com.kylecorry.trail_sense.shared.map_layers.IMappableBearing
+import com.kylecorry.trail_sense.shared.map_layers.IMappableReferencePoint
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
 

@@ -7,8 +7,8 @@ import com.kylecorry.luna.concurrency.CoroutineQueueRunner
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappableReferencePoint
-import com.kylecorry.trail_sense.tools.navigation.ui.MappableReferencePoint
+import com.kylecorry.trail_sense.shared.map_layers.IMappableReferencePoint
+import com.kylecorry.trail_sense.shared.map_layers.MappableReferencePoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

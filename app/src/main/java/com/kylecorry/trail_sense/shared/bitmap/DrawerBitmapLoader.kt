@@ -1,4 +1,4 @@
-package com.kylecorry.trail_sense.tools.navigation.ui
+package com.kylecorry.trail_sense.shared.bitmap
 
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes

@@ -65,7 +65,7 @@ import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARSatelliteLa
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.navigation.ui.IMappablePath
+import com.kylecorry.trail_sense.shared.map_layers.IMappablePath
 import com.kylecorry.trail_sense.tools.paths.map_layers.AugmentedRealityPathLayerManager
 import java.time.Instant
 import java.time.ZonedDateTime
