@@ -1107,3 +1107,19 @@ th {
 #download {
   scroll-margin-top: calc(40vh - 80px);
 }
+
+.prose .headerlink {
+  margin-left: 0.4em;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.prose :is(h2, h3, h4):hover .headerlink,
+.prose .headerlink:focus {
+  opacity: 0.6;
+}
+
+.prose :is(h2, h3, h4) {
+  scroll-margin-top: 80px;
+}

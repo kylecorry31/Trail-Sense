@@ -38,7 +38,11 @@ def get_markdown_metadata(md_file_path, updated_url):
 
     metadata['url'] = updated_url
     metadata['raw_content'] = text_without_metadata
-    metadata['content'] = markdown.markdown(text_without_metadata)
+    metadata['content'] = markdown.markdown(
+        text_without_metadata,
+        extensions=["toc"],
+        extension_configs={"toc": {"permalink": "#", "permalink_title": "Link to this section"}},
+    )
 
     if 'title' not in metadata:
         metadata['title'] = os.path.basename(md_file_path).replace(".md", "")
