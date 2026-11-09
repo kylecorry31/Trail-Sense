@@ -264,6 +264,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         }
 
         val beacon = destination ?: return
+        binding.navigationSheet.setTrueNorthOverride(true)
         binding.navigationSheet.updateNavigationSensorValues(
             gps.location,
             altimeter.altitude,
@@ -271,7 +272,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
             compass.declination,
             compass.getTrueNorthBearing().value
         )
-        binding.navigationSheet.setTrueNorthOverride(true)
         binding.navigationSheet.show(beacon, true)
     }
 
