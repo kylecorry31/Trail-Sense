@@ -67,7 +67,7 @@ The navigation sheet was redesigned to improve readability. A new arrow indicato
 
 ### Map Layer Improvements
 
-The navigation layer has been enabled by default on the Navigation tool so you can see a path you are following on the compass. It also received a background color setting to make the paths stand out and it will now show the start and end points of the path to help you orient yourself.
+The navigation layer has been enabled by default on the Navigation tool so you can see a path you are following on the compass. It also received a background color setting to make the paths stand out and an option to show the start and end points of the path to help you orient yourself.
 
 <p align="center">
     <img src="images/8.3.0/navigation_layer.png" height="640" alt="Navigation layer with start and end" />
