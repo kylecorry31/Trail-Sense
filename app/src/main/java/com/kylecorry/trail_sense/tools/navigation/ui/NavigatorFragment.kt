@@ -652,6 +652,11 @@ class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
             } else {
                 navigationCompassLayer.setDestination(direction)
             }
+
+            onMain {
+                binding.linearCompass.invalidate()
+                binding.radarCompass.invalidate()
+            }
         }
     }
 
