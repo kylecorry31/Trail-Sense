@@ -1669,4 +1669,5 @@
     <string name="navigation_arrive_format">%s 到達</string>
     <string name="navigation_traveled">已旅遊</string>
     <string name="navigation_facing">面對</string>
+    <string name="bottom_navigation">底部導航欄</string>
 </resources>
