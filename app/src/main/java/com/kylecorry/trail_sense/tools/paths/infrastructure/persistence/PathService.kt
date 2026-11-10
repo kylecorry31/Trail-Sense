@@ -137,12 +137,19 @@ class PathService(
 
     override suspend fun deletePath(path: Path) {
         backtrackLock.withLock {
-            val backtrackId = cache.getLong(BACKTRACK_PATH_KEY)
-            if (backtrackId == path.id) {
-                cache.remove(BACKTRACK_PATH_KEY)
-            }
+            stopBacktrackingTo(path.id)
         }
+        deletePathContents(path)
+    }
 
+    // The backtrack lock must be held
+    private fun stopBacktrackingTo(pathId: Long) {
+        if (cache.getLong(BACKTRACK_PATH_KEY) == pathId) {
+            cache.remove(BACKTRACK_PATH_KEY)
+        }
+    }
+
+    private suspend fun deletePathContents(path: Path) {
         DependencyRegistry.get<Navigator>().cancelPathNavigation(path.id)
         waypointRepo.deleteInPath(path.id)
         pathRepo.delete(path)
@@ -288,19 +295,23 @@ class PathService(
     }
 
     private suspend fun deleteOldWaypoints(pathId: Long) {
-        val isEmpty = waypointLock.withLock {
-            waypointRepo.deleteOlderInPath(
-                pathId,
-                time.getTime().toInstant().minus(pathPreferences.backtrackHistory)
-            )
-            updatePathMetadata(pathId)
-            waypointRepo.getCountInPath(pathId) == 0
+        val isEmpty = backtrackLock.withLock {
+            val isEmpty = waypointLock.withLock {
+                waypointRepo.deleteOlderInPath(
+                    pathId,
+                    time.getTime().toInstant().minus(pathPreferences.backtrackHistory)
+                )
+                updatePathMetadata(pathId)
+                waypointRepo.getCountInPath(pathId) == 0
+            }
+            if (isEmpty) {
+                stopBacktrackingTo(pathId)
+            }
+            isEmpty
         }
 
-        // Deleted outside the waypoint lock since deletePath takes the backtrack lock, and
-        // addBacktrackPoint takes the two locks in the opposite order
         if (isEmpty) {
-            getPath(pathId)?.let { deletePath(it) }
+            getPath(pathId)?.let { deletePathContents(it) }
         }
     }
 

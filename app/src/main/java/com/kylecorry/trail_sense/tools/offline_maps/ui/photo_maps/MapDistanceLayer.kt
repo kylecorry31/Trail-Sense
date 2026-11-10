@@ -55,6 +55,7 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
 
     fun undo() {
         if (editor.state.canUndo) {
+            drag = null
             editor.undo()
             commit()
         }
@@ -62,6 +63,7 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
 
     fun redo() {
         if (editor.state.canRedo) {
+            drag = null
             editor.redo()
             commit()
         }

@@ -57,8 +57,8 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
         val grid = Grid(gridLatitudes, gridLongitudes, data, channels)
         val offsets = Offsets(gridLatitudes.size * gridLongitudes.size)
         val reach = radiusDegrees + grid.footprintDegrees
-        // The widest the reach is in degrees of longitude is where the grid is closest to the equator
-        val longitudeReach = getLongitudeReach(reach, Trigonometry.cosDegrees(gridLatitudes.minOf { abs(it) }))
+        // A degree of longitude is shortest far from the equator, so that is where the reach spans the most of them
+        val longitudeReach = getLongitudeReach(reach, Trigonometry.cosDegrees(gridLatitudes.maxOf { abs(it) }))
         val (west, east) = getLongitudeSpan(gridLongitudes)
         val south = gridLatitudes.first() - reach
         val north = gridLatitudes.last() + reach
@@ -214,14 +214,10 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
          * Throws an [IOException] if it could not be read.
          */
         suspend fun open(reader: ByteRangeReader): PeakOverlay? {
-            val overlay = try {
-                GeoPointFile.open(reader)?.let { create(it) }
-            } catch (e: IOException) {
-                reader.close()
-                throw e
-            }
+            val file = GeoPointFile.open(reader) ?: return null
+            val overlay = create(file)
             if (overlay == null) {
-                reader.close()
+                file.close()
             }
             return overlay
         }

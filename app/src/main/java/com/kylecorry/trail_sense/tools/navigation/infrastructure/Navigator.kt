@@ -129,7 +129,11 @@ class Navigator private constructor(context: Context) {
         CoroutineScope(Dispatchers.IO).launch {
             val beacon = Beacon.temporary(
                 location,
-                elevation = if (useDemElevation) DEM.getElevation(location).elevation else elevation,
+                elevation = if (useDemElevation) {
+                    DEM.getElevation(location).takeIf { it.hasData }?.elevation
+                } else {
+                    elevation
+                },
                 name = name,
                 visible = false,
                 owner = owner

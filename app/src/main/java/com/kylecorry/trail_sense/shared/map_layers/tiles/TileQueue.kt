@@ -167,8 +167,12 @@ class TileQueue {
         return loadingCount.get()
     }
 
+    /**
+     * True when there is nothing left to load right now. Failed tiles waiting to be retried do not count, since they
+     * may never load.
+     */
     fun isEmpty(): Boolean {
-        return count() == 0 && getLoadingCount() == 0
+        return queue.count() == 0 && getLoadingCount() == 0
     }
 
     private fun getPriority(tile: ImageTile): Double {

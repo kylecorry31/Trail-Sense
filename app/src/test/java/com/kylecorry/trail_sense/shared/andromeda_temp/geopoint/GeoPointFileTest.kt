@@ -194,10 +194,10 @@ class GeoPointFileTest {
     fun triesABlockAgainIfItFailedToRead() = runBlocking {
         val bytes = GeoPointFileBuilder().add(44.0, -71.0).build()
         var failing = false
-        val file = GeoPointFile.open { offset, length ->
+        val file = GeoPointFile.open(ByteRangeReader { offset, length ->
             if (failing) throw IOException()
             ByteRangeReader.fromBytes(bytes).read(offset, length)
-        }!!
+        })!!
 
         failing = true
         assertEquals(0, file.getCells(44.0, 45.0, -72.0, -71.0).size)

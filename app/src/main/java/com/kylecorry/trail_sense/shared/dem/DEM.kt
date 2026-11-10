@@ -281,6 +281,10 @@ object DEM {
             if (previousSources != null && cachedIsExternal == isExternal) {
                 if (!hasLoadedPeaks) {
                     loadPeaks(isExternal)
+                    // Elevations from before the peaks could be read are missing them
+                    if (cachedPeaks != null) {
+                        clearElevationCaches()
+                    }
                 }
                 return@onIO previousSources
             }
@@ -366,15 +370,19 @@ object DEM {
     }
 
     fun invalidateCache() {
-        cache = GeospatialCache(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
-        pixelCache = MemoryLRUCache(1)
-        tileCache = MemoryLRUCache(16)
+        clearElevationCaches()
         cachedSources = null
         cachedPeaks?.close()
         cachedPeaks = null
         hasLoadedPeaks = false
         cachedHasWaterMask = false
         cachedIsExternal = null
+    }
+
+    private fun clearElevationCaches() {
+        cache = GeospatialCache(Distance.meters(CACHE_DISTANCE), size = CACHE_SIZE)
+        pixelCache = MemoryLRUCache(1)
+        tileCache = MemoryLRUCache(16)
     }
 
     fun isExternalModel(): Boolean {

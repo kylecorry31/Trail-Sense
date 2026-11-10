@@ -24,6 +24,7 @@ object CellTowerModel {
 
     private val mutex = Mutex()
     private var towers: GeoPointFile? = null
+    private var isUnusable = false
 
     fun getAccuracy(towerLocation: Coordinate): Distance {
         return Distance.meters(
@@ -44,7 +45,8 @@ object CellTowerModel {
 
         // Each cell is trimmed to the closest towers before the next one is read, so only the closest are kept
         var closest = emptyList<ApproximateCoordinate>()
-        for (cell in file.getCells(bounds.south, bounds.north, bounds.west, bounds.east)) {
+        val east = if (bounds.east < 0 && bounds.west > 0) bounds.east + 360 else bounds.east
+        for (cell in file.getCells(bounds.south, bounds.north, bounds.west, east)) {
             val cellTowers = mutableListOf<ApproximateCoordinate>()
             for (i in 0 until cell.size) {
                 val location = Coordinate(cell.latitudes[i], cell.longitudes[i])
@@ -70,13 +72,17 @@ object CellTowerModel {
     @Suppress("SwallowedException")
     private suspend fun getFile(): GeoPointFile? = mutex.withLock {
         towers?.let { return@withLock it }
+        if (isUnusable) {
+            return@withLock null
+        }
         val file = try {
             GeoPointFile.open(AssetByteRangeReader(PATH))
         } catch (e: IOException) {
-            null
+            return@withLock null
         }
         if (file?.getStringProperty("type") != TYPE) {
             file?.close()
+            isUnusable = true
             return@withLock null
         }
         towers = file

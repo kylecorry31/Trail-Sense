@@ -9,6 +9,7 @@ import org.junit.jupiter.api.io.TempDir
 import java.io.Closeable
 import java.io.EOFException
 import java.io.File
+import java.io.IOException
 import java.io.RandomAccessFile
 
 class ByteRangeReaderTest {
@@ -63,9 +64,11 @@ class ByteRangeReaderTest {
     fun keepsTheChannelOpenUntilClosed() = runBlocking {
         var opens = 0
         var closes = 0
+        var lastFile: RandomAccessFile? = null
         val reader = ChannelByteRangeReader {
             opens++
             val file = RandomAccessFile(file(), "r")
+            lastFile = file
             ChannelByteRangeReader.OpenChannel(file.channel, 0, file.length(), Closeable {
                 closes++
                 file.close()
@@ -76,12 +79,34 @@ class ByteRangeReaderTest {
         reader.read(5, 5)
         assertEquals(1, opens)
 
-        // A failed read (here past the end) opens the channel again next time
+        // Reading past the end does not close the channel
         assertThrows(EOFException::class.java) { runBlocking { reader.read(99, 5) } }
+        reader.read(0, 5)
+        assertEquals(1, opens)
+
+        // A failed read of the channel opens it again next time
+        lastFile?.close()
+        assertThrows(IOException::class.java) { runBlocking { reader.read(0, 5) } }
         reader.read(0, 5)
         assertEquals(2, opens)
 
         reader.close()
         assertEquals(2, closes)
+    }
+
+    @Test
+    fun doesNotReopenAfterClosing() = runBlocking {
+        var opens = 0
+        val reader = ChannelByteRangeReader {
+            opens++
+            val file = RandomAccessFile(file(), "r")
+            ChannelByteRangeReader.OpenChannel(file.channel, 0, file.length(), file)
+        }
+
+        reader.read(0, 5)
+        reader.close()
+
+        assertThrows(IOException::class.java) { runBlocking { reader.read(0, 5) } }
+        assertEquals(1, opens)
     }
 }

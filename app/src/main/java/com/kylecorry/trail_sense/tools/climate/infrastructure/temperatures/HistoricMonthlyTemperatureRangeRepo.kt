@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures
 
 import android.util.Size
+import com.kylecorry.luna.concurrency.Parallel
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.cache.MemoryLRUCache
@@ -84,7 +85,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
 
     // The sea level temperature (°C) of each month
     private suspend fun load(location: Coordinate, model: Model): FloatArray = onIO {
-        val coefficients = model.sources.map { it.read(location)[0].toDouble() }.toDoubleArray()
+        val coefficients = Parallel.map(model.sources) { it.read(location)[0].toDouble() }.toDoubleArray()
 
         val sinLatitude = sin(Math.toRadians(location.latitude))
         var trend = 0.0

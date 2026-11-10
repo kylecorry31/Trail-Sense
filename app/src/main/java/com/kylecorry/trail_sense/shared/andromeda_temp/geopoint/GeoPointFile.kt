@@ -21,11 +21,12 @@ import java.nio.ByteOrder
 class GeoPointFile private constructor(
     private val reader: ByteRangeReader,
     private val metadata: GeoPointMetadata,
-    private val directory: GeoPointDirectory
+    private val directory: GeoPointDirectory,
+    cachedBlocks: Int
 ) : Closeable {
 
     private val decoder = GeoPointBlockDecoder(metadata.grid, metadata.fields)
-    private val cache = MemoryLRUCache<Int, Map<Int, GeoPointCell>>(CACHED_BLOCKS)
+    private val cache = MemoryLRUCache<Int, Map<Int, GeoPointCell>>(cachedBlocks)
     private val reads = SingleFlight<Int, Map<Int, GeoPointCell>?>()
 
     fun getNumberProperty(name: String): Double? {
@@ -90,15 +91,31 @@ class GeoPointFile private constructor(
         private const val HEADER_BYTES = 16
         private const val MAX_METADATA_BYTES = 64 * 1024
         private const val MAX_BLOCK_BYTES = 1024 * 1024
-        private const val CACHED_BLOCKS = 8
+        const val DEFAULT_CACHED_BLOCKS = 8
 
         /**
          * Opens a file by reading its header, metadata, and block directory, or returns null if it is not a file this
          * version understands (including one that is cut off). Throws an [IOException] if it could not be read, which
-         * may work if tried again.
+         * may work if tried again. Up to [cachedBlocks] decompressed blocks are kept in memory.
+         *
+         * The file owns the reader once it is open. If it is not opened, the reader is closed.
          */
+        @Suppress("TooGenericExceptionCaught")
+        suspend fun open(reader: ByteRangeReader, cachedBlocks: Int = DEFAULT_CACHED_BLOCKS): GeoPointFile? {
+            val file = try {
+                read(reader, cachedBlocks)
+            } catch (e: Throwable) {
+                reader.close()
+                throw e
+            }
+            if (file == null) {
+                reader.close()
+            }
+            return file
+        }
+
         @Suppress("TooGenericExceptionCaught", "SwallowedException")
-        suspend fun open(reader: ByteRangeReader): GeoPointFile? {
+        private suspend fun read(reader: ByteRangeReader, cachedBlocks: Int): GeoPointFile? {
             return try {
                 val header = ByteBuffer.wrap(reader.read(0, HEADER_BYTES)).order(ByteOrder.LITTLE_ENDIAN)
                 val magic = ByteArray(MAGIC.size).also { header.get(it) }
@@ -112,7 +129,7 @@ class GeoPointFile private constructor(
                 val metadata = GeoPointMetadata.parse(json)
                 val directoryStart = HEADER_BYTES.toLong() + metadataBytes
                 val directory = GeoPointDirectory.read(reader, directoryStart, blockCount, metadata.grid.cellCount)
-                GeoPointFile(reader, metadata, directory)
+                GeoPointFile(reader, metadata, directory, cachedBlocks)
             } catch (e: CancellationException) {
                 throw e
             } catch (e: EOFException) {

@@ -74,13 +74,15 @@ class PathRoute(
             remainingDistance = remainingDistance,
             offRouteDistance = Distance.meters(match.offset),
             arrived = arrived,
-            remainingRoute = buildList {
-                add(PathPoint(-1, pathId, location, currentElevation))
-                if (match.offset > OFF_ROUTE_PROJECTION_INCLUSION_DISTANCE_METERS) {
-                    add(PathPoint(-2, pathId, projected, currentElevation))
-                }
-                addAll(pathPoints.subList(match.segment + 1, pathPoints.size))
-            },
+            remainingRoute = RemainingRoute(
+                buildList {
+                    add(PathPoint(-1, pathId, location, currentElevation))
+                    if (match.offset > OFF_ROUTE_PROJECTION_INCLUSION_DISTANCE_METERS) {
+                        add(PathPoint(-2, pathId, projected, currentElevation))
+                    }
+                },
+                pathPoints.subList(match.segment + 1, pathPoints.size)
+            ),
             remainingElevationGain = remainingElevationGain,
             remainingElevationLoss = remainingElevationLoss,
             distanceAlong = Distance.meters(if (arrived) length else match.distanceAlong),
@@ -164,6 +166,17 @@ class PathRoute(
         // Otherwise, mark the intent to rejoin and wait for the next update to confirm it
         state.pendingRejoin = bestOverallLocation.distanceAlong
         return nearby
+    }
+
+    private class RemainingRoute(
+        private val start: List<PathPoint>,
+        private val rest: List<PathPoint>
+    ) : AbstractList<PathPoint>() {
+        override val size = start.size + rest.size
+
+        override fun get(index: Int): PathPoint {
+            return if (index < start.size) start[index] else rest[index - start.size]
+        }
     }
 
     private data class NavigationState(
