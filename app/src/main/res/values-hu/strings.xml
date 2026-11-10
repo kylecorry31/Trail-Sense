@@ -281,7 +281,7 @@
     <string name="sun">Nap</string>
     <string name="path">Ösvény</string>
     <string name="temporary">Ideiglenes</string>
-    <string name="tool_temperature_estimation_description">Jósold meg a hőmérsékletet más magasságon</string>
+    <string name="tool_temperature_estimation_description">Jósold meg a hőmérsékletet más magasságon, szélsebességnél, és páratartalomnál</string>
     <string name="beacon_created">Jelzőpont létrehozva</string>
     <string name="qr_code_scanner">QR Kód Olvasó</string>
     <string name="no_qr_code_found">Nem található QR kód</string>
@@ -723,7 +723,7 @@
     <string name="current_speed_gps">Jelenlegi sebesség (GPS)</string>
     <string name="average_speed_backtrack">Átlagsebesség (Visszakövetés)</string>
     <string name="point_added">Pont hozzáadva az ösvényhez</string>
-    <string name="access_background_location_rationale">A Trail Sense helyadatokat használ a háttérben a tengerszinti nyomás kalibrálásához és a pontosabb naplemente-figyelmeztetéshez. [Adatvédelmi Irányelvek Megtekintése](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
+    <string name="access_background_location_rationale">A Trail Sense helyadatokat használ a háttérben, akkor is, ha be van zárva vagy nincs használatban. Ez a háttérbeli hozzáférés az időjárás megfigyelő tengerszinti nyomásának kalibrálásához, visszakövetéshez, widgetek frissítéséhez és a pontosabb napfelkelte/naplemente-figyelmeztetésekhez kerül felhasználásra. [Adatvédelmi Irányelvek Megtekintése](https://kylecorry.com/Trail-Sense/privacy_policy.html)</string>
     <string name="onboarding_explore">- Gyalogtúrához, hátizsákos túrához, kempingezéshez és geocachinghez tervezve
 \n
 \n- Helyezz el jelzőpontokat és navigálj hozzájuk
@@ -745,7 +745,7 @@
     <string name="turn_off">Kikapcsolás</string>
     <string name="units_mmhg">mmHg</string>
     <string name="beacon_qr_import_instructions">Olvass be egy QR kódot az importáláshoz</string>
-    <string name="pref_max_beacon_distance_title">Közeli jelzőpontok hatósugara</string>
+    <string name="pref_max_beacon_distance_title">Közeli jelzőpontok távolsága</string>
     <string name="beacon_export_error">Nem lehet exportálni a jelzőpontokat</string>
     <string name="no_data">Nincs adat</string>
     <string name="temp_c_short">°C</string>
@@ -787,7 +787,7 @@
 \nOSGB (pl. TG 51409 13177)</string>
     <string name="pref_gps_override_title">Hely felülírása</string>
     <string name="stratus_desc">Alacsony felhő, mely beborítja az eget. Nincsenek éles árnyékok és ködös lehet az idő.</string>
-    <string name="onboarding_user_guide">Tanuld meg a Trail Sense funkcióinak használatát a felhasználói útmutatóval. Elérhető az Eszközök fül legalján. \n \nTovábbi útmutatók hamarosan.</string>
+    <string name="onboarding_user_guide">Tanuld meg a Trail Sense funkcióinak használatát a felhasználói útmutatóval. Elérhető az Eszközök fülön.</string>
     <string name="unavailable">Nem elérhető</string>
     <string name="quality_poor">Rossz</string>
     <string name="pref_backtrack_save_cell_summary">Menti a térerőt az útvonalpontnál. Nem használ Internetet.</string>
@@ -827,7 +827,7 @@
     <string name="coordinates_tab">Koordináták</string>
     <string name="pref_cell_signal_refresh_cache_title">Térerő gyorsítótár frissítése</string>
     <string name="liters">Liter</string>
-    <string name="pref_backtrack_history_days_title">VIsszakövetés előzmények</string>
+    <string name="pref_backtrack_history_days_title">Visszakövetési előzmények</string>
     <string name="pref_tiles_enabled_summary">Megakadályozhatja az akkuoptimalizáló appokat a Trail Sense teljes leállításában</string>
     <string name="imperial_gallons">Angolszász gallon</string>
     <string name="sort">Rendezés</string>
@@ -1354,4 +1354,60 @@
     <string name="map_calibration_error_same_pixel">Válassz két eltérő pontot a térképen.</string>
     <string name="map_calibration_error_same_image_axis">Válassz két pontot a térképen, amik nincsenek közvetlen egymás mellett vagy fölött.</string>
     <string name="map_calibration_error_same_location">Adj meg két különböző valós helyet.</string>
+    <string name="replace_elevations">Magasságok cseréje</string>
+    <string name="replace_elevations_confirmation">Lecseréled az összes ösvény magasságát a digitális magasságmodell használatával?</string>
+    <string name="brightness">Fényerő</string>
+    <string name="scientific_name">Tudományos név</string>
+    <string name="field_guide_name_display">Kijelzett név</string>
+    <string name="built_in_pages">Beépített lapok</string>
+    <string name="hide_field_guide_page_message">%1$s\n\nKikapcsolhatod ennek a lapnak az elrejtését a Terepi Útmutató beállításaiban.</string>
+    <string name="common_name">Hétköznapi név</string>
+    <string name="both_names">Mindkét név</string>
+    <string name="recording">Felvétel</string>
+    <string name="clock_device_time_accurate">Az eszköz órája pontos</string>
+    <plurals name="clock_device_time_slow">
+        <item quantity="one">Az eszköz órája %d másodpercet késik</item>
+        <item quantity="other">Az eszköz órája %d másodpercet késik</item>
+    </plurals>
+    <plurals name="clock_device_time_fast">
+        <item quantity="one">Az eszköz órája %d másodpercet siet</item>
+        <item quantity="other">Az eszköz órája %d másodpercet siet</item>
+    </plurals>
+    <string name="battery_deep_sleep">Mélyalvás: %1$s (elmúlt %2$s)</string>
+    <string name="bubble_level_angles">X: %1$s\nY: %2$s\nSzög: %3$s</string>
+    <string name="pref_backtrack_min_distance_title">Pontok közti legkisebb távolság</string>
+    <string name="pref_backtrack_min_distance_summary">Az előző ponthoz ennél közelebbi pontok nem kerülnek felvételre. Minden pont felvételéhez állítsd 0-ra.</string>
+    <string name="pref_gps_accuracy_requirement_title">Pontossági szűrő</string>
+    <string name="gps_accuracy_filter_summary">%1$s pontosság, legfeljebb %2$s várakozás</string>
+    <string name="gps_accuracy_target">Pontosság: %1$s</string>
+    <string name="gps_accuracy_wait">Maximális várakozás: %1$s</string>
+    <string name="pref_gps_power_usage_title">GPS energiahasználata</string>
+    <string name="pref_backtrack_gps_power_usage_title">Visszakövetési GPS energiahasználata</string>
+    <string name="gps_power_usage_low">Akkumulátorkímélő</string>
+    <string name="gps_power_usage_balanced">Kiegyensúlyozott</string>
+    <string name="gps_power_usage_high">Nagy pontosságú</string>
+    <string name="gps_power_usage_inherit">Öröklés a GPS beállításokból</string>
+    <string name="pref_backtrack_keep_awake_summary">15 perc alatti gyakoriságnál</string>
+    <string name="pref_backtrack_keep_awake_title">Eszköz ébren tartása</string>
+    <string name="pref_navigation_lock_screen_title">Mutatás a zárolt képernyőn</string>
+    <string name="pref_navigation_lock_screen_while_navigating">Navigálás közben</string>
+    <string name="pref_navigation_lock_screen_while_open">Nyitott állapotban</string>
+    <string name="pref_backtrack_keep_on_stop_title">Ösvény megtartása leállításkor</string>
+    <string name="pref_backtrack_keep_on_stop_summary">Egyéb esetben az ösvény a Visszakövetési előzmények lejárta után törlésre kerül</string>
+    <string name="pref_large_tile_cache_title">Nagy térképcsempe-gyorsítótár használata</string>
+    <string name="pref_copy_trail_maps_title">Térképek másolása Trail Sense-be</string>
+    <string name="pref_copy_trail_maps_summary">Importáláskor. Kikapcsolt állapotban az eredeti fájl kerül felhasználásra és azt az eszközödön kell tartanod.</string>
+    <string name="delete_packing_list_item">Elem törlése?</string>
+    <string name="export_logs">Naplók exportálása</string>
+    <string name="external_storage">Külső tárhely</string>
+    <string name="external_storage_diagnostic_instructions">A rendszer fájlkezelőjének nincs engedélye hozzáférni az eszközödön lévő fájlokhoz. Ez meggátolhatja a Trail Sense-t az általad kiválasztott fájlok megnyitásában vagy mentésében. Engedélyezd a \"Hozzáférés minden fájlhoz\" opciót a rendszer fájlkezelőnek (szerepelhet \"Külső Tárhely\" néven is).</string>
+    <string name="location_permission">Helyhozzáférés</string>
+    <string name="quality">Minőség</string>
+    <string name="created">Létrehozva</string>
+    <string name="redo">Ismétlés</string>
+    <string name="average_pace">Átlagos tempó</string>
+    <string name="pref_pedometer_history_days_title">Lépéselőzmények</string>
+    <string name="pref_pedometer_average_pace_time_title">Átlagos tempó ideje</string>
+    <string name="current_pace">Jelenlegi tempó</string>
+    <string name="exporting">Exportálás</string>
 </resources>
