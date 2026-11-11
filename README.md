@@ -87,41 +87,7 @@ See the [Technical Blog / Research](https://kylecorry.com/research/categories/tr
 
 ## Privacy
 
-Trail Sense does not require an Internet connection. All app data, including location history, is stored in the app's private local storage, which is inaccessible to other apps. This data is cleared when you clear Trail Sense's app storage or uninstall it.
-
-### Permissions
-#### Sensitive
-- **POST_NOTIFICATIONS**
-  - Allows Trail Sense to display notifications (backtrack, weather, sunset alerts, astronomy events, water boil timer, etc)
-  - **When denied**: Alerts will not be displayed and some services may not function properly depending on your device manufacturer.
-- **ACCESS_FINE_LOCATION / ACCESS_COARSE_LOCATION**
-  - Allows Trail Sense to retrieve your location for navigation, weather (sea level calibration), and astronomy.
-  - **When denied**: You will have the ability to mock your location under Settings > Sensors > GPS. On Android 14+, backtrack and weather will be unavailable due to Android OS constraints.
-- **ACCESS_BACKGROUND_LOCATION**
-  - Allows Trail Sense to retrieve your location for sunset alerts while in the background. On some devices, this will also improve the reliability of backtrack and weather monitor (though shouldn't be needed on most devices).
-  - **When denied**: If you travel and do not open Trail Sense, but have Sunset and Sunrise Alerts enabled, the times will likely be inaccurate.
-- **ACTIVITY_RECOGNITION**
-  - Allows Trail Sense to use your phone's pedometer for distance calculation.
-  - **When denied**: The pedometer will not work.
-- **CAMERA**
-  - Allows Trail Sense to use your camera on the sighting compass, clinometer, and for taking photos used by the Cloud Scanner, QR Code Scanner, and Photo maps.
-  - **When denied**: You will not be able to use the sighting compass, camera clinometer, or QR Code Scanner. You will need to pick an existing photo to use for the Cloud Scanner or Photo maps.
-- **SCHEDULE_EXACT_ALARM**
-  - Allows Trail Sense to post a notification at an exact time. This is used by the Clock tool (when updating system time) and Sunset and Sunrise Alerts.
-  - **When denied**: The clock and sunset alerts may not be accurate (can be off by several minutes).
-
-#### Not sensitive (always granted)
-- **RECEIVE_BOOT_COMPLETED**
-  - Allows Trail Sense to restart when you reboot your device. This will re-enable backtrack, weather monitor, and several other background services.
-- **FOREGROUND_SERVICE**
-  - Allows Trail Sense to start foreground services, such as backtrack and weather monitor.
-  - You may see subtypes of the foreground service permission granted, labeled as `FOREGROUND_SERVICE_*`. These describe specific types of foreground services, such as location, health, special use, and media playback.
-- **FLASHLIGHT**
-  - Allows Trail Sense to control the phone's flashlight.
-- **VIBRATE**
-  - Allows Trail Sense to vibrate the phone. Used for haptic feedback on dials and on the metal detector tool.
-- **WAKE_LOCK**
-  - Allows Trail Sense to reliably run services such as backtrack and weather monitor, especially when the frequency is under 15 minutes.
+Trail Sense does not require an Internet connection. All app data, including location history, is stored in the app's private local storage, which is inaccessible to other apps. This data is cleared when you clear Trail Sense's app storage or uninstall it. See the [privacy policy](https://kylecorry.com/Trail-Sense/privacy_policy.html) for details about data and permissions.
 
 ## Contributing
 See the [CONTRIBUTING.md](https://github.com/kylecorry31/Trail-Sense/blob/main/CONTRIBUTING.md) file for details on contributing to Trail Sense.
