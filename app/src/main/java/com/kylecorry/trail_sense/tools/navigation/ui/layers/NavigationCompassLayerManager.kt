@@ -5,22 +5,20 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
+import com.kylecorry.trail_sense.shared.map_layers.ui.IMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.setLayersWithPreferences
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.start
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.stop
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 
-class NavigationCompassLayerManager {
+class NavigationCompassLayerManager : IMapLayerManager {
     private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
-
-    var key = 0
-        private set
 
     private var isRunning = false
     private val runningLock = Any()
 
-    fun resume(view: IMapView, fragment: Fragment) {
+    override fun resume(view: IMapView, fragment: Fragment, onLayersChanged: () -> Unit) {
         synchronized(runningLock) {
             isRunning = true
         }
@@ -29,8 +27,6 @@ class NavigationCompassLayerManager {
                 NavigationToolRegistration.MAP_ID,
                 repo.getActiveLayerIds(NavigationToolRegistration.MAP_ID)
             )
-
-            key += 1
 
             synchronized(runningLock) {
                 if (isRunning) {
@@ -41,10 +37,12 @@ class NavigationCompassLayerManager {
                     }
                 }
             }
+
+            onLayersChanged()
         }
     }
 
-    fun pause(view: IMapView) {
+    override fun pause(view: IMapView) {
         synchronized(runningLock) {
             isRunning = false
             view.stop()

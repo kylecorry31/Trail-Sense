@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.View
 import androidx.annotation.ColorInt
 import androidx.core.view.isVisible
 import com.kylecorry.andromeda.canvas.ArcMode
@@ -45,6 +46,11 @@ class RadarCompassView : BaseCompassView {
     private val formatService by lazy { FormatService.getInstance(context) }
 
     private var mapView: MapView? = null
+
+    // The radius depends on the map's width, which may not be known when the scale is first set
+    private val mapLayoutListener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+        updateRadius()
+    }
 
     private var iconSize = 0
     private var radarSize = 0
@@ -148,7 +154,12 @@ class RadarCompassView : BaseCompassView {
         imageMode(ImageMode.Corner)
     }
 
-    fun setRadiusDistance(distance: Distance) {
+    private fun updateRadius() {
+        val map = mapView ?: return
+        setRadiusDistance(Distance.meters(map.resolutionPixels * map.width / 2f))
+    }
+
+    private fun setRadiusDistance(distance: Distance) {
         maxDistanceMeters = distance.meters()
         maxDistanceBaseUnits = maxDistanceMeters.convertTo(prefs.baseDistanceUnits)
         distanceText = null
@@ -183,7 +194,21 @@ class RadarCompassView : BaseCompassView {
     }
 
     fun bindMapView(view: MapView) {
+        mapView?.removeOnLayoutChangeListener(mapLayoutListener)
         mapView = view
+
+        view.isPanEnabled = false
+        view.isFlingEnabled = false
+        view.backgroundColorOverride = Resources.color(context, R.color.colorSecondary)
+        view.minScale = 0.001f
+        view.metersPerProjectedUnit = 1.0
+        view.latitudeScaleFactor = { 1f }
+        view.resolutionPixels = prefs.navigation.radarCompassScale
+        view.setOnScaleChangeListener(true) { resolutionPixels ->
+            updateRadius()
+            prefs.navigation.radarCompassScale = resolutionPixels
+        }
+        view.addOnLayoutChangeListener(mapLayoutListener)
     }
 
     override fun setup() {

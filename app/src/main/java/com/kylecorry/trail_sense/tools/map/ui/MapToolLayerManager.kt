@@ -12,6 +12,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.shared.extensions.point
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
+import com.kylecorry.trail_sense.shared.map_layers.ui.IMapLayerManager
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.geojson.ConfigurableGeoJsonLayer
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getLayerById
@@ -28,7 +29,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathEditState
 import com.kylecorry.trail_sense.tools.paths.infrastructure.PathElevationPrefetcher
 import java.time.Instant
 
-class MapToolLayerManager {
+class MapToolLayerManager : IMapLayerManager {
     private val selectedPointLayer = ConfigurableGeoJsonLayer()
     private val distanceLayer = MapDistanceLayer().apply { isEnabled = false }
     private var onDistanceChangedCallback: ((Distance) -> Unit)? = null
@@ -36,12 +37,10 @@ class MapToolLayerManager {
     private val elevationPrefetcher = PathElevationPrefetcher()
     private val repo = DependencyRegistry.get<MapLayerPreferenceRepo>()
 
-    var key: Int = 0
-
     private var isRunning = false
     private val runningLock = Any()
 
-    fun resume(view: IMapView, fragment: Fragment) {
+    override fun resume(view: IMapView, fragment: Fragment, onLayersChanged: () -> Unit) {
         synchronized(runningLock) {
             isRunning = true
         }
@@ -81,11 +80,11 @@ class MapToolLayerManager {
                 }
             }
 
-            key++
+            onLayersChanged()
         }
     }
 
-    fun pause(view: IMapView) {
+    override fun pause(view: IMapView) {
         synchronized(runningLock) {
             isRunning = false
             view.stop()

@@ -1,719 +1,398 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
-import com.kylecorry.andromeda.alerts.dialog
-import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
-import com.kylecorry.andromeda.core.sensors.Quality
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.kylecorry.andromeda.core.sensors.IAltimeter
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setTextDistinct
-import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.core.ui.useCallback
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.observe
-import com.kylecorry.andromeda.fragments.observeFlow
 import com.kylecorry.andromeda.fragments.show
-import com.kylecorry.andromeda.sense.clinometer.Clinometer
-import com.kylecorry.andromeda.sense.orientation.DeviceOrientation
-import com.kylecorry.luna.concurrency.onIO
-import com.kylecorry.luna.time.CoroutineTimer
-import com.kylecorry.luna.concurrency.CoroutineQueueRunner
-import com.kylecorry.luna.concurrency.onMain
-import com.kylecorry.sol.science.geography.projections.AzimuthalEquidistantProjection
+import com.kylecorry.andromeda.fragments.useFlow
+import com.kylecorry.andromeda.sense.compass.ICompass
+import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.sol.units.CompassDirection
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
-import com.kylecorry.trail_sense.settings.ui.CompassCalibrationView
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
-import com.kylecorry.trail_sense.shared.declination.DeclinationFactory
-import com.kylecorry.trail_sense.shared.hooks.HookTriggers
-import com.kylecorry.trail_sense.shared.map_layers.MappableBearing
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
-import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
+import com.kylecorry.trail_sense.shared.extensions.useNavController
+import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
+import com.kylecorry.trail_sense.shared.extensions.useTimer
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.useMapLayersSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.useMapAttribution
+import com.kylecorry.trail_sense.shared.map_layers.ui.useMapLayers
 import com.kylecorry.trail_sense.shared.openTool
 import com.kylecorry.trail_sense.shared.safeRoundToInt
+import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.sensors.SensorService
-import com.kylecorry.trail_sense.shared.sensors.compass.INorthReferencedCompass
 import com.kylecorry.trail_sense.shared.sensors.compass.getTrueNorthBearing
 import com.kylecorry.trail_sense.shared.sharing.Share
+import com.kylecorry.trail_sense.shared.views.DataPointView
+import com.kylecorry.trail_sense.shared.views.NorthReferenceBadge
+import com.kylecorry.trail_sense.shared.views.SensorStatusBadgeView
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
-import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationScreenLock
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.quickactions.NavigationQuickActionBinder
-import com.kylecorry.trail_sense.tools.navigation.ui.data.UpdateAstronomyLayerCommand
-import com.kylecorry.trail_sense.tools.navigation.ui.errors.NavigatorUserErrors
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.NavigationCompassLayerManager
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.BeaconCompassLayer
 import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.MarkerCompassLayer
-import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.NavigationCompassLayer
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
-import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.time.Duration
 import java.time.Instant
 
-class NavigatorFragment : BoundFragment<ActivityNavigatorBinding>() {
+class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator) {
 
-    private lateinit var compass: INorthReferencedCompass
-    private val gps by lazy { sensorService.getGPS(frequency = SensorService.NAVIGATION_GPS_FREQUENCY, tag = "NavigatorFragment") }
-    private lateinit var clinometer: Clinometer
-    private val altimeter by lazy { sensorService.getAltimeter(gps = gps) }
-    private val speedometer by lazy { sensorService.getSpeedometer(gps = gps) }
-    private val declinationProvider by lazy {
-        DeclinationFactory().getDeclinationStrategy(
-            userPrefs,
-            gps
-        )
-    }
-    private var declination = 0f
+    override fun update() {
+        // Views
+        val title = useView<Toolbar>(R.id.navigation_title)
+        val altitudeView = useView<DataPointView>(R.id.altitude)
+        val speedView = useView<DataPointView>(R.id.speed)
+        val radarCompass = useView<RadarCompassMapView>(R.id.radar_compass)
+        val linearCompass = useView<LinearSightingCompassView>(R.id.linear_compass)
+        val attributionView = useView<TextView>(R.id.map_attribution)
+        val northReferenceBadge = useView<NorthReferenceBadge>(R.id.north_reference_indicator)
+        val beaconButton = useView<FloatingActionButton>(R.id.beaconBtn)
+        val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.accuracy_view)
+        val navigationSheet = useView<NavigationSheetView>(R.id.navigation_sheet)
 
-    private val userPrefs by lazy { UserPreferences(requireContext()) }
+        // Services
+        val context = useAndroidContext()
+        val activity = useActivity()
+        val prefs = useService<UserPreferences>()
+        val formatter = useService<FormatService>()
+        val sensorService = useService<SensorService>()
+        val navigator = useService<Navigator>()
+        val hasCompass = useMemo(sensorService) { sensorService.hasCompass() }
 
-    private val beaconRepo by lazy { BeaconRepo.getInstance(requireContext()) }
-
-    private val sensorService by lazy { SensorService(requireContext()) }
-
-    private val navigationService = NavigationService()
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
-
-    private var beacons: Collection<Beacon> = listOf()
-    @Volatile
-    private var nearbyBeacons: List<Beacon> = listOf()
-
-    private var destination: Destination? = null
-    private val navigator by lazy { Navigator.getInstance(requireContext()) }
-
-    // Diagnostics
-    private val errors by lazy { NavigatorUserErrors(this) }
-
-    // Data commands
-    private val updateAstronomyLayerCommand by lazy {
-        UpdateAstronomyLayerCommand(
-            astronomyCompassLayer,
-            requireContext(),
-            userPrefs,
-            gps,
-            { declination },
-            { lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED) }
-        )
-    }
-
-    private val loadBeaconsRunner = CoroutineQueueRunner()
-
-    private val layers = NavigationCompassLayerManager()
-    private var layerSheet: MapLayersBottomSheet? = null
-
-    // Compass layers
-    private val beaconCompassLayer = BeaconCompassLayer()
-    private val astronomyCompassLayer = MarkerCompassLayer()
-    private val navigationCompassLayer = NavigationCompassLayer()
-
-    // Feature availability
-    private val hasCompass by lazy { sensorService.hasCompass() }
-
-    // Cached preferences
-    private val baseDistanceUnits by lazy { userPrefs.baseDistanceUnits }
-    private val isNearbyEnabled by lazy { userPrefs.navigation.showMultipleBeacons }
-    private val isNearbyLinearOnly by lazy { userPrefs.navigation.showNearbyBeaconsOnlyOnLinearCompass }
-    private val nearbyCount by lazy { userPrefs.navigation.numberOfVisibleBeacons }
-    private val nearbyDistance
-        get() = userPrefs.navigation.maxBeaconDistance
-    private val styleChooser by lazy { CompassStyleChooser(userPrefs.navigation, hasCompass) }
-    private val useTrueNorth by lazy { userPrefs.compass.useTrueNorth }
-    private val screenLock by lazy { NavigationScreenLock(userPrefs.navigation.keepScreenUnlockedWhileOpen) }
-
-
-    // State
-    private var diagnosticResults by state<Map<Int, List<String>>>(emptyMap())
-
-    private val northReferenceHideTimer = CoroutineTimer {
-        if (isBound) {
-            binding.northReferenceIndicator.showLabel = false
-        }
-    }
-
-    private val triggers = HookTriggers()
-
-    // The compass quality is unknown until it reports its first reading
-    private var checkCalibrationOnNextReading = false
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        activity?.let { screenLock.releaseLock(it) }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        checkCalibrationOnNextReading =
-            arguments?.getBoolean(ARG_NAVIGATION_STARTED) ?: false
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val sensorDelay = userPrefs.compass.updateFrequency.sensorDelay
-        val orientation = sensorService.getOrientation(sensorDelay)
-        compass = sensorService.getCompass(orientation, sensorDelay)
-        clinometer = Clinometer(orientation, isAugmentedReality = true)
-        super.onViewCreated(view, savedInstanceState)
-
-        observeFlow(navigator.destination) {
-            destination = it
-        }
-
-        // Observe diagnostics
-        listOf(
-            GPSDiagnosticScanner(gps),
-            MagnetometerDiagnosticScanner()
-        ).mapIndexed { index, scanner ->
-            observeFlow(
-                scanner.fullScan(requireContext()),
-                BackgroundMinimumState.Resumed
-            ) { results ->
-                diagnosticResults = diagnosticResults + (index to results.map { it.id })
-            }
-        }
-
-        binding.linearCompass.setCompassLayers(
+        // Sensors
+        // The compass is recreated when its settings change
+        val compassSettings = useMemo(prefs, resetOnResume) {
             listOf(
-                astronomyCompassLayer,
-                beaconCompassLayer,
-                navigationCompassLayer
+                prefs.compass.source,
+                prefs.compass.compassSmoothing,
+                prefs.compass.useTrueNorth,
+                prefs.compass.updateFrequency
             )
+        }
+        val useTrueNorth = useMemo(compassSettings) { prefs.compass.useTrueNorth }
+        val compassDelay = useMemo(compassSettings) { prefs.compass.updateFrequency.sensorDelay }
+        // The compass and clinometer share an orientation sensor
+        val orientationSensor = useMemo(sensorService, compassSettings) {
+            sensorService.getOrientation(compassDelay)
+        }
+        val sensors = useNavigationSensors(
+            SensorService.NAVIGATION_GPS_FREQUENCY,
+            compassDelay = compassDelay,
+            orientationSensor = orientationSensor
         )
-        binding.radarCompass.setCompassLayers(
-            listOfNotNull(
-                astronomyCompassLayer,
-                if (isNearbyLinearOnly) null else beaconCompassLayer,
-                navigationCompassLayer
-            )
+        val navigation = sensors.values
+        val gps = sensors.gps
+        val compass = sensors.compass
+        val altimeter = sensors.altimeter
+        val location = navigation.location
+        val altitude = navigation.elevation.value
+        val speed = navigation.speed.value
+        val declination = navigation.declination
+        val azimuth = navigation.bearing.value
+
+        val destination = useFlow(navigator.destination)
+        val nearbyBeacons = useNearbyBeacons(location, destination)
+        val compassStyle = useCompassStyle(orientationSensor, hasCompass)
+
+        // Radar map
+        val radarMap = radarCompass.map
+        useEffect(radarMap, prefs, resetOnResume) {
+            radarMap.useDensityPixelsForZoom = !prefs.navigation.highDetailMode
+        }
+
+        val layerManager = useMemo { NavigationCompassLayerManager() }
+        val layers = useMapLayers(layerManager, radarMap, resetOnResume)
+        val showLayersSheet = useMapLayersSheet(
+            NavigationToolRegistration.MAP_ID,
+            onShow = layers.pause,
+            onDismiss = layers.resume
         )
+        useMapAttribution(radarMap, attributionView, layers.key, compassStyle == CompassStyle.Radar)
 
-
-        binding.speed.setShowDescription(false)
-        binding.altitude.setShowDescription(false)
-
-        NavigationQuickActionBinder(
-            this,
-            binding,
-            userPrefs.navigation
-        ).bind()
-
-        observeFlow(beaconRepo.getBeacons()) {
-            beacons = it
-            updateNearbyBeacons()
+        // Compass style
+        useEffect(linearCompass, radarCompass, compassStyle) {
+            linearCompass.isInvisible = compassStyle != CompassStyle.Linear
+            radarCompass.isInvisible = compassStyle != CompassStyle.Radar
         }
 
-        observe(compass) { }
-        observe(clinometer) { }
-        observe(altimeter) { }
-        observe(gps) { }
-        observe(speedometer) { }
-
-        binding.navigationTitle.subtitle.setOnLongClickListener {
-            Share.shareLocation(
-                this,
-                gps.location
-            )
-            true
-        }
-
-        binding.navigationTitle.subtitle.setOnClickListener {
-            val sheet = LocationBottomSheet()
-            sheet.gps = gps
-            sheet.show(this)
-        }
-
-        binding.altitude.setOnClickListener {
-            val sheet = AltitudeBottomSheet()
-            sheet.currentAltitude = Reading(altimeter.altitude, Instant.now())
-            sheet.show(this)
-        }
-
-        binding.linearCompass.setOnClickListener {
-            toggleDestinationBearing()
-        }
-
-        binding.beaconBtn.setOnClickListener {
-            findNavController().openTool(Tools.BEACONS)
-        }
-
-        binding.beaconBtn.setOnLongClickListener {
-            val bundle = if (gps.hasValidReading) {
-                Bundle().apply {
-                    putParcelable("initial_location", GeoUri(
-                        gps.location,
-                        if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
-                    ))
-                }
+        useEffect(radarCompass, title, northReferenceBadge, hasCompass, prefs) {
+            if (!hasCompass) {
+                radarCompass.shouldDrawDial = prefs.navigation.showDialTicksWhenNoCompass
+                radarCompass.shouldDrawAzimuthIndicator = false
+                title.title.isVisible = false
+                northReferenceBadge.isVisible = false
             } else {
-                null
+                radarCompass.shouldDrawAzimuthIndicator = prefs.navigation.showAzimuthIndicator
             }
-            findNavController().openTool(Tools.BEACONS, bundle)
-            true
         }
 
-        binding.accuracyView.setSensors(gps, compass)
-        binding.accuracyView.setOnClickListener { displayAccuracyTips() }
-
-        binding.mapAttribution.setupMapAttribution()
-        binding.radarCompassMap.setOnSingleTapListener {
-            toggleDestinationBearing()
+        useEffect(northReferenceBadge, useTrueNorth, resetOnResume) {
+            northReferenceBadge.showDetailsOnClick = true
+            northReferenceBadge.useTrueNorth = useTrueNorth
+            northReferenceBadge.showLabelTemporarily(Duration.ofSeconds(5))
         }
 
-        binding.radarCompassMap.setOnLongPressListener {
-            layerSheet?.dismiss()
-            layerSheet = MapLayersBottomSheet(
-                NavigationToolRegistration.MAP_ID
+        // Toolbar
+        useEffect(title, prefs) {
+            NavigationQuickActionBinder(this, title, prefs.navigation).bind()
+        }
+
+        useFlashlightLockout(linearCompass, title)
+
+        useEffect(title, gps) {
+            title.subtitle.setOnLongClickListener {
+                Share.shareLocation(this, gps.location)
+                true
+            }
+
+            title.subtitle.setOnClickListener {
+                val sheet = LocationBottomSheet()
+                sheet.gps = gps
+                sheet.show(this)
+            }
+        }
+
+        // Altitude and speed
+        useEffect(altitudeView, speedView) {
+            altitudeView.setShowDescription(false)
+            speedView.setShowDescription(false)
+        }
+
+        useEffect(altitudeView, altimeter) {
+            altitudeView.setOnClickListener {
+                val sheet = AltitudeBottomSheet()
+                sheet.currentAltitude = Reading(altimeter.altitude, Instant.now())
+                sheet.show(this)
+            }
+        }
+
+        useEffect(altitudeView, altitude, formatter, prefs, resetOnResume) {
+            altitudeView.title = formatter.formatDistance(
+                Distance.meters(altitude).convertTo(prefs.baseDistanceUnits)
             )
-            layers.pause(binding.radarCompassMap)
-            layerSheet?.setOnDismissListener {
-                layers.resume(binding.radarCompassMap, this)
+        }
+
+        useEffect(speedView, speed, formatter, resetOnResume) {
+            speedView.title = formatter.formatSpeed(speed)
+        }
+
+        useBeaconButton(beaconButton, gps, altimeter)
+
+        // Sensor status
+        val showAccuracyTips = useCallback<Unit>(context, gps, compass) {
+            ImproveAccuracyAlerter(context).alert(listOf(gps, compass))
+        }
+
+        useEffect(sensorStatusBadges, gps, compass, showAccuracyTips) {
+            sensorStatusBadges.setSensors(gps, compass)
+            sensorStatusBadges.setOnClickListener { showAccuracyTips() }
+        }
+
+        useNavigatorErrors(gps, showAccuracyTips, resetOnResume)
+
+        val wasNavigationStarted = useMemo {
+            arguments?.getBoolean(ARG_NAVIGATION_STARTED) ?: false
+        }
+        useCompassCalibrationPrompt(wasNavigationStarted, compass)
+
+        // Navigation
+        val toggleDestinationBearing =
+            useToggleDestinationBearing(destination, hasCompass, compass, gps, navigationSheet)
+
+        useEffect(linearCompass, radarCompass, toggleDestinationBearing, showLayersSheet) {
+            linearCompass.setOnClickListener { toggleDestinationBearing() }
+            radarCompass.setOnSingleTapListener(toggleDestinationBearing)
+            radarCompass.setOnLongPressListener(showLayersSheet)
+        }
+
+        val screenLock = useMemo(prefs) {
+            NavigationScreenLock(prefs.navigation.keepScreenUnlockedWhileOpen)
+        }
+
+        useEffect(screenLock, activity, destination, resetOnResume) {
+            screenLock.updateLock(activity, destination != null)
+        }
+
+        useDestroyEffect(screenLock, activity) {
+            screenLock.releaseLock(activity)
+        }
+
+        useNavigationSheet(navigationSheet, destination, nearbyBeacons, navigation)
+
+        // Compass
+        val azimuthText = useMemo(azimuth.safeRoundToInt(), formatter) {
+            val degrees = formatter.formatDegrees(azimuth, replace360 = true).padStart(4, ' ')
+            val direction = formatter.formatDirection(CompassDirection.nearest(azimuth)).padStart(2, ' ')
+            "$degrees   $direction"
+        }
+
+        useEffect(title, azimuthText, hasCompass) {
+            if (hasCompass) {
+                title.title.setTextDistinct(azimuthText)
             }
-            layerSheet?.show(this)
         }
 
-        binding.radarCompassMap.isPanEnabled = false
-        binding.radarCompassMap.isFlingEnabled = false
-        binding.radarCompassMap.backgroundColorOverride =
-            Resources.color(requireContext(), R.color.colorSecondary)
-        binding.radarCompassMap.minScale = 0.001f
-        binding.radarCompassMap.mapCenter = gps.location
-        binding.radarCompassMap.metersPerProjectedUnit = 1.0
-        binding.radarCompassMap.latitudeScaleFactor = { 1f }
-        binding.radarCompassMap.projection = AzimuthalEquidistantProjection(gps.location)
-        binding.radarCompassMap.resolutionPixels = userPrefs.navigation.radarCompassScale
-        val radarCompassMap = binding.radarCompassMap
-        val radarCompass = binding.radarCompass
-        val updateRadius = {
-            val radiusMeters = radarCompassMap.resolutionPixels * radarCompassMap.width / 2f
-            radarCompass.setRadiusDistance(Distance.meters(radiusMeters))
-        }
-        binding.radarCompassMap.setOnScaleChangeListener(true) { resolutionPixels ->
-            updateRadius()
-            userPrefs.navigation.radarCompassScale = resolutionPixels
-        }
-        // The radius depends on the width, which may not be known when the scale is first set
-        binding.radarCompassMap.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
-            updateRadius()
+        val compassViews = useMemo(radarCompass, linearCompass) {
+            listOf<ICompassView>(radarCompass, linearCompass)
         }
 
-        if (!hasCompass) {
-            binding.radarCompass.shouldDrawDial = userPrefs.navigation.showDialTicksWhenNoCompass
-            binding.radarCompass.shouldDrawAzimuthIndicator = false
-            binding.navigationTitle.title.isVisible = false
-            binding.northReferenceIndicator.isVisible = false
-        } else {
-            binding.radarCompass.shouldDrawAzimuthIndicator =
-                userPrefs.navigation.showAzimuthIndicator
+        useEffect(compassViews, radarCompass, compass, azimuth, declination, resetOnResume) {
+            compassViews.forEach {
+                it.azimuth = azimuth
+                it.declination = declination
+            }
+            radarCompass.trueNorthAzimuth = compass.getTrueNorthBearing()
         }
 
-        scheduleUpdates(INTERVAL_30_FPS)
+        useEffect(
+            title,
+            compassViews,
+            radarCompass,
+            location,
+            navigation.locationAccuracy,
+            layers.key,
+            formatter,
+            resetOnResume
+        ) {
+            title.subtitle.setTextDistinct(formatter.formatLocation(location))
+            compassViews.forEach { it.compassCenter = location }
+            radarCompass.locationAccuracy = navigation.locationAccuracy
+        }
+
+        useCompassLayers(linearCompass, radarCompass, destination, nearbyBeacons, navigation, resetOnResume)
+
+        // The radar's layers can change without the compass moving
+        useTimer(RADAR_INVALIDATION_INTERVAL) {
+            radarCompass.redraw()
+        }
     }
 
-    private fun toggleDestinationBearing() {
-        inBackground {
+    private fun useFlashlightLockout(linearCompass: LinearSightingCompassView, title: Toolbar) {
+        val prefs = useService<UserPreferences>()
+        useEffect(linearCompass, title, prefs) {
+            linearCompass.setOnCameraActiveChangeListener { isCameraActive ->
+                // TODO: Extract this logic to the flashlight (if camera is in use)
+                if (prefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
+                    title.rightButton.isClickable = !isCameraActive
+                }
+                if (prefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
+                    title.leftButton.isClickable = !isCameraActive
+                }
+            }
+        }
+    }
+
+    private fun useBeaconButton(button: FloatingActionButton, gps: IGPS, altimeter: IAltimeter) {
+        val navController = useNavController()
+        useEffect(button, navController, gps, altimeter) {
+            button.setOnClickListener {
+                navController.openTool(Tools.BEACONS)
+            }
+
+            button.setOnLongClickListener {
+                val bundle = if (gps.hasValidReading) {
+                    Bundle().apply {
+                        putParcelable(
+                            "initial_location",
+                            GeoUri(
+                                gps.location,
+                                if (altimeter.hasValidReading) altimeter.altitude else gps.altitude
+                            )
+                        )
+                    }
+                } else {
+                    null
+                }
+                navController.openTool(Tools.BEACONS, bundle)
+                true
+            }
+        }
+    }
+
+    private fun useToggleDestinationBearing(
+        destination: Destination?,
+        hasCompass: Boolean,
+        compass: ICompass,
+        gps: IGPS,
+        navigationSheet: NavigationSheetView
+    ): () -> Unit {
+        val navigator = useService<Navigator>()
+        return useCallback<Unit>(destination, hasCompass, compass, gps, navigator, navigationSheet) {
             when (destination) {
                 null -> if (hasCompass) {
-                    // TODO: Wait for GPS location to be up to date (show a loading indicator)
-                    navigator.navigateToBearing(compass.rawBearing, gps.location)
-                }
-
-                is Destination.Bearing -> onMain {
-                    if (isBound) {
-                        binding.navigationSheet.cancelNavigation()
+                    inBackground {
+                        // TODO: Wait for GPS location to be up to date (show a loading indicator)
+                        navigator.navigateToBearing(compass.bearing.value, gps.location)
                     }
                 }
 
-                // Beacons and paths are only cancelled with the navigation sheet's cancel button
+                is Destination.Bearing -> navigationSheet.cancelNavigation()
+
+                // Beacons and paths are only canceled with the navigation sheet's cancel button
                 else -> {}
             }
         }
     }
 
-    private fun handleShowWhenLocked() {
-        activity?.let { screenLock.updateLock(it, destination != null) }
-    }
-
-    fun displayAccuracyTips() {
-        context ?: return
-
-        val alerter = ImproveAccuracyAlerter(requireContext())
-        alerter.alert(listOf(gps, compass))
-    }
-
-    private fun updateAstronomyData() {
-        inBackground {
-            if (gps.location == Coordinate.zero) {
-                return@inBackground
-            }
-
-            updateAstronomyLayerCommand.execute()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        binding.radarCompassMap.useDensityPixelsForZoom =
-            !userPrefs.navigation.highDetailMode
-        layers.resume(binding.radarCompassMap, this)
-        binding.radarCompass.bindMapView(binding.radarCompassMap)
-
-        // Show the north reference indicator
-        binding.northReferenceIndicator.showDetailsOnClick = true
-        binding.northReferenceIndicator.useTrueNorth = useTrueNorth
-        binding.northReferenceIndicator.showLabel = true
-        northReferenceHideTimer.once(Duration.ofSeconds(5))
-    }
-
-    override fun onPause() {
-        super.onPause()
-        astronomyCompassLayer.clearMarkers()
-        loadBeaconsRunner.cancel()
-        errors.reset()
-        layerSheet?.setOnDismissListener(null)
-        layerSheet?.dismiss()
-        layers.pause(binding.radarCompassMap)
-        northReferenceHideTimer.stop()
-    }
-
-    private fun updateNearbyBeacons() {
-        inBackground {
-            onIO {
-                loadBeaconsRunner.skipIfRunning {
-                    nearbyBeacons = navigationService.getVisibleBeacons(
-                        gps.location,
-                        beacons,
-                        (destination as? Destination.Beacon)?.beacon,
-                        isNearbyEnabled,
-                        nearbyCount,
-                        nearbyDistance
-                    )
-                }
-            }
-        }
-    }
-
-    private fun getDestinationBearing(): Float? {
-        return destination?.let { navigator.getBearing(gps.location, it, declination).value }
-    }
-
-    private fun getSelectedBeacon(nearby: Collection<Beacon>): Beacon? {
-        return navigationService.getSelectedBeacon(
-            (destination as? Destination.Beacon)?.beacon,
-            gps.location,
-            compass.rawBearing,
-            nearby,
-            declination,
-            useTrueNorth
-        )
-    }
-
-    override fun onUpdate() {
-        super.onUpdate()
-
-        if (!isBound) {
-            return
-        }
-
-        effect(
-            "compass_layers",
-            destination,
-            gps.location,
-            declination,
-            nearbyBeacons,
-            lifecycleHookTrigger.onResume()
-        ) {
-            updateCompassLayers()
-        }
+    private fun useNavigationSheet(
+        navigationSheet: NavigationSheetView,
+        destination: Destination?,
+        nearbyBeacons: List<Beacon>,
+        values: NavigationSensorValues
+    ) {
+        val prefs = useService<UserPreferences>()
+        val navigationService = useMemo { NavigationService() }
 
         // TODO: Move selected beacon updating to a coroutine
-        effect(
-            "selected_beacon",
+        // The sheet only needs to update when the rounded bearing changes
+        useEffect(
+            navigationSheet,
             destination,
-            gps.location,
-            speedometer.speed.value,
-            altimeter.altitude,
-            declination,
-            compass.rawBearing.safeRoundToInt(),
-            lifecycleHookTrigger.onResume()
+            nearbyBeacons,
+            values.location,
+            values.elevation,
+            values.speed,
+            values.declination,
+            values.bearing.value.safeRoundToInt(),
+            resetOnResume
         ) {
-            val currentDestination =
-                destination ?: getSelectedBeacon(nearbyBeacons)?.let { Destination.Beacon(it) }
+            val currentDestination = destination ?: navigationService.getFacingBeacon(
+                values.location,
+                values.bearing.value,
+                nearbyBeacons,
+                values.declination,
+                prefs.compass.useTrueNorth
+            )?.let { Destination.Beacon(it) }
+
             if (currentDestination != null) {
-                binding.navigationSheet.updateNavigationSensorValues(
-                    gps.location,
-                    altimeter.altitude,
-                    speedometer.speed.value,
-                    declination,
-                    compass.rawBearing
-                )
-                binding.navigationSheet.show(currentDestination, destination != null)
+                navigationSheet.updateNavigationSensorValues(values)
+                navigationSheet.show(currentDestination, destination != null)
             } else {
-                binding.navigationSheet.hide()
+                navigationSheet.hide()
             }
         }
-
-        effect("calibration_prompt", compass.quality) {
-            if (checkCalibrationOnNextReading && compass.quality != Quality.Unknown) {
-                checkCalibrationOnNextReading = false
-                if (compass.quality == Quality.Poor) {
-                    showCalibrationDialog()
-                }
-            }
-        }
-
-        effect("speed", speedometer.speed.value, lifecycleHookTrigger.onResume()) {
-            binding.speed.title = formatService.formatSpeed(speedometer.speed.value)
-        }
-
-        effect("azimuth", compass.rawBearing, lifecycleHookTrigger.onResume()) {
-            updateCompassBearing()
-        }
-
-        useEffect(triggers.frequency("compass_invalidation", Duration.ofSeconds(1))) {
-            binding.radarCompass.invalidate()
-        }
-
-        effect("altitude", altimeter.altitude, lifecycleHookTrigger.onResume()) {
-            binding.altitude.title = formatService.formatDistance(
-                Distance.meters(altimeter.altitude).convertTo(baseDistanceUnits)
-            )
-        }
-
-        effect("location", gps.location, layers.key, lifecycleHookTrigger.onResume()) {
-            updateLocation()
-        }
-
-        effect(
-            "astronomy",
-            triggers.distance(
-                "astronomy",
-                gps.location,
-                ASTRONOMY_UPDATE_DISTANCE,
-                highAccuracy = false
-            ),
-            triggers.frequency("astronomy", ASTRONOMY_UPDATE_FREQUENCY),
-            lifecycleHookTrigger.onResume()
-        ) {
-            updateAstronomyData()
-        }
-
-        effect("navigation", destination, lifecycleHookTrigger.onResume()) {
-            handleShowWhenLocked()
-        }
-
-        effect(
-            "attribution",
-            layers.key,
-            binding.radarCompass.isVisible
-        ) {
-            inBackground {
-                if (binding.radarCompass.isVisible) {
-                    val attribution = binding.radarCompassMap.getAttribution(requireContext())
-                    onMain {
-                        binding.mapAttribution.text = attribution
-                        binding.mapAttribution.isVisible = attribution != null
-                    }
-                } else {
-                    onMain {
-                        binding.mapAttribution.isVisible = false
-                    }
-                }
-            }
-        }
-
-        effect("device_orientation", clinometer.incline.toInt(), lifecycleHookTrigger.onResume()) {
-            val deviceOrientation = if (clinometer.incline > -30) {
-                DeviceOrientation.Orientation.Portrait
-            } else {
-                DeviceOrientation.Orientation.Flat
-            }
-            val style =
-                styleChooser.getStyle(deviceOrientation)
-
-            binding.linearCompass.isInvisible = style != CompassStyle.Linear
-            binding.radarCompass.isInvisible = style != CompassStyle.Radar
-            binding.radarCompassMap.isInvisible = style != CompassStyle.Radar
-        }
-
-        effect("sighting_compass_flashlight", binding.linearCompass.isCameraActive) {
-            // TODO: Extract this logic to the flashlight (if camera is in use)
-            if (userPrefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-                binding.navigationTitle.rightButton.isClickable =
-                    !binding.linearCompass.isCameraActive
-            }
-            if (userPrefs.navigation.leftButton == Tools.QUICK_ACTION_FLASHLIGHT) {
-                binding.navigationTitle.leftButton.isClickable =
-                    !binding.linearCompass.isCameraActive
-            }
-        }
-
-        effect("error_messages", diagnosticResults, lifecycleHookTrigger.onResume()) {
-            val codes = diagnosticResults.values.flatten().distinct()
-            errors.update(codes)
-        }
-    }
-
-    private fun updateCompassBearing() {
-        val bearing = compass.rawBearing
-
-        // Azimuth
-        if (hasCompass) {
-            val titleText = memo("azimuth_title", bearing.safeRoundToInt()) {
-                val azimuthText =
-                    formatService.formatDegrees(bearing, replace360 = true)
-                        .padStart(4, ' ')
-                val directionText = formatService.formatDirection(CompassDirection.nearest(bearing))
-                    .padStart(2, ' ')
-                "$azimuthText   $directionText"
-            }
-            binding.navigationTitle.title.setTextDistinct(titleText)
-        }
-
-        // Compass
-        listOf<ICompassView>(
-            binding.radarCompass,
-            binding.linearCompass
-        ).forEach {
-            it.azimuth = bearing
-            it.declination = declination
-        }
-
-        val actualBearing = compass.getTrueNorthBearing()
-        binding.radarCompassMap.userAzimuth = actualBearing
-        binding.radarCompassMap.mapAzimuth = actualBearing.value
-    }
-
-    private fun updateLocation() {
-        val location = gps.location
-
-        declination = declinationProvider.getDeclination()
-        compass.declination = declination
-
-        binding.navigationTitle.subtitle.setTextDistinct(
-            formatService.formatLocation(location)
-        )
-
-        binding.radarCompassMap.userLocationAccuracy =
-            gps.horizontalAccuracy?.let { Distance.meters(it) }
-
-        // Compass center point
-        listOf<ICompassView>(
-            binding.radarCompass,
-            binding.linearCompass
-        ).forEach {
-            it.compassCenter = location
-        }
-
-        binding.radarCompassMap.mapCenter = location
-        binding.radarCompassMap.userLocation = location
-
-        binding.radarCompassMap.projection = AzimuthalEquidistantProjection(location)
-
-        updateNearbyBeacons()
-    }
-
-    private fun updateCompassLayers() {
-        inBackground {
-            val destBearing = getDestinationBearing()
-            val destinationBeacon = (destination as? Destination.Beacon)?.beacon
-            val destColor = destinationBeacon?.color ?: NavigationColors.bearing
-
-            val direction = destBearing?.let {
-                MappableBearing(it, destColor)
-            }
-
-            // Update beacon layers
-            beaconCompassLayer.setBeacons(nearbyBeacons)
-            beaconCompassLayer.highlight(destinationBeacon)
-
-            // Destination
-            if (destinationBeacon != null) {
-                navigationCompassLayer.setDestination(destinationBeacon)
-            } else {
-                navigationCompassLayer.setDestination(direction)
-            }
-
-            onMain {
-                binding.linearCompass.invalidate()
-                binding.radarCompass.invalidate()
-            }
-        }
-    }
-
-    private fun showCalibrationDialog() {
-        if (userPrefs.navigation.showCalibrationOnNavigateDialog) {
-            val calibrationView = CompassCalibrationView(requireContext())
-            val doNotAskAgain = CheckBox(requireContext()).apply {
-                text = getString(R.string.do_not_ask_again)
-            }
-            val contentView = LinearLayout(requireContext()).apply {
-                orientation = LinearLayout.VERTICAL
-                addView(
-                    calibrationView,
-                    LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        Resources.dp(requireContext(), 200f).toInt()
-                    )
-                )
-                addView(
-                    doNotAskAgain,
-                    LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        topMargin = Resources.dp(requireContext(), 8f).toInt()
-                    }
-                )
-            }
-            dialog(
-                getString(R.string.calibrate_compass_dialog_title),
-                getString(
-                    R.string.calibrate_compass_on_navigate_dialog_content,
-                    getString(android.R.string.ok)
-                ),
-                contentView = contentView,
-                cancelText = null,
-                cancelOnOutsideTouch = false,
-                scrollable = true
-            ) { cancelled ->
-                if (!cancelled && doNotAskAgain.isChecked) {
-                    userPrefs.navigation.showCalibrationOnNavigateDialog = false
-                }
-            }
-        }
-    }
-
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): ActivityNavigatorBinding {
-        return ActivityNavigatorBinding.inflate(layoutInflater, container, false)
     }
 
     companion object {
         const val ARG_NAVIGATION_STARTED = "navigation_started"
-        const val CACHE_CAMERA_ZOOM = "sighting_compass_camera_zoom"
-        private val ASTRONOMY_UPDATE_DISTANCE = Distance.kilometers(1f).meters()
-        private val ASTRONOMY_UPDATE_FREQUENCY = Duration.ofMinutes(1)
+        private const val RADAR_INVALIDATION_INTERVAL = 1000L
     }
 }

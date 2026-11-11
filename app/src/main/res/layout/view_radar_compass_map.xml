@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.kylecorry.trail_sense.tools.map.ui.MapView
+        android:id="@+id/radar_compass_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.kylecorry.trail_sense.tools.navigation.ui.RadarCompassView
+        android:id="@+id/radar_compass_dial"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false" />
+
+</merge>

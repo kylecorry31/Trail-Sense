@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.navigation.ui.errors
 
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.kylecorry.andromeda.core.sensors.Quality
 import com.kylecorry.trail_sense.R
@@ -9,12 +10,14 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.alerts.MissingSensorAlert
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.views.UserError
-import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.GPSDiagnosticScanner
 import com.kylecorry.trail_sense.tools.tools.infrastructure.diagnostics.MagnetometerDiagnosticScanner
 import java.util.Locale
 
-class NavigatorUserErrors(private val fragment: NavigatorFragment) {
+class NavigatorUserErrors(
+    private val fragment: Fragment,
+    private val onShowAccuracyTips: () -> Unit
+) {
 
     private val banner = fragment.requireMainActivity().errorBanner
     private val formatter = FormatService.getInstance(fragment.requireContext())
@@ -57,7 +60,7 @@ class NavigatorUserErrors(private val fragment: NavigatorFragment) {
             R.drawable.ic_compass_icon,
             fragment.getString(R.string.how)
         ) {
-            fragment.displayAccuracyTips()
+            onShowAccuracyTips()
             banner.dismiss(ErrorBannerReason.CompassPoor)
         },
         MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE to UserError(

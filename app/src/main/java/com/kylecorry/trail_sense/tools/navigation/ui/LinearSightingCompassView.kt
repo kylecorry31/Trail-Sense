@@ -27,8 +27,8 @@ import com.kylecorry.trail_sense.tools.navigation.ui.layers.compass.ICompassView
 class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
     ConstraintLayout(context, attrs), ICompassView {
 
-    val isCameraActive: Boolean
-        get() = sightingCompass.isRunning()
+    private var isCameraActive = false
+    private var onCameraActiveChange: ((isActive: Boolean) -> Unit)? = null
 
     private var showSightingCompass = false
     private var isStarted = false
@@ -163,6 +163,19 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             binding.sightingCompassBtn.isChecked = false
             updateTimer.stop()
         }
+        notifyCameraActiveChange()
+    }
+
+    fun setOnCameraActiveChangeListener(listener: ((isActive: Boolean) -> Unit)?) {
+        onCameraActiveChange = listener
+    }
+
+    private fun notifyCameraActiveChange() {
+        val isActive = sightingCompass.isRunning()
+        if (isActive != isCameraActive) {
+            isCameraActive = isActive
+            onCameraActiveChange?.invoke(isActive)
+        }
     }
 
     private fun setSightingCompass(shouldShow: Boolean) {
@@ -172,6 +185,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             binding.linearCompass.range = 180f
             updateTimer.stop()
             binding.sightingCompassBtn.isChecked = false
+            notifyCameraActiveChange()
         } else if (!sightingCompass.isRunning()) {
             binding.sightingCompassBtn.isChecked = true
             val fragment = findFragment<AndromedaFragment>()
@@ -182,6 +196,7 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
                     if (sightingCompass.isRunning()) {
                         updateTimer.interval(250)
                     }
+                    notifyCameraActiveChange()
                 } else {
                     if (!hasPermission) {
                         fragment.alertNoCameraPermission()
@@ -231,6 +246,10 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
 
     override fun draw(bearing: IMappableBearing, stopAt: Coordinate?) {
         binding.linearCompass.draw(bearing, stopAt)
+    }
+
+    override fun redraw() {
+        binding.linearCompass.redraw()
     }
 
 }

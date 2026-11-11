@@ -101,4 +101,8 @@ abstract class BaseCompassView : CanvasView, ICompassView {
         compassLayers.clear()
         compassLayers.addAll(layers)
     }
+
+    override fun redraw() {
+        invalidate()
+    }
 }

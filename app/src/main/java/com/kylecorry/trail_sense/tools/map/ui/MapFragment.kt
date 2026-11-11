@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
-import com.kylecorry.trail_sense.shared.sensors.gps.ISatelliteGPS
 import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
 import androidx.core.view.isVisible
@@ -13,13 +12,10 @@ import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.andromeda.core.system.GeoUri
-import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.core.ui.useCallback
 import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.andromeda.fragments.inBackground
-import com.kylecorry.andromeda.fragments.show
 import com.kylecorry.andromeda.fragments.useArgument
-import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useClickCallback
 import com.kylecorry.andromeda.fragments.useFlow
 import com.kylecorry.andromeda.pickers.Pickers
@@ -43,9 +39,9 @@ import com.kylecorry.trail_sense.shared.extensions.useNavigationSensors
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.extensions.useUnsavedChangesPrompt
 import com.kylecorry.trail_sense.shared.extensions.withCancelableLoading
-import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.MapLayersBottomSheet
-import com.kylecorry.trail_sense.shared.map_layers.ui.setupMapAttribution
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.getAttribution
+import com.kylecorry.trail_sense.shared.map_layers.preferences.ui.useMapLayersSheet
+import com.kylecorry.trail_sense.shared.map_layers.ui.useMapAttribution
+import com.kylecorry.trail_sense.shared.map_layers.ui.useMapLayers
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -108,10 +104,11 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         val prefs = useService<UserPreferences>()
-        val navigation = useNavigationSensors(
-            trueNorth = true,
+        val navigationSensors = useNavigationSensors(
+            forceTrueNorth = true,
             compassDelay = prefs.compass.updateFrequency.sensorDelay
         )
+        val navigation = navigationSensors.values
 
         // This ref is used by listeners to avoid constantly re-registering
         val navigationRef = useRef(navigation)
@@ -156,23 +153,14 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             setLockMode(getNextLockMode(lockMode, hasCompass))
         }
 
-        useEffect(attributionView) {
-            attributionView.setupMapAttribution()
-        }
-
         // Layers
         val manager = useMemo { MapToolLayerManager() }
-        useEffect(manager, mapView, mapTime, manager.key) {
+        val layers = useMapLayers(manager, mapView, resetOnResume)
+        useEffect(manager, mapView, mapTime, layers.key) {
             manager.setTime(mapView, mapTime)
         }
-        useEffectWithCleanup(manager, mapView, resetOnResume) {
-            manager.resume(mapView, this@MapFragment)
-            return@useEffectWithCleanup {
-                manager.pause(mapView)
-            }
-        }
 
-        useEffect(manager.key, mapView) {
+        useEffect(layers.key, mapView) {
             setHasTimeDependentLayers(mapView.layerManager.getLayers().any { it.isTimeDependent })
         }
 
@@ -180,36 +168,13 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             mapView.setBackgroundColor(Color.rgb(127, 127, 127))
         }
 
-        useBackgroundEffect(mapView, manager.key, attributionView) {
-            val attribution = mapView.getAttribution(context)
-            onMain {
-                attributionView.text = attribution
-                attributionView.isVisible = attribution != null
-            }
-        }
+        useMapAttribution(mapView, attributionView, layers.key)
 
-        val layerEditSheet = useMemo(prefs) {
-            MapLayersBottomSheet(
-                MapToolRegistration.MAP_ID
-            )
-        }
-
-        usePauseEffect(layerEditSheet) {
-            tryOrNothing {
-                layerEditSheet.setOnDismissListener(null)
-                layerEditSheet.dismiss()
-            }
-        }
-
-        val adjustLayers = useCallback<Unit>(manager, layerEditSheet, context, mapView) {
-            manager.pause(mapView)
-            layerEditSheet.setOnDismissListener {
-                manager.resume(mapView, this@MapFragment)
-                setHasTimeDependentLayers(
-                    mapView.layerManager.getLayers().any { it.isTimeDependent })
-            }
-            layerEditSheet.show(this)
-        }
+        val adjustLayers = useMapLayersSheet(
+            MapToolRegistration.MAP_ID,
+            onShow = layers.pause,
+            onDismiss = layers.resume
+        )
 
         // Distance
         val (hasUnsavedPath, setHasUnsavedPath) = useState(false)
@@ -307,7 +272,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             mapView.userAzimuth = navigation.bearing
         }
 
-        useEffect(manager, mapView.mapBounds, manager.key) {
+        useEffect(manager, mapView.mapBounds, layers.key) {
             manager.onBoundsChanged()
         }
 
@@ -490,10 +455,8 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         // Sensor status
-        useEffect(sensorStatusBadges, navigation.gps, navigation.compass) {
-            val gps = navigation.gps ?: return@useEffect
-            val compass = navigation.compass ?: return@useEffect
-            sensorStatusBadges.setSensors(gps as ISatelliteGPS, compass)
+        useEffect(sensorStatusBadges, navigationSensors.gps, navigationSensors.compass) {
+            sensorStatusBadges.setSensors(navigationSensors.gps, navigationSensors.compass)
             sensorStatusBadges.setOnClickListener {
                 ImproveAccuracyAlerter(context).alert(sensorStatusBadges.getSensors())
             }

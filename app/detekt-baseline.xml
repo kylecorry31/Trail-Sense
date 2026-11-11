@@ -79,7 +79,6 @@
     <ID>ForbiddenComment:CalibratedProjection.kt:CalibratedProjection$// TODO: Move this into the coordinate bounds class</ID>
     <ID>ForbiddenComment:CalibratedProjection.kt:CalibratedProjection$// TODO: This should be moved into the mercator projection class</ID>
     <ID>ForbiddenComment:CanvasObject.kt:// TODO: Use this on the MapView as well - maybe extract to Andromeda</ID>
-    <ID>ForbiddenComment:CellTowerModel.kt:CellTowerModel$// TODO: Load the whole region of the image and get the towers from it</ID>
     <ID>ForbiddenComment:ClimateFragment.kt:ClimateFragment$// TODO: Break these down (ex. borreal, tiaga)</ID>
     <ID>ForbiddenComment:ClimateFragment.kt:ClimateFragment$// TODO: List out dangers</ID>
     <ID>ForbiddenComment:ClinometerFragment.kt:ClinometerFragment$// TODO: This should just be clinometer.angle</ID>
@@ -205,8 +204,6 @@
     <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$private suspend fun renderFeaturesInBackground</ID>
     <ID>LongMethod:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$private fun convertFeaturesToMarkers</ID>
     <ID>LongMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
-    <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onUpdate</ID>
-    <ID>LongMethod:NavigatorFragment.kt:NavigatorFragment$override fun onViewCreated</ID>
     <ID>LongMethod:PathOverviewFragment.kt:PathOverviewFragment$override fun onViewCreated</ID>
     <ID>LongMethod:PathsSettingsFragment.kt:PathsSettingsFragment$override fun onCreatePreferences</ID>
     <ID>LongMethod:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$override fun onCreatePreferences</ID>

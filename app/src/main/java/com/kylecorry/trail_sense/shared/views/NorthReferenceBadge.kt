@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.views.badge.Badge
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
+import java.time.Duration
 
 class NorthReferenceBadge(
     context: Context,
@@ -31,6 +32,8 @@ class NorthReferenceBadge(
             field = value
             updateBadge()
         }
+
+    private val hideLabel = Runnable { showLabel = false }
 
     var showDetailsOnClick: Boolean = false
         set(value) {
@@ -53,6 +56,17 @@ class NorthReferenceBadge(
         badge.setForegroundTint(Resources.androidTextColorSecondary(context))
         useTrueNorth = false
         addView(badge)
+    }
+
+    fun showLabelTemporarily(duration: Duration) {
+        removeCallbacks(hideLabel)
+        showLabel = true
+        postDelayed(hideLabel, duration.toMillis())
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        removeCallbacks(hideLabel)
     }
 
     private fun updateBadge() {

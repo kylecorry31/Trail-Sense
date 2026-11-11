@@ -19,4 +19,6 @@ interface ICompassView {
     fun draw(reference: IMappableReferencePoint, size: Int? = null)
 
     fun draw(bearing: IMappableBearing, stopAt: Coordinate? = null)
+
+    fun redraw()
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
@@ -24,6 +25,20 @@ internal class CompassStyleChooserTest {
         whenever(prefs.useLinearCompass).thenReturn(useLinear)
         val chooser = CompassStyleChooser(prefs, true)
         assertEquals(expected, chooser.getStyle(orientation))
+    }
+
+    @ParameterizedTest
+    @CsvSource(
+        "0, Linear",
+        "-29, Linear",
+        "-30, Radar",
+        "-90, Radar"
+    )
+    fun getStyleFromIncline(incline: Float, expected: CompassStyle) {
+        val prefs = mock<ICompassStylePreferences>()
+        whenever(prefs.useLinearCompass).thenReturn(true)
+        val chooser = CompassStyleChooser(prefs, true)
+        assertEquals(expected, chooser.getStyle(incline))
     }
 
     @Test

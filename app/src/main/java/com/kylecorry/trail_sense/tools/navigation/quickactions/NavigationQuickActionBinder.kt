@@ -1,15 +1,15 @@
 package com.kylecorry.trail_sense.tools.navigation.quickactions
 
-import com.kylecorry.trail_sense.databinding.ActivityNavigatorBinding
+import androidx.fragment.app.Fragment
 import com.kylecorry.trail_sense.shared.quickactions.IQuickActionBinder
 import com.kylecorry.trail_sense.shared.quickactions.MaterialButtonQuickActionView
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionFactory
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.NavigationPreferences
-import com.kylecorry.trail_sense.tools.navigation.ui.NavigatorFragment
 
 class NavigationQuickActionBinder(
-    private val fragment: NavigatorFragment,
-    private val binding: ActivityNavigatorBinding,
+    private val fragment: Fragment,
+    private val toolbar: Toolbar,
     private val prefs: NavigationPreferences
 ) : IQuickActionBinder {
 
@@ -17,12 +17,12 @@ class NavigationQuickActionBinder(
         val factory = QuickActionFactory()
         val left = factory.create(
             prefs.leftButton,
-            MaterialButtonQuickActionView(binding.navigationTitle.leftButton),
+            MaterialButtonQuickActionView(toolbar.leftButton),
             fragment
         )
         val right = factory.create(
             prefs.rightButton,
-            MaterialButtonQuickActionView(binding.navigationTitle.rightButton),
+            MaterialButtonQuickActionView(toolbar.rightButton),
             fragment
         )
         left.bind(fragment)
