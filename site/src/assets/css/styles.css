@@ -1286,3 +1286,39 @@ th {
 .not-found {
   padding-bottom: 96px;
 }
+
+/* CHAPTER NAVIGATION */
+
+.chapter-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 56px;
+}
+
+.chapter-nav a {
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  transition: border-color 140ms ease;
+}
+
+.chapter-nav a:hover {
+  border-color: var(--accent);
+}
+
+.chapter-nav span {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.chapter-next {
+  grid-column: 2;
+  text-align: right;
+}

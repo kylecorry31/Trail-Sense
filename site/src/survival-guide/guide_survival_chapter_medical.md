@@ -1,5 +1,6 @@
 ---
 title: "2 - Medical"
+page_title: "Medical - Survival Guide"
 ---
 
 <!-- K: medicine, medical, heal, health, injury, sick, ill, first-aid, symptom, treat, prevent, help -->

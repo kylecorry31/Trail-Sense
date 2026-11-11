@@ -1,5 +1,6 @@
 ---
 title: "6 - Food"
+page_title: "Food - Survival Guide"
 ---
 
 <!-- K: food, eat, meal, hunger, hungry -->

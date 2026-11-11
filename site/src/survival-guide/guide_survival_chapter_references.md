@@ -1,5 +1,6 @@
 ---
 title: "9 - References"
+page_title: "References - Survival Guide"
 ---
 
 <!-- K: references, sources, citations, books, manuals, guidelines, websites -->

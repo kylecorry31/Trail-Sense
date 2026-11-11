@@ -1,5 +1,6 @@
 ---
 title: "5 - Fire"
+page_title: "Fire - Survival Guide"
 ---
 
 <!-- K: fire, flame, light, heat, warm, burn -->

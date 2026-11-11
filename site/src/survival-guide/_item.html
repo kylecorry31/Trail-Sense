@@ -17,5 +17,13 @@
   <div class="prose">
     {{{ item.content }}}
   </div>
+  <nav class="chapter-nav" aria-label="Chapters">
+    {{#item.previous}}
+    <a class="chapter-previous" href="{{ url }}"><span>Previous</span>{{ title }}</a>
+    {{/item.previous}}
+    {{#item.next}}
+    <a class="chapter-next" href="{{ url }}"><span>Next</span>{{ title }}</a>
+    {{/item.next}}
+  </nav>
 </article>
 {{{includes.footer}}}

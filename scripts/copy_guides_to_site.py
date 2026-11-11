@@ -93,10 +93,12 @@ for filename in os.listdir(root + "/guides/en-US"):
         with open(destination, 'r', encoding='utf8') as f:
                 content = f.read()
         chapter_number = chapters.index(filename) + 1
-        title = str(chapter_number) + " - " + capitalize_title(destination.split('/')[-1].split('.')[0].replace('guide_survival_chapter', '').replace('_', ' ')).strip()
+        chapter_name = capitalize_title(destination.split('/')[-1].split('.')[0].replace('guide_survival_chapter', '').replace('_', ' ')).strip()
+        title = str(chapter_number) + " - " + chapter_name
         with open(destination, 'w') as f:
             new_content = f"""---
 title: "{title}"
+page_title: "{chapter_name} - Survival Guide"
 ---
 
 {process_markdown_content(content)}

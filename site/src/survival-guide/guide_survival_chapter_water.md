@@ -1,5 +1,6 @@
 ---
 title: "4 - Water"
+page_title: "Water - Survival Guide"
 ---
 
 <!-- K: water, thirst, thirsty, drink -->

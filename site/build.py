@@ -2,7 +2,7 @@ import yaml
 import os
 import shutil
 from generation import get_collection_metadata
-from generation.markdown_converter import get_markdown_metadata, split_front_matter
+from generation.markdown_converter import split_front_matter
 from generation.render import md_to_html, populate_html
 import sys
 from xml.sax.saxutils import escape
@@ -35,6 +35,11 @@ for root, dirs, files in os.walk(source):
     parent = root.replace("\\", "/").replace("src/", "").replace("src", "")
     if parent != "":
         site_data['collections'][parent] = get_collection_metadata(root)
+
+items_by_path = {}
+for collection in site_data['collections'].values():
+    for item in collection['items']:
+        items_by_path[item['path']] = item
 
 ## STEP 3A: Get the includes ##
 include_templates = {}
@@ -86,8 +91,7 @@ for root, dirs, files in os.walk(source):
     for name in files:
         if name.endswith(".md"):
             md_file_path = os.path.join(root, name)
-            url = '/' # TODO: Use the correct url
-            metadata = get_markdown_metadata(md_file_path, url)
+            metadata = items_by_path[md_file_path]
             template = os.path.join(root, "_item.html")
             if not os.path.exists(template):
 

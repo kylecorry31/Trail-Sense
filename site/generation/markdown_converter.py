@@ -52,6 +52,7 @@ def get_markdown_metadata(md_file_path, updated_url):
     metadata, text_without_metadata = split_front_matter(text)
 
     metadata['url'] = updated_url
+    metadata['path'] = md_file_path
     metadata['raw_content'] = text_without_metadata
     md = markdown.Markdown(
         extensions=["toc"],
@@ -91,6 +92,13 @@ def get_collection_metadata(collection_path):
     sort_reverse = any('date' in item or 'order' in item for item in items)
 
     metadata['items'] = sorted(items, key=sort_method, reverse=sort_reverse)
+
+    for i, item in enumerate(metadata['items']):
+        neighbors = {'previous': i - 1, 'next': i + 1}
+        for name, index in neighbors.items():
+            if 0 <= index < len(items):
+                neighbor = metadata['items'][index]
+                item[name] = {'title': neighbor['title'], 'url': neighbor['url']}
 
     categories = {}
     for item in items:

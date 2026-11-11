@@ -1,5 +1,6 @@
 ---
 title: "7 - Navigation"
+page_title: "Navigation - Survival Guide"
 ---
 
 <!-- K: navigate -->

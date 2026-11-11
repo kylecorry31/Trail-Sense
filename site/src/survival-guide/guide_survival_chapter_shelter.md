@@ -1,5 +1,6 @@
 ---
 title: "3 - Shelter"
+page_title: "Shelter - Survival Guide"
 ---
 
 <!-- K: warm, heat -->

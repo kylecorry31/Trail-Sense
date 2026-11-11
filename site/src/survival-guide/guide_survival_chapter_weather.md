@@ -1,5 +1,6 @@
 ---
 title: "8 - Weather"
+page_title: "Weather - Survival Guide"
 ---
 
 <!-- K: weather, condition, sky -->
