@@ -1,6 +1,8 @@
+import datetime
 import os
 import shutil
 import re
+import subprocess
 
 root = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/') + '/..'
 
@@ -103,6 +105,16 @@ title: "{title}"
 
             f.write(new_content)
 
+def get_release_date(version):
+    """Returns the date (YYYY-MM-DD) the version was tagged, or today if it is about to be released."""
+    result = subprocess.run(
+        ["git", "-C", root, "log", "-1", "--format=%cs", "refs/tags/" + version],
+        capture_output=True,
+        text=True,
+    )
+    date = result.stdout.strip()
+    return date if result.returncode == 0 and date else datetime.date.today().isoformat()
+
 # Copy release notes (unreleased notes are not published)
 release_notes_source = root + "/release-notes"
 release_notes_destination = root + "/site/src/release-notes"
@@ -129,6 +141,8 @@ for filename in os.listdir(release_notes_source):
     with open(release_notes_destination + "/" + filename, 'w', encoding='utf8') as f:
         f.write(f"""---
 title: "{version}"
+page_title: "{version} Release Notes"
+date: {get_release_date(version)}
 order: {major * 1000000 + minor * 1000 + patch}
 ---
 

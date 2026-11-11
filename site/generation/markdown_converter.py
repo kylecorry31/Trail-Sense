@@ -1,8 +1,11 @@
 import markdown
 import os
+import datetime
+import re
 import yaml
 
 MIN_TOC_SECTIONS = 3
+MAX_SUMMARY_LENGTH = 160
 
 def get_md_content(md_file_path):
     with open(md_file_path, mode="r", encoding="utf-8") as input_file:
@@ -18,25 +21,35 @@ def get_md_content(md_file_path):
 
     return text
 
+def split_front_matter(text):
+    """Splits text into its YAML front matter (empty if there is none) and the remaining content."""
+    lines = text.split("\n")
+    if lines[0] != "---":
+        return {}, text
+    end = lines.index("---", 1)
+    metadata = yaml.load("\n".join(lines[1:end]), Loader=yaml.FullLoader) or {}
+    return metadata, "\n".join(lines[end + 1:])
+
+def get_summary(md_text):
+    """Returns the first paragraph of the markdown as plain text, or None if it doesn't start with one."""
+    for block in md_text.split("\n\n"):
+        block = " ".join(block.split())
+        if block == "" or block.startswith("<!--"):
+            continue
+        if re.match(r"[#<>|!*-]|\d+\.", block):
+            return None
+        summary = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", block)
+        summary = re.sub(r"[*_`]", "", summary)
+        if len(summary) > MAX_SUMMARY_LENGTH:
+            summary = summary[:MAX_SUMMARY_LENGTH].rsplit(" ", 1)[0] + "..."
+        return summary
+    return None
+
 def get_markdown_metadata(md_file_path, updated_url):
     with open(md_file_path, mode="r", encoding="utf-8") as input_file:
         text = input_file.read()
 
-    lines = text.split("\n")
-
-    metadata_text = ""
-    if lines[0] == "---":
-        i = 1
-        while lines[i] != "---":
-            metadata_text += lines[i] + "\n"
-            i += 1
-        text_without_metadata = "\n".join(lines[i+1:])
-        # Parse the metadata as yaml
-        metadata = yaml.load(metadata_text, Loader=yaml.FullLoader)
-    else:
-        text_without_metadata = text
-        metadata = {}
-
+    metadata, text_without_metadata = split_front_matter(text)
 
     metadata['url'] = updated_url
     metadata['raw_content'] = text_without_metadata
@@ -52,6 +65,13 @@ def get_markdown_metadata(md_file_path, updated_url):
 
     if 'title' not in metadata:
         metadata['title'] = os.path.basename(md_file_path).replace(".md", "")
+
+    if 'description' not in metadata:
+        metadata['description'] = get_summary(text_without_metadata)
+
+    if isinstance(metadata.get('date'), datetime.date):
+        date = metadata['date']
+        metadata['date_display'] = f"{date:%B} {date.day}, {date.year}"
 
     return metadata
 

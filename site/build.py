@@ -2,9 +2,10 @@ import yaml
 import os
 import shutil
 from generation import get_collection_metadata
-from generation.markdown_converter import get_markdown_metadata
+from generation.markdown_converter import get_markdown_metadata, split_front_matter
 from generation.render import md_to_html, populate_html
 import sys
+from xml.sax.saxutils import escape
 
 def read_config():
     if len(sys.argv) > 1:
@@ -25,6 +26,8 @@ site_data = {}
 site_data['title'] = config["title"] if "title" in config else "My Site"
 site_data['description'] = config["description"] if "description" in config else "My site's description"
 site_data['base_url'] = base_url
+# The address the site is published at, used where a relative link won't work
+site_data['url'] = config["url"] if "url" in config else base_url
 site_data['collections'] = {}
 
 ## STEP 2: Assemble the collection metadata (markdown) ##
@@ -34,15 +37,24 @@ for root, dirs, files in os.walk(source):
         site_data['collections'][parent] = get_collection_metadata(root)
 
 ## STEP 3A: Get the includes ##
-includes = {}
+include_templates = {}
 for root, dirs, files in os.walk(os.path.join(source, "_includes")):
     for name in files:
         if name.endswith(".html"):
             with open(os.path.join(root, name), mode="r", encoding="utf-8") as input_file:
-                html = input_file.read()
-            includes[name.replace(".html", "")] = populate_html(site_data, html)
+                include_templates[name.replace(".html", "")] = input_file.read()
 
-site_data['includes'] = includes
+def get_page_data(metadata):
+    """Returns the site data for a single page, with the includes rendered using that page's title and description."""
+    title = metadata.get('page_title') or metadata.get('title')
+    page = {
+        'title': title + " - " + site_data['title'] if title else site_data['title'],
+        'description': metadata.get('description') or site_data['description']
+    }
+    data = dict(site_data)
+    data['page'] = page
+    data['includes'] = {name: populate_html(data, html) for name, html in include_templates.items()}
+    return data
 
 ## STEP 3B: Get the defaults ##
 defaults = {}
@@ -83,7 +95,7 @@ for root, dirs, files in os.walk(source):
             else:
                 with open(template, mode="r", encoding="utf-8") as template_file:
                     template = template_file.read()
-            html = md_to_html(site_data, metadata, template)
+            html = md_to_html(get_page_data(metadata), metadata, template)
 
             html_file_path = os.path.join(root.replace(source, destination), name.replace(".md", "/index.html"))
             if not os.path.exists(os.path.dirname(html_file_path)):
@@ -95,8 +107,8 @@ for root, dirs, files in os.walk(source):
             pass
         elif name.endswith(".html"):
             with open(os.path.join(root, name), mode="r", encoding="utf-8") as input_file:
-                html = input_file.read()
-            html = populate_html(site_data, html)
+                metadata, html = split_front_matter(input_file.read())
+            html = populate_html(get_page_data(metadata), html)
             output_path = os.path.join(root.replace(source, destination), name)
             if not os.path.exists(os.path.dirname(output_path)):
                 os.makedirs(os.path.dirname(output_path))
@@ -123,3 +135,20 @@ for root, dirs, files in os.walk(destination):
             css = css.replace("url('/", "url('" + base_url)
             with open(os.path.join(root, name), mode="w", encoding="utf-8") as output_file:
                 output_file.write(css)
+
+## STEP 5: Write the sitemap ##
+page_urls = []
+for root, dirs, files in os.walk(destination):
+    for name in files:
+        if name.endswith(".html") and name != "404.html":
+            path = os.path.relpath(os.path.join(root, name), destination).replace("\\", "/")
+            if path.endswith("index.html"):
+                path = path[:-len("index.html")]
+            page_urls.append(site_data['url'] + path)
+
+with open(os.path.join(destination, "sitemap.xml"), mode="w", encoding="utf-8") as output_file:
+    output_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+    output_file.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+    for url in sorted(page_urls):
+        output_file.write("  <url><loc>" + escape(url) + "</loc></url>\n")
+    output_file.write('</urlset>\n')
