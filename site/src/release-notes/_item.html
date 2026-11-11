@@ -2,6 +2,18 @@
 <article class="wrap prose-wrap">
   <p class="breadcrumb"><a href="/release-notes/">&larr; Release Notes</a></p>
   <h1 class="page-title">Trail Sense {{ item.title }}</h1>
+  {{#item.toc}}
+  <aside class="toc">
+    <details>
+      <summary>On this page</summary>
+      <ul>
+        {{#sections}}
+        <li><a href="#{{ id }}">{{{ name }}}</a></li>
+        {{/sections}}
+      </ul>
+    </details>
+  </aside>
+  {{/item.toc}}
   <div class="prose">
     {{{ item.content }}}
   </div>

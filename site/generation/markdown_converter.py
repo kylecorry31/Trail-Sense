@@ -2,6 +2,8 @@ import markdown
 import os
 import yaml
 
+MIN_TOC_SECTIONS = 3
+
 def get_md_content(md_file_path):
     with open(md_file_path, mode="r", encoding="utf-8") as input_file:
         text = input_file.read()
@@ -38,11 +40,15 @@ def get_markdown_metadata(md_file_path, updated_url):
 
     metadata['url'] = updated_url
     metadata['raw_content'] = text_without_metadata
-    metadata['content'] = markdown.markdown(
-        text_without_metadata,
+    md = markdown.Markdown(
         extensions=["toc"],
         extension_configs={"toc": {"permalink": "#", "permalink_title": "Link to this section"}},
     )
+    metadata['content'] = md.convert(text_without_metadata)
+
+    # Short pages don't need a table of contents
+    sections = [{"id": token["id"], "name": token["name"]} for token in md.toc_tokens]
+    metadata['toc'] = {"sections": sections} if len(sections) >= MIN_TOC_SECTIONS else None
 
     if 'title' not in metadata:
         metadata['title'] = os.path.basename(md_file_path).replace(".md", "")
