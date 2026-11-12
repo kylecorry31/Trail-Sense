@@ -88,8 +88,10 @@ internal class OfflineMapImporter(
         var projection = MapProjectionType.CylindricalEquidistant
 
         val parser = GeospatialPDFParser()
-        val metadata = files.stream(request.uri)?.use {
-            parser.parse(it)
+        val metadata = tryOrDefault(null) {
+            files.stream(request.uri)?.use {
+                parser.parse(it)
+            }
         }
         val maxSize = 2048
         val (bp, scale) = PDFRenderer().toBitmap(context, request.uri, maxSize = maxSize)

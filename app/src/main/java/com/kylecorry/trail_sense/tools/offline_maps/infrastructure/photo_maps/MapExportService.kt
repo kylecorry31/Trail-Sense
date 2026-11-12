@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.Size
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.rotate
+import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.files.FileSaver
 import com.kylecorry.andromeda.pdf.Datum
 import com.kylecorry.andromeda.pdf.GeographicCoordinateSystem
@@ -56,8 +57,10 @@ class MapExportService(
 
     private suspend fun isGeospatialPdf(filename: String): Boolean {
         val parser = GeospatialPDFParser()
-        val metadata = files.stream(files.uri(filename))?.use {
-            parser.parse(it)
+        val metadata = tryOrDefault(null) {
+            files.stream(files.uri(filename))?.use {
+                parser.parse(it)
+            }
         }
 
         return metadata != null
