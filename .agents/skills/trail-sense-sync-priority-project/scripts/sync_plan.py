@@ -12,7 +12,7 @@ OWNER = "kylecorry31"
 REPO = "kylecorry31/Trail-Sense"
 PROJECT_NUMBER = 2
 COMMUNITY_ONLY_LABEL = "Status: Community Only"
-EPIC_LABEL = "Type: Epic"
+EPIC_TYPE = "Epic"
 
 QUERY = """
 query($owner: String!, $number: Int!, $after: String) {
@@ -25,7 +25,7 @@ query($owner: String!, $number: Int!, $after: String) {
         nodes {
           id
           content {
-            ... on Issue { number title state labels(first: 30) { nodes { name } } }
+            ... on Issue { number title state issueType { name } labels(first: 30) { nodes { name } } }
           }
         }
       }
@@ -67,6 +67,7 @@ def main():
             skipped += 1
             continue
         labels = [l["name"] for l in issue["labels"]["nodes"]]
+        issue_type = (issue["issueType"] or {}).get("name")
         number = issue["number"]
         in_project.add(number)
         entry = {"number": number, "title": issue["title"]}
@@ -74,26 +75,29 @@ def main():
             remove_closed.append(entry)
         elif COMMUNITY_ONLY_LABEL in labels:
             remove_community_only.append(entry)
-        elif EPIC_LABEL in labels:
+        elif issue_type == EPIC_TYPE:
             remove_epics.append(entry)
         else:
             order.append({
                 **entry,
-                "labels": [l for l in labels if l.startswith(("Tool:", "Type:"))],
+                "type": issue_type,
+                "labels": [l for l in labels if l.startswith("Tool:")],
             })
 
     open_issues = json.loads(
         gh("issue", "list", "--repo", REPO, "--state", "open", "--limit", "1000",
-           "--json", "number,title,labels,body,comments")
+           "--json", "number,title,labels,issueType,body,comments")
     )
     new = []
     for issue in open_issues:
         labels = [l["name"] for l in issue["labels"]]
-        if issue["number"] in in_project or COMMUNITY_ONLY_LABEL in labels or EPIC_LABEL in labels:
+        issue_type = (issue["issueType"] or {}).get("name")
+        if issue["number"] in in_project or COMMUNITY_ONLY_LABEL in labels or issue_type == EPIC_TYPE:
             continue
         new.append({
             "number": issue["number"],
             "title": issue["title"],
+            "type": issue_type,
             "labels": labels,
             "comments": len(issue["comments"]),
             "body": " ".join((issue["body"] or "").split())[:600],

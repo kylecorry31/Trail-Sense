@@ -6,14 +6,14 @@ disable-model-invocation: true
 
 # Trail Sense Sync Priority Project
 
-The project at https://github.com/users/kylecorry31/projects/2 holds every open issue that is not `Status: Community Only` or `Type: Epic` (`Status: Community Available` issues are included; epics only group other issues, so the project ranks their sub-issues instead), in the maintainer's priority order. Its manual table order is the ranking, so there is no rank field. Never edit the issues themselves (labels, state, comments); only the project's items change.
+The project at https://github.com/users/kylecorry31/projects/2 holds every open issue that is not labelled `Status: Community Only` or of the Epic issue type (`Status: Community Available` issues are included; epics only group other issues, so the project ranks their sub-issues instead), in the maintainer's priority order. Its manual table order is the ranking, so there is no rank field. Never edit the issues themselves (labels, type, fields, state, comments); only the project's items change.
 
 Closed issues are not removed by the project: its "Item closed" workflow only updates Status and no auto-archive workflow is enabled. Check with `gh api graphql -f query='query{user(login:"kylecorry31"){projectV2(number:2){workflows(first:20){nodes{name enabled}}}}}'` if this may have changed.
 
 ## Workflow
 
 1. Run `python3 .agents/skills/trail-sense-sync-priority-project/scripts/sync_plan.py` (read-only). Its JSON lists `remove_closed`, `remove_community_only`, `remove_epics`, `new` (open, not community only, not an epic, not in the project) and `order` (the current project order). This step is complete when the JSON is read and the counts are known.
-2. If `new` is empty, skip to step 4 with an empty `insert` list (removals need no approval). Otherwise rank each new issue using the criteria below and read its title, labels and body (the `body` field is truncated; run `gh issue view <n>` when the intent is unclear). This step is complete when every new issue has an `after` anchor, an existing project issue it goes directly below, or `null` for the very top.
+2. If `new` is empty, skip to step 4 with an empty `insert` list (removals need no approval). Otherwise rank each new issue using the criteria below and read its title, type, labels and body (the `body` field is truncated; run `gh issue view <n>` when the intent is unclear). This step is complete when every new issue has an `after` anchor, an existing project issue it goes directly below, or `null` for the very top.
 3. Show the user a table for approval: the new issue, the proposed anchor (`after #X <title>`), its resulting position (a "Position" column: the 1-based row number the issue will have in the project once all approved removals and inserts are applied), and a one-line reason. Compute positions from `order` by dropping the removed items, then applying the inserts in list order. Also list what will be removed (closed, community only, and epics, with titles). This step is complete when the user has approved or adjusted the positions. Do not change the project before then.
 4. Write the approved plan to a file in the scratchpad directory:
 
