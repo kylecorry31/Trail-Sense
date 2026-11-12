@@ -127,13 +127,41 @@ class PathRoute(
         val movementDistance = lastDistance + movement
         // The likely maximum for how far the user could have moved along the route since the last update
         val possibleTravelDistance = max(movement + tolerance, possibleHikingDistance)
-        val nearby = geometry.getOptimalLocationMatch(
+        val closest = geometry.getOptimalLocationMatch(
             location,
             lastDistance - possibleTravelDistance,
             lastDistance + possibleTravelDistance,
             movementDistance
         )
+        val nearby = preferLegAhead(location, closest, lastDistance, possibleTravelDistance, movementDistance)
         return rejoinRoute(location, nearby, lastDistance, movementDistance, movement, tolerance)
+    }
+
+    /**
+     * Overlapping legs (ex. after the turnaround of an out and back) are indistinguishable within
+     * the GPS error, so a match behind the user may really be on the leg ahead. The user is following
+     * the route, so the leg ahead is used when it is about as close.
+     */
+    private fun preferLegAhead(
+        location: Coordinate,
+        closest: Snap,
+        lastDistance: Float,
+        possibleTravelDistance: Float,
+        estimatedDistance: Float
+    ): Snap {
+        if (closest.distanceAlong >= lastDistance) {
+            return closest
+        }
+        val ahead = geometry.getOptimalLocationMatch(
+            location,
+            lastDistance,
+            lastDistance + possibleTravelDistance,
+            estimatedDistance
+        )
+        // When there is no leg ahead, the closest point ahead is the last position itself
+        val isLegAhead = ahead.distanceAlong > lastDistance + MIN_LEG_AHEAD_PROGRESS_METERS
+        val isAboutAsClose = ahead.offset <= closest.offset + ROUTING_SAME_PLACE_TOLERANCE_METERS
+        return if (isLegAhead && isAboutAsClose) ahead else closest
     }
 
     private fun rejoinRoute(
@@ -210,6 +238,9 @@ class PathRoute(
 
         // Speed used to estimate how much of the path the user could have hiked for location matching
         private const val MAX_HIKING_SPEED_METERS_PER_SECOND = 2f
+
+        // How far past the last position a match must be to be on a leg ahead rather than at the last position
+        private const val MIN_LEG_AHEAD_PROGRESS_METERS = 1f
 
         // How far ahead the user should look for a target point
         private const val TARGET_LOOKAHEAD_METERS = 25f

@@ -519,6 +519,22 @@ class PathRouteTest {
         assertTrue(guidance.distanceAlong.meters().value / route.length > 0.5f)
     }
 
+    @Test
+    fun `return leg recorded a few meters from the outbound leg keeps advancing and arrives`() {
+        // 500 m out, then back along a return leg that was recorded 4 m to the north
+        val route = route(listOf(meters(0.0, 0.0), meters(500.0, 0.0), meters(500.0, 4.0), meters(0.0, 4.0)))
+        // The hiker's GPS reads closer to the outbound leg (1 m) than the return leg (3 m) the whole way
+        val steps = (0..500 step 5).map { it.toDouble() }
+        steps.forEach { route.navigate(meters(it, 1.0)) }
+
+        val returning = steps.reversed().drop(1).map { route.navigate(meters(it, 1.0)) }
+
+        val halfwayBack = returning[returning.size / 2]
+        assertTrue(halfwayBack.distanceAlong.meters().value / route.length > 0.7f)
+        assertTrue(halfwayBack.target.longitude < meters(250.0, 0.0).longitude)
+        assertTrue(returning.last().arrived)
+    }
+
     private class TestClock : Clock() {
         private var now = Instant.EPOCH
 
