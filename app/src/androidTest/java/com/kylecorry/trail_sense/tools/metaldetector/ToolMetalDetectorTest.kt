@@ -13,15 +13,14 @@ import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 class ToolMetalDetectorTest : ToolTestBase(Tools.METAL_DETECTOR) {
 
     @Test
     fun verifyBasicFunctionality() {
-        if (!Tools.isToolAvailable(context, Tools.METAL_DETECTOR)) {
-            return
-        }
+        assumeTrue(Tools.isToolAvailable(context, Tools.METAL_DETECTOR))
 
         // Verify the title
         hasText(R.id.metal_detector_title, Regex("\\d+ uT"))

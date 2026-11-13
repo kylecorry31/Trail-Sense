@@ -22,15 +22,14 @@ import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.DistanceAlerter
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.StepCounterService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 class ToolPedometerTest : ToolTestBase(Tools.PEDOMETER) {
 
     @Test
     fun verifyBasicFunctionality() {
-        if (!Tools.isToolAvailable(context, Tools.PEDOMETER)) {
-            return
-        }
+        assumeTrue(Tools.isToolAvailable(context, Tools.PEDOMETER))
 
         hasText(R.id.pedometer_title, string(R.string.pedometer))
         hasText(R.id.current_session_title, string(R.string.current_session))

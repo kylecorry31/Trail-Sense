@@ -26,6 +26,7 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.closeApp
 import com.kylecorry.trail_sense.test_utils.TestUtils.grantPermission
 import com.kylecorry.trail_sense.test_utils.views.viewWithResourceId
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.Timeout
@@ -71,10 +72,8 @@ class SmokeTest {
 
     @Test
     fun smokeTest() {
-        if (!Package.isPackageInstalled(TestUtils.context, packageName)) {
-            // This is only meant to run on the staging build, use ./gradlew installStaging to run this test
-            return
-        }
+        // This is only meant to run on the staging build, use ./gradlew installStaging to run this test
+        assumeTrue(Package.isPackageInstalled(TestUtils.context, packageName))
 
         TestUtils.setWaitForIdleTimeout()
         clearAppData(packageName)

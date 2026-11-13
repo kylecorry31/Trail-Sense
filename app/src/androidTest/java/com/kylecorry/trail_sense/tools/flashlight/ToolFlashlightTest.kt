@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 class ToolFlashlightTest : ToolTestBase(Tools.FLASHLIGHT) {
@@ -29,9 +30,7 @@ class ToolFlashlightTest : ToolTestBase(Tools.FLASHLIGHT) {
     }
 
     private fun canToggleFlashlight() {
-        if (!Torch.isAvailable(context)) {
-            return
-        }
+        assumeTrue(Torch.isAvailable(context))
 
         click(R.id.flashlight_on_btn)
         hasNotification(

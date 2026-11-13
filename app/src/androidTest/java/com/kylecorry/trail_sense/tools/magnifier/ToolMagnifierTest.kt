@@ -9,15 +9,14 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.isCameraInUse
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 class ToolMagnifierTest : ToolTestBase(Tools.MAGNIFIER) {
 
     @Test
     fun verifyBasicFunctionality() {
-        if (!Tools.isToolAvailable(context, Tools.MAGNIFIER)) {
-            return
-        }
+        assumeTrue(Tools.isToolAvailable(context, Tools.MAGNIFIER))
 
         // Camera view is visible and the back camera starts
         isVisible(R.id.camera)

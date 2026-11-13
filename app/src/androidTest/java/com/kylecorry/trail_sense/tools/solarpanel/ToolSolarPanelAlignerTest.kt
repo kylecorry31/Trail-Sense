@@ -9,15 +9,14 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 class ToolSolarPanelAlignerTest : ToolTestBase(Tools.SOLAR_PANEL_ALIGNER) {
 
     @Test
     fun verifyBasicFunctionality() {
-        if (!Tools.isToolAvailable(context, Tools.SOLAR_PANEL_ALIGNER)) {
-            return
-        }
+        assumeTrue(Tools.isToolAvailable(context, Tools.SOLAR_PANEL_ALIGNER))
 
         clickOk()
 

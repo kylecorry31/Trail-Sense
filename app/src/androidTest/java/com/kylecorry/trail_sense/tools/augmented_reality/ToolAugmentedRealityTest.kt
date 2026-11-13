@@ -15,15 +15,14 @@ import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeTrue
 import org.junit.Test
 
 class ToolAugmentedRealityTest : ToolTestBase(Tools.AUGMENTED_REALITY) {
 
     @Test
     fun verifyBasicFunctionality() {
-        if (!Tools.isToolAvailable(context, Tools.AUGMENTED_REALITY)) {
-            return
-        }
+        assumeTrue(Tools.isToolAvailable(context, Tools.AUGMENTED_REALITY))
 
         // Click OK on the prompts
         clickOk()

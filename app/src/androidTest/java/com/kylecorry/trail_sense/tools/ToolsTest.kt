@@ -5,7 +5,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -19,6 +18,7 @@ import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuideService
 import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeFalse
 import org.junit.Test
 
 class ToolsTest : ToolTestBase(0L) {
@@ -26,9 +26,7 @@ class ToolsTest : ToolTestBase(0L) {
     @Test
     fun openWithDynamicColors() {
         // TODO: Figure out how to check this on staging builds
-        if (AutomationLibrary.packageName != null) {
-            return
-        }
+        assumeFalse(isStagingBuild)
 
         val prefs = PreferencesSubsystem.getInstance(TestUtils.context).preferences
         prefs.putBoolean(TestUtils.context.getString(R.string.pref_use_dynamic_colors), true)
@@ -56,9 +54,7 @@ class ToolsTest : ToolTestBase(0L) {
     @Test
     fun catchesToolErrors() {
         // TODO: Figure out how to check this on staging builds (not sure if it will be possible)
-        if (AutomationLibrary.packageName != null) {
-            return
-        }
+        assumeFalse(isStagingBuild)
 
         scenario.close()
 

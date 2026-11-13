@@ -31,9 +31,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
     @Test
     fun verifyBasicFunctionality() {
-        if (!Tools.isToolAvailable(context, Tools.WEATHER)) {
-            return
-        }
+        assumeTrue(Tools.isToolAvailable(context, Tools.WEATHER))
 
         // Historic temperature disclaimer
         clickOk()
