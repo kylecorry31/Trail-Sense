@@ -17,8 +17,8 @@ import org.junit.Test
 class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
 
     @Test
-    fun verifyBasicFunctionality() {
-        // Auto
+    fun canSelectTheBoilDuration() {
+        // Auto (3 minutes at high elevation, otherwise 1 minute, which depends on the emulator's location)
         hasText(R.id.chip_auto, string(R.string.auto))
         hasText(R.id.time_left, waitForTime = GPS_WAIT_FOR_TIMEOUT) { it == "180" || it == "60" }
 
@@ -29,6 +29,13 @@ class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
 
         // Select 1 minute
         hasText(R.id.chip_1_min, "1m")
+        click(R.id.chip_1_min)
+        hasText(R.id.time_left, "60")
+    }
+
+    @Test
+    fun canStartAndCancelTheTimer() {
+        // Select 1 minute
         click(R.id.chip_1_min)
         hasText(R.id.time_left, "60")
 

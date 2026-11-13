@@ -25,7 +25,7 @@ import org.junit.Test
 class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun canTurnWhiteNoiseOnAndOff() {
         // Turn on white noise
         click(R.id.white_noise_btn)
 
@@ -52,14 +52,20 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         isFalse {
             TestUtils.isPlayingMusic()
         }
+    }
 
+    @Test
+    fun canChangeTheSleepSoundAndClearTheSleepTimerAfterPlaybackStops() {
         // TODO: The UIAutomator can't enter text in the duration input
 //        canSetSleepTimer()
 
         canChangeSleepSound()
 
         sleepTimerUiClearsAfterPlaybackStops()
+    }
 
+    @Test
+    fun canTurnWhiteNoiseOnAndOffFromTheQuickAction() {
         verifyQuickAction()
     }
 

@@ -11,7 +11,7 @@ import org.junit.Test
 class ToolBubbleLevelTest : ToolTestBase(Tools.BUBBLE_LEVEL) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheAnglesAndTheLevel() {
         // Verify it shows the current angle
         hasText(
             R.id.level_title,

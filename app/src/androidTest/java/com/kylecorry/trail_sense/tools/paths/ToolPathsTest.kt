@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEO
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasDataPoint
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
@@ -41,6 +40,7 @@ import com.kylecorry.trail_sense.test_utils.notifications.notification
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRoute
@@ -48,6 +48,8 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigationStore
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigator
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
+import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
+import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
@@ -68,27 +70,95 @@ import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.time.Instant
 
 class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
+
+    // BACKTRACK (waits for the GPS)
+
     @Test
-    fun verifyBasicFunctionality() {
+    fun canRecordAPathWithBacktrack() {
         hasText(R.id.paths_title, string(R.string.paths))
 
-        canUseBacktrack()
-        canRenamePath()
-        canViewPathDetails()
-        addPathGroup()
-        importPath()
-        createEmptyPath()
-        groupOperations()
-        pathOperations()
-        searchPath()
-        changeSort()
-        // TODO: Quick settings tile
-        verifyQuickAction()
+        // Verify it will run every minute by default
+        hasText(R.id.play_bar_title, "Off - 1m")
+
+        // Click the start button
+        click(R.id.play_btn)
+
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            waitFor {
+                notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
+            }
+        }
+
+        // Wait for the battery restriction warning to go away
+        optional {
+            hasText(string(R.string.battery_settings_limit_accuracy))
+            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+        }
+
+        hasText(R.id.play_bar_title, "On - 1m")
+
+        // Wait for the path to be created
+        isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
+
+        hasText(string(R.string.temporary))
+
+        // Stop backtrack
+        click(R.id.play_btn)
+
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            not { notification(BacktrackAlerter.NOTIFICATION_ID) }
+        }
+
+        // The path is kept when stopped
+        not { hasText(string(R.string.temporary)) }
     }
 
-    private fun addPathGroup() {
+    @Test
+    fun quickActionStartsAndStopsBacktrack() {
+        // TODO: Quick settings tile
+        TestUtils.openQuickActions()
+        click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
+
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            waitFor {
+                notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
+            }
+        }
+
+        // Wait for the battery restriction warning to go away
+        optional {
+            hasText(string(R.string.battery_settings_limit_accuracy))
+            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+        }
+
+        // Wait for the path to be created
+        hasText(string(R.string.temporary), waitForTime = GPS_WAIT_FOR_TIMEOUT)
+        TestUtils.closeQuickActions()
+        hasText(R.id.play_bar_title, "On - 1m")
+
+        TestUtils.openQuickActions()
+        click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
+        TestUtils.closeQuickActions()
+        hasText(R.id.play_bar_title, "Off - 1m")
+
+        // TODO: Figure out how to check this on staging builds
+        if (AutomationLibrary.packageName == null) {
+            not { notification(BacktrackAlerter.NOTIFICATION_ID) }
+        }
+    }
+
+    // CREATING PATHS AND GROUPS THROUGH THE UI
+
+    @Test
+    fun canCreateAGroupAndAnEmptyPathAndOpenTheImportPicker() {
+        hasText(R.id.paths_title, string(R.string.paths))
+
         click(R.id.add_btn)
         click(string(R.string.group))
         input(string(R.string.name), "Test Group")
@@ -98,18 +168,14 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Test Group")
         hasText(string(R.string.no_paths))
         back(false)
-    }
 
-    private fun importPath() {
         // Open import and verify the picker opens, then back out
         click(R.id.add_btn)
         click(string(R.string.import_gpx))
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.pick_file)) }
         back(false)
         hasText(R.id.paths_title, string(R.string.paths))
-    }
 
-    private fun createEmptyPath() {
         click(R.id.add_btn)
         click(string(R.string.path), exact = true)
         input(string(R.string.name), "Empty Path")
@@ -117,6 +183,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         isVisible(R.id.path_title)
         hasText("Empty Path")
         backUntil { isVisible(R.id.paths_title) }
+        hasText("Empty Path")
+        hasText("Test Group")
     }
 
     @Test
@@ -129,8 +197,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         // Tapping the map should add points to the path
         click(R.id.map, xPercent = 0.3f, yPercent = 0.3f)
-        // Wait so the next tap isn't treated as a double tap (zoom)
-        delay(600)
+        // The second tap is far from the first, but it is only safe once the first point was added
+        waitFor { assertTrue(view(R.id.undo_btn).uiObject.isEnabled) }
         click(R.id.map, xPercent = 0.7f, yPercent = 0.3f)
         hasText(Regex("[1-9]\\d*(\\.\\d+)? (mi|ft)"))
 
@@ -140,20 +208,92 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         backUntil { isVisible(R.id.paths_title) }
     }
 
-    private fun groupOperations() {
-        // Ensure there is a second group to move into
-        click(R.id.add_btn)
-        click(string(R.string.group), exact = true)
-        input(string(R.string.name), "Dest Group")
+    // MANAGING PATHS AND GROUPS (seeded)
+
+    @Test
+    fun canRenameAndHideAPathFromTheList() {
+        assumeFalse(isStagingBuild)
+        var id = 0L
+        relaunchTool { id = TestData.addPathFromGpx("Sprague", "paths/sprague.gpx") }
+        val service = PathService.getInstance(TestUtils.context)
+
+        clickListItemMenu("Sprague", string(R.string.rename))
+        input("Sprague", "Test Path")
         clickOk()
+        hasTitlesInOrder("Test Path")
+        waitFor { assertEquals("Test Path", runBlocking { service.getPath(id) }!!.name) }
+
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        waitFor { assertFalse(runBlocking { service.getPath(id) }!!.style.visible) }
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        waitFor { assertTrue(runBlocking { service.getPath(id) }!!.style.visible) }
+    }
+
+    @Test
+    fun canMergeSimplifyAndMovePaths() {
+        assumeFalse(isStagingBuild)
+        var groupId = 0L
+        relaunchTool {
+            TestData.addPathFromGpx("Durfee Loop", "paths/durfee loop.gpx")
+            TestData.addPathFromGpx("Durfee Short", "paths/durfee short.gpx")
+            groupId = TestData.addPathGroup("Test Group")
+        }
+        val service = PathService.getInstance(TestUtils.context)
+        fun pathNamed(name: String) = runBlocking { service.getPaths().first() }.single { it.name == name }
+
+        // Merge "Durfee Short" onto the end of "Durfee Loop"
+        clickListItemMenu("Durfee Short", string(R.string.merge))
+        click("Durfee Loop", exact = true)
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.merging)) }
+        not { hasText("Durfee Short") }
+        // 57 + 39 points. The loop is 0.9254 mi, the short loop 0.4978 mi, and the gap between them
+        // 3903.8 m (2.4257 mi) by Vincenty, which is 3.8489 mi in total
+        hasText("3.85 mi")
+        val merged = pathNamed("Durfee Loop")
+        assertEquals(96, runBlocking { service.getWaypoints(merged.id) }.size)
+
+        // Simplify
+        clickListItemMenu("Durfee Loop", string(R.string.simplify))
+        hasText("will be deleted")
+        click(R.id.simplify_quality)
+        click("Low")
+        clickOk()
+        clickOk()
+        waitFor { assertTrue(runBlocking { service.getWaypoints(merged.id) }.size < 96) }
+
+        // Move to the group
+        clickListItemMenu("Durfee Loop", string(R.string.move_to))
+        click("Test Group")
+        click(string(R.string.move))
+        waitFor { assertEquals(groupId, pathNamed("Durfee Loop").parentId) }
+        not { hasText("Durfee Loop") }
+        click("Test Group")
+        hasTitlesInOrder("Durfee Loop")
+    }
+
+    @Test
+    fun canSearchRenameExportMoveAndDeleteGroups() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            val groupId = TestData.addPathGroup("Test Group")
+            TestData.addPathFromGpx("Durfee Short", "paths/durfee short.gpx", groupId)
+            TestData.addPathGroup("Dest Group")
+            TestData.addPathFromGpx("Sprague", "paths/sprague.gpx")
+        }
+
+        // Search finds paths and not the groups
+        input(R.id.searchbox, "Sprague")
+        hasText("Sprague")
+        not { hasText("Dest Group", waitForTime = 0) }
+        input(R.id.searchbox, "")
         hasText("Dest Group")
 
         // Rename group "Test Group" -> "Test Group 2"
-        hasText("Test Group")
-        clickListItemMenu(string(R.string.rename), index = 2)
+        clickListItemMenu("Test Group", string(R.string.rename))
         input("Test Group", "Test Group 2")
         clickOk()
         hasText("Test Group 2")
+        hasText("1 path")
 
         // Export current group via toolbar menu
         click(toolbarButton(R.id.paths_title, Side.Right))
@@ -164,7 +304,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         // Move group into Dest Group
         hasText("Test Group 2")
-        clickListItemMenu(string(R.string.move_to), index = 2)
+        clickListItemMenu("Test Group 2", string(R.string.move_to))
         click("Dest Group")
         click(string(R.string.move))
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.moved_to, "Dest Group")) }
@@ -172,83 +312,25 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Delete moved group (open Dest Group first)
         click("Dest Group")
         hasText("Test Group 2")
-        clickListItemMenu(string(R.string.delete))
+        clickListItemMenu("Test Group 2", string(R.string.delete))
         clickOk()
         not { hasText("Test Group 2") }
         back(false)
-    }
-
-    private fun pathOperations() {
-        // Create another path
-        click(R.id.add_btn)
-        click(string(R.string.path), exact = true)
-        input(string(R.string.name), "Second Path")
-        clickOk()
-        hasText("Second Path")
-        backUntil { isVisible(R.id.paths_title) }
-
-        // Rename
-        clickListItemMenu(string(R.string.rename))
-        input("Second Path", "Empty Path 2")
-        clickOk()
-        hasText("Empty Path 2")
-
-        // Hide / Show
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-
-        // Export
-        clickListItemMenu(string(R.string.export))
-        optional { hasText("trail-sense-") }
-        backUntil { isVisible(R.id.paths_title) }
-
-        // Merge "Empty Path 2" into "Empty Path"
-        clickListItemMenu(string(R.string.merge))
-        click("Empty Path", exact = true)
-        optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.merging)) }
-        not { hasText("Empty Path 2") }
-
-        // Simplify path
-        clickListItemMenu(string(R.string.simplify))
-        clickOk()
-
-        // Move Empty Path to Dest Group
-        clickListItemMenu(string(R.string.move_to))
-        click("Dest Group")
-        click(string(R.string.move))
-
-        // Delete path
-        clickListItemMenu(string(R.string.delete), index = 1)
-        clickOk()
-        not { hasText("Empty Path 2") }
-    }
-
-    private fun searchPath() {
-        input(R.id.searchbox, "Path")
-        hasText("Empty Path")
-        not { hasText("Dest Group") }
-        input(R.id.searchbox, "")
         hasText("Dest Group")
+        hasText("Sprague")
     }
 
-    private fun changeSort() {
-        click(toolbarButton(R.id.paths_title, Side.Right))
-        click(string(R.string.sort_by, string(R.string.most_recent)))
-        click(string(R.string.name))
-        clickOk()
-        click(toolbarButton(R.id.paths_title, Side.Right))
-        hasText(string(R.string.sort_by, string(R.string.name)))
-        back(false)
-    }
+    // PATH DETAILS (seeded)
 
-    private fun canViewPathDetails() {
-        // Open the path
-        click(com.kylecorry.andromeda.views.R.id.title)
+    @Test
+    fun canChangeAPathsStyle() {
+        openWithSavedPaths()
+        val service = PathService.getInstance(TestUtils.context)
+        fun style() = runBlocking { service.getPaths().first() }.single { it.name == "Durfee Short" }.style
 
-        // Wait for the path to open
-        hasText(R.id.path_title, "Test Path")
+        click("Durfee Short")
+        hasText(R.id.path_title, "Durfee Short")
 
-        // Settings
         click(R.id.path_color)
         clickOk()
 
@@ -257,40 +339,44 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Solid")
         clickOk()
         hasText("Solid")
+        waitFor { assertEquals(LineStyle.Solid, style().line) }
 
         changePointStyle("None", "Elevation")
+        waitFor { assertEquals(PathPointColoringStyle.Altitude, style().point) }
         changePointStyle("Elevation", "None")
+        waitFor { assertEquals(PathPointColoringStyle.None, style().point) }
+    }
 
-        // Stats
-        hasText("0m")
-        hasText("Duration")
-
-        hasText("0 ft")
-        hasText("Distance")
-
-        scrollUntil(R.id.path_scroll) {
-            hasText("1")
-            hasText("Points")
-            hasText("Easy")
-            hasText("Difficulty")
+    @Test
+    fun canAddAPointToAPathAndFollowIt() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            TestData.addPath(
+                "Test Path",
+                // 100 m
+                listOf(PathPoint(0, 0, Coordinate(42.03, -71.97), 100f, Instant.now()))
+            )
         }
 
+        click("Test Path")
+        hasText(R.id.path_title, "Test Path")
+
+        // A path with one point has no length or climb
+        hasDataPoint("0m", string(R.string.duration))
+        hasDataPoint("0 ft", string(R.string.distance))
         scrollUntil(R.id.path_scroll) {
-            hasText("0 ft")
-            hasText("Ascent")
+            hasDataPoint("1", string(R.string.points))
+            hasDataPoint("Easy", string(R.string.difficulty))
         }
-
-        hasText("0 ft")
-        hasText("Descent")
-
         scrollUntil(R.id.path_scroll) {
-            hasText(Regex("\\d+ ft"))
-            hasText("Lowest point")
+            hasDataPoint("0 ft", string(R.string.ascent))
+            hasDataPoint("0 ft", string(R.string.descent))
         }
-
-        hasText(Regex("\\d+ ft"))
-        hasText("Highest point")
-
+        // 100 m is 328.08 ft
+        scrollUntil(R.id.path_scroll) {
+            hasDataPoint("328 ft", string(R.string.lowest_point_elevation))
+            hasDataPoint("328 ft", string(R.string.highest_point_elevation))
+        }
         scrollUntil(R.id.path_scroll) {
             isVisible(R.id.chart)
         }
@@ -304,7 +390,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         not(waitForTime = GPS_WAIT_FOR_TIMEOUT) { hasText("Loading") }
 
         scrollUntil(R.id.path_scroll, direction = Direction.UP) {
-            hasText("2")
+            hasDataPoint("2", string(R.string.points))
+            // 0.01 degrees of latitude is 1110.7 m by Vincenty
+            hasDataPoint("0.69 mi", string(R.string.distance))
         }
 
         // Navigate
@@ -344,7 +432,16 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 //        back()
 //
 //        hasText("1")
-        back()
+    }
+
+    @Test
+    fun pathMenuCanReplaceElevationsSimplifyExportAndHide() {
+        openWithSavedPaths()
+        val service = PathService.getInstance(TestUtils.context)
+        fun path() = runBlocking { service.getPaths().first() }.single { it.name == "Sprague" }
+
+        click("Sprague")
+        hasText(R.id.path_title, "Sprague")
 
         // Replace elevations
         click(toolbarButton(R.id.path_title, Side.Right))
@@ -362,6 +459,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         clickOk()
         hasText(R.id.simplify_quality, "Low")
         clickOk()
+        waitFor { assertTrue(runBlocking { service.getWaypoints(path().id) }.size < 90) }
 
         // Export
         click(toolbarButton(R.id.path_title, Side.Right))
@@ -374,10 +472,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Hide / show
         click(toolbarButton(R.id.path_title, Side.Right))
         click("Hide")
+        waitFor { assertFalse(path().style.visible) }
         click(toolbarButton(R.id.path_title, Side.Right))
         click("Show")
-
-        backUntil { isVisible(R.id.paths_title) }
+        waitFor { assertTrue(path().style.visible) }
     }
 
     private fun changePointStyle(previousStyle: String, newStyle: String) {
@@ -396,80 +494,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) {
             scrollToStart()
         }
-    }
-
-    private fun canRenamePath() {
-        clickListItemMenu(string(R.string.rename))
-        input(string(R.string.name), "Test Path")
-        clickOk()
-        hasText(com.kylecorry.andromeda.views.R.id.title, "Test Path")
-    }
-
-    private fun canUseBacktrack() {
-        // Verify it will run every minute by default
-        hasText(R.id.play_bar_title, "Off - 1m")
-
-        // Click the start button
-        click(R.id.play_btn)
-
-        // TODO: Figure out how to check this on staging builds
-        if (AutomationLibrary.packageName == null) {
-            waitFor {
-                notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
-            }
-        }
-
-        // Wait for the battery restriction warning to go away
-        optional {
-            hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
-        }
-
-        hasText(R.id.play_bar_title, "On - 1m")
-
-        // Wait for the path to be created
-        isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
-
-        hasText(string(R.string.temporary))
-
-        // Stop backtrack
-        click(R.id.play_btn)
-
-        // TODO: Figure out how to check this on staging builds
-        if (AutomationLibrary.packageName == null) {
-            not { notification(BacktrackAlerter.NOTIFICATION_ID) }
-        }
-
-        // The path is kept when stopped
-        not { hasText(string(R.string.temporary)) }
-    }
-
-    private fun verifyQuickAction() {
-        TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
-
-        // TODO: Figure out how to check this on staging builds
-        if (AutomationLibrary.packageName == null) {
-            waitFor {
-                notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
-            }
-        }
-
-        // Wait for the path to be created
-        isVisible(
-            com.kylecorry.andromeda.views.R.id.title,
-            index = 1,
-            waitForTime = GPS_WAIT_FOR_TIMEOUT
-        )
-
-        click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
-
-        // TODO: Figure out how to check this on staging builds
-        if (AutomationLibrary.packageName == null) {
-            not { notification(BacktrackAlerter.NOTIFICATION_ID) }
-        }
-
-        TestUtils.closeQuickActions()
     }
 
     // Uses real recorded hikes (androidTest/assets/paths) so the numbers shown can be checked against
@@ -690,8 +714,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         openWithSavedPaths()
 
         hasText("Durfee Short")
-        // The list is ordered by most recent: Mansfield, Durfee Short, Sprague
-        clickListItemMenu(string(R.string.delete), index = 1)
+        clickListItemMenu("Durfee Short", string(R.string.delete))
         clickOk()
 
         not { hasText("Durfee Short") }

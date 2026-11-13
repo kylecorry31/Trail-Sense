@@ -11,7 +11,7 @@ import org.junit.Test
 
 class ToolCliffHeightTest : ToolTestBase(Tools.CLIFF_HEIGHT) {
     @Test
-    fun verifyBasicFunctionality() {
+    fun measuresTheCliffHeightTwice() {
         // TODO: This would need to be enabled to run on staging builds
         assumeFalse(isStagingBuild)
 

@@ -14,6 +14,8 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
@@ -24,48 +26,34 @@ import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeFalse
 import org.junit.Test
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
+    private fun openWithAPage() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            TestData.addFieldGuidePage("A Test", listOf(FieldGuidePageTag.Bird), "Notes")
+        }
+        // Disclaimer
+        clickOk()
+    }
+
+    private fun openCategoryWithTestPage() {
+        click("Animal")
+        hasText("A Test")
+    }
+
     @Test
-    fun verifyBasicFunctionality() {
+    fun canBrowseSearchAndHideBuiltInPages() {
         // Disclaimer
         clickOk()
 
-        hasCategories()
-        canOpenPage()
-        canCreatePage()
-        canRecordSightingWithQuickAction()
-        canManageMultipleImages()
-        canEditPage()
-        canDeletePage()
-        canSearch()
-        canHideBuiltInPage()
-    }
-
-    private fun canHideBuiltInPage() {
-        click("Animal")
-        hasText("Ant")
-        clickListItemMenu("Hide")
-        clickOk()
-        not { hasText("Ant") }
-    }
-
-    private fun canSearch() {
-        back(false)
-        input(R.id.search, "Rabbit")
-        hasText("Rabbit")
-
-        input(R.id.search, "Insect")
-        hasText("Ant")
-
-        back(false)
-        hasText("Plant")
-    }
-
-    private fun hasCategories() {
         // Shows categories
         for (category in listOf("Plant", "Other")) {
             scrollUntil {
@@ -78,118 +66,42 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Animal")
         hasText("Ant")
         hasText("Clam")
-    }
 
-    private fun canDeletePage() {
-        clickListItemMenu("Delete")
-        clickOk()
-        not { hasText("A Test 3") }
-    }
-
-    private fun canManageMultipleImages() {
-        clickListItemMenu("Edit")
-
-        // A single image was added when the page was created
-        scrollUntil(R.id.scroll_view) { hasText(R.id.photo_position, "Image 1/1") }
-
-        // The slot after the last image is used to add another one
-        click(R.id.next_photo_button)
-        scrollUntil(R.id.scroll_view) { click("Take photo") }
-        waitFor {
-            // The click can land before the list settles, so repeat it until the camera is open
-            try {
-                isVisible(R.id.capture_button, waitForTime = 1)
-            } catch (e: Throwable) {
-                click("Take photo", waitForTime = 1)
-                throw e
-            }
-        }
-        click(R.id.capture_button)
-        hasText(R.id.photo_position, "Image 2/2")
-
-        // The arrows page through the images
-        click(R.id.previous_photo_button)
-        hasText(R.id.photo_position, "Image 1/2")
-        click(R.id.next_photo_button)
-        hasText(R.id.photo_position, "Image 2/2")
-
-        // Setting an image as the default moves it to the first slot
-        click(R.id.photo_upload_menu_button)
-        click("Set as default")
-        hasText(R.id.photo_position, "Image 1/2")
-
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
-
-        // The page displays all the images
-        click("A Test")
-        hasText(R.id.photo_position, "Image 1/2")
-        click(R.id.next_photo_button)
-        hasText(R.id.photo_position, "Image 2/2")
-        back()
-
-        // An image can be deleted
-        clickListItemMenu("Edit")
-        scrollUntil(R.id.scroll_view) { hasText(R.id.photo_position, "Image 1/2") }
-        click(R.id.photo_upload_menu_button)
-        click("Delete")
-        clickOk()
-        hasText(R.id.photo_position, "Image 1/1")
-
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
-    }
-
-    private fun canEditPage() {
-        clickListItemMenu("Edit")
-        hasText(R.id.name, "A Test")
-        input(R.id.name, "A Test 2")
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
-
-        // Verify the changes
-        hasText("A Test 2")
-
-        // Open it an edit
-        click("A Test 2")
-        click(toolbarButton(R.id.field_guide_page_title, Side.Right))
-        hasText(R.id.name, "A Test 2")
-        input(R.id.name, "A Test 3")
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
-
-        // Verify the changes
-        hasText(R.id.field_guide_page_title, "A Test 3")
-
-        back()
-    }
-
-    private fun canOpenPage() {
+        // Open a built-in page
         click("Ant")
         hasText(R.id.field_guide_page_title, "Ant")
         hasText("A small insect")
-        canLogSightings()
         scrollUntil {
             hasText("Grassland")
         }
         back()
+
+        // Search
+        back(false)
+        input(R.id.search, "Rabbit")
+        hasText("Rabbit")
+
+        input(R.id.search, "Insect")
+        hasText("Ant")
+
+        back(false)
+        hasText("Plant")
+
+        // Hide a built-in page
+        click("Animal")
+        hasText("Ant")
+        clickListItemMenu("Hide")
+        clickOk()
+        not { hasText("Ant") }
     }
 
-    private fun canRecordSightingWithQuickAction() {
-        TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_RECORD_SIGHTING))
-        input(R.id.search, "A Test")
-        click("A Test", exact = true, index = 1)
+    @Test
+    fun canCreateAPage() {
+        // Disclaimer
+        clickOk()
 
-        hasText("Created", waitForTime = GPS_WAIT_FOR_TIMEOUT)
-        click("View")
-        input("Notes", "Quick action sighting")
-        click(toolbarButton(R.id.title, Side.Right))
-
-        // The quick action deep link returns to the sightings list after saving.
-        hasText("Quick action sighting")
-        back()
-        hasText("Sightings (1)")
-        back()
-    }
-
-    private fun canCreatePage() {
+        // Creating a page from a category preselects its classification
+        click("Animal")
         click(R.id.add_btn)
         input(R.id.name, "A Test")
         click(R.id.tag_classifications)
@@ -241,11 +153,128 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
                 hasText(tag)
             }
         }
+    }
 
+    @Test
+    fun canEditAndDeleteAPage() {
+        openWithAPage()
+        openCategoryWithTestPage()
+
+        clickListItemMenu("Edit")
+        hasText(R.id.name, "A Test")
+        input(R.id.name, "A Test 2")
+        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+
+        // Verify the changes
+        hasText("A Test 2")
+
+        // Open it an edit
+        click("A Test 2")
+        click(toolbarButton(R.id.field_guide_page_title, Side.Right))
+        hasText(R.id.name, "A Test 2")
+        input(R.id.name, "A Test 3")
+        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+
+        // Verify the changes
+        hasText(R.id.field_guide_page_title, "A Test 3")
+
+        back()
+
+        clickListItemMenu("Delete")
+        clickOk()
+        not { hasText("A Test 3") }
+    }
+
+    @Test
+    fun canManageMultipleImages() {
+        openWithAPage()
+        openCategoryWithTestPage()
+
+        clickListItemMenu("Edit")
+
+        // The first slot is used to add an image
+        takePhoto()
+        scrollUntil(R.id.scroll_view) { hasText(R.id.photo_position, "Image 1/1") }
+
+        // The slot after the last image is used to add another one
+        click(R.id.next_photo_button)
+        scrollToStart(R.id.scroll_view)
+        takePhoto()
+        hasText(R.id.photo_position, "Image 2/2")
+
+        // The arrows page through the images
+        click(R.id.previous_photo_button)
+        hasText(R.id.photo_position, "Image 1/2")
+        click(R.id.next_photo_button)
+        hasText(R.id.photo_position, "Image 2/2")
+
+        // Setting an image as the default moves it to the first slot
+        click(R.id.photo_upload_menu_button)
+        click("Set as default")
+        hasText(R.id.photo_position, "Image 1/2")
+
+        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+
+        // The page displays all the images
+        click("A Test")
+        hasText(R.id.photo_position, "Image 1/2")
+        click(R.id.next_photo_button)
+        hasText(R.id.photo_position, "Image 2/2")
+        back()
+
+        // An image can be deleted
+        clickListItemMenu("Edit")
+        scrollUntil(R.id.scroll_view) { hasText(R.id.photo_position, "Image 1/2") }
+        click(R.id.photo_upload_menu_button)
+        click("Delete")
+        clickOk()
+        hasText(R.id.photo_position, "Image 1/1")
+
+        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+    }
+
+    private fun takePhoto() {
+        scrollUntil(R.id.scroll_view) { click("Take photo") }
+        waitFor {
+            // The click can land before the list settles, so repeat it until the camera is open
+            try {
+                isVisible(R.id.capture_button, waitForTime = 1)
+            } catch (e: Throwable) {
+                click("Take photo", waitForTime = 1)
+                throw e
+            }
+        }
+        click(R.id.capture_button)
+    }
+
+    @Test
+    fun canRecordSightingWithQuickAction() {
+        openWithAPage()
+
+        TestUtils.openQuickActions()
+        click(quickAction(Tools.QUICK_ACTION_RECORD_SIGHTING))
+        input(R.id.search, "A Test")
+        click("A Test", exact = true, index = 1)
+
+        hasText("Created", waitForTime = GPS_WAIT_FOR_TIMEOUT)
+        click("View")
+        input("Notes", "Quick action sighting")
+        click(toolbarButton(R.id.title, Side.Right))
+
+        // The quick action deep link returns to the sightings list after saving.
+        hasText("Quick action sighting")
+        back()
+        hasText("Sightings (1)")
         back()
     }
 
-    private fun canLogSightings() {
+    @Test
+    fun canLogAndEditSightings() {
+        // Disclaimer
+        clickOk()
+
+        click("Animal")
+        click("Ant")
         click("Sightings (0)")
         hasText("No sightings")
         hasText(R.id.toolbar_subtitle, "Ant", exact = true)
@@ -294,6 +323,32 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         // Sightings list is updated
         hasText("Test 3")
 
+        // Count on field guide page
+        backUntil {
+            click("Sightings (1)")
+        }
+    }
+
+    @Test
+    fun canUseAndDeleteASighting() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            TestData.addFieldGuideSighting(
+                TestData.builtInFieldGuidePageId("Ant"),
+                time = LocalDateTime.of(2025, 1, 1, 6, 0).atZone(ZoneId.systemDefault()).toInstant(),
+                location = Coordinate(42.0, 72.0),
+                altitudeMeters = 30.48f,
+                harvested = true,
+                notes = "Test",
+                showOnMap = false
+            )
+        }
+        clickOk()
+
+        click("Animal")
+        click("Ant")
+        click("Sightings (1)")
+
         // Navigate
         clickListItemMenu("Navigate")
         hasText(Regex("\\s*\\d+°\\s+[NSEW]+"))
@@ -308,7 +363,6 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         back()
         click("Leave")
 
-        // Count on field guide page
         backUntil {
             click("Sightings (1)")
         }

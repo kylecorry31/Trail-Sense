@@ -29,27 +29,12 @@ import org.junit.Test
 class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun canCreateABeaconAndViewItsDetails() {
         hasText(R.id.beacon_title, string(R.string.beacons))
 
         // No beacons by default
         hasText(R.id.beacon_empty_text, string(R.string.no_beacons))
 
-        createBeacon()
-        openBeacon()
-        shareBeacon()
-        editBeacon()
-        navigate()
-        createGroup()
-        moveBeacon()
-        search()
-        deleteBeacon()
-        toggleVisibility()
-        renameGroup()
-        deleteGroup()
-    }
-
-    private fun createBeacon() {
         click(R.id.create_btn)
         click(string(R.string.beacon), exact = true)
 
@@ -73,21 +58,25 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
 
         hasText(R.id.beacon_title, string(R.string.beacons))
         hasText("Test beacon")
-    }
 
-    private fun openBeacon() {
         click("Test beacon")
         hasText(R.id.beacon_title, "Test beacon")
         hasText(R.id.beacon_title, "42.000000°,  -72.000000°")
 
         hasText(R.id.beacon_altitude, "1000 ft")
         hasText(R.id.beacon_altitude, string(R.string.elevation))
-        hasText(
-            R.id.beacon_distance,
-            Regex("\\d+\\.?\\d* (mi|ft)"),
-            waitForTime = AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
-        )
+        if (!isStagingBuild) {
+            // WGS84 geodesic distance from (42.03, -71.97) to (42, -72) is 2.5829 mi (Vincenty's formulae)
+            hasText(R.id.beacon_distance, "2.58 mi", waitForTime = AutomationLibrary.GPS_WAIT_FOR_TIMEOUT)
+        } else {
+            hasText(
+                R.id.beacon_distance,
+                Regex("\\d+\\.?\\d* (mi|ft)"),
+                waitForTime = AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
+            )
+        }
         hasText(R.id.beacon_distance, string(R.string.distance))
+        // The environment values below depend on the current date
         hasText(R.id.beacon_temperature, Regex("\\d+ °F / \\d+ °F"))
         hasText(R.id.beacon_temperature, string(R.string.temperature_high_low))
         hasText(R.id.beacon_sunrise, Regex("\\d+:\\d+ (AM|PM)"))
@@ -99,7 +88,13 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         hasText(R.id.comment_text, "Test notes")
     }
 
-    private fun shareBeacon() {
+    @Test
+    fun canShareAndEditABeacon() {
+        openWithATestBeacon()
+
+        click("Test beacon")
+        hasText(R.id.beacon_title, "Test beacon")
+
         click(toolbarButton(R.id.beacon_title, Side.Right))
         click(string(R.string.share_ellipsis))
 
@@ -109,9 +104,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         hasText(string(R.string.share_action_send))
 
         back(false)
-    }
 
-    private fun editBeacon() {
         click(R.id.edit_btn)
         hasText(R.id.create_beacon_title, string(R.string.create_beacon))
         hasText(R.id.beacon_name, "Test beacon")
@@ -133,34 +126,8 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         hasText(R.id.comment_text, "Test notes 2")
     }
 
-    private fun navigate() {
-        click(string(R.string.navigate))
-
-        clickOkIfShown()
-
-        isVisible(R.id.navigation_title)
-        hasText("Test beacon")
-        back()
-        back()
-    }
-
-    private fun deleteBeacon() {
-        click("Test group")
-        clickListItemMenu("Delete")
-        clickOk()
-        hasText("Test beacon 2")
-        not { hasText("Test beacon", exact = true) }
-        back(false)
-    }
-
-    private fun toggleVisibility() {
-        click("Test group")
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-        back(false)
-    }
-
-    private fun createGroup() {
+    @Test
+    fun canCreateAGroupAndAddABeaconToIt() {
         click(R.id.create_btn)
         click(string(R.string.group))
 
@@ -172,10 +139,6 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         click("Test group")
         hasText("No beacons")
 
-        createBeaconInGroup()
-    }
-
-    private fun createBeaconInGroup() {
         click(R.id.create_btn)
         click(string(R.string.beacon))
 
@@ -192,10 +155,19 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         back(false)
         hasText("Test group")
         hasText("1 beacon")
-        hasText("Test beacon")
     }
 
-    private fun moveBeacon() {
+    @Test
+    fun canMoveABeaconIntoAGroup() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            // Nearer than the group's beacon, so it is the first item in the list
+            TestData.addBeacon("Test beacon", Coordinate(42.04, -71.97))
+            val group = TestData.addBeaconGroup("Test group")
+            TestData.addBeacon("Test beacon 2", Coordinate(42.0, -72.0), groupId = group)
+        }
+
+        hasText("1 beacon")
         clickListItemMenu("Move to")
         click("Test group")
         click("Move")
@@ -208,26 +180,59 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         back(false)
     }
 
-    private fun deleteGroup() {
+    @Test
+    fun canDeleteABeaconInAGroup() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            val group = TestData.addBeaconGroup("Test group")
+            TestData.addBeacon("Test beacon", Coordinate(42.04, -71.97), groupId = group)
+            TestData.addBeacon("Test beacon 2", Coordinate(42.0, -72.0), groupId = group)
+        }
+
+        click("Test group")
+        // The beacons are sorted by distance, so the first one is the nearest
         clickListItemMenu("Delete")
         clickOk()
-        hasText("No beacons")
-        not { hasText("Test group", exact = true) }
+        hasText("Test beacon 2")
+        not { hasText("Test beacon", exact = true) }
+        back(false)
     }
 
-    private fun renameGroup() {
+    @Test
+    fun canToggleRenameAndDeleteAGroup() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            val group = TestData.addBeaconGroup("Test group")
+            TestData.addBeacon("Test beacon 2", Coordinate(42.0, -72.0), groupId = group)
+        }
+
+        click("Test group")
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        back(false)
+
         clickListItemMenu("Rename")
         input("Test group", "Test group 2")
         clickOk()
         hasText("Test group 2")
         not { hasText("Test group", exact = true) }
+
+        clickListItemMenu("Delete")
+        clickOk()
+        hasText("No beacons")
+        not { hasText("Test group 2", exact = true) }
     }
 
-    private fun search() {
-        input(R.id.searchbox, "2")
-        hasText("Test beacon 2")
-        input(R.id.searchbox, "")
-        hasText("Test group")
+    private fun openWithATestBeacon() {
+        assumeFalse(isStagingBuild)
+        relaunchTool {
+            TestData.addBeacon(
+                "Test beacon",
+                Coordinate(42.0, -72.0),
+                elevation = 304.8f,
+                comment = "Test notes"
+            )
+        }
     }
 
     // Beacons are placed at known offsets from the current location (42.03, -71.97) so the distances
@@ -295,6 +300,10 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         input(R.id.searchbox, "park")
         hasText("Parking")
         not { hasText("Lake") }
+
+        input(R.id.searchbox, "")
+        hasText("Summit")
+        hasText("Trailheads")
     }
 
     @Test

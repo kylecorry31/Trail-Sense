@@ -4,6 +4,9 @@ import android.graphics.Point
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
+import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
+import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
 import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
@@ -13,7 +16,10 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
@@ -23,10 +29,17 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.byResId
+import com.kylecorry.trail_sense.test_utils.views.TestView
 import com.kylecorry.trail_sense.test_utils.views.view
+import com.kylecorry.trail_sense.test_utils.views.viewWithText
 import com.kylecorry.trail_sense.tools.map.ui.MapView
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
+import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Test
 import kotlin.math.atan2
@@ -35,18 +48,6 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 class ToolMapTest : ToolTestBase(Tools.MAP, location) {
-
-    @Test
-    fun verifyBasicFunctionality() {
-        // Disclaimer
-        clickOk()
-
-        canZoom()
-        canLock()
-        canLongPressMap()
-        verifyMapMenuOptions()
-        verifySensorStatusBadges()
-    }
 
     @Test
     fun verifyTimeSlider() {
@@ -75,16 +76,57 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         click(R.id.time_btn)
     }
 
-    @Test
-    fun verifyMapLayers() {
-        // Disclaimer
+    private fun openLayers() {
         clickOk()
-
-        // Open the layers sheet
         click(R.id.menu_btn)
         click("Layers")
+    }
 
-        // Verify the default layers are present
+    private fun closeLayers() {
+        click(toolbarButton(R.id.title, Side.Right))
+    }
+
+    // The layer may still be settling after it expands, which can swallow the first click
+    private fun setSwitch(label: String, checked: Boolean) {
+        waitFor {
+            val toggle = switchOf(label)
+            if (toggle.uiObject.isChecked != checked) {
+                toggle.uiObject.click()
+            }
+            assertEquals(checked, switchOf(label).uiObject.isChecked)
+        }
+    }
+
+    // Only the switch toggles the setting, not its label
+    private fun switchOf(label: String): TestView {
+        var node = viewWithText(label).uiObject.parent
+        while (node != null) {
+            node.findObject(byResId(androidx.preference.R.id.switchWidget))?.let { return TestView(it) }
+            node = node.parent
+        }
+        throw AssertionError("No switch for $label")
+    }
+
+    private fun layerIds() = MapLayerPreferenceRepo().getActiveLayerIds(MapToolRegistration.MAP_ID)
+
+    private fun layerSetting(layerId: String, key: String): Any? {
+        return MapLayerPreferenceRepo()
+            .getLayerPreferences(MapToolRegistration.MAP_ID, listOf(layerId))[layerId]!!
+            .firstOrNull { it.key == key }?.value
+    }
+
+    private fun openWithSlopeLayer() {
+        assumeFalse(isStagingBuild)
+        relaunchTool { TestData.addMapLayer(MapToolRegistration.MAP_ID, SlopeMapTileSource.SOURCE_ID) }
+        openLayers()
+    }
+
+    @Test
+    fun defaultLayersAreListedFromTopToBottom() {
+        openLayers()
+
+        // The top layer is listed first
+        hasText(android.R.id.title, "Location", exact = true, index = 0)
         scrollUntil { hasText("Location") }
         scrollUntil { hasText("Beacons") }
         scrollUntil { hasText("Paths") }
@@ -96,132 +138,247 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         scrollUntil { hasText("Elevation") }
         scrollUntil { hasText("Trail maps") }
         scrollUntil { hasText("Basemap") }
-
-        // Add an additional layer (Slope layer)
         scrollUntil { hasText("Additional layers") }
-        click("Additional layers")
+
+        closeLayers()
+    }
+
+    @Test
+    fun canAddAndRemoveALayer() {
+        assumeFalse(isStagingBuild)
+        openLayers()
+
+        scrollUntil { click("Additional layers") }
         click("Slope")
         clickOk()
 
-        // Verify the new layer appears
-        hasText("Slope")
+        // New layers are added above the others
+        hasText(android.R.id.title, "Slope", exact = true, index = 0)
+        assertEquals(SlopeMapTileSource.SOURCE_ID, layerIds().last())
 
-        // Expand the layer
         click("Slope")
+        scrollUntil { hasText("Remove layer") }
+        click("Remove layer")
+        clickOk()
 
-        // Move the layer down
+        not { hasText(android.R.id.title, "Slope", exact = true, index = 0, waitForTime = 0) }
+        assertFalse(layerIds().contains(SlopeMapTileSource.SOURCE_ID))
+
+        closeLayers()
+    }
+
+    @Test
+    fun canReorderALayer() {
+        openWithSlopeLayer()
+        hasText(android.R.id.title, "Slope", exact = true, index = 0)
+
+        // Layers are listed from the top, so moving down lowers it below the layer under it
+        click("Slope")
         click(R.id.layer_move_down)
+        hasText(android.R.id.title, "Location", exact = true, index = 0)
+        hasText(android.R.id.title, "Slope", exact = true, index = 1)
+        val moved = layerIds()
+        assertEquals(SlopeMapTileSource.SOURCE_ID, moved[moved.size - 2])
 
-        // Move the layer up
-        click(R.id.layer_move_up)
+        click(R.id.layer_move_up, index = 1)
+        hasText(android.R.id.title, "Slope", exact = true, index = 0)
+        assertEquals(SlopeMapTileSource.SOURCE_ID, layerIds().last())
 
-        // Toggle visible (and then re-enable)
-        click("Visible")
-        click("Visible")
+        closeLayers()
+    }
+
+    @Test
+    fun canChangeALayersSettings() {
+        openWithSlopeLayer()
+        val id = SlopeMapTileSource.SOURCE_ID
+
+        click("Slope")
+        setSwitch("Visible", false)
+        waitFor { assertEquals(false, layerSetting(id, DefaultMapLayerDefinitions.ENABLED)) }
+        setSwitch("Visible", true)
+        waitFor { assertEquals(true, layerSetting(id, DefaultMapLayerDefinitions.ENABLED)) }
         scrollUntil { hasText("Opacity") }
 
-        // Copy layer to other maps
+        // High resolution is off by default
+        scrollUntil { hasText("High resolution") }
+        setSwitch("High resolution", true)
+        waitFor { assertEquals(true, layerSetting(id, SlopeMapTileSource.HIGH_RESOLUTION)) }
+
+        closeLayers()
+    }
+
+    @Test
+    fun canCopyALayersSettingsToOtherMaps() {
+        openWithSlopeLayer()
+        val id = SlopeMapTileSource.SOURCE_ID
+        assertFalse(
+            MapLayerPreferenceRepo().getActiveLayerIds(NavigationToolRegistration.MAP_ID).contains(id)
+        )
+
+        click("Slope")
         scrollUntil { hasText("Copy settings to other maps") }
         click("Copy settings to other maps")
-        // Verify Navigation is checked, uncheck Photo maps
+        // Both of the other maps are selected by default
         isChecked("Navigation")
         isChecked("Photo maps")
         click("Photo maps")
         isNotChecked("Photo maps")
         clickOk()
 
-        // Verify the "High resolution" toggle is disabled, then turn it on
-        scrollUntil { hasText("High resolution") }
-        click("High resolution")
+        val repo = MapLayerPreferenceRepo()
+        waitFor {
+            assertTrue(repo.getActiveLayerIds(NavigationToolRegistration.MAP_ID).contains(id))
+        }
+        assertFalse(repo.getActiveLayerIds(OfflineMapsToolRegistration.PHOTO_MAPS_ID).contains(id))
 
-        // Remove layer
-        scrollUntil { hasText("Remove layer") }
-        click("Remove layer")
-        clickOk()
+        closeLayers()
+    }
 
-        // Re-add all layers
-        scrollUntil { hasText("Additional layers") }
-        click("Additional layers")
+    @Test
+    fun canAddEveryAdditionalLayer() {
+        assumeFalse(isStagingBuild)
+        openLayers()
+        val added = listOf(
+            "Aspect", "Cell towers", "Lunar eclipse", "Night", "Ruggedness", "Sightings", "Slope",
+            "Solar eclipse"
+        )
+
+        scrollUntil { click("Additional layers") }
         click("Aspect")
         click("Cell towers")
         click("Lunar eclipse")
         click("Night")
         scrollUntil { click("Ruggedness") }
         scrollUntil { click("Sightings") }
-        scrollUntil { hasText("Slope") }
+        scrollUntil { click("Slope") }
         scrollUntil { click("Solar eclipse") }
         clickOk()
 
-        // Close sheet
-        click(toolbarButton(R.id.title, Side.Right))
+        // The last layer added is at the top
+        scrollToStart()
+        for (name in added.reversed()) {
+            scrollUntil { hasText(name, exact = true) }
+        }
+        assertEquals(11 + added.size, layerIds().size)
+
+        closeLayers()
     }
 
-    private fun verifySensorStatusBadges() {
+    @Test
+    fun zoomButtonsScaleTheMap() {
+        clickOk()
+        val start = resolution()
+
+        click(R.id.zoom_in_btn)
+        // Zooming in doubles the scale, which halves the meters shown by each pixel
+        waitFor { assertEquals(start / 2, resolution(), start * 0.001f) }
+
+        click(R.id.zoom_out_btn)
+        waitFor { assertEquals(start, resolution(), start * 0.001f) }
+
+        click(R.id.zoom_out_btn)
+        waitFor { assertEquals(start * 2, resolution(), start * 0.001f) }
+    }
+
+    @Test
+    fun lockButtonCyclesThroughLocationCompassAndUnlocked() {
+        clickOk()
+        isNotChecked(R.id.lock_btn)
+
+        click(R.id.lock_btn)
+        isChecked(R.id.lock_btn)
+        click(R.id.lock_btn)
+        isChecked(R.id.lock_btn)
+        click(R.id.lock_btn)
+        isNotChecked(R.id.lock_btn)
+    }
+
+    @Test
+    fun sensorStatusBadgesShowTheAccuracyInfo() {
+        clickOk()
+
         click(R.id.sensor_status_badges)
         hasText(string(R.string.accuracy_info_title))
         clickOk()
     }
 
-    private fun canLock() {
-        click(R.id.lock_btn)
-        click(R.id.lock_btn)
-        click(R.id.lock_btn)
+    @Test
+    fun measuringFromTheMenuStartsAtZero() {
+        clickOk()
+
+        click(R.id.menu_btn)
+        click("Measure")
+        hasText("Distance")
+        // No points have been added yet
+        hasText(R.id.map_distance_title, "0 ft")
+        hasText("Create path")
+        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        isNotVisible(R.id.map_distance_title)
     }
 
-    private fun canZoom() {
-        click(R.id.zoom_in_btn)
-        click(R.id.zoom_out_btn)
+    @Test
+    fun creatingAPathFromTheMenuStartsEmpty() {
+        clickOk()
+
+        click(R.id.menu_btn)
+        click("Create path")
+        hasText("Distance")
+        hasText(R.id.map_distance_title, "0 ft")
+        hasText("Create path")
+        // Nothing has been added, so cancelling does not ask to discard the path
+        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        isNotVisible(R.id.map_distance_title)
     }
 
-    private fun canLongPressMap() {
-        longClick(R.id.map)
-        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
-        hasText(Regex("Elevation: -?\\d+(\\.\\d+)?\\s*(ft|m)"))
-        // Verify the distance, direction, and elevation-difference data points are shown.
-        hasText(R.id.location_data_distance, Regex("-?\\d+(\\.\\d+)?\\s*(mi|ft|km|m)"))
-        hasText(R.id.location_data_direction, Regex("-?\\d+°\\s+\\w+"))
-        hasText(R.id.location_data_elevation_diff, Regex("[+-]?\\d+(\\.\\d+)?\\s*(ft|m)"))
+    @Test
+    fun longPressCanCreateABeaconAtThePressedLocation() {
+        assumeFalse(isStagingBuild)
+        clickOk()
+
+        longPressAt(pressTarget)
+        val shown = waitFor { view(R.id.toolbar_title).uiObject.text }
         hasText("Beacon")
         hasText("Navigate")
         hasText("Distance")
 
         click("Beacon")
         hasText("Create beacon")
-        hasText(Regex(".*-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°.*"))
+        hasText(shown)
         back()
         click("Leave")
-        longClick(R.id.map)
-
-        click("Navigate")
-        hasText(Regex(".*-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°.*"))
-        click(R.id.navigation_cancel)
-
-        longClick(R.id.map)
-        click("Distance")
-        hasText("Distance")
-        hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
-        hasText("Create path")
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        isVisible(R.id.map)
     }
 
-    private fun verifyMapMenuOptions() {
-        click(R.id.menu_btn)
-        click("Measure")
-        hasText("Distance")
-        hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
-        hasText("Create path")
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+    @Test
+    fun longPressCanNavigateToThePressedLocation() {
+        assumeFalse(isStagingBuild)
+        clickOk()
 
-        click(R.id.menu_btn)
-        click("Create path")
-        hasText("Distance")
-        hasText(Regex("\\d+(\\.\\d+)? (mi|ft)"))
-        hasText("Create path")
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        longPressAt(pressTarget)
+        val shown = waitFor { view(R.id.toolbar_title).uiObject.text }
+        click("Navigate")
 
-        click(R.id.menu_btn)
-        click("Layers")
-        click(toolbarButton(R.id.title, Side.Right))
+        // The pressed location is the destination's name
+        hasText(R.id.navigation_sheet_title, shown)
+        click(R.id.navigation_cancel)
+        isNotVisible(R.id.navigation_sheet_title)
+    }
+
+    @Test
+    fun longPressCanMeasureTheDistanceToThePressedLocation() {
+        assumeFalse(isStagingBuild)
+        clickOk()
+
+        longPressAt(pressTarget)
+        val shown = parseCoordinate(waitFor { view(R.id.toolbar_title).uiObject.text })
+        click("Distance")
+
+        hasText("Distance")
+        hasText("Create path")
+        // The measurement starts from the current location
+        assertMeasuredPath(listOf(location, shown))
+        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        isNotVisible(R.id.map_distance_title)
     }
 
     // The map is drawn on a canvas, so these tests find where something should be on the screen using
@@ -257,8 +414,8 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         click("Navigate", exact = true)
 
         hasText(R.id.navigation_sheet_title, "Camp")
-        // 0.0015 degrees of latitude is 167 m
-        hasText(R.id.navigation_primary_stat, Regex("54[78] ft"), childId = R.id.stat_value)
+        // 0.0015 degrees of latitude: 546.6 ft by Vincenty (547.2 ft by haversine)
+        hasText(R.id.navigation_primary_stat, "547 ft", childId = R.id.stat_value)
     }
 
     @Test
@@ -362,6 +519,12 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         return amount * if (unit == "mi") 1609.344 else 0.3048
     }
 
+    private fun resolution(): Float {
+        var resolution = 0f
+        scenario.onActivity { resolution = it.findViewById<MapView>(R.id.map).resolutionPixels }
+        return resolution
+    }
+
     private fun textOf(
         id: Int,
         timeout: Long = AutomationLibrary.DEFAULT_WAIT_FOR_TIMEOUT
@@ -387,6 +550,12 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
      * Taps the coordinate until [verify] passes, since the layers load in the background.
      */
     private fun tapAt(coordinate: Coordinate, verify: () -> Unit) {
+        // Before the map is centered the coordinate is not where it will end up on the screen
+        waitFor {
+            var center = Coordinate.zero
+            scenario.onActivity { center = it.findViewById<MapView>(R.id.map).mapCenter }
+            assertEquals(location.latitude, center.latitude, 0.0003)
+        }
         waitFor(10000) {
             val point = getScreenPoint(coordinate)
             TestUtils.device.click(point.x, point.y)
@@ -430,6 +599,9 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         private val location = Coordinate(42.03, -71.97)
         // About 167 m north of the current location
         private val campLocation = Coordinate(42.0315, -71.97)
+
+        // About 223 m north and 82 m east of the current location
+        private val pressTarget = Coordinate(42.032, -71.969)
 
         // Points for drawing a path, far enough apart to tap separately
         private val pathStart = Coordinate(42.0325, -71.9715)

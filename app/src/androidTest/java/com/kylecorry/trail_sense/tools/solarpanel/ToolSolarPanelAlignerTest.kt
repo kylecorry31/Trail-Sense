@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.solarpanel
 
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
@@ -12,15 +13,16 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Assume.assumeTrue
 import org.junit.Test
 
-class ToolSolarPanelAlignerTest : ToolTestBase(Tools.SOLAR_PANEL_ALIGNER) {
+class ToolSolarPanelAlignerTest :
+    ToolTestBase(Tools.SOLAR_PANEL_ALIGNER, Coordinate(42.03, -71.97)) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheSolarPanelDetailsForTheRestOfToday() {
         assumeTrue(Tools.isToolAvailable(context, Tools.SOLAR_PANEL_ALIGNER))
 
         clickOk()
 
-        // It should show the solar panel details for today
+        // The current tilt and azimuth come from the emulator's sensors, so only the format is checked
         hasText(R.id.tilt_label, string(R.string.tilt), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         hasText(R.id.current_altitude, Regex("-?\\d+°"))
         hasText(R.id.desired_altitude, Regex("-?\\d+°"))
@@ -32,13 +34,19 @@ class ToolSolarPanelAlignerTest : ToolTestBase(Tools.SOLAR_PANEL_ALIGNER) {
         hasText(R.id.energy, Regex("Up to \\d+(\\.\\d+)? kWh / m²"))
 
         // TODO: Verify that today is selected
+    }
 
-        // It should show the solar panel details for a custom time
+    @Test
+    fun showsTheSolarPanelDetailsForAChargeDuration() {
+        assumeTrue(Tools.isToolAvailable(context, Tools.SOLAR_PANEL_ALIGNER))
+
+        clickOk()
+
         click(R.id.solar_now_btn)
 
         clickOk()
 
-        hasText(R.id.tilt_label, string(R.string.tilt))
+        hasText(R.id.tilt_label, string(R.string.tilt), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         hasText(R.id.current_altitude, Regex("-?\\d+°"))
         hasText(R.id.desired_altitude, Regex("-?\\d+°"))
 

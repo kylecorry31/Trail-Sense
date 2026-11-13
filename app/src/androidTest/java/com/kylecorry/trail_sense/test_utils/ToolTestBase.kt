@@ -24,7 +24,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
-import org.junit.rules.RuleChain
 import org.junit.rules.Timeout
 import java.util.concurrent.TimeUnit
 
@@ -33,14 +32,8 @@ open class ToolTestBase(
     private val locationOverride: Coordinate? = null
 ) {
 
-    private val timeoutRule: Timeout = Timeout(5, TimeUnit.MINUTES)
-
-    private val retryRule = RetryTestRule(maxRetryCount = 3)
-
     @get:Rule
-    val retryWithTimeoutRule: RuleChain = RuleChain
-        .outerRule(retryRule)
-        .around(timeoutRule)
+    val timeoutRule: Timeout = Timeout(5, TimeUnit.MINUTES)
 
     @get:Rule
     val grantPermissionRule = TestUtils.allPermissionsGranted()

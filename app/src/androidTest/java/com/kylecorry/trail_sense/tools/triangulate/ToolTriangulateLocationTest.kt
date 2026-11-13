@@ -20,31 +20,29 @@ import org.junit.Test
 
 class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
 
+    // Two true bearings are used for the destination: a sight line due north along the 72 W
+    // meridian from 41.99 N, and one due east from 42 N, 72.01 W. They cross at 42 N, 72 W (the
+    // great circle from the second point drops by only 0.0000004 degrees over that distance).
     @Test
-    fun verifyBasicFunctionality() {
-        verifyValidTriangulation()
-        verifyTriangulationActions()
-        verifyMyLocationTriangulation()
-        verifyInvalidTriangulation()
-        verifyReset()
+    fun triangulatesADestinationFromTwoBearings() {
+        triangulateDestination()
     }
 
-    private fun verifyValidTriangulation() {
-        enterLocation("41.99, -72", "0", trueNorth = true)
-        switchLocation(1, 2)
-        enterLocation("42, -72.01", "90", trueNorth = true)
+    @Test
+    fun canShareTheTriangulatedLocation() {
+        triangulateDestination()
 
-        scrollToStart()
-        hasText(R.id.triangulate_title, "42.000000°,  -72.000000°")
-    }
-
-    private fun verifyTriangulationActions() {
         click(string(R.string.share_ellipsis))
         hasText(string(android.R.string.copy))
         hasText(string(R.string.qr_code))
         hasText(string(R.string.maps))
         hasText(string(R.string.share_action_send))
         back(false)
+    }
+
+    @Test
+    fun canCreateABeaconFromTheTriangulatedLocation() {
+        triangulateDestination()
 
         click(string(R.string.beacon), exact = true)
         hasText(R.id.create_beacon_title, string(R.string.create_beacon))
@@ -54,6 +52,11 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         backUntil {
             hasText(R.id.triangulate_title, "42.000000°,  -72.000000°")
         }
+    }
+
+    @Test
+    fun canNavigateToTheTriangulatedLocation() {
+        triangulateDestination()
 
         click(string(R.string.navigate))
         clickOkIfShown()
@@ -64,11 +67,15 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         }
     }
 
-    private fun verifyMyLocationTriangulation() {
+    // Sight lines from the landmarks at 40.5 N, 9.5 E (295 true) and 40 N, 10 E (220 true) cross
+    // at 40.2296 N, 10.2527 E on a sphere (a great circle intersection), which is within 16 m of
+    // the expected location
+    @Test
+    fun triangulatesMyLocationFromTwoLandmarks() {
         click(string(R.string.my_location))
-        enterLocation("40.5, 9.5", "295")
-        switchLocation(2, 1)
-        enterLocation("40, 10", "220")
+        enterLocation("40.5, 9.5", "295", trueNorth = true)
+        switchLocation(1, 2)
+        enterLocation("40, 10", "220", trueNorth = true)
 
         scrollToStart()
         val expected = Coordinate(40.229722, 10.252778)
@@ -78,16 +85,22 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         }
     }
 
-    private fun verifyInvalidTriangulation() {
-        scrollUntil {
-            input(R.id.utm, "40.5, 9.5")
-        }
+    @Test
+    fun showsAnErrorWhenTheLocationsCannotBeTriangulated() {
+        click(string(R.string.my_location))
+        enterLocation("40.5, 9.5", "295", trueNorth = true)
+        switchLocation(1, 2)
+        enterLocation("40.5, 9.5", "220", trueNorth = true)
 
         scrollToStart()
         hasText(R.id.triangulate_title, string(R.string.could_not_triangulate))
     }
 
-    private fun verifyReset() {
+    @Test
+    fun canResetTheTriangulation() {
+        triangulateDestination()
+        isVisible(R.id.actions)
+
         scrollUntil {
             click(string(R.string.reset), exact = true)
         }
@@ -96,6 +109,15 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         verifyLocationIsReset()
         switchLocation(1, 2)
         verifyLocationIsReset()
+    }
+
+    private fun triangulateDestination() {
+        enterLocation("41.99, -72", "0", trueNorth = true)
+        switchLocation(1, 2)
+        enterLocation("42, -72.01", "90", trueNorth = true)
+
+        scrollToStart()
+        hasText(R.id.triangulate_title, "42.000000°,  -72.000000°")
     }
 
     private fun verifyLocationIsReset() {

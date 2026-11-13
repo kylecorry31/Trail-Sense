@@ -14,7 +14,7 @@ import org.junit.Test
 class ToolDiagnosticsTest : ToolTestBase(Tools.DIAGNOSTICS) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheDiagnostics() {
         hasText(R.id.diagnostics_title, string(R.string.diagnostics))
         hasText(R.id.download_logs, string(R.string.export_logs))
 
@@ -22,7 +22,10 @@ class ToolDiagnosticsTest : ToolTestBase(Tools.DIAGNOSTICS) {
         hasText(string(R.string.battery_usage_restricted), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         click(string(R.string.battery_usage_restricted))
         click(string(android.R.string.cancel))
+    }
 
+    @Test
+    fun canOpenTheSensorDetails() {
         click(toolbarButton(R.id.diagnostics_title, Side.Right))
         hasText(R.id.sensor_details_title, string(R.string.pref_sensor_details_title))
     }

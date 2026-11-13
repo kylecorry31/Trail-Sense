@@ -7,12 +7,12 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
@@ -23,11 +23,15 @@ import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheSunAndMoonForToday() {
         // Verify the title
         hasText(R.id.astronomy_title) {
             val valid = listOf(
@@ -50,10 +54,49 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
         hasText(R.id.astronomy_detail_list) {
             it.startsWith(string(R.string.moon))
         }
+    }
 
-        verifyQuickActions()
+    @Test
+    fun showsTheSunAndMoonTimesForADate() {
+        goToDate(2024, 6, 21)
+        hasText(R.id.date_btn, "June 21, 2024")
 
-        // Verify the View in 3D button is visible and works
+        // USNO Astronomical Applications API, 42.03 N 71.97 W, 2024-06-21 (EDT):
+        // sunrise 5:12 AM, solar noon 12:50 PM, sunset 8:27 PM, moonset 4:15 AM, moonrise 8:47 PM
+        hasEvent("2024-06-21T09:12:00Z", string(R.string.astronomy_rise))
+        hasEvent("2024-06-21T16:50:00Z", string(R.string.noon))
+        hasEvent("2024-06-22T00:27:00Z", string(R.string.astronomy_set))
+
+        // USNO: Full Moon on 2024-06-21 with 100% of the moon illuminated
+        scrollUntil {
+            hasText(Regex("Full moon \\((99|100)%\\)"))
+            hasEvent("2024-06-21T08:15:00Z", string(R.string.astronomy_set), toleranceMinutes = 3)
+            hasEvent("2024-06-22T00:47:00Z", string(R.string.astronomy_rise), toleranceMinutes = 3)
+        }
+    }
+
+    @Test
+    fun canToggleTheSunsetAndSunriseAlerts() {
+        TestUtils.openQuickActions()
+        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
+
+        handleExactAlarmsDialog()
+
+        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
+
+        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
+
+        handleExactAlarmsDialog()
+
+        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
+
+        // TODO: Simulate time passing to verify the alerts are shown
+
+        TestUtils.closeQuickActions()
+    }
+
+    @Test
+    fun canViewTheSunAndMoonIn3D() {
         if (Tools.isToolAvailable(TestUtils.context, Tools.AUGMENTED_REALITY)) {
             // Wait for the toast do disappear
             not {
@@ -64,7 +107,6 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
             click(R.id.button_3d)
 
             // Verify the AR tool is open
-            delay(500)
             click("Cancel")
             clickOk()
             if (!Sensors.hasGyroscope(TestUtils.context)) {
@@ -93,26 +135,6 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
 
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_NIGHT_MODE))
-    }
-
-    private fun verifyQuickActions() {
-        // Verify the sunset alert quick action
-        TestUtils.openQuickActions()
-        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
-
-        handleExactAlarmsDialog()
-
-        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
-
-        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
-
-        handleExactAlarmsDialog()
-
-        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
-
-        // TODO: Simulate time passing to verify the alerts are shown
-
-        TestUtils.closeQuickActions()
     }
 
     @Test
@@ -165,6 +187,16 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
         click(R.id.search_btn)
         click(event, exact = true)
         clickOk()
+    }
+
+    private fun hasEvent(utc: String, label: String, toleranceMinutes: Long = 2) {
+        // The app's sun and moon models can differ from the published times by a few minutes
+        val formatter = DateTimeFormatter.ofPattern("h:mm a", Locale.US)
+        val time = Instant.parse(utc)
+        val allowed = (-toleranceMinutes..toleranceMinutes).joinToString("|") {
+            Regex.escape(formatter.format(time.plusSeconds(it * 60).atZone(ZoneId.systemDefault())))
+        }
+        hasText(Regex("($allowed)\\s+${Regex.escape(label)}"))
     }
 
     companion object {

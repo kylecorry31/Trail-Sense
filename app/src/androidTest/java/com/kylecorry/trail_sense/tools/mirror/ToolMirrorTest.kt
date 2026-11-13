@@ -12,7 +12,7 @@ import org.junit.Test
 
 class ToolMirrorTest : ToolTestBase(Tools.MIRROR_CAMERA) {
     @Test
-    fun verifyBasicFunctionality() {
+    fun startsThePreviewWithTheFrontCamera() {
         assumeTrue(Tools.isToolAvailable(context, Tools.MIRROR_CAMERA))
 
         isVisible(R.id.camera)

@@ -13,7 +13,7 @@ import org.junit.Test
 class ToolLightMeterTest : ToolTestBase(Tools.LIGHT_METER) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheLightLevelAndTheBeamDistanceForAnEnteredDistance() {
         assumeTrue(Tools.isToolAvailable(TestUtils.context, Tools.LIGHT_METER))
 
         hasText(R.id.light_title, Regex("\\d+ lx"))

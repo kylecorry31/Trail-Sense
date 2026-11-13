@@ -1,9 +1,6 @@
 package com.kylecorry.trail_sense.tools.declination
 
 import com.kylecorry.andromeda.core.math.DecimalFormatter
-import com.kylecorry.sol.science.geology.Geology
-import com.kylecorry.sol.science.geophysics.Geophysics
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -13,32 +10,30 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
+import kotlin.math.abs
 
 class ToolDeclinationTest : ToolTestBase(Tools.DECLINATION) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheDeclinationOfAnEnteredLocation() {
         // Wait for it to load the GPS location
         not(waitForTime = GPS_WAIT_FOR_TIMEOUT) {
             hasText(string(R.string.loading))
         }
 
+        // NOAA WMM declination on 2026-11-13: -13.51 degrees at 42, -72 and 6.65 degrees at
+        // -42, -72. It changes by about 0.1 degrees a year, so allow 0.3 degrees of drift
         input(R.id.utm, "42, -72")
-
-        // This varies with time, so look it up
-        val declination1 = Geophysics.getGeomagneticDeclination(Coordinate(42.0, -72.0))
-        val formatted1 = DecimalFormatter.format(declination1, 1)
-
-        // Verify the declination is displayed
-        hasText("$formatted1° (W)")
+        hasDeclination(-13.51, "W")
 
         input(R.id.utm, "-42, -72")
+        hasDeclination(6.65, "E")
+    }
 
-        // This varies with time, so look it up
-        val declination2 = Geophysics.getGeomagneticDeclination(Coordinate(-42.0, -72.0))
-        val formatted2 = DecimalFormatter.format(declination2, 1)
-
-        // Verify the declination is displayed
-        hasText("$formatted2° (E)")
+    private fun hasDeclination(expected: Double, direction: String) {
+        val allowed = (-3..3).joinToString("|") {
+            Regex.escape(DecimalFormatter.format(abs(expected) + it / 10.0, 1))
+        }
+        hasText(Regex("($allowed)° \\($direction\\)"))
     }
 }

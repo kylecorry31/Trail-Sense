@@ -16,7 +16,7 @@ import org.junit.Test
 class ToolSignalFinderTest : ToolTestBase(Tools.SIGNAL_FINDER, Coordinate(42.03, -71.97)) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheDetectedSignalAndNearbyTowers() {
         hasText(string(R.string.cell_towers))
 
         // Detected signal
@@ -25,10 +25,16 @@ class ToolSignalFinderTest : ToolTestBase(Tools.SIGNAL_FINDER, Coordinate(42.03,
             hasText(Regex("[0-9]+% •(\\d+\\.\\d+ (ft|mi) - \\d+\\.\\d+ (ft|mi) •)? [0-9]+:[0-9]+:[0-9]+ (AM|PM) • (Full service | Emergency calls only)"))
         }
 
-        // Tower
+        // Tower (the dataset is bundled with the app, so the exact tower can't be seeded)
         hasText("Cell tower")
+        hasText(Regex("\\d+(\\.\\d+)? (ft|mi) • \\d+° [NESW]+"))
 //        hasText("0 ft • 0° N")
 //        hasText("1.54 mi • 90° E")
+    }
+
+    @Test
+    fun canNavigateToATower() {
+        hasText("Cell tower")
 
         // Create a beacon at one of the cell towers
 //        TestUtils.clickListItemMenu(string(R.string.create_beacon))

@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.packs
 
 import androidx.test.uiautomator.Direction
 import com.kylecorry.sol.math.MathExtensions.roundPlaces
+import com.kylecorry.sol.units.Weight
+import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
@@ -12,57 +14,64 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
+import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assume.assumeFalse
 import org.junit.Test
 import kotlin.math.roundToInt
 
 class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
 
+    private fun openPack(name: String, vararg items: PackItem) {
+        assumeFalse(isStagingBuild)
+        relaunchTool { TestData.addPack(name, items.toList()) }
+        click(com.kylecorry.andromeda.views.R.id.title)
+        hasText(R.id.inventory_list_title, name)
+    }
+
+    private fun packItem(
+        name: String,
+        amount: Int,
+        desiredAmount: Int,
+        category: ItemCategory,
+        weightLbs: Float
+    ): PackItem {
+        return PackItem(
+            0,
+            0,
+            name,
+            category,
+            amount.toDouble(),
+            desiredAmount.toDouble(),
+            Weight.from(weightLbs, WeightUnits.Pounds)
+        )
+    }
+
+    private fun foodItem(amount: Int) = packItem("Test Item 1", amount, 2, ItemCategory.Food, 1.1f)
+
+    private fun clothingItem(amount: Int) =
+        packItem("Test Item 2", amount, 2, ItemCategory.Clothing, 0.5f)
+
     @Test
-    fun verifyBasicFunctionality() {
+    fun canCreateAPack() {
         hasText(R.id.pack_list_title, string(R.string.packing_lists))
-
-        shouldHaveNoPacks()
-        canCreateAPack()
-        canCreateAnItem()
-        canCheckAnItem()
-        canEditAnItemOnClick()
-        canAddASecondItem()
-
-        // Item menu items
-        canIncrementItem()
-        canDecrementItem()
-        canEditAnItemFromMenu()
-        canDeleteAnItem()
-
-        // Pack menu items
-        canRenamePack()
-        canClearPackAmounts()
-        canExportPack()
-        // TODO: Sort items
-
-        // Pack list
-        canShowPackList()
-        canCopyPack()
-        canDeletePack()
-        canImportPack()
-    }
-
-    private fun shouldHaveNoPacks() {
         hasText(R.id.empty_text, string(R.string.no_packing_lists))
-    }
 
-    private fun canCreateAPack() {
         createPackingList("Test Pack 1")
     }
 
-    private fun canCreateAnItem() {
+    @Test
+    fun canCreateAnItem() {
+        openPack("Test Pack 1")
+
         createItem("Test Item 1", 1, 2, string(R.string.category_food), 1.1f)
         hasItem(
             "Test Item 1",
@@ -72,12 +81,17 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             "1.1 lb",
             false
         )
+        // 1 of 2 packed, 1 * 1.1 lb
         hasText(R.id.total_percent_packed, "50% packed")
         hasText(R.id.total_packed_weight, "1.1 lb")
     }
 
-    private fun canCheckAnItem() {
+    @Test
+    fun canCheckAnItem() {
+        openPack("Test Pack 1", foodItem(1))
+
         click(com.kylecorry.andromeda.views.R.id.checkbox)
+        // Checking packs the full amount: 2 * 1.1 lb
         hasItem(
             "Test Item 1",
             2,
@@ -90,7 +104,10 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         hasText(R.id.total_packed_weight, "2.2 lb")
     }
 
-    private fun canEditAnItemOnClick() {
+    @Test
+    fun canEditAnItemOnClick() {
+        openPack("Test Pack 1", foodItem(2))
+
         click(com.kylecorry.andromeda.views.R.id.title)
         hasText(R.id.create_item_title, string(R.string.edit_item_title))
         hasItemForm("Test Item 1", 2, 2, string(R.string.category_food), 1.1f)
@@ -100,13 +117,16 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             2,
             2,
             string(R.string.category_food),
-            "2 lb",
+            "2.2 lb",
             true
         )
     }
 
-    private fun canEditAnItemFromMenu() {
-        clickListItemMenu(string(R.string.edit), 1)
+    @Test
+    fun canEditAnItemFromMenu() {
+        openPack("Test Pack 1", foodItem(2))
+
+        clickListItemMenu(string(R.string.edit))
         hasText(R.id.create_item_title, string(R.string.edit_item_title))
         hasItemForm("Test Item 1", 2, 2, string(R.string.category_food), 1.1f)
         click(R.id.create_btn)
@@ -115,15 +135,17 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             2,
             2,
             string(R.string.category_food),
-            "2 lb",
-            true,
-            1
+            "2.2 lb",
+            true
         )
     }
 
-    private fun canAddASecondItem() {
-        hasText(string(R.string.category_food))
+    @Test
+    fun canAddASecondItem() {
+        openPack("Test Pack 1", foodItem(2))
+
         createItem("Test Item 2", 1, 2, string(R.string.category_clothing), 0.5f)
+        // The incomplete item is listed first
         hasItem(
             "Test Item 2",
             1,
@@ -142,12 +164,16 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             true,
             1
         )
+        // (50% + 100%) / 2 items, 2 * 1.1 lb + 1 * 0.5 lb
         hasText(R.id.total_percent_packed, "75% packed")
         hasText(R.id.total_packed_weight, "2.7 lb")
     }
 
-    private fun canIncrementItem() {
-        clickListItemMenu(string(R.string.add), 0)
+    @Test
+    fun canIncrementItem() {
+        openPack("Test Pack 1", clothingItem(1))
+
+        clickListItemMenu(string(R.string.add))
         input(string(R.string.dialog_item_amount), "1")
         clickOk()
         hasItem(
@@ -156,13 +182,15 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             2,
             string(R.string.category_clothing),
             "1 lb",
-            true,
-            0
+            true
         )
     }
 
-    private fun canDecrementItem() {
-        clickListItemMenu(string(R.string.subtract), 0)
+    @Test
+    fun canDecrementItem() {
+        openPack("Test Pack 1", clothingItem(2))
+
+        clickListItemMenu(string(R.string.subtract))
         input(string(R.string.dialog_item_amount), "2")
         clickOk()
         hasItem(
@@ -171,13 +199,15 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             2,
             string(R.string.category_clothing),
             "0 lb",
-            false,
-            0
+            false
         )
     }
 
-    private fun canDeleteAnItem() {
-        clickListItemMenu(string(R.string.delete), 0)
+    @Test
+    fun canDeleteAnItem() {
+        openPack("Test Pack 1", clothingItem(0))
+
+        clickListItemMenu(string(R.string.delete))
         hasText(string(R.string.delete_packing_list_item))
         hasText("Test Item 2")
         click(string(android.R.string.cancel))
@@ -187,11 +217,10 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             2,
             string(R.string.category_clothing),
             "0 lb",
-            false,
-            0
+            false
         )
 
-        clickListItemMenu(string(R.string.delete), 0)
+        clickListItemMenu(string(R.string.delete))
         clickOk()
         not {
             hasItem(
@@ -200,20 +229,31 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
                 2,
                 string(R.string.category_clothing),
                 "0 lb",
-                false,
-                0
+                false
             )
         }
     }
 
-    private fun canRenamePack() {
+    @Test
+    fun canRenameAPack() {
+        openPack("Test Pack 1", foodItem(2))
+
         clickToolbarMenuItem(string(R.string.rename))
         input("Test Pack 1", "Test Pack 2")
         clickOk()
         hasText(R.id.inventory_list_title, "Test Pack 2")
+
+        waitFor {
+            TestUtils.back()
+        }
+        hasText(R.id.pack_list_title, string(R.string.packing_lists))
+        hasText(com.kylecorry.andromeda.views.R.id.title, "Test Pack 2")
     }
 
-    private fun canClearPackAmounts() {
+    @Test
+    fun canClearPackAmounts() {
+        openPack("Test Pack 1", foodItem(2))
+
         clickToolbarMenuItem(string(R.string.clear_amounts))
         clickOk()
         hasItem(
@@ -226,7 +266,10 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         )
     }
 
-    private fun canExportPack() {
+    @Test
+    fun canExportAPack() {
+        openPack("Test Pack 2", foodItem(2))
+
         clickToolbarMenuItem(string(R.string.export))
         // TODO: Figure out how to click save
 //            viewWithText("SAVE").click()
@@ -239,39 +282,41 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         }
     }
 
-    private fun canShowPackList() {
-        waitFor {
-            TestUtils.back()
-        }
-        hasText(R.id.pack_list_title, string(R.string.packing_lists))
+    @Test
+    fun canCopyAPack() {
+        assumeFalse(isStagingBuild)
+        relaunchTool { TestData.addPack("Test Pack 2", listOf(foodItem(1))) }
         hasText(com.kylecorry.andromeda.views.R.id.title, "Test Pack 2")
-    }
 
-    private fun canCopyPack() {
         clickListItemMenu(string(android.R.string.copy))
         input(string(R.string.name), "Copied Pack")
         clickOk()
         hasText(R.id.inventory_list_title, "Copied Pack")
+        // 1 * 1.1 lb
         hasItem(
             "Test Item 1",
-            0,
+            1,
             2,
             string(R.string.category_food),
-            "0 lb",
+            "1.1 lb",
             false
         )
     }
 
-    private fun canDeletePack() {
+    @Test
+    fun canDeleteAPack() {
+        openPack("Test Pack 1", foodItem(2))
+
         clickToolbarMenuItem(string(R.string.delete))
         clickOk()
         hasText(R.id.pack_list_title, string(R.string.packing_lists))
         not {
-            hasText(com.kylecorry.andromeda.views.R.id.title, "Copied Pack")
+            hasText(com.kylecorry.andromeda.views.R.id.title, "Test Pack 1")
         }
     }
 
-    private fun canImportPack() {
+    @Test
+    fun canStartImportingAPackingList() {
         click(R.id.add_btn)
         click(string(R.string.import_packing_list))
         // TODO: Actually import a pack and verify it
@@ -315,14 +360,15 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         isChecked: Boolean,
         index: Int = 0
     ) {
-        hasText(com.kylecorry.andromeda.views.R.id.title, name, index = index)
+        hasText(com.kylecorry.andromeda.views.R.id.title, name, index = index, exact = true)
         hasText(com.kylecorry.andromeda.views.R.id.tags, category, index = index)
         hasText(
             com.kylecorry.andromeda.views.R.id.data_1,
             "$amount / $desiredAmount",
-            index = index
+            index = index,
+            exact = true
         )
-        hasText(com.kylecorry.andromeda.views.R.id.data_2, weight, index = index)
+        hasText(com.kylecorry.andromeda.views.R.id.data_2, weight, index = index, exact = true)
         isChecked(com.kylecorry.andromeda.views.R.id.checkbox, isChecked, index = index)
     }
 

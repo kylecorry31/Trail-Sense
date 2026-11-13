@@ -15,7 +15,7 @@ import org.junit.Test
 class ToolSensorsTest : ToolTestBase(Tools.SENSORS) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun listsTheSensorsAndShowsTheirDetails() {
         hasText(R.id.sensor_details_title, string(R.string.pref_sensor_details_title))
 
         // Verify it displays some sensors (Accelerometer and Battery are available on all test devices)

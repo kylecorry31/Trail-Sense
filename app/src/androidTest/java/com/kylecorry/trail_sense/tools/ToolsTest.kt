@@ -41,9 +41,6 @@ class ToolsTest : ToolTestBase(0L) {
             navController = it.findNavController()!!
         }
 
-        // Wait for the tool to load
-        Thread.sleep(200)
-
         // Verify navigation tool is open
         isTrue {
             Tools.getTool(TestUtils.context, Tools.NAVIGATION)!!

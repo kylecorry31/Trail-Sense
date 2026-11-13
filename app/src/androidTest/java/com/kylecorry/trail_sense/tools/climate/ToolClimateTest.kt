@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.climate
 
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -11,10 +12,9 @@ import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
-class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
+class ToolClimateTest : ToolTestBase(Tools.CLIMATE, Coordinate(42.0, -72.0)) {
 
-    @Test
-    fun verifyBasicFunctionality() {
+    private fun selectLocationAndDate() {
         // Verify today is selected by default
         hasText(string(R.string.today))
         input(R.id.utm, "42, -72")
@@ -23,6 +23,11 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
         // Change the date
         click(R.id.date_btn)
         pickDate(2024, 8, 5)
+    }
+
+    @Test
+    fun showsTheTemperatureAndPrecipitationForADate() {
+        selectLocationAndDate()
 
         // Verify the temperature is displayed
         hasText("83 °F / 60 °F")
@@ -31,8 +36,13 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE) {
         scrollUntil {
             hasText("Precipitation: 3.7 in monthly total")
         }
+    }
 
-        // Continue scrolling to find climate zone section
+    @Test
+    fun showsTheClimateZoneAndEcologyForADate() {
+        selectLocationAndDate()
+
+        // Scroll until the climate zone section is visible
         scrollUntil {
             hasText(string(R.string.climate_continental))
             hasText(

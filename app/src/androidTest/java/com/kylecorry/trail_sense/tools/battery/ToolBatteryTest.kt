@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import kotlinx.coroutines.runBlocking
+import org.junit.Assume.assumeFalse
 import org.junit.Test
 import java.time.Duration
 import java.time.Instant
@@ -42,13 +43,24 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
     }
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun showsTheBatteryChargeAndTheBatteryLog() {
+        // The charge comes from the emulator's battery, so only the format is checked
         hasText(Regex("\\d+%"))
         hasText(Regex("(Charging|Discharging).*"))
         hasText("Battery log")
         hasText("Updates every 1h - Low battery usage")
-        verifyDeepSleep()
+    }
 
+    @Test
+    fun showsTheDeepSleepFromTheBatteryLog() {
+        assumeFalse(isStagingBuild)
+
+        // The device stays awake while the test runs, so the percent drops slightly below 75%
+        hasText(R.id.battery_deep_sleep, Regex("Deep sleep: 7[45]% \\(last 1h\\)"))
+    }
+
+    @Test
+    fun canTurnOnLowPowerModeAndStopTheBatteryLog() {
         isNotChecked(R.id.low_power_mode_switch)
         click(R.id.low_power_mode_switch)
         isChecked(R.id.low_power_mode_switch)
@@ -56,7 +68,10 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         // Stop the battery log
         click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
         not { hasText("Battery log") }
+    }
 
+    @Test
+    fun showsTheSystemBatteryTipsAndOpensTheBatterySettings() {
         scrollUntil {
             click("Airplane mode")
         }
@@ -70,14 +85,6 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         // Open battery settings
         click(toolbarButton(R.id.battery_title, Side.Right))
         hasText("Battery")
-    }
-
-    private fun verifyDeepSleep() {
-        if (isStagingBuild) {
-            return
-        }
-        // The device stays awake while the test runs, so the percent drops slightly below 75%
-        hasText(R.id.battery_deep_sleep, Regex("Deep sleep: 7[45]% \\(last 1h\\)"))
     }
 
     private fun hasListItems(vararg items: String) {

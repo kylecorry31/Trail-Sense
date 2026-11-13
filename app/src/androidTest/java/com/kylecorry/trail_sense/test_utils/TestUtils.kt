@@ -9,6 +9,7 @@ import android.hardware.camera2.CameraManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import androidx.annotation.RawRes
 import androidx.annotation.StringRes
 import androidx.core.content.getSystemService
 import androidx.test.core.app.ActivityScenario
@@ -36,6 +37,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSAccuracyFilter
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.packageName
+import com.kylecorry.trail_sense.test_utils.views.TestView
 import com.kylecorry.trail_sense.test_utils.views.childWithIndex
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.input
@@ -106,6 +108,10 @@ object TestUtils {
         if (isKeyboardOpen) {
             back(false)
         }
+    }
+
+    fun rawResourceText(@RawRes id: Int): String {
+        return context.resources.openRawResource(id).bufferedReader().use { it.readText() }
     }
 
     fun getString(@StringRes id: Int, vararg args: Any): String {
@@ -411,12 +417,17 @@ object TestUtils {
         }
 
         if (waitForClose) {
+            // The first OK tap can be swallowed while the text field is still validating.
             waitFor {
-                not {
+                val isOpen = runCatching {
                     view(
-                        com.google.android.material.R.id.mtrl_calendar_main_pane,
+                        com.google.android.material.R.id.mtrl_picker_text_input_date,
                         packageName = packageName
                     )
+                }.isSuccess
+                if (isOpen) {
+                    runCatching { viewWithText(android.R.string.ok).click() }
+                    throw IllegalStateException("Date picker is still open")
                 }
             }
         }
@@ -506,6 +517,32 @@ object TestUtils {
     fun clickListItemMenu(label: String, index: Int = 0) {
         click(com.kylecorry.andromeda.views.R.id.menu_btn, index = index)
         click(label)
+    }
+
+    fun clickListItemMenu(itemTitle: String, label: String) {
+        waitFor { listItemMenu(itemTitle).click() }
+        click(label)
+    }
+
+    private fun listItemMenu(itemTitle: String): TestView {
+        val title = view(
+            byResId(com.kylecorry.andromeda.views.R.id.title, packageName).text(itemTitle)
+        ).uiObject
+        // The closest parent of the title with a menu button is the list item
+        var node = title.parent
+        while (node != null) {
+            val buttons = node.findObjects(
+                byResId(com.kylecorry.andromeda.views.R.id.menu_btn, packageName)
+            )
+            if (buttons.size == 1) {
+                return TestView(buttons[0])
+            }
+            if (buttons.size > 1) {
+                break
+            }
+            node = node.parent
+        }
+        throw AssertionError("No menu found for the list item $itemTitle")
     }
 
     fun handleExactAlarmsDialog() {

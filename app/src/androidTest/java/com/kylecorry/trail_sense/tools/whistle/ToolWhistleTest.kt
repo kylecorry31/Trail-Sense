@@ -14,7 +14,7 @@ import org.junit.Test
 class ToolWhistleTest : ToolTestBase(Tools.WHISTLE) {
 
     @Test
-    fun verifyBasicFunctionality() {
+    fun canPlayTheWhistleAndTheSignals() {
         // Whistle button (needs to press and hold)
         click(R.id.whistle_btn, holdDuration = 200)
 
@@ -43,11 +43,10 @@ class ToolWhistleTest : ToolTestBase(Tools.WHISTLE) {
         isFalse {
             TestUtils.isPlayingMusic()
         }
-
-        verifyQuickAction()
     }
 
-    private fun verifyQuickAction() {
+    @Test
+    fun canPlayTheWhistleFromTheQuickAction() {
         TestUtils.openQuickActions()
         click(quickAction(Tools.QUICK_ACTION_WHISTLE), holdDuration = 200)
         TestUtils.closeQuickActions()

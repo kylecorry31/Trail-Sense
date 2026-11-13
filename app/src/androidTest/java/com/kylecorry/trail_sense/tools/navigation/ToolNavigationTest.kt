@@ -26,38 +26,23 @@ import org.junit.Test
 
 class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.97)) {
     @Test
-    fun verifyBasicFunctionality() {
-        // Bearing
+    fun showsTheBearingElevationAndSensorStatus() {
+        // Compass bearing, elevation and sensor accuracy come from the emulator's sensors
         hasText(Regex("\\s*\\d+°\\s+[NSEW]+"))
-        // Location
-        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
-        // Elevation
         hasText(Regex("-?\\d+ ft"))
-        // Speed
+        // Not pinned on staging builds, where showsTheCurrentLocation can't run
+        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
         hasText(Regex("\\d+\\.\\d+ mph"))
 
-        canDisplaySensorStatus()
+        click(Regex("(Poor|Moderate|Good|Stale|Unavailable)"))
+        hasText(string(R.string.accuracy_info_title))
+        clickOk()
+    }
 
-        // Compass
+    @Test
+    fun canAdjustLayersAndSetADestinationBearing() {
         canAdjustLayers()
-        canSetDestinationBearing()
-        canNavigate()
-    }
 
-    private fun canAdjustLayers() {
-        optional(OPTIONAL_WAIT_FOR_TIMEOUT) {
-            longClick(R.id.radar_compass)
-            scrollUntil { hasText("Location") }
-            scrollUntil { hasText("Beacons") }
-            scrollUntil { hasText("Paths") }
-            scrollUntil { hasText("Tides") }
-            scrollUntil { hasText("Photo maps") }
-            scrollUntil { hasText("Trail maps") }
-            click(toolbarButton(R.id.title, Side.Right))
-        }
-    }
-
-    private fun canSetDestinationBearing() {
         any(
             { click(R.id.radar_compass, waitForTime = 0) },
             { click(R.id.linear_compass, waitForTime = 0) }
@@ -73,7 +58,21 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         not { isVisible(R.id.navigation_sheet) }
     }
 
-    private fun canNavigate() {
+    private fun canAdjustLayers() {
+        optional(OPTIONAL_WAIT_FOR_TIMEOUT) {
+            longClick(R.id.radar_compass)
+            scrollUntil { hasText("Location") }
+            scrollUntil { hasText("Beacons") }
+            scrollUntil { hasText("Paths") }
+            scrollUntil { hasText("Tides") }
+            scrollUntil { hasText("Photo maps") }
+            scrollUntil { hasText("Trail maps") }
+            click(toolbarButton(R.id.title, Side.Right))
+        }
+    }
+
+    @Test
+    fun canNavigateToABeaconCreatedInTheApp() {
         click(R.id.beaconBtn)
 
         // Create a beacon
@@ -93,13 +92,23 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         clickOkIfShown()
 
         hasText("Test Beacon")
-        hasText(Regex("1.000000°,\\s+-1.000000°"))
+        hasText("1.000000°,  -1.000000°")
         hasText("100 ft")
         isVisible(R.id.navigation_arrow)
-        hasText(R.id.navigation_primary_stat, Regex("\\d+(\\.\\d+)? (ft|mi)"), childId = R.id.stat_value)
+        if (!isStagingBuild) {
+            // WGS84 geodesic distance from (42.03, -71.97) to (1, -1) is 5202.22 mi (Vincenty's
+            // formulae), shown without decimals. The initial great-circle bearing is 102.25 degrees true.
+            hasText(R.id.navigation_primary_stat, "5202 mi", childId = R.id.stat_value)
+            hasText(R.id.navigation_target_bearing, "102° E")
+            // The current elevation is 0 ft, so the whole 100 ft remains
+            hasText(R.id.navigation_tertiary_stat, "100 ft", childId = R.id.stat_value)
+        } else {
+            hasText(R.id.navigation_primary_stat, Regex("\\d+(\\.\\d+)? (ft|mi)"), childId = R.id.stat_value)
+            hasText(R.id.navigation_tertiary_stat, Regex("\\d+ ft"), childId = R.id.stat_value)
+        }
+        // The arrival time depends on the current speed and time
         hasText(R.id.navigation_secondary_stat, Regex("(\\d+h)?\\s?(\\d+m)?\\s?(\\d+s)?"), childId = R.id.stat_value)
         hasText(R.id.navigation_secondary_stat, Regex("Arrive \\d+:\\d+\\s(AM|PM)"), childId = R.id.stat_label)
-        hasText(R.id.navigation_tertiary_stat, Regex("\\d+ ft"), childId = R.id.stat_value)
 
         // The notes are shown on the beacon
         click(R.id.navigation_sheet_title)
@@ -109,21 +118,20 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
 
         cancelNavigation()
         not { hasText("Test Beacon") }
-
-        hasWorkingTrueNorthIndicator()
-
-        hasWorkingQuickActions()
-
-        canCreateBeacon()
     }
 
-    private fun canDisplaySensorStatus() {
-        click(Regex("(Poor|Moderate|Good|Stale|Unavailable)"))
-        hasText(string(R.string.accuracy_info_title))
-        clickOk()
+    @Test
+    fun hasWorkingTrueNorthIndicator() {
+        click(R.id.north_reference_indicator)
+        hasText(string(R.string.true_north))
+        hasText(string(R.string.true_north_description))
+        click(string(R.string.settings))
+        hasText(string(R.string.pref_compass_sensor_title))
+        back()
     }
 
-    private fun hasWorkingQuickActions() {
+    @Test
+    fun hasWorkingQuickActions() {
         click(toolbarButton(R.id.navigation_title, Side.Left))
         isVisible(R.id.paths_title)
         back()
@@ -134,19 +142,12 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         back()
     }
 
-    private fun hasWorkingTrueNorthIndicator() {
-        click(R.id.north_reference_indicator)
-        hasText(string(R.string.true_north))
-        hasText(string(R.string.true_north_description))
-        click(string(R.string.settings))
-        hasText(string(R.string.pref_compass_sensor_title))
-        back()
-    }
-
-    private fun canCreateBeacon() {
+    @Test
+    fun canCreateABeaconFromTheBeaconButton() {
         longClick(R.id.beaconBtn)
         hasText(string(R.string.create_beacon))
-        hasText(Regex("-?\\d+\\.\\d+°,\\s+-?\\d+\\.\\d+°"))
+        // Defaults to the current location
+        hasText("42.030000°,  -71.970000°")
         back()
         click(string(R.string.dialog_leave))
         back()
