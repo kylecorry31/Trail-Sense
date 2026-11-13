@@ -5,27 +5,27 @@ version: 'v0.0.3'
 workflows:
     '.github/workflows/android-test.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-java@v6.1.0'
+        - 'actions/setup-java@v6.2.0'
         - 'actions/upload-artifact@v7.0.2'
         - 'gradle/actions@v6.4.0'
         - 'reactivecircus/android-emulator-runner@v2.38.0'
     '.github/workflows/android.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-java@v6.1.0'
+        - 'actions/setup-java@v6.2.0'
         - 'gradle/actions@v6.4.0'
     '.github/workflows/codeql.yml':
         - 'actions/checkout@v7.0.1'
         - 'github/codeql-action@v4.39.0'
     '.github/workflows/nightly.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-java@v6.1.0'
+        - 'actions/setup-java@v6.2.0'
         - 'actions/setup-python@v7.0.0'
         - 'actions/upload-artifact@v7.0.2'
     '.github/workflows/pr-template.yml':
         - 'actions/github-script@v9.0.0'
     '.github/workflows/release.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-java@v6.1.0'
+        - 'actions/setup-java@v6.2.0'
         - 'shopify/upload-to-release@v2.0.0'
     '.github/workflows/site.yml':
         - 'actions/checkout@v7.0.1'
@@ -35,7 +35,7 @@ workflows:
         - 'actions/upload-pages-artifact@v5.0.0'
     '.github/workflows/staging-smoke-test.yml':
         - 'actions/checkout@v7.0.1'
-        - 'actions/setup-java@v6.1.0'
+        - 'actions/setup-java@v6.2.0'
         - 'actions/upload-artifact@v7.0.2'
         - 'gradle/actions@v6.4.0'
         - 'reactivecircus/android-emulator-runner@v2.38.0'
@@ -62,9 +62,9 @@ dependencies:
         commit: 'sha1-3a2844b7e9c422d3c10d287c895573f7108da1b3'
         owner_id: 44036562
         repo_id: 205262760
-    'actions/setup-java@v6.1.0':
-        ref: 'v6.1.0'
-        commit: 'sha1-b843ebf9b913146b38da2eaa7aeddf76074ae1ad'
+    'actions/setup-java@v6.2.0':
+        ref: 'v6.2.0'
+        commit: 'sha1-77dd5b2ce225ea11469928ac317850245a74ae78'
         owner_id: 44036562
         repo_id: 196057608
     'actions/setup-python@v7.0.0':
