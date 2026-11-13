@@ -11,8 +11,13 @@ jobs:
   android_test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         api-level: [36]
+        shard: [0, 1, 2, 3]
+    env:
+      NUM_SHARDS: 4
+      SHARD_INDEX: ${{ matrix.shard }}
     steps:
       - uses: actions/checkout@v7.0.1
         with:
@@ -53,7 +58,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v7.0.2
         with:
-          name: android-test-results-api-${{ matrix.api-level }}
+          name: android-test-results-api-${{ matrix.api-level }}-shard-${{ matrix.shard }}
           path: |
             app/emulator.log
             app/build/reports/androidTests/
