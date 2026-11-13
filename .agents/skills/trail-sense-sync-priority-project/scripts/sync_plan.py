@@ -11,7 +11,7 @@ import sys
 OWNER = "kylecorry31"
 REPO = "kylecorry31/Trail-Sense"
 PROJECT_NUMBER = 2
-COMMUNITY_ONLY_LABEL = "Status: Community Only"
+MAINTAINER_NOT_PLANNED_LABEL = "Maintainer: Not Planned"
 EPIC_TYPE = "Epic"
 
 QUERY = """
@@ -59,7 +59,7 @@ def project_items():
 
 def main():
     project, items = project_items()
-    in_project, remove_closed, remove_community_only, remove_epics, order, skipped = set(), [], [], [], [], 0
+    in_project, remove_closed, remove_maintainer_not_planned, remove_epics, order, skipped = set(), [], [], [], [], 0
 
     for item in items:
         issue = item["content"]
@@ -73,8 +73,8 @@ def main():
         entry = {"number": number, "title": issue["title"]}
         if issue["state"] != "OPEN":
             remove_closed.append(entry)
-        elif COMMUNITY_ONLY_LABEL in labels:
-            remove_community_only.append(entry)
+        elif MAINTAINER_NOT_PLANNED_LABEL in labels:
+            remove_maintainer_not_planned.append(entry)
         elif issue_type == EPIC_TYPE:
             remove_epics.append(entry)
         else:
@@ -92,7 +92,7 @@ def main():
     for issue in open_issues:
         labels = [l["name"] for l in issue["labels"]]
         issue_type = (issue["issueType"] or {}).get("name")
-        if issue["number"] in in_project or COMMUNITY_ONLY_LABEL in labels or issue_type == EPIC_TYPE:
+        if issue["number"] in in_project or MAINTAINER_NOT_PLANNED_LABEL in labels or issue_type == EPIC_TYPE:
             continue
         new.append({
             "number": issue["number"],
@@ -107,7 +107,7 @@ def main():
         "project": {"id": project["id"], "title": project["title"]},
         "skipped_non_issue_items": skipped,
         "remove_closed": remove_closed,
-        "remove_community_only": remove_community_only,
+        "remove_maintainer_not_planned": remove_maintainer_not_planned,
         "remove_epics": remove_epics,
         "new": sorted(new, key=lambda i: i["number"]),
         "order": order,
