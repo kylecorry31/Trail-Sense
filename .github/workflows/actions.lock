@@ -19,7 +19,7 @@ workflows:
     '.github/workflows/nightly.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/setup-java@v6.1.0'
-        - 'actions/setup-python@v7.0.0'
+        - 'actions/setup-python@v7.1.0'
         - 'actions/upload-artifact@v7.0.2'
     '.github/workflows/pr-template.yml':
         - 'actions/github-script@v9.0.0'
@@ -31,7 +31,7 @@ workflows:
         - 'actions/checkout@v7.0.1'
         - 'actions/configure-pages@v6.0.0'
         - 'actions/deploy-pages@v5.0.1'
-        - 'actions/setup-python@v7.0.0'
+        - 'actions/setup-python@v7.1.0'
         - 'actions/upload-pages-artifact@v5.0.0'
     '.github/workflows/staging-smoke-test.yml':
         - 'actions/checkout@v7.0.1'
@@ -67,9 +67,9 @@ dependencies:
         commit: 'sha1-b843ebf9b913146b38da2eaa7aeddf76074ae1ad'
         owner_id: 44036562
         repo_id: 196057608
-    'actions/setup-python@v7.0.0':
-        ref: 'v7.0.0'
-        commit: 'sha1-5fda3b95a4ea91299a34e894583c3862153e4b97'
+    'actions/setup-python@v7.1.0':
+        ref: 'v7.1.0'
+        commit: 'sha1-6d4fd22b20465ccc0f7354476588e8df7c9ca0e0'
         owner_id: 44036562
         repo_id: 192625525
     'actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f':
