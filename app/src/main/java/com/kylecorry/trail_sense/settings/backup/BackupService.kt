@@ -15,6 +15,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.map_layers.tiles.infrastructure.persistance.CachedTileRepo
 import java.io.File
+import java.io.IOException
 
 class BackupService(
     private val context: Context,
@@ -136,8 +137,13 @@ class BackupService(
 
     private suspend fun verifyBackupFile(backupUri: Uri): BackupMetadata = onIO {
         // Retrieve the files in the zip file
-        val files = fileSubsystem.stream(backupUri)?.use {
-            ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
+        val files = try {
+            fileSubsystem.stream(backupUri)?.use {
+                ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
+            }
+        } catch (e: IOException) {
+            // Truncated or corrupted zip (includes ZipException and EOFException)
+            throw InvalidBackupException()
         } ?: throw InvalidBackupException()
 
         // If the app version file doesn't exist or the version code is greater than the current version, return false
