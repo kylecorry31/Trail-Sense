@@ -1,6 +1,5 @@
 name: Nightly
-permissions:
-  contents: read
+permissions: {}
 
 on:
   schedule:
@@ -10,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v7.0.1
@@ -31,9 +32,6 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
 
       - name: Build APK
         run: |

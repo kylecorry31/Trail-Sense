@@ -22,7 +22,6 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 0
 
       - name: set up JDK 17
         uses: actions/setup-java@v6.1.0
@@ -32,9 +31,6 @@ jobs:
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6.4.1
-
-      - name: Make gradlew executable
-        run: chmod +x gradlew
 
       - name: Build
         run: ./gradlew assembleDebug

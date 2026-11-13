@@ -17,16 +17,12 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 0
 
       - name: set up JDK 17
         uses: actions/setup-java@v6.1.0
         with:
           distribution: "temurin"
           java-version: 17
-
-      - name: Make gradlew executable
-        run: chmod +x gradlew ./scripts/run-emulator-android-test.sh
 
       - name: Enable KVM group perms
         run: |

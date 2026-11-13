@@ -18,16 +18,12 @@ jobs:
       - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
-          fetch-depth: 0
 
       - name: Set up JDK 17
         uses: actions/setup-java@v6.1.0
         with:
           distribution: "temurin"
           java-version: 17
-
-      - name: Make scripts executable
-        run: chmod +x ./gradlew ./scripts/run-emulator-staging-smoke-test.sh
 
       - name: Enable KVM group perms
         run: |
