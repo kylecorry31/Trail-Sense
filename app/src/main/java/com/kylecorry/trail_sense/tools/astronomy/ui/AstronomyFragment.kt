@@ -231,6 +231,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun showTimeSeeker(time: ZonedDateTime?) {
+        if (!isBound) {
+            return
+        }
         if (isSeeking && time == null) {
             return
         }
@@ -282,6 +285,9 @@ class AstronomyFragment : BoundFragment<ActivityAstronomyBinding>() {
     }
 
     private fun hideTimeSeeker() {
+        if (!isBound) {
+            return
+        }
         isSeeking = false
         binding.timeSeekerPanel.isVisible = false
         binding.astronomyDetailList.isVisible = true
