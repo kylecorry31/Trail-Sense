@@ -55,7 +55,9 @@ jobs:
         uses: actions/upload-artifact@v7.0.2
         with:
           name: logs-api-${{ matrix.api-level }}
-          path: app/emulator.log
+          path: |
+            app/emulator.log
+            app/build/outputs/connected_android_test_additional_output/
 
       - name: Raise error on test failure
         if: steps.testing.outcome != 'success'

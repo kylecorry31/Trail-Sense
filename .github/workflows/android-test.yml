@@ -58,6 +58,7 @@ jobs:
             app/emulator.log
             app/build/reports/androidTests/
             app/build/outputs/androidTest-results/
+            app/build/outputs/connected_android_test_additional_output/
       
       - name: Raise error on test failure
         if: steps.testing.outcome != 'success'
