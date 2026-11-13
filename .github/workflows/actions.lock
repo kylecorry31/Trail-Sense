@@ -41,6 +41,10 @@ workflows:
         - 'reactivecircus/android-emulator-runner@v2.38.0'
     '.github/workflows/verify-lockfile.yml':
         - 'actions/checkout@v7.0.1'
+    '.github/workflows/weekly-updates.yml':
+        - 'actions/checkout@v7.0.1'
+        - 'actions/setup-python@v7.1.0'
+        - 'peter-evans/create-pull-request@v8.1.1'
 dependencies:
     'actions/checkout@v7.0.1':
         ref: 'v7.0.1'
@@ -99,6 +103,11 @@ dependencies:
         commit: 'sha1-8da46b539cd8fe6ab27ca75128919a18d757604c'
         owner_id: 124156
         repo_id: 743626948
+    'peter-evans/create-pull-request@v8.1.1':
+        ref: 'v8.1.1'
+        commit: 'sha1-5f6978faf089d4d20b00c7766989d076bb2fc7f1'
+        owner_id: 18365890
+        repo_id: 197176365
     'reactivecircus/android-emulator-runner@v2.38.0':
         ref: 'v2.38.0'
         commit: 'sha1-a421e43855164a8197daf9d8d40fe71c6996bb0d'

@@ -1,5 +1,6 @@
-import requests
+import json
 import os
+from urllib.request import Request, urlopen
 
 url = "https://api.github.com/repos/kylecorry31/Trail-Sense/contributors?q=contributions&order=desc&per_page=100"
 script_dir = os.path.dirname(os.path.realpath(__file__)).replace('\\', '/')
@@ -9,8 +10,15 @@ def get_all_contributors():
     page = 1
     contributors = []
     while True:
-        response = requests.get(url + f"&page={page}")
-        page_contributors = response.json()
+        request = Request(
+            url + f"&page={page}",
+            headers={
+                "Accept": "application/vnd.github+json",
+                "User-Agent": "Trail-Sense weekly updater",
+            },
+        )
+        with urlopen(request, timeout=30) as response:
+            page_contributors = json.load(response)
         if len(page_contributors) == 0:
             break
         contributors.extend(page_contributors)
