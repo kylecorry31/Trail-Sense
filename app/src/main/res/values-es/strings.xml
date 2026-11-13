@@ -1650,4 +1650,5 @@
     <string name="navigation_remaining_loss">Pérdida restante</string>
     <string name="navigation_remaining_gain">Ganancia restante</string>
     <string name="navigation_arrive_format">Llegada %s</string>
+    <string name="navigation_facing">Apuntando al</string>
 </resources>
