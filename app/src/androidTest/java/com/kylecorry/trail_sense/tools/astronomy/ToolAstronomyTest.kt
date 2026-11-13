@@ -1,5 +1,9 @@
 package com.kylecorry.trail_sense.tools.astronomy
 
+import android.os.SystemClock
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewConfiguration
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
@@ -20,8 +24,11 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.view
+import com.kylecorry.trail_sense.tools.astronomy.ui.AstronomyFragment
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
+import org.junit.Assume.assumeFalse
 import org.junit.Test
 
 class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
@@ -153,6 +160,44 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
         click(R.id.sunMoonChart, xPercent = 0.9f, yPercent = 0.5f)
         waitFor {
             assertTrue(view(R.id.seek_time).uiObject.text != middle)
+        }
+    }
+
+    @Test
+    fun timeSeekerIgnoresCallbacksAfterViewIsDestroyed() {
+        assumeFalse(isStagingBuild)
+
+        click(R.id.sunMoonChart, xPercent = 0.5f, yPercent = 0.5f)
+        isVisible(R.id.time_seeker_panel)
+        click(R.id.close_seek)
+
+        lateinit var closeButton: View
+        scenario.onActivity { activity ->
+            val host = activity.supportFragmentManager.findFragmentById(R.id.fragment_holder)!!
+            val fragment =
+                host.childFragmentManager.fragments.filterIsInstance<AstronomyFragment>().single()
+            val chart = fragment.requireView().findViewById<View>(R.id.sunMoonChart)
+            closeButton = fragment.requireView().findViewById(R.id.close_seek)
+
+            val now = SystemClock.uptimeMillis()
+            val down = MotionEvent.obtain(
+                now, now, MotionEvent.ACTION_DOWN, chart.width / 2f, chart.height / 2f, 0
+            )
+            val up = MotionEvent.obtain(
+                now, now + 1, MotionEvent.ACTION_UP, chart.width / 2f, chart.height / 2f, 0
+            )
+            assertTrue(chart.dispatchTouchEvent(down))
+            assertTrue(chart.dispatchTouchEvent(up))
+            down.recycle()
+            up.recycle()
+
+            host.childFragmentManager.beginTransaction().remove(fragment).commitNow()
+            assertNull(fragment.view)
+        }
+
+        delay(ViewConfiguration.getDoubleTapTimeout().toLong() + 250)
+        scenario.onActivity {
+            assertTrue(closeButton.performClick())
         }
     }
 
