@@ -14,7 +14,7 @@ jobs:
       - uses: actions/github-script@v9.0.0
         with:
           script: |
-            const exemptAuthors = ['kylecorry31', 'weblate', 'weblate[bot]', 'github-actions[bot]'];
+            const exemptAuthors = ['kylecorry31', 'weblate', 'weblate[bot]', 'github-actions[bot]', 'dependabot[bot]', 'app/dependabot'];
             const author = context.payload.pull_request.user.login;
             if (exemptAuthors.includes(author.toLowerCase())) {
               core.info(`Skipping template check for ${author}.`);
