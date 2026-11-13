@@ -141,8 +141,9 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
                 hint = getString(R.string.days)
             ) { days ->
                 if (days != null) {
-                    userPrefs.pedometer.stepHistory = Duration.ofDays(days.toLong())
-                    it.summary = formatService.formatDays(if (days.toInt() > 0) days.toInt() else 1)
+                    val clampedDays = days.toLong().coerceIn(0, MAX_STEP_HISTORY_DAYS)
+                    userPrefs.pedometer.stepHistory = Duration.ofDays(clampedDays)
+                    it.summary = formatService.formatDays(if (clampedDays > 0) clampedDays.toInt() else 1)
                 }
             }
             true
@@ -184,4 +185,7 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
         enabledPref?.isChecked = false
     }
 
+    companion object {
+        private const val MAX_STEP_HISTORY_DAYS = 3650L
+    }
 }
