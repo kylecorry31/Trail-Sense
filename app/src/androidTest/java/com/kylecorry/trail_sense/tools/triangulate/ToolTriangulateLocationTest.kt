@@ -9,12 +9,12 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import androidx.test.uiautomator.Direction
 import com.kylecorry.sol.units.Coordinate
 import org.junit.Test
 
@@ -77,7 +77,7 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         switchLocation(1, 2)
         enterLocation("40, 10", "220", trueNorth = true)
 
-        scrollToStart()
+        scrollToTop()
         val expected = Coordinate(40.229722, 10.252778)
         hasText(R.id.triangulate_title, message = "Expected location within 30 meters") {
             val actual = Coordinate.parse(it)
@@ -92,7 +92,7 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         switchLocation(1, 2)
         enterLocation("40.5, 9.5", "220", trueNorth = true)
 
-        scrollToStart()
+        scrollToTop()
         hasText(R.id.triangulate_title, string(R.string.could_not_triangulate))
     }
 
@@ -105,7 +105,7 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
             click(string(R.string.reset), exact = true)
         }
         isNotVisible(R.id.actions)
-        scrollToStart()
+        scrollToTop()
         verifyLocationIsReset()
         switchLocation(1, 2)
         verifyLocationIsReset()
@@ -116,8 +116,15 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         switchLocation(1, 2)
         enterLocation("42, -72.01", "90", trueNorth = true)
 
-        scrollToStart()
+        scrollToTop()
         hasText(R.id.triangulate_title, "42.000000°,  -72.000000°")
+    }
+
+    // The layout can still be growing after a result is computed, so a single scroll can fall short
+    private fun scrollToTop() {
+        scrollUntil(direction = Direction.UP) {
+            isVisible(R.id.triangulate_title)
+        }
     }
 
     private fun verifyLocationIsReset() {
@@ -141,11 +148,11 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
     }
 
     private fun switchLocation(currentLocationNumber: Int, nextLocationNumber: Int) {
-        scrollToStart()
+        scrollToTop()
         scrollUntil {
             click(string(R.string.location_number, currentLocationNumber))
         }
-        scrollToStart()
+        scrollToTop()
         scrollUntil {
             click(string(R.string.location_number, nextLocationNumber))
         }
