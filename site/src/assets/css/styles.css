@@ -1,26 +1,40 @@
 /* TOKENS */
 
+/* Every colour here is from the Trail Sense artwork palette, a lighter or darker version of one, or a palette colour at some opacity. The hero uses the cover artwork's own colours. */
 :root {
-  --bg: #f6f4ef;
-  --surface: #ffffff;
-  --surface-2: #efece5;
-  --text: #1b1d22;
-  --muted: #5b606b;
-  --line: #e1ddd3;
-  --accent: #ff6d00;
-  --accent-hover: #ff8a33;
-  --accent-text: #b84700;
-  --on-accent: #111111;
+  --bg: #f5efdb; /* Cloth */
+  --surface: #f4f4e6; /* Wood Bark 2 */
+  --surface-2: #eae1b6; /* Sand Wet */
+  --text: #322f27; /* Natural Black */
+  --muted: #776343; /* Wood Bark 1 */
+  --line: #d5bc93; /* Wood Carved */
+  --accent: #e8b25b; /* Fire Orange 2 */
+  --accent-hover: #f9c182; /* Fire Orange */
+  --accent-text: hsl(23 77% 32%); /* Fire Red, darker */
+  --on-accent: #322f27; /* Natural Black */
+  --topo-line: #d5bc93; /* Wood Carved */
+  --topo-opacity: 0.28;
+  --link-line: #e8b25b; /* Fire Orange 2 */
+  --link-thickness: 2px;
+  --shadow-rgb: 50 47 39; /* Natural Black */
 
-  --ink: #0b0e14;
-  --ink-2: #141821;
-  --ink-line: #262d3b;
-  --ink-text: #eceef2;
-  --ink-muted: #9aa1ae;
+  /* Always-dark surfaces (header, hero, footer) */
+  --ink: #322f27; /* Natural Black */
+  --ink-line: color-mix(in srgb, #322f27 85%, #f5efdb); /* Natural Black, lighter */
+  --ink-text: #f5efdb; /* Cloth */
+  --ink-muted: #c2b7a4; /* Metal 2 */
+  --fire: #f9c182; /* Fire Orange */
+  --fire-hover: #fedf8a; /* Fire Yellow */
+  --on-fire: #322f27; /* Natural Black */
+
+  /* Hero: colours from the book cover artwork */
+  --sky: #ffc775;
+  --text-on-sky: #392f1e;
+  --cover-cream: #ffe5c0;
 
   --radius: 16px;
   --radius-sm: 10px;
-  --shadow: 0 1px 2px rgba(20, 20, 30, 0.06), 0 8px 24px rgba(20, 20, 30, 0.06);
+  --shadow: 0 1px 2px rgb(var(--shadow-rgb) / 0.08), 0 8px 24px rgb(var(--shadow-rgb) / 0.1);
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
 }
@@ -28,31 +42,51 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #0b0e14;
-    --surface: #141821;
-    --surface-2: #1b2130;
-    --text: #eceef2;
-    --muted: #9aa1ae;
-    --line: #262d3b;
-    --accent-text: #ff8a3d;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+    --bg: color-mix(in srgb, #322f27 75%, black); /* Natural Black, darker */
+    --surface: #322f27; /* Natural Black */
+    --surface-2: color-mix(in srgb, #322f27 88%, black); /* Natural Black, darker */
+    --text: #f5efdb; /* Cloth */
+    --muted: #c2b7a4; /* Metal 2 */
+    --line: color-mix(in srgb, #322f27 88%, #f5efdb); /* Natural Black, lighter */
+    --accent-hover: #fedf8a; /* Fire Yellow */
+    --accent-text: #f9c182; /* Fire Orange */
+    --topo-line: #c2b7a4; /* Metal 2 */
+    --topo-opacity: 0.06;
+    --link-line: currentColor;
+    --link-thickness: 1px;
+    --shadow-rgb: 15 14 12; /* Natural Black, much darker */
   }
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b0e14;
-  --surface: #141821;
-  --surface-2: #1b2130;
-  --text: #eceef2;
-  --muted: #9aa1ae;
-  --line: #262d3b;
-  --accent-text: #ff8a3d;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+  --bg: color-mix(in srgb, #322f27 75%, black); /* Natural Black, darker */
+  --surface: #322f27; /* Natural Black */
+  --surface-2: color-mix(in srgb, #322f27 88%, black); /* Natural Black, darker */
+  --text: #f5efdb; /* Cloth */
+  --muted: #c2b7a4; /* Metal 2 */
+  --line: color-mix(in srgb, #322f27 88%, #f5efdb); /* Natural Black, lighter */
+  --accent-hover: #fedf8a; /* Fire Yellow */
+  --accent-text: #f9c182; /* Fire Orange */
+  --topo-line: #c2b7a4; /* Metal 2 */
+  --topo-opacity: 0.06;
+  --link-line: currentColor;
+  --link-thickness: 1px;
+  --shadow-rgb: 15 14 12; /* Natural Black, much darker */
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
+}
+
+/* FONTS */
+
+@font-face {
+  font-family: "National Park";
+  src: url('/assets/fonts/NationalPark-ExtraBold.woff2') format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* BASE */
@@ -109,16 +143,18 @@ img {
 
 a {
   color: var(--accent-text);
+  text-decoration-color: var(--link-line);
   text-underline-offset: 0.18em;
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: var(--link-thickness);
 }
 
 a:hover {
+  text-decoration-color: currentColor;
   text-decoration-thickness: 2px;
 }
 
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--accent-text);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -127,8 +163,10 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: "National Park", var(--font);
+  font-weight: 800;
   line-height: 1.2;
-  letter-spacing: -0.015em;
+  letter-spacing: 0.01em;
   margin: 0 0 0.5em;
 }
 
@@ -220,7 +258,7 @@ h4 {
 }
 
 .btn-secondary:hover {
-  background: rgba(127, 127, 127, 0.15);
+  background: color-mix(in srgb, currentColor 12%, transparent);
 }
 
 .button-row {
@@ -235,7 +273,7 @@ h4 {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(11, 14, 20, 0.88);
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--ink-line);
@@ -282,8 +320,8 @@ h4 {
 .nav-cta {
   padding: 8px 16px;
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--fire);
+  color: var(--on-fire);
   font-size: 15px;
   font-weight: 600;
   line-height: 1.3;
@@ -293,7 +331,7 @@ h4 {
 }
 
 .nav-cta:hover {
-  background: var(--accent-hover);
+  background: var(--fire-hover);
 }
 
 .theme-toggle {
@@ -313,7 +351,7 @@ h4 {
 
 .theme-toggle:hover {
   color: var(--ink-text);
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--ink-text) 10%, transparent);
 }
 
 .theme-toggle[hidden] {
@@ -338,7 +376,7 @@ h4 {
 .site-nav a:hover,
 .site-nav a[aria-current="page"] {
   color: var(--ink-text);
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--ink-text) 10%, transparent);
 }
 
 @media (max-width: 820px) {
@@ -383,49 +421,45 @@ h4 {
 .hero {
   position: relative;
   overflow: hidden;
-  background: var(--ink);
+  /* The sunrise scene from the book cover, over its flat sky */
+  /* The scene is 0.32 as tall as it is wide, so the hero is kept at least that tall to leave it no narrower than the screen */
+  background: url('/assets/images/hero-scene.webp') center bottom / auto 100% no-repeat, var(--sky);
   color: var(--ink-text);
-  isolation: isolate;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: url('/assets/images/topo.svg') center / cover no-repeat;
-  opacity: 0.22;
-  /* Fade the contour lines behind the text and into the section below */
-  --hero-text-fade: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 30%, #000 70%);
-  -webkit-mask-image: var(--hero-text-fade), linear-gradient(180deg, #000 55%, transparent 100%);
-  -webkit-mask-composite: source-in;
-  mask-image: var(--hero-text-fade), linear-gradient(180deg, #000 55%, transparent 100%);
-  mask-composite: intersect;
 }
 
 .hero-inner {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  align-items: center;
+  align-items: end;
   gap: 48px;
   padding-top: 72px;
+  min-height: 32vw;
 }
 
+.hero-inner > div:first-child {
+  padding-bottom: 56px;
+}
+
+/* Matches the book cover title: National Park, extra bold, uppercase */
 .hero h1 {
-  font-size: clamp(40px, 5.4vw, 64px);
+  font-family: "National Park", var(--font);
+  font-size: clamp(36px, 4.8vw, 58px);
+  font-weight: 800;
   line-height: 1.04;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--cover-cream);
   margin-bottom: 20px;
 }
 
 .hero-accent {
-  color: var(--accent);
+  color: inherit;
 }
 
 .hero .lede {
   font-size: 19px;
   line-height: 1.6;
-  color: #c3c8d2;
+  color: color-mix(in srgb, var(--ink-text) 88%, transparent);
   max-width: 30em;
   margin: 0 0 32px;
 }
@@ -465,6 +499,7 @@ h4 {
 .hero-phones .phone {
   width: min(250px, 44%);
   flex: none;
+  box-shadow: none;
 }
 
 .hero-phones .phone:nth-child(1) {
@@ -477,11 +512,11 @@ h4 {
 
 .phone {
   margin: 0;
-  border: 7px solid #232a39;
+  border: 7px solid var(--ink-line);
   border-radius: 14px;
-  background: #000;
+  background: var(--ink);
   overflow: hidden;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  box-shadow: 0 24px 60px rgb(var(--shadow-rgb) / 0.5), 0 0 0 1px color-mix(in srgb, var(--ink-text) 6%, transparent);
 }
 
 .phone img {
@@ -491,14 +526,30 @@ h4 {
 }
 
 @media (max-width: 860px) {
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding-top: 48px;
+  /* Stacked, the text sits in the open sky above the hills */
+  .hero {
+    background-size: auto 440px, auto;
+    color: var(--text-on-sky);
   }
 
-  .hero::before {
-    --hero-text-fade: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 35%, #000 65%);
+  .hero-inner {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 40px;
+    padding-top: 48px;
+    min-height: 0;
+  }
+
+  .hero-inner > div:first-child {
+    padding-bottom: 0;
+  }
+
+  .hero h1 {
+    color: var(--text-on-sky);
+  }
+
+  .hero .lede {
+    color: color-mix(in srgb, var(--text-on-sky) 85%, transparent);
   }
 
   .hero-phones {
@@ -524,6 +575,21 @@ h4 {
 
 .section-alt {
   background: var(--surface-2);
+  position: relative;
+  isolation: isolate;
+}
+
+.section-alt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  /* The contour lines drawn in a palette colour, via the SVG as a mask */
+  background: var(--topo-line);
+  -webkit-mask: url('/assets/images/topo.svg') center / cover no-repeat;
+  mask: url('/assets/images/topo.svg') center / cover no-repeat;
+  opacity: var(--topo-opacity);
+  pointer-events: none;
 }
 
 .section-head {
@@ -533,8 +599,18 @@ h4 {
 
 .section-head h2 {
   font-size: clamp(28px, 3.6vw, 36px);
-  letter-spacing: -0.025em;
+  letter-spacing: 0.01em;
   margin-bottom: 6px;
+}
+
+.section-head h2::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 4px;
+  margin-top: 12px;
+  border-radius: 2px;
+  background: var(--accent);
 }
 
 .section-head p {
@@ -580,33 +656,52 @@ h4 {
   height: 300px;
   padding-top: 28px;
   overflow: hidden;
-  background: var(--ink) url('/assets/images/topo.svg') no-repeat;
-  background-size: 260%;
-  background-blend-mode: soft-light;
+  position: relative;
+  isolation: isolate;
+  background: var(--ink);
 }
 
-.feature-card:nth-child(1) .feature-shot {
-  background-position: 15% 20%;
+.feature-shot::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--ink-muted); /* Metal 2 */
+  -webkit-mask: url('/assets/images/topo.svg') no-repeat;
+  mask: url('/assets/images/topo.svg') no-repeat;
+  -webkit-mask-size: 260%;
+  mask-size: 260%;
+  opacity: 0.25;
 }
 
-.feature-card:nth-child(2) .feature-shot {
-  background-position: 85% 70%;
+.feature-card:nth-child(1) .feature-shot::before {
+  -webkit-mask-position: 15% 20%;
+  mask-position: 15% 20%;
 }
 
-.feature-card:nth-child(3) .feature-shot {
-  background-position: 40% 90%;
+.feature-card:nth-child(2) .feature-shot::before {
+  -webkit-mask-position: 85% 70%;
+  mask-position: 85% 70%;
 }
 
-.feature-card:nth-child(4) .feature-shot {
-  background-position: 70% 10%;
+.feature-card:nth-child(3) .feature-shot::before {
+  -webkit-mask-position: 40% 90%;
+  mask-position: 40% 90%;
 }
 
-.feature-card:nth-child(5) .feature-shot {
-  background-position: 5% 75%;
+.feature-card:nth-child(4) .feature-shot::before {
+  -webkit-mask-position: 70% 10%;
+  mask-position: 70% 10%;
 }
 
-.feature-card:nth-child(6) .feature-shot {
-  background-position: 95% 35%;
+.feature-card:nth-child(5) .feature-shot::before {
+  -webkit-mask-position: 5% 75%;
+  mask-position: 5% 75%;
+}
+
+.feature-card:nth-child(6) .feature-shot::before {
+  -webkit-mask-position: 95% 35%;
+  mask-position: 95% 35%;
 }
 
 .feature-shot .phone {
@@ -614,7 +709,7 @@ h4 {
   flex: none;
   border-bottom: 0;
   border-radius: 14px 14px 0 0;
-  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 -8px 40px rgb(var(--shadow-rgb) / 0.45);
 }
 
 .feature-body {
@@ -673,16 +768,16 @@ h4 {
 .book-cover {
   width: 100%;
   border-radius: 4px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 16px rgb(var(--shadow-rgb) / 0.25);
 }
 
 .book h3 {
   font-size: clamp(26px, 3.2vw, 32px);
-  letter-spacing: -0.025em;
+  letter-spacing: 0.01em;
 }
 
 .book p {
-  color: var(--muted);
+  color: var(--text);
   margin: 0 0 20px;
   max-width: 36em;
 }
@@ -716,7 +811,7 @@ h4 {
 
 .book-page h1 {
   font-size: clamp(30px, 4vw, 40px);
-  letter-spacing: -0.03em;
+  letter-spacing: 0.01em;
 }
 
 .book-page .disclaimer {
@@ -792,7 +887,7 @@ a.card:hover {
 .page-head h1,
 .page-title {
   font-size: clamp(30px, 4vw, 40px);
-  letter-spacing: -0.03em;
+  letter-spacing: 0.01em;
   margin-bottom: 16px;
 }
 
@@ -1079,11 +1174,26 @@ th {
 /* FOOTER */
 
 .site-footer {
+  position: relative;
+  margin-top: 64px;
   background: var(--ink);
   border-top: 1px solid var(--ink-line);
   color: var(--ink-text);
   padding: 56px 0;
   font-size: 15px;
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 150px;
+  background: var(--ink);
+  -webkit-mask: url('/assets/images/treeline.webp') left bottom / auto 100% repeat-x;
+  mask: url('/assets/images/treeline.webp') left bottom / auto 100% repeat-x;
+  pointer-events: none;
 }
 
 .footer-grid {
@@ -1116,7 +1226,7 @@ th {
 }
 
 .site-footer nav a:hover {
-  color: var(--accent);
+  color: var(--fire);
 }
 
 @media (max-width: 760px) {
@@ -1144,7 +1254,7 @@ th {
 }
 
 .footer-bottom a:hover {
-  color: var(--accent);
+  color: var(--fire);
 }
 
 #download {

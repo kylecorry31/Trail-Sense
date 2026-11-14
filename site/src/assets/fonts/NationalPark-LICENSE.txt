@@ -1,0 +1,3 @@
+National Park typeface (NationalPark-ExtraBold.woff2)
+Source: https://nationalparktypeface.com/
+Licensed under the SIL Open Font License, Version 1.1: https://openfontlicense.org/
