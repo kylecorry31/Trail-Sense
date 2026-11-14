@@ -131,3 +131,7 @@ A new GPS smoothing setting was added which will run new GPS readings through a 
 - Fixed clock tool's GPS time on devices running Android 7, 8, and 9
 - Fixed the Photo Maps compass declination waiting for the first GPS reading
 - Improved built-in DEM, tide, cell tower, temperature, and precipitation models
+- Fixed a crash when tapping the Astronomy chart while leaving the tool
+- Fixed a crash when importing a geospatial PDF with missing or malformed location information
+- Fixed a crash when entering a very large number of days for the Pedometer step history (now limited to 10 years)
+- Fixed a crash that could occur when opening the quick settings panel with a Trail Sense tile added
