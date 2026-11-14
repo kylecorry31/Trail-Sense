@@ -89,7 +89,7 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
 
     private fun hasListItems(vararg items: String) {
         for (item in items) {
-            scrollUntil {
+            scrollUntil(maxScrolls = 30) {
                 hasText(item)
             }
         }

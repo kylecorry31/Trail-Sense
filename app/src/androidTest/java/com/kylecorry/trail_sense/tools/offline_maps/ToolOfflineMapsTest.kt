@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
@@ -168,7 +169,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
 
         clickListItemMenu("Blank Map", string(R.string.export))
         // Pressing back is needed sometimes to close the drive selector
-        backUntil {
+        backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
             hasText("blank-map.pdf")
         }
         backUntil {
@@ -368,7 +369,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         click(toolbarButton(R.id.map_title, Side.Right))
         click("Export")
         // Pressing back is needed sometimes to close the drive selector
-        backUntil {
+        backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
             hasText("test-map.pdf")
         }
         backUntil {
@@ -447,7 +448,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         back()
 
         clickListItemMenu("Test Map", string(R.string.export))
-        backUntil {
+        backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
             hasText("test-map.map")
         }
         backUntil {
@@ -460,7 +461,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         }
         click(toolbarButton(R.id.title, Side.Right))
         click(string(R.string.export))
-        backUntil {
+        backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
             hasText("test-map.map")
         }
         backUntil {

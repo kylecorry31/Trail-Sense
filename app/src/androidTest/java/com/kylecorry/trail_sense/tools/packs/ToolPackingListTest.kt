@@ -7,6 +7,7 @@ import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
@@ -274,7 +275,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         // TODO: Figure out how to click save
 //            viewWithText("SAVE").click()
         // Pressing back is needed sometimes to close the drive selector
-        backUntil {
+        backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
             hasText("test-pack-2.csv")
         }
         backUntil {

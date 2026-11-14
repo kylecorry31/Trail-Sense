@@ -574,12 +574,13 @@ object AutomationLibrary {
 
     fun backUntil(
         maxBacks: Int = 10,
+        waitForTime: Long = BACK_WAIT_FOR_TIMEOUT,
         action: () -> Unit
     ) {
         var backsDone = 0
         while (backsDone < maxBacks) {
             try {
-                withWaitForTimeOverride(BACK_WAIT_FOR_TIMEOUT) {
+                withWaitForTimeOverride(waitForTime) {
                     action()
                 }
                 // Action succeeded, no need to go back further
@@ -591,7 +592,7 @@ object AutomationLibrary {
             }
         }
         // Try action one last time after all backs
-        withWaitForTimeOverride(BACK_WAIT_FOR_TIMEOUT) {
+        withWaitForTimeOverride(waitForTime) {
             action()
         }
     }
@@ -619,6 +620,8 @@ object AutomationLibrary {
     }
 
     const val BACK_WAIT_FOR_TIMEOUT = 1000L
+    // System pickers can take a couple of seconds to appear on a slow emulator
+    const val EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT = 10000L
     const val SCROLL_WAIT_FOR_TIMEOUT = 1000L
     const val SCROLLED_WAIT_FOR_TIMEOUT = 300L
     const val OPTIONAL_WAIT_FOR_TIMEOUT = 2000L
