@@ -1184,6 +1184,10 @@ a.card:hover {
   padding-bottom: 96px;
 }
 
+.guide-list .card-grid {
+  align-items: center;
+}
+
 .guide-list .card {
   padding: 18px 22px;
 }
