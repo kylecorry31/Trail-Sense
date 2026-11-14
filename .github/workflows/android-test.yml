@@ -18,6 +18,8 @@ jobs:
     env:
       NUM_SHARDS: 4
       SHARD_INDEX: ${{ matrix.shard }}
+      # The store screenshot generator is run manually
+      EXCLUDE_CLASSES: com.kylecorry.trail_sense.screenshots.StoreScreenshotsTest
     steps:
       - uses: actions/checkout@v7.0.1
         with:

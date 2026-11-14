@@ -52,4 +52,8 @@ if [ -n "${NUM_SHARDS:-}" ]; then
   gradle_args+=("-Pandroid.testInstrumentationRunnerArguments.shardIndex=${SHARD_INDEX:?SHARD_INDEX is required with NUM_SHARDS}")
 fi
 
+if [ -n "${EXCLUDE_CLASSES:-}" ]; then
+  gradle_args+=("-Pandroid.testInstrumentationRunnerArguments.notClass=$EXCLUDE_CLASSES")
+fi
+
 ANDROID_SERIAL="$selected_device" timeout --foreground "${timeout_seconds}s" ./gradlew "${gradle_args[@]}"

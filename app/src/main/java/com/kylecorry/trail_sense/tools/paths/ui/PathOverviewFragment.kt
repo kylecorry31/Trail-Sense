@@ -295,6 +295,9 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         observe(pathService.getLivePath(pathId)) {
             path = it
             binding.root.post {
+                if (!isAdded) {
+                    return@post
+                }
                 updateParent()
                 updateElevationPlot()
                 updatePointStyleLegend()
