@@ -243,11 +243,17 @@ object TestUtils {
     }
 
     fun openQuickActions() {
-        waitFor {
-            view(R.id.bottom_navigation, packageName = packageName).longClick()
-        }
-        waitFor {
-            view(R.id.quick_actions_sheet, packageName = packageName)
+        // A long press right after launch can be ignored, so retry the press itself
+        waitFor(15000) {
+            val isOpen = runCatching {
+                view(R.id.quick_actions_sheet, packageName = packageName)
+            }.isSuccess
+            if (!isOpen) {
+                view(R.id.bottom_navigation, packageName = packageName).longClick()
+            }
+            waitFor(2000) {
+                view(R.id.quick_actions_sheet, packageName = packageName)
+            }
         }
     }
 
