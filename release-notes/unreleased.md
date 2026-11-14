@@ -85,7 +85,9 @@ The navigation layer has been enabled by default on the Navigation tool so you c
 
 Paths are now rendered in Augmented Reality as ribbons so you can more clearly tell where they are. You can revert to the old line style within settings. While navigating along a path, the direction of travel will show as arrows rendered onto the ribbon.
 
-TODO: Screenshot of path navigation
+<p align="center">
+    <img src="images/8.3.0/ar_path_navigation.jpg" height="640" alt="Path navigation in Augmented Reality" />
+</p>
 
 ### Path and Bearing Navigation
 
