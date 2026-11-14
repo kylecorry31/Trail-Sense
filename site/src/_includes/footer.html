@@ -6,6 +6,15 @@
       toc.open = true;
     }
   </script>
+  <script>
+    // Tape the guide images to the page like prints
+    document.querySelectorAll(".prose img").forEach(function (img) {
+      var wrap = document.createElement("span");
+      wrap.className = "taped";
+      img.parentNode.insertBefore(wrap, img);
+      wrap.appendChild(img);
+    });
+  </script>
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div class="footer-brand">

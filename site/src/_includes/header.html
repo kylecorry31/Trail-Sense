@@ -59,6 +59,17 @@
     </div>
   </header>
   <script>
+    // The header lifts off the page once the page scrolls under it
+    (function () {
+      var header = document.querySelector(".site-header");
+      function update() {
+        header.classList.toggle("is-scrolled", window.scrollY > 2);
+      }
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+    })();
+  </script>
+  <script>
     document.querySelectorAll(".site-nav a").forEach(function (link) {
       var path = link.pathname.replace(/index\.html$/, "");
       var here = location.pathname.replace(/index\.html$/, "");
