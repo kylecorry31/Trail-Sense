@@ -1064,6 +1064,7 @@ body:has(main > .hero:first-child) .site-header::after {
 
   .book .book-cover {
     max-width: 160px;
+    margin: 0 auto;
   }
 }
 
