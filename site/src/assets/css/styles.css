@@ -1503,7 +1503,8 @@ td:first-child {
 
 .site-footer {
   position: relative;
-  margin-top: 64px;
+  /* The treeline is 150px tall and rises into this gap */
+  margin-top: 96px;
   background: var(--footer-bg);
   border-top: 1px solid var(--ink-line);
   color: var(--ink-text);
