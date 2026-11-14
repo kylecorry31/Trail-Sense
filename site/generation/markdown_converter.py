@@ -1,4 +1,7 @@
 import markdown
+from markdown.extensions import Extension
+from markdown.inlinepatterns import InlineProcessor
+import xml.etree.ElementTree as etree
 import os
 import datetime
 import re
@@ -6,6 +9,33 @@ import yaml
 
 MIN_TOC_SECTIONS = 3
 MAX_SUMMARY_LENGTH = 160
+
+URL_PATTERN = r"(?<![\w\"'=/@])https?://[^\s<>]+"
+
+
+class AutolinkProcessor(InlineProcessor):
+    """Turns bare URLs in text into links, leaving out trailing punctuation and unbalanced closing brackets."""
+
+    def handleMatch(self, m, data):
+        url = m.group(0)
+        while url:
+            last = url[-1]
+            if last in ".,;:!?'\"" or (last == ")" and url.count("(") < url.count(")")) \
+                    or (last == "]" and url.count("[") < url.count("]")):
+                url = url[:-1]
+            else:
+                break
+        link = etree.Element("a")
+        link.set("href", url)
+        link.text = url
+        return link, m.start(0), m.start(0) + len(url)
+
+
+class AutolinkExtension(Extension):
+    def extendMarkdown(self, md):
+        # Lower priority than links and code spans, so URLs already inside those are left alone
+        md.inlinePatterns.register(AutolinkProcessor(URL_PATTERN, md), "bare_autolink", 40)
+
 
 def get_md_content(md_file_path):
     with open(md_file_path, mode="r", encoding="utf-8") as input_file:
@@ -55,7 +85,7 @@ def get_markdown_metadata(md_file_path, updated_url):
     metadata['path'] = md_file_path
     metadata['raw_content'] = text_without_metadata
     md = markdown.Markdown(
-        extensions=["toc"],
+        extensions=["toc", AutolinkExtension()],
         extension_configs={"toc": {"permalink": "#", "permalink_title": "Link to this section"}},
     )
     metadata['content'] = md.convert(text_without_metadata)
