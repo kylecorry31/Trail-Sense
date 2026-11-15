@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import androidx.annotation.Keep
 import com.kylecorry.andromeda.json.JsonConvert
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.getAppService
@@ -11,8 +12,9 @@ import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationSes
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationSessionProgress
 import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 
-class PathNavigationStore {
-    private val prefs = getAppService<SessionStateSubsystem>().preferences
+class PathNavigationStore(
+    private val prefs: IPreferences = getAppService<SessionStateSubsystem>().preferences
+) {
 
     fun hasSavedRoute(): Boolean = prefs.getString(SESSION_KEY) != null
 

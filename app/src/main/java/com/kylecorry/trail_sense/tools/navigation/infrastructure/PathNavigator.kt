@@ -5,8 +5,10 @@ import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.tryOrDefault
 import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.events.IEventSubscriber
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
@@ -14,11 +16,13 @@ import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathGuidance
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationSession
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathNavigationSessionProgress
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathRouteBuilder
+import com.kylecorry.trail_sense.tools.paths.domain.IPathService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingService
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventSubscriber
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,11 +36,14 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
-class PathNavigator(context: Context) {
-    private val prefs = getAppService<UserPreferences>().paths
-    private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
-    private val store = PathNavigationStore()
-    private val paths = PathService.getInstance(context)
+class PathNavigator(
+    private val prefs: IPathPreferences,
+    private val store: PathNavigationStore,
+    private val paths: IPathService,
+    private val currentLocation: () -> Coordinate,
+    private val currentAccuracy: () -> Distance?,
+    eventSubscriber: IEventSubscriber
+) {
     private val destinationState = MutableStateFlow<Destination.Path?>(null)
     private val restoringState = MutableStateFlow(false)
     val isRestoring = restoringState.asStateFlow()
@@ -49,17 +56,26 @@ class PathNavigator(context: Context) {
 
     val destination: Flow<Destination.Path?> = destinationState
 
+    constructor(context: Context) : this(
+        getAppService<UserPreferences>().paths,
+        PathNavigationStore(),
+        PathService.getInstance(context),
+        DependencyRegistry.get<LocationSubsystem>().let { subsystem -> { subsystem.location } },
+        DependencyRegistry.get<LocationSubsystem>().let { subsystem -> { subsystem.locationAccuracy } },
+        ToolEventSubscriber
+    )
+
     init {
         if (store.hasSavedRoute()) {
             synchronized(lock) {
                 buildJob = startBuild()
             }
         }
-        Tools.subscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED) {
+        eventSubscriber.subscribe(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED) {
             destinationState.value?.let { destination ->
                 tryOrLog {
-                    val location = locationSubsystem.location
-                    val guidance = destination.route.navigate(location, locationSubsystem.locationAccuracy)
+                    val location = currentLocation()
+                    val guidance = destination.route.navigate(location, currentAccuracy())
                     saveProgress(destination, guidance, location)
                 }
             }
@@ -72,7 +88,7 @@ class PathNavigator(context: Context) {
      * is cleared.
      */
     fun navigate(path: Path, follow: PathFollow) {
-        val newSession = PathNavigationSession(path.id, follow, locationSubsystem.location)
+        val newSession = PathNavigationSession(path.id, follow, currentLocation())
         synchronized(lock) {
             cancel()
             store.save(newSession)
@@ -129,7 +145,7 @@ class PathNavigator(context: Context) {
         session.progress?.let {
             destination.route.restorePosition(it.distanceAlong, it.location)
         }
-        destination.route.navigate(locationSubsystem.location, locationSubsystem.locationAccuracy)
+        destination.route.navigate(currentLocation(), currentAccuracy())
         return session to destination
     }
 

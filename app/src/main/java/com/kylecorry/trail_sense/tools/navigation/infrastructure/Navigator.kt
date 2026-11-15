@@ -2,6 +2,7 @@ package com.kylecorry.trail_sense.tools.navigation.infrastructure
 
 import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
+import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.luna.concurrency.BackgroundTask
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -9,12 +10,14 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
+import com.kylecorry.trail_sense.shared.events.IEventEmitter
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.preferences.SessionStateSubsystem
 import com.kylecorry.trail_sense.shared.sensors.LocationSubsystem
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.domain.BeaconOwner
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconService
+import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.IBeaconService
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationBearing
@@ -24,7 +27,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.guidance.GuidanceInput
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
-import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,13 +37,45 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.Instant
 
-class Navigator private constructor(context: Context) {
+internal interface NavigatorSettings {
+    val useTrueNorth: Boolean
+    val lockBearingToLocation: Boolean
+    val bearingDistance: Distance
+    val useAutoDeclination: Boolean
+    val declinationOverride: Float
+}
 
-    private val prefs = SessionStateSubsystem.getInstance(context).preferences
-    private val userPrefs = DependencyRegistry.get<UserPreferences>()
-    private val beacons = BeaconService(context)
-    private val bearings = NavigationBearingService.getInstance(context)
-    private val locationSubsystem = DependencyRegistry.get<LocationSubsystem>()
+class Navigator internal constructor(
+    private val prefs: IPreferences,
+    private val settings: NavigatorSettings,
+    private val beacons: IBeaconService,
+    private val bearings: NavigationBearingService,
+    private val pathNavigator: PathNavigator,
+    private val currentLocation: () -> Coordinate,
+    private val currentElevation: () -> Distance,
+    private val eventBus: IEventEmitter,
+    subscribeToLockBearingChanges: (onChanged: () -> Unit) -> Unit
+) {
+
+    private constructor(context: Context) : this(
+        SessionStateSubsystem.getInstance(context).preferences,
+        UserPreferencesNavigatorSettings(DependencyRegistry.get<UserPreferences>()),
+        BeaconService(context),
+        NavigationBearingService.getInstance(context),
+        PathNavigator(context),
+        DependencyRegistry.get<LocationSubsystem>().let { subsystem -> { subsystem.location } },
+        DependencyRegistry.get<LocationSubsystem>().let { subsystem -> { subsystem.elevation } },
+        ToolEventEmitter,
+        { onChanged ->
+            val lockBearingKey = context.getString(R.string.pref_lock_bearing_to_location)
+            PreferencesSubsystem.getInstance(context).preferences.onChange.subscribe { key ->
+                if (key == lockBearingKey) {
+                    onChanged()
+                }
+                true
+            }
+        }
+    )
 
     // Flows
     private val beaconDestinationId = MutableStateFlow(prefs.getLong(BEACON_DESTINATION_ID_KEY))
@@ -54,13 +89,13 @@ class Navigator private constructor(context: Context) {
     private val bearingDestination = combine(navigationBearing, bearingInvalidationKey) { bearing, _ ->
         bearing?.let {
             // The start location is hidden when the bearing is not locked to it, so it is not seen by consumers
-            val startLocation = it.startLocation.takeIf { userPrefs.navigation.lockBearingToLocation }
+            val startLocation = it.startLocation.takeIf { settings.lockBearingToLocation }
             Destination.Bearing(
                 Bearing.from(it.bearing),
-                userPrefs.compass.useTrueNorth,
-                getDeclination(startLocation ?: locationSubsystem.location),
+                settings.useTrueNorth,
+                getDeclination(startLocation ?: currentLocation()),
                 startLocation,
-                userPrefs.navigation.bearingDistance
+                settings.bearingDistance
             )
         }
     }
@@ -77,7 +112,6 @@ class Navigator private constructor(context: Context) {
         id?.let { beacons.getBeacon(it) }?.let { Destination.Beacon(it) }
     }
 
-    private val pathNavigator = PathNavigator(context)
     val isRestoringNavigation = pathNavigator.isRestoring
 
     val destination =
@@ -89,23 +123,19 @@ class Navigator private constructor(context: Context) {
         pathNavigator.navigate(path, follow)
         clearBeaconDestination()
         clearBearing()
-        Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
+        eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }
 
     private val listenTask = BackgroundTask {
         destination.collect {
-            Tools.broadcast(NavigationToolRegistration.BROADCAST_DESTINATION_CHANGED)
+            eventBus.broadcast(NavigationToolRegistration.BROADCAST_DESTINATION_CHANGED)
         }
     }
 
     init {
         listenTask.start()
-        val lockBearingKey = context.getString(R.string.pref_lock_bearing_to_location)
-        PreferencesSubsystem.getInstance(context).preferences.onChange.subscribe { key ->
-            if (key == lockBearingKey) {
-                bearingInvalidationKey.update { it + 1 }
-            }
-            true
+        subscribeToLockBearingChanges {
+            bearingInvalidationKey.update { it + 1 }
         }
         // Keeps the beacon destination in sync with external changes to the preferences
         prefs.onChange.subscribe { key ->
@@ -151,7 +181,7 @@ class Navigator private constructor(context: Context) {
         pathNavigator.cancel()
         CoroutineScope(Dispatchers.IO).launch { clearBearing() }
         setBeaconDestination(beaconId)
-        Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
+        eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }
 
     private fun setBeaconDestination(beaconId: Long) {
@@ -163,7 +193,7 @@ class Navigator private constructor(context: Context) {
         val wasNavigating = getBeaconDestinationId() != null
         clearBeaconDestination()
         if (wasNavigating) {
-            Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
+            eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
         }
     }
 
@@ -179,7 +209,7 @@ class Navigator private constructor(context: Context) {
 
     fun cancelPathNavigation(pathId: Long) {
         if (pathNavigator.cancel(pathId)) {
-            Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
+            eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
         }
     }
 
@@ -198,7 +228,7 @@ class Navigator private constructor(context: Context) {
         clearBearing()
 
         if (beaconId != null || bearing != null || pathSession != null) {
-            Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
+            eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STOPPED)
         }
 
         return restore@{
@@ -209,7 +239,7 @@ class Navigator private constructor(context: Context) {
             bearing?.let { bearings.setBearing(it) }
             pathSession?.let { pathNavigator.restore(it) }
             if (beaconId != null || bearing != null || pathSession != null) {
-                Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
+                eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
             }
         }
     }
@@ -240,7 +270,7 @@ class Navigator private constructor(context: Context) {
             startTime = Instant.now()
         )
         bearings.setBearing(navigationBearing)
-        Tools.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
+        eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }
 
     suspend fun clearBearing() {
@@ -255,7 +285,7 @@ class Navigator private constructor(context: Context) {
         return getGuidance(
             destination,
             myLocation,
-            locationSubsystem.elevation,
+            currentElevation(),
             declination
         ).targetBearing
     }
@@ -268,7 +298,7 @@ class Navigator private constructor(context: Context) {
         useTrueNorthOverride: Boolean? = null
     ): Guidance {
         val useTrueNorth = destination.usesTrueNorth(
-            userPrefs.compass.useTrueNorth,
+            settings.useTrueNorth,
             useTrueNorthOverride
         )
         return destination.getGuidance(
@@ -279,10 +309,10 @@ class Navigator private constructor(context: Context) {
     private fun getDeclination(location: Coordinate): Float {
         return NavigationBearingCalculator.getDeclination(
             location,
-            locationSubsystem.elevation.meters().value,
+            currentElevation().meters().value,
             System.currentTimeMillis(),
-            userPrefs.useAutoDeclination,
-            userPrefs.declinationOverride
+            settings.useAutoDeclination,
+            settings.declinationOverride
         )
     }
 
@@ -300,4 +330,12 @@ class Navigator private constructor(context: Context) {
         }
     }
 
+}
+
+private class UserPreferencesNavigatorSettings(private val userPrefs: UserPreferences) : NavigatorSettings {
+    override val useTrueNorth get() = userPrefs.compass.useTrueNorth
+    override val lockBearingToLocation get() = userPrefs.navigation.lockBearingToLocation
+    override val bearingDistance get() = userPrefs.navigation.bearingDistance
+    override val useAutoDeclination get() = userPrefs.useAutoDeclination
+    override val declinationOverride get() = userPrefs.declinationOverride
 }
