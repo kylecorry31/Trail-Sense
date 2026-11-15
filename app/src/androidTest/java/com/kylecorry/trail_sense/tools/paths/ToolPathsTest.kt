@@ -618,8 +618,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         scrollUntil(R.id.path_scroll) {
             hasDataPoint(Regex("5[2-4]\\d ft"), string(R.string.lowest_point_elevation))
         }
-        hasDataPoint(Regex("5[7-9]\\d ft"), string(R.string.highest_point_elevation))
-        isVisible(R.id.chart)
+        scrollUntil(R.id.path_scroll) {
+            hasDataPoint(Regex("5[7-9]\\d ft"), string(R.string.highest_point_elevation))
+            isVisible(R.id.chart)
+        }
     }
 
     @Test
