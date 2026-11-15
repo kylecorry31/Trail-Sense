@@ -13,9 +13,15 @@ import com.kylecorry.trail_sense.shared.io.UriService
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.deleteListItem
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasDataPoint
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
@@ -24,22 +30,19 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
+import com.kylecorry.trail_sense.test_utils.TestUtils.backIfPossible
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
@@ -49,14 +52,19 @@ import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigationS
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.PathNavigator
 import com.kylecorry.trail_sense.tools.paths.domain.FullPath
 import com.kylecorry.trail_sense.tools.paths.domain.LineStyle
-import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.domain.PathDirection
 import com.kylecorry.trail_sense.tools.paths.domain.PathGPXConverter
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
+import com.kylecorry.trail_sense.tools.paths.domain.PathPointColoringStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.alerts.BacktrackAlerter
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
 import com.kylecorry.trail_sense.tools.sensors.SensorsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import java.io.OutputStream
+import java.time.Instant
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -66,11 +74,6 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Test
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.io.OutputStream
-import java.time.Instant
 
 class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
@@ -96,13 +99,13 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+            doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
         }
 
         hasText(R.id.play_bar_title, "On - 1m")
 
         // Wait for the path to be created
-        isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
+        isVisible(ListItem.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         hasText(string(R.string.temporary))
 
@@ -115,14 +118,14 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         }
 
         // The path is kept when stopped
-        not { hasText(string(R.string.temporary)) }
+        doesNotHaveText(string(R.string.temporary))
     }
 
     @Test
     fun quickActionStartsAndStopsBacktrack() {
         // TODO: Quick settings tile
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
+        clickQuickAction(Tools.QUICK_ACTION_BACKTRACK)
 
         // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
@@ -134,7 +137,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+            doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
         }
 
         // Wait for the path to be created
@@ -143,7 +146,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText(R.id.play_bar_title, "On - 1m")
 
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_BACKTRACK))
+        clickQuickAction(Tools.QUICK_ACTION_BACKTRACK)
         TestUtils.closeQuickActions()
         hasText(R.id.play_bar_title, "Off - 1m")
 
@@ -167,13 +170,13 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText("Test Group")
         click("Test Group")
         hasText(string(R.string.no_paths))
-        back(false)
+        backIfPossible()
 
         // Open import and verify the picker opens, then back out
         click(R.id.add_btn)
         click(string(R.string.import_gpx))
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.pick_file)) }
-        back(false)
+        backIfPossible()
         hasText(R.id.paths_title, string(R.string.paths))
 
         click(R.id.add_btn)
@@ -203,7 +206,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText(Regex("[1-9]\\d*(\\.\\d+)? (mi|ft)"))
 
         // Cancelling a path with points asks before discarding it
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        clickRightToolbarButton(R.id.map_distance_title)
         click(string(R.string.dialog_leave))
         backUntil { isVisible(R.id.paths_title) }
     }
@@ -223,9 +226,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasTitlesInOrder("Test Path")
         waitFor { assertEquals("Test Path", runBlocking { service.getPath(id) }!!.name) }
 
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(ListItem.trailingIconButton)
         waitFor { assertFalse(runBlocking { service.getPath(id) }!!.style.visible) }
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(ListItem.trailingIconButton)
         waitFor { assertTrue(runBlocking { service.getPath(id) }!!.style.visible) }
     }
 
@@ -245,7 +248,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         clickListItemMenu("Durfee Short", string(R.string.merge))
         click("Durfee Loop", exact = true)
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.merging)) }
-        not { hasText("Durfee Short") }
+        doesNotHaveText("Durfee Short")
         // 57 + 39 points. The loop is 0.9254 mi, the short loop 0.4978 mi, and the gap between them
         // 3903.8 m (2.4257 mi) by Vincenty, which is 3.8489 mi in total
         hasText("3.85 mi")
@@ -266,7 +269,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Test Group")
         click(string(R.string.move))
         waitFor { assertEquals(groupId, pathNamed("Durfee Loop").parentId) }
-        not { hasText("Durfee Loop") }
+        doesNotHaveText("Durfee Loop")
         click("Test Group")
         hasTitlesInOrder("Durfee Loop")
     }
@@ -284,7 +287,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Search finds paths and not the groups
         input(R.id.searchbox, "Sprague")
         hasText("Sprague")
-        not { hasText("Dest Group", waitForTime = 0) }
+        doesNotHaveText("Dest Group", waitForTime = 0)
         input(R.id.searchbox, "")
         hasText("Dest Group")
 
@@ -296,7 +299,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText("1 path")
 
         // Export current group via toolbar menu
-        click(toolbarButton(R.id.paths_title, Side.Right))
+        clickRightToolbarButton(R.id.paths_title)
         click(string(R.string.export))
         clickOk()
         optional { hasText("trail-sense-") }
@@ -312,10 +315,9 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // Delete moved group (open Dest Group first)
         click("Dest Group")
         hasText("Test Group 2")
-        clickListItemMenu("Test Group 2", string(R.string.delete))
-        clickOk()
-        not { hasText("Test Group 2") }
-        back(false)
+        deleteListItem("Test Group 2")
+        doesNotHaveText("Test Group 2")
+        backIfPossible()
         hasText("Dest Group")
         hasText("Sprague")
     }
@@ -405,7 +407,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Test Path")
 
         // Path points
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click("Points")
         hasText("Today")
 
@@ -415,7 +417,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 //        hasText("Test Path")
 //        back()
 //
-//        click(toolbarButton(R.id.path_title, Side.Right))
+//        clickRightToolbarButton(R.id.path_title)
 //        click("Points")
 //        clickListItemMenu("Create beacon")
 //        isVisible(R.id.create_beacon_title)
@@ -425,7 +427,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 //        back()
 //        isVisible(R.id.path_title)
 //
-//        click(toolbarButton(R.id.path_title, Side.Right))
+//        clickRightToolbarButton(R.id.path_title)
 //        click("Points")
 //        clickListItemMenu("Delete")
 //        clickOk()
@@ -444,13 +446,13 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText(R.id.path_title, "Sprague")
 
         // Replace elevations
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click(string(R.string.replace_elevations))
         hasText(string(R.string.replace_elevations_confirmation))
-        back(false)
+        backIfPossible()
 
         // Simplify
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click("Simplify")
         hasText("will be deleted")
         click(R.id.simplify_quality)
@@ -462,7 +464,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         waitFor { assertTrue(runBlocking { service.getWaypoints(path().id) }.size < 90) }
 
         // Export
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click("Export")
         hasText("trail-sense-")
         backUntil {
@@ -470,10 +472,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         }
 
         // Hide / show
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click("Hide")
         waitFor { assertFalse(path().style.visible) }
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click("Show")
         waitFor { assertTrue(path().style.visible) }
     }
@@ -525,10 +527,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Recording")
         hasText(R.id.path_title, "Recording")
 
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click(string(R.string.keep_forever))
-        click(toolbarButton(R.id.path_title, Side.Right))
-        not { hasText(string(R.string.keep_forever)) }
+        clickRightToolbarButton(R.id.path_title)
+        doesNotHaveText(string(R.string.keep_forever))
     }
 
     @Test
@@ -538,14 +540,14 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click(R.id.play_btn)
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+            doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
         }
         hasText(R.id.play_bar_title, "On - 1m")
 
         // Wait for the path to be created
-        isVisible(com.kylecorry.andromeda.views.R.id.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
+        isVisible(ListItem.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
-        click(com.kylecorry.andromeda.views.R.id.title)
+        click(ListItem.title)
         isVisible(R.id.stop_recording_btn)
 
         click(R.id.stop_recording_btn)
@@ -587,8 +589,8 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         input(R.id.searchbox, "spra")
         hasText("Sprague")
-        not { hasText("Mansfield", waitForTime = 0) }
-        not { hasText("Durfee Short", waitForTime = 0) }
+        doesNotHaveText("Mansfield", waitForTime = 0)
+        doesNotHaveText("Durfee Short", waitForTime = 0)
 
         input(R.id.searchbox, "")
         hasText("Mansfield")
@@ -692,7 +694,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         openWithSavedPaths()
 
         click("Durfee Short")
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click("Points")
         click(R.id.waypoint_menu_btn)
         click(string(R.string.path_navigation_follow_to_point))
@@ -701,7 +703,7 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         assertTrue(PathNavigationStore().load()!!.follow is PathFollow.ToPoint)
 
         backUntil { isVisible(R.id.path_scroll) }
-        click(toolbarButton(R.id.path_title, Side.Right))
+        clickRightToolbarButton(R.id.path_title)
         click("Points")
         click(R.id.waypoint_menu_btn)
         click(string(R.string.path_navigation_direct))
@@ -716,29 +718,28 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         openWithSavedPaths()
 
         hasText("Durfee Short")
-        clickListItemMenu("Durfee Short", string(R.string.delete))
-        clickOk()
+        deleteListItem("Durfee Short")
 
-        not { hasText("Durfee Short") }
+        doesNotHaveText("Durfee Short")
         hasText("Mansfield")
         hasText("Sprague")
     }
 
     private fun sortBy(current: String, new: String) {
-        click(toolbarButton(R.id.paths_title, Side.Right))
+        clickRightToolbarButton(R.id.paths_title)
         click(string(R.string.sort_by, current))
         click(new)
         clickOk()
     }
 
     private fun hasTitlesInOrder(vararg titles: String) {
-        hasTextsInOrder(com.kylecorry.andromeda.views.R.id.title, titles.toList())
+        hasTextsInOrder(ListItem.title, titles.toList())
     }
 
     private fun hasTitlesAndLengths(vararg paths: Pair<String, String>) {
         hasTitlesInOrder(*paths.map { it.first }.toTypedArray())
         hasTextsInOrder(
-            com.kylecorry.andromeda.views.R.id.description,
+            ListItem.description,
             paths.map { it.second }
         )
     }

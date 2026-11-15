@@ -6,21 +6,25 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
 import com.kylecorry.trail_sense.shared.views.Toolbar
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickLeftToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.deleteListItem
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
@@ -29,8 +33,7 @@ import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.map.ui.MapView
 import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapFile
@@ -38,17 +41,17 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projection
 import com.kylecorry.trail_sense.tools.offline_maps.domain.trail_maps.TrailMap
 import com.kylecorry.trail_sense.tools.offline_maps.infrastructure.persistence.MapRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Instant
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Test
-import java.time.Instant
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
 
 class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
 
@@ -117,8 +120,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         hasText("Test Group 2")
 
         // Deleting the group deletes the maps in it
-        clickListItemMenu("Test Group 2", string(R.string.delete))
-        clickOk()
+        deleteListItem("Test Group 2")
         waitFor { hasTitlesInOrder("Test Map") }
         assertEquals(1, runBlocking { MapRepo.getInstance(TestUtils.context).getPhotoMaps().size })
     }
@@ -132,9 +134,9 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         }
         val repo = MapRepo.getInstance(TestUtils.context)
 
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(ListItem.trailingIconButton)
         waitFor { assertFalse(runBlocking { repo.getPhotoMap(ids.first) }!!.visible) }
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(ListItem.trailingIconButton)
         waitFor { assertTrue(runBlocking { repo.getPhotoMap(ids.first) }!!.visible) }
 
         clickListItemMenu("Test Map", string(R.string.rename))
@@ -147,13 +149,12 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         click("Test Group")
         click(string(R.string.move))
         hasText("1 map")
-        not { hasText("Test Map 2") }
+        doesNotHaveText("Test Map 2")
         assertEquals(ids.second, runBlocking { repo.getPhotoMap(ids.first) }!!.parentId)
         click("Test Group")
         hasTitlesInOrder("Test Map 2")
 
-        clickListItemMenu("Test Map 2", string(R.string.delete))
-        clickOk()
+        deleteListItem("Test Map 2")
         hasText(string(R.string.no_maps))
         assertTrue(runBlocking { repo.getPhotoMaps() }.isEmpty())
     }
@@ -242,7 +243,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         waitFor {
             assertEquals(expectedFeet, measuredFeet(), 3.0)
         }
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        clickRightToolbarButton(R.id.map_distance_title)
     }
 
     @Test
@@ -255,7 +256,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         waitFor { assertEquals(start / 2, resolution(), start * 0.001f) }
         click(R.id.zoom_out_btn)
         waitFor { assertEquals(start, resolution(), start * 0.001f) }
-        click(toolbarButton(R.id.map_title, Side.Left))
+        clickLeftToolbarButton(R.id.map_title)
 
         isNotChecked(R.id.lock_btn)
         click(R.id.lock_btn)
@@ -264,10 +265,10 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         isChecked(R.id.lock_btn)
         click(R.id.lock_btn)
         isNotChecked(R.id.lock_btn)
-        click(toolbarButton(R.id.map_title, Side.Left))
+        clickLeftToolbarButton(R.id.map_title)
 
         // Trace
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Trace")
         clickOk()
         not { isVisible(R.id.zoom_in_btn) }
@@ -284,7 +285,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         val id = openPhotoMap()
 
         // Calibrate
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Calibrate")
         clickOkIfShown()
         hasText("Point 1 of 2")
@@ -301,21 +302,21 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         isVisible(R.id.map)
 
         // User guide
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("User Guide")
         hasText("Offline Maps")
         back()
         isVisible(R.id.map)
 
         // Rename
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Rename")
         input("Test Map", "Test Map 2")
         clickOk()
         hasText(R.id.map_title, "Test Map 2")
 
         // Change projection
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Change projection")
         click("Equidistant")
         clickOk()
@@ -333,24 +334,24 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         openPhotoMap()
 
         // Measure
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Measure")
         hasText("Distance")
         // No points have been added yet
         hasText(R.id.map_distance_title, "0 ft")
         hasText("Create path")
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        clickRightToolbarButton(R.id.map_distance_title)
 
         // Create path
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Create path")
         hasText("Distance")
         hasText(R.id.map_distance_title, "0 ft")
         hasText("Create path")
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        clickRightToolbarButton(R.id.map_distance_title)
 
         // Layers
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Layers")
         scrollUntil { hasText("Location") }
         scrollUntil { hasText("Beacons") }
@@ -358,7 +359,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         scrollUntil { hasText("Tides") }
         scrollUntil { hasText("Navigation") }
         scrollUntil { hasText("Photo maps") }
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
     }
 
     @Test
@@ -366,7 +367,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         openPhotoMap()
 
         // Export
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Export")
         // Pressing back is needed sometimes to close the drive selector
         backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
@@ -377,7 +378,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         }
 
         // Print
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click("Print")
         hasText("Copies")
         backUntil {
@@ -385,7 +386,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         }
 
         // Delete
-        click(toolbarButton(R.id.map_title, Side.Right))
+        clickRightToolbarButton(R.id.map_title)
         click(string(R.string.delete))
         clickOk()
 
@@ -422,7 +423,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         input(R.id.searchbox, "Second")
         hasTitlesInOrder("Second Map")
         input(R.id.searchbox, "Test")
-        not { hasText("Second Map") }
+        doesNotHaveText("Second Map")
         hasText("Test Map")
         input(R.id.searchbox, "")
         hasText("Second Map")
@@ -436,9 +437,9 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         val id = openWith { seedOfflineMap("Test Map") }
         val repo = MapRepo.getInstance(TestUtils.context)
 
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(ListItem.trailingIconButton)
         waitFor { assertFalse(runBlocking { repo.getTrailMap(id) }!!.visible) }
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
+        click(ListItem.trailingIconButton)
         waitFor { assertTrue(runBlocking { repo.getTrailMap(id) }!!.visible) }
 
         click("Test Map")
@@ -459,7 +460,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         waitFor {
             isVisible(R.id.zoom_in_btn)
         }
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
         click(string(R.string.export))
         backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
             hasText("test-map.map")
@@ -495,7 +496,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         click("Test Group")
         click(string(R.string.move))
         hasText("1 map")
-        not { hasText("Test Map 2") }
+        doesNotHaveText("Test Map 2")
         assertEquals(ids.second, runBlocking { repo.getTrailMap(ids.first) }!!.parentId)
         click("Test Group")
         hasTitlesInOrder("Test Map 2")
@@ -516,13 +517,11 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         hasText("1 map")
 
         // Deleting the group deletes the maps in it
-        clickListItemMenu("Test Group 2", string(R.string.delete))
-        clickOk()
-        not { hasText("Test Group 2") }
+        deleteListItem("Test Group 2")
+        doesNotHaveText("Test Group 2")
         waitFor { hasTitlesInOrder("Second Map") }
 
-        clickListItemMenu("Second Map", string(R.string.delete))
-        clickOk()
+        deleteListItem("Second Map")
         hasText(string(R.string.no_maps))
     }
 
@@ -536,7 +535,7 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
     }
 
     private fun hasTitlesInOrder(vararg titles: String) {
-        hasTextsInOrder(com.kylecorry.andromeda.views.R.id.title, titles.toList())
+        hasTextsInOrder(ListItem.title, titles.toList())
     }
 
     private fun canOpenOfflineMapFilePicker() {

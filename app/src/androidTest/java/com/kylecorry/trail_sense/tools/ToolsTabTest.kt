@@ -3,18 +3,19 @@ package com.kylecorry.trail_sense.tools
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
+import com.kylecorry.trail_sense.test_utils.TestUtils.backIfPossible
 import com.kylecorry.trail_sense.test_utils.TestUtils.closeQuickActions
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.openQuickActions
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
@@ -47,7 +48,7 @@ class ToolsTabTest : ToolTestBase(0L) {
         clickOk()
 
         hasText(string(R.string.astronomy))
-        not { hasText(string(R.string.tool_category_signaling)) }
+        doesNotHaveText(string(R.string.tool_category_signaling))
 
         click(R.id.icon, index = 1)
         click(string(R.string.category))
@@ -58,10 +59,10 @@ class ToolsTabTest : ToolTestBase(0L) {
 
     @Test
     fun canUseTheQuickActions() {
-        click(quickAction(Tools.QUICK_ACTION_WHISTLE))
+        clickQuickAction(Tools.QUICK_ACTION_WHISTLE)
 
         openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_WHISTLE))
+        clickQuickAction(Tools.QUICK_ACTION_WHISTLE)
         closeQuickActions()
     }
 
@@ -82,7 +83,7 @@ class ToolsTabTest : ToolTestBase(0L) {
         longClick(string(R.string.flashlight_title))
         click(string(R.string.tool_user_guide_title))
         hasText("SOS")
-        back(false)
+        backIfPossible()
 
         longClick(string(R.string.flashlight_title))
         click(string(R.string.settings))
@@ -108,7 +109,7 @@ class ToolsTabTest : ToolTestBase(0L) {
         click(string(R.string.tool_user_guide_title))
         clickOk()
 
-        not { hasText(string(R.string.astronomy)) }
+        doesNotHaveText(string(R.string.astronomy))
     }
 
 }

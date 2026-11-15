@@ -30,41 +30,42 @@ import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.finishCurrentActivity
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.tools.astronomy.map_layers.NightTileSource
-import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
-import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
-import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
-import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
-import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.tools.astronomy.domain.AstronomyService
+import com.kylecorry.trail_sense.tools.astronomy.map_layers.NightTileSource
 import com.kylecorry.trail_sense.tools.beacons.map_layers.BeaconGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.MapToolRegistration
 import com.kylecorry.trail_sense.tools.map.map_layers.BaseMapTileSource
 import com.kylecorry.trail_sense.tools.map.map_layers.MyLocationGeoJsonSource
 import com.kylecorry.trail_sense.tools.map.ui.MapView
+import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
+import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
+import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
 import com.kylecorry.trail_sense.tools.navigation.map_layers.NavigationGeoJsonSource
+import com.kylecorry.trail_sense.tools.offline_maps.domain.CreateOfflineMapRequest
+import com.kylecorry.trail_sense.tools.offline_maps.domain.OfflineMapService
 import com.kylecorry.trail_sense.tools.offline_maps.map_layers.TrailMapsTileSource
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
-import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.paths.map_layers.PathGeoJsonSource
 import com.kylecorry.trail_sense.tools.tides.map_layers.TideGeoJsonSource
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import kotlinx.coroutines.runBlocking
-import org.junit.After
-import org.junit.Assume.assumeTrue
-import org.junit.BeforeClass
-import org.junit.Test
 import java.io.File
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZonedDateTime
-import kotlinx.coroutines.flow.collect
+import java.time.format.DateTimeFormatter
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
-import java.time.format.DateTimeFormatter
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Assume.assumeTrue
+import org.junit.BeforeClass
+import org.junit.Test
 
 /**
  * Captures the screenshots used on the website and the store listings. Every screen is built from
@@ -144,7 +145,7 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
                 Tools.getService(context, PathsToolRegistration.SERVICE_BACKTRACK)?.restart()
             }
         }
-        click(com.kylecorry.andromeda.views.R.id.title)
+        click(ListItem.title)
         isVisible(R.id.stop_recording_btn, waitForTime = 5000)
         capture("backtrack", settle = 3000)
     }

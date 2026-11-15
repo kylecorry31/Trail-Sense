@@ -102,11 +102,15 @@ object TestUtils {
         }
     }
 
+    fun backIfPossible() {
+        back(requireSuccess = false)
+    }
+
     fun closeKeyboard() {
         val isKeyboardOpen = device.executeShellCommand("dumpsys input_method")
             .contains("mInputShown=true")
         if (isKeyboardOpen) {
-            back(false)
+            backIfPossible()
         }
     }
 

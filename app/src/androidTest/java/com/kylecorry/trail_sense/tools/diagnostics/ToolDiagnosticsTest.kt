@@ -3,11 +3,10 @@ package com.kylecorry.trail_sense.tools.diagnostics
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
@@ -26,7 +25,7 @@ class ToolDiagnosticsTest : ToolTestBase(Tools.DIAGNOSTICS) {
 
     @Test
     fun canOpenTheSensorDetails() {
-        click(toolbarButton(R.id.diagnostics_title, Side.Right))
+        clickRightToolbarButton(R.id.diagnostics_title)
         hasText(R.id.sensor_details_title, string(R.string.pref_sensor_details_title))
     }
 

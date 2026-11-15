@@ -5,6 +5,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.deleteListItem
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasDataPoint
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
@@ -12,16 +16,14 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
+import com.kylecorry.trail_sense.test_utils.TestUtils.backIfPossible
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Assume.assumeFalse
 import org.junit.Test
@@ -54,7 +56,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
 
         input(R.id.comment, "Test notes")
 
-        click(toolbarButton(R.id.create_beacon_title, Side.Right))
+        clickRightToolbarButton(R.id.create_beacon_title)
 
         hasText(R.id.beacon_title, string(R.string.beacons))
         hasText("Test beacon")
@@ -95,7 +97,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         click("Test beacon")
         hasText(R.id.beacon_title, "Test beacon")
 
-        click(toolbarButton(R.id.beacon_title, Side.Right))
+        clickRightToolbarButton(R.id.beacon_title)
         click(string(R.string.share_ellipsis))
 
         hasText(string(android.R.string.copy))
@@ -103,7 +105,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         hasText(string(R.string.maps))
         hasText(string(R.string.share_action_send))
 
-        back(false)
+        backIfPossible()
 
         click(R.id.edit_btn)
         hasText(R.id.create_beacon_title, string(R.string.create_beacon))
@@ -120,7 +122,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
 
         input(R.id.comment, "Test notes 2")
 
-        click(toolbarButton(R.id.create_beacon_title, Side.Right))
+        clickRightToolbarButton(R.id.create_beacon_title)
 
         hasText(R.id.beacon_title, "Test beacon")
         hasText(R.id.comment_text, "Test notes 2")
@@ -148,11 +150,11 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         scrollToEnd(R.id.create_beacon_scroll)
         hasText("Test group")
 
-        click(toolbarButton(R.id.create_beacon_title, Side.Right))
+        clickRightToolbarButton(R.id.create_beacon_title)
 
         hasText(R.id.beacon_title, "Test group")
         hasText("Test beacon 2")
-        back(false)
+        backIfPossible()
         hasText("Test group")
         hasText("1 beacon")
     }
@@ -172,12 +174,12 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         click("Test group")
         click("Move")
         hasText("2 beacons")
-        not { hasText("Test beacon", exact = true) }
+        doesNotHaveText("Test beacon", exact = true)
 
         click("Test group")
         hasText("Test beacon")
         hasText("Test beacon 2")
-        back(false)
+        backIfPossible()
     }
 
     @Test
@@ -191,11 +193,10 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
 
         click("Test group")
         // The beacons are sorted by distance, so the first one is the nearest
-        clickListItemMenu("Delete")
-        clickOk()
+        deleteListItem()
         hasText("Test beacon 2")
-        not { hasText("Test beacon", exact = true) }
-        back(false)
+        doesNotHaveText("Test beacon", exact = true)
+        backIfPossible()
     }
 
     @Test
@@ -207,20 +208,19 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         }
 
         click("Test group")
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-        back(false)
+        click(ListItem.trailingIconButton)
+        click(ListItem.trailingIconButton)
+        backIfPossible()
 
         clickListItemMenu("Rename")
         input("Test group", "Test group 2")
         clickOk()
         hasText("Test group 2")
-        not { hasText("Test group", exact = true) }
+        doesNotHaveText("Test group", exact = true)
 
-        clickListItemMenu("Delete")
-        clickOk()
+        deleteListItem()
         hasText("No beacons")
-        not { hasText("Test group 2", exact = true) }
+        doesNotHaveText("Test group 2", exact = true)
     }
 
     private fun openWithATestBeacon() {
@@ -265,11 +265,11 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         openWithSavedBeacons()
 
         hasTextsInOrder(
-            com.kylecorry.andromeda.views.R.id.title,
+            ListItem.title,
             listOf("Camp", "Trailheads", "Lake", "Summit")
         )
         hasTextsInOrder(
-            com.kylecorry.andromeda.views.R.id.description,
+            ListItem.description,
             listOf("0.69 mi", "1 beacon", "14.86 mi", "40.41 mi")
         )
     }
@@ -284,7 +284,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         hasText("Parking")
         // 4.15 mi on a spherical earth
         hasText(Regex("4\\.1[56] mi"))
-        not { hasText("Camp") }
+        doesNotHaveText("Camp")
     }
 
     @Test
@@ -293,13 +293,13 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
 
         input(R.id.searchbox, "lak")
         hasText("Lake")
-        not { hasText("Summit") }
-        not { hasText("Camp") }
+        doesNotHaveText("Summit")
+        doesNotHaveText("Camp")
 
         // Beacons inside of groups are found too
         input(R.id.searchbox, "park")
         hasText("Parking")
-        not { hasText("Lake") }
+        doesNotHaveText("Lake")
 
         input(R.id.searchbox, "")
         hasText("Summit")
@@ -350,7 +350,7 @@ class ToolBeaconsTest : ToolTestBase(Tools.BEACONS, Coordinate(42.03, -71.97)) {
         clickOk()
 
         scrollToEnd(R.id.create_beacon_scroll)
-        click(toolbarButton(R.id.create_beacon_title, Side.Right))
+        clickRightToolbarButton(R.id.create_beacon_title)
 
         // One mile north of 42, -72
         click("Mile north")

@@ -6,7 +6,10 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.notifications.hasTitle
 import com.kylecorry.trail_sense.test_utils.notifications.notification
+import com.kylecorry.trail_sense.test_utils.views.Side
 import com.kylecorry.trail_sense.test_utils.views.TestView
+import com.kylecorry.trail_sense.test_utils.views.quickAction
+import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.views.click
 import com.kylecorry.trail_sense.test_utils.views.getScrollableView
 import com.kylecorry.trail_sense.test_utils.views.hasText
@@ -257,6 +260,22 @@ object AutomationLibrary {
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { clickOk() }
     }
 
+    fun doesNotHaveText(text: String, exact: Boolean = false, waitForTime: Long? = null) {
+        not(waitForTime) { hasText(text, exact = exact) }
+    }
+
+    fun clickLeftToolbarButton(@androidx.annotation.IdRes toolbarId: Int) {
+        click(toolbarButton(toolbarId, Side.Left))
+    }
+
+    fun clickRightToolbarButton(@androidx.annotation.IdRes toolbarId: Int) {
+        click(toolbarButton(toolbarId, Side.Right))
+    }
+
+    fun clickQuickAction(quickActionId: Int, holdDuration: Long? = null) {
+        click({ quickAction(quickActionId) }, holdDuration = holdDuration)
+    }
+
     fun not(waitForTime: Long? = null, block: () -> Unit) {
         waitFor(resolveWaitForTime(waitForTime)) {
             withWaitForTimeOverride(0) {
@@ -393,6 +412,17 @@ object AutomationLibrary {
         waitFor(resolveWaitForTime(waitForTime)) {
             view.longClick()
         }
+    }
+
+    /** Deletes a list item through its overflow menu and confirms the dialog. */
+    fun deleteListItem(itemTitle: String? = null) {
+        val delete = string(R.string.delete)
+        if (itemTitle == null) {
+            TestUtils.clickListItemMenu(delete)
+        } else {
+            TestUtils.clickListItemMenu(itemTitle, delete)
+        }
+        clickOk()
     }
 
     fun clickOk(index: Int = 0, waitForTime: Long? = null) {

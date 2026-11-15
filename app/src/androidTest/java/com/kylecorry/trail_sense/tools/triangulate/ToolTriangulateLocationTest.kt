@@ -1,21 +1,22 @@
 package com.kylecorry.trail_sense.tools.triangulate
 
+import androidx.test.uiautomator.Direction
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
+import com.kylecorry.trail_sense.test_utils.TestUtils.backIfPossible
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import androidx.test.uiautomator.Direction
-import com.kylecorry.sol.units.Coordinate
 import org.junit.Test
 
 class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
@@ -37,7 +38,7 @@ class ToolTriangulateLocationTest : ToolTestBase(Tools.TRIANGULATE_LOCATION) {
         hasText(string(R.string.qr_code))
         hasText(string(R.string.maps))
         hasText(string(R.string.share_action_send))
-        back(false)
+        backIfPossible()
     }
 
     @Test

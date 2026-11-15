@@ -2,24 +2,25 @@ package com.kylecorry.trail_sense.tools.navigation
 
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickLeftToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOkIfShown
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Assume.assumeFalse
 import org.junit.Test
@@ -67,7 +68,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
             scrollUntil { hasText("Tides") }
             scrollUntil { hasText("Photo maps") }
             scrollUntil { hasText("Trail maps") }
-            click(toolbarButton(R.id.title, Side.Right))
+            clickRightToolbarButton(R.id.title)
         }
     }
 
@@ -82,7 +83,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         input("Location", "1.0, -1.0")
         input("Elevation", "100")
         scrollUntil { input(R.id.comment, "Test Comment") }
-        click(toolbarButton(R.id.create_beacon_title, Side.Right))
+        clickRightToolbarButton(R.id.create_beacon_title)
 
         // Navigate to it
         isVisible(R.id.beacon_recycler)
@@ -117,7 +118,7 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         back()
 
         cancelNavigation()
-        not { hasText("Test Beacon") }
+        doesNotHaveText("Test Beacon")
     }
 
     @Test
@@ -132,11 +133,11 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
 
     @Test
     fun hasWorkingQuickActions() {
-        click(toolbarButton(R.id.navigation_title, Side.Left))
+        clickLeftToolbarButton(R.id.navigation_title)
         isVisible(R.id.paths_title)
         back()
 
-        click(toolbarButton(R.id.navigation_title, Side.Right))
+        clickRightToolbarButton(R.id.navigation_title)
         clickOkIfShown()
         isVisible(R.id.map_list_title)
         back()
@@ -206,12 +207,12 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         hasText(R.id.navigation_primary_stat, "40.41 mi", childId = R.id.stat_value)
 
         cancelNavigation()
-        not { hasText("Summit") }
+        doesNotHaveText("Summit")
 
         navigateToBeacon("Camp")
         hasText(R.id.navigation_sheet_title, "Camp")
         hasText(R.id.navigation_primary_stat, "0.69 mi", childId = R.id.stat_value)
-        not { hasText("Summit") }
+        doesNotHaveText("Summit")
     }
 
     private fun cancelNavigation() {

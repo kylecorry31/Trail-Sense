@@ -3,17 +3,17 @@ package com.kylecorry.trail_sense.tools.guide
 import androidx.annotation.RawRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.openQuickActions
 import com.kylecorry.trail_sense.test_utils.TestUtils.rawResourceText
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
@@ -43,14 +43,14 @@ class ToolUserGuideTest : ToolTestBase(Tools.USER_GUIDE) {
         hasText("Settings")
 
         // The general category no longer matches
-        not { hasText(string(R.string.general)) }
+        doesNotHaveText(string(R.string.general))
     }
 
     @Test
     fun canOpenTheUserGuideFromTheQuickAction() {
         openQuickActions()
 
-        click(quickAction(Tools.QUICK_ACTION_USER_GUIDE))
+        clickQuickAction(Tools.QUICK_ACTION_USER_GUIDE)
 
         // Verify it shows the user guide
         hasGuide(string(R.string.tools), R.raw.guide_tool_tools)

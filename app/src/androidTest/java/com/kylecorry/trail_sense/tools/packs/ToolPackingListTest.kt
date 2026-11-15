@@ -5,10 +5,12 @@ import com.kylecorry.sol.math.MathExtensions.roundPlaces
 import com.kylecorry.sol.units.Weight
 import com.kylecorry.sol.units.WeightUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.deleteListItem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
@@ -20,21 +22,20 @@ import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlin.math.roundToInt
 import org.junit.Assume.assumeFalse
 import org.junit.Test
-import kotlin.math.roundToInt
 
 class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
 
     private fun openPack(name: String, vararg items: PackItem) {
         assumeFalse(isStagingBuild)
         relaunchTool { TestData.addPack(name, items.toList()) }
-        click(com.kylecorry.andromeda.views.R.id.title)
+        click(ListItem.title)
         hasText(R.id.inventory_list_title, name)
     }
 
@@ -91,7 +92,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
     fun canCheckAnItem() {
         openPack("Test Pack 1", foodItem(1))
 
-        click(com.kylecorry.andromeda.views.R.id.checkbox)
+        click(ListItem.checkbox)
         // Checking packs the full amount: 2 * 1.1 lb
         hasItem(
             "Test Item 1",
@@ -109,7 +110,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
     fun canEditAnItemOnClick() {
         openPack("Test Pack 1", foodItem(2))
 
-        click(com.kylecorry.andromeda.views.R.id.title)
+        click(ListItem.title)
         hasText(R.id.create_item_title, string(R.string.edit_item_title))
         hasItemForm("Test Item 1", 2, 2, string(R.string.category_food), 1.1f)
         click(R.id.create_btn)
@@ -221,8 +222,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             false
         )
 
-        clickListItemMenu(string(R.string.delete))
-        clickOk()
+        deleteListItem()
         not {
             hasItem(
                 "Test Item 2",
@@ -248,7 +248,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             TestUtils.back()
         }
         hasText(R.id.pack_list_title, string(R.string.packing_lists))
-        hasText(com.kylecorry.andromeda.views.R.id.title, "Test Pack 2")
+        hasText(ListItem.title, "Test Pack 2")
     }
 
     @Test
@@ -287,7 +287,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
     fun canCopyAPack() {
         assumeFalse(isStagingBuild)
         relaunchTool { TestData.addPack("Test Pack 2", listOf(foodItem(1))) }
-        hasText(com.kylecorry.andromeda.views.R.id.title, "Test Pack 2")
+        hasText(ListItem.title, "Test Pack 2")
 
         clickListItemMenu(string(android.R.string.copy))
         input(string(R.string.name), "Copied Pack")
@@ -312,7 +312,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         clickOk()
         hasText(R.id.pack_list_title, string(R.string.packing_lists))
         not {
-            hasText(com.kylecorry.andromeda.views.R.id.title, "Test Pack 1")
+            hasText(ListItem.title, "Test Pack 1")
         }
     }
 
@@ -361,7 +361,7 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         isChecked: Boolean,
         index: Int = 0
     ) {
-        hasText(com.kylecorry.andromeda.views.R.id.title, name, index = index, exact = true)
+        hasText(ListItem.title, name, index = index, exact = true)
         hasText(com.kylecorry.andromeda.views.R.id.tags, category, index = index)
         hasText(
             com.kylecorry.andromeda.views.R.id.data_1,
@@ -370,11 +370,11 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
             exact = true
         )
         hasText(com.kylecorry.andromeda.views.R.id.data_2, weight, index = index, exact = true)
-        isChecked(com.kylecorry.andromeda.views.R.id.checkbox, isChecked, index = index)
+        isChecked(ListItem.checkbox, isChecked, index = index)
     }
 
     private fun clickToolbarMenuItem(label: String) {
-        click(toolbarButton(R.id.inventory_list_title, Side.Right))
+        clickRightToolbarButton(R.id.inventory_list_title)
         click(label)
     }
 

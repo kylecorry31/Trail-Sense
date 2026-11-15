@@ -5,6 +5,7 @@ import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
@@ -12,8 +13,6 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.isCameraInUse
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Assume.assumeTrue
 import org.junit.Test
@@ -80,7 +79,7 @@ class ToolAugmentedRealityTest : ToolTestBase(Tools.AUGMENTED_REALITY) {
         click(string(R.string.visible), index = 0)
 
         // Close the layers panel
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
         isNotVisible(R.id.title)
     }
 }

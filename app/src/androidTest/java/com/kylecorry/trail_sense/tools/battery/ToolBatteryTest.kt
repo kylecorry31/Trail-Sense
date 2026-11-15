@@ -2,28 +2,28 @@ package com.kylecorry.trail_sense.tools.battery
 
 import android.os.SystemClock
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.OPTIONAL_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.tools.battery.domain.BatteryReading
 import com.kylecorry.trail_sense.tools.battery.infrastructure.persistence.BatteryRepo
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
+import java.time.Instant
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeFalse
 import org.junit.Test
-import java.time.Duration
-import java.time.Instant
 
 class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
 
@@ -66,8 +66,8 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         isChecked(R.id.low_power_mode_switch)
 
         // Stop the battery log
-        click(com.kylecorry.andromeda.views.R.id.trailing_icon_btn)
-        not { hasText("Battery log") }
+        click(ListItem.trailingIconButton)
+        doesNotHaveText("Battery log")
     }
 
     @Test
@@ -83,7 +83,7 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         hasListItems("Airplane mode", "Other tips")
 
         // Open battery settings
-        click(toolbarButton(R.id.battery_title, Side.Right))
+        clickRightToolbarButton(R.id.battery_title)
         hasText("Battery")
     }
 

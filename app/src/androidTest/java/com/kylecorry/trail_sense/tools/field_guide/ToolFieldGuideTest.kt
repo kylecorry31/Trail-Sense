@@ -1,37 +1,39 @@
 package com.kylecorry.trail_sense.tools.field_guide
 
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickLeftToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.deleteListItem
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToEnd
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
-import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
+import com.kylecorry.trail_sense.test_utils.TestUtils.backIfPossible
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickDate
 import com.kylecorry.trail_sense.test_utils.TestUtils.pickTime
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.field_guide.domain.FieldGuidePageTag
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import org.junit.Assume.assumeFalse
-import org.junit.Test
 import java.time.LocalDateTime
 import java.time.ZoneId
+import org.junit.Assume.assumeFalse
+import org.junit.Test
 
 class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
@@ -77,14 +79,14 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         back()
 
         // Search
-        back(false)
+        backIfPossible()
         input(R.id.search, "Rabbit")
         hasText("Rabbit")
 
         input(R.id.search, "Insect")
         hasText("Ant")
 
-        back(false)
+        backIfPossible()
         hasText("Plant")
 
         // Hide a built-in page
@@ -92,7 +94,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         hasText("Ant")
         clickListItemMenu("Hide")
         clickOk()
-        not { hasText("Ant") }
+        doesNotHaveText("Ant")
     }
 
     @Test
@@ -138,7 +140,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
         isVisible(R.id.photo_upload_image)
 
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+        clickRightToolbarButton(R.id.create_field_guide_page_title)
 
         // Verify it shows up in the list
         hasText("A Test")
@@ -163,26 +165,25 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         clickListItemMenu("Edit")
         hasText(R.id.name, "A Test")
         input(R.id.name, "A Test 2")
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+        clickRightToolbarButton(R.id.create_field_guide_page_title)
 
         // Verify the changes
         hasText("A Test 2")
 
         // Open it an edit
         click("A Test 2")
-        click(toolbarButton(R.id.field_guide_page_title, Side.Right))
+        clickRightToolbarButton(R.id.field_guide_page_title)
         hasText(R.id.name, "A Test 2")
         input(R.id.name, "A Test 3")
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+        clickRightToolbarButton(R.id.create_field_guide_page_title)
 
         // Verify the changes
         hasText(R.id.field_guide_page_title, "A Test 3")
 
         back()
 
-        clickListItemMenu("Delete")
-        clickOk()
-        not { hasText("A Test 3") }
+        deleteListItem()
+        doesNotHaveText("A Test 3")
     }
 
     @Test
@@ -213,7 +214,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Set as default")
         hasText(R.id.photo_position, "Image 1/2")
 
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+        clickRightToolbarButton(R.id.create_field_guide_page_title)
 
         // The page displays all the images
         click("A Test")
@@ -230,7 +231,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         clickOk()
         hasText(R.id.photo_position, "Image 1/1")
 
-        click(toolbarButton(R.id.create_field_guide_page_title, Side.Right))
+        clickRightToolbarButton(R.id.create_field_guide_page_title)
     }
 
     private fun takePhoto() {
@@ -252,14 +253,14 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         openWithAPage()
 
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_RECORD_SIGHTING))
+        clickQuickAction(Tools.QUICK_ACTION_RECORD_SIGHTING)
         input(R.id.search, "A Test")
         click("A Test", exact = true, index = 1)
 
         hasText("Created", waitForTime = GPS_WAIT_FOR_TIMEOUT)
         click("View")
         input("Notes", "Quick action sighting")
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
 
         // The quick action deep link returns to the sightings list after saving.
         hasText("Quick action sighting")
@@ -289,7 +290,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Harvested")
         click("Show on map")
         input("Notes", "Test")
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
 
         // Sightings list
         hasText("Sightings")
@@ -305,7 +306,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         isNotChecked("Show on map")
         click("Show on map")
         input("Test", "Test 2")
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
 
         // Sightings list is updated
         hasText("Test 2")
@@ -318,7 +319,7 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         isChecked("Harvested")
         isChecked("Show on map")
         input("Test 2", "Test 3")
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
 
         // Sightings list is updated
         hasText("Test 3")
@@ -368,20 +369,19 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         }
 
         // Delete from the list
-        clickListItemMenu("Delete")
-        clickOk()
+        deleteListItem()
 
         hasText("No sightings")
 
         // Create another sighting to delete from the edit page
         click(R.id.create_btn)
         input("Notes", "Delete from edit page")
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
         hasText("Delete from edit page")
 
         // Delete from the edit page
         click("Delete from edit page")
-        click(toolbarButton(R.id.title, Side.Left))
+        clickLeftToolbarButton(R.id.title)
         click("Delete")
         clickOk()
 

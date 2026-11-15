@@ -2,6 +2,8 @@ package com.kylecorry.trail_sense.tools.metaldetector
 
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickLeftToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
@@ -45,15 +47,15 @@ class ToolMetalDetectorTest : ToolTestBase(Tools.METAL_DETECTOR) {
         // Can play sound
         val originalVolume = mute()
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Right) }, false)
-        click(toolbarButton(R.id.metal_detector_title, Side.Right))
+        clickRightToolbarButton(R.id.metal_detector_title)
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Right) }, true)
-        click(toolbarButton(R.id.metal_detector_title, Side.Right))
+        clickRightToolbarButton(R.id.metal_detector_title)
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Right) }, false)
         unmute(originalVolume)
 
         // Can disable vibration
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Left) }, true)
-        click(toolbarButton(R.id.metal_detector_title, Side.Left))
+        clickLeftToolbarButton(R.id.metal_detector_title)
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Left) }, false)
         // TODO: assert vibration subsystem state
     }

@@ -2,11 +2,11 @@ package com.kylecorry.trail_sense.tools.whistle
 
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isFalse
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
@@ -48,7 +48,7 @@ class ToolWhistleTest : ToolTestBase(Tools.WHISTLE) {
     @Test
     fun canPlayTheWhistleFromTheQuickAction() {
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_WHISTLE), holdDuration = 200)
+        clickQuickAction(Tools.QUICK_ACTION_WHISTLE, holdDuration = 200)
         TestUtils.closeQuickActions()
     }
 }

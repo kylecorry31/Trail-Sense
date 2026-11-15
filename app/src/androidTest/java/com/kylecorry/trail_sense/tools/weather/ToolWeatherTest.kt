@@ -5,7 +5,9 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveNotification
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasNotification
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
@@ -19,13 +21,12 @@ import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
+import java.time.Duration
 import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import java.time.Duration
 
 class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
@@ -105,7 +106,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+            doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
         }
 
         hasText(R.id.play_bar_title, "On - 30m")
@@ -126,7 +127,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         clickOk()
 
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_WEATHER_MONITOR))
+        clickQuickAction(Tools.QUICK_ACTION_WEATHER_MONITOR)
 
         // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
@@ -139,10 +140,10 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
-            not { hasText(string(R.string.battery_settings_limit_accuracy)) }
+            doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
         }
 
-        click(quickAction(Tools.QUICK_ACTION_WEATHER_MONITOR))
+        clickQuickAction(Tools.QUICK_ACTION_WEATHER_MONITOR)
 
         // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
@@ -162,7 +163,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         hasText(R.id.weather_title, string(R.string.weather_no_change))
         hasText("0.00 hPa / 3h", exact = true)
         hasText("1020.0 hPa", exact = true)
-        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+        doesNotHaveText(string(R.string.alerts), exact = true, waitForTime = 0)
     }
 
     @Test
@@ -175,7 +176,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         hasText("-3.00 hPa / 3h", exact = true)
         hasText("1012.0 hPa", exact = true)
         // A moderate drop is not a storm
-        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+        doesNotHaveText(string(R.string.alerts), exact = true, waitForTime = 0)
     }
 
     @Test
@@ -202,7 +203,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         hasText(R.id.weather_title, Regex(".*" + string(R.string.then_weather, "clear")))
         hasText("4.00 hPa / 3h", exact = true)
         hasText("1016.0 hPa", exact = true)
-        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+        doesNotHaveText(string(R.string.alerts), exact = true, waitForTime = 0)
     }
 
     @Test
@@ -216,7 +217,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         )
 
         hasText(R.id.weather_title, string(R.string.weather_no_change))
-        not { hasText(string(R.string.alerts), exact = true, waitForTime = 0) }
+        doesNotHaveText(string(R.string.alerts), exact = true, waitForTime = 0)
     }
 
     @Test

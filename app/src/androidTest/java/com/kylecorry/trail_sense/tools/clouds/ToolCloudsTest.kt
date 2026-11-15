@@ -6,6 +6,9 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.backUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.deleteListItem
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasTextsInOrder
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
@@ -15,18 +18,14 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
-import com.kylecorry.trail_sense.test_utils.TestUtils.back
-import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import java.time.Duration
+import java.time.Instant
 import org.junit.Assume.assumeFalse
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import java.time.Duration
-import java.time.Instant
 
 class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
 
@@ -43,21 +42,20 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         hasText(R.id.cloud_title, string(R.string.clouds))
 
         // Verify a cloud is selected (the top one)
-        isChecked(com.kylecorry.andromeda.views.R.id.checkbox)
+        isChecked(ListItem.checkbox)
 
-        click(toolbarButton(R.id.cloud_title, Side.Right))
+        clickRightToolbarButton(R.id.cloud_title)
 
         // Back on cloud log
         isVisible(R.id.add_btn)
-        click(com.kylecorry.andromeda.views.R.id.title)
+        click(ListItem.title)
         clickOk()
-        isVisible(com.kylecorry.andromeda.views.R.id.title)
+        isVisible(ListItem.title)
 
         // Delete all cloud results
         try {
             while (true) {
-                clickListItemMenu(string(R.string.delete))
-                clickOk()
+                deleteListItem()
             }
         } catch (e: Throwable) {
             // Do nothing
@@ -88,18 +86,17 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         hasText(R.id.cloud_title, string(R.string.clouds))
 
         // Select the first cloud type (Cirrus is the first CloudGenus)
-        click(com.kylecorry.andromeda.views.R.id.checkbox)
+        click(ListItem.checkbox)
 
         // Verify it is selected
-        isChecked(com.kylecorry.andromeda.views.R.id.checkbox)
+        isChecked(ListItem.checkbox)
 
-        click(toolbarButton(R.id.cloud_title, Side.Right))
+        clickRightToolbarButton(R.id.cloud_title)
 
-        hasText(com.kylecorry.andromeda.views.R.id.title, string(R.string.cirrus))
+        hasText(ListItem.title, string(R.string.cirrus))
 
         // Delete the cloud result
-        clickListItemMenu(string(R.string.delete))
-        clickOk()
+        deleteListItem()
 
         hasText(R.id.cloud_empty_text, string(R.string.no_clouds))
     }
@@ -115,7 +112,7 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         }
 
         hasTextsInOrder(
-            com.kylecorry.andromeda.views.R.id.title,
+            ListItem.title,
             listOf(string(R.string.cumulus), string(R.string.stratus))
         )
 
@@ -124,11 +121,10 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         hasText(string(R.string.cumulus_desc))
         clickOk()
 
-        clickListItemMenu(string(R.string.cumulus), string(R.string.delete))
-        clickOk()
+        deleteListItem(string(R.string.cumulus))
 
         hasTextsInOrder(
-            com.kylecorry.andromeda.views.R.id.title,
+            ListItem.title,
             listOf(string(R.string.stratus))
         )
     }
@@ -138,19 +134,19 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         assumeTrue(Camera.hasBackCamera(context))
 
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_SCAN_CLOUD))
+        clickQuickAction(Tools.QUICK_ACTION_SCAN_CLOUD)
 
         click(R.id.capture_button)
 
         hasText(R.id.cloud_title, string(R.string.clouds))
 
         // Verify a cloud is selected (the top one)
-        isChecked(com.kylecorry.andromeda.views.R.id.checkbox)
+        isChecked(ListItem.checkbox)
 
-        click(toolbarButton(R.id.cloud_title, Side.Right))
+        clickRightToolbarButton(R.id.cloud_title)
 
         // Back on cloud log
         isVisible(R.id.add_btn)
-        isVisible(com.kylecorry.andromeda.views.R.id.title)
+        isVisible(ListItem.title)
     }
 }

@@ -5,6 +5,8 @@ import androidx.annotation.StringRes
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
@@ -14,9 +16,6 @@ import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.rawResourceText
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.quickAction
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
@@ -83,7 +82,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         clickOk()
 
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE))
+        clickQuickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE)
 
         input(R.id.search, "Catching fish", closeKeyboardOnCompletion = true)
         hasText("Fish are most active")
@@ -94,12 +93,12 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         back()
 
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE))
+        clickQuickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE)
 
         input(R.id.search, "Catching fish", closeKeyboardOnCompletion = true)
 
         // Continue search on survival guide list
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
 
         isVisible(R.id.list)
         hasText(R.id.search, "Catching fish")

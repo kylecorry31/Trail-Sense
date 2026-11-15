@@ -6,6 +6,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEOUT
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
@@ -17,11 +18,8 @@ import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.clickListItemMenu
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
+import com.kylecorry.trail_sense.test_utils.views.ListItem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import org.junit.Assume.assumeFalse
-import org.junit.Test
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -29,6 +27,8 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import org.junit.Assume.assumeFalse
+import org.junit.Test
 
 class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
 
@@ -39,7 +39,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
 
         // Wait for the nearby tides to load
         hasText(string(R.string.navigation_nearby_category), waitForTime = GPS_WAIT_FOR_TIMEOUT)
-        click(toolbarButton(R.id.tide_title, Side.Right))
+        clickRightToolbarButton(R.id.tide_title)
 
         // Tide list
         hasText(R.id.tide_list_title, string(R.string.tides))
@@ -62,7 +62,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
             )
         }
         clickOk()
-        click(toolbarButton(R.id.tide_title, Side.Right))
+        clickRightToolbarButton(R.id.tide_title)
 
         clickListItemMenu(string(R.string.edit))
 
@@ -82,7 +82,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
         // TODO: Manual lunitidal interval
 
         // Save
-        click(toolbarButton(R.id.create_tide_title, Side.Right))
+        clickRightToolbarButton(R.id.create_tide_title)
 
         hasText(R.id.tide_list_title, string(R.string.tides))
         hasText("Tide 1")
@@ -121,7 +121,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
         }
         clickOk()
 
-        click(toolbarButton(R.id.tide_title, Side.Right))
+        clickRightToolbarButton(R.id.tide_title)
         click("Boston")
         hasText(R.id.tide_title, "Boston")
         click(R.id.date_btn)
@@ -195,7 +195,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
 
         isNotVisible(R.id.tide_type, index = 1)
 
-        click(toolbarButton(R.id.create_tide_title, Side.Right))
+        clickRightToolbarButton(R.id.create_tide_title)
 
         hasText(R.id.tide_list_title, string(R.string.tides))
         hasText("Tide 1")
@@ -212,13 +212,13 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
 
         // Verify at least one high and low tide is shown
         var isHighFirst = false
-        hasText(com.kylecorry.andromeda.views.R.id.title) {
+        hasText(ListItem.title) {
             isHighFirst = it == string(R.string.high_tide)
             it == string(R.string.high_tide) || it == string(R.string.low_tide)
         }
 
         hasText(
-            com.kylecorry.andromeda.views.R.id.title, string(
+            ListItem.title, string(
                 if (isHighFirst) {
                     R.string.low_tide
                 } else {
@@ -232,7 +232,7 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
     }
 
     private fun canOpenTideList() {
-        click(toolbarButton(R.id.tide_title, Side.Right))
+        clickRightToolbarButton(R.id.tide_title)
 
         hasText(R.id.tide_list_title, string(R.string.tides))
         hasText("Tide 1")

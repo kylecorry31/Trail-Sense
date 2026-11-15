@@ -3,18 +3,17 @@ package com.kylecorry.trail_sense.tools.convert
 import androidx.test.uiautomator.Direction
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.doesNotHaveNotification
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasNotification
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.optional
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollUntil
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherMonitorService
 import org.junit.Test
@@ -168,7 +167,7 @@ class ToolConvertTest : ToolTestBase(Tools.CONVERT) {
 
     private fun verifyQuickAction() {
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_CONVERT))
+        clickQuickAction(Tools.QUICK_ACTION_CONVERT)
 
         canConvertCoordinates()
         canConvertDistance()

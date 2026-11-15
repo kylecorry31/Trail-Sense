@@ -5,21 +5,20 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.GPS_WAIT_FOR_TIMEO
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.any
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isTrue
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
 import com.kylecorry.trail_sense.test_utils.views.view
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import org.junit.Test
 import java.time.Duration
 import java.time.LocalTime
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import org.junit.Test
 
 class ToolClockTest : ToolTestBase(Tools.CLOCK) {
 
@@ -77,7 +76,7 @@ class ToolClockTest : ToolTestBase(Tools.CLOCK) {
         hasText(R.id.pip_button, string(R.string.pip_button), waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         // Update time from GPS
-        click(toolbarButton(R.id.clock_title, Side.Right))
+        clickRightToolbarButton(R.id.clock_title)
 
         // Click on the PIP button
         click(R.id.pip_button, waitForTime = GPS_WAIT_FOR_TIMEOUT)

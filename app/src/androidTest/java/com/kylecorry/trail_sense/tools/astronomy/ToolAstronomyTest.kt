@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.isDarkThemeOn
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickQuickAction
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
@@ -18,15 +19,14 @@ import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.handleExactAlarmsDialog
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.quickAction
 import com.kylecorry.trail_sense.test_utils.views.view
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
-import org.junit.Assert.assertTrue
-import org.junit.Test
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import org.junit.Assert.assertTrue
+import org.junit.Test
 
 class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
 
@@ -78,17 +78,17 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
     @Test
     fun canToggleTheSunsetAndSunriseAlerts() {
         TestUtils.openQuickActions()
-        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
+        clickQuickAction(Tools.QUICK_ACTION_SUNSET_ALERT)
 
         handleExactAlarmsDialog()
 
-        click({ quickAction(Tools.QUICK_ACTION_SUNSET_ALERT) })
+        clickQuickAction(Tools.QUICK_ACTION_SUNSET_ALERT)
 
-        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
+        clickQuickAction(Tools.QUICK_ACTION_SUNRISE_ALERT)
 
         handleExactAlarmsDialog()
 
-        click({ quickAction(Tools.QUICK_ACTION_SUNRISE_ALERT) })
+        clickQuickAction(Tools.QUICK_ACTION_SUNRISE_ALERT)
 
         // TODO: Simulate time passing to verify the alerts are shown
 
@@ -121,7 +121,7 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
     @Test
     fun verifyNightMode() {
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_NIGHT_MODE))
+        clickQuickAction(Tools.QUICK_ACTION_NIGHT_MODE)
 
         // TODO: Need to find a way to test this on staging builds
         if (AutomationLibrary.packageName == null) {
@@ -134,7 +134,7 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
         }
 
         TestUtils.openQuickActions()
-        click(quickAction(Tools.QUICK_ACTION_NIGHT_MODE))
+        clickQuickAction(Tools.QUICK_ACTION_NIGHT_MODE)
     }
 
     @Test

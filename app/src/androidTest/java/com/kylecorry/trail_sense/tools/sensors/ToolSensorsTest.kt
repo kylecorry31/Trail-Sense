@@ -3,12 +3,11 @@ package com.kylecorry.trail_sense.tools.sensors
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Test
 
@@ -23,7 +22,7 @@ class ToolSensorsTest : ToolTestBase(Tools.SENSORS) {
         hasText(string(R.string.tool_battery_title))
 
         // Click the sensor details button
-        click(toolbarButton(R.id.sensor_details_title, Side.Right))
+        clickRightToolbarButton(R.id.sensor_details_title)
 
         hasText(string(R.string.sensors))
         hasText("android.sensor.accelerometer (1)")

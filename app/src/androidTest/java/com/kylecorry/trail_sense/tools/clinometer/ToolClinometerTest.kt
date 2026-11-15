@@ -3,7 +3,9 @@ package com.kylecorry.trail_sense.tools.clinometer
 import com.kylecorry.andromeda.camera.Camera
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickLeftToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.input
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
@@ -13,8 +15,6 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
 import com.kylecorry.trail_sense.test_utils.TestUtils.isCameraInUse
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.Assume.assumeTrue
 import org.junit.Test
@@ -30,7 +30,7 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
             isCameraInUse(isBackFacing = true)
         }
 
-        click(toolbarButton(R.id.clinometer_title, Side.Left))
+        clickLeftToolbarButton(R.id.clinometer_title)
 
         isTrue {
             !isCameraInUse(isBackFacing = true)
@@ -38,7 +38,7 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
 
         optional {
             hasText("Hold your phone vertically", waitForTime = 1000)
-            click(toolbarButton(R.id.clinometer_title, Side.Left))
+            clickLeftToolbarButton(R.id.clinometer_title)
         }
     }
 
@@ -65,7 +65,7 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
 
     @Test
     fun canEstimateTheDistanceToATarget() {
-        click(toolbarButton(R.id.clinometer_title, Side.Right))
+        clickRightToolbarButton(R.id.clinometer_title)
 
         click(string(R.string.distance))
 
@@ -88,7 +88,7 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
 
     @Test
     fun canEstimateTheHeightOfATarget() {
-        click(toolbarButton(R.id.clinometer_title, Side.Right))
+        clickRightToolbarButton(R.id.clinometer_title)
 
         click(string(R.string.height))
 

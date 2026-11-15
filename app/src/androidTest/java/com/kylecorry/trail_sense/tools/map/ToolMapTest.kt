@@ -3,20 +3,21 @@ package com.kylecorry.trail_sense.tools.map
 import android.graphics.Point
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.DefaultMapLayerDefinitions
 import com.kylecorry.trail_sense.shared.map_layers.preferences.repo.MapLayerPreferenceRepo
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.toPixel
 import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.click
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
-import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickOk
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.clickRightToolbarButton
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotChecked
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isNotVisible
+import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.longClick
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.not
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.scrollToStart
@@ -27,8 +28,6 @@ import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.back
 import com.kylecorry.trail_sense.test_utils.TestUtils.waitFor
 import com.kylecorry.trail_sense.test_utils.ToolTestBase
-import com.kylecorry.trail_sense.test_utils.views.Side
-import com.kylecorry.trail_sense.test_utils.views.toolbarButton
 import com.kylecorry.trail_sense.test_utils.byResId
 import com.kylecorry.trail_sense.test_utils.views.TestView
 import com.kylecorry.trail_sense.test_utils.views.view
@@ -37,15 +36,15 @@ import com.kylecorry.trail_sense.tools.map.ui.MapView
 import com.kylecorry.trail_sense.tools.navigation.NavigationToolRegistration
 import com.kylecorry.trail_sense.tools.offline_maps.OfflineMapsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Assume.assumeFalse
 import org.junit.Test
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
 
 class ToolMapTest : ToolTestBase(Tools.MAP, location) {
 
@@ -64,7 +63,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         clickOk()
 
         // Close layers sheet
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
 
         // Open time sheet
         click(R.id.time_btn)
@@ -83,7 +82,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
     }
 
     private fun closeLayers() {
-        click(toolbarButton(R.id.title, Side.Right))
+        clickRightToolbarButton(R.id.title)
     }
 
     // The layer may still be settling after it expands, which can swallow the first click
@@ -312,7 +311,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         // No points have been added yet
         hasText(R.id.map_distance_title, "0 ft")
         hasText("Create path")
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        clickRightToolbarButton(R.id.map_distance_title)
         isNotVisible(R.id.map_distance_title)
     }
 
@@ -326,7 +325,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         hasText(R.id.map_distance_title, "0 ft")
         hasText("Create path")
         // Nothing has been added, so cancelling does not ask to discard the path
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        clickRightToolbarButton(R.id.map_distance_title)
         isNotVisible(R.id.map_distance_title)
     }
 
@@ -377,7 +376,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         hasText("Create path")
         // The measurement starts from the current location
         assertMeasuredPath(listOf(location, shown))
-        click(toolbarButton(R.id.map_distance_title, Side.Right))
+        clickRightToolbarButton(R.id.map_distance_title)
         isNotVisible(R.id.map_distance_title)
     }
 
