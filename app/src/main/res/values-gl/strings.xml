@@ -1223,8 +1223,6 @@
     <string name="bullet_weight">Peso da bala</string>
     <string name="format_joules">%s joules</string>
     <string name="format_fpe">%s equivalente en pé-libras</string>
-    <string name="permits">Permisos</string>
-    <string name="no_permits">Sen permisos</string>
     <string name="trace">Traza</string>
     <string name="map_trace_instructions">Móvete a unha zona con sombra ou protexe o sol cun pano e coloca papel sobre a pantalla para que poidas ver o mapa a través del. Usa un bolígrafo ou un lapis para trazar o mapa, pero evita marcadores ou bolígrafos que poidan traspasar o papel.\n\nA navegación inferior estará desactivada ata que desactives o modo de trazado.</string>
     <string name="speed_format_feet_per_second">%s pés/seg.</string>

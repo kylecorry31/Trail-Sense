@@ -25,7 +25,8 @@ To change the date, do one of the following:
 - Tap the calendar icon above the chart, and select a date.
 - Tap the arrows to move to the next or previous date.
 - Long-press the calendar icon to jump back to today.
-- Tap a point on one of the chart lines.
+- Tap a point on one of the temperature chart lines.
+- Tap a bar on the precipitation chart to jump to the middle of that month.
 
 ## Change the location
 By default, the tool uses your current location. To use a different location, do the following:

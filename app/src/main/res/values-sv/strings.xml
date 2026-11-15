@@ -1319,8 +1319,6 @@
     <string name="bullet_weight">Kulvikt</string>
     <string name="format_joules">%s joule</string>
     <string name="format_fpe">%s FPE</string>
-    <string name="permits">Tillstånd</string>
-    <string name="no_permits">Inga tillstånd</string>
     <string name="trace">Rita av</string>
     <string name="speed_format_feet_per_second">%s fot/s</string>
     <string name="speed_format_meters_per_second">%s m/s</string>

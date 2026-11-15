@@ -1265,7 +1265,6 @@
     <string name="projection_manufacturer_intrinsics">Intrinsische Werte des Herrsteller</string>
     <string name="local_talk">Lokale Gespräche</string>
     <string name="local_messaging">Lokale Nachrichten</string>
-    <string name="permits">Erlaubnis</string>
     <string name="ballistics">Ballistik</string>
     <string name="pref_start_camera_in_3d_view_summary">Öffne die Kamera bei Druck auf 3D-Knopf</string>
     <string name="invalid_dem_file">Ungültige DEM Datei</string>
@@ -1360,7 +1359,6 @@
     <string name="format_joules">%s Joul</string>
     <string name="format_fpe">%s FPE</string>
     <string name="scope">Zielfernrohr</string>
-    <string name="no_permits">Keine Genehmigungen</string>
     <string name="ballistic_coefficient">Ballistischer Koeffizient</string>
     <string name="tide_estimation_description_tide_model">Verwendet ein integriertes Gezeitenmodell, um die Gezeiten für den eingegebenen Standort oder, falls keiner eingegeben wurde, für Ihren aktuellen Standort abzuschätzen.</string>
     <string name="mollusk">Weichtier</string>

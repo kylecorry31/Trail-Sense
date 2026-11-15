@@ -1044,7 +1044,6 @@
     <string name="no_directory_selected">לא נבחרה תיקיית גיבוי</string>
     <string name="sun_moon_chart">טבלת שמש וירח</string>
     <string name="unable_to_create_an_automatic_backup">לא ניתן ליצור גיבוי אוטומטי.</string>
-    <string name="permits">אישורים</string>
     <string name="automatic_backup">גיבוי אוטומטי</string>
     <string name="auto_backup_instructions">גיבוי ייווצר פעם ביום אל %1$s. רק %2$d הגיבויים האחרונים יישמרו.</string>
     <string name="backup_failed">הגיבוי נכשל</string>
@@ -1182,7 +1181,6 @@
     <string name="climate_dry_summer_description">יש עונה יבשה במהלך הקיץ.</string>
     <string name="active_period">פעיל מ- %1$s עד %2$s</string>
     <string name="climate_tropical_description">אקלים חם ולח עם משקעים משמעותיים לאורך כל השנה.</string>
-    <string name="no_permits">אין אישורים</string>
     <string name="theme_system_black">מערכת (שחור)</string>
     <string name="grid">רשת</string>
     <string name="scanning_image">סורק תמונה</string>

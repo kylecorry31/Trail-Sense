@@ -11,7 +11,7 @@ To create a packing list, do the following:
 To copy a packing list, do the following:
 
 1. Tap the menu button on the right side of the packing list.
-2. Tap **Copy**.
+2. Select **Copy**.
 3. Enter a name for the new packing list.
 4. Optional: Open the new list, tap the menu button in the top-right corner, and select **Clear amounts** to reset the packed amounts.
 
@@ -29,8 +29,8 @@ An item has the following fields:
 - **Name**: The name of the item.
 - **Packed amount**: The number of items currently packed. This can be blank or a number, including decimals.
 - **Desired amount**: The number of items you want to pack. This can be blank or a number, including decimals.
-- **Category**: The category to group the item by. The default is **Other**.
-- **Weight**: The weight of one item in your preferred units. Trail Sense multiplies it by the packed amount to find the total weight.
+- **Category**: The category to group the item by. The default is the last category you used, or **Other** if you haven't added an item yet.
+- **Weight per item**: The weight of one item, in the unit you choose. Trail Sense multiplies it by the packed amount to find the total weight.
 - **Optional**: Marks the item as optional. Optional items show an **Optional** tag in the list and don't count toward the packed percentage.
 
 ## Edit an item
@@ -45,22 +45,22 @@ To edit an item, do the following:
 To change the packed amount without editing the item, do the following:
 
 1. Tap the menu button on the right side of the item.
-2. Tap **Add** or **Subtract**.
+2. Select **Add** or **Subtract**.
 3. Enter the amount to add or subtract.
 
 ## Mark an item as packed
 To mark an item as packed, do one of the following:
 
 - Tap the checkbox next to the item.
-- Edit the item.
+- Edit the item, and set the packed amount.
 
-Marking an item as packed sets the packed amount to the desired amount and updates the weight, if the item has one.
+Tapping the checkbox sets the packed amount to the desired amount, or to 1 if the desired amount is blank or 0. If the item is already fully packed, tapping the checkbox sets the packed amount to 0. The weight updates if the item has one.
 
 ## Delete an item
 To delete an item, do the following:
 
 1. Tap the menu button on the right side of the item.
-2. Tap **Delete**.
+2. Select **Delete**.
 3. Confirm the deletion.
 
 ## Check the pack weight
@@ -108,8 +108,8 @@ To delete a packing list, do one of the following:
 ## Export a packing list
 To export a packing list, do the following:
 
-1. Tap the menu button on the right side of the packing list.
-2. Tap **Export**.
+1. Tap the menu button on the right side of the packing list. You can also open the packing list and tap the menu button in the top-right corner.
+2. Select **Export**.
 3. Save the .csv file to your device.
 
 You can import the file into Trail Sense or use it on the LighterPack website.
@@ -118,7 +118,7 @@ You can import the file into Trail Sense or use it on the LighterPack website.
 To import a packing list, do the following:
 
 1. Tap the **+** button in the bottom-right corner.
-2. Tap **Import packing list**.
+2. Select **Import packing list**.
 3. Select a .csv file from your device. The file must be in the format exported by Trail Sense or LighterPack.
 4. Enter a name for the new packing list.
 

@@ -1213,8 +1213,6 @@
     <string name="bullet_weight">புல்லட் எடை</string>
     <string name="format_joules">%s சூல்ச்</string>
     <string name="format_fpe">%s அபொச</string>
-    <string name="permits">இசைவு</string>
-    <string name="no_permits">இசைவு இல்லை</string>
     <string name="trace">சுவடு</string>
     <string name="map_trace_instructions">ஒரு நிழலான பகுதிக்கு நகர்த்தவும் அல்லது ஒரு துணியைப் பயன்படுத்தி சூரியனைத் தடுக்கவும், உங்கள் திரையில் காகிதத்தை வைக்கவும், இதன் மூலம் நீங்கள் காகிதத்தின் மூலம் வரைபடத்தைக் காணலாம். வரைபடத்தைக் கண்டுபிடிக்க பேனா அல்லது பென்சிலைப் பயன்படுத்தவும், ஆனால் காகிதத்தின் மூலம் இரத்தம் வரக்கூடிய குறிப்பான்கள் அல்லது பேனாக்களைத் தவிர்க்கவும். \n\nநீங்கள் சுவடு பயன்முறையை அணைக்கும் வரை கீழ் வழிசெலுத்தல் முடக்கப்படும்.</string>
     <string name="speed_format_feet_per_second">%s FPS</string>
