@@ -1302,8 +1302,6 @@
     <string name="bullet_weight">Peso do projétil</string>
     <string name="format_joules">%s joules</string>
     <string name="format_fpe">%s lb-ft</string>
-    <string name="permits">Licenças</string>
-    <string name="no_permits">Sem licenças</string>
     <string name="trace">Rotas</string>
     <string name="map_trace_instructions">Vá para uma área com sombra ou bloqueie o sol com um pano e ponha papel sobre o ecrã para que possa ver o mapa através do papel. Use uma caneta ou lápis para rotear o mapa, mas evite marcadores ou canetas que possam vazar através do papel.\n\nA navegação inferior ficará desativada até que desative o modo de rotas.</string>
     <string name="speed_format_feet_per_second">%s fps</string>

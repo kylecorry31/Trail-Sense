@@ -1234,8 +1234,6 @@
     <string name="bullet_weight">Masa pocisku</string>
     <string name="format_joules">%s J</string>
     <string name="format_fpe">%s FPE</string>
-    <string name="permits">Pozwolenie</string>
-    <string name="no_permits">Brak pozwolenia</string>
     <string name="trace">Ślad</string>
     <string name="speed_format_feet_per_second">%s ft/s</string>
     <string name="speed_format_meters_per_second">%s m/s</string>

@@ -7,9 +7,9 @@ The sensor list shows the sensors on your device that Trail Sense uses. If the a
 To see all of the sensors on your device, including the ones Trail Sense doesn't use, tap the button in the top-right corner of the screen.
 
 ## Quick action
-To use the Recalibrate Altimeter quick action, add it to a tab, as described in the Tools guide.
+To use the Recalibrate altimeter quick action, add it to a tab, as described in the Tools guide.
 
-Tap the **Recalibrate Altimeter** button. What happens depends on your altimeter mode:
+Tap the **Recalibrate altimeter** button. What happens depends on your altimeter mode:
 
 - **Barometer or Manual**: A dialog opens where you can enter your current elevation. When you confirm, the altimeter calibration is updated.
 - **GPS + Barometer or DEM + Barometer**: Trail Sense reads your GPS and barometer immediately to recalibrate the altimeter baseline. A loading indicator is shown while the recalibration is in progress.

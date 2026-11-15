@@ -93,7 +93,7 @@ To share a beacon, do the following:
 The sharing options are:
 
 - **Copy**: Copies the beacon details to your clipboard.
-- **QR code**: Shares a QR code for the beacon.
+- **QR Code**: Shares a QR code for the beacon.
 - **Maps**: Shares the beacon to a maps app.
 - **Send**: Shares the beacon details to another app as text.
 
@@ -174,7 +174,7 @@ You can change the following beacon setting:
 - **Settings > Beacons > Default beacon color**: The color that is preselected when you create a new beacon.
 
 ## Quick action
-To use the Create Beacon quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to create a beacon at your current location. The beacon's title is the current date and time. A notification at the bottom of the screen has a button to view the new beacon.
+To use the Create beacon quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to create a beacon at your current location. The beacon's title is the current date and time. A notification at the bottom of the screen has a button to view the new beacon.
 
 ## Widgets
 You can place the following widgets on your device's home screen or view them in the app:

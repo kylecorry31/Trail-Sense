@@ -111,7 +111,7 @@ Historic temperatures are estimated with a custom 30-year "climate normal" model
 ## Quick actions
 The Weather tab has a left and right quick action button at the top of the screen. By default, they open the Clouds and Temperature Estimation tools. To change them, set **Settings > Weather > Left quick action** and **Right quick action**.
 
-To use the Weather Monitor quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn the weather monitor on or off.
+To use the Weather monitor quick action, add it to a tab, as described in the Tools guide. Tap the quick action button to turn the weather monitor on or off.
 
 ## Widgets
 You can place the following widgets on your device's home screen or view them in the app:

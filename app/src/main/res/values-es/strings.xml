@@ -1226,8 +1226,6 @@
     <string name="unit_caliber">Calibre</string>
     <string name="energy">Energía</string>
     <string name="ballistics">Balística</string>
-    <string name="permits">Permisos</string>
-    <string name="no_permits">Ningún permiso</string>
     <string name="tide">Marea</string>
     <string name="path_distance_performance_disclaimer">Máximo recomendado de %s</string>
     <string name="grains">Granos</string>

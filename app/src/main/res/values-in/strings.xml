@@ -1298,8 +1298,6 @@
     <string name="bullet_weight">Berat peluru</string>
     <string name="format_joules">%s joule</string>
     <string name="format_fpe">%s FPE</string>
-    <string name="permits">Izin</string>
-    <string name="no_permits">Tidak ada izin</string>
     <string name="trace">Jiplak</string>
     <string name="map_trace_instructions">Pindah ke area teduh atau halangi sinar matahari menggunakan kain dan letakkan kertas di atas layar Anda agar dapat melihat peta melalui kertas. Gunakan pena atau pensil untuk menjiplak peta, hindari spidol atau pena yang dapat tembus ke kertas.\n\nNavigasi bawah akan dinonaktifkan hingga Anda mematikan mode jiplak.</string>
     <string name="speed_format_feet_per_second">%s fps</string>

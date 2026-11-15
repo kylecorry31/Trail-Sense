@@ -1182,7 +1182,6 @@
     <string name="desert">désert</string>
     <string name="urban">urbain</string>
     <string name="habitat">habitat</string>
-    <string name="permits">permis</string>
     <string name="climate_tundra">toundra</string>
     <string name="climate_continental">continental</string>
     <string name="map">carte</string>
@@ -1344,7 +1343,6 @@
     <string name="bullet_weight">Poids de la balle</string>
     <string name="format_joules">%s joules</string>
     <string name="format_fpe">%s FPE</string>
-    <string name="no_permits">Non autorisé</string>
     <string name="trace">Trace</string>
     <string name="map_trace_instructions">Déplacez-vous dans un endroit ombragé ou protégez-vous du soleil à l\'aide d\'un tissu, puis placez du papier sur votre écran afin de pouvoir voir la carte à travers. Utilisez un stylo ou un crayon pour tracer la carte, mais évitez les marqueurs ou les stylos qui pourraient traverser le papier.\n\nLa navigation inférieure sera désactivée jusqu\'à ce que vous désactiviez le mode de traçage.</string>
     <string name="speed_format_feet_per_second">%s pps</string>

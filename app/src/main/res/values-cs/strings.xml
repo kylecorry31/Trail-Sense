@@ -1318,8 +1318,6 @@
     <string name="format_fpe">%s FPE</string>
     <string name="grains">Zrna</string>
     <string name="bullet_weight">Váha střely</string>
-    <string name="permits">Povolení</string>
-    <string name="no_permits">Žádná povolení</string>
     <string name="trace">Obkreslení</string>
     <string name="map_trace_instructions">Přesuňte se do stínu nebo zablokujte slunce pomocí látky a položte papír přes obrazovku, abyste skrze něj mohli vidět mapu. Použijte pero nebo tužku pro obkreslení mapy, ale vyvarujte se fixům nebo perům, které dokáží propsat papír.\n\nSpodní navigace bude zakázána, dokud nevypnete režim obkreslování.</string>
     <string name="feet_per_second">Stopy za sekundu</string>

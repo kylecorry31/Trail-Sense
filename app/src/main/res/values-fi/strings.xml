@@ -1195,8 +1195,6 @@
     <string name="field_guide_disclaimer">Tämä työkalu on tarkoitettu vain opetuksellisiin käyttötarkoituksiin. Ole aina varovainen tunnistaessasi kasveja, eläimiä tai sieniä. Jotkut lajit saattavat olla vaarallisia tai suojeltuja. Jos olet epävarma tunnistuksesta, kysy neuvoa ammattilaiselta.</string>
     <string name="survival_guide_disclaimer">Tämä opas antaa vain yleisluontoista tietomateriaalia. Se ei vastaa ammattimaista opetusta, lääkinnällisiä neuvoja, lääkinnällisiä diagnooseja tai lääkinnällisiä hoitoja, eikä se korvaa hätätilannepalveluita, ammattihoitoa tai -hoitajia, paikallista opastusta tai tuotteen tai valmistajan ohjeita. Ole aina ensimmäisenä yhteydessä hätäkeskukseen hätätilanteissa, seuraa heidän antamiaan ohjeita äläkä viivästytä yhteydenottoa hätäkeskukseen lukeaksesi tätä opasta. Älä pidä tätä opasta, Trail Senseä taikka puhelintasi ainoana turvasuunnitelmanasi tai yhteydenpitovälineenäsi. Olosuhteet, riskit, lait ja suositeltavat käytännöt riippuvat sijainnistasi sekä tilanteestasi; tarkista kaikki tieto ennen sen käyttämistä ja käytä omaa harkintakykyäsi.</string>
     <string name="no_results">Ei tuloksia</string>
-    <string name="permits">Luvat</string>
-    <string name="no_permits">Ei lupia</string>
     <string name="above">Yläpuolella</string>
     <string name="below">Alapuolella</string>
     <string name="adjustment_per_click">Säätö per tähtäimen askel</string>

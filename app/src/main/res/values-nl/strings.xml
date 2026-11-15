@@ -1294,8 +1294,6 @@
     <string name="grains">Grein</string>
     <string name="grains_format">%s gr</string>
     <string name="format_joules">%s joules</string>
-    <string name="no_permits">Geen vergunningen</string>
-    <string name="permits">Vergunningen</string>
     <string name="trace">Overtrekken</string>
     <string name="map_trace_instructions">Zoek een schaduwrijke plek op of scherm de zon af met een doek en leg papier op je scherm zodat je de kaart door het papier heen kunt zien. Gebruik een pen of potlood om de kaart over te trekken. Vermijd stiften of pennen die door het papier heen kunnen drukken.\n\nOnderste navigatie is uitgeschakeld totdat je de overtrekmodus uitschakelt.</string>
     <string name="feet_per_second">Voet per seconde</string>

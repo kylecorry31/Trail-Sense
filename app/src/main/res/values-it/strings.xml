@@ -1344,7 +1344,6 @@
     <string name="full_service">Servizio completo</string>
     <string name="scope_height">Altezza del mirino</string>
     <string name="velocity_header_units">Velocità (%s)</string>
-    <string name="permits">Licenza</string>
     <string name="climate_tropical_description">Un clima caldo e umido con precipitazioni significative durante tutto l\'anno.</string>
     <string name="climate_continental_description">Un clima freddo con estati calde, inverni freddi e notevoli variazioni stagionali.</string>
     <string name="climate_tundra_description">Durante l\'estate, parte del ghiaccio potrebbe sciogliersi, ma la vegetazione sarà minima.</string>
@@ -1433,7 +1432,6 @@
     <string name="bullet_weight">Peso del proiettile</string>
     <string name="format_joules">%s joules</string>
     <string name="format_fpe">%s FPE</string>
-    <string name="no_permits">Nessun permesso</string>
     <string name="trace">Traccia</string>
     <string name="map_trace_instructions">Spostatevi in una zona ombreggiata o riparatevi dal sole con un panno e posizionate un foglio di carta sullo schermo in modo da poter vedere la mappa attraverso di esso. Usate una penna o una matita per ricalcare la mappa, ma evitate pennarelli o penne che potrebbero trapassare la carta.\n\nLa navigazione inferiore sarà disabilitata finché non disattiverete la modalità di ricalco.</string>
     <string name="speed_format_feet_per_second">%s fps</string>
