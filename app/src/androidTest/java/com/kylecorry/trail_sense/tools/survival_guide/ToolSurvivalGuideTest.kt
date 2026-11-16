@@ -96,6 +96,7 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         clickQuickAction(Tools.QUICK_ACTION_SURVIVAL_GUIDE)
 
         input(R.id.search, "Catching fish", closeKeyboardOnCompletion = true)
+        hasText("Fish are most active")
 
         // Continue search on survival guide list
         clickRightToolbarButton(R.id.title)
