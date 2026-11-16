@@ -110,7 +110,7 @@ A new GPS smoothing setting was added which will run new GPS readings through a 
 ### Minor Changes
 
 - GPS location source is now a selector between GPS and Manual
--- Removed the NMEA altitude correction setting in favor of the built-in model
+- Removed the NMEA altitude correction setting in favor of the built-in model
 - Added GPS power usage hint preferences
 - Improved GPS reading rejection
 - Added timeout to location and elevation pickers
@@ -135,5 +135,9 @@ A new GPS smoothing setting was added which will run new GPS readings through a 
 - Improved built-in DEM, tide, cell tower, temperature, and precipitation models
 - Fixed a crash when tapping the Astronomy chart while leaving the tool
 - Fixed a crash when importing a geospatial PDF with missing or malformed location information
+- Fixed a crash when importing a corrupt or password protected PDF map
 - Fixed a crash when entering a very large number of days for the Pedometer step history (now limited to 10 years)
 - Fixed a crash that could occur when opening the quick settings panel with a Trail Sense tile added
+- Fixed a crash when the backtrack path contained points without a time
+- Fixed a crash when tapping Learn more on the battery restrictions message after leaving the screen
+- Fixed the app failing to start if a setting was corrupted during an update

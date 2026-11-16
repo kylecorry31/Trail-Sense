@@ -254,4 +254,11 @@ class CacheGPSModuleTest {
         module(2).restore(restored)
         assertEquals(Duration.ZERO, restored.age(timeProvider))
     }
+
+    @Test
+    fun ignoresACachedZeroLocation() = runBlocking<Unit> {
+        module.update(previous, reading().apply { location = Coordinate.zero })
+
+        assertFalse(module(1).hasNewerReading(ModularGPSData()))
+    }
 }

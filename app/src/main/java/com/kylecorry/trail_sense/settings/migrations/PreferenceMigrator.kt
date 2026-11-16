@@ -53,6 +53,7 @@ class PreferenceMigrator private constructor() {
 
     private val lock = Any()
 
+    @Suppress("TooGenericExceptionCaught")
     fun migrate(context: Context) {
         synchronized(lock) {
             val prefs = PreferencesSubsystem.getInstance(context).preferences
@@ -60,7 +61,18 @@ class PreferenceMigrator private constructor() {
             if (startVersion < version) {
                 getAppService<Logger>().info(TAG, "Migrating preferences from version $startVersion to $version")
             }
-            migrate(prefs) { migration -> migration.action(context, prefs) }
+            migrate(prefs) { migration ->
+                // A migration failing (such as from a corrupted preference) should not stop the app from starting
+                try {
+                    migration.action(context, prefs)
+                } catch (e: Exception) {
+                    getAppService<Logger>().error(
+                        TAG,
+                        "Migration from ${migration.fromVersion} to ${migration.toVersion} failed",
+                        e
+                    )
+                }
+            }
         }
     }
 

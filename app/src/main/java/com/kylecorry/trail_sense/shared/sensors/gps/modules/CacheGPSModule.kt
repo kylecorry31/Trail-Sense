@@ -85,7 +85,11 @@ class CacheGPSModule(
      * newer reading than the given data.
      */
     fun hasNewerReading(data: ModularGPSData): Boolean {
-        val cachedElapsedNanos = getCurrentBootCachedData()?.elapsedRealtimeNanos ?: return false
+        val cached = getCurrentBootCachedData() ?: return false
+        val cachedElapsedNanos = cached.elapsedRealtimeNanos ?: return false
+        if (Coordinate(cached.latitude, cached.longitude) == Coordinate.zero) {
+            return false
+        }
         return data.location == Coordinate.zero || cachedElapsedNanos > data.eventTimeElapsedNanos
     }
 

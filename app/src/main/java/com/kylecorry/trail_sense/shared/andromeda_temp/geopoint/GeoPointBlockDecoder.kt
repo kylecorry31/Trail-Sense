@@ -18,7 +18,8 @@ class GeoPointBlockDecoder(private val grid: GeoPointGrid, private val fields: L
         val counts = IntArray(cellIds.size) { reader.nextInt() }
         val total = counts.fold(0L) { sum, count -> sum + count }
         val fieldBytes = fields.sumOf { it.bytes }
-        require(total * fieldBytes <= data.size - reader.offset) { "The block has more points than bytes" }
+        // Every point takes at least one byte for its position, even if the file has no fields
+        require(total * (fieldBytes + 1) <= data.size - reader.offset) { "The block has more points than bytes" }
         val positions = Array(cellIds.size) { readPositions(reader, counts[it]) }
         val fieldValues = readFields(data, reader.offset, total.toInt())
 

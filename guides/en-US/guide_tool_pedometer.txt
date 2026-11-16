@@ -45,7 +45,7 @@ The History section shows your total steps and distance for the selected day and
 - To see the steps and distance for an hour, tap its bar on the chart.
 - To view another day, use the arrows or the calendar button.
 
-By default, Trail Sense keeps the step history for 30 days. To change this, set **Settings > Pedometer > Step history**.
+By default, Trail Sense keeps the step history for 30 days. To change this, set **Settings > Pedometer > Step history**. The longest history you can keep is 10 years (3650 days).
 
 ### View and delete sessions
 To view your pedometer sessions, tap the clock button next to History. Each session shows its time, steps, distance, average speed, and active duration. Trail Sense creates a new session each time you reset the pedometer.

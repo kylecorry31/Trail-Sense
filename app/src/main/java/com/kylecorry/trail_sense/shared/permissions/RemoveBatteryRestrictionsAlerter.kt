@@ -17,6 +17,9 @@ class RemoveBatteryRestrictionsAlerter(private val fragment: Fragment) : IAlerte
             Snackbar.LENGTH_LONG,
             context.getString(R.string.learn_more)
         ) {
+            if (!fragment.isAdded) {
+                return@snackbar
+            }
             fragment.requestIgnoreBatteryOptimizations { isGranted ->
                 // Let the user know they did it right since this process is confusing
                 if (isGranted) {

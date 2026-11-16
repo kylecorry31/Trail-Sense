@@ -94,12 +94,17 @@ internal class OfflineMapImporter(
             }
         }
         val maxSize = 2048
-        val (bp, scale) = PDFRenderer().toBitmap(context, request.uri, maxSize = maxSize)
+        val (bp, scale) = tryOrDefault(null) { PDFRenderer().toBitmap(context, request.uri, maxSize = maxSize) }
             ?: return Result.Err(CreateOfflineMapError.InvalidMapFile)
 
-        if (metadata != null && metadata.points.size >= 4) {
-            val first = metadata.points[0]
-            val second = metadata.points.maxBy { it.first.distanceTo(first.first) }
+        val metadataPoints = metadata?.points?.filter {
+            it.first.x.isFinite() && it.first.y.isFinite() &&
+                    it.second.latitude.isFinite() && it.second.longitude.isFinite()
+        }
+
+        if (metadataPoints != null && metadataPoints.size >= 4) {
+            val first = metadataPoints[0]
+            val second = metadataPoints.maxBy { it.first.distanceTo(first.first) }
 
             val points = listOf(first, second).map {
                 MapCalibrationPoint(

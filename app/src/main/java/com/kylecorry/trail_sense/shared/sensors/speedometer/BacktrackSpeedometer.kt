@@ -40,7 +40,7 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
     private var lastPointTime: Instant? = null
 
     private var pathObserver = Observer<List<PathPoint>> {
-        val waypoints = it.sortedBy { point -> point.time }
+        val waypoints = it.filter { point -> point.time != null }.sortedBy { point -> point.time }
         _speed = getSpeed(waypoints)
         lastPointTime = waypoints.lastOrNull()?.time
         notifyListeners()
@@ -90,7 +90,7 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
                 return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
             }
 
-            val time = Duration.between(secondLast.time, last.time)
+            val time = Duration.between(secondLast.time ?: return null, last.time ?: return null)
             Speed.from(
                 distance / time.seconds.coerceAtLeast(1).toFloat(),
                 DistanceUnits.Meters,
