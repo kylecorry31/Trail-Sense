@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathServ
 import com.kylecorry.trail_sense.tools.paths.map_layers.StaticLineGeoJsonSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -42,11 +43,14 @@ class SimplifyPathCommand(
             val loading = withContext(Dispatchers.Main) {
                 Alerts.loading(context, context.getString(R.string.loading))
             }
-            val points = withContext(Dispatchers.Default) {
-                pathService.getWaypoints(path.id).sortedBy { it.id }
+            val points = try {
+                withContext(Dispatchers.Default) {
+                    pathService.getWaypoints(path.id).sortedBy { it.id }
+                }
+            } finally {
+                withContext(NonCancellable + Dispatchers.Main) { loading.dismiss() }
             }
             withContext(Dispatchers.Main) {
-                loading.dismiss()
                 showPreview(path, points)
             }
         }
@@ -128,11 +132,14 @@ class SimplifyPathCommand(
             val loading = withContext(Dispatchers.Main) {
                 Alerts.loading(context, context.getString(R.string.simplifying))
             }
-            val deleted = withContext(Dispatchers.IO) {
-                pathService.simplifyPath(path.id, quality)
+            val deleted = try {
+                withContext(Dispatchers.IO) {
+                    pathService.simplifyPath(path.id, quality)
+                }
+            } finally {
+                withContext(NonCancellable + Dispatchers.Main) { loading.dismiss() }
             }
             withContext(Dispatchers.Main) {
-                loading.dismiss()
                 Alerts.toast(
                     context,
                     context.resources.getQuantityString(
