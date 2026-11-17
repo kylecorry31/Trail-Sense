@@ -834,7 +834,12 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         // The navigator saves the progress when the location changes
         UserPreferences(TestUtils.context).gps.locationOverride = location
         Tools.broadcast(SensorsToolRegistration.BROADCAST_LOCATION_CHANGED)
-        waitFor { assertNotNull(PathNavigationStore().load()?.progress) }
+        // The location can lag behind the override, so wait for the progress at the new location
+        waitFor {
+            val saved = PathNavigationStore().load()?.progress
+            assertNotNull(saved)
+            assertEquals(0f, saved!!.location.distanceTo(location), 1f)
+        }
 
         // A new navigator is what the app has after it is restarted
         val restored = PathNavigator(TestUtils.context)
