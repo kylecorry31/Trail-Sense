@@ -710,22 +710,6 @@ body:has(main > .hero:first-child) .site-header::after {
   pointer-events: none;
 }
 
-/* Front camera */
-.phone::before {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  top: calc(var(--bezel) + 9px);
-  left: 50%;
-  width: 11px;
-  height: 11px;
-  margin-left: -5.5px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #2c3340 0, #07080a 55%);
-  box-shadow: 0 0 0 1.5px #000;
-  pointer-events: none;
-}
-
 @media (max-width: 860px) {
   /* Stacked, the text sits in the open sky above the hills */
   .hero::before {
@@ -947,13 +931,6 @@ body:has(main > .hero:first-child) .site-header::after {
 .feature-shot .phone::after {
   bottom: 0;
   border-radius: calc(var(--corner) - var(--bezel)) calc(var(--corner) - var(--bezel)) 0 0;
-}
-
-.feature-shot .phone::before {
-  width: 9px;
-  height: 9px;
-  margin-left: -4.5px;
-  top: calc(var(--bezel) + 7px);
 }
 
 .feature-body {
@@ -1512,6 +1489,12 @@ td:first-child {
 }
 
 /* HOME: PRIVACY / CONTACT / LEGAL */
+
+.safety-note {
+  margin: 32px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+}
 
 .split {
   display: grid;
