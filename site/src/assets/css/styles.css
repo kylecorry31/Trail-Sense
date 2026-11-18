@@ -154,14 +154,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 24px;
   -webkit-text-size-adjust: 100%;
-}
-
-@media (max-width: 820px) {
-  html {
-    scroll-padding-top: 112px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -380,33 +374,26 @@ h4 {
 /* HEADER */
 
 .site-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 50;
   /* The page's own colour and grain, so the bar looks like part of the page */
   background: var(--grain), var(--bg);
   color: var(--text);
 }
 
-/* Once the page has scrolled (or always on the home page), the bar looks like a sheet of paper lifted above it */
-.site-header.is-scrolled,
+/* On the home page the bar is transparent and sits over the hero's sky */
 body:has(main > .hero:first-child) .site-header {
-  filter: drop-shadow(0 3px 5px rgb(var(--shadow-rgb) / 0.3));
-}
-
-/* Its lower edge is torn */
-.site-header.is-scrolled::after,
-body:has(main > .hero:first-child) .site-header::after {
-  content: "";
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  top: 100%;
-  margin-top: -1px;
-  height: 14px;
-  background: var(--grain), var(--bg);
-  mask: var(--paper-tear-flipped) center / max(100%, 1200px) 100% no-repeat;
-  pointer-events: none;
+  background: none;
+  color: var(--text-on-sky);
+}
+
+/* The hero already shows the download links */
+body:has(main > .hero:first-child) .nav-cta {
+  display: none;
 }
 
 .header-inner {
@@ -515,7 +502,6 @@ body:has(main > .hero:first-child) .site-header::after {
   display: none;
 }
 
-/* The header sits over the top of the page, so the content makes room for it. A hero runs up behind it. */
 @media (max-width: 820px) {
   .header-inner {
     flex-wrap: wrap;
@@ -724,7 +710,7 @@ body:has(main > .hero:first-child) .site-header::after {
     grid-template-columns: 1fr;
     align-items: start;
     gap: 40px;
-    padding-top: 48px;
+    padding-top: 120px;
     min-height: 0;
   }
 
@@ -1339,7 +1325,7 @@ a.card:hover {
   border-radius: 12px;
   background: var(--weave), var(--surface);
   box-shadow: var(--card-shadow);
-  scroll-margin-top: 72px;
+  scroll-margin-top: 24px;
 }
 
 .faq details::after,
@@ -1623,7 +1609,7 @@ td:first-child {
 }
 
 .prose :is(h2, h3, h4) {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 24px;
 }
 
 /* TABLE OF CONTENTS */
