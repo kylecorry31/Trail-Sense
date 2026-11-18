@@ -24,6 +24,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
+import org.junit.rules.ExternalResource
 import org.junit.rules.Timeout
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
@@ -42,7 +43,17 @@ open class ToolTestBase(
     @get:Rule
     val instantExec = InstantTaskExecutorRule()
 
-    @get:Rule
+    // Rules wrap @After, so the activity is closed here to keep it on screen for the failure screenshot
+    @get:Rule(order = 0)
+    val closeActivityRule = object : ExternalResource() {
+        override fun after() {
+            if (this@ToolTestBase::scenario.isInitialized) {
+                finishCurrentActivity()
+            }
+        }
+    }
+
+    @get:Rule(order = 1)
     val screenshotRule = ScreenshotFailureRule()
 
     protected lateinit var scenario: ActivityScenario<MainActivity>
@@ -154,9 +165,6 @@ open class ToolTestBase(
             if (TestUtils.isTorchOn) {
                 Torch(context).off()
             }
-        }
-        if (this::scenario.isInitialized) {
-            finishCurrentActivity()
         }
         originalTimeZone?.let { TimeZone.setDefault(it) }
     }
