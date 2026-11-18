@@ -146,9 +146,12 @@ object AutomationLibrary {
 
     fun hasDataPoint(value: Regex, label: String, waitForTime: Long? = null) {
         waitFor(resolveWaitForTime(waitForTime)) {
-            val values = getTexts(R.id.data_point_title)
-            val labels = getTexts(R.id.data_point_desc)
-            val dataPoints = values.zip(labels)
+            // Pair within each tile, a partially visible tile would misalign separate lists of values and labels
+            val dataPoints = TestUtils.device.findObjects(byResId(R.id.data_point, packageName)).mapNotNull {
+                val value = it.findObject(byResId(R.id.data_point_title, packageName))?.text
+                val label = it.findObject(byResId(R.id.data_point_desc, packageName))?.text
+                if (value != null && label != null) value to label else null
+            }
             assertTrue(
                 "Expected data point $value / $label but was $dataPoints",
                 dataPoints.any { (v, l) -> value.matches(v.trim()) && l.trim() == label }

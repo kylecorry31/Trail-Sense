@@ -52,9 +52,11 @@ fun TestView.input(text: String, checkDescendants: Boolean = false): TestView {
 //                    it.getAccessibilityNodeInfo().isEditable
         }
 
-        if (child != null) {
-            child.text = text
+        // The text field may not be in the view hierarchy yet, so fail and let the caller retry
+        if (child == null) {
+            throw AssertionError("No text field found in $uiObject")
         }
+        child.text = text
     }
     return this
 }
