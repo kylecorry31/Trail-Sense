@@ -302,6 +302,10 @@ fun <T> T.useUnsavedChangesPrompt(hasChanges: Boolean) where T : Fragment, T : R
 fun ReactiveComponent.useSearch(view: SearchView, onSearch: (String) -> Unit) {
     useEffect(view) {
         view.setOnSearchListener(onSearch)
+        // Text entered before the first update would otherwise be missed
+        if (view.query.isNotEmpty()) {
+            onSearch(view.query)
+        }
     }
 }
 
