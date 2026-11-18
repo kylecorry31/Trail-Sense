@@ -97,14 +97,16 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
 
         val navigateToSighting =
             useCallback(navigator, navController, page, fieldGuideFormatter) { sighting: Sighting ->
-                navigator.navigateTo(
-                    sighting.location ?: Coordinate.zero,
-                    page?.let(fieldGuideFormatter::formatName)?.toString() ?: "",
-                    BeaconOwner.FieldGuide,
-                    elevation = sighting.altitude
-                )
-                // TODO: Let user set default navigation tool (compass or map)
-                navController.openTool(Tools.NAVIGATION)
+                inBackground {
+                    navigator.navigateTo(
+                        sighting.location ?: Coordinate.zero,
+                        page?.let(fieldGuideFormatter::formatName)?.toString() ?: "",
+                        BeaconOwner.FieldGuide,
+                        elevation = sighting.altitude
+                    )
+                    // TODO: Let user set default navigation tool (compass or map)
+                    navController.openTool(Tools.NAVIGATION)
+                }
             }
 
         val createBeacon = useCallback(navController, page, fieldGuideFormatter) { sighting: Sighting ->

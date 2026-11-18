@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.Navigator
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.inOrder
 import org.mockito.kotlin.mock
@@ -18,7 +19,7 @@ class BeaconGuidanceTargetCoordinatorTest {
     private val beacon = Beacon(1, "Target", Coordinate(42.0, -72.0))
 
     @Test
-    fun nonBeaconTargetsDoNotChangeNavigation() {
+    fun nonBeaconTargetsDoNotChangeNavigation(): Unit = runBlocking {
         coordinator.onTargetChanged(null)
         coordinator.onTargetChanged(mock<ARGuidanceTarget>())
         coordinator.onTargetChanged(null)
@@ -26,7 +27,7 @@ class BeaconGuidanceTargetCoordinatorTest {
     }
 
     @Test
-    fun equivalentBeaconTargetsOnlyNavigateOnce() {
+    fun equivalentBeaconTargetsOnlyNavigateOnce(): Unit = runBlocking {
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon.copy()))
         verify(navigator).navigateTo(beacon)
@@ -34,7 +35,7 @@ class BeaconGuidanceTargetCoordinatorTest {
     }
 
     @Test
-    fun switchingBeaconsReplacesNavigation() {
+    fun switchingBeaconsReplacesNavigation(): Unit = runBlocking {
         val second = beacon.copy(id = 2)
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(BeaconGuidanceTarget(second))
@@ -46,7 +47,7 @@ class BeaconGuidanceTargetCoordinatorTest {
     }
 
     @Test
-    fun updatingSameBeaconDoesNotCancelNavigation() {
+    fun updatingSameBeaconDoesNotCancelNavigation(): Unit = runBlocking {
         val updated = beacon.copy(name = "Renamed")
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(BeaconGuidanceTarget(updated))
@@ -56,7 +57,7 @@ class BeaconGuidanceTargetCoordinatorTest {
     }
 
     @Test
-    fun clearingBeaconPreservesNavigationAndAllowsReselection() {
+    fun clearingBeaconPreservesNavigationAndAllowsReselection(): Unit = runBlocking {
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(null)
         coordinator.onTargetChanged(null)
@@ -69,7 +70,7 @@ class BeaconGuidanceTargetCoordinatorTest {
     }
 
     @Test
-    fun switchingToNonBeaconTargetPreservesBeaconNavigation() {
+    fun switchingToNonBeaconTargetPreservesBeaconNavigation(): Unit = runBlocking {
         coordinator.onTargetChanged(BeaconGuidanceTarget(beacon))
         coordinator.onTargetChanged(mock<ARGuidanceTarget>())
         coordinator.onTargetChanged(null)

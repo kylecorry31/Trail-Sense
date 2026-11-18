@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.sharing
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPoint
 import com.kylecorry.sol.units.Coordinate
@@ -60,10 +61,12 @@ object GeoJsonFeatureClickHandler {
                 ShareAction.Navigate -> {
                     val navigator = DependencyRegistry.get<Navigator>()
                     val beaconId = feature.getLongProperty(BeaconGeoJsonSource.PROPERTY_BEACON_ID)
-                    if (beaconId != null) {
-                        navigator.navigateTo(beaconId)
-                    } else {
-                        navigator.navigateTo(location, name ?: "", BeaconOwner.Maps)
+                    fragment.inBackground {
+                        if (beaconId != null) {
+                            navigator.navigateTo(beaconId)
+                        } else {
+                            navigator.navigateTo(location, name ?: "", BeaconOwner.Maps)
+                        }
                     }
                 }
 

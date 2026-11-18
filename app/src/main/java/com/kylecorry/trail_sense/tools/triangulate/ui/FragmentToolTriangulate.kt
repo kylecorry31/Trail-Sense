@@ -14,6 +14,7 @@ import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.core.ui.setCompoundDrawables
 import com.kylecorry.andromeda.fragments.BoundFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonFeatureCollection
 import com.kylecorry.andromeda.preferences.putOrRemoveCoordinate
@@ -105,8 +106,10 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         binding.navigate.setOnClickListener {
             location?.let {
-                navigator.navigateTo(it, getString(R.string.location), BeaconOwner.Triangulate)
-                appNavigation.navigate(R.id.action_navigation)
+                inBackground {
+                    navigator.navigateTo(it, getString(R.string.location), BeaconOwner.Triangulate)
+                    appNavigation.navigate(R.id.action_navigation)
+                }
             }
         }
 

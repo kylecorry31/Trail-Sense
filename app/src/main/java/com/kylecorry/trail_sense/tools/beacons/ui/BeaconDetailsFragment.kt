@@ -207,11 +207,13 @@ class BeaconDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_beaco
         useEffect(navigateButton, navController, navigator, beacon) {
             navigateButton.setOnClickListener {
                 if (beacon != null) {
-                    navigator.navigateTo(beacon)
-                    val bundle = Bundle().apply {
-                        putBoolean(NavigatorFragment.ARG_NAVIGATION_STARTED, true)
+                    inBackground {
+                        navigator.navigateTo(beacon)
+                        val bundle = Bundle().apply {
+                            putBoolean(NavigatorFragment.ARG_NAVIGATION_STARTED, true)
+                        }
+                        navController.openTool(Tools.NAVIGATION, bundle)
                     }
-                    navController.openTool(Tools.NAVIGATION, bundle)
                 }
             }
         }

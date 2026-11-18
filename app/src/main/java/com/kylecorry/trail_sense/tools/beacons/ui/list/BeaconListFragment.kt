@@ -398,8 +398,10 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
 
     private fun navigate(beacon: Beacon) {
         val navigator = Navigator.getInstance(requireContext())
-        navigator.navigateTo(beacon)
-        openNavigation()
+        inBackground {
+            navigator.navigateTo(beacon)
+            openNavigation()
+        }
     }
 
     private fun openNavigation() {

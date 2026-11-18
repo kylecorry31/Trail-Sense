@@ -396,7 +396,7 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         }
     }
 
-    private fun navigateTo(beacon: Beacon): Boolean {
+    private suspend fun navigateTo(beacon: Beacon): Boolean {
         navigator.navigateTo(beacon)
         setDestination(Destination.Beacon(beacon))
         return true

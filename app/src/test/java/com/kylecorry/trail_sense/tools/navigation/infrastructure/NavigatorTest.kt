@@ -20,10 +20,8 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathMetadata
 import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import com.kylecorry.trail_sense.tools.paths.domain.PathStyle
 import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.IPathPreferences
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -110,13 +108,9 @@ internal class NavigatorTest {
 
     private fun destination() = runBlocking { navigator.getDestination() }
 
-    private fun navigationEvents() = broadcasts.filter { it == started || it == stopped }
-
-    private fun eventually(condition: () -> Boolean) = runBlocking {
-        withTimeout(5000) {
-            while (!condition()) delay(10)
-        }
-    }
+    // The destination listener broadcasts from a background thread
+    private fun navigationEvents() =
+        synchronized(broadcasts) { broadcasts.filter { it == started || it == stopped } }
 
     @Test
     fun `there is no destination initially`() {
@@ -125,7 +119,7 @@ internal class NavigatorTest {
 
     @Test
     fun `navigating to a beacon sets the beacon as the destination`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
 
         assertEquals(5L, (destination() as Destination.Beacon).beacon.id)
         assertEquals(5L, navigator.getBeaconDestinationId())
@@ -134,7 +128,7 @@ internal class NavigatorTest {
 
     @Test
     fun `the beacon destination is saved and restored by a new navigator`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
 
         val restored = createNavigator()
 
@@ -152,7 +146,7 @@ internal class NavigatorTest {
 
     @Test
     fun `cancelling beacon navigation clears the destination`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
 
         navigator.cancelBeaconNavigation()
 
@@ -180,7 +174,7 @@ internal class NavigatorTest {
 
     @Test
     fun `navigating to a bearing replaces a beacon destination`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
 
         runBlocking { navigator.navigateToBearing(120f) }
 
@@ -192,9 +186,9 @@ internal class NavigatorTest {
     fun `navigating to a beacon replaces a bearing destination`() {
         runBlocking { navigator.navigateToBearing(120f) }
 
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
 
-        eventually { runBlocking { bearings.getBearing().first() } == null }
+        assertNull(runBlocking { bearings.getBearing().first() })
         assertTrue(destination() is Destination.Beacon)
     }
 
@@ -236,7 +230,7 @@ internal class NavigatorTest {
 
     @Test
     fun `navigating along a path replaces the other destinations`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
         runBlocking { navigator.navigateToBearing(120f) }
 
         runBlocking { navigator.navigateAlongPath(path, toEnd) }
@@ -262,7 +256,7 @@ internal class NavigatorTest {
 
     @Test
     fun `cancelling all navigation clears every destination`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
         runBlocking { navigator.cancelAllNavigation() }
 
         assertNull(destination())
@@ -278,7 +272,7 @@ internal class NavigatorTest {
 
     @Test
     fun `cancelled navigation to a beacon can be restored`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
         val restore = runBlocking { navigator.cancelAllNavigation() }
 
         runBlocking { restore() }
@@ -309,9 +303,9 @@ internal class NavigatorTest {
 
     @Test
     fun `cancelled navigation is not restored over new navigation`() {
-        navigator.navigateTo(5)
+        runBlocking { navigator.navigateTo(5) }
         val restore = runBlocking { navigator.cancelAllNavigation() }
-        navigator.navigateTo(6)
+        runBlocking { navigator.navigateTo(6) }
         broadcasts.clear()
 
         runBlocking { restore() }

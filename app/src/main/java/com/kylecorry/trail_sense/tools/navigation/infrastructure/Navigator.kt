@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.luna.concurrency.BackgroundTask
+import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -28,13 +29,10 @@ import com.kylecorry.trail_sense.tools.navigation.domain.paths.PathFollow
 import com.kylecorry.trail_sense.tools.navigation.infrastructure.persistence.NavigationBearingService
 import com.kylecorry.trail_sense.tools.paths.domain.Path
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolEventEmitter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import java.time.Instant
 
 internal interface NavigatorSettings {
@@ -149,14 +147,14 @@ class Navigator internal constructor(
         }
     }
 
-    fun navigateTo(
+    suspend fun navigateTo(
         location: Coordinate,
         name: String = "",
         owner: BeaconOwner = BeaconOwner.User,
         elevation: Float? = null,
         useDemElevation: Boolean = elevation == null,
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
+        val id = onIO {
             val beacon = Beacon.temporary(
                 location,
                 elevation = if (useDemElevation) {
@@ -168,19 +166,19 @@ class Navigator internal constructor(
                 visible = false,
                 owner = owner
             )
-            val id = beacons.add(beacon)
-            navigateTo(id)
+            beacons.add(beacon)
         }
+        navigateTo(id)
     }
 
-    fun navigateTo(beacon: Beacon) {
+    suspend fun navigateTo(beacon: Beacon) {
         navigateTo(beacon.id)
     }
 
-    fun navigateTo(beaconId: Long) {
+    suspend fun navigateTo(beaconId: Long) {
         pathNavigator.cancel()
-        CoroutineScope(Dispatchers.IO).launch { clearBearing() }
         setBeaconDestination(beaconId)
+        clearBearing()
         eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }
 
@@ -261,7 +259,6 @@ class Navigator internal constructor(
 
     suspend fun navigateToBearing(bearing: Float, startingLocation: Coordinate? = null) {
         pathNavigator.cancel()
-        clearBeaconDestination()
         val navigationBearing = NavigationBearing(
             0,
             bearing,
@@ -269,6 +266,7 @@ class Navigator internal constructor(
             isActive = true,
             startTime = Instant.now()
         )
+        clearBeaconDestination()
         bearings.setBearing(navigationBearing)
         eventBus.broadcast(NavigationToolRegistration.BROADCAST_NAVIGATION_STARTED)
     }

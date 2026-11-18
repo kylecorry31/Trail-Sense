@@ -93,7 +93,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             onFocus = this::onBeaconFocused
         ) {
             if (navigator.getBeaconDestinationId() != it.id) {
-                navigator.navigateTo(it)
+                inBackground { navigator.navigateTo(it) }
             } else {
                 navigator.cancelBeaconNavigation()
             }

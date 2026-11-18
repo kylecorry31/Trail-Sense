@@ -6,7 +6,7 @@ class BeaconGuidanceTargetCoordinator(private val navigator: Navigator) {
 
     private var lastGuidanceTarget: ARGuidanceTarget? = null
 
-    fun onTargetChanged(target: ARGuidanceTarget?) {
+    suspend fun onTargetChanged(target: ARGuidanceTarget?) {
         if (lastGuidanceTarget == target) {
             return
         }

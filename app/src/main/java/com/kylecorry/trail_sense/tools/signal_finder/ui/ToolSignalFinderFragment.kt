@@ -6,6 +6,7 @@ import androidx.core.text.method.LinkMovementMethodCompat
 import com.kylecorry.andromeda.core.system.GeoUri
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.ui.useService
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useCoroutineQueue
 import com.kylecorry.andromeda.fragments.useTopic
@@ -95,11 +96,13 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
                 CellTowerListItemMapper(context, location) { towerLocation, action ->
                     when (action) {
                         CellTowerListItemAction.Navigate -> {
-                            navigator.navigateTo(
-                                towerLocation.coordinate,
-                                getString(R.string.cell_tower)
-                            )
-                            navController.openTool(Tools.NAVIGATION)
+                            inBackground {
+                                navigator.navigateTo(
+                                    towerLocation.coordinate,
+                                    getString(R.string.cell_tower)
+                                )
+                                navController.openTool(Tools.NAVIGATION)
+                            }
                         }
 
                         CellTowerListItemAction.CreateBeacon -> {
