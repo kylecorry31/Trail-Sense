@@ -391,7 +391,8 @@ body:has(main > .hero:first-child) .site-header {
   color: var(--text-on-sky);
 }
 
-/* The hero already shows the download links */
+/* The hero already shows the name and download links, so only the logo stays */
+body:has(main > .hero:first-child) .site-header .brand span,
 body:has(main > .hero:first-child) .nav-cta {
   display: none;
 }
