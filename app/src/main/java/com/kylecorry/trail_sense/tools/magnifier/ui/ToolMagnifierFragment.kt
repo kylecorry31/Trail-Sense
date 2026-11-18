@@ -5,6 +5,7 @@ import android.widget.ImageView
 import androidx.core.view.isVisible
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.onTopInset
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
@@ -31,6 +32,10 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
                     alertNoCameraPermission()
                 }
             }
+        }
+
+        useEffect(cameraView) {
+            cameraView.onTopInset { top -> cameraView.setControlsTopInset(top) }
         }
 
         // Start / stop camera

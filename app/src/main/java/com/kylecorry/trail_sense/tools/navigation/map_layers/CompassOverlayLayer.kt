@@ -47,7 +47,7 @@ class CompassOverlayLayer : OverlayLayer() {
         val arrowMargin = drawer.dp(3f)
         val location = com.kylecorry.andromeda.core.units.PixelCoordinate(
             drawer.canvas.width - drawer.dp(paddingRightDp + compassSize / 2f),
-            drawer.dp(paddingTopDp + compassSize / 2f)
+            map.topInset + drawer.dp(paddingTopDp + compassSize / 2f)
         )
         drawer.push()
         drawer.rotate(-map.mapAzimuth, location.x, location.y)

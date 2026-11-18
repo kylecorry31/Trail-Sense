@@ -293,6 +293,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         false
     )
 
+    val extendToolsUnderStatusBar by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_extend_tools_under_status_bar),
+        true
+    )
+
     // Calibration
 
     override var useAutoDeclination: Boolean

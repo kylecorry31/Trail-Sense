@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.navigation.NavController
 import com.kylecorry.andromeda.alerts.dialog
 import com.kylecorry.andromeda.core.system.Resources
@@ -40,6 +41,7 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.onTopInset
 import com.kylecorry.trail_sense.shared.permissions.alertNoCameraPermission
 import com.kylecorry.trail_sense.shared.permissions.requestCamera
 import com.kylecorry.trail_sense.shared.readableName
@@ -182,6 +184,10 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.arView.setCompassSensorDelay(userPrefs.compass.updateFrequency.sensorDelay)
+        binding.arView.onTopInset { top ->
+            binding.statusBarGuideline.setGuidelineBegin(top)
+            binding.arView.updatePadding(top = top)
+        }
 
         // Beacon layer setup (TODO: Move this to a layer manager)
         observeFlow(beaconRepo.getBeacons()) {

@@ -3,12 +3,14 @@ package com.kylecorry.trail_sense.tools.flashlight.ui
 import android.graphics.Color
 import android.view.View
 import android.widget.Button
+import androidx.constraintlayout.widget.Guideline
 import com.google.android.material.slider.BasicLabelFormatter
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.torch.ScreenTorch
 import com.kylecorry.sol.math.interpolation.Interpolation.map
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.onTopInset
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.extensions.usePreference
 import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
@@ -29,6 +31,7 @@ class FragmentToolScreenFlashlight :
         val redWhiteSwitcherView = useView<View>(R.id.red_white_switcher)
         val brightnessSeekView = useView<Slider>(R.id.brightness_seek)
         val offButtonView = useView<Button>(R.id.off_btn)
+        val statusBarGuideline = useView<Guideline>(R.id.status_bar_guideline)
 
         // Services
         val screenTorch = useMemo { ScreenTorch(requireActivity().window) }
@@ -44,6 +47,12 @@ class FragmentToolScreenFlashlight :
         useResumeEffect(cache) {
             brightness = cache.getInt(getString(R.string.pref_screen_torch_brightness))
                 ?: DEFAULT_BRIGHTNESS
+        }
+
+        useEffect(statusBarGuideline, screenFlashlightView) {
+            screenFlashlightView.onTopInset { top ->
+                statusBarGuideline.setGuidelineBegin(top)
+            }
         }
 
         // Light

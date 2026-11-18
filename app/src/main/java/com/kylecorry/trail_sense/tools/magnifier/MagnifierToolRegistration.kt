@@ -18,6 +18,7 @@ object MagnifierToolRegistration : ToolRegistration {
             R.id.magnifierFragment,
             ToolCategory.Other,
             guideId = R.raw.guide_tool_magnifier,
+            statusBarExtendedNavigationIds = listOf(R.id.magnifierFragment),
             isAvailable = { Camera.hasBackCamera(it) },
             diagnostics = listOf(
                 ToolDiagnosticFactory.camera(context)

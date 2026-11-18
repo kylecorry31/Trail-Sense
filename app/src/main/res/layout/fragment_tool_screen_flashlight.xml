@@ -16,6 +16,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/status_bar_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp" />
+
     <View
         android:id="@+id/red_white_switcher"
         android:layout_width="32dp"
@@ -24,7 +31,7 @@
         android:layout_marginEnd="8dp"
         android:background="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/status_bar_guideline" />
 
     <com.kylecorry.trail_sense.shared.views.Slider
         android:id="@+id/brightness_seek"

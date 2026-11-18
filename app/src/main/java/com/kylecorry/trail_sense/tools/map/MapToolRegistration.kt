@@ -50,6 +50,7 @@ object MapToolRegistration : ToolRegistration {
             R.id.mapFragment,
             ToolCategory.Location,
             settingsNavAction = R.id.mapSettingsFragment,
+            statusBarExtendedNavigationIds = listOf(R.id.mapFragment),
             guideId = R.raw.guide_tool_map,
             diagnostics = listOf(
                 ToolDiagnosticFactory.gps(context),

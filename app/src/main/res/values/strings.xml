@@ -203,6 +203,8 @@
     <string name="theme_sunset_sunrise">Sunrise/sunset</string>
     <string name="pref_night_mode_fullscreen_title">Fullscreen in night mode</string>
     <string name="pref_night_mode_fullscreen_summary">Hide system UI for better night vision preservation</string>
+    <string name="pref_extend_tools_under_status_bar_title">Extend tools under the status bar</string>
+    <string name="pref_extend_tools_under_status_bar_summary">Let tools like the map and camera tools fill the screen behind the status bar</string>
     <string name="coordinate_format_decimal_degrees">Decimal degrees</string>
     <!--A coordinate format as such:  X° X.XXX' N-->
     <string name="coordinate_format_degrees_decimal_minutes">Degrees decimal minutes</string>
@@ -334,6 +336,7 @@
     <string name="pref_compass_filter_amt" translatable="false">pref_compass_filter_amt</string>
     <string name="pref_theme" translatable="false">pref_theme</string>
     <string name="pref_night_mode_fullscreen" translatable="false">pref_night_mode_fullscreen</string>
+    <string name="pref_extend_tools_under_status_bar" translatable="false">pref_extend_tools_under_status_bar</string>
     <string name="pref_display_multi_beacons" translatable="false">pref_display_multi_beacons</string>
     <string name="pref_nearby_linear_only" translatable="false">pref_nearby_linear_only</string>
     <string name="pref_storm_alert_sensitivity" translatable="false">pref_storm_alert_sensitivity</string>

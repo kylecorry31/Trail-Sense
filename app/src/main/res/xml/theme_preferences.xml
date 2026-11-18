@@ -39,6 +39,14 @@
             app:singleLineTitle="false"
             app:title="@string/pref_night_mode_fullscreen_title" />
 
+        <SwitchPreferenceCompat
+            android:summary="@string/pref_extend_tools_under_status_bar_summary"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_extend_tools_under_status_bar"
+            app:singleLineTitle="false"
+            app:title="@string/pref_extend_tools_under_status_bar_title" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

@@ -239,6 +239,7 @@ Open **Settings > Theme** to change the following theme settings:
 - **Compact mode**: Uses a more compact layout for the bottom bar, which is thinner and doesn't show labels.
 - **Show all bottom navigation labels**: Shows labels for all items in the bottom navigation bar instead of only the selected item.
 - **Fullscreen in night mode**: Uses fullscreen mode when the night theme is enabled. To show the system UI, swipe from the top.
+- **Extend tools under the status bar**: Lets tools like the map, augmented reality, and camera tools fill the screen behind the status bar. Disable this to keep them below it.
 
 ## About
 Scroll to the **About** section at the bottom of **Settings** to find the following information about Trail Sense:

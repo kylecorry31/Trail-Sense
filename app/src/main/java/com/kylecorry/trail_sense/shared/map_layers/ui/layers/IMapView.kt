@@ -79,6 +79,13 @@ interface IMapView {
     val mapBounds: CoordinateBounds
 
     /**
+     * The height in pixels at the top of the view covered by system UI (ex. the status bar), which
+     * overlays should stay clear of.
+     */
+    val topInset: Int
+        get() = 0
+
+    /**
      * Set the feature click listener for the map
      */
     fun setOnGeoJsonFeatureClickListener(listener: ((GeoJsonFeature) -> Unit)?)

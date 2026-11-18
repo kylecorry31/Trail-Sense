@@ -61,6 +61,9 @@ object FlashlightToolRegistration : ToolRegistration {
             additionalNavigationIds = listOf(
                 R.id.fragmentToolScreenFlashlight
             ),
+            statusBarExtendedNavigationIds = listOf(
+                R.id.fragmentToolScreenFlashlight
+            ),
             volumeActions = listOf(
                 ToolVolumeAction(
                     ToolVolumeActionPriority.Normal,

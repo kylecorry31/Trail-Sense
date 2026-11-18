@@ -20,6 +20,13 @@
         app:layout_constraintBottom_toTopOf="@+id/guidance_panel"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/status_bar_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="0dp" />
+
     <ImageButton
         android:id="@+id/camera_toggle"
         android:layout_width="32dp"
@@ -27,7 +34,7 @@
         android:layout_margin="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_bar_guideline"
         app:srcCompat="@drawable/ic_camera"
         app:tint="@color/white" />
 
@@ -38,7 +45,7 @@
         android:layout_margin="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_bar_guideline"
         app:srcCompat="@drawable/ic_compass_icon"
         app:tint="@color/white" />
 

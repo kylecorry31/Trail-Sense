@@ -21,6 +21,7 @@ object MirrorCameraToolRegistration : ToolRegistration {
             R.id.mirrorCameraFragment,
             ToolCategory.Other,
             guideId = R.raw.guide_tool_mirror_camera,
+            statusBarExtendedNavigationIds = listOf(R.id.mirrorCameraFragment),
             isAvailable = { Camera.hasFrontCamera(it) },
             volumeActions = listOf(
                 ToolVolumeAction(

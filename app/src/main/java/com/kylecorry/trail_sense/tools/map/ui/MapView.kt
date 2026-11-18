@@ -96,6 +96,9 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         onSingleTapCallback = callback
     }
 
+    override val topInset: Int
+        get() = paddingTop
+
     override val mapBounds: CoordinateBounds
         get() = hooks.memo(
             "bounds",

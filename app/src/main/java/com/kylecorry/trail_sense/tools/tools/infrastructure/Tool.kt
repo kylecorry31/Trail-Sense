@@ -16,6 +16,7 @@ data class Tool(
     val description: String? = null,
     val guideId: Int? = null,
     val isExperimental: Boolean = false,
+    val statusBarExtendedNavigationIds: List<Int> = emptyList(),
     @IdRes val settingsNavAction: Int? = null,
     val quickActions: List<ToolQuickAction> = emptyList(),
     val widgets: List<ToolWidget> = emptyList(),
@@ -33,6 +34,10 @@ data class Tool(
     val initialize: (context: Context) -> Unit = {},
     val mapLayers: List<MapLayerDefinition> = emptyList()
 ) : Identifiable {
+    fun extendsUnderStatusBar(currentNavId: Int): Boolean {
+        return statusBarExtendedNavigationIds.contains(currentNavId)
+    }
+
     fun isOpen(currentNavId: Int): Boolean {
         return navAction == currentNavId || additionalNavigationIds.contains(currentNavId)
     }

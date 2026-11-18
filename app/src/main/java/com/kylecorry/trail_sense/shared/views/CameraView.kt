@@ -14,7 +14,9 @@ import android.widget.ImageButton
 import androidx.annotation.ColorInt
 import androidx.camera.view.PreviewView
 import androidx.core.content.withStyledAttributes
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.findViewTreeLifecycleOwner
@@ -54,6 +56,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
     private var imageListener: ((Bitmap) -> Unit)? = null
     private var captureListener: ((Bitmap) -> Unit)? = null
     private var isTorchOn = false
+    private var baseControlsTopMargin = 0
     private var zoom: Float = -1f
     var defaultZoomRatio: Float = 1f
     var minZoomRatio: Float? = null
@@ -160,6 +163,18 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         torchBtn.setImageResource(if (isOn) R.drawable.ic_torch_on else R.drawable.ic_torch_off)
         camera?.setTorch(isTorchOn)
         hasPendingChanges = true
+    }
+
+    /**
+     * Moves the overlay buttons down so they stay clear of the status bar when the preview
+     * extends under it.
+     */
+    fun setControlsTopInset(top: Int) {
+        listOf(torchBtn, changeCameraBtn).forEach {
+            it.updateLayoutParams<MarginLayoutParams> {
+                topMargin = baseControlsTopMargin + top
+            }
+        }
     }
 
     fun setShowTorch(shouldShow: Boolean) {
@@ -273,6 +288,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         zoomSeek.setLabelFormatter(BasicLabelFormatter())
         zoomSeek.applyThinStyling()
         changeCameraBtn = findViewById(R.id.camera_change)
+        baseControlsTopMargin = (torchBtn.layoutParams as MarginLayoutParams).topMargin
 
         context.withStyledAttributes(attrs, R.styleable.CameraView) {
             if (getBoolean(R.styleable.CameraView_flipEnable, false)) {

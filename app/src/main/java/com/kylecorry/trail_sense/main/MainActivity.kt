@@ -83,6 +83,14 @@ class MainActivity : AndromedaActivity() {
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
+    private var statusBarInset = 0
+    /**
+     * True when the current screen is drawn under the status bar and so applies the top inset
+     * itself, rather than this activity applying it as a margin.
+     */
+    var extendsUnderStatusBar = false
+        private set
+
     private var appInitialized = false
     private var isOnboarding = false
 
@@ -176,6 +184,12 @@ class MainActivity : AndromedaActivity() {
 
         binding.bottomNavigation.menu.findItem(idToSelect)?.isChecked = true
 
+        extendsUnderStatusBar = userPrefs.extendToolsUnderStatusBar &&
+                selectedTool?.extendsUnderStatusBar(currentNavId ?: 0) == true
+        updateStatusBarInset()
+        // Screens that are already showing need to re-read whether they apply the inset
+        ViewCompat.requestApplyInsets(binding.root)
+
         lastKnownFragment = getFragment()?.javaClass?.simpleName
     }
 
@@ -211,14 +225,27 @@ class MainActivity : AndromedaActivity() {
             val insets =
                 windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
             val ime = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
+            statusBarInset = insets.top
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                topMargin = insets.top
                 leftMargin = insets.left
                 rightMargin = insets.right
                 // Push the bottom navigation below the keyboard
                 bottomMargin = (ime.bottom - binding.bottomNavigation.height).coerceAtLeast(0)
             }
+            updateStatusBarInset()
             windowInsets
+        }
+    }
+
+    // Tools that extend under the status bar handle the top inset themselves. The error banner
+    // stays clear of the status bar so it remains readable.
+    private fun updateStatusBarInset() {
+        val binding = _binding ?: return
+        binding.root.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            topMargin = if (extendsUnderStatusBar) 0 else statusBarInset
+        }
+        binding.errorBanner.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            topMargin = if (extendsUnderStatusBar) statusBarInset else 0
         }
     }
 

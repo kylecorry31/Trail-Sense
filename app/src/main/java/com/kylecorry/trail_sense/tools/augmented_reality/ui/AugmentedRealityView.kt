@@ -344,7 +344,7 @@ class AugmentedRealityView : CanvasView {
 
         @SuppressLint("SetTextI18n")
         val text = "$azimuthText   $directionText\n${altitudeText}"
-        drawText(text, width / 2f, drawer.dp(8f), drawer.sp(16f))
+        drawText(text, width / 2f, paddingTop + drawer.dp(8f), drawer.sp(16f))
     }
 
     private fun drawGuidance() {

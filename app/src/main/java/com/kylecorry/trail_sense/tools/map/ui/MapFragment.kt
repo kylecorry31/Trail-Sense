@@ -6,7 +6,9 @@ import android.view.View
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
+import androidx.constraintlayout.widget.Guideline
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.google.android.material.button.MaterialButton
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.coroutines.BackgroundMinimumState
@@ -30,6 +32,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.onTopInset
 import com.kylecorry.trail_sense.shared.extensions.useCoordinatePreference
 import com.kylecorry.trail_sense.shared.extensions.useDestroyEffect
 import com.kylecorry.trail_sense.shared.extensions.useFloatPreference
@@ -73,7 +76,15 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         val attributionView = useView<TextView>(R.id.map_attribution)
         val timeSheet = useView<DateTimeSliderSheet>(R.id.time_sheet)
         val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.sensor_status_badges)
+        val statusBarGuideline = useView<Guideline>(R.id.status_bar_guideline)
         val (mapTime, setMapTime) = useState<Instant?>(null)
+
+        useEffect(statusBarGuideline, mapView) {
+            mapView.onTopInset { top ->
+                statusBarGuideline.setGuidelineBegin(top)
+                mapView.updatePadding(top = top)
+            }
+        }
         val (hasTimeDependentLayers, setHasTimeDependentLayers) = useState(false)
 
         useEffect(timeButton, timeSheet, mapTime, hasTimeDependentLayers) {

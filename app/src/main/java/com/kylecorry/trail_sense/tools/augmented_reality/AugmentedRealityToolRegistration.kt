@@ -23,6 +23,7 @@ object AugmentedRealityToolRegistration : ToolRegistration {
             context.getString(R.string.augmented_reality_description),
             guideId = R.raw.guide_tool_augmented_reality,
             settingsNavAction = R.id.augmentedRealitySettingsFragment,
+            statusBarExtendedNavigationIds = listOf(R.id.augmentedRealityFragment),
             isAvailable = { SensorService(it).hasCompass() },
             volumeActions = listOf(
                 ToolVolumeAction(
