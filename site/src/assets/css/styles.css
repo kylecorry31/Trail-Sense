@@ -14,6 +14,7 @@
   --on-accent: #322f27; /* Natural Black */
   --topo-line: #d5bc93; /* Wood Carved */
   --topo-opacity: 0.28;
+  --fabric-rgb: 50 47 39; /* Natural Black, as the thread shadow */
   --link-line: #e8b25b; /* Fire Orange 2 */
   --link-thickness: 2px;
   --shadow-rgb: 50 47 39; /* Natural Black */
@@ -26,6 +27,10 @@
   --fire: #f9c182; /* Fire Orange */
   --fire-hover: #fedf8a; /* Fire Yellow */
   --tape: color-mix(in srgb, var(--fire-hover) 55%, #e4d6b0 ); /* masking tape: Fire Yellow warmed toward paper */
+  /* The tape is translucent, so the cloth and the edge of the print show through it, as if it is stuck down on both */
+  --tape-film: color-mix(in srgb, var(--tape) 72%, transparent);
+  /* Torn, slightly ragged ends */
+  --tape-ends: polygon(0 0, 100% 0, 98.5% 18%, 100% 36%, 98.5% 54%, 100% 72%, 98.5% 100%, 0 100%, 1.5% 82%, 0 64%, 1.5% 46%, 0 28%, 1.5% 10%);
   --on-fire: #322f27; /* Natural Black */
 
   /* Hero: colours from the book cover artwork */
@@ -41,6 +46,32 @@
 
   /* Paper grain over the page colour */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.196 0 0 0 0 0.184 0 0 0 0 0.153 0 0 0 0.45 -0.17'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E");
+
+  /* Backpack fabric: a fine plain weave with a ripstop grid of heavier threads, over a little fibre noise */
+  --fabric:
+    repeating-linear-gradient(0deg, rgb(var(--fabric-rgb) / 0.02) 0 2px, transparent 2px 24px),
+    repeating-linear-gradient(90deg, rgb(var(--fabric-rgb) / 0.02) 0 2px, transparent 2px 24px),
+    repeating-linear-gradient(0deg, rgb(var(--fabric-rgb) / 0.012) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgb(var(--fabric-rgb) / 0.012) 0 1px, transparent 1px 3px),
+    var(--grain);
+
+  /* A slightly stronger weave for the feature cards and buttons */
+  --weave-strong: repeating-linear-gradient(45deg, rgb(var(--fabric-rgb) / 0.045) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, rgb(var(--fabric-rgb) / 0.045) 0 1px, transparent 1px 3px);
+
+  /* The same fabric for the always-dark footer, in light thread */
+  --footer-fabric:
+    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.02) 0 2px, transparent 2px 24px),
+    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.02) 0 2px, transparent 2px 24px),
+    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.012) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.012) 0 1px, transparent 1px 3px);
+
+  /* Heavier cloth for the inside of the feature pockets, in light thread */
+  --lining:
+    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.05) 0 2px, transparent 2px 24px),
+    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.05) 0 2px, transparent 2px 24px),
+    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.035) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.035) 0 1px, transparent 1px 3px);
 
   /* Sewn patch cards: a woven fabric, a merrowed edge and a ring of stitching */
   --radius-card: 14px;
@@ -74,6 +105,7 @@
     --accent-text: #f9c182; /* Fire Orange */
     --topo-line: #c2b7a4; /* Metal 2 */
     --topo-opacity: 0.06;
+    --fabric-rgb: 245 239 219; /* Cloth, as the thread highlight */
     --link-line: currentColor;
     --link-thickness: 1px;
     --shadow-rgb: 15 14 12; /* Natural Black, much darker */
@@ -99,6 +131,7 @@
   --accent-text: #f9c182; /* Fire Orange */
   --topo-line: #c2b7a4; /* Metal 2 */
   --topo-opacity: 0.06;
+    --fabric-rgb: 245 239 219; /* Cloth, as the thread highlight */
   --link-line: currentColor;
   --link-thickness: 1px;
   --shadow-rgb: 15 14 12; /* Natural Black, much darker */
@@ -170,7 +203,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--grain), var(--bg);
+  background: var(--fabric), var(--bg);
   color: var(--text);
   font-family: var(--font);
   font-size: 17px;
@@ -306,7 +339,6 @@ h4 {
 
 .breadcrumb a:hover {
   color: var(--accent-text);
-  box-shadow: var(--card-shadow-hover);
 }
 
 /* BUTTONS */
@@ -320,7 +352,7 @@ h4 {
   padding: 12px 26px;
   border: 3px solid color-mix(in srgb, var(--accent) 60%, #322f27); /* Natural Black */
   border-radius: 12px;
-  background: var(--weave), var(--accent);
+  background: var(--weave-strong), var(--accent);
   color: var(--on-accent);
   font: inherit;
   font-weight: 600;
@@ -328,7 +360,7 @@ h4 {
   text-decoration: none;
   cursor: pointer;
   box-shadow: var(--card-shadow);
-  transition: background 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+  transition: background 140ms ease, box-shadow 140ms ease;
 }
 
 /* The stitching */
@@ -338,21 +370,26 @@ h4 {
   inset: 3px;
   border: 2px dashed color-mix(in srgb, var(--on-accent) 45%, transparent);
   border-radius: 7px;
+  transition: border-color 140ms ease;
   pointer-events: none;
 }
 
+/* Patches don't move: the fill brightens and the thread darkens, and pressing sinks the patch into the cloth */
 .btn:hover {
-  background: var(--weave), var(--accent-hover);
-  box-shadow: var(--card-shadow-hover);
+  background: var(--weave-strong), var(--accent-hover);
   text-decoration: none;
 }
 
+.btn:hover::after {
+  border-color: color-mix(in srgb, var(--on-accent) 85%, transparent);
+}
+
 .btn:active {
-  transform: translateY(1px);
+  box-shadow: inset 0 2px 5px rgb(var(--shadow-rgb) / 0.4);
 }
 
 .btn-secondary {
-  background: var(--weave), var(--surface);
+  background: var(--weave-strong), var(--surface);
   border-color: var(--patch-edge);
   color: var(--text);
 }
@@ -362,7 +399,11 @@ h4 {
 }
 
 .btn-secondary:hover {
-  background: var(--weave), var(--surface);
+  background: var(--weave-strong), color-mix(in srgb, var(--surface) 82%, var(--accent));
+}
+
+.btn-secondary:hover::after {
+  border-color: var(--accent-text);
 }
 
 .button-row {
@@ -376,23 +417,10 @@ h4 {
 .site-header {
   position: relative;
   z-index: 50;
-  /* The page's own colour and grain, so the bar looks like part of the page */
-  background: var(--grain), var(--bg);
   color: var(--text);
 }
 
-/* On the home page the bar is transparent and sits over the hero's sky */
-body:has(main > .hero:first-child) .site-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: none;
-  color: var(--text-on-sky);
-}
-
-/* The hero already shows the name and download links, so only the logo stays */
-body:has(main > .hero:first-child) .site-header .brand span,
+/* The hero already shows the download links */
 body:has(main > .hero:first-child) .nav-cta {
   display: none;
 }
@@ -455,7 +483,7 @@ body:has(main > .hero:first-child) .nav-cta {
   padding: 6px 16px;
   border: 2px solid color-mix(in srgb, var(--accent) 60%, #322f27); /* Natural Black */
   border-radius: 10px;
-  background: var(--weave), var(--accent);
+  background: var(--weave-strong), var(--accent);
   box-shadow: var(--card-shadow);
   outline: 1.5px dashed color-mix(in srgb, var(--on-accent) 45%, transparent);
   outline-offset: -5px;
@@ -465,13 +493,16 @@ body:has(main > .hero:first-child) .nav-cta {
   line-height: 1.3;
   text-decoration: none;
   white-space: nowrap;
-  transition: background 140ms ease, transform 140ms ease, box-shadow 140ms ease;
+  transition: background 140ms ease, outline-color 140ms ease, box-shadow 140ms ease;
 }
 
 .nav-cta:hover {
-  background: var(--weave), var(--accent-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--card-shadow-hover);
+  background: var(--weave-strong), var(--accent-hover);
+  outline-color: color-mix(in srgb, var(--on-accent) 85%, transparent);
+}
+
+.nav-cta:active {
+  box-shadow: inset 0 2px 5px rgb(var(--shadow-rgb) / 0.4);
 }
 
 .theme-toggle {
@@ -543,11 +574,16 @@ body:has(main > .hero:first-child) .nav-cta {
 
 /* HERO */
 
+/* A large patch sewn onto the page fabric, like the cards below */
 .hero {
   position: relative;
   overflow: hidden;
+  margin: 0 clamp(12px, 2.5vw, 32px);
+  border: 3px solid var(--patch-edge);
+  border-radius: var(--radius-card);
   background: var(--sky);
   color: var(--ink-text);
+  box-shadow: var(--card-shadow);
 }
 
 /* The sunrise scene from the book cover, over its flat sky. */
@@ -559,29 +595,31 @@ body:has(main > .hero:first-child) .nav-cta {
   background: url('/assets/images/hero-scene.webp') center bottom / auto 100% no-repeat;
 }
 
-/* A rocky path edge, in the page colour, along the bottom of the hero */
+/* The cloth weave over everything on the patch, with the stitching sewn all the way around */
 .hero::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  height: 20px;
-  background: var(--grain), var(--bg);
-  /* Never narrower than the tear's natural width, so phones crop it instead of squashing it */
-  mask: var(--paper-tear) center / max(100%, 1200px) 100% no-repeat;
+  inset: 0;
+  z-index: 2;
+  border-radius: calc(var(--radius-card) - 3px);
+  /* Dark threads show on the sky, light ones on the hills and text */
+  background:
+    repeating-linear-gradient(45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px),
+    var(--weave);
+  outline: 2px dashed color-mix(in srgb, var(--cover-cream) 85%, transparent);
+  outline-offset: -7px;
   pointer-events: none;
 }
 
 .hero-inner {
   position: relative;
-  z-index: 1;
   padding-bottom: 32px;
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: end;
   gap: 48px;
-  padding-top: 72px;
+  padding-top: 48px;
   min-height: 32vw;
 }
 
@@ -597,8 +635,14 @@ body:has(main > .hero:first-child) .nav-cta {
   line-height: 1.04;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--cover-cream);
   margin-bottom: 20px;
+  /* Satin-stitched lettering: rows of thread, raised off the cloth */
+  --thread: var(--cover-cream);
+  background: repeating-linear-gradient(62deg, var(--thread) 0 2px, color-mix(in srgb, var(--thread) 72%, #000) 2px 3px);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 1px rgb(0 0 0 / 0.4));
 }
 
 .hero-accent {
@@ -606,6 +650,9 @@ body:has(main > .hero:first-child) .nav-cta {
 }
 
 .hero .lede {
+  /* Above the weave overlay, so only the title carries the fabric look */
+  position: relative;
+  z-index: 3;
   font-size: 19px;
   line-height: 1.6;
   color: color-mix(in srgb, var(--ink-text) 88%, transparent);
@@ -623,11 +670,12 @@ body:has(main > .hero:first-child) .nav-cta {
 .store-badge {
   display: inline-block;
   line-height: 0;
-  transition: transform 140ms ease;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.4));
+  transition: filter 140ms ease;
 }
 
 .store-badge:hover {
-  transform: translateY(-2px);
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.4)) brightness(1.12);
 }
 
 .store-badge img {
@@ -642,13 +690,16 @@ body:has(main > .hero:first-child) .nav-cta {
   align-items: flex-start;
   gap: 20px;
   height: 540px;
-  overflow: hidden;
+  position: relative;
+  z-index: 3;
+  /* Cut off at the bottom only, so the shadows aren't clipped */
+  clip-path: inset(-80px -80px 0 -80px);
 }
 
 .hero-phones .phone {
   width: min(250px, 44%);
   flex: none;
-  box-shadow: 0 0 0 1.5px #77726a, inset 0 0 0 1px rgb(255 255 255 / 0.16);
+  box-shadow: 0 0 0 1.5px #77726a, inset 0 0 0 1px rgb(255 255 255 / 0.16), 0 10px 30px rgb(0 0 0 / 0.45);
 }
 
 .hero-phones .phone:nth-child(1) {
@@ -711,7 +762,7 @@ body:has(main > .hero:first-child) .nav-cta {
     grid-template-columns: 1fr;
     align-items: start;
     gap: 40px;
-    padding-top: 120px;
+    padding-top: 56px;
     min-height: 0;
   }
 
@@ -720,7 +771,7 @@ body:has(main > .hero:first-child) .nav-cta {
   }
 
   .hero h1 {
-    color: var(--text-on-sky);
+    --thread: var(--text-on-sky);
   }
 
   .hero .lede {
@@ -816,19 +867,13 @@ body:has(main > .hero:first-child) .nav-cta {
   display: flex;
   flex-direction: column;
   position: relative;
-  background: var(--weave), var(--surface);
+  background: var(--weave-strong), var(--surface);
   border: 3px solid var(--patch-edge);
   border-radius: var(--radius-card);
   box-shadow: var(--card-shadow);
   overflow: hidden;
   color: inherit;
   text-decoration: none;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--card-shadow-hover);
 }
 
 /* The stitching */
@@ -837,6 +882,7 @@ body:has(main > .hero:first-child) .nav-cta {
   content: "";
   position: absolute;
   inset: 5px;
+  z-index: 2;
   border: 2px dashed var(--patch-thread);
   border-radius: calc(var(--radius-card) - 6px);
   pointer-events: none;
@@ -845,14 +891,14 @@ body:has(main > .hero:first-child) .nav-cta {
 .feature-shot {
   display: flex;
   justify-content: center;
-  height: 300px;
+  /* The pocket covers the bottom 26px, so the area above it stays 297px tall as it was originally */
+  height: 323px;
   padding-top: 28px;
   overflow: hidden;
   position: relative;
   isolation: isolate;
-  /* Set apart from the card, with a seam below to set it apart from the text */
-  background: var(--shot-bg);
-  border-bottom: 3px solid var(--shot-seam);
+  /* The inside of the pack, which the phone sits in */
+  background: var(--lining), var(--shot-bg);
 }
 
 .feature-shot::before {
@@ -911,6 +957,16 @@ body:has(main > .hero:first-child) .nav-cta {
     0 -8px 40px rgb(var(--shadow-rgb) / 0.45);
 }
 
+/* The phone slides up out of the pocket */
+.feature-shot .phone {
+  transition: transform 220ms ease;
+}
+
+.feature-card:hover .feature-shot .phone,
+.feature-card:focus-visible .feature-shot .phone {
+  transform: translateY(-20px);
+}
+
 .feature-shot .phone img {
   border-radius: calc(var(--corner) - var(--bezel)) calc(var(--corner) - var(--bezel)) 0 0;
 }
@@ -920,8 +976,21 @@ body:has(main > .hero:first-child) .nav-cta {
   border-radius: calc(var(--corner) - var(--bezel)) calc(var(--corner) - var(--bezel)) 0 0;
 }
 
+/* The pocket's front panel, flush with the card and overlapping the bottom of the phone */
 .feature-body {
+  position: relative;
+  z-index: 1;
+  /* Fills the card, so a shorter pocket doesn't leave its shadow showing below it */
+  flex: 1;
+  margin-top: -26px;
   padding: 24px;
+  /* A folded hem along the top of the pocket */
+  background:
+    linear-gradient(rgb(var(--shadow-rgb) / 0.12), rgb(var(--shadow-rgb) / 0.03) 12px, transparent 14px),
+    var(--weave-strong),
+    var(--surface);
+  border-top: 3px solid var(--patch-edge);
+  box-shadow: 0 -3px 8px rgb(var(--shadow-rgb) / 0.4);
 }
 
 .feature-body h3 {
@@ -1092,12 +1161,19 @@ body:has(main > .hero:first-child) .nav-cta {
   box-shadow: var(--card-shadow);
   color: inherit;
   text-decoration: none;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  transition: background 160ms ease;
 }
 
 a.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--card-shadow-hover);
+  background: var(--weave), color-mix(in srgb, var(--surface) 88%, var(--accent));
+}
+
+.card::after {
+  transition: border-color 160ms ease;
+}
+
+a.card:hover::after {
+  border-color: var(--accent-text);
 }
 
 .card h3 {
@@ -1272,13 +1348,14 @@ a.card:hover {
   content: "";
   position: absolute;
   z-index: 1;
-  top: -15px;
+  top: -11px;
   left: 50%;
   width: 78px;
   height: 22px;
   margin-left: -39px;
-  background: var(--tape);
-  box-shadow: 0 1px 2px rgb(var(--shadow-rgb) / 0.18);
+  background: var(--fabric), var(--tape-film);
+  clip-path: var(--tape-ends);
+  filter: drop-shadow(0 1px 1px rgb(var(--shadow-rgb) / 0.25));
   transform: rotate(-2deg);
   pointer-events: none;
 }
@@ -1512,7 +1589,7 @@ td:first-child {
   position: relative;
   /* The treeline is 150px tall and rises into this gap */
   margin-top: 96px;
-  background: var(--footer-bg);
+  background: var(--footer-fabric), var(--footer-bg);
   border-top: 1px solid var(--ink-line);
   color: var(--ink-text);
   padding: 56px 0;
@@ -1526,7 +1603,8 @@ td:first-child {
   right: 0;
   bottom: 100%;
   height: 150px;
-  background: var(--footer-bg);
+  /* Shifted so the ripstop grid lines up with the footer's, which restarts at the footer's top edge */
+  background: var(--footer-fabric) 0 6px, var(--footer-bg);
   -webkit-mask: url('/assets/images/treeline.webp') left bottom / auto 100% repeat-x;
   mask: url('/assets/images/treeline.webp') left bottom / auto 100% repeat-x;
   pointer-events: none;
@@ -1637,8 +1715,9 @@ td:first-child {
   margin-left: -39px;
   width: 78px;
   height: 22px;
-  background: var(--tape);
-  box-shadow: 0 1px 2px rgb(var(--shadow-rgb) / 0.18);
+  background: var(--fabric), var(--tape-film);
+  clip-path: var(--tape-ends);
+  filter: drop-shadow(0 1px 1px rgb(var(--shadow-rgb) / 0.25));
   transform: rotate(-2.5deg);
   pointer-events: none;
 }
@@ -1677,9 +1756,8 @@ td:first-child {
     padding: 48px 0 96px;
   }
 
+  /* Taped to the page, so it scrolls with the page rather than staying put on screen */
   .toc details {
-    position: sticky;
-    top: 96px;
     padding: 22px 18px 14px;
   }
 
@@ -1731,7 +1809,7 @@ td:first-child {
   box-shadow: var(--card-shadow);
   color: inherit;
   text-decoration: none;
-  transition: color 140ms ease, box-shadow 140ms ease;
+  transition: color 140ms ease, background 140ms ease;
 }
 
 .release-list a::after {
@@ -1740,12 +1818,17 @@ td:first-child {
   inset: 3px;
   border: 2px dashed var(--patch-thread);
   border-radius: 7px;
+  transition: border-color 140ms ease;
   pointer-events: none;
 }
 
 .release-list a:hover {
   color: var(--accent-text);
-  box-shadow: var(--card-shadow-hover);
+  background: var(--weave), color-mix(in srgb, var(--surface) 88%, var(--accent));
+}
+
+.release-list a:hover::after {
+  border-color: var(--accent-text);
 }
 
 .release-version {
@@ -1793,4 +1876,145 @@ td:first-child {
 .chapter-next {
   grid-column: 2;
   text-align: right;
+}
+
+/* RESOURCES: a row of books, each a link */
+
+.shelf {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.shelf-item p {
+  margin: 14px 0 0;
+  color: color-mix(in srgb, var(--text) 80%, transparent);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cover {
+  --cover-bg: var(--ink);
+  --cover-text: var(--cover-cream);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 393 / 600;
+  padding: 12% 10% 12% 14%;
+  text-align: center;
+  border-radius: 2px 5px 5px 2px;
+  background: var(--cover-bg);
+  color: var(--cover-text);
+  text-decoration: none;
+  /* The page edges are offset down and right for perspective, as on the real book */
+  box-shadow:
+    1px 1px 0 #f3eddb,
+    0px 1px 0 #3a3226,
+    2px 2px 0 #cfc5ac,
+    1px 2px 0 #3a3226,
+    3px 3px 0 #f3eddb,
+    2px 3px 0 #3a3226,
+    4px 4px 0 #cfc5ac,
+    3px 4px 0 #3a3226,
+    8px 10px 18px rgb(var(--shadow-rgb) / 0.35);
+  transition: transform 160ms ease;
+}
+
+.cover:hover {
+  transform: translateY(-6px);
+  text-decoration: none;
+}
+
+/* An icon from the app above the title, drawn in the cover's text colour */
+.cover-icon {
+  width: 36%;
+  aspect-ratio: 1;
+  margin-bottom: 12%;
+  background: currentColor;
+  -webkit-mask: var(--cover-icon) center / contain no-repeat;
+  mask: var(--cover-icon) center / contain no-repeat;
+  opacity: 0.9;
+}
+
+.cover-title {
+  font-family: "National Park", var(--font);
+  font-size: clamp(15px, 1.7vw, 20px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+/* A soft hinge along the spine */
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6%;
+  border-radius: 2px 0 0 2px;
+  background: linear-gradient(90deg, rgb(0 0 0 / 0.2), rgb(255 255 255 / 0.04) 65%, transparent);
+  pointer-events: none;
+}
+
+/* A line at the foot, where the real cover has its author */
+.cover:not(.cover-book)::after {
+  content: "Trail Sense";
+  position: absolute;
+  bottom: 7%;
+  left: 0;
+  right: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.cover-guide {
+  --cover-icon: url('/assets/images/icons/user-guide.svg');
+  --cover-bg: #a67a6e; /* Meat */
+  --cover-text: #322f27; /* Natural Black */
+}
+
+.cover-maps {
+  --cover-icon: url('/assets/images/icons/maps.svg');
+  --cover-bg: #807b52; /* Natural Green-Brown */
+}
+
+.cover-dem {
+  --cover-icon: url('/assets/images/icons/altitude.svg');
+  --cover-bg: #776343; /* Wood Bark 1 */
+}
+
+.cover-notes {
+  --cover-icon: url('/assets/images/icons/update.svg');
+  --cover-bg: #9b9283; /* Rock */
+  --cover-text: #322f27; /* Natural Black */
+}
+
+.cover-book {
+  padding: 0;
+}
+
+.cover-book img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
+@media (max-width: 960px) {
+  .shelf {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .shelf {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
