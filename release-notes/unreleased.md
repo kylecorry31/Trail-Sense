@@ -124,6 +124,7 @@ A new GPS smoothing setting was added which will run new GPS readings through a 
 - Improved map tile loading and caching, and failed tiles are now retried
 - Reduced update frequency on the Navigation, Flashlight, and White Noise tools to save battery
 - Reordered and grouped some settings to make them easier to scan
+- The Map, Augmented Reality, Magnifier, Mirror Camera, and Screen Flashlight tools now extend under the status bar. You can turn this off with the new 'Extend tools under the status bar' theme setting
 - Fixed the radar compass sometimes showing a distance of 0
 - Fixed the battery charging indicator not updating
 - Added the percent of time the device was in deep sleep to the Battery tool
