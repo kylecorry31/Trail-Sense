@@ -642,7 +642,7 @@ body:has(main > .hero:first-child) .nav-cta {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 2px 1px rgb(0 0 0 / 0.4));
+  filter: drop-shadow(0 1px 0 rgb(0 0 0 / 0.22));
 }
 
 .hero-accent {
