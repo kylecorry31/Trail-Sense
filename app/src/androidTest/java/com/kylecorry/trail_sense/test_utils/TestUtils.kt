@@ -193,9 +193,13 @@ object TestUtils {
     }
 
     fun finishCurrentActivity() {
+        // MainActivity is stopped when another app (ex. system settings) is on top. Its task still
+        // needs to be removed, otherwise the system removes it later and kills the next test's process.
         InstrumentationRegistry.getInstrumentation().runOnMainSync {
-            ActivityLifecycleMonitorRegistry.getInstance()
-                .getActivitiesInStage(Stage.RESUMED)
+            val monitor = ActivityLifecycleMonitorRegistry.getInstance()
+            Stage.entries
+                .filter { it != Stage.DESTROYED }
+                .flatMap { monitor.getActivitiesInStage(it) }
                 .filterIsInstance<MainActivity>()
                 .firstOrNull()
                 ?.finishAndRemoveTask()
