@@ -1127,8 +1127,8 @@ body:has(main > .hero:first-child) .nav-cta {
   border-top: 2px dashed var(--patch-thread);
 }
 
-.book-page .legal {
-  margin-top: 24px;
+.book-page .license {
+  margin: 12px 0 0;
 }
 
 @media (max-width: 760px) {
