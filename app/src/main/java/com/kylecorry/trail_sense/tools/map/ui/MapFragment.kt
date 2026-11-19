@@ -7,6 +7,7 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSLocationSource
 import com.kylecorry.trail_sense.shared.views.LocationDataPointView
 import android.widget.TextView
 import androidx.constraintlayout.widget.Guideline
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import com.google.android.material.button.MaterialButton
@@ -288,15 +289,22 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         }
 
         val traceViews =
-            useMemo(zoomInButton, zoomOutButton, timeButton, menuButton, sensorStatusBadges, hasTimeDependentLayers) {
+            useMemo(timeButton, menuButton, sensorStatusBadges, hasTimeDependentLayers) {
                 listOfNotNull(
-                    zoomInButton,
-                    zoomOutButton,
                     if (hasTimeDependentLayers) timeButton else null,
                     menuButton,
                     sensorStatusBadges
                 )
             }
+
+        val zoomButtonsVisible = useMemo(prefs, lockMode) {
+            prefs.map.showZoomButtons && lockMode != MapLockMode.Trace
+        }
+
+        useEffect(zoomInButton, zoomOutButton, zoomButtonsVisible) {
+            zoomInButton.isGone = !zoomButtonsVisible
+            zoomOutButton.isGone = !zoomButtonsVisible
+        }
 
         useEffect(lockMode, mapView, lockButton, traceViews, screenLight, context, resetOnResume) {
             switchMapLockMode(lockMode, mapView, lockButton, traceViews, screenLight, context)

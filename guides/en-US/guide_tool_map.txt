@@ -92,6 +92,7 @@ The following settings are in **Settings > Map**:
 - **Show on lock screen while open**: Keeps the Map tool visible over your lock screen while it is open.
 - **Remember map state**: Restores the map position, zoom, and GPS lock mode the next time you open the Map tool.
 - **High detail mode**: Loads more tiles for higher quality. Use this if the tiles look blurry. It uses more memory and loads more slowly.
+- **Show zoom buttons**: Shows the zoom in and out buttons on the map. You can always zoom by pinching.
 
 ## Widgets
 You can place the following widgets on your device's home screen or view them in the app:
