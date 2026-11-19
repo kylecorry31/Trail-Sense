@@ -12,12 +12,12 @@
   --paper-code: #eae1b6; /* Sand Wet */
 
   /* The boards of the notice board: four boards of grain and seams, each 160px tall, in a tile that repeats without a visible seam. Painted areas blend the same boards over their paint (light marks for dark paint, dark marks for light paint), offset by --wood-y (set by script) so the boards continue behind them. */
-  --wood-paint-dark-image: url("/assets/images/wood-paint-dark.webp");
-  --wood-paint-light-image: url("/assets/images/wood-paint-light.webp");
-  --wood-image: url("/assets/images/wood.webp");
+  --wood-paint-dark-image: url('/assets/images/wood-paint-dark.webp');
+  --wood-paint-light-image: url('/assets/images/wood-paint-light.webp');
+  --wood-image: url('/assets/images/wood.webp');
   --wood: var(--wood-image) 0 -2px / 1434px 640px;
   --wood-dim: linear-gradient(transparent, transparent);
-  --paint-edge: url("/assets/images/paint-edge.webp");
+  --paint-edge: url('/assets/images/paint-edge.webp');
   --wood-base: #c8b18a; /* Wood Carved, slightly darker */
   --hero-dim: linear-gradient(transparent, transparent);
   --sticker: #f8f3e3; /* white vinyl */
