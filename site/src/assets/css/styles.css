@@ -1112,8 +1112,6 @@ body:has(main > .hero:first-child) .nav-cta {
 
 .book-page .book-cover {
   transform: none;
-  position: sticky;
-  top: 96px;
 }
 
 .book-page h1 {
@@ -1139,7 +1137,6 @@ body:has(main > .hero:first-child) .nav-cta {
 
   .book-page .book-cover {
     max-width: 200px;
-    position: static;
   }
 }
 
