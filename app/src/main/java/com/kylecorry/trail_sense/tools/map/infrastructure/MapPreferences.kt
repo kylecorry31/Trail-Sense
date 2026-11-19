@@ -24,4 +24,10 @@ class MapPreferences(context: Context) : PreferenceRepo(context) {
         context.getString(R.string.pref_map_high_detail_mode),
         false
     )
+
+    val showZoomButtons by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_zoom_buttons),
+        true
+    )
 }

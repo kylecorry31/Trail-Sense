@@ -28,6 +28,13 @@
             app:key="@string/pref_map_high_detail_mode"
             app:singleLineTitle="false" />
 
+        <SwitchPreferenceCompat
+            android:title="@string/pref_show_zoom_buttons_title"
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_zoom_buttons"
+            app:singleLineTitle="false" />
+
         <Preference
             app:iconSpaceReserved="false"
             app:key="@string/pref_map_layer_button"

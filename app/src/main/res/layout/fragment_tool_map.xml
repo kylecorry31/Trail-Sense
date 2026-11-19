@@ -68,6 +68,7 @@
         app:icon="@drawable/ic_tool_clock"
         app:layout_constraintBottom_toTopOf="@+id/zoom_in_btn"
         app:layout_constraintStart_toStartOf="@+id/zoom_in_btn"
+        app:layout_goneMarginBottom="16dp"
         app:toggleCheckedStateOnClick="false"
         tools:visibility="visible" />
 
