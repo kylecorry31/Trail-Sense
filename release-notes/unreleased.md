@@ -121,6 +121,7 @@ A new GPS smoothing setting was added which will run new GPS readings through a 
 
 - Added a compass update frequency setting to the compass calibration settings so you can lower it to reduce power use
 - Added a confirmation before deleting a packing list item
+- Added a setting to hide the Map tool's zoom buttons (thanks to @Lil-Clanky for the contribution)
 - Improved map tile loading and caching, and failed tiles are now retried
 - Reduced update frequency on the Navigation, Flashlight, and White Noise tools to save battery
 - Reordered and grouped some settings to make them easier to scan
