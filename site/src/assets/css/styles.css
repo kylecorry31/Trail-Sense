@@ -239,7 +239,7 @@ h4 {
 }
 
 .prose-wrap {
-  max-width: 880px;
+  max-width: 1000px;
   padding-top: 48px;
   padding-bottom: 96px;
 }
@@ -1066,6 +1066,11 @@ body:has(main > .hero:first-child) .site-header {
   pointer-events: none;
 }
 
+/* Release note screenshots have content right at the edge, so the tape hangs mostly above them */
+.prose-wrap:has(a[href$="/release-notes/"]) .taped::before {
+  top: -15px;
+}
+
 /* Scaled-down images have content right at the edge, so the tape mostly hangs above it */
 @media (max-width: 600px) {
   .taped::before {
@@ -1398,7 +1403,7 @@ td:first-child {
 }
 
 /* Wide screens have room beside the text, so the contents follow the reader down the page */
-@media (min-width: 1360px) {
+@media (min-width: 1500px) {
   .prose-wrap {
     position: relative;
   }
@@ -1765,7 +1770,7 @@ a.brochure-box:focus-visible {
 }
 
 .sheet-wrap {
-  max-width: 880px;
+  max-width: 1000px;
   padding-top: 48px;
   padding-bottom: 96px;
 }
