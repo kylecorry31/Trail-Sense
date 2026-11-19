@@ -3,21 +3,25 @@ title: "Release Notes"
 description: "What changed in each version of Trail Sense."
 ---
 {{{includes.header}}}
-<section class="wrap page-head">
-  <h1>Release Notes</h1>
-  <p>What changed in each version of Trail Sense.</p>
-</section>
+<div class="wrap sheet-wrap">
+  <div class="sheet">
+    <header class="sheet-head">
+      <h1>Release Notes</h1>
+      <p>What changed in each version of Trail Sense.</p>
+    </header>
 
-<section class="wrap guide-list">
-  <ul class="release-list">
-    {{#collections.release-notes.items}}
-    <li>
-      <a href="{{ url }}">
-        <span class="release-version">{{ title }}</span>
-        <time datetime="{{ date }}">{{ date_display }}</time>
-      </a>
-    </li>
-    {{/collections.release-notes.items}}
-  </ul>
-</section>
+    <h2 class="contents-label">Versions</h2>
+    <ul class="contents contents-dated">
+      {{#collections.release-notes.items}}
+      <li>
+        <a href="{{ url }}">
+          <span>{{ title }}</span>
+          <time datetime="{{ date }}">{{ date_display }}</time>
+        </a>
+      </li>
+      {{/collections.release-notes.items}}
+    </ul>
+    <div class="sheet-foot"></div>
+  </div>
+</div>
 {{{includes.footer}}}

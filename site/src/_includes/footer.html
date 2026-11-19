@@ -2,7 +2,7 @@
   <script>
     // The table of contents sits beside the page on wide screens, where it should start expanded
     var toc = document.querySelector(".toc details");
-    if (toc && window.matchMedia("(min-width: 1280px)").matches) {
+    if (toc && window.matchMedia("(min-width: 1360px)").matches) {
       toc.open = true;
     }
   </script>
@@ -15,7 +15,21 @@
       wrap.appendChild(img);
     });
   </script>
-  <footer class="site-footer">
+  <script>
+    // Painted artwork continues the wood boards behind it, so each piece is told how far down the page it starts
+    (function () {
+      function alignWood() {
+        document.querySelectorAll("[data-wood]").forEach(function (el) {
+          var top = el.getBoundingClientRect().top + window.scrollY + Number(el.dataset.wood || 0);
+          el.style.setProperty("--wood-y", top + "px");
+        });
+      }
+      alignWood();
+      window.addEventListener("load", alignWood);
+      new ResizeObserver(alignWood).observe(document.body);
+    })();
+  </script>
+  <footer class="site-footer" data-wood="-150">
     <div class="wrap footer-grid">
       <div class="footer-brand">
         <a href="/" class="brand">
@@ -23,11 +37,12 @@
           <span>{{ title }}</span>
         </a>
         <p>An offline multi-tool Android app for hiking, backpacking, camping, wilderness survival, foraging, and hunting.</p>
+        <p class="credit">Built and maintained by <a href="https://github.com/kylecorry31" target="_blank" rel="noopener">Kyle Corry</a>. Open source under the MIT License.</p>
       </div>
       <nav aria-label="Explore">
         <h2>Explore</h2>
         <a href="/user-guide/">User Guide</a>
-        <a href="/book.html">Wilderness Survival Guide Book</a>
+        <a href="/survival-guide/">Wilderness Survival Guide</a>
         <a href="/offline_maps.html">Maps</a>
         <a href="/dem.html">DEM</a>
         <a href="/release-notes/">Release Notes</a>
@@ -40,9 +55,6 @@
         <a href="/terms.html">Terms and License</a>
         <a href="mailto:trailsense@protonmail.com">Contact</a>
       </nav>
-    </div>
-    <div class="wrap footer-bottom">
-      <span>Built and maintained by <a href="https://github.com/kylecorry31" target="_blank" rel="noopener">Kyle Corry</a>. Open source under the MIT License.</span>
     </div>
   </footer>
 </body>

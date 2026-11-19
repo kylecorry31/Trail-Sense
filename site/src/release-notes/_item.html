@@ -1,9 +1,11 @@
 {{{includes.header}}}
 <article class="wrap prose-wrap">
+  <div class="sheet">
   <p class="breadcrumb"><a href="/release-notes/">Release Notes</a></p>
   <h1 class="page-title">Trail Sense {{ item.title }}</h1>
   {{#item.date_display}}
-  <p class="muted release-date"><time datetime="{{ item.date }}">{{ item.date_display }}</time></p>
+  <p class="muted release-date"><time datetime="{{ item.date }}">{{ item.date_display }}</time> &middot;
+    <a href="https://github.com/kylecorry31/Trail-Sense/releases/tag/{{ item.tag }}" target="_blank" rel="noopener">View on GitHub</a></p>
   {{/item.date_display}}
   {{#item.toc}}
   <aside class="toc">
@@ -19,6 +21,8 @@
   {{/item.toc}}
   <div class="prose">
     {{{ item.content }}}
+  </div>
+  <div class="sheet-foot"></div>
   </div>
 </article>
 {{{includes.footer}}}

@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ page.description }}" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#322f27" />
+  <meta name="theme-color" content="#efe8d2" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#8d8979" media="(prefers-color-scheme: dark)" />
   <title>{{ page.title }}</title>
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Trail Sense" />
@@ -33,7 +34,7 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <a href="/" class="brand" aria-label="{{ title }} home">
-        <img src="/assets/images/logo.png" alt="" width="28" height="28" />
+        <img src="/assets/images/logo-burned.svg" alt="" width="28" height="28" />
         <span>{{ title }}</span>
       </a>
       <nav class="site-nav" aria-label="Main">
@@ -43,7 +44,6 @@
         <a href="https://github.com/kylecorry31/Trail-Sense" target="_blank" rel="noopener">GitHub</a>
       </nav>
       <div class="header-actions">
-        <a href="/#download" class="nav-cta">Download</a>
         <button type="button" class="theme-toggle" id="theme-toggle" hidden>
         <svg class="icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

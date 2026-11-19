@@ -1,21 +1,24 @@
 {{{includes.header}}}
 <article class="wrap prose-wrap">
-  <p class="breadcrumb"><a href="/user-guide/">User Guide</a></p>
-  <h1 class="page-title">{{ item.title }}</h1>
-  {{#item.toc}}
-  <aside class="toc">
-    <details>
-      <summary>On this page</summary>
-      <ul>
-        {{#sections}}
-        <li><a href="#{{ id }}">{{{ name }}}</a></li>
-        {{/sections}}
-      </ul>
-    </details>
-  </aside>
-  {{/item.toc}}
-  <div class="prose">
-    {{{ item.content }}}
+  <div class="sheet">
+    <p class="breadcrumb"><a href="/user-guide/">User Guide</a></p>
+    <h1 class="page-title">{{ item.title }}</h1>
+    {{#item.toc}}
+    <aside class="toc">
+      <details>
+        <summary>On this page</summary>
+        <ul>
+          {{#sections}}
+          <li><a href="#{{ id }}">{{{ name }}}</a></li>
+          {{/sections}}
+        </ul>
+      </details>
+    </aside>
+    {{/item.toc}}
+    <div class="prose">
+      {{{ item.content }}}
+    </div>
+    <div class="sheet-foot"></div>
   </div>
 </article>
 {{{includes.footer}}}

@@ -7,7 +7,7 @@ it, in the same font and colors as the website's hero.
 Requires: Pillow built with FreeType WOFF2 support. If optipng is installed, it is used to shrink
 the output.
 
-Usage: python3 scripts/generate_site_social_preview.py [--social-output PATH] [--feature-output PATH]
+Usage: python3 scripts/site_art/generate_social_preview.py [--social-output PATH] [--feature-output PATH]
 """
 
 import argparse
@@ -17,7 +17,7 @@ import subprocess
 
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = os.path.join(os.path.dirname(__file__), "..")
+ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
 SITE_ASSETS_DIR = os.path.join(ROOT, "site", "src", "assets")
 SCENE = os.path.join(SITE_ASSETS_DIR, "images", "hero-scene.webp")
 NAME_FONT = os.path.join(SITE_ASSETS_DIR, "fonts", "NationalPark-ExtraBold.woff2")

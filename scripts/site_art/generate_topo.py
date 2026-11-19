@@ -5,7 +5,7 @@ highest point near the given location (Mount Washington by default).
 
 Requires: numpy, matplotlib, Pillow
 
-Usage: python3 scripts/generate_site_topo.py [--lat 44.2706] [--lon -71.3033] [--output PATH]
+Usage: python3 scripts/site_art/generate_topo.py [--lat 44.2706] [--lon -71.3033] [--output PATH]
 """
 
 import argparse
@@ -27,7 +27,7 @@ TILE_SIZE = 256
 TILE_RADIUS = 2
 
 DEFAULT_OUTPUT = os.path.join(
-    os.path.dirname(__file__), "..", "site", "src", "assets", "images", "topo.svg"
+    os.path.dirname(__file__), "..", "..", "site", "src", "assets", "images", "topo.svg"
 )
 
 

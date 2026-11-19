@@ -43,20 +43,26 @@ fun TestView.longClick(): TestView {
 }
 
 fun TestView.input(text: String, checkDescendants: Boolean = false): TestView {
-    if (!checkDescendants) {
-        uiObject.text = text
+    val field = if (!checkDescendants) {
+        uiObject
     } else {
-        val child = getMatchingChild(uiObject) {
+        getMatchingChild(uiObject) {
             it.className == "android.widget.EditText"
             // TODO: See if this can be exposed
 //                    it.getAccessibilityNodeInfo().isEditable
         }
+    }
 
-        // The text field may not be in the view hierarchy yet, so fail and let the caller retry
-        if (child == null) {
-            throw AssertionError("No text field found in $uiObject")
-        }
-        child.text = text
+    // The text field may not be in the view hierarchy yet, so fail and let the caller retry
+    if (field == null) {
+        throw AssertionError("No text field found in $uiObject")
+    }
+    field.text = text
+
+    // Setting the text only logs a warning when it fails (ex. while the view is still being laid out).
+    // An empty field reports no text, so clearing it can't be checked this way.
+    if (text.isNotEmpty() && field.text != text) {
+        throw AssertionError("Unable to set the text of $uiObject to $text")
     }
     return this
 }

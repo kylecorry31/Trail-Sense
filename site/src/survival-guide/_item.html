@@ -1,5 +1,6 @@
 {{{includes.header}}}
 <article class="wrap prose-wrap">
+  <div class="sheet">
   <p class="breadcrumb"><a href="/survival-guide/">Survival Guide</a></p>
   <h1 class="page-title">{{ item.title }}</h1>
   {{#item.toc}}
@@ -19,11 +20,13 @@
   </div>
   <nav class="chapter-nav" aria-label="Chapters">
     {{#item.previous}}
-    <a class="btn btn-secondary chapter-previous" href="{{ url }}"><span>Previous</span>{{ title }}</a>
+    <a class="btn btn-secondary" href="{{ url }}"><span>Previous</span>{{ title }}</a>
     {{/item.previous}}
     {{#item.next}}
     <a class="btn btn-secondary chapter-next" href="{{ url }}"><span>Next</span>{{ title }}</a>
     {{/item.next}}
   </nav>
+  <div class="sheet-foot"></div>
+  </div>
 </article>
 {{{includes.footer}}}

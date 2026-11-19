@@ -4,17 +4,31 @@
 :root {
   --bg: #f5efdb; /* Cloth */
   --surface: #f4f4e6; /* Wood Bark 2 */
+  --paper: color-mix(in srgb, var(--surface) 55%, white);
+  /* Paper is pale in both themes, so what is printed on it keeps the light theme's ink */
+  --paper-text: #322f27; /* Natural Black */
+  --paper-muted: #776343; /* Wood Bark 1 */
+  --paper-accent: hsl(23 77% 32%); /* Fire Red, darker */
+  --paper-code: #eae1b6; /* Sand Wet */
+
+  /* The boards of the notice board: four boards of grain and seams, each 160px tall, in a tile that repeats without a visible seam. Painted areas blend the same boards over their paint (light marks for dark paint, dark marks for light paint), offset by --wood-y (set by script) so the boards continue behind them. */
+  --wood-paint-dark-image: url("/assets/images/wood-paint-dark.webp");
+  --wood-paint-light-image: url("/assets/images/wood-paint-light.webp");
+  --wood-image: url("/assets/images/wood.webp");
+  --wood: var(--wood-image) 0 -2px / 1434px 640px;
+  --wood-dim: linear-gradient(transparent, transparent);
+  --paint-edge: url("/assets/images/paint-edge.webp");
+  --wood-base: #c8b18a; /* Wood Carved, slightly darker */
+  --hero-dim: linear-gradient(transparent, transparent);
+  --sticker: #f8f3e3; /* white vinyl */
+  --sticker-brightness: 1;
+  --sticker-gloss: linear-gradient(115deg, transparent 18%, rgb(255 255 255 / 0.09) 28%, rgb(255 255 255 / 0.03) 36%, transparent 37%, transparent 44%, rgb(255 255 255 / 0.04) 50%, transparent 56%);
   --surface-2: #eae1b6; /* Sand Wet */
   --text: #322f27; /* Natural Black */
   --muted: #776343; /* Wood Bark 1 */
-  --line: #d5bc93; /* Wood Carved */
   --accent: #e8b25b; /* Fire Orange 2 */
-  --accent-hover: #f9c182; /* Fire Orange */
   --accent-text: hsl(23 77% 32%); /* Fire Red, darker */
   --on-accent: #322f27; /* Natural Black */
-  --topo-line: #d5bc93; /* Wood Carved */
-  --topo-opacity: 0.28;
-  --fabric-rgb: 50 47 39; /* Natural Black, as the thread shadow */
   --link-line: #e8b25b; /* Fire Orange 2 */
   --link-thickness: 2px;
   --shadow-rgb: 50 47 39; /* Natural Black */
@@ -27,67 +41,28 @@
   --fire: #f9c182; /* Fire Orange */
   --fire-hover: #fedf8a; /* Fire Yellow */
   --tape: color-mix(in srgb, var(--fire-hover) 55%, #e4d6b0 ); /* masking tape: Fire Yellow warmed toward paper */
-  /* The tape is translucent, so the cloth and the edge of the print show through it, as if it is stuck down on both */
+  /* The tape is translucent, so the edge of the print shows through it, as if it is stuck down on both */
   --tape-film: color-mix(in srgb, var(--tape) 72%, transparent);
   /* Torn, slightly ragged ends */
   --tape-ends: polygon(0 0, 100% 0, 98.5% 18%, 100% 36%, 98.5% 54%, 100% 72%, 98.5% 100%, 0 100%, 1.5% 82%, 0 64%, 1.5% 46%, 0 28%, 1.5% 10%);
-  --on-fire: #322f27; /* Natural Black */
 
   /* Hero: colours from the book cover artwork */
   --sky: #ffc775;
   --text-on-sky: #392f1e;
   --cover-cream: #ffe5c0;
 
-  /* Rocky path edge: the shape fills below a rugged line, and the flipped one above it */
 
-  /* A finer, torn paper version of the edge */
-  --paper-tear: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 28' preserveAspectRatio='none'%3E%3Cpath d='M0 28L0 16.5L7 14.4L11 16.6L17 14.7L19 15.4L27 13.3L30 12.3L37 11.9L42 11.6L46 12.1L50 13.0L57 16.4L62 15.2L65 12.2L68 14.1L74 15.2L76 14.2L82 18.2L84 17.2L87 18.0L90 18.4L96 16.9L102 16.0L109 16.2L112 14.3L117 16.1L119 11.7L125 12.5L128 12.7L136 11.3L143 15.6L150 12.7L152 14.3L156 17.4L161 22.5L164 16.1L167 13.9L170 15.2L173 15.2L178 22.6L181 18.7L185 16.7L191 17.9L193 16.8L199 20.2L202 17.5L209 20.3L213 17.9L220 18.6L226 16.4L231 19.0L236 17.5L243 17.7L251 11.1L255 9.6L257 8.9L264 13.2L270 12.7L274 16.3L280 15.8L287 12.7L290 11.8L295 13.9L301 12.4L304 14.7L312 14.6L317 18.8L321 17.0L324 11.0L330 12.8L334 12.3L337 12.7L344 11.8L348 14.0L355 15.5L362 10.0L367 10.5L371 11.5L377 11.4L380 10.8L384 11.5L388 12.6L396 15.4L398 15.6L405 19.0L413 16.5L418 16.6L421 13.6L428 11.1L434 10.7L436 9.0L440 12.7L442 13.9L447 13.1L450 12.7L456 11.2L459 17.3L463 14.9L469 16.5L473 16.4L477 16.9L480 13.9L488 13.4L495 13.6L499 15.4L507 17.3L512 20.4L516 17.0L519 15.6L525 15.7L528 17.9L535 19.7L539 17.0L542 14.6L548 14.4L553 16.3L557 12.5L564 11.6L568 14.7L571 14.4L575 14.6L582 14.0L590 14.4L594 13.8L598 13.6L601 13.6L608 12.0L615 12.8L621 10.1L623 10.8L626 13.4L630 11.9L636 14.6L642 14.9L646 17.6L648 12.4L652 14.6L657 14.7L660 14.8L665 15.3L669 13.2L674 13.9L680 10.8L684 11.0L691 15.9L698 17.6L704 18.2L707 15.8L714 14.2L721 15.0L724 13.3L728 17.2L736 17.9L741 16.5L747 14.4L754 11.8L762 13.5L765 13.2L772 13.9L775 13.4L783 12.9L790 14.6L793 15.2L797 12.9L802 20.9L810 13.5L813 12.4L816 12.4L819 13.8L827 8.9L831 8.7L839 10.1L844 9.0L849 8.6L857 7.1L863 10.7L867 10.1L875 9.7L881 9.2L885 12.0L893 12.9L896 10.7L902 13.1L908 9.8L912 10.5L917 10.5L924 13.8L927 11.0L930 9.9L938 9.3L943 11.2L945 12.1L949 11.7L954 12.2L961 13.4L964 14.1L970 11.3L976 14.6L981 14.8L983 12.0L986 11.8L990 13.1L996 10.0L998 13.5L1003 14.0L1008 15.1L1013 11.0L1019 9.3L1023 11.6L1030 7.8L1035 7.2L1040 12.4L1043 8.5L1049 12.1L1054 8.3L1058 8.4L1065 11.8L1073 13.1L1080 14.5L1086 12.8L1093 8.7L1096 9.8L1100 9.5L1104 9.6L1112 9.7L1118 11.3L1126 6.4L1132 7.1L1136 10.9L1141 12.0L1144 13.0L1148 12.4L1154 11.3L1161 13.4L1164 12.2L1170 13.7L1175 17.4L1181 16.3L1187 13.5L1190 16.4L1197 22.2L1204 17.7L1208 16.2L1213 15.2L1216 14.0L1219 11.6L1222 14.5L1227 15.8L1234 16.0L1240 14.8L1246 16.9L1249 15.8L1255 16.4L1262 13.3L1265 17.1L1271 12.7L1276 15.4L1280 16.3L1283 12.3L1285 13.6L1290 10.8L1293 13.1L1300 13.3L1306 9.7L1310 11.6L1314 13.2L1320 10.7L1326 10.8L1331 9.6L1339 15.4L1343 15.2L1345 16.8L1350 15.1L1357 15.0L1362 13.8L1365 17.4L1370 12.9L1374 10.2L1382 13.4L1389 12.1L1392 15.4L1399 16.3L1406 16.1L1412 13.1L1417 13.4L1421 11.1L1425 9.4L1427 12.7L1433 11.5L1440 11.5L1440 28Z'/%3E%3C/svg%3E");
-  --paper-tear-flipped: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 28' preserveAspectRatio='none'%3E%3Cg transform='translate(0 28) scale(1 -1)'%3E%3Cpath d='M0 28L0 16.5L7 14.4L11 16.6L17 14.7L19 15.4L27 13.3L30 12.3L37 11.9L42 11.6L46 12.1L50 13.0L57 16.4L62 15.2L65 12.2L68 14.1L74 15.2L76 14.2L82 18.2L84 17.2L87 18.0L90 18.4L96 16.9L102 16.0L109 16.2L112 14.3L117 16.1L119 11.7L125 12.5L128 12.7L136 11.3L143 15.6L150 12.7L152 14.3L156 17.4L161 22.5L164 16.1L167 13.9L170 15.2L173 15.2L178 22.6L181 18.7L185 16.7L191 17.9L193 16.8L199 20.2L202 17.5L209 20.3L213 17.9L220 18.6L226 16.4L231 19.0L236 17.5L243 17.7L251 11.1L255 9.6L257 8.9L264 13.2L270 12.7L274 16.3L280 15.8L287 12.7L290 11.8L295 13.9L301 12.4L304 14.7L312 14.6L317 18.8L321 17.0L324 11.0L330 12.8L334 12.3L337 12.7L344 11.8L348 14.0L355 15.5L362 10.0L367 10.5L371 11.5L377 11.4L380 10.8L384 11.5L388 12.6L396 15.4L398 15.6L405 19.0L413 16.5L418 16.6L421 13.6L428 11.1L434 10.7L436 9.0L440 12.7L442 13.9L447 13.1L450 12.7L456 11.2L459 17.3L463 14.9L469 16.5L473 16.4L477 16.9L480 13.9L488 13.4L495 13.6L499 15.4L507 17.3L512 20.4L516 17.0L519 15.6L525 15.7L528 17.9L535 19.7L539 17.0L542 14.6L548 14.4L553 16.3L557 12.5L564 11.6L568 14.7L571 14.4L575 14.6L582 14.0L590 14.4L594 13.8L598 13.6L601 13.6L608 12.0L615 12.8L621 10.1L623 10.8L626 13.4L630 11.9L636 14.6L642 14.9L646 17.6L648 12.4L652 14.6L657 14.7L660 14.8L665 15.3L669 13.2L674 13.9L680 10.8L684 11.0L691 15.9L698 17.6L704 18.2L707 15.8L714 14.2L721 15.0L724 13.3L728 17.2L736 17.9L741 16.5L747 14.4L754 11.8L762 13.5L765 13.2L772 13.9L775 13.4L783 12.9L790 14.6L793 15.2L797 12.9L802 20.9L810 13.5L813 12.4L816 12.4L819 13.8L827 8.9L831 8.7L839 10.1L844 9.0L849 8.6L857 7.1L863 10.7L867 10.1L875 9.7L881 9.2L885 12.0L893 12.9L896 10.7L902 13.1L908 9.8L912 10.5L917 10.5L924 13.8L927 11.0L930 9.9L938 9.3L943 11.2L945 12.1L949 11.7L954 12.2L961 13.4L964 14.1L970 11.3L976 14.6L981 14.8L983 12.0L986 11.8L990 13.1L996 10.0L998 13.5L1003 14.0L1008 15.1L1013 11.0L1019 9.3L1023 11.6L1030 7.8L1035 7.2L1040 12.4L1043 8.5L1049 12.1L1054 8.3L1058 8.4L1065 11.8L1073 13.1L1080 14.5L1086 12.8L1093 8.7L1096 9.8L1100 9.5L1104 9.6L1112 9.7L1118 11.3L1126 6.4L1132 7.1L1136 10.9L1141 12.0L1144 13.0L1148 12.4L1154 11.3L1161 13.4L1164 12.2L1170 13.7L1175 17.4L1181 16.3L1187 13.5L1190 16.4L1197 22.2L1204 17.7L1208 16.2L1213 15.2L1216 14.0L1219 11.6L1222 14.5L1227 15.8L1234 16.0L1240 14.8L1246 16.9L1249 15.8L1255 16.4L1262 13.3L1265 17.1L1271 12.7L1276 15.4L1280 16.3L1283 12.3L1285 13.6L1290 10.8L1293 13.1L1300 13.3L1306 9.7L1310 11.6L1314 13.2L1320 10.7L1326 10.8L1331 9.6L1339 15.4L1343 15.2L1345 16.8L1350 15.1L1357 15.0L1362 13.8L1365 17.4L1370 12.9L1374 10.2L1382 13.4L1389 12.1L1392 15.4L1399 16.3L1406 16.1L1412 13.1L1417 13.4L1421 11.1L1425 9.4L1427 12.7L1433 11.5L1440 11.5L1440 28Z'/%3E%3C/g%3E%3C/svg%3E");
+  /* A thumbtack: a red head with a highlight */
+  --pin-face:
+    radial-gradient(circle at 32% 27%, rgb(245 239 219 / 0.95) 0 6%, transparent 20%),
+    radial-gradient(circle at 40% 35%, color-mix(in srgb, #a33b23 70%, #f9c182), #a33b23 42%, color-mix(in srgb, #a33b23 55%, #322f27) 100%); /* Instructional Red */
 
   /* Paper grain over the page colour */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.196 0 0 0 0 0.184 0 0 0 0 0.153 0 0 0 0.45 -0.17'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E");
 
-  /* Backpack fabric: a fine plain weave with a ripstop grid of heavier threads, over a little fibre noise */
-  --fabric:
-    repeating-linear-gradient(0deg, rgb(var(--fabric-rgb) / 0.02) 0 2px, transparent 2px 24px),
-    repeating-linear-gradient(90deg, rgb(var(--fabric-rgb) / 0.02) 0 2px, transparent 2px 24px),
-    repeating-linear-gradient(0deg, rgb(var(--fabric-rgb) / 0.012) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgb(var(--fabric-rgb) / 0.012) 0 1px, transparent 1px 3px),
-    var(--grain);
-
-  /* A slightly stronger weave for the feature cards and buttons */
-  --weave-strong: repeating-linear-gradient(45deg, rgb(var(--fabric-rgb) / 0.045) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgb(var(--fabric-rgb) / 0.045) 0 1px, transparent 1px 3px);
-
-  /* The same fabric for the always-dark footer, in light thread */
-  --footer-fabric:
-    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.02) 0 2px, transparent 2px 24px),
-    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.02) 0 2px, transparent 2px 24px),
-    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.012) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.012) 0 1px, transparent 1px 3px);
-
-  /* Heavier cloth for the inside of the feature pockets, in light thread */
-  --lining:
-    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.05) 0 2px, transparent 2px 24px),
-    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.05) 0 2px, transparent 2px 24px),
-    repeating-linear-gradient(0deg, rgb(245 239 219 / 0.035) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgb(245 239 219 / 0.035) 0 1px, transparent 1px 3px);
-
-  /* Sewn patch cards: a woven fabric, a merrowed edge and a ring of stitching */
-  --radius-card: 14px;
-  --patch-edge: var(--muted);
-  --footer-bg: var(--ink);
+  --footer-bg: color-mix(in srgb, var(--ink) 65%, black);
   --shot-bg: color-mix(in srgb, var(--ink) 82%, #776343); /* Wood Bark 1 */
-  --shot-seam: var(--patch-edge);
-  --patch-thread: var(--accent);
-  --card-shadow: 0 2px 4px rgb(var(--shadow-rgb) / 0.2);
-  --card-shadow-hover: 0 6px 12px rgb(var(--shadow-rgb) / 0.25);
-  --weave: repeating-linear-gradient(45deg, rgb(var(--shadow-rgb) / 0.025) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgb(var(--shadow-rgb) / 0.025) 0 1px, transparent 1px 3px);
 
-  --radius: 16px;
-  --radius-sm: 10px;
-  --shadow: 0 1px 2px rgb(var(--shadow-rgb) / 0.08), 0 8px 24px rgb(var(--shadow-rgb) / 0.1);
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
 }
@@ -97,22 +72,21 @@
     color-scheme: dark;
     --bg: color-mix(in srgb, #322f27 75%, black); /* Natural Black, darker */
     --surface: #322f27; /* Natural Black */
+    --paper: color-mix(in srgb, #f5efdb 68%, #322f27); /* Cloth, dimmed by the dark room */
+    --paper-muted: #4d4029;
+    --paper-accent: hsl(23 77% 24%);
+    --wood-dim: linear-gradient(rgb(45 36 24 / 0.5), rgb(45 36 24 / 0.5)); /* the boards in the dark */
+    --sticker-brightness: 0.8; /* the stickers are lit by the same dimmer light */
+    --hero-dim: linear-gradient(rgb(50 47 39 / 0.2), rgb(50 47 39 / 0.2)); /* the sky and scene dimmed */
+    --tape: color-mix(in srgb, color-mix(in srgb, var(--fire-hover) 55%, #e4d6b0) 68%, #322f27); /* dimmed like the paper */
+    --wood-base: color-mix(in srgb, #c8b18a 45%, #322f27); /* the boards' colour over Natural Black */
     --surface-2: color-mix(in srgb, #322f27 88%, black); /* Natural Black, darker */
     --text: #f5efdb; /* Cloth */
     --muted: #c2b7a4; /* Metal 2 */
-    --line: color-mix(in srgb, #322f27 88%, #f5efdb); /* Natural Black, lighter */
-    --accent-hover: #fedf8a; /* Fire Yellow */
     --accent-text: #f9c182; /* Fire Orange */
-    --topo-line: #c2b7a4; /* Metal 2 */
-    --topo-opacity: 0.06;
-    --fabric-rgb: 245 239 219; /* Cloth, as the thread highlight */
     --link-line: currentColor;
     --link-thickness: 1px;
     --shadow-rgb: 15 14 12; /* Natural Black, much darker */
-    --weave: repeating-linear-gradient(45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px),
-      repeating-linear-gradient(-45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px); /* Cloth, as the thread */
-    --patch-edge: color-mix(in srgb, #c2b7a4 25%, #322f27); /* Metal 2, dimmed */
-    --patch-thread: color-mix(in srgb, #e8b25b 35%, #322f27); /* Fire Orange 2, dimmed */
     --shot-bg: color-mix(in srgb, #322f27 50%, black); /* Natural Black, darker */
     --footer-bg: color-mix(in srgb, #322f27 50%, black); /* Natural Black, much darker */
     --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.961 0 0 0 0 0.937 0 0 0 0 0.859 0 0 0 0.12 -0.04'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -123,22 +97,21 @@
   color-scheme: dark;
   --bg: color-mix(in srgb, #322f27 75%, black); /* Natural Black, darker */
   --surface: #322f27; /* Natural Black */
+  --paper: color-mix(in srgb, #f5efdb 68%, #322f27); /* Cloth, dimmed by the dark room */
+  --paper-muted: #4d4029;
+  --paper-accent: hsl(23 77% 24%);
+  --wood-dim: linear-gradient(rgb(45 36 24 / 0.5), rgb(45 36 24 / 0.5)); /* the boards in the dark */
+  --sticker-brightness: 0.8; /* the stickers are lit by the same dimmer light */
+  --hero-dim: linear-gradient(rgb(50 47 39 / 0.2), rgb(50 47 39 / 0.2)); /* the sky and scene dimmed */
+  --tape: color-mix(in srgb, color-mix(in srgb, var(--fire-hover) 55%, #e4d6b0) 68%, #322f27); /* dimmed like the paper */
+  --wood-base: color-mix(in srgb, #c8b18a 45%, #322f27); /* the boards' colour over Natural Black */
   --surface-2: color-mix(in srgb, #322f27 88%, black); /* Natural Black, darker */
   --text: #f5efdb; /* Cloth */
   --muted: #c2b7a4; /* Metal 2 */
-  --line: color-mix(in srgb, #322f27 88%, #f5efdb); /* Natural Black, lighter */
-  --accent-hover: #fedf8a; /* Fire Yellow */
   --accent-text: #f9c182; /* Fire Orange */
-  --topo-line: #c2b7a4; /* Metal 2 */
-  --topo-opacity: 0.06;
-    --fabric-rgb: 245 239 219; /* Cloth, as the thread highlight */
   --link-line: currentColor;
   --link-thickness: 1px;
   --shadow-rgb: 15 14 12; /* Natural Black, much darker */
-  --weave: repeating-linear-gradient(45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px); /* Cloth, as the thread */
-  --patch-edge: color-mix(in srgb, #c2b7a4 25%, #322f27); /* Metal 2, dimmed */
-  --patch-thread: color-mix(in srgb, #e8b25b 35%, #322f27); /* Fire Orange 2, dimmed */
   --shot-bg: color-mix(in srgb, #322f27 50%, black); /* Natural Black, darker */
   --footer-bg: color-mix(in srgb, #322f27 50%, black); /* Natural Black, much darker */
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0' width='100%' height='100%'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.961 0 0 0 0 0.937 0 0 0 0 0.859 0 0 0 0.12 -0.04'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -186,6 +159,7 @@
 }
 
 html {
+  scrollbar-color: color-mix(in srgb, var(--muted) 50%, var(--bg)) var(--bg);
   scroll-behavior: smooth;
   scroll-padding-top: 24px;
   -webkit-text-size-adjust: 100%;
@@ -203,7 +177,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--fabric), var(--bg);
+  background: var(--wood-dim), var(--wood), var(--wood-base);
   color: var(--text);
   font-family: var(--font);
   font-size: 17px;
@@ -221,10 +195,6 @@ main {
 img {
   max-width: 100%;
   height: auto;
-}
-
-html {
-  scrollbar-color: color-mix(in srgb, var(--patch-edge) 75%, var(--bg)) var(--bg);
 }
 
 ::selection {
@@ -269,7 +239,7 @@ h4 {
 }
 
 .prose-wrap {
-  max-width: 800px;
+  max-width: 880px;
   padding-top: 48px;
   padding-bottom: 96px;
 }
@@ -282,7 +252,7 @@ h4 {
   padding: 10px 16px;
   background: var(--accent);
   color: var(--on-accent);
-  border-radius: var(--radius-sm);
+  border-radius: 2px;
   font-weight: 600;
 }
 
@@ -298,25 +268,25 @@ h4 {
   font-weight: 600;
 }
 
+/* The back link is the running head at the top of a sheet */
 .breadcrumb {
-  margin: 0 0 18px;
-  font-size: 15px;
+  margin: 0 0 28px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .breadcrumb a {
-  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 14px 5px 12px;
-  border: 2px solid var(--patch-edge);
-  border-radius: 8px;
-  background: var(--weave), var(--surface);
-  box-shadow: var(--card-shadow);
-  color: var(--text);
+  color: inherit;
   font-weight: 600;
   text-decoration: none;
-  transition: box-shadow 140ms ease, color 140ms ease;
 }
 
 .breadcrumb a::before {
@@ -328,82 +298,48 @@ h4 {
   transform: rotate(45deg);
 }
 
-.breadcrumb a::after {
-  content: "";
-  position: absolute;
-  inset: 2px;
-  border: 1.5px dashed var(--patch-thread);
-  border-radius: 5px;
-  pointer-events: none;
-}
-
-.breadcrumb a:hover {
-  color: var(--accent-text);
-}
-
 /* BUTTONS */
 
+/* Printed on the page: solid ink, or an outline for the secondary action */
 .btn {
-  position: relative;
+  border: 2px solid var(--text);
+  border-radius: 3px;
+  background: var(--text);
+  color: var(--paper);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+.btn:hover {
+  border-color: var(--accent-text);
+  background: var(--accent-text);
+}
+
+.btn:active {
+  opacity: 0.85;
+}
+
+.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 26px;
-  border: 3px solid color-mix(in srgb, var(--accent) 60%, #322f27); /* Natural Black */
-  border-radius: 12px;
-  background: var(--weave-strong), var(--accent);
-  color: var(--on-accent);
+  padding: 11px 22px;
   font: inherit;
   font-weight: 600;
   line-height: 1.2;
-  text-decoration: none;
   cursor: pointer;
-  box-shadow: var(--card-shadow);
-  transition: background 140ms ease, box-shadow 140ms ease;
-}
-
-/* The stitching */
-.btn::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border: 2px dashed color-mix(in srgb, var(--on-accent) 45%, transparent);
-  border-radius: 7px;
-  transition: border-color 140ms ease;
-  pointer-events: none;
-}
-
-/* Patches don't move: the fill brightens and the thread darkens, and pressing sinks the patch into the cloth */
-.btn:hover {
-  background: var(--weave-strong), var(--accent-hover);
-  text-decoration: none;
-}
-
-.btn:hover::after {
-  border-color: color-mix(in srgb, var(--on-accent) 85%, transparent);
-}
-
-.btn:active {
-  box-shadow: inset 0 2px 5px rgb(var(--shadow-rgb) / 0.4);
 }
 
 .btn-secondary {
-  background: var(--weave-strong), var(--surface);
-  border-color: var(--patch-edge);
+  background: transparent;
   color: var(--text);
 }
 
-.btn-secondary::after {
-  border-color: var(--patch-thread);
-}
-
 .btn-secondary:hover {
-  background: var(--weave-strong), color-mix(in srgb, var(--surface) 82%, var(--accent));
-}
-
-.btn-secondary:hover::after {
-  border-color: var(--accent-text);
+  background: transparent;
+  color: var(--accent-text);
 }
 
 .button-row {
@@ -417,12 +353,21 @@ h4 {
 .site-header {
   position: relative;
   z-index: 50;
-  color: var(--text);
+  color: rgb(30 16 6 / 0.95);
 }
 
-/* The hero already shows the download links */
-body:has(main > .hero:first-child) .nav-cta {
-  display: none;
+/* On the home page the header is drawn straight onto the hero, in the hero's ink, and it already shows the download links */
+body:has(main > .hero:first-child) .site-header {
+  position: absolute;
+  inset: 0 0 auto;
+}
+
+/* The header text is branded into the boards (and the hero on the home page): dark, with a faint scorched halo, and the grain still showing through */
+.site-header .brand span,
+.site-nav a,
+.site-header svg,
+.site-header .brand img {
+  filter: drop-shadow(0 0 1px rgb(70 35 12 / 0.35));
 }
 
 .header-inner {
@@ -464,6 +409,7 @@ body:has(main > .hero:first-child) .nav-cta {
   text-decoration: underline solid transparent 2px;
   text-underline-offset: 8px;
   font-size: 15px;
+  font-weight: 600;
   transition: text-decoration-color 140ms ease;
 }
 
@@ -477,32 +423,6 @@ body:has(main > .hero:first-child) .nav-cta {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.nav-cta {
-  padding: 6px 16px;
-  border: 2px solid color-mix(in srgb, var(--accent) 60%, #322f27); /* Natural Black */
-  border-radius: 10px;
-  background: var(--weave-strong), var(--accent);
-  box-shadow: var(--card-shadow);
-  outline: 1.5px dashed color-mix(in srgb, var(--on-accent) 45%, transparent);
-  outline-offset: -5px;
-  color: var(--on-accent);
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.3;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background 140ms ease, outline-color 140ms ease, box-shadow 140ms ease;
-}
-
-.nav-cta:hover {
-  background: var(--weave-strong), var(--accent-hover);
-  outline-color: color-mix(in srgb, var(--on-accent) 85%, transparent);
-}
-
-.nav-cta:active {
-  box-shadow: inset 0 2px 5px rgb(var(--shadow-rgb) / 0.4);
 }
 
 .theme-toggle {
@@ -552,11 +472,6 @@ body:has(main > .hero:first-child) .nav-cta {
     margin-left: auto;
   }
 
-  .nav-cta {
-    padding: 6px 14px;
-    font-size: 14px;
-  }
-
   .site-nav {
     order: 3;
     flex-basis: 100%;
@@ -574,41 +489,35 @@ body:has(main > .hero:first-child) .nav-cta {
 
 /* HERO */
 
-/* A large patch sewn onto the page fabric, like the cards below */
+/* Painted straight onto the boards: full width, no shadow, a ragged lower edge like the header's, and the board seams and grain show through the paint */
 .hero {
   position: relative;
   overflow: hidden;
-  margin: 0 clamp(12px, 2.5vw, 32px);
-  border: 3px solid var(--patch-edge);
-  border-radius: var(--radius-card);
-  background: var(--sky);
+  /* The sunrise scene from the book cover, over its flat sky. The scene is 0.32 as tall as it is wide, so the hero is kept at least that tall to leave it no narrower than the screen */
+  background: var(--hero-dim), url('/assets/images/hero-scene.webp') center bottom / auto 100% no-repeat, var(--sky);
   color: var(--ink-text);
-  box-shadow: var(--card-shadow);
+  -webkit-mask: linear-gradient(#000 0 0) top / 100% calc(100% - 20px) no-repeat, var(--paint-edge) bottom / 1200px 20px repeat-x;
+  mask: linear-gradient(#000 0 0) top / 100% calc(100% - 20px) no-repeat, var(--paint-edge) bottom / 1200px 20px repeat-x;
 }
 
-/* The sunrise scene from the book cover, over its flat sky. */
-/* The scene is 0.32 as tall as it is wide, so the hero is kept at least that tall to leave it no narrower than the screen */
+/* The boards' grain and seams over the dark hills and trees; the offset (set by script) lines them up with the boards beside the hero */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url('/assets/images/hero-scene.webp') center bottom / auto 100% no-repeat;
+  background: var(--wood-paint-dark-image) 0 calc(-2px - var(--wood-y, 0px)) / 1434px 640px;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
-/* The cloth weave over everything on the patch, with the stitching sewn all the way around */
+/* And over the light sky */
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 2;
-  border-radius: calc(var(--radius-card) - 3px);
-  /* Dark threads show on the sky, light ones on the hills and text */
-  background:
-    repeating-linear-gradient(45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(-45deg, rgb(245 239 219 / 0.03) 0 1px, transparent 1px 3px),
-    var(--weave);
-  outline: 2px dashed color-mix(in srgb, var(--cover-cream) 85%, transparent);
-  outline-offset: -7px;
+  background: var(--wood-paint-light-image) 0 calc(-2px - var(--wood-y, 0px)) / 1434px 640px;
+  mix-blend-mode: multiply;
   pointer-events: none;
 }
 
@@ -619,7 +528,8 @@ body:has(main > .hero:first-child) .nav-cta {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   align-items: end;
   gap: 48px;
-  padding-top: 48px;
+  /* Clears the header, which is drawn over the top of the hero */
+  padding-top: 120px;
   min-height: 32vw;
 }
 
@@ -636,21 +546,13 @@ body:has(main > .hero:first-child) .nav-cta {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   margin-bottom: 20px;
-  /* Satin-stitched lettering: rows of thread, raised off the cloth */
-  --thread: var(--cover-cream);
-  background: repeating-linear-gradient(62deg, var(--thread) 0 2px, color-mix(in srgb, var(--thread) 72%, #000) 2px 3px);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 1px 0 rgb(0 0 0 / 0.22));
-}
-
-.hero-accent {
-  color: inherit;
+  /* Painted lettering: the hero's board overlay draws the grain over it */
+  --title-ink: var(--cover-cream);
+  color: var(--title-ink);
 }
 
 .hero .lede {
-  /* Above the weave overlay, so only the title carries the fabric look */
+  /* Above the grain overlay, so only the title is painted */
   position: relative;
   z-index: 3;
   font-size: 19px;
@@ -661,6 +563,8 @@ body:has(main > .hero:first-child) .nav-cta {
 }
 
 .hero-actions {
+  position: relative;
+  z-index: 3;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -668,20 +572,50 @@ body:has(main > .hero:first-child) .nav-cta {
 }
 
 .store-badge {
+  --badge-height: 72px;
+  position: relative;
   display: inline-block;
+  padding: 5px;
   line-height: 0;
-  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.4));
-  transition: filter 140ms ease;
+  border-radius: 11px;
+  background: var(--sticker);
+  box-shadow: 0 0 0 1px rgb(50 47 39 / 0.18), 0 1px 2px rgb(0 0 0 / 0.2);
+  filter: brightness(var(--sticker-brightness));
 }
 
-.store-badge:hover {
-  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.4)) brightness(1.12);
+.store-badge:nth-child(1) {
+  transform: rotate(-2deg);
 }
 
+.store-badge:nth-child(2) {
+  transform: rotate(1.5deg);
+}
+
+.store-badge:nth-child(3) {
+  transform: rotate(-1deg);
+}
+
+/* The gloss of the vinyl: a bright streak across the corner, which slides along as the sticker is hovered */
+.store-badge::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sticker-gloss) 0 0 / 220% 100%;
+  pointer-events: none;
+  transition: background-position 500ms ease;
+}
+
+.store-badge:hover::after {
+  background-position: 100% 0;
+}
+
+/* The badge images carry transparent padding, which the margin trims so the sticker hugs the badge */
 .store-badge img {
-  height: 72px;
+  height: var(--badge-height);
   width: auto;
-  margin: -8px;
+  max-width: none;
+  margin: calc(var(--badge-height) * -0.164);
 }
 
 .hero-phones {
@@ -692,22 +626,35 @@ body:has(main > .hero:first-child) .nav-cta {
   height: 540px;
   position: relative;
   z-index: 3;
-  /* Cut off at the bottom only, so the shadows aren't clipped */
-  clip-path: inset(-80px -80px 0 -80px);
+  container-type: size;
 }
 
 .hero-phones .phone {
-  width: min(250px, 44%);
+  /* The phones shrink to fit the box, leaving room for the second one's drop and the sticker border, instead of being cropped. A phone is 7px of bezel on each side of an image 2.2444 times as tall as it is wide. */
+  width: min(250px, 44cqw, calc((100cqh - 98px) / 2.2444 + 14px));
   flex: none;
-  box-shadow: 0 0 0 1.5px #77726a, inset 0 0 0 1px rgb(255 255 255 / 0.16), 0 10px 30px rgb(0 0 0 / 0.45);
+  /* A die-cut sticker: the phone outlined in white vinyl */
+  box-shadow: 0 0 0 6px var(--sticker), 0 0 0 7px rgb(50 47 39 / 0.18), 0 1px 2px 7px rgb(0 0 0 / 0.12);
+  filter: brightness(var(--sticker-brightness));
+}
+
+.hero-phones .phone::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: calc(var(--corner) + 6px);
+  background: var(--sticker-gloss);
+  pointer-events: none;
 }
 
 .hero-phones .phone:nth-child(1) {
-  margin-top: 8px;
+  margin-top: 14px;
+  transform: rotate(-3deg);
 }
 
 .hero-phones .phone:nth-child(2) {
-  margin-top: 64px;
+  margin-top: 70px;
+  transform: rotate(2.5deg);
 }
 
 .phone {
@@ -750,11 +697,8 @@ body:has(main > .hero:first-child) .nav-cta {
 
 @media (max-width: 860px) {
   /* Stacked, the text sits in the open sky above the hills */
-  .hero::before {
-    background-size: auto 440px;
-  }
-
   .hero {
+    background-size: auto, auto 440px, auto;
     color: var(--text-on-sky);
   }
 
@@ -762,7 +706,7 @@ body:has(main > .hero:first-child) .nav-cta {
     grid-template-columns: 1fr;
     align-items: start;
     gap: 40px;
-    padding-top: 56px;
+    padding-top: 155px;
     min-height: 0;
   }
 
@@ -771,7 +715,7 @@ body:has(main > .hero:first-child) .nav-cta {
   }
 
   .hero h1 {
-    --thread: var(--text-on-sky);
+    --title-ink: var(--text-on-sky);
   }
 
   .hero .lede {
@@ -788,8 +732,8 @@ body:has(main > .hero:first-child) .nav-cta {
     gap: 10px;
   }
 
-  .store-badge img {
-    height: 62px;
+  .store-badge {
+    --badge-height: 62px;
   }
 }
 
@@ -797,56 +741,6 @@ body:has(main > .hero:first-child) .nav-cta {
 
 .section {
   padding: 80px 0;
-}
-
-.section-alt {
-  background: var(--surface-2);
-  position: relative;
-  isolation: isolate;
-  /* Torn paper edges along the top and bottom of the band */
-  mask:
-    var(--paper-tear) top center / max(100%, 1200px) 28px no-repeat,
-    var(--paper-tear-flipped) bottom center / max(100%, 1200px) 28px no-repeat,
-    linear-gradient(#000, #000) center / 100% calc(100% - 54px) no-repeat;
-}
-
-.section-alt::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  /* The contour lines drawn in a palette colour, via the SVG as a mask */
-  background: var(--topo-line);
-  -webkit-mask: url('/assets/images/topo.svg') center / cover no-repeat;
-  mask: url('/assets/images/topo.svg') center / cover no-repeat;
-  opacity: var(--topo-opacity);
-  pointer-events: none;
-}
-
-.section-head {
-  max-width: 680px;
-  margin-bottom: 36px;
-}
-
-.section-head h2 {
-  font-size: clamp(28px, 3.6vw, 36px);
-  letter-spacing: 0.01em;
-  margin-bottom: 6px;
-}
-
-.section-head h2::after {
-  content: "";
-  display: block;
-  width: 44px;
-  height: 4px;
-  margin-top: 12px;
-  border-radius: 2px;
-  background: var(--accent);
-}
-
-.section-head p {
-  margin: 0;
-  color: var(--muted);
 }
 
 @media (max-width: 640px) {
@@ -863,42 +757,32 @@ body:has(main > .hero:first-child) .nav-cta {
   gap: 24px;
 }
 
+/* Each feature is a photo print pinned to the board, with its caption in the margin */
 .feature-card {
   display: flex;
   flex-direction: column;
-  position: relative;
-  background: var(--weave-strong), var(--surface);
-  border: 3px solid var(--patch-edge);
-  border-radius: var(--radius-card);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  color: inherit;
+  padding: 36px 14px 0;
   text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-/* The stitching */
-.feature-card::after,
-.card::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  z-index: 2;
-  border: 2px dashed var(--patch-thread);
-  border-radius: calc(var(--radius-card) - 6px);
-  pointer-events: none;
+/* The print lifts off the board */
+.feature-card:hover,
+.feature-card:focus-visible {
+  transform: translateY(-6px);
+  box-shadow: 0 2px 4px rgb(var(--shadow-rgb) / 0.2), 0 18px 32px rgb(var(--shadow-rgb) / 0.22);
 }
 
 .feature-shot {
   display: flex;
   justify-content: center;
-  /* The pocket covers the bottom 26px, so the area above it stays 297px tall as it was originally */
-  height: 323px;
+  height: 297px;
   padding-top: 28px;
   overflow: hidden;
   position: relative;
   isolation: isolate;
-  /* The inside of the pack, which the phone sits in */
-  background: var(--lining), var(--shot-bg);
+  background: var(--shot-bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text) 20%, transparent);
 }
 
 .feature-shot::before {
@@ -957,16 +841,6 @@ body:has(main > .hero:first-child) .nav-cta {
     0 -8px 40px rgb(var(--shadow-rgb) / 0.45);
 }
 
-/* The phone slides up out of the pocket */
-.feature-shot .phone {
-  transition: transform 220ms ease;
-}
-
-.feature-card:hover .feature-shot .phone,
-.feature-card:focus-visible .feature-shot .phone {
-  transform: translateY(-20px);
-}
-
 .feature-shot .phone img {
   border-radius: calc(var(--corner) - var(--bezel)) calc(var(--corner) - var(--bezel)) 0 0;
 }
@@ -976,26 +850,18 @@ body:has(main > .hero:first-child) .nav-cta {
   border-radius: calc(var(--corner) - var(--bezel)) calc(var(--corner) - var(--bezel)) 0 0;
 }
 
-/* The pocket's front panel, flush with the card and overlapping the bottom of the phone */
 .feature-body {
-  position: relative;
-  z-index: 1;
-  /* Fills the card, so a shorter pocket doesn't leave its shadow showing below it */
-  flex: 1;
-  margin-top: -26px;
-  padding: 24px;
-  /* A folded hem along the top of the pocket */
-  background:
-    linear-gradient(rgb(var(--shadow-rgb) / 0.12), rgb(var(--shadow-rgb) / 0.03) 12px, transparent 14px),
-    var(--weave-strong),
-    var(--surface);
-  border-top: 3px solid var(--patch-edge);
-  box-shadow: 0 -3px 8px rgb(var(--shadow-rgb) / 0.4);
+  padding: 16px 4px 22px;
 }
 
 .feature-body h3 {
   font-size: 20px;
   margin-bottom: 6px;
+}
+
+.feature-card:focus-visible {
+  outline: 3px solid var(--accent-text);
+  outline-offset: 3px;
 }
 
 .feature-body p {
@@ -1017,161 +883,38 @@ body:has(main > .hero:first-child) .nav-cta {
   }
 }
 
-/* SUBSECTIONS */
-
-.subsection {
-  margin-top: 64px;
-}
-
-.card-grid + .subsection {
-  margin-top: 32px;
-}
-
-.subsection > h3 {
-  font-size: 22px;
-  margin-bottom: 4px;
-}
-
-.subsection > p {
-  margin: 0 0 20px;
-  color: var(--muted);
-}
-
-/* BOOK */
-
-.book {
-  position: relative;
-  display: grid;
-  grid-template-columns: 170px 1fr;
-  gap: 40px;
-  align-items: center;
-  padding: 32px 40px;
-  border: 3px solid var(--patch-edge);
-  border-radius: var(--radius-card);
-  background: var(--weave), var(--surface);
-  box-shadow: var(--card-shadow);
-}
-
-.book::after {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border: 2px dashed var(--patch-thread);
-  border-radius: calc(var(--radius-card) - 5px);
-  pointer-events: none;
-}
-
-.book-cover {
-  width: 100%;
-  border-radius: 0;
-  /* The page edges are offset down and right for perspective, with a dark line stepping along the spine at the bottom left */
-  box-shadow:
-    1px 1px 0 #f3eddb,
-    0px 1px 0 #3a3226,
-    2px 2px 0 #cfc5ac,
-    1px 2px 0 #3a3226,
-    3px 3px 0 #f3eddb,
-    2px 3px 0 #3a3226,
-    4px 4px 0 #cfc5ac,
-    3px 4px 0 #3a3226,
-    8px 10px 18px rgb(var(--shadow-rgb) / 0.35);
-}
-
-.book h3 {
-  font-size: clamp(26px, 3.2vw, 32px);
-  letter-spacing: 0.01em;
-}
-
-.book p {
-  color: var(--text);
-  margin: 0 0 20px;
-  max-width: 36em;
-}
-
-@media (max-width: 760px) {
-  .book {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 28px 24px;
-  }
-
-  .book .book-cover {
-    max-width: 160px;
-    margin: 0 auto;
-  }
-}
-
-.book-page {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 56px;
-  align-items: start;
-  padding-top: 56px;
-  padding-bottom: 96px;
-}
-
-/* Not a link, so it doesn't lift */
-.book-page .cover:hover {
-  transform: none;
-}
 
 .book-page h1 {
-  font-size: clamp(30px, 4vw, 40px);
+  font-size: clamp(24px, 3vw, 30px);
   letter-spacing: 0.01em;
+}
+
+.book-page .prose {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.book-page .prose > :last-child {
+  margin-bottom: 0;
 }
 
 .book-page .disclaimer {
-  margin-top: 40px;
+  margin-top: 32px;
   padding-top: 24px;
-  border-top: 2px dashed var(--patch-thread);
+  border-top: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
 }
 
 .book-page .license {
   margin: 12px 0 0;
 }
 
-@media (max-width: 760px) {
-  .book-page {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .book-page .cover {
-    max-width: 200px;
-  }
+#chapters {
+  scroll-margin-top: 24px;
 }
-
-/* CARDS */
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
-}
+/* HOME: NOTICES */
 
 .card {
-  position: relative;
-  display: block;
-  padding: 28px;
-  background: var(--weave), var(--surface);
-  border: 3px solid var(--patch-edge);
-  border-radius: var(--radius-card);
-  box-shadow: var(--card-shadow);
-  color: inherit;
-  text-decoration: none;
-  transition: background 160ms ease;
-}
-
-a.card:hover {
-  background: var(--weave), color-mix(in srgb, var(--surface) 88%, var(--accent));
-}
-
-.card::after {
-  transition: border-color 160ms ease;
-}
-
-a.card:hover::after {
-  border-color: var(--accent-text);
+  padding: 40px 28px 28px;
 }
 
 .card h3 {
@@ -1192,22 +935,10 @@ a.card:hover::after {
 
 /* GUIDE INDEX */
 
-.page-head {
-  padding-top: 56px;
-  padding-bottom: 8px;
-}
-
-.page-head h1,
 .page-title {
   font-size: clamp(30px, 4vw, 40px);
   letter-spacing: 0.01em;
   margin-bottom: 16px;
-}
-
-.page-head p {
-  margin: 0 0 24px;
-  color: var(--muted);
-  max-width: 40em;
 }
 
 .filter {
@@ -1215,7 +946,7 @@ a.card:hover::after {
   max-width: 420px;
   padding: 10px 4px 10px 34px;
   border: 0;
-  border-bottom: 2px dashed var(--patch-edge);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 35%, transparent);
   border-radius: 0;
   background:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23958a76' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.5 15.5L21 21'/%3E%3C/svg%3E") 4px center / 20px no-repeat,
@@ -1234,28 +965,6 @@ a.card:hover::after {
 .filter::placeholder {
   color: var(--muted);
   font-style: italic;
-}
-
-.guide-list {
-  padding-top: 24px;
-  padding-bottom: 96px;
-}
-
-.guide-list .card-grid {
-  align-items: center;
-}
-
-.guide-list .card {
-  padding: 18px 22px;
-}
-
-.guide-list .card h3 {
-  margin: 0;
-  font-size: 17px;
-}
-
-.guide-list .card[hidden] {
-  display: none;
 }
 
 .empty {
@@ -1279,7 +988,7 @@ a.card:hover::after {
 .prose h2 {
   font-size: 28px;
   padding-top: 0.4em;
-  border-top: 2px dashed var(--patch-thread);
+  border-top: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
 }
 
 .prose h3 {
@@ -1303,8 +1012,7 @@ a.card:hover::after {
 .prose p,
 .prose ul,
 .prose ol,
-.prose table,
-.prose pre {
+.prose table {
   margin: 0 0 1.2em;
 }
 
@@ -1351,7 +1059,7 @@ a.card:hover::after {
   width: 78px;
   height: 22px;
   margin-left: -39px;
-  background: var(--fabric), var(--tape-film);
+  background: var(--grain), var(--tape-film);
   clip-path: var(--tape-ends);
   filter: drop-shadow(0 1px 1px rgb(var(--shadow-rgb) / 0.25));
   transform: rotate(-2deg);
@@ -1368,15 +1076,6 @@ a.card:hover::after {
   }
 }
 
-.prose blockquote {
-  margin: 1.5em 0;
-  padding: 4px 20px;
-  border-left: 4px solid var(--accent);
-  background: var(--surface);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  color: var(--muted);
-}
-
 .prose small {
   display: block;
   font-size: 14px;
@@ -1391,27 +1090,16 @@ a.card:hover::after {
   border-top: 0;
 }
 
-/* Accordions are small sewn patches */
 .faq details,
 .legal details {
-  position: relative;
-  margin: 0 0 12px;
-  padding: 14px 22px;
-  border: 3px solid var(--patch-edge);
-  border-radius: 12px;
-  background: var(--weave), var(--surface);
-  box-shadow: var(--card-shadow);
+  padding: 12px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
   scroll-margin-top: 24px;
 }
 
-.faq details::after,
-.legal details::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border: 2px dashed var(--patch-thread);
-  border-radius: 7px;
-  pointer-events: none;
+.faq details:first-of-type,
+.legal details:first-of-type {
+  border-top: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
 }
 
 .faq summary,
@@ -1460,7 +1148,8 @@ a.card:hover::after {
   color: var(--accent-text);
 }
 
-.faq details[open] > summary {
+.faq details[open] > summary,
+.legal details[open] > summary {
   margin-bottom: 0.75em;
 }
 
@@ -1472,42 +1161,22 @@ code {
   font-family: var(--mono);
   font-size: 0.9em;
   padding: 2px 6px;
-  border-radius: 6px;
+  border-radius: 2px;
   background: var(--surface-2);
-}
-
-pre {
-  overflow: auto;
-  padding: 16px 20px;
-  border-radius: var(--radius-sm);
-  background: var(--ink);
-  color: var(--ink-text);
-}
-
-pre code {
-  padding: 0;
-  background: none;
-  color: inherit;
-  white-space: pre;
 }
 
 .table-scroll {
   overflow-x: auto;
-  /* Room for the table's shadow */
-  padding: 2px 4px 10px;
-  margin: 0 -4px;
+  padding: 2px 0 10px;
 }
 
-/* A sewn patch: a merrowed edge, woven cloth, a dark header band and stitched row seams */
+/* Tables are printed on the page, ruled above and below */
 table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  border: 3px solid var(--patch-edge);
-  border-radius: var(--radius-card);
-  background: var(--weave), var(--surface);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
+  border-top: 2px solid color-mix(in srgb, var(--text) 60%, transparent);
+  border-bottom: 2px solid color-mix(in srgb, var(--text) 60%, transparent);
   text-align: left;
   font-size: 15px;
 }
@@ -1515,7 +1184,7 @@ table {
 th,
 td {
   padding: 12px 16px;
-  border-bottom: 2px dashed color-mix(in srgb, var(--patch-thread) 70%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
   vertical-align: top;
 }
 
@@ -1524,14 +1193,12 @@ tbody tr:last-child td {
 }
 
 th {
-  border-bottom: 0;
+  border-bottom-color: color-mix(in srgb, var(--text) 40%, transparent);
   font-family: "National Park", var(--font);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--cover-cream);
-  background: var(--weave), var(--footer-bg);
 }
 
 td:first-child {
@@ -1553,8 +1220,8 @@ td:first-child {
 /* HOME: PRIVACY / CONTACT / LEGAL */
 
 .safety-note {
-  margin: 32px 0 0;
-  color: var(--muted);
+  margin: 0;
+  color: var(--text);
   font-size: 15px;
 }
 
@@ -1570,15 +1237,10 @@ td:first-child {
   }
 }
 
-.legal p,
-.legal details p {
+.legal p {
   font-size: 15px;
   line-height: 1.7;
   color: var(--muted);
-}
-
-.legal details[open] > summary {
-  margin-bottom: 0.75em;
 }
 
 /* FOOTER */
@@ -1587,7 +1249,9 @@ td:first-child {
   position: relative;
   /* The treeline is 150px tall and rises into this gap */
   margin-top: 96px;
-  background: var(--footer-fabric), var(--footer-bg);
+  /* The boards continue through the paint; the footer starts 150px below the trees, whose offset the script sets */
+  background: var(--wood-paint-dark-image) 0 calc(-2px - var(--wood-y, 0px) - 150px) / 1434px 640px, var(--footer-bg);
+  background-blend-mode: screen;
   border-top: 1px solid var(--ink-line);
   color: var(--ink-text);
   padding: 56px 0;
@@ -1601,8 +1265,8 @@ td:first-child {
   right: 0;
   bottom: 100%;
   height: 150px;
-  /* Shifted so the ripstop grid lines up with the footer's, which restarts at the footer's top edge */
-  background: var(--footer-fabric) 0 6px, var(--footer-bg);
+  background: var(--wood-paint-dark-image) 0 calc(-2px - var(--wood-y, 0px)) / 1434px 640px, var(--footer-bg);
+  background-blend-mode: screen;
   -webkit-mask: url('/assets/images/treeline.webp') left bottom / auto 100% repeat-x;
   mask: url('/assets/images/treeline.webp') left bottom / auto 100% repeat-x;
   pointer-events: none;
@@ -1618,6 +1282,19 @@ td:first-child {
   margin: 16px 0 0;
   max-width: 28em;
   color: var(--ink-muted);
+}
+
+.footer-brand .credit {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.footer-brand .credit a {
+  color: inherit;
+}
+
+.footer-brand .credit a:hover {
+  color: var(--fire);
 }
 
 .site-footer h2 {
@@ -1649,24 +1326,6 @@ td:first-child {
   .footer-brand {
     grid-column: 1 / -1;
   }
-}
-
-/* FOOTER BOTTOM */
-
-.footer-bottom {
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid var(--ink-line);
-  font-size: 13px;
-  color: var(--ink-muted);
-}
-
-.footer-bottom a {
-  color: inherit;
-}
-
-.footer-bottom a:hover {
-  color: var(--fire);
 }
 
 #download {
@@ -1701,7 +1360,7 @@ td:first-child {
   position: relative;
   padding: 14px 20px;
   border-radius: 3px;
-  background: var(--grain), var(--surface);
+  background: var(--grain), var(--paper);
   box-shadow: 0 1px 2px rgb(var(--shadow-rgb) / 0.2), 0 8px 18px rgb(var(--shadow-rgb) / 0.14);
 }
 
@@ -1713,7 +1372,7 @@ td:first-child {
   margin-left: -39px;
   width: 78px;
   height: 22px;
-  background: var(--fabric), var(--tape-film);
+  background: var(--grain), var(--tape-film);
   clip-path: var(--tape-ends);
   filter: drop-shadow(0 1px 1px rgb(var(--shadow-rgb) / 0.25));
   transform: rotate(-2.5deg);
@@ -1739,7 +1398,7 @@ td:first-child {
 }
 
 /* Wide screens have room beside the text, so the contents follow the reader down the page */
-@media (min-width: 1280px) {
+@media (min-width: 1360px) {
   .prose-wrap {
     position: relative;
   }
@@ -1748,10 +1407,9 @@ td:first-child {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 100%;
+    left: calc(100% + 28px);
     width: 216px;
     margin: 0;
-    padding: 48px 0 96px;
   }
 
   /* Taped to the page, so it scrolls with the page rather than staying put on screen */
@@ -1763,7 +1421,7 @@ td:first-child {
     max-height: calc(100vh - 260px);
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--patch-edge) 55%, transparent) transparent;
+    scrollbar-color: color-mix(in srgb, var(--muted) 40%, transparent) transparent;
     padding-right: 6px;
   }
 
@@ -1783,70 +1441,9 @@ td:first-child {
 
 /* RELEASE NOTES */
 
-.release-list {
-  max-width: 560px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.release-list li {
-  margin-bottom: 12px;
-}
-
-.release-list a {
-  position: relative;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 14px 22px;
-  border: 3px solid var(--patch-edge);
-  border-radius: 12px;
-  background: var(--weave), var(--surface);
-  box-shadow: var(--card-shadow);
-  color: inherit;
-  text-decoration: none;
-  transition: color 140ms ease, background 140ms ease;
-}
-
-.release-list a::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border: 2px dashed var(--patch-thread);
-  border-radius: 7px;
-  transition: border-color 140ms ease;
-  pointer-events: none;
-}
-
-.release-list a:hover {
-  color: var(--accent-text);
-  background: var(--weave), color-mix(in srgb, var(--surface) 88%, var(--accent));
-}
-
-.release-list a:hover::after {
-  border-color: var(--accent-text);
-}
-
-.release-version {
-  font-weight: 600;
-}
-
-.release-list time {
-  color: var(--muted);
-  font-size: 15px;
-}
-
 .release-date {
   margin: -8px 0 24px;
   font-size: 15px;
-}
-
-/* 404 */
-
-.not-found {
-  padding-bottom: 96px;
 }
 
 /* CHAPTER NAVIGATION */
@@ -1860,8 +1457,6 @@ td:first-child {
 
 .chapter-nav a {
   display: block;
-  justify-content: initial;
-  padding: 14px 22px;
 }
 
 .chapter-nav span {
@@ -1876,54 +1471,191 @@ td:first-child {
   text-align: right;
 }
 
-/* RESOURCES: a row of books, each a link */
+/* RESOURCES: brochure boxes fixed to the board, like the ones at a trailhead */
 
-.shelf {
+.brochure-boxes {
+  /* The wood of the boxes: a warmer, darker board than the wall */
+  --box-wood:
+    linear-gradient(rgb(66 44 24 / 0.5), rgb(66 44 24 / 0.5)),
+    var(--wood-dim),
+    var(--wood-image) 0 -40px / 1434px 640px,
+    var(--wood-base);
+  --roof: 34px;
+  --step: 16px;
+  --cover-bg: var(--ink);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 28px;
-  align-items: start;
+  gap: 40px 30px;
+  padding-bottom: 12px;
 }
 
-.shelf-item p {
-  margin: 14px 0 0;
-  color: color-mix(in srgb, var(--text) 80%, transparent);
-  font-size: 14px;
-  line-height: 1.5;
+/* The whole box is the link, "take one" board included */
+a.brochure-box,
+a.brochure-box:hover {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
+a.brochure-box:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 8px;
+}
+
+/* The box: a frame of wood around a dark opening, with the opening's back wall shaded under the hood */
+.brochure-box {
+  position: relative;
+  aspect-ratio: 1 / 1.74;
+  padding: var(--roof) 11px 0;
+  border-radius: 0 0 4px 4px;
+  background:
+    linear-gradient(rgb(24 14 6 / 0.45), rgb(48 34 22 / 0.5) 40%, rgb(58 42 28 / 0.55)) content-box,
+    var(--box-wood);
+  /* The frame's inner edges catch the light, and its outer edge is bevelled */
+  box-shadow:
+    inset 1px 0 0 rgb(255 246 224 / 0.22),
+    inset -1px 0 0 rgb(0 0 0 / 0.35),
+    inset 0 -2px 0 rgb(0 0 0 / 0.3);
+  filter: drop-shadow(0 12px 8px rgb(var(--shadow-rgb) / 0.5)) drop-shadow(0 2px 1px rgb(var(--shadow-rgb) / 0.5));
+}
+
+/* The hood over the opening: a sloped top board over a thicker front board, both wider than the box */
+.brochure-box::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0 -9px auto;
+  height: var(--roof);
+  border-radius: 3px 3px 1px 1px;
+  background:
+    linear-gradient(rgb(255 246 224 / 0.4) 0 2px, transparent 2px),
+    linear-gradient(rgb(255 246 224 / 0.14), transparent 60%),
+    linear-gradient(transparent 60%, rgb(0 0 0 / 0.45) 60% calc(60% + 1px), rgb(0 0 0 / 0.2) calc(60% + 1px)),
+    var(--box-wood);
+  box-shadow: 0 5px 7px rgb(0 0 0 / 0.45);
+}
+
+/* The front board across the bottom, hiding the leaflets' bases, with "take one" painted on it and a screw at each end */
+.brochure-box::after {
+  content: "Take one";
+  position: absolute;
+  z-index: 3;
+  inset: auto 0 0;
+  height: 22%;
+  display: grid;
+  place-items: center;
+  padding-top: 4px;
+  font-family: "National Park", var(--font);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cover-cream);
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.55), 0 0 6px rgb(0 0 0 / 0.25);
+  background:
+    radial-gradient(circle at 12px 50%, #9c9689 0 2.5px, rgb(0 0 0 / 0.5) 3px 3.5px, transparent 4px),
+    radial-gradient(circle at calc(100% - 12px) 50%, #9c9689 0 2.5px, rgb(0 0 0 / 0.5) 3px 3.5px, transparent 4px),
+    linear-gradient(rgb(255 246 224 / 0.35) 0 2px, rgb(245 239 219 / 0.12) 2px 4px, transparent 4px),
+    linear-gradient(rgb(var(--shadow-rgb) / 0.25), transparent 45%),
+    var(--box-wood);
+  box-shadow: 0 -5px 8px rgb(0 0 0 / 0.45);
+}
+
+/* A leaflet standing in the box, with the ones behind it showing above */
 .cover {
   --cover-bg: var(--ink);
   --cover-text: var(--cover-cream);
-  position: relative;
+  position: absolute;
+  z-index: 2;
+  inset: calc(var(--roof) + var(--step)) 16px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 393 / 600;
-  padding: 12% 10% 12% 14%;
+  padding: 6% 8% 46%;
   text-align: center;
-  border-radius: 2px 5px 5px 2px;
+  border-radius: 1px;
   background: var(--cover-bg);
   color: var(--cover-text);
   text-decoration: none;
-  /* The page edges are offset down and right for perspective, as on the real book */
-  box-shadow:
-    1px 1px 0 #f3eddb,
-    0px 1px 0 #3a3226,
-    2px 2px 0 #cfc5ac,
-    1px 2px 0 #3a3226,
-    3px 3px 0 #f3eddb,
-    2px 3px 0 #3a3226,
-    4px 4px 0 #cfc5ac,
-    3px 4px 0 #3a3226,
-    8px 10px 18px rgb(var(--shadow-rgb) / 0.35);
+  box-shadow: 0 -1px 0 rgb(255 255 255 / 0.25), 0 0 0 1px rgb(0 0 0 / 0.15);
   transition: transform 160ms ease;
 }
 
-.cover:hover {
-  transform: translateY(-6px);
-  text-decoration: none;
+/* The leaflets behind, leaning a little to each side so their edges show beside the one in front, darker in its shadow. They are separate from the front one so that it can be pulled up without them */
+.back {
+  position: absolute;
+  z-index: 1;
+  inset: calc(var(--roof) + var(--step) - 4px) 12px 10px;
+  background: color-mix(in srgb, var(--cover-bg) 82%, #000);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.2);
+  transform-origin: bottom center;
+  transform: rotate(var(--lean-1, -2.2deg));
+}
+
+.back + .back {
+  background: color-mix(in srgb, var(--cover-bg) 66%, #000);
+  transform: rotate(var(--lean-2, 1.8deg));
+}
+
+/* Each stack is left a different amount of untidy */
+.brochure-box:nth-child(2) {
+  --lean-1: 2deg;
+  --lean-2: -1.2deg;
+}
+
+.brochure-box:nth-child(3) {
+  --lean-1: -2.8deg;
+  --lean-2: 0.9deg;
+}
+
+.brochure-box:nth-child(4) {
+  --lean-1: 1.1deg;
+  --lean-2: -2deg;
+}
+
+/* The books are squared up */
+.brochure-box:has(.cover-book) {
+  --lean-1: -0.5deg;
+  --lean-2: 0.4deg;
+}
+
+/* Contour lines printed faintly across the leaflet, in its text colour; each one shows a different part of the map */
+.cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: currentColor;
+  -webkit-mask: url('/assets/images/topo.svg') var(--topo-x, 20%) var(--topo-y, 30%) / 280% no-repeat;
+  mask: url('/assets/images/topo.svg') var(--topo-x, 20%) var(--topo-y, 30%) / 280% no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.brochure-box:nth-child(2) .cover {
+  --topo-x: 80%;
+  --topo-y: 65%;
+}
+
+.brochure-box:nth-child(3) .cover {
+  --topo-x: 45%;
+  --topo-y: 10%;
+}
+
+.brochure-box:nth-child(4) .cover {
+  --topo-x: 10%;
+  --topo-y: 85%;
+}
+
+.cover-book::before {
+  display: none;
+}
+
+/* Pulled up out of the box a little when the box is hovered or focused */
+.brochure-box:hover .cover,
+.brochure-box:focus-visible .cover {
+  transform: translateY(-12px);
 }
 
 /* An icon from the app above the title, drawn in the cover's text colour */
@@ -1939,62 +1671,53 @@ td:first-child {
 
 .cover-title {
   font-family: "National Park", var(--font);
-  font-size: clamp(15px, 1.7vw, 20px);
+  font-size: clamp(13px, 1.4vw, 17px);
   font-weight: 800;
   letter-spacing: 0.04em;
   line-height: 1.1;
   text-transform: uppercase;
 }
 
-/* A soft hinge along the spine */
-.cover::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 6%;
-  border-radius: 2px 0 0 2px;
-  background: linear-gradient(90deg, rgb(0 0 0 / 0.2), rgb(255 255 255 / 0.04) 65%, transparent);
-  pointer-events: none;
-}
-
-/* A line at the foot, where the real cover has its author */
-.cover:not(.cover-book)::after {
-  content: "Trail Sense";
-  position: absolute;
-  bottom: 7%;
-  left: 0;
-  right: 0;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.cover-guide {
+.cover-guide,
+.brochure-box:has(.cover-guide) {
   --cover-icon: url('/assets/images/icons/user-guide.svg');
   --cover-bg: #a67a6e; /* Meat */
   --cover-text: #322f27; /* Natural Black */
 }
 
-.cover-maps {
+.cover-maps,
+.brochure-box:has(.cover-maps) {
   --cover-icon: url('/assets/images/icons/maps.svg');
   --cover-bg: #807b52; /* Natural Green-Brown */
 }
 
-.cover-dem {
+.cover-dem,
+.brochure-box:has(.cover-dem) {
   --cover-icon: url('/assets/images/icons/altitude.svg');
   --cover-bg: #776343; /* Wood Bark 1 */
 }
 
-.cover-notes {
+.cover-notes,
+.brochure-box:has(.cover-notes) {
   --cover-icon: url('/assets/images/icons/update.svg');
   --cover-bg: #9b9283; /* Rock */
   --cover-text: #322f27; /* Natural Black */
 }
 
+/* The survival guide is a book: the same stack, made of its own cover, with a hinge along the spine */
 .cover-book {
   padding: 0;
+  background: #3b362c;
+  border-radius: 1px 3px 3px 1px;
+}
+
+.brochure-box:has(.cover-book) .back {
+  background: linear-gradient(rgb(0 0 0 / 0.18), rgb(0 0 0 / 0.18)), url('/assets/images/cover.webp') top / cover;
+  border-radius: 1px 3px 3px 1px;
+}
+
+.brochure-box:has(.cover-book) .back + .back {
+  background: linear-gradient(rgb(0 0 0 / 0.34), rgb(0 0 0 / 0.34)), url('/assets/images/cover.webp') top / cover;
 }
 
 .cover-book img {
@@ -2003,16 +1726,223 @@ td:first-child {
   height: 100%;
   border-radius: inherit;
   object-fit: cover;
+  object-position: top;
+  box-shadow: inset 7px 0 6px -4px rgb(0 0 0 / 0.5), inset 1px 0 0 rgb(255 255 255 / 0.15);
 }
 
-@media (max-width: 960px) {
-  .shelf {
-    grid-template-columns: repeat(3, 1fr);
+/* When the boxes don't fit in one row they wrap, and the last row is centred */
+@media (max-width: 860px) {
+  .brochure-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .brochure-box {
+    width: calc((100% - 56px) / 3);
   }
 }
 
 @media (max-width: 560px) {
-  .shelf {
-    grid-template-columns: repeat(2, 1fr);
+  .brochure-box {
+    width: calc((100% - 28px) / 2);
   }
+}
+
+/* PAPER: sheets, photo prints and notices pinned to the board */
+
+.sheet,
+.feature-card,
+.card,
+.toc details {
+  --text: var(--paper-text);
+  --muted: var(--paper-muted);
+  --accent-text: var(--paper-accent);
+  --surface-2: var(--paper-code);
+  --link-line: var(--accent);
+  --link-thickness: 2px;
+  color: var(--text);
+}
+
+.sheet-wrap {
+  max-width: 880px;
+  padding-top: 48px;
+  padding-bottom: 96px;
+}
+
+.sheet,
+.feature-card,
+.card {
+  position: relative;
+  border-radius: 2px;
+  background: var(--grain), var(--paper);
+  box-shadow: 0 1px 2px rgb(var(--shadow-rgb) / 0.2), 0 10px 24px rgb(var(--shadow-rgb) / 0.16);
+}
+
+.sheet {
+  padding: 44px 56px 52px;
+}
+
+/* Thumbtacks: one at the top of a print or notice, and a pair at the top and foot of a sheet (the foot pair hangs from an empty element at the end of the sheet) */
+.sheet::before,
+.sheet::after,
+.sheet-foot::before,
+.sheet-foot::after,
+.feature-card::after,
+.card::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pin-face);
+  /* The shading of the dome and its rim, then the shadow the head casts on the paper and the one the pin casts under it */
+  box-shadow:
+    inset -2px -3px 4px rgb(var(--shadow-rgb) / 0.45),
+    inset 1px 1px 2px rgb(245 239 219 / 0.3),
+    0 0 0 1px color-mix(in srgb, #a33b23 40%, #322f27),
+    1px 1px 1px rgb(var(--shadow-rgb) / 0.5),
+    3px 4px 5px rgb(var(--shadow-rgb) / 0.4);
+  pointer-events: none;
+}
+
+.feature-card::after,
+.card::after {
+  top: 10px;
+  left: 50%;
+  margin-left: -9px;
+}
+
+.sheet::before,
+.sheet::after {
+  top: 10px;
+}
+
+.sheet-foot {
+  position: absolute;
+  inset: auto 0 0;
+}
+
+.sheet-foot::before,
+.sheet-foot::after {
+  bottom: 10px;
+}
+
+.sheet::before,
+.sheet-foot::before {
+  left: 10px;
+}
+
+.sheet::after,
+.sheet-foot::after {
+  right: 10px;
+}
+
+.sheet-head {
+  margin-bottom: 8px;
+}
+
+.sheet-head + .prose {
+  margin-top: 20px;
+}
+
+.sheet-head h1 {
+  margin-bottom: 12px;
+}
+
+.sheet-head p {
+  margin: 0 0 24px;
+  color: var(--muted);
+}
+
+.contents-label {
+  margin: 28px 0 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Entries are joined to the arrow by a dotted leader, like a printed table of contents */
+.contents {
+  columns: 2 280px;
+  column-gap: 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contents li {
+  break-inside: avoid;
+}
+
+.contents a {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 0;
+  color: var(--text);
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 140ms ease;
+}
+
+.contents a::after {
+  content: "";
+  order: 1;
+  flex: 1;
+  min-width: 16px;
+  border-bottom: 2px dotted color-mix(in srgb, var(--muted) 55%, transparent);
+  transition: border-color 140ms ease;
+}
+
+.contents a::before {
+  content: "\203A";
+  order: 2;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.contents a:hover,
+.contents a:focus-visible {
+  color: var(--accent-text);
+}
+
+.contents a:hover::after,
+.contents a:focus-visible::after {
+  border-color: var(--accent-text);
+}
+
+@media (max-width: 600px) {
+  .sheet-wrap,
+  .prose-wrap:has(.sheet) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .sheet {
+    padding: 32px 22px 40px;
+  }
+}
+
+/* Release notes list the date where the guide contents has its arrow */
+.contents-dated {
+  columns: 1;
+}
+
+.contents-dated a::before {
+  display: none;
+}
+
+.contents-dated time {
+  order: 2;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.split .safety-card {
+  grid-column: 1 / -1;
 }
