@@ -1110,7 +1110,8 @@ body:has(main > .hero:first-child) .nav-cta {
   padding-bottom: 96px;
 }
 
-.book-page .book-cover {
+/* Not a link, so it doesn't lift */
+.book-page .cover:hover {
   transform: none;
 }
 
@@ -1135,7 +1136,7 @@ body:has(main > .hero:first-child) .nav-cta {
     gap: 32px;
   }
 
-  .book-page .book-cover {
+  .book-page .cover {
     max-width: 200px;
   }
 }
