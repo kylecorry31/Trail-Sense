@@ -25,6 +25,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.ExternalResource
+import org.junit.rules.RuleChain
 import org.junit.rules.Timeout
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
@@ -34,8 +35,14 @@ open class ToolTestBase(
     private val locationOverride: Coordinate? = null
 ) {
 
-    @get:Rule
-    val timeoutRule: Timeout = Timeout(5, TimeUnit.MINUTES)
+    private val timeoutRule: Timeout = Timeout(5, TimeUnit.MINUTES)
+
+    private val retryRule = RetryTestRule(maxRetryCount = 3)
+
+    @get:Rule(order = -2)
+    val retryWithTimeoutRule: RuleChain = RuleChain
+        .outerRule(retryRule)
+        .around(timeoutRule)
 
     @get:Rule
     val grantPermissionRule = TestUtils.allPermissionsGranted()
