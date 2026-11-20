@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.sensors.overrides
 
 import android.content.Context
+import android.os.SystemClock
 import com.kylecorry.andromeda.core.sensors.AbstractSensor
 import com.kylecorry.andromeda.sense.location.Satellite
 import com.kylecorry.luna.time.CoroutineTimer
@@ -38,6 +39,9 @@ class CachedGPS(context: Context, private val updateFrequency: Long = 1000L) : A
         get() = null
     override var eventTime: Instant
         get() = Instant.now()
+        set(_) {}
+    override var eventTimeElapsedNanos: Long
+        get() = SystemClock.elapsedRealtimeNanos()
         set(_) {}
     override val verticalAccuracy: Float?
         get() = cached?.verticalAccuracy
