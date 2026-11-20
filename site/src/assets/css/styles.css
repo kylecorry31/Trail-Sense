@@ -1599,6 +1599,7 @@ a.brochure-box:focus-visible {
 }
 
 .back + .back {
+  z-index: 0;
   background: color-mix(in srgb, var(--cover-bg) 66%, #000);
   transform: rotate(var(--lean-2, 1.8deg));
 }
