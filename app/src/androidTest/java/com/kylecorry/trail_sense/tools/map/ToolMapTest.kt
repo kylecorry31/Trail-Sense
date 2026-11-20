@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.map
 
 import android.graphics.Point
+import androidx.lifecycle.Lifecycle
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.dem.map_layers.SlopeMapTileSource
@@ -73,6 +74,20 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
 
         // Reset/Close
         click(R.id.time_btn)
+    }
+
+    @Test
+    fun showsTheNewestLocationWhenResumed() {
+        clickOk()
+        waitFor { assertEquals(location.latitude, userLocation().latitude, 0.0003) }
+
+        // The location can change while paused, such as when backtrack records a point
+        scenario.moveToState(Lifecycle.State.CREATED)
+        TestUtils.setLocationOverride(movedLocation)
+        scenario.moveToState(Lifecycle.State.RESUMED)
+
+        // The first reading after resuming must already be the new location, not the old one
+        assertEquals(movedLocation.latitude, userLocation().latitude, 0.0003)
     }
 
     private fun openLayers() {
@@ -518,6 +533,12 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
         return amount * if (unit == "mi") 1609.344 else 0.3048
     }
 
+    private fun userLocation(): Coordinate {
+        var userLocation = Coordinate.zero
+        scenario.onActivity { userLocation = it.findViewById<MapView>(R.id.map).userLocation }
+        return userLocation
+    }
+
     private fun resolution(): Float {
         var resolution = 0f
         scenario.onActivity { resolution = it.findViewById<MapView>(R.id.map).resolutionPixels }
@@ -596,6 +617,7 @@ class ToolMapTest : ToolTestBase(Tools.MAP, location) {
     companion object {
         private const val DOUBLE_TAP_PAUSE_MS = 500L
         private val location = Coordinate(42.03, -71.97)
+        private val movedLocation = Coordinate(42.05, -71.97)
         // About 167 m north of the current location
         private val campLocation = Coordinate(42.0315, -71.97)
 

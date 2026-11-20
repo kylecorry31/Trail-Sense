@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.shared.extensions
 
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import androidx.activity.ComponentDialog
 import androidx.activity.OnBackPressedCallback
@@ -24,6 +25,7 @@ import com.kylecorry.andromeda.fragments.ReactiveAndromedaFragment
 import com.kylecorry.andromeda.fragments.onBackPressed
 import com.kylecorry.andromeda.fragments.useBackgroundEffect
 import com.kylecorry.andromeda.fragments.useTopic
+import com.kylecorry.luna.topics.ITopic
 import com.kylecorry.andromeda.preferences.IPreferences
 import com.kylecorry.andromeda.sense.location.IGPS
 import com.kylecorry.andromeda.sense.orientation.IOrientationSensor
@@ -109,9 +111,31 @@ fun ReactiveAndromedaFragment.useGPSLocation(
     frequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY
 ): Pair<Coordinate, Float?> {
     val gps = useGPSSensor(frequency, this::class.java.simpleName)
-    return useTopic(gps, gps.location to gps.horizontalAccuracy) {
+    return useTopicRefreshedOnResume(gps, gps.location to gps.horizontalAccuracy) {
         it.location to it.horizontalAccuracy
     }
+}
+
+private class TimestampedValue<V>(val value: V, val elapsedNanos: Long)
+
+/**
+ * [useTopic] keeps its last value while paused, so the first frame after resuming would show the
+ * reading from before the pause even if the topic has since received newer data (such as GPS
+ * updates from backtrack). This also reads the topic when the fragment resumes.
+ */
+fun <T : ITopic, V> ReactiveAndromedaFragment.useTopicRefreshedOnResume(
+    topic: T,
+    default: V,
+    mapper: (T) -> V
+): V {
+    val live = useTopic(topic, TimestampedValue(default, 0L)) {
+        TimestampedValue(mapper(it), SystemClock.elapsedRealtimeNanos())
+    }
+    val (resumed, setResumed) = useState(TimestampedValue(default, 0L))
+    useLifecycleEffect(Lifecycle.Event.ON_RESUME, topic) {
+        setResumed(TimestampedValue(mapper(topic), SystemClock.elapsedRealtimeNanos()))
+    }
+    return if (resumed.elapsedNanos > live.elapsedNanos) resumed.value else live.value
 }
 
 /**
@@ -161,18 +185,18 @@ fun ReactiveAndromedaFragment.useNavigationSensors(
 
     val defaultCompassReading = useMemo(compass) { getBearing() }
 
-    val (location, locationAccuracy, gpsSpeed) = useTopic(
+    val (location, locationAccuracy, gpsSpeed) = useTopicRefreshedOnResume(
         gps,
         defaultGpsReading
     ) {
         Triple(gps.location, gps.horizontalAccuracy?.let { Distance.meters(it) }, gps.speed)
     }
 
-    val speed = useTopic(speedometer, defaultSpeedReading) {
+    val speed = useTopicRefreshedOnResume(speedometer, defaultSpeedReading) {
         speedometer.speed
     }
 
-    val (elevation, elevationAccuracy) = useTopic(
+    val (elevation, elevationAccuracy) = useTopicRefreshedOnResume(
         altimeter,
         defaultElevationReading
     ) {
