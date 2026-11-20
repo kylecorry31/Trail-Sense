@@ -8,7 +8,7 @@ Issue:
 <!-- Describe here what this change does and why (not how). This will likely become the commit message body. -->
 
 ## Testing
-<!-- Describe how you tested this change on your device/emulator. -->
+<!-- Describe how you tested this change on your device/emulator. You are expected to test the change in a real scenario if applicable (ex. testing navigation by actually following a trail). Testing should take about as long or longer than writing the code. -->
 
 ## Screenshots
 <!-- Add screenshots or video to help explain your changes. This is required if you modified the app code (ex. not just tests/docs/etc). If you did not modify app code, state that here. -->
