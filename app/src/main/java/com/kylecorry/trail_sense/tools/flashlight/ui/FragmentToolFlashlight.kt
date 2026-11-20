@@ -27,6 +27,8 @@ import com.kylecorry.trail_sense.shared.views.Slider
 import com.kylecorry.trail_sense.shared.views.TileButton
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
 import com.kylecorry.trail_sense.tools.flashlight.infrastructure.FlashlightSubsystem
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import java.time.Duration
 import java.time.Instant
 
@@ -47,7 +49,12 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
         val prefs = useService<UserPreferences>()
         val cache = useService<PreferencesSubsystem>().preferences
         val formatter = useService<FormatService>()
-        val modeFlow = useMemo(flashlight) { flashlight.mode.replay().flow }
+        val modeFlow = useMemo(flashlight) {
+            flow {
+                emit(flashlight.getMode())
+                emitAll(flashlight.mode.flow)
+            }
+        }
         val mode = useFlow(modeFlow, state = BackgroundMinimumState.Resumed) ?: flashlight.getMode()
         val hasFlashlight = flashlight.isAvailable()
         val maxBrightness = flashlight.brightnessLevels
