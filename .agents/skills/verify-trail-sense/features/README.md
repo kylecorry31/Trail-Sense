@@ -14,7 +14,7 @@ This directory is the maintained source for verifying Trail Sense's user-facing 
 
 - Reach the tool the way a user does: the Tools tab search, or a bottom-nav tab. `$T open <tool>` only sets up preconditions.
 - Prefer `id=` handles (`toolbar_title`, `toolbar_right_button`, `create_btn`, `search_view_edit_text`, `title`) and exact-text regexes (`text=/^OK$/`) over coordinates.
-- Inject the environment with `$T geo` and `$T sensor set`. Set state with `$T pref`/`$T db exec` only as preconditions.
+- Inject the environment with `$T env geo` and `$T env sensor set`. Set state with `$T pref`/`$T db exec` only as preconditions.
 - After a mutation, put the data back (`db exec` delete, or `app restore <backup>` with the directory tsctl printed). Proof artifacts stay.
 
 ## Proof and skip reporting

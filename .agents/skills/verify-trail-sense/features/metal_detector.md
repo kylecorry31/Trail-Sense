@@ -16,10 +16,10 @@ Every section of [`guide_tool_metal_detector.txt`](../../../../guides/en-US/guid
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- Baseline field: `$T sensor set magnetic-field 22 5 -40`.
+- Baseline field: `$T env sensor set magnetic-field 22 5 -40`.
 
 - **Calibrate.** Open the tool and calibrate per the guide. Set the baseline field before opening, then run `$T open metal-detector` and wait over 2 s: the tool auto-calibrates 2 s after opening (or tap `id=calibrate_btn`), so a field injected earlier becomes the reference. `id=toolbar_title` reads `46 uT`.
-- **Detect.** Raise the field. Run `$T sensor set magnetic-field 120 80 -150`. `id=toolbar_title` reads `208 uT` and the metal icon appears as a drawable on the title (not a separate view). Driven on 2026-11-21.
+- **Detect.** Raise the field. Run `$T env sensor set magnetic-field 120 80 -150`. `id=toolbar_title` reads `208 uT` and the metal icon appears as a drawable on the title (not a separate view). Driven on 2026-11-21.
 - **Proof.** Snap before and after the field change.
 
 ## Gotchas

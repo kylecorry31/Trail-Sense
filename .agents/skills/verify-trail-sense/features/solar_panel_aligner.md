@@ -16,10 +16,10 @@ Every section of [`guide_tool_solar_panel_aligner.txt`](../../../../guides/en-US
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- `$T geo 42.3601 -71.0589 20`.
+- `$T env geo 42.3601 -71.0589 20`.
 
 - **Align.** Open the tool. Run `$T open solar-panel-aligner` and dismiss the `Solar Panel Aligner` dialog (shown on every open, `id=button1`). The screen shows `desired_azimuth`, `current_azimuth`, `desired_altitude`, `current_altitude` and `energy`, with `solar_today_btn` / `solar_now_btn` for the mode.
-- **Move.** Change the heading with `$T sensor set magnetic-field …` (azimuth) and the accelerometer (tilt). Direction hints update. Not driven.
+- **Move.** Change the heading with `$T env sensor set magnetic-field …` (azimuth) and the accelerometer (tilt). Direction hints update. Not driven.
 - **Proof.** Snap the aligner at two headings.
 
 ## Gotchas

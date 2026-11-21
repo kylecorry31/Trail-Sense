@@ -25,5 +25,5 @@ Preconditions:
 
 ## Gotchas
 
-- Estimation without a table uses location; set `$T geo` near a coast.
+- Estimation without a table uses location; set `$T env geo` near a coast.
 - A saved table is cleaned up with `$T db exec "delete from tide_table_rows; delete from tide_tables"`.

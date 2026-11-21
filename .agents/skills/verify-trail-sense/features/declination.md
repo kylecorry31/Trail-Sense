@@ -16,10 +16,10 @@ Every section of [`guide_tool_declination.txt`](../../../../guides/en-US/guide_t
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- `$T geo 42.3601 -71.0589 20`.
+- `$T env geo 42.3601 -71.0589 20`.
 
 - **Find.** Open the tool. Run `$T open declination`. Declination for the location (about -14° in Boston).
-- **Proof.** Snap the value; change the location with `$T geo` and confirm it changes.
+- **Proof.** Snap the value; change the location with `$T env geo` and confirm it changes.
 
 ## Gotchas
 

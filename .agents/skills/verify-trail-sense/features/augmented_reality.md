@@ -25,6 +25,6 @@ Preconditions:
 
 ## Gotchas
 
-- Needs a compass; the emulator's magnetic sensor counts. Move the heading with `$T sensor set magnetic-field 0 20 -40` vs `20 0 -40`.
+- Needs a compass; the emulator's magnetic sensor counts. Move the heading with `$T env sensor set magnetic-field 0 20 -40` vs `20 0 -40`.
 - Calibration and Navigate with guidance can't be verified meaningfully without real sky or landmarks; report as not verified.
 - Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

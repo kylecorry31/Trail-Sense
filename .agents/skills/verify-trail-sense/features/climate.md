@@ -16,7 +16,7 @@ Every section of [`guide_tool_climate.txt`](../../../../guides/en-US/guide_tool_
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- `$T geo 42.3601 -71.0589 20`.
+- `$T env geo 42.3601 -71.0589 20`.
 
 - **Chart.** Open the tool. Run `$T open climate`. Temperature chart and climate classification for the location.
 - **Change location.** Change the location per the guide. Run `$T ui find Location`. Values change for the new location.

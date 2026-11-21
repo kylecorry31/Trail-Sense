@@ -19,7 +19,7 @@ Every section of [`guide_tool_beacons.txt`](../../../../guides/en-US/guide_tool_
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- `$T geo 42.3601 -71.0589 20` sets the GPS fix.
+- `$T env geo 42.3601 -71.0589 20` sets the GPS fix.
 - No beacon named `Verify Camp`. Check with `$T db query "select name from beacons"`.
 
 - **Open from Tools.** Tap the Tools tab, search, and tap the tile. Run `$T ui tap id=action_experimental_tools`, `$T ui type Beacons id=search_view_edit_text`, and `$T ui tap 'text=/^Beacons$/,id=title'`. The toolbar title reads `Beacons`. A fresh install shows `No beacons` (`id=beacon_empty_text`).
@@ -35,5 +35,5 @@ Preconditions:
 
 - `text=Beacon` matches `Beacons` and `Create beacon` too (it's a case-insensitive substring). Use `text=/^Beacon$/`.
 - The form has two `gps_btn` buttons (location and elevation), so pass `--first` for the location one.
-- Elevation is converted from the GPS (ellipsoid) altitude to sea level with seed's GPS altimeter mode: `geo ... 20` in Boston gives 159 ft in the form and ~48.5 m in the db (geoid offset ≈ +28 m). Assert on that, not on the raw `geo` altitude. Other altimeter modes give other values.
+- Elevation is converted from the GPS (ellipsoid) altitude to sea level with seed's GPS altimeter mode: `env geo ... 20` in Boston gives 159 ft in the form and ~48.5 m in the db (geoid offset ≈ +28 m). Assert on that, not on the raw `geo` altitude. Other altimeter modes give other values.
 - Clean up with `$T db exec "delete from beacons where name='Verify Camp'"` or delete through the UI. Keep the captures.

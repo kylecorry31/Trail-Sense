@@ -1148,6 +1148,36 @@ def cmd_ui_snap(ctx):
     return Out({"png": f"{base}.png", "layout": f"{base}.layout.json"}, f"wrote {base}.png and {base}.layout.json")
 
 
+RECORD_STATE = "/sdcard/tsctl-record.txt"
+
+
+def cmd_ui_record(ctx):
+    """Record the screen on the device (screenrecord, capped at 180 s) and pull the mp4 on stop."""
+    sh = ctx.target.shell
+    if ctx.args.action == "start":
+        if text(sh("cat", RECORD_STATE, check=False)).strip():
+            raise UsageError("a recording is already running; run `tsctl ui record stop` first")
+        remote = f"/sdcard/tsctl-{os.getpid()}.mp4"
+        script = f"screenrecord --time-limit 180 {remote} >/dev/null 2>&1 & echo $!"
+        pid = text(sh("sh", "-c", shlex.quote(script))).strip()
+        sh("sh", "-c", shlex.quote(f"echo {pid} {remote} {shlex.quote(ctx.args.name)} > {RECORD_STATE}"))
+        return Out({"pid": pid}, f"recording to {ctx.args.name}.mp4 (stop with `tsctl ui record stop`; auto-stops after 180 s)")
+    state = text(sh("cat", RECORD_STATE, check=False)).split()
+    if len(state) != 3:
+        raise UsageError("no recording is running")
+    pid, remote, name = state
+    sh("kill", "-2", pid, check=False)
+    for _ in range(20):
+        if not text(sh("ls", f"/proc/{pid}", check=False)).strip():
+            break
+        time.sleep(0.5)
+    dest = run_dir() / f"{name}.mp4"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    run(ctx.target.adb("pull", remote, str(dest)))
+    sh("rm", "-f", remote, RECORD_STATE)
+    return Out({"mp4": str(dest)}, f"wrote {dest}")
+
+
 def cmd_logs(ctx):
     a = ctx.args
     if a.clear:
@@ -1163,11 +1193,62 @@ def cmd_logs(ctx):
         elif not a.all:
             log(f"{ctx.package} is not running; showing all logs")
         out = text(run(cmd))
+    if a.grep:
+        pattern = re.compile(a.grep)
+        out = "".join(l + "\n" for l in out.splitlines() if pattern.search(l))
     if a.out:
         Path(a.out).parent.mkdir(parents=True, exist_ok=True)
         Path(a.out).write_text(out)
         return Out({"path": a.out, "lines": len(out.splitlines())}, f"wrote {a.out} ({len(out.splitlines())} lines)")
     return Out({"lines": out.splitlines()}, out.rstrip())
+
+
+DISPLAY_SETTINGS = ("size", "density", "font-scale", "dark", "rotation")
+
+
+def cmd_display(ctx):
+    """Change screen size, density, font scale, dark mode, or rotation to check responsive layouts."""
+    a = ctx.args
+    sh = ctx.target.shell
+    if a.setting == "reset":
+        for cmd in (("wm", "size", "reset"), ("wm", "density", "reset"),
+                    ("settings", "put", "system", "font_scale", "1.0"),
+                    ("cmd", "uimode", "night", "no"),
+                    ("settings", "put", "system", "accelerometer_rotation", "1")):
+            sh(*cmd)
+        return Out({"reset": True}, "display reset (size, density, font scale, dark mode, rotation)")
+    if a.setting == "status":
+        data = {
+            "size": text(sh("wm", "size")).strip(),
+            "density": text(sh("wm", "density")).strip(),
+            "font-scale": text(sh("settings", "get", "system", "font_scale")).strip(),
+            "dark": text(sh("cmd", "uimode", "night")).strip(),
+            "rotation": text(sh("settings", "get", "system", "user_rotation")).strip(),
+        }
+        return Out(data, "\n".join(f"{k}: {v}" for k, v in data.items()))
+    if a.value is None:
+        raise UsageError(f"usage: tsctl env display {a.setting} VALUE")
+    commands = {
+        "size": ("wm", "size", a.value),
+        "density": ("wm", "density", a.value),
+        "font-scale": ("settings", "put", "system", "font_scale", a.value),
+        "dark": ("cmd", "uimode", "night", "yes" if a.value in ("on", "yes", "true") else "no"),
+    }
+    if a.setting == "rotation":
+        if a.value not in ("0", "1", "2", "3"):
+            raise UsageError("rotation must be 0, 1, 2 or 3 (quarter turns)")
+        sh("settings", "put", "system", "accelerometer_rotation", "0")
+        sh("settings", "put", "system", "user_rotation", a.value)
+    else:
+        sh(*commands[a.setting])
+    return Out({a.setting: a.value}, f"{a.setting} = {a.value} (undo with `tsctl env display reset`)")
+
+
+def cmd_notifications(ctx):
+    out = text(ctx.target.shell("dumpsys", "notification", "--noredact", check=False))
+    records = re.split(r"(?m)^\s*NotificationRecord\(", out)[1:]
+    mine = [r.splitlines()[0] + " " + " ".join(re.findall(r"android\.(?:title|text)=\S.*", r)) for r in records if f"pkg={ctx.package}" in r]
+    return Out({"notifications": mine}, "\n".join(mine) or f"no notifications from {ctx.package}")
 
 
 def cmd_adb(ctx):
@@ -1195,7 +1276,7 @@ EPILOG = """examples:
   tsctl emu start && tsctl app install && tsctl app seed --clear && tsctl doctor
   tsctl open beacons
   tsctl ui tap id=create_btn ; tsctl ui type "Camp" 'id=/:id\\/text_input$/'
-  tsctl geo 42.36 -71.06 20 ; tsctl sensor set pressure 990.5
+  tsctl env geo 42.36 -71.06 20 ; tsctl env sensor set pressure 990.5
   tsctl db query "select name from beacons" --json
   tsctl --dry-run app clear ; tsctl test unit '*BeaconNavigatorTest'
 
@@ -1219,9 +1300,9 @@ def build_parser():
                                    description="Drive Trail Sense on an emulator (or, with approval, a device) for verification.")
     top = root.add_subparsers(dest="command", required=True, metavar="<command>")
 
-    def group(name, help_text, epilog=None):
-        p = top.add_parser(name, parents=[common], help=help_text, description=help_text, epilog=epilog,
-                           formatter_class=argparse.RawDescriptionHelpFormatter)
+    def group(name, help_text, epilog=None, parent=top):
+        p = parent.add_parser(name, parents=[common], help=help_text, description=help_text, epilog=epilog,
+                              formatter_class=argparse.RawDescriptionHelpFormatter)
         return p.add_subparsers(dest=f"{name}_cmd", required=True, metavar="<subcommand>")
 
     def leaf(parent, name, fn, policy, help_text, epilog=None):
@@ -1234,15 +1315,15 @@ def build_parser():
     leaf(top, "doctor", cmd_doctor, Policy(risk="inspect"),
          "readiness check: target, boot, emulator memory, installed build, onboarding, focused window (exit 1 if not ready)")
 
-    dev = group("device", "full-control grants for a package on a physical device",
-                "Grant only after the user says you have full control of that package on that device.\n"
-                "example: tsctl device grant R5CT123ABC com.kylecorry.trail_sense.staging")
-    for name, fn, help_text in (("grant", cmd_device_grant, "allow every tsctl command on PACKAGE on SERIAL without asking again"),
-                                ("revoke", cmd_device_revoke, "remove a grant")):
+    dev = group("grants", "full-control grants for a package on a physical device",
+                "Add a grant only after the user says you have full control of that package on that device.\n"
+                "example: tsctl grants add R5CT123ABC com.kylecorry.trail_sense.staging")
+    for name, fn, help_text in (("add", cmd_device_grant, "allow every tsctl command on PACKAGE on SERIAL without asking again"),
+                                ("remove", cmd_device_revoke, "remove a grant")):
         dg = leaf(dev, name, fn, Policy(device=False, risk="act"), help_text)
         dg.add_argument("serial")
         dg.add_argument("package")
-    leaf(dev, "grants", cmd_device_grants, NO_DEVICE, "list grants")
+    leaf(dev, "list", cmd_device_grants, NO_DEVICE, "list grants")
 
     emu = group("emu", "manage the emulator (2 cores, 2 GB; reuses a running one)")
     s = leaf(emu, "start", cmd_emu_start, Policy(device=False, risk="act"), "boot an AVD headless and wait until usable, or reuse a running emulator")
@@ -1291,12 +1372,13 @@ def build_parser():
     leaf(app, "kill", cmd_app_kill, ACT, "kill the process (am kill) but keep widgets and pending intents; use instead of stop for background-start tests")
     ai = leaf(app, "idle", cmd_app_idle, ACT,
               "make the app idle: kill, restricted standby bucket, idle uid (the state background-start limits apply to)",
-              "Pair with `tsctl doze on`. Never use `app stop` first: force-stop cancels widget PendingIntents.")
+              "Pair with `tsctl env doze on`. Never use `app stop` first: force-stop cancels widget PendingIntents.")
     ai.add_argument("--off", action="store_true", help="return the app to the active standby bucket")
     leaf(app, "services", cmd_app_services, ACT, "running services of the app")
     leaf(app, "current", cmd_app_current, ACT, "the resumed activity")
 
-    dz = leaf(top, "doze", cmd_doze, EMULATOR, "force the device into deep Doze (on) or release it (off); emulator only, waits 3 s after on")
+    env = group("env", "fake the environment on the emulator: GPS, sensors, display, Doze (emulator only)")
+    dz = leaf(env, "doze", cmd_doze, EMULATOR, "force the device into deep Doze (on) or release it (off); waits 3 s after on")
     dz.add_argument("state", choices=["on", "off"])
 
     widget = group("widget", "home-screen widgets (emulator launcher flow for add)")
@@ -1316,14 +1398,14 @@ def build_parser():
         pp.add_argument("names", nargs="+", help="alias, all, or android.permission.* name")
     leaf(perm, "list", cmd_perm_list, ACT, "granted state of each permission and the exact-alarm appop")
 
-    geo = leaf(top, "geo", cmd_geo, EMULATOR, "emulator GPS fix, latitude first", "example: tsctl geo 42.3601 -71.0589 20")
+    geo = leaf(env, "geo", cmd_geo, EMULATOR, "GPS fix, latitude first", "example: tsctl env geo 42.3601 -71.0589 20")
     geo.add_argument("lat", type=float)
     geo.add_argument("lon", type=float)
     geo.add_argument("alt", type=float, nargs="?", help="meters above the ellipsoid")
 
-    sensor = group("sensor", "emulator virtual sensors")
+    sensor = group("sensor", "virtual sensors", parent=env)
     ss = leaf(sensor, "set", cmd_sensor_set, EMULATOR, "set a sensor value",
-              "examples: tsctl sensor set pressure 990.5 ; tsctl sensor set magnetic-field 22 5 -40\nsensors: " + ", ".join(EMULATOR_SENSORS))
+              "examples: tsctl env sensor set pressure 990.5 ; tsctl env sensor set magnetic-field 22 5 -40\nsensors: " + ", ".join(EMULATOR_SENSORS))
     ss.add_argument("name")
     ss.add_argument("values", nargs="+")
     sg = leaf(sensor, "get", cmd_sensor_get, EMULATOR, "read a sensor value")
@@ -1396,6 +1478,10 @@ def build_parser():
     ush = leaf(ui, "shot", cmd_ui_shot, UI, "screenshot to PATH")
     ush.add_argument("path")
     ush.add_argument("--annotate", action="store_true", help="number the elements")
+    rc = leaf(ui, "record", cmd_ui_record, EMULATOR, "record the screen to captures/verify/$TSCTL_RUN/NAME.mp4 (start, then stop)",
+              "example: tsctl ui record start beacons/flow ; ...drive the app... ; tsctl ui record stop")
+    rc.add_argument("action", choices=["start", "stop"])
+    rc.add_argument("name", nargs="?", default="recording")
     sn = leaf(ui, "snap", cmd_ui_snap, UI, "evidence: screenshot + layout to captures/verify/$TSCTL_RUN/NAME.{png,layout.json}")
     sn.add_argument("name", help="e.g. beacons/01-list")
 
@@ -1405,6 +1491,15 @@ def build_parser():
     lg.add_argument("--clear", action="store_true")
     lg.add_argument("--lines", type=positive_int, default=300)
     lg.add_argument("--out", help="write to a file instead of stdout")
+    lg.add_argument("--grep", help="keep only lines matching this regex")
+
+    dp = leaf(env, "display", cmd_display, EMULATOR,
+              "screen size, density, font scale, dark mode, or rotation; undo with `env display reset`",
+              "examples: tsctl env display size 720x1280 ; tsctl env display font-scale 1.3 ; tsctl env display dark on ; tsctl env display reset")
+    dp.add_argument("setting", choices=[*DISPLAY_SETTINGS, "status", "reset"])
+    dp.add_argument("value", nargs="?")
+
+    leaf(top, "notifications", cmd_notifications, ACT, "active notifications posted by the app")
 
     a = leaf(top, "adb", cmd_adb, DESTRUCTIVE, "escape hatch: run adb on the resolved target, gated like a destructive action",
              "example: tsctl adb -- shell dumpsys battery set level 23")

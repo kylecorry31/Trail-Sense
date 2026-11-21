@@ -16,6 +16,18 @@ $T <group> --help         # subcommands, e.g. $T ui --help
 $T <group> <cmd> --help   # flags for one command
 ```
 
+**Command map.** Top-level words are either a group (a noun with verbs) or a single action:
+
+| Purpose | Commands |
+| --- | --- |
+| Readiness and targets | `doctor`, `devices`, `grants add\|remove\|list`, `emu start\|stop\|status\|list` |
+| Build and test | `build`, `lint`, `test unit\|android` |
+| The app | `app install\|seed\|launch\|kill\|idle\|clear\|restore...`, `open`, `tools`, `perm`, `widget` |
+| App state | `pref`, `db` |
+| Fake the world (emulator only) | `env geo`, `env sensor set\|get\|status`, `env display`, `env doze` |
+| Drive and capture | `ui tap\|type\|scroll\|find\|snap\|record...`, `logs`, `notifications` |
+| Escape hatch | `adb --` |
+
 **Global flags** (before or after the command):
 
 - `--device SERIAL`
@@ -34,7 +46,7 @@ Every command declares a risk level, and tsctl enforces it in one place before t
 - **Default target is the single running emulator.** tsctl never falls back to a physical device. A phone is only used with an explicit `--device <serial>`.
 - **On a physical device, every command except `devices` and `doctor` needs the user's approval**: launching, tapping, screenshots, prefs, db, logs, installs. There are two ways to give it:
   - **One action:** after the user approves that specific action in chat, rerun with `--user-approved <serial>`. It covers that one command only.
-  - **Full control of a package:** when the user says you have full control of a package on that device, run `$T device grant <serial> <package>` once. Commands for that package then run without asking again. `$T device grants` lists the grants and `$T device revoke <serial> <package>` removes one. A grant doesn't cover the raw `adb --` escape hatch.
+  - **Full control of a package:** when the user says you have full control of a package on that device, run `$T grants add <serial> <package>` once. Commands for that package then run without asking again. `$T grants list` lists the grants and `$T grants remove <serial> <package>` removes one. A grant doesn't cover the raw `adb --` escape hatch.
 
   Never pass the flag or create a grant on your own judgment.
 - **Dry runs on a phone:** `--dry-run` of `app install`, `app uninstall`, `app clear`, `test android`, and `adb --` only prints the steps, so it needs no approval. Run it first and show the user the output before asking. Dry runs of `pref`, `db`, and `app seed` read app-private files, so they need approval too. A command with no dry-run mode rejects `--dry-run` with exit 2 rather than acting for real.
@@ -107,6 +119,7 @@ $T ui tap 'text=/^Beacons$/,id=title'
 - Selectors are comma-separated `key=value` pairs: `text=`, `id=`, `desc=`, `class=`, `clickable=true`, and so on.
 - Plain values are case-insensitive substrings. Use `/regex/` for an exact match.
 - An ambiguous selector fails, lists the matches, and suggests a fix. Tighten the selector, or pass `--first`.
+- A comma inside a value breaks the selector (`desc=Widget, 1 wide` fails with "missing '='"). Match a fragment without the comma, or use `id=`.
 
 ```bash
 $T ui find "Verify"                 # one JSON line per element (text/desc/id contains); exit 1 if none
@@ -134,9 +147,9 @@ Common handles:
 **Environment** (emulator only):
 
 ```bash
-$T geo 42.3601 -71.0589 20          # GPS fix: lat lon [alt m above the ellipsoid]
-$T sensor set pressure 990.5        # hPa; also magnetic-field X Y Z, acceleration X Y Z, temperature, humidity, ...
-$T sensor get pressure ; $T sensor status
+$T env geo 42.3601 -71.0589 20          # GPS fix: lat lon [alt m above the ellipsoid]
+$T env sensor set pressure 990.5        # hPa; also magnetic-field X Y Z, acceleration X Y Z, temperature, humidity, ...
+$T env sensor get pressure ; $T env sensor status
 $T perm grant location camera ; $T perm revoke notifications ; $T perm list   # aliases + "all"; revoke kills the app
 ```
 
@@ -172,13 +185,23 @@ $T db pull /some/dir
 - Non-debuggable variants (staging) can't be backed up; tsctl warns and continues.
 - Dry runs only list the backup step. Old backups are deleted automatically (see Evidence).
 
-**App lifecycle and logs:** `$T app launch|stop|kill|idle|services|current|clear|uninstall|restore`, `$T logs [--lines N] [--all] [--out f]`, `$T logs --crash`, `$T logs --clear`.
+**Responsive and accessibility checks** (emulator only; previously done with raw `wm size` and `settings put`):
+
+```bash
+$T env display size 720x1280 ; $T env display density 480 ; $T env display font-scale 1.3
+$T env display dark on ; $T env display rotation 1
+$T env display status ; $T env display reset    # always reset when done
+```
+
+**Notifications:** `$T notifications` lists the app's active notifications. Use it instead of `dumpsys notification`.
+
+**App lifecycle and logs:** `$T app launch|stop|kill|idle|services|current|clear|uninstall|restore`, `$T logs [--lines N] [--all] [--out f]`, `$T logs --crash`, `$T logs --clear`. `$T logs --grep 'Backtrack|FATAL'` keeps only lines matching a regex (the old habit was `adb logcat | grep`). Revoking a permission kills the app, so relaunch with `app launch` before the next step.
 
 **Background and widget state:**
 
 - `$T app kill` drops the process but keeps widgets and their PendingIntents. Use it, not `app stop`: force-stop cancels widget PendingIntents, so a widget tap then does nothing.
 - `$T app idle` kills the app and puts it in the restricted standby bucket with an idle uid. `$T app idle --off` undoes it.
-- `$T doze on|off` forces deep Doze (emulator only; waits 3 s after `on`). Background `startService` limits only show with `doze on` plus `app idle`.
+- `$T env doze on|off` forces deep Doze (emulator only; waits 3 s after `on`). Background `startService` limits only show with `env doze on` plus `app idle`.
 - `$T app services` lists the app's running services.
 - `$T widget add <name>` adds a widget through the Pixel launcher picker (emulator only) and saves its config screen if one shows. `$T widget tap` taps the widget on the home screen.
 
@@ -186,7 +209,7 @@ $T db pull /some/dir
 
 - `$T build [variant...]`
 - `$T lint`: detekt, or Android lint with `--android`.
-- `$T test unit 'com.kylecorry.trail_sense.tools.beacons*'`
+- `$T test unit 'com.kylecorry.trail_sense.tools.beacons*'`. Use the package-qualified name or a `*` wildcard: a bare class name like `Flashlight` finds no tests and Gradle fails.
 - `$T test android com.kylecorry.trail_sense.tools.beacons.ToolBeaconsTest [--timeout 600] [--shard 0/4]`. It pins `ANDROID_SERIAL` to the target, and reports go to `app/build/reports/androidTests/connected`.
 
 **Escape hatch:** `$T adb -- shell <anything>` runs on the resolved target, gated like a destructive action.
@@ -199,6 +222,8 @@ $T ui snap beacons/01-list     # -> captures/verify/$TSCTL_RUN/beacons/01-list.p
 $T db query "..." > captures/verify/$TSCTL_RUN/beacons/02-db.txt
 $T logs --crash --out captures/verify/$TSCTL_RUN/crash.txt
 ```
+
+**Video proof** (emulator only): `$T ui record start beacons/create` begins a screen recording on the device, you drive the app, and `$T ui record stop` pulls `captures/verify/$TSCTL_RUN/beacons/create.mp4`. One recording at a time; starting a second fails with exit 2. It auto-stops after 180 s (the `screenrecord` limit), so stop it promptly and record one journey per clip. Stop it even after a failed drive so no recording is left running.
 
 `captures/` is gitignored and survives cleanup. Each tsctl run deletes anything in `captures/verify/` untouched for more than 7 days: whole run folders, and individual backups in `backups/` (and the legacy `db-backups/`). A dry run only lists what it would delete. Copy evidence elsewhere if it must outlive a week.
 

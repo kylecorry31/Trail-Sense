@@ -18,7 +18,7 @@ Every section of [`guide_tool_map.txt`](../../../../guides/en-US/guide_tool_map.
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- `$T geo 42.3601 -71.0589 20`.
+- `$T env geo 42.3601 -71.0589 20`.
 - A beacon nearby (see beacons.md) for Navigate to a beacon.
 
 - **Open.** Tap the Map tab. Run `$T ui tap desc=Map`. The first open shows a `Map` disclaimer dialog (`text=/^OK$/`). Map controls: `menu_btn`, `time_btn`, `zoom_in_btn`, `zoom_out_btn`, `lock_btn`.

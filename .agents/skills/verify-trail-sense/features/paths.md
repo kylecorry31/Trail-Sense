@@ -18,10 +18,10 @@ Every section of [`guide_tool_paths.txt`](../../../../guides/en-US/guide_tool_pa
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- Location permission and `$T geo ...`. Background location is granted by `seed`.
+- Location permission and `$T env geo ...`. Background location is granted by `seed`.
 
 - **Backtrack.** Start Backtrack per Start and stop Backtrack. Run `$T open paths`, `$T ui find Backtrack`. Backtrack status shows running; a notification appears.
-- **Move.** Walk a route. Run `$T geo 42.3601 -71.0589`, wait, `$T geo 42.3611 -71.0579`, .... Points accumulate after each recording interval.
+- **Move.** Walk a route. Run `$T env geo 42.3601 -71.0589`, wait, `$T env geo 42.3611 -71.0579`, .... Points accumulate after each recording interval.
 - **Side effect.** Stored points. Run `$T db query "select count(*) from waypoints"`. Count grows.
 - **Proof.** Snap the path view; save the db output. Stop Backtrack afterwards.
 

@@ -20,7 +20,7 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
 - **List.** Open the tool. Run `$T open sensors`. Sensor cards with live values.
-- **Change.** Change a sensor value. Run `$T sensor set pressure 990.5`. The barometer card shows `29.25 in` (pressure units default to inHg; `990.5 hPa` only if the unit pref is hPa).
+- **Change.** Change a sensor value. Run `$T env sensor set pressure 990.5`. The barometer card shows `29.25 in` (pressure units default to inHg; `990.5 hPa` only if the unit pref is hPa).
 - **Proof.** Snap before and after `sensor set`.
 
 ## Gotchas

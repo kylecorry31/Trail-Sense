@@ -109,7 +109,7 @@ def decide(policy: Policy, *, is_emulator: bool, serial: str, touched: list, dry
     raise Refused(
         f"Refused: {action} on PHYSICAL device {serial} is {level} that needs user approval.\n"
         f"Ask the user to approve exactly this action, then rerun with --user-approved {serial}.{hint}"
-        + (f"\nIf the user gives you full control of this package on this device, run `tsctl device grant {serial} <package>` instead."
+        + (f"\nIf the user gives you full control of this package on this device, run `tsctl grants add {serial} <package>` instead."
            if grantable else "")
     )
 

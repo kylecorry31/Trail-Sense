@@ -19,7 +19,7 @@ Every section of [`guide_tool_astronomy.txt`](../../../../guides/en-US/guide_too
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- `$T geo 42.3601 -71.0589 20` so sun and moon times are for a known place.
+- `$T env geo 42.3601 -71.0589 20` so sun and moon times are for a known place.
 
 - **Open.** Tap the Astronomy tab. Run `$T ui tap desc=Astronomy`. `id=toolbar_title` shows the time until the next event (`8h 6m`) and `id=toolbar_subtitle` reads `Until sunset`; the rise/set times are in `id=astronomy_detail_list` below the chart.
 - **Change date.** Use the date row below the toolbar: `$T ui tap id=next_date` (or `prev_date`; `id=date_btn` opens the calendar and reads `Today`, then `Tomorrow`; `id=search_btn` finds the next event). The times and the chart update for the chosen date.

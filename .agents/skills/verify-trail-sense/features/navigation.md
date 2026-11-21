@@ -18,11 +18,11 @@ Every section of [`guide_tool_navigation.txt`](../../../../guides/en-US/guide_to
 Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
-- `$T geo 42.3601 -71.0589 20`.
+- `$T env geo 42.3601 -71.0589 20`.
 - A beacon (create one per beacons.md).
 
 - **Compass.** Tap the Navigation tab. Run `$T ui tap desc=Navigation`. Compass with bearing.
-- **Heading.** Rotate the device. Run `$T sensor set magnetic-field 0 20 -40` then `20 0 -40`. Bearing text changes.
+- **Heading.** Rotate the device. Run `$T env sensor set magnetic-field 0 20 -40` then `20 0 -40`. Bearing text changes.
 - **Navigate to beacon.** Pick the beacon per Navigate to a beacon. Run `$T ui find Beacon`. Distance and direction to the beacon.
 - **Proof.** Snap compass at two headings and while navigating; distance matches the beacon's coordinates.
 
