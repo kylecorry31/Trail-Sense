@@ -8,8 +8,8 @@ Every section of [`guide_tool_map_layers.txt`](../../../../guides/en-US/guide_to
 
 ## How to get to it (user POV)
 
-- Tools tab → search `Map Layers` → tap the tile.
-- Layer settings inside Map, Navigation, and Offline Maps.
+- There is no Map Layers tool or tile; it is a guide (Tools → User Guide → Location) and a shared sheet.
+- Map: `id=menu_btn` → `Layers` (proven). Also Settings → Map / Navigation → `Layers`, and Offline Maps' photo map viewer.
 - Precondition shortcut only: `$T open map`.
 
 ## Driving it with tsctl
@@ -19,12 +19,11 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - Open a map-capable tool: Map (`$T open map`), Navigation, or Offline Maps.
 
-- **Layers sheet.** Open the layers settings per Manage layers. Run `$T ui find Layers`. Layer list with toggles.
-- **Toggle.** Turn a layer (e.g. Hillshade) on and reorder it. Run `$T ui find Hillshade`, then `$T ui tap id=<reported id>`. Map redraws.
+- **Layers sheet.** Open the layers settings per Manage layers. Dismiss the Map disclaimer first, then `$T ui tap id=menu_btn` and `$T ui tap 'text=/^Layers$/'`. The `Layers` sheet lists Location, Beacons, Navigation, Paths, Tides… each with up/down reorder arrows and an expand arrow (driven on 2026-11-21).
+- **Toggle.** Turn a layer (e.g. Hillshade) on and reorder it. Layer rows have no ids: tap the layer title (`text=/^Hillshade$/`) to expand it, then toggle `Visible`. Scroll the sheet to reach layers further down. Toggling was not driven.
 - **Proof.** Snap the map before and after; `$T pref list layer` shows the stored layer config.
 
 ## Gotchas
 
 - Some layers are time dependent; in Map they follow the map time, elsewhere the current time.
 - Elevation-based layers need DEM data; a fresh install may show only the built-in low-res data.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

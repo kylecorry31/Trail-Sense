@@ -19,11 +19,10 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - Notifications permission.
 
-- **Play.** Start white noise and set a sleep timer. Run `$T open white-noise`. Playing state and a media notification.
-- **Service.** Check the service is running. Run `$T adb -- shell dumpsys activity services com.kylecorry.trail_sense | grep -i noise`. Service listed.
+- **Play.** Start white noise and set a sleep timer. Run `$T open white-noise`; the spinner defaults to `Pink noise`. Set the sleep timer first (`$T ui tap id=sleep_timer_switch`, then its duration), because changing the sound or timer stops playback, then `$T ui tap id=white_noise_btn`. The notification is a plain persistent one ("Tap to turn off"), not a media notification.
+- **Service.** Check the service is running. Run `$T adb -- shell dumpsys activity services com.kylecorry.trail_sense | grep -i noise`. `WhiteNoiseService` is listed (3 matching lines on 2026-11-21). Tap `id=white_noise_btn` again to stop.
 - **Proof.** Snap the playing state; save the dumpsys excerpt. Stop playback afterwards.
 
 ## Gotchas
 
 - No audio output on a headless emulator.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

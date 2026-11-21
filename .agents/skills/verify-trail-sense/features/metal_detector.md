@@ -18,11 +18,11 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - Baseline field: `$T sensor set magnetic-field 22 5 -40`.
 
-- **Calibrate.** Open the tool and calibrate per the guide. Run `$T open metal-detector`. Reading near the baseline.
-- **Detect.** Raise the field. Run `$T sensor set magnetic-field 120 80 -150`. Reading jumps and the metal indicator triggers.
+- **Calibrate.** Open the tool and calibrate per the guide. Set the baseline field before opening, then run `$T open metal-detector` and wait over 2 s: the tool auto-calibrates 2 s after opening (or tap `id=calibrate_btn`), so a field injected earlier becomes the reference. `id=toolbar_title` reads `46 uT`.
+- **Detect.** Raise the field. Run `$T sensor set magnetic-field 120 80 -150`. `id=toolbar_title` reads `208 uT` and the metal icon appears as a drawable on the title (not a separate view). Driven on 2026-11-21.
 - **Proof.** Snap before and after the field change.
 
 ## Gotchas
 
 - Audio feedback can't be heard on a headless emulator started with -no-audio.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.
+- A first-open disclaimer (`id=metal_detector_disclaimer`) is part of the layout, not a dialog.

@@ -19,8 +19,8 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - Optionally fake the battery: `$T adb -- shell dumpsys battery set level 23` (reset with `dumpsys battery reset`).
 
-- **Status.** Open the tool. Run `$T open battery`. Shows the battery level and charging state.
-- **Power saving.** Turn on power saving mode per the guide. Run `$T ui find Power`. Low power mode indicator; `$T pref list power` shows the pref flip.
+- **Status.** Open the tool. Run `$T open battery`. `id=battery_percentage` reads `100%` (or the faked level); `battery_capacity`, `battery_current`, `battery_deep_sleep` and `running_services` follow.
+- **Power saving.** Turn on power saving mode per the guide. Run `$T ui tap id=low_power_mode_switch` (labelled `Power saving mode`). `$T pref get pref_low_power_mode` flips `true`/`false` (driven both ways on 2026-11-21); tap it again to restore.
 - **Proof.** Snap the status with the faked level visible; `pref get` for the power saving key after toggling in the UI.
 
 ## Gotchas

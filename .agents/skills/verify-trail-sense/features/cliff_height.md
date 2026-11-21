@@ -18,10 +18,9 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - `@pref_cliff_height_enabled` true (`seed` sets it; the tool is hidden otherwise).
 
-- **Time a drop.** Start the timer, wait, stop it. Run `$T ui find Start`, tap it, wait, tap again. Height estimate appears.
+- **Time a drop.** Start the timer, wait, stop it. Dismiss the `Disclaimer` dialog on first open (`text=/^OK$/`). The control is an icon tile with no text or id in the layout dump, so tap its center with `$T ui tapxy 360 700` (a quick tap starts, a second tap after a `sleep` stops). The height appears in `id=toolbar_title` (72.76 ft after a few seconds on 2026-11-21).
 - **Proof.** Snap the result; the height grows with the measured time (≈ g·t²/2).
 
 ## Gotchas
 
 - The tool is disabled by default for real users; seed enables it.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

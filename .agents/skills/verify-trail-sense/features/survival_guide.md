@@ -18,11 +18,10 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Read.** Open the tool and tap a chapter (content from guides/en-US/guide_survival_chapter_*.txt). Run `$T open survival-guide`, `$T ui tap text=Water`. The chapter opens.
-- **Search.** Search the guide. Run `$T ui find Search`, type a term. Matching sections listed.
+- **Read.** Open the tool and tap a chapter (content from guides/en-US/guide_survival_chapter_*.txt). Run `$T open survival-guide`, dismiss the `Survival Guide` disclaimer (`id=button1`), then tap the chapter row. Use `text=/^Water$/` because plain `Water` also matches search results.
+- **Search.** Search the guide. Run `$T ui type water id=search_view_edit_text`, wait ~1 s. Results such as `Hydration essentials > Dehydration` are listed.
 - **Proof.** Snap the chapter and the search results.
 
 ## Gotchas
 
 - Chapter content is long; use `$T ui scroll scrollable=true --until text=...` to reach a section.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

@@ -18,11 +18,10 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - Create a known issue: `$T perm revoke location` (kills the app).
 
-- **Review.** Open the tool. Run `$T open diagnostics`. Lists a location permission issue.
+- **Review.** Open the tool. After `perm revoke location` the app asks for the location permission on launch: deny it (`$T ui tap 'text=/Don.t allow/'`). The list then shows GPS rows `Permission not granted`, `Location not set` and `Overridden`.
 - **Fix.** Grant it back and reopen. Run `$T perm grant location` then `$T open diagnostics`. The issue is gone.
 - **Proof.** Snap with and without the issue.
 
 ## Gotchas
 
-- Emulator-only issues (no step counter, no light sensor) always appear; don't mistake them for regressions.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.
+- Emulator-only rows appear even with all permissions: `Pedometer: Unavailable` (no step counter), `Battery: Battery usage restricted` and `Weather: Weather monitoring disabled`. No light-sensor row appears (the Light Meter tool is hidden). Don't mistake them for regressions.

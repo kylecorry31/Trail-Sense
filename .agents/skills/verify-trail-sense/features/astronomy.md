@@ -21,8 +21,8 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - `$T geo 42.3601 -71.0589 20` so sun and moon times are for a known place.
 
-- **Open.** Tap the Astronomy tab. Run `$T ui tap desc=Astronomy`. Toolbar shows sun and moon rise/set times for today.
-- **Change date.** Use the date picker in the toolbar per the guide's Choose a date section. Run `$T ui find date`, then `$T ui tap id=<reported id>`. The times and the chart update for the chosen date.
+- **Open.** Tap the Astronomy tab. Run `$T ui tap desc=Astronomy`. `id=toolbar_title` shows the time until the next event (`8h 6m`) and `id=toolbar_subtitle` reads `Until sunset`; the rise/set times are in `id=astronomy_detail_list` below the chart.
+- **Change date.** Use the date row below the toolbar: `$T ui tap id=next_date` (or `prev_date`; `id=date_btn` opens the calendar and reads `Today`, then `Tomorrow`; `id=search_btn` finds the next event). The times and the chart update for the chosen date.
 - **Proof.** Snap the screen before and after changing the date; the sunrise text differs. Alerts: `$T pref list sunset` shows the alert pref after toggling it in the UI.
 
 ## Gotchas

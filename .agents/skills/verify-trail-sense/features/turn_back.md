@@ -18,11 +18,10 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - Notifications permission and exact-alarm appop (`seed`).
 
-- **Set time.** Set a return time per the guide. Run `$T open turn-back`. The return time and turn-back time are shown.
+- **Set time.** Set a return time per the guide. Run `$T open turn-back`: it shows `Time not set` until a time is chosen. Tap `id=sunset_button` (`Return before dark`, needs `$T geo`) or the `id=edittext` time field (opens a time picker). `id=instructions` then reads `Turn around by 11:28 AM (3h 13m) to return at 4:19 PM`, and `$T pref get pref_turn_back_return_time` returns the stored time. `id=cancel_button` clears it.
 - **Alarm.** Check the alarm is scheduled. Run `$T adb -- shell dumpsys alarm | grep trail_sense`. An alarm for the package exists.
 - **Proof.** Snap the screen; save the dumpsys alarm excerpt. Cancel the alert afterwards.
 
 ## Gotchas
 
 - `scripts/debugging/list-scheduled-alarms.sh` shows the same data; tsctl's escape hatch keeps the target pinned.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

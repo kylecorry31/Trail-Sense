@@ -1052,8 +1052,18 @@ def android_input(ctx, sub, *rest):
     return Out(results, "\n".join(lines), result.returncode)
 
 
+def layout_output(ctx, *flags):
+    """Fetch a layout, falling back to --no-idle for screens that never stop updating (e.g. Sensors)."""
+    result = run(android_cmd(ctx, "layout", *flags), check=False)
+    if result.returncode != 0 and b"Could not obtain idle state" in result.stdout + result.stderr:
+        result = run(android_cmd(ctx, "layout", "--no-idle", *flags), check=False)
+    if result.returncode != 0:
+        raise Failed((text(result) + result.stderr.decode(errors="replace")).strip() or "android layout failed")
+    return text(result)
+
+
 def layout_nodes(ctx):
-    return flatten_layout(json.loads(text(run(android_cmd(ctx, "layout", "--flat")))))
+    return flatten_layout(json.loads(layout_output(ctx, "--flat")))
 
 
 def short_node(n, keys=("text", "content-desc", "resource-id", "class", "center", "interactions", "state", "off-screen")):
@@ -1061,7 +1071,7 @@ def short_node(n, keys=("text", "content-desc", "resource-id", "class", "center"
 
 
 def cmd_ui_layout(ctx):
-    data = json.loads(text(run(android_cmd(ctx, "layout", *(["--full"] if ctx.args.full else [])))))
+    data = json.loads(layout_output(ctx, *(["--full"] if ctx.args.full else [])))
     if ctx.args.out:
         Path(ctx.args.out).write_text(json.dumps(data, indent=2))
         return Out({"path": ctx.args.out}, f"wrote {ctx.args.out}")
@@ -1134,7 +1144,7 @@ def cmd_ui_snap(ctx):
     base = run_dir() / ctx.args.name
     base.parent.mkdir(parents=True, exist_ok=True)
     run(android_cmd(ctx, "screen capture", f"--output={base}.png"))
-    Path(f"{base}.layout.json").write_text(text(run(android_cmd(ctx, "layout", "--pretty"))))
+    Path(f"{base}.layout.json").write_text(layout_output(ctx, "--pretty"))
     return Out({"png": f"{base}.png", "layout": f"{base}.layout.json"}, f"wrote {base}.png and {base}.layout.json")
 
 

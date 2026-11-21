@@ -18,11 +18,10 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Log manually.** Create a log entry and pick a cloud type per Identify a cloud manually. Run `$T ui tap id=create_btn` (verify the handle with `$T ui find`). The entry appears in the cloud log.
+- **Log manually.** Create a log entry and pick a cloud type per Identify a cloud manually. Run `$T ui tap id=add_btn`, then `$T ui tap 'text=/^Manual$/'` (the speed dial offers File, Camera, Manual). The results screen (`id=cloud_list`) lists the cloud types. Tapping a row's text opens an info dialog (dismiss with `text=/^OK$/`); select a cloud with its checkbox, then save with `$T ui tap id=toolbar_right_button`. The entry appears in the cloud log. The list screen and the Manual results screen were driven on 2026-11-21; the save was not confirmed.
 - **Side effect.** Read the stored log. Run `$T db query "select * from clouds"`. A row with the chosen cloud.
 - **Proof.** Snap the log list and save the db query output.
 
 ## Gotchas
 
 - Automatic identification uses the camera; the emulated scene isn't a sky, so report that path as not verified.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

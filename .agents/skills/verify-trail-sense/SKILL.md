@@ -121,6 +121,8 @@ $T ui tapxy 540 900                 # last resort; prefer selectors
 $T ui layout [--full] [--out f.json]
 ```
 
+Screens that refresh continuously (Sensors) never go idle, so `ui layout`, `ui find` and `ui snap` retry with `--no-idle` automatically. Many tools show a first-open dialog (see features/tools.md) that blocks taps until you tap `id=button1` (OK).
+
 Common handles:
 
 - Toolbar title: `id=toolbar_title`.

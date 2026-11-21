@@ -18,11 +18,11 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Create.** Tap create, type a title and content, save. Run `$T ui tap id=create_btn`, `$T ui find Title`, `$T ui type "Verify note" id=<reported id>`, `$T ui tap id=toolbar_right_button` (verify handles with `$T ui find`). The note title appears in the list.
+- **Create.** Tap create, type a title and content, save. Run `$T ui tap id=add_btn`, `$T ui type "Verify note" 'id=/:id\/title_edit$/'` (a plain `id=title_edit` is ambiguous), `$T ui type body id=content_edit`, then `$T ui tap id=note_create_btn` (the save button is a bottom-right FAB, not `toolbar_right_button`). The list row shows the content (`id=description`); a note saved without a title has an empty title.
 - **Side effect.** Read the stored note. Run `$T db query "select _id, title, contents from notes"`. A row with the title.
 - **Proof.** Snap the list; save the db output. Precondition seeding via `$T db exec "insert into notes(title, contents, created) values ('Seeded note','x',0)"` was proven to show in the list after relaunch.
 
 ## Gotchas
 
 - QR sharing renders a QR code; scanning it back needs a second camera.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.
+- Delete: the row menu (`id=menu_btn`) offers `QR Code` and `Delete`; Delete asks for `text=/^OK$/`. Driven end to end on 2026-11-21.

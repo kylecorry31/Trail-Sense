@@ -18,10 +18,10 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - `$T geo 42.3601 -71.0589 20` (elevation sets the time).
 
-- **Timer.** Start the timer. Run `$T open water-boil-timer`, `$T ui find` the start button. Countdown runs; a notification appears.
-- **Proof.** Snap the running timer; change the altitude with `$T geo 39.7392 -104.9903 1600` and confirm the time is longer (the tool switches to the longer time at 1000 m and above, per WaterService).
+- **Timer.** Start the timer. Run `$T open water-boil-timer`: `id=time_left` reads `60` (seconds) and `id=boil_button` reads `Start`. After `$T ui tap id=boil_button` the button reads `Cancel`, `time_left` counts down (54 after a few seconds) and the chips (`chip_auto`, `chip_1_min`, `chip_3_min`) are hidden. The Water Boil Timer notification channels exist in `dumpsys notification`; the live notification text was not matched.
+- **Proof.** Snap the running timer; change the altitude with `$T geo 39.7392 -104.9903 1600` (leave and reopen the tool so the altimeter re-reads) and confirm the time is longer (the tool switches to the longer time at 1000 m and above, per WaterService).
 
 ## Gotchas
 
 - Elevation comes from the altimeter mode; seed sets GPS mode.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.
+- The 1000 m / 180 s branch was not driven.

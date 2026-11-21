@@ -19,7 +19,7 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - A map file on the device: `$T adb -- push some-map.jpg /sdcard/Download/`.
 
-- **Import.** Import a map per Import a map. Run `$T ui tap id=create_btn` then pick the file in the system picker. The map appears in the list.
+- **Import.** Import a map per Import a map. Dismiss the `Photo maps` dialog shown on first open (`text=/^OK$/`), run `$T ui tap id=add_btn` (a speed dial with Group, `File (JPG, PNG, PDF, Mapsforge)`, Camera, Blank), then `$T ui tap 'text=/^File/'` and pick the file in the system picker. The map appears in the list.
 - **Calibrate.** Calibrate a photo map per the guide. Run follow the guide's calibration steps. Map shows calibrated status.
 - **Side effect.** Stored maps. Run `$T db query "select * from maps"`. A row for the imported map.
 - **Proof.** Snap the list and the calibrated map; save the db output.
@@ -28,4 +28,3 @@ Preconditions:
 
 - The file picker is the system DocumentsUI, so selectors come from it, not the app.
 - Mapsforge .map files go to `offline_map_files`, photo maps to `maps`.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

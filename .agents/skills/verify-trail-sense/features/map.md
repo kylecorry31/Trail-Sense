@@ -21,12 +21,11 @@ Preconditions:
 - `$T geo 42.3601 -71.0589 20`.
 - A beacon nearby (see beacons.md) for Navigate to a beacon.
 
-- **Open.** Tap the Map tab. Run `$T ui tap desc=Map`. Map centered on the GPS fix.
-- **Create beacon.** Long-press the map and create a beacon per the guide. Run `$T ui hold 360 600`. Beacon form opens with that location.
-- **Measure.** Measure a distance per the guide. Run `$T ui find Measure`. Distance text shown.
+- **Open.** Tap the Map tab. Run `$T ui tap desc=Map`. The first open shows a `Map` disclaimer dialog (`text=/^OK$/`). Map controls: `menu_btn`, `time_btn`, `zoom_in_btn`, `zoom_out_btn`, `lock_btn`.
+- **Create beacon.** Long-press the map and create a beacon per the guide. Run `$T ui hold 360 600` (800 ms). A sheet shows the pressed point's coordinates and elevation (`42.359669°,  -71.058899°` on 2026-11-21) with the Beacon / Navigate / Distance actions; tap `text=/^Beacon$/` for the form with that location.
+- **Measure.** Measure a distance per the guide. Tap `id=menu_btn`: the popup lists `Measure`, `Create path`, `Layers` and `Trace`. Tap `text=/^Measure$/`, then tap two map points for the distance sheet.
 - **Proof.** Snap each state; for created beacons, `$T db query "select name, latitude, longitude from beacons"`.
 
 ## Gotchas
 
 - Long press has no selector form; take coordinates from `$T ui find` and use `$T ui hold X Y`.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

@@ -17,11 +17,11 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Measure.** Tap at the flash, tap again at the thunder. Run `$T open lightning-strike-distance`, `$T ui find` the start button. Distance shown.
+- **Measure.** Tap at the flash, tap again at the thunder. Run `$T open lightning-strike-distance`, `$T ui tap id=start_btn` (the label reads `Lightning`, then `Thunder`), `sleep 3`, `$T ui tap id=start_btn`. `id=toolbar_title` shows the distance (about 0.95 mi after a nominal 3 s sleep on 2026-11-21).
 - **Side effect.** Strikes are stored. Run `$T db query "select * from lightning"`. A row per measured strike.
-- **Proof.** Snap the distance; save the db query output. Two strikes give approaching/moving-away text.
+- **Proof.** Snap the distance; save the db query output. The previous strike appears in `id=previous_strike` ("Last strike at …"); the UI shows no approaching/moving-away text.
 
 ## Gotchas
 
 - Distance depends on wall-clock time between taps; add a known `sleep` between taps.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.
+- Clean up with `$T db exec "delete from lightning"`.

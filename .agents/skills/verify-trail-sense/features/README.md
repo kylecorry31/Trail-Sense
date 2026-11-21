@@ -32,50 +32,50 @@ Each file has an H1 title and a paragraph that links its guide, then exactly fou
 
 | Feature | File | `tsctl open` | Emulator | Proven |
 | --- | --- | --- | --- | --- |
-| Astronomy | [astronomy.md](./astronomy.md) | `astronomy` | yes | no |
+| Astronomy | [astronomy.md](./astronomy.md) | `astronomy` | yes | partly (title, date arrows) |
 | Augmented Reality | [augmented_reality.md](./augmented_reality.md) | `augmented-reality` | yes | no |
 | Ballistics | [ballistics.md](./ballistics.md) | `ballistics` | yes | no |
-| Battery | [battery.md](./battery.md) | `battery` | yes | no |
+| Battery | [battery.md](./battery.md) | `battery` | yes | yes (power saving switch) |
 | Beacons | [beacons.md](./beacons.md) | `beacons` | yes | yes (create, both entry points) |
-| Bubble Level | [bubble_level.md](./bubble_level.md) | `bubble-level` | yes | no |
-| Cliff Height | [cliff_height.md](./cliff_height.md) | `cliff-height` | yes | no |
-| Climate | [climate.md](./climate.md) | `climate` | yes | no |
-| Clinometer | [clinometer.md](./clinometer.md) | `clinometer` | yes | no |
-| Clock | [clock.md](./clock.md) | `clock` | yes | no |
-| Clouds | [clouds.md](./clouds.md) | `clouds` | yes | no |
-| Convert | [convert.md](./convert.md) | `convert` | yes | no |
-| Declination | [declination.md](./declination.md) | `declination` | yes | no |
-| Diagnostics | [diagnostics.md](./diagnostics.md) | `diagnostics` | yes | no |
-| Field Guide | [field_guide.md](./field_guide.md) | `field-guide` | yes | no |
-| Flashlight | [flashlight.md](./flashlight.md) | `flashlight` | yes | no |
+| Bubble Level | [bubble_level.md](./bubble_level.md) | `bubble-level` | yes | yes (flat and tilted) |
+| Cliff Height | [cliff_height.md](./cliff_height.md) | `cliff-height` | yes | yes (timed drop) |
+| Climate | [climate.md](./climate.md) | `climate` | yes | yes (zone, temperature text) |
+| Clinometer | [clinometer.md](./clinometer.md) | `clinometer` | yes | yes (angle and slope) |
+| Clock | [clock.md](./clock.md) | `clock` | yes | yes (GPS time, offset) |
+| Clouds | [clouds.md](./clouds.md) | `clouds` | yes | partly (manual results) |
+| Convert | [convert.md](./convert.md) | `convert` | yes | partly (distance default) |
+| Declination | [declination.md](./declination.md) | `declination` | yes | yes (Boston and Sydney) |
+| Diagnostics | [diagnostics.md](./diagnostics.md) | `diagnostics` | yes | yes (permission rows) |
+| Field Guide | [field_guide.md](./field_guide.md) | `field-guide` | yes | partly (categories, create page) |
+| Flashlight | [flashlight.md](./flashlight.md) | `flashlight` | yes | partly (screen, torch toggle) |
 | Light Meter | [light_meter.md](./light_meter.md) | `light-meter` | no | no |
-| Lightning Strike Distance | [lightning_strike_distance.md](./lightning_strike_distance.md) | `lightning-strike-distance` | yes | no |
+| Lightning Strike Distance | [lightning_strike_distance.md](./lightning_strike_distance.md) | `lightning-strike-distance` | yes | yes (measure, db row) |
 | Magnifier | [magnifier.md](./magnifier.md) | `magnifier` | yes | no |
-| Map | [map.md](./map.md) | `map` | yes | no |
-| Map Layers | [map_layers.md](./map_layers.md) | `map` | yes | no |
-| Metal Detector | [metal_detector.md](./metal_detector.md) | `metal-detector` | yes | no |
+| Map | [map.md](./map.md) | `map` | yes | partly (menu, long press, layers) |
+| Map Layers | [map_layers.md](./map_layers.md) | `map` | yes | partly (sheet opens) |
+| Metal Detector | [metal_detector.md](./metal_detector.md) | `metal-detector` | yes | yes (baseline and raised field) |
 | Mirror Camera | [mirror_camera.md](./mirror_camera.md) | `mirror-camera` | yes | no |
 | Navigation | [navigation.md](./navigation.md) | `navigation` | yes | no |
-| Notes | [notes.md](./notes.md) | `notes` | yes | partly (db-seeded note shows in list) |
-| Offline Maps | [offline_maps.md](./offline_maps.md) | `offline-maps` | yes | no |
-| Packing Lists | [packing_lists.md](./packing_lists.md) | `packing-lists` | yes | no |
+| Notes | [notes.md](./notes.md) | `notes` | yes | yes (create, QR/Delete menu, db) |
+| Offline Maps | [offline_maps.md](./offline_maps.md) | `offline-maps` | yes | partly (add menu) |
+| Packing Lists | [packing_lists.md](./packing_lists.md) | `packing-lists` | yes | partly (list screen) |
 | Paths | [paths.md](./paths.md) | `paths` | yes | no |
 | Pedometer | [pedometer.md](./pedometer.md) | `pedometer` | no | no |
 | QR Code Scanner | [qr_code_scanner.md](./qr_code_scanner.md) | `qr-code-scanner` | yes | no |
-| Ruler | [ruler.md](./ruler.md) | `ruler` | yes | no |
-| Sensors | [sensors.md](./sensors.md) | `sensors` | yes | no |
+| Ruler | [ruler.md](./ruler.md) | `ruler` | yes | yes (tap, units) |
+| Sensors | [sensors.md](./sensors.md) | `sensors` | yes | yes (barometer card) |
 | Settings | [settings.md](./settings.md) | `settings` | yes | no |
-| Signal Finder | [signal_finder.md](./signal_finder.md) | `signal-finder` | yes | no |
-| Solar Panel Aligner | [solar_panel_aligner.md](./solar_panel_aligner.md) | `solar-panel-aligner` | yes | no |
-| Survival Guide | [survival_guide.md](./survival_guide.md) | `survival-guide` | yes | no |
+| Signal Finder | [signal_finder.md](./signal_finder.md) | `signal-finder` | yes | partly (towers listed) |
+| Solar Panel Aligner | [solar_panel_aligner.md](./solar_panel_aligner.md) | `solar-panel-aligner` | yes | partly (dialog, fields) |
+| Survival Guide | [survival_guide.md](./survival_guide.md) | `survival-guide` | yes | partly (search) |
 | Temperature Estimation | [temperature_estimation.md](./temperature_estimation.md) | `temperature-estimation` | yes | no |
-| Tides | [tides.md](./tides.md) | `tides` | yes | no |
+| Tides | [tides.md](./tides.md) | `tides` | yes | yes (create table, db) |
 | Tools screen | [tools.md](./tools.md) | - | yes | partly (open a tool) |
 | Triangulate Location | [triangulate_location.md](./triangulate_location.md) | `triangulate-location` | yes | no |
-| Turn Back | [turn_back.md](./turn_back.md) | `turn-back` | yes | no |
-| Water Boil Timer | [water_boil_timer.md](./water_boil_timer.md) | `water-boil-timer` | yes | no |
-| Weather | [weather.md](./weather.md) | `weather` | yes | no |
-| Whistle | [whistle.md](./whistle.md) | `whistle` | yes | no |
-| White Noise | [white_noise.md](./white_noise.md) | `white-noise` | yes | no |
+| Turn Back | [turn_back.md](./turn_back.md) | `turn-back` | yes | yes (sunset, cancel, pref) |
+| Water Boil Timer | [water_boil_timer.md](./water_boil_timer.md) | `water-boil-timer` | yes | yes (start, cancel) |
+| Weather | [weather.md](./weather.md) | `weather` | yes | partly (screen, list) |
+| Whistle | [whistle.md](./whistle.md) | `whistle` | yes | partly (SOS toggle) |
+| White Noise | [white_noise.md](./white_noise.md) | `white-noise` | yes | partly (service starts) |
 
 Tools without a user guide, and so without a file yet: Experimentation (`experimentation`, 36), Local Messaging (`local-messaging`, 39), Local Talk (`local-talk`, 40), and User Guide (`user-guide`, 35; reached from tools.md). Some are hidden unless experimental tools are enabled in Settings.

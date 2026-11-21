@@ -18,11 +18,11 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Measure.** Open the tool and tap a position on the ruler. Run `$T open ruler`, `$T ui tapxy 360 600`. The measured length is shown.
-- **Units.** Change units per the guide. Run `$T ui find` the units toggle. Value switches units.
+- **Measure.** Open the tool and tap a position on the ruler. Run `$T open ruler`, `$T ui tapxy 120 700`. The touch strip is only the left ~80 dp of the screen, so `tapxy 360 …` registers nothing. `id=measurement` then reads e.g. `1.9875 in`.
+- **Units.** Change units per the guide. Run `$T ui tap id=ruler_unit_btn` (its text toggles `in`/`cm`). Value switches units.
 - **Proof.** Snap both units.
 
 ## Gotchas
 
 - Physical accuracy depends on the emulator's reported DPI; only check behavior, not real-world length.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.
+- After `seed` (feet/miles) the ruler starts in inches.

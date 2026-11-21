@@ -18,10 +18,9 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Whistle.** Press and hold the whistle, then try SOS. Run `$T open whistle`, `$T ui find SOS`. Button state shows playing.
+- **Whistle.** Press and hold the whistle, then try SOS. Run `$T open whistle`, `$T ui tap id=whistle_sos_btn` (toggle; tap again to stop). The tiles are `whistle_btn`, `whistle_sos_btn` and `whistle_emergency_btn`; the playing state is only a tint change, so prove it with a screenshot, not the layout JSON. `whistle_btn` plays only while touched, so a plain tap flips it on and off instantly.
 - **Proof.** Snap while playing. Sound can't be heard on a headless emulator; report audio as not verified.
 
 ## Gotchas
 
 - `tsctl emu start` passes -no-audio.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

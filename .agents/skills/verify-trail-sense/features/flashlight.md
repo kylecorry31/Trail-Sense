@@ -19,12 +19,11 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Screen flashlight.** Use the screen as a flashlight per the guide. Run `$T open flashlight`, `$T ui find Screen`. Screen turns white or red.
-- **Torch.** Turn on the torch. Run `$T ui find` the toggle. Emulator has no flash unit; record whether the toggle is hidden or disabled.
+- **Screen flashlight.** Use the screen as a flashlight per the guide. Run `$T open flashlight`, `$T ui tap id=screen_flashlight_btn`. The screen turns white; `id=off_btn` (`Turn off`) ends it and `id=red_white_switcher` switches red/white.
+- **Torch.** Turn on the torch. The Android_16 emulator exposes a torch: `id=flashlight_on_btn` and `id=brightness_seek` are shown and the tap works (`dumpsys media.camera` lists torch strength levels).
 - **Proof.** Snap the screen flashlight. Torch, strobe, and SOS need a real flash: report them as not verified on the emulator.
 
 ## Gotchas
 
-- The emulator lacks a camera flash; never mark torch behavior verified from the emulator.
+- The torch toggle works on the emulator but no light output can be observed; never mark torch, strobe or SOS behavior verified from it.
 - Volume-button toggling: `$T ui key volume-up` delivers the key, but only meaningful with a torch.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.

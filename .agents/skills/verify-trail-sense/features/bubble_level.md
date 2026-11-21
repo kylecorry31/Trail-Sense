@@ -18,11 +18,10 @@ Preconditions:
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 - Flat device: `$T sensor set acceleration 0 0 9.81`.
 
-- **Level.** Open the tool with the device flat. Run `$T open bubble-level`. Bubble centered, angles 0°.
-- **Tilt.** Tilt the device. Run `$T sensor set acceleration 1.7 0 9.66`. X angle near 10°.
+- **Level.** Open the tool with the device flat. Set `$T sensor set acceleration 0 0 9.81`, then `$T open bubble-level`. `id=toolbar_title` reads `X: 0.0°\nY: 0.0°\nAngle: 0.0°`.
+- **Tilt.** Tilt the device. Run `$T sensor set acceleration 1.7 0 9.66` before opening the tool: the title reads `X: 10.0°` (`Angle: 10.0°`). Changing it while the tool is open settles slowly (1.7° two seconds later), so reopen the tool or wait. Driven on 2026-11-21.
 - **Proof.** Snap flat and tilted; the angle text changes accordingly.
 
 ## Gotchas
 
 - `sensor set acceleration` values are m/s² as X Y Z; restore `0 9.81 0` (upright) or `0 0 9.81` (flat) after.
-- Handles marked "verify with `$T ui find`" were taken from the guide wording, not from a driven run. Confirm and update them here on first use.
