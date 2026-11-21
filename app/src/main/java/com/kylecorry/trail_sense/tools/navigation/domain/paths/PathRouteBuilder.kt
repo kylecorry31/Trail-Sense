@@ -35,7 +35,7 @@ object PathRouteBuilder {
         val snap = candidates
             .filter { geometry.length - it.distanceAlong >= longestRemaining * MIN_REMAINING_FRACTION }
             .minBy { it.offset }
-        return listOf(PathInterpolationUtils.pointAt(path, geometry, snap)) + path.drop(snap.segment + 1)
+        return listOf(pathPointAt(path, geometry, snap)) + path.drop(snap.segment + 1)
     }
 
     private fun followToPoint(
@@ -47,7 +47,7 @@ object PathRouteBuilder {
         val snap = geometry.candidateSnaps(location).minBy {
             lengthTo(path, geometry, it, indicesTo(it, destinationIndex))
         }
-        return listOf(PathInterpolationUtils.pointAt(path, geometry, snap)) +
+        return listOf(pathPointAt(path, geometry, snap)) +
                 indicesTo(snap, destinationIndex).map { path[it] }
     }
 

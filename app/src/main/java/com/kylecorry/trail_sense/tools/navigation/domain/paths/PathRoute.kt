@@ -30,11 +30,11 @@ class PathRoute(
         ).meters().value
     }
 
-    private val state = NavigationState()
+    private var state = NavigationState()
 
     @Synchronized
     fun restorePosition(distanceAlong: Distance, location: Coordinate) {
-        state.restore(distanceAlong.meters().value.coerceIn(0f, length), location)
+        state = NavigationState(distanceAlong.meters().value.coerceIn(0f, length), location)
     }
 
     /** The guidance from the latest [navigate], which must have been called at least once. */
@@ -67,7 +67,7 @@ class PathRoute(
         } else {
             getRemainingElevationLossGain(match)
         }
-        val currentElevation = PathInterpolationUtils.elevationAt(pathPoints, match)
+        val currentElevation = elevationAt(pathPoints, match)
         val projected = geometry.coordinateOf(match)
         return PathGuidance(
             target = getTarget(match, projected),
@@ -198,21 +198,13 @@ class PathRoute(
         }
     }
 
-    private data class NavigationState(
+    private class NavigationState(
         var distanceAlong: Float = 0f,
         var location: Coordinate? = null,
         var time: Instant? = null,
         var guidance: PathGuidance? = null,
         var pendingRejoin: Float? = null
-    ) {
-        fun restore(distanceAlong: Float, location: Coordinate) {
-            this.distanceAlong = distanceAlong
-            this.location = location
-            this.time = null
-            this.guidance = null
-            this.pendingRejoin = null
-        }
-    }
+    )
 
     private companion object {
         private const val CURRENT_LOCATION_MAX_TOLERANCE_METERS = 75f

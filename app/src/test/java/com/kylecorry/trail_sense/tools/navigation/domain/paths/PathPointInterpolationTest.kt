@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 
-internal class PathInterpolationUtilsTest {
+internal class PathPointInterpolationTest {
 
     private fun points(startElevation: Float?, endElevation: Float?) = listOf(
         PathPoint(1, 1, Coordinate(0.0, 0.0), startElevation),
@@ -19,26 +19,26 @@ internal class PathInterpolationUtilsTest {
     fun `elevation at the ends of a segment is the recorded elevation`() {
         val points = points(100f, 200f)
 
-        assertEquals(100f, PathInterpolationUtils.elevationAt(points, snap(0f)))
-        assertEquals(200f, PathInterpolationUtils.elevationAt(points, snap(1f)))
+        assertEquals(100f, elevationAt(points, snap(0f)))
+        assertEquals(200f, elevationAt(points, snap(1f)))
     }
 
     @Test
     fun `elevation within a segment is linearly interpolated`() {
-        assertEquals(125f, PathInterpolationUtils.elevationAt(points(100f, 200f), snap(0.25f))!!, 0.001f)
+        assertEquals(125f, elevationAt(points(100f, 200f), snap(0.25f))!!, 0.001f)
     }
 
     @Test
     fun `elevation within a segment is unknown if either end is unknown`() {
-        assertNull(PathInterpolationUtils.elevationAt(points(null, 200f), snap(0.5f)))
-        assertNull(PathInterpolationUtils.elevationAt(points(100f, null), snap(0.5f)))
-        assertNull(PathInterpolationUtils.elevationAt(points(null, null), snap(0.5f)))
+        assertNull(elevationAt(points(null, 200f), snap(0.5f)))
+        assertNull(elevationAt(points(100f, null), snap(0.5f)))
+        assertNull(elevationAt(points(null, null), snap(0.5f)))
     }
 
     @Test
     fun `elevation at an end ignores the unknown elevation of the other end`() {
-        assertEquals(100f, PathInterpolationUtils.elevationAt(points(100f, null), snap(0f)))
-        assertEquals(200f, PathInterpolationUtils.elevationAt(points(null, 200f), snap(1f)))
+        assertEquals(100f, elevationAt(points(100f, null), snap(0f)))
+        assertEquals(200f, elevationAt(points(null, 200f), snap(1f)))
     }
 
     @Test
@@ -46,7 +46,7 @@ internal class PathInterpolationUtilsTest {
         val points = points(100f, 200f)
         val geometry = RouteGeometry(points.map { it.coordinate })
 
-        val point = PathInterpolationUtils.pointAt(points, geometry, snap(0.5f))
+        val point = pathPointAt(points, geometry, snap(0.5f))
 
         assertEquals(0.001, point.coordinate.longitude, 0.00001)
         assertEquals(150f, point.elevation!!, 0.001f)

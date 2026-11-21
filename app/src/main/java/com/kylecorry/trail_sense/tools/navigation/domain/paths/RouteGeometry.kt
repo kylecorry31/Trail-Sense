@@ -152,10 +152,6 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         private val originLongitude = origin.longitude
         private val metersPerDegreeLongitude = METERS_PER_DEGREE * Trigonometry.cosDegrees(originLatitude)
 
-        fun toMeters(coordinate: Coordinate): Vector2 {
-            return toMeters(coordinate.latitude, coordinate.longitude)
-        }
-
         fun toMeters(latitude: Double, longitude: Double): Vector2 {
             return Vector2(
                 (Coordinate.toLongitude(longitude - originLongitude) * metersPerDegreeLongitude).toFloat(),

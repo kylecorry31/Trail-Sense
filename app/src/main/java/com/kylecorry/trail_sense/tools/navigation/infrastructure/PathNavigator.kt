@@ -88,12 +88,7 @@ class PathNavigator(
      * is cleared.
      */
     fun navigate(path: Path, follow: PathFollow) {
-        val newSession = PathNavigationSession(path.id, follow, currentLocation())
-        synchronized(lock) {
-            cancel()
-            store.save(newSession)
-            buildJob = startBuild()
-        }
+        restore(PathNavigationSession(path.id, follow, currentLocation()))
     }
 
     // The lock must be held
@@ -101,7 +96,13 @@ class PathNavigator(
         restoringState.value = true
         return CoroutineScope(Dispatchers.Default).launch {
             try {
-                val built = buildOrNull()
+                val built = try {
+                    build()
+                } catch (e: CancellationException) {
+                    throw e
+                } catch (_: Exception) {
+                    null
+                }
                 synchronized(lock) {
                     if (!isActive) return@synchronized
                     if (built == null) {
@@ -119,16 +120,6 @@ class PathNavigator(
                     }
                 }
             }
-        }
-    }
-
-    private suspend fun buildOrNull(): Pair<PathNavigationSession, Destination.Path>? {
-        return try {
-            build()
-        } catch (e: CancellationException) {
-            throw e
-        } catch (_: Exception) {
-            null
         }
     }
 
