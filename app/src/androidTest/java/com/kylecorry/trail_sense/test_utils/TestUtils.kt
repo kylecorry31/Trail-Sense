@@ -28,7 +28,6 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.MainActivity
 import com.kylecorry.trail_sense.main.TrailSenseApplicationInitializer
-import com.kylecorry.trail_sense.main.persistence.AppDatabase
 import com.kylecorry.trail_sense.settings.migrations.PreferenceMigrator
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.extensions.findNavController
@@ -160,7 +159,7 @@ object TestUtils {
 
     fun setupApplication() {
         WorkManagerTestInitHelper.initializeTestWorkManager(context)
-        AppDatabase.getInstance(context).clearAllTables()
+        TestData.clear()
         TrailSenseApplicationInitializer.initialize(context)
         setupDefaultPreferences()
     }

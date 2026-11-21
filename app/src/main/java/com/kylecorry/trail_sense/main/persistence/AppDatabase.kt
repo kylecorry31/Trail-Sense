@@ -660,7 +660,6 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_59_60,
                     MIGRATION_60_61
                 ))
-                .allowMainThreadQueries()
                 .build()
         }
     }

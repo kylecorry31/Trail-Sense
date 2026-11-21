@@ -50,6 +50,7 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTabl
 import com.kylecorry.sol.science.oceanography.Tide
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import java.time.Instant
@@ -64,7 +65,7 @@ object TestData {
      * Removes all seeded and recorded data (paths, beacons, readings, etc.)
      */
     fun clear() {
-        AppDatabase.getInstance(context).clearAllTables()
+        runBlocking(Dispatchers.IO) { AppDatabase.getInstance(context).clearAllTables() }
     }
 
     fun addBeacon(
