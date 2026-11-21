@@ -43,6 +43,7 @@ class ARPathLayer(
     private val polygons = ARPathPolygons(widthMeters = 0.45f)
     private val ribbonLayer = ARPolygonLayer()
     private val arrowLayer = ARPolygonLayer()
+    private val wallArrowLayer = ARPolygonLayer()
     private var lastElevation: Float? = null
     private var lastLocationAccuracySquared: Float? = null
 
@@ -75,11 +76,13 @@ class ARPathLayer(
     var appearance: ARPathAppearance = ARPathAppearance.Ribbon
 
     private val ribbonLayers = listOf<ARLayer>(ribbonLayer, arrowLayer)
+    private val wallLayers = listOf<ARLayer>(ribbonLayer, wallArrowLayer)
     private val lineLayers = listOf<ARLayer>(lineLayer, markerLayer)
     private val activeLayers: List<ARLayer>
         get() = when (appearance) {
             ARPathAppearance.Ribbon -> ribbonLayers
             ARPathAppearance.Line -> lineLayers
+            ARPathAppearance.Walls -> wallLayers
         }
 
     private val hooks = Hooks()
@@ -121,6 +124,7 @@ class ARPathLayer(
     override fun invalidate() {
         ribbonLayer.invalidate()
         arrowLayer.invalidate()
+        wallArrowLayer.invalidate()
         lineLayer.invalidate()
         markerLayer.invalidate()
     }
@@ -207,10 +211,14 @@ class ARPathLayer(
 
         markerLayer.setMarkers(markers)
         lineLayer.setLines(lines.map { it.second })
+        val navigationPathId = destination?.path?.id
         ribbonLayer.setSource { view ->
             lines.map { (path, line) -> polygons.ribbon(line, view) { onFocus(path) } }
         }
-        val navigationPathId = destination?.path?.id
+        wallArrowLayer.setSource { view ->
+            lines.filter { (path, _) -> path.id == navigationPathId }
+                .flatMap { (_, line) -> polygons.wallArrows(line, view) }
+        }
         arrowLayer.setSource { view ->
             lines.filter { (path, _) -> path.id == navigationPathId }
                 .map { (_, line) -> polygons.arrows(line, view) }
