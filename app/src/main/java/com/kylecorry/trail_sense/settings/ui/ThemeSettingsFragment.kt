@@ -28,6 +28,7 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
         dynamicColorsSwitch?.setOnPreferenceChangeListener { _, _ ->
             requireMainActivity().reloadTheme()
             dynamicCompassColorsSwitch?.isEnabled = prefs.useDynamicColors
+            Tools.triggerWidgetUpdate(requireContext(), null)
             true
         }
 
@@ -74,6 +75,13 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
 
         onChange(widgetTheme) {
             Tools.triggerWidgetUpdate(requireContext(), null)
+        }
+
+        val appThemeForWidgets = switch(R.string.pref_use_app_theme_for_widgets)
+        appThemeForWidgets?.isVisible = DynamicColors.isDynamicColorAvailable()
+        appThemeForWidgets?.setOnPreferenceChangeListener { _, _ ->
+            Tools.triggerWidgetUpdate(requireContext(), null)
+            true
         }
     }
 

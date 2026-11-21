@@ -275,6 +275,12 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
     val useDynamicColorsOnCompass: Boolean
         get() = DynamicColors.isDynamicColorAvailable() && _useDynamicColorsOnCompass
 
+    val useAppThemeForWidgets by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_use_app_theme_for_widgets),
+        true
+    )
+
     var useCompactMode by BooleanPreference(
         cache,
         context.getString(R.string.pref_use_compact_mode),
