@@ -29,6 +29,7 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.views.DataPointView
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
@@ -133,6 +134,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 ) { distance, _ ->
                     if (distance != null) {
                         prefs.pedometer.alertDistance = distance
+                        requestNotifications {}
                     }
                 }
             } else {
@@ -349,7 +351,7 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
     private fun startStepCounter() {
         requestActivityRecognition { hasPermission ->
             if (hasPermission) {
-                pedometer.enable()
+                requestNotifications { pedometer.enable() }
             } else {
                 pedometer.disable()
                 alertNoActivityRecognitionPermission()

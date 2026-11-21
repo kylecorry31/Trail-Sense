@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.databinding.FragmentToolClockBinding
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.sensors.CustomGPS
 import com.kylecorry.trail_sense.shared.sensors.SensorService
@@ -46,8 +47,10 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.pipButton.setOnClickListener {
-            requestScheduleExactAlarms {
-                sendNextMinuteNotification()
+            requestNotifications {
+                requestScheduleExactAlarms {
+                    sendNextMinuteNotification()
+                }
             }
         }
         binding.clockTitle.rightButton.setOnClickListener {

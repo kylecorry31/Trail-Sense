@@ -48,6 +48,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.commands.ComposedCommand
 import com.kylecorry.trail_sense.shared.extensions.findNavController
 import com.kylecorry.trail_sense.shared.navigation.NavigationUtils.setupWithNavController
+import com.kylecorry.trail_sense.shared.permissions.IsNotificationPermissionRequired
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.ErrorBannerView
 import com.kylecorry.trail_sense.shared.volume.VolumeAction
@@ -78,11 +79,6 @@ class MainActivity : AndromedaActivity() {
 
     private val themeProvider = ThemeProvider()
 
-    private val permissions = mutableListOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    )
-
     private var statusBarInset = 0
     /**
      * True when the current screen is drawn under the status bar and so applies the top inset
@@ -93,12 +89,6 @@ class MainActivity : AndromedaActivity() {
 
     private var appInitialized = false
     private var isOnboarding = false
-
-    init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            permissions.add(Manifest.permission.POST_NOTIFICATIONS)
-        }
-    }
 
 
     override fun attachBaseContext(newBase: Context) {
@@ -277,6 +267,13 @@ class MainActivity : AndromedaActivity() {
                 updateBottomNavSelection()
             }
 
+            val permissions = mutableListOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            if (IsNotificationPermissionRequired().isSatisfiedBy(this)) {
+                permissions.add(Manifest.permission.POST_NOTIFICATIONS)
+            }
             val previousPermissionStatus = permissions.map {
                 Permissions.hasPermission(this, it)
             }

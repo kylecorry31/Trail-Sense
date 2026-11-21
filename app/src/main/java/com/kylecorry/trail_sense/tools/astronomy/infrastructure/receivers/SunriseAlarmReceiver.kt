@@ -11,6 +11,7 @@ import com.kylecorry.andromeda.fragments.IPermissionRequester
 import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.RequestBackgroundLocationCommand
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunriseAlarmCommand
@@ -66,11 +67,13 @@ class SunriseAlarmReceiver : BroadcastReceiver() {
             )
             service?.enable()
             if (shouldRequestPermissions) {
-                fragment.requestScheduleExactAlarms {
-                    fragment.inBackground(BackgroundMinimumState.Created) {
-                        service?.restart()
+                fragment.requestNotifications {
+                    fragment.requestScheduleExactAlarms {
+                        fragment.inBackground(BackgroundMinimumState.Created) {
+                            service?.restart()
+                        }
+                        RequestBackgroundLocationCommand(fragment).execute()
                     }
-                    RequestBackgroundLocationCommand(fragment).execute()
                 }
             }
         }

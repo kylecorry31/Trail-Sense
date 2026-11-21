@@ -27,6 +27,7 @@ import com.kylecorry.trail_sense.shared.alerts.ResettableLoadingIndicator
 import com.kylecorry.trail_sense.shared.alerts.ViewLoadingIndicator
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 import com.kylecorry.trail_sense.tools.tools.infrastructure.observe
@@ -141,16 +142,16 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
 
         binding.weatherPlayBar.setOnPlayButtonClickListener {
-            inBackground {
-                when (weatherMonitorService.getFeatureState()) {
-                    FeatureState.On -> weatherMonitorService.disable()
-                    FeatureState.Off -> {
+            when (weatherMonitorService.getFeatureState()) {
+                FeatureState.On -> inBackground { weatherMonitorService.disable() }
+                FeatureState.Off -> requestNotifications {
+                    inBackground {
                         weatherMonitorService.enable()
                         RequestRemoveBatteryRestrictionCommand(this@WeatherFragment).execute()
                     }
-
-                    FeatureState.Unavailable -> toast(getString(R.string.weather_monitoring_disabled))
                 }
+
+                FeatureState.Unavailable -> toast(getString(R.string.weather_monitoring_disabled))
             }
         }
     }

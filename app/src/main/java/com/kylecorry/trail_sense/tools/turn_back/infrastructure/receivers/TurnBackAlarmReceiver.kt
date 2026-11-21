@@ -17,6 +17,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.alerts.NotificationSubsystem
 import com.kylecorry.trail_sense.shared.logging.Logger
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.permissions.requestScheduleExactAlarms
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
@@ -105,8 +106,10 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             shouldRequestPermissions: Boolean
         ) where T : Fragment, T : IPermissionRequester {
             if (shouldRequestPermissions) {
-                fragment.requestScheduleExactAlarms {
-                    start(fragment.requireContext())
+                fragment.requestNotifications {
+                    fragment.requestScheduleExactAlarms {
+                        start(fragment.requireContext())
+                    }
                 }
             } else {
                 start(fragment.requireContext())

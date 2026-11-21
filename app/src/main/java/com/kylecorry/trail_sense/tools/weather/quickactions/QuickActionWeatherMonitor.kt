@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.quickactions
 
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -36,16 +37,16 @@ class QuickActionWeatherMonitor(
 
     override fun onClick() {
         super.onClick()
-        fragment.inBackground {
-            when (state) {
-                FeatureState.On -> service?.disable()
-                FeatureState.Off -> {
+        when (state) {
+            FeatureState.On -> fragment.inBackground { service?.disable() }
+            FeatureState.Off -> fragment.requestNotifications {
+                fragment.inBackground {
                     service?.enable()
                     RequestRemoveBatteryRestrictionCommand(fragment).execute()
                 }
-
-                else -> fragment.toast(context.getString(R.string.weather_monitoring_disabled))
             }
+
+            else -> fragment.toast(context.getString(R.string.weather_monitoring_disabled))
         }
     }
 }

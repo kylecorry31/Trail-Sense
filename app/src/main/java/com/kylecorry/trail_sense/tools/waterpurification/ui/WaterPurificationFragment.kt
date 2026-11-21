@@ -16,6 +16,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.databinding.FragmentToolWaterPurificationBinding
 import com.kylecorry.trail_sense.shared.FormatService
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.tools.waterpurification.domain.WaterService
@@ -43,7 +44,7 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
             if (isRunning()) {
                 stop()
             } else {
-                start()
+                requestNotifications { start() }
             }
         }
 

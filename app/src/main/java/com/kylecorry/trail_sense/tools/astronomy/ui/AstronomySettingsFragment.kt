@@ -11,6 +11,7 @@ import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunriseAlarmReceiver
@@ -119,6 +120,19 @@ class AstronomySettingsFragment : AndromedaPreferenceFragment() {
                     SunriseAlarmReceiver.enable(this@AstronomySettingsFragment, true)
                 } else {
                     sunriseService.disable()
+                }
+            }
+        }
+
+        listOf(
+            R.string.pref_send_lunar_eclipse_alerts,
+            R.string.pref_send_solar_eclipse_alerts,
+            R.string.pref_send_meteor_shower_alerts
+        ).forEach { key ->
+            val alertSwitch = switch(key)
+            onClick(alertSwitch) {
+                if (alertSwitch?.isChecked == true) {
+                    requestNotifications {}
                 }
             }
         }

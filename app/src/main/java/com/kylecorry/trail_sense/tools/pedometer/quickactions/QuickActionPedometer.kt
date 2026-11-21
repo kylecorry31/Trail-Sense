@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.quickactions
 
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -46,7 +47,7 @@ class QuickActionPedometer(btn: QuickActionButtonView, fragment: Fragment) :
     private fun startStepCounter() {
         fragment.requestActivityRecognition { hasPermission ->
             if (hasPermission) {
-                pedometer.enable()
+                fragment.requestNotifications { pedometer.enable() }
             } else {
                 pedometer.disable()
                 fragment.alertNoActivityRecognitionPermission()

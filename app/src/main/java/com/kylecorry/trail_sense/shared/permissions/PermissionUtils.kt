@@ -6,6 +6,8 @@ import android.os.Build
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ProcessLifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.withResumed
 import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.alerts.toast
 import com.kylecorry.andromeda.camera.Camera
@@ -17,6 +19,7 @@ import com.kylecorry.andromeda.permissions.PermissionRationale
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.permissions.SpecialPermission
 import com.kylecorry.trail_sense.R
+import kotlinx.coroutines.launch
 
 fun Fragment.alertNoCameraPermission() {
     Alerts.toast(
@@ -45,6 +48,18 @@ fun Fragment.requestActivityRecognition(action: (hasPermission: Boolean) -> Unit
         }
     } else {
         action(true)
+    }
+}
+
+fun Fragment.requestNotifications(action: () -> Unit) {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        action()
+        return
+    }
+    requirePermissionRequester().requestPermissions(listOf(Manifest.permission.POST_NOTIFICATIONS)) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.withResumed { action() }
+        }
     }
 }
 

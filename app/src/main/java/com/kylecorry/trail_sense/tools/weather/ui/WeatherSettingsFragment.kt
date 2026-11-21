@@ -22,6 +22,7 @@ import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.io.IOFactory
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.shared.requireMainActivity
 import com.kylecorry.trail_sense.shared.safeRoundToInt
@@ -93,18 +94,30 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
         prefMonitorWeather?.isEnabled = !weatherMonitorService.isBlocked()
         prefMonitorWeather?.setOnPreferenceClickListener {
-            inBackground {
-                if (prefs.weather.shouldMonitorWeather) {
-                    weatherMonitorService.enable()
-                    RequestRemoveBatteryRestrictionCommand(this@WeatherSettingsFragment).execute()
-                } else {
-                    weatherMonitorService.disable()
+            if (prefs.weather.shouldMonitorWeather) {
+                requestNotifications {
+                    inBackground {
+                        weatherMonitorService.enable()
+                        RequestRemoveBatteryRestrictionCommand(this@WeatherSettingsFragment).execute()
+                    }
                 }
+            } else {
+                inBackground { weatherMonitorService.disable() }
             }
             true
         }
         prefShowDailyWeatherNotification?.setOnPreferenceClickListener {
-            restartWeatherMonitor()
+            if (prefShowDailyWeatherNotification?.isChecked == true) {
+                requestNotifications { restartWeatherMonitor() }
+            } else {
+                restartWeatherMonitor()
+            }
+            true
+        }
+        prefStormAlerts?.setOnPreferenceClickListener {
+            if (prefStormAlerts?.isChecked == true) {
+                requestNotifications {}
+            }
             true
         }
 

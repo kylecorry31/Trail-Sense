@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.commands.Command
 import com.kylecorry.trail_sense.shared.permissions.RequestRemoveBatteryRestrictionCommand
 import com.kylecorry.trail_sense.shared.permissions.requestBacktrackPermission
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
@@ -26,9 +27,11 @@ class ToggleBacktrackCommand(
                 FeatureState.Off -> {
                     fragment.requestBacktrackPermission { success ->
                         if (success) {
-                            fragment.inBackground {
-                                service.enable()
-                                RequestRemoveBatteryRestrictionCommand(fragment).execute()
+                            fragment.requestNotifications {
+                                fragment.inBackground {
+                                    service.enable()
+                                    RequestRemoveBatteryRestrictionCommand(fragment).execute()
+                                }
                             }
                         } else {
                             onPermissionDenied()

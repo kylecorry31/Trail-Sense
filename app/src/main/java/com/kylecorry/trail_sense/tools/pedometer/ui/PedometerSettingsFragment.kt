@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.kylecorry.andromeda.alerts.Alerts
 import com.kylecorry.andromeda.core.system.Intents
 import com.kylecorry.andromeda.core.system.Resources
 import com.kylecorry.andromeda.fragments.AndromedaPreferenceFragment
@@ -18,7 +17,7 @@ import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.alertNoActivityRecognitionPermission
 import com.kylecorry.trail_sense.shared.permissions.requestActivityRecognition
-import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.preferences.setupDistanceSetting
 import com.kylecorry.trail_sense.shared.preferences.setupNotificationSetting
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
@@ -35,7 +34,6 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
     private var enabledPref: SwitchPreferenceCompat? = null
     private val userPrefs by lazy { UserPreferences(requireContext()) }
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
     private val pedometer by lazy { PedometerSubsystem.getInstance(requireContext()) }
 
 
@@ -57,16 +55,7 @@ class PedometerSettingsFragment : AndromedaPreferenceFragment() {
             if (userPrefs.pedometer.isEnabled) {
                 requestActivityRecognition { hasPermission ->
                     if (hasPermission) {
-                        if (cache.getBoolean("pedometer_battery_sent") != true) {
-                            Alerts.dialog(
-                                requireContext(),
-                                getString(R.string.pedometer),
-                                getString(R.string.pedometer_disclaimer),
-                                cancelText = null
-                            )
-                            cache.putBoolean("pedometer_battery_sent", true)
-                        }
-                        pedometer.enable()
+                        requestNotifications { pedometer.enable() }
                     } else {
                         pedometer.disable()
                         alertNoActivityRecognitionPermission()
