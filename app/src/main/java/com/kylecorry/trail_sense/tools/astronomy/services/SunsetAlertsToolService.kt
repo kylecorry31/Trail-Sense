@@ -4,6 +4,7 @@ import android.content.Context
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
+import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.SunsetAlarmCommand
 import com.kylecorry.trail_sense.tools.astronomy.infrastructure.receivers.SunsetAlarmReceiver
 import com.kylecorry.trail_sense.tools.tools.infrastructure.ToolService
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
@@ -49,7 +50,10 @@ class SunsetAlertsToolService(private val context: Context) : ToolService {
 
     override suspend fun restart() {
         // Always starts - it short circuits if it doesn't need to run
-        SunsetAlarmReceiver.start(context)
+        if (!isEnabled()) {
+            return
+        }
+        SunsetAlarmCommand(context.applicationContext).execute()
     }
 
     override suspend fun stop() {

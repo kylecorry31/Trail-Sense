@@ -52,10 +52,6 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             )
         }
 
-        fun start(context: Context) {
-            context.sendBroadcast(Intent(context, SunsetAlarmReceiver::class.java))
-        }
-
         // TODO: Extract this out of the receiver
         /**
          * Enable sunset alerts and request permissions if needed
