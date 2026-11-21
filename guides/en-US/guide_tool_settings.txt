@@ -236,6 +236,7 @@ Open **Settings > Theme** to change the following theme settings:
 - **Dynamic colors**: Uses your device's dynamic colors in the app. If this is disabled or unavailable, the colors in Trail Sense are shades of orange.
 - **Compass dynamic colors**: Uses your device's dynamic colors in the compass (cardinal directions and certain markers on maps).
 - **Default widget theme**: The default theme for widgets. You can override it in the widget customization options on your home screen.
+- **Use app theme for widgets**: Makes the widgets follow the **Dynamic colors** setting. If this is enabled and **Dynamic colors** is disabled, widgets use the app's colors instead of your device's dynamic colors. Disable this to always use your device's dynamic colors in widgets. This is only available if your device supports dynamic colors.
 - **Compact mode**: Uses a more compact layout for the bottom bar, which is thinner and doesn't show labels.
 - **Show all bottom navigation labels**: Shows labels for all items in the bottom navigation bar instead of only the selected item.
 - **Fullscreen in night mode**: Uses fullscreen mode when the night theme is enabled. To show the system UI, swipe from the top.
