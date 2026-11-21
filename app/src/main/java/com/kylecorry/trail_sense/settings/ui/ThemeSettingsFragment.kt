@@ -28,6 +28,7 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
         dynamicColorsSwitch?.setOnPreferenceChangeListener { _, _ ->
             requireMainActivity().reloadTheme()
             dynamicCompassColorsSwitch?.isEnabled = prefs.useDynamicColors
+            Tools.triggerWidgetUpdate(requireContext(), null)
             true
         }
 

@@ -18,12 +18,16 @@ object WidgetHelper {
         theme: WidgetTheme?,
         @LayoutRes layoutId: Int
     ): RemoteViews {
-        if (theme?.themeId != null) {
-            Resources.reloadTheme(context, theme.themeId)
+        val useDynamicColors = getAppService<UserPreferences>().useDynamicColors
+        val themeId = if (useDynamicColors) theme?.themeId else theme?.staticThemeId
+        val frameLayoutId = if (useDynamicColors) theme?.layoutId else theme?.staticLayoutId
+
+        if (themeId != null) {
+            Resources.reloadTheme(context, themeId)
         }
 
         val frame =
-            RemoteViews(context.packageName, theme?.layoutId ?: R.layout.widget_theme_in_app)
+            RemoteViews(context.packageName, frameLayoutId ?: R.layout.widget_theme_in_app)
         val child = RemoteViews(context.packageName, layoutId)
         frame.removeAllViews(R.id.widget_frame)
         frame.addView(R.id.widget_frame, child)
