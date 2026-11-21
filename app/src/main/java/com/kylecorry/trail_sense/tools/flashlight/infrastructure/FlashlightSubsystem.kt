@@ -14,7 +14,9 @@ import com.kylecorry.andromeda.torch.Torch
 import com.kylecorry.andromeda.torch.TorchStateChangedTopic
 import com.kylecorry.sol.math.interpolation.Interpolation
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.logging.Logger
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.flashlight.FlashlightToolRegistration
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
@@ -110,7 +112,15 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
         val previousMode = getMode()
         _mode.publish(newMode)
         if (previousMode == FlashlightMode.Off) {
-            FlashlightService.start(context)
+            try {
+                FlashlightService.start(context)
+            } catch (e: IllegalStateException) {
+                // The system refuses background service starts (ex. widget tap while the app is idle).
+                getAppService<Logger>().warn(TAG, "Unable to start the flashlight service", e)
+                clearTimeout()
+                setTransitioning(false)
+                _mode.publish(FlashlightMode.Off)
+            }
         }
     }
 
@@ -205,6 +215,8 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
     }
 
     companion object {
+        private const val TAG = "FlashlightSubsystem"
+
         @SuppressLint("StaticFieldLeak")
         private var instance: FlashlightSubsystem? = null
         fun getInstance(context: Context): FlashlightSubsystem {

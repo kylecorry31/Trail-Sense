@@ -145,3 +145,4 @@ A new GPS smoothing setting was added which will run new GPS readings through a 
 - Fixed a crash when the backtrack path contained points without a time
 - Fixed a crash when tapping Learn more on the battery restrictions message after leaving the screen
 - Fixed the app failing to start if a setting was corrupted during an update
+- Fixed a crash when tapping the flashlight widget while the app was idle

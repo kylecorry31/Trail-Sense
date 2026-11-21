@@ -58,8 +58,8 @@ class FlashlightToolWidgetView : SimpleToolWidgetView() {
             return false
         }
 
-        // The bug only happens on Android 13+
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        // Background execution limits (no startService while idle) apply from Android 8
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return false
         }
 
