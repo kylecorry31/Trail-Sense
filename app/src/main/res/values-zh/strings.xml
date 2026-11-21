@@ -1670,4 +1670,5 @@
     <string name="navigation_remaining_loss">剩余下降高度</string>
     <string name="pref_extend_tools_under_status_bar_title">状态栏下方的扩展工具</string>
     <string name="pref_extend_tools_under_status_bar_summary">让地图和相机工具等工具填充状态栏后面的屏幕</string>
+    <string name="pref_show_zoom_buttons_title">显示缩放按钮</string>
 </resources>
