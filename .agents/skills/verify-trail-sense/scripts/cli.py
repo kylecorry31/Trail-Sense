@@ -725,6 +725,89 @@ def cmd_app_stop(ctx):
     return Out({"stopped": ctx.package}, f"stopped {ctx.package}")
 
 
+def cmd_app_kill(ctx):
+    run(ctx.target.adb("shell", "am", "kill", ctx.package))
+    return Out({"killed": ctx.package}, f"killed {ctx.package} (widgets and pending intents are kept)")
+
+
+def cmd_app_idle(ctx):
+    pkg = ctx.package
+    if ctx.args.off:
+        steps = (("set-standby-bucket", pkg, "active"), ("set-inactive", pkg, "false"))
+    else:
+        steps = (("kill", pkg), ("set-standby-bucket", pkg, "restricted"), ("set-inactive", pkg, "true"), ("make-uid-idle", pkg))
+    for step in steps:
+        run(ctx.target.adb("shell", "am", *step))
+    state = "active" if ctx.args.off else "idle (killed, restricted bucket, idle uid)"
+    return Out({"package": pkg, "idle": not ctx.args.off}, f"{pkg} is {state}")
+
+
+def cmd_app_services(ctx):
+    out = text(ctx.target.shell("dumpsys", "activity", "services", ctx.package, check=False))
+    services = re.findall(r"ServiceRecord\{\S+ \S+ (\S+)", out)
+    return Out({"services": services}, "\n".join(services) or "no running services")
+
+
+def cmd_doze(ctx):
+    on = ctx.args.state == "on"
+    out = text(run(ctx.target.adb("shell", "dumpsys", "deviceidle", "force-idle" if on else "unforce"))).strip().splitlines()
+    if on:
+        time.sleep(3)
+    return Out({"doze": on}, out[0] if out else f"doze {ctx.args.state}")
+
+
+def home_widgets(ctx):
+    prefix = f"{ctx.package}:id/"
+    return [n for n in layout_nodes(ctx) if str(n.get("resource-id", "")).startswith(prefix)]
+
+
+def cmd_widget_tap(ctx):
+    run(ctx.target.adb("shell", "input", "keyevent", "KEYCODE_HOME"))
+    time.sleep(1)
+    nodes = home_widgets(ctx)
+    if not nodes:
+        raise Failed(f"no {ctx.package} widget found on the home screen (add one with `widget add`)")
+    x, y = (int(v) for v in nodes[0]["center"].strip("[]").split(","))
+    run(ctx.target.adb("shell", "input", "tap", str(x), str(y)))
+    return Out({"x": x, "y": y}, f"tapped the widget at [{x},{y}]")
+
+
+def cmd_widget_add(ctx):
+    label = ctx.args.label
+    adb_shell = lambda *a: run(ctx.target.adb("shell", *a))
+    size = re.search(r"(\d+)x(\d+)", text(ctx.target.shell("wm", "size")))
+    w, h = (int(size.group(1)), int(size.group(2))) if size else (720, 1280)
+    adb_shell("input", "keyevent", "KEYCODE_HOME")
+    time.sleep(1)
+    adb_shell("input", "swipe", str(w // 2), str(h // 2), str(w // 2), str(h // 2), "1500")
+    android_input(ctx, "input tap", "--wait=5", "text=Widgets")
+    android_input(ctx, "input scroll", "--dir=down", "--until=text=Trail Sense", "scrollable=true")
+    android_input(ctx, "input tap", "text=Trail Sense")
+    time.sleep(1)
+    android_input(ctx, "input scroll", "--dir=down", f"--until=text=/^{re.escape(label)}$/", "scrollable=true")
+    cell = next((n for n in layout_nodes(ctx) if str(n.get("content-desc", "")).startswith(f"{label} widget")
+                 and "WidgetCell" in str(n.get("class", ""))), None)
+    if not cell:
+        raise Failed(f"no widget named '{label}' under Trail Sense in the launcher picker")
+    cx, cy = cell["center"].strip("[]").split(",")
+    adb_shell("input", "tap", cx, cy)
+    time.sleep(1)
+    add = next((n for n in layout_nodes(ctx) if str(n.get("resource-id", "")).endswith(":id/widget_add_button")), None)
+    if not add:
+        raise Failed("the launcher did not show an Add button")
+    ax, ay = add["center"].strip("[]").split(",")
+    adb_shell("input", "tap", ax, ay)
+    time.sleep(2)
+    save = next((n for n in layout_nodes(ctx) if str(n.get("resource-id", "")).endswith(":id/button_save")), None)
+    if save:
+        sx, sy = save["center"].strip("[]").split(",")
+        adb_shell("input", "tap", sx, sy)
+        time.sleep(2)
+    if not home_widgets(ctx):
+        raise Failed("the widget did not appear on the home screen")
+    return Out({"widget": label}, f"added the {label} widget to the home screen")
+
+
 def cmd_app_current(ctx):
     out = text(ctx.target.shell("dumpsys", "activity", "activities", check=False))
     m = re.search(r"topResumedActivity=ActivityRecord\{\S+ \S+ (\S+)", out) or re.search(r"mResumedActivity: ActivityRecord\{\S+ \S+ (\S+)", out)
@@ -1195,7 +1278,22 @@ def build_parser():
     sd.add_argument("--no-permissions", action="store_true")
     leaf(app, "launch", cmd_app_launch, ACT, "start MainActivity")
     leaf(app, "stop", cmd_app_stop, ACT, "force-stop the app")
+    leaf(app, "kill", cmd_app_kill, ACT, "kill the process (am kill) but keep widgets and pending intents; use instead of stop for background-start tests")
+    ai = leaf(app, "idle", cmd_app_idle, ACT,
+              "make the app idle: kill, restricted standby bucket, idle uid (the state background-start limits apply to)",
+              "Pair with `tsctl doze on`. Never use `app stop` first: force-stop cancels widget PendingIntents.")
+    ai.add_argument("--off", action="store_true", help="return the app to the active standby bucket")
+    leaf(app, "services", cmd_app_services, ACT, "running services of the app")
     leaf(app, "current", cmd_app_current, ACT, "the resumed activity")
+
+    dz = leaf(top, "doze", cmd_doze, EMULATOR, "force the device into deep Doze (on) or release it (off); emulator only, waits 3 s after on")
+    dz.add_argument("state", choices=["on", "off"])
+
+    widget = group("widget", "home-screen widgets (emulator launcher flow for add)")
+    wa = leaf(widget, "add", cmd_widget_add, EMULATOR, "add a Trail Sense widget through the launcher picker (and save its config screen if shown)",
+              "example: tsctl widget add Flashlight")
+    wa.add_argument("label", help="widget name as shown in the picker, e.g. Flashlight")
+    leaf(widget, "tap", cmd_widget_tap, ACT, "go home and tap the Trail Sense widget on it")
 
     t = leaf(top, "tools", cmd_tools, NO_DEVICE, "tool names and ids accepted by `open` (parsed from Tools.kt)")
     t.add_argument("filter", nargs="?")

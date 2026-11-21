@@ -170,7 +170,15 @@ $T db pull /some/dir
 - Non-debuggable variants (staging) can't be backed up; tsctl warns and continues.
 - Dry runs only list the backup step. Old backups are deleted automatically (see Evidence).
 
-**App lifecycle and logs:** `$T app launch|stop|current|clear|uninstall|restore`, `$T logs [--lines N] [--all] [--out f]`, `$T logs --crash`, `$T logs --clear`.
+**App lifecycle and logs:** `$T app launch|stop|kill|idle|services|current|clear|uninstall|restore`, `$T logs [--lines N] [--all] [--out f]`, `$T logs --crash`, `$T logs --clear`.
+
+**Background and widget state:**
+
+- `$T app kill` drops the process but keeps widgets and their PendingIntents. Use it, not `app stop`: force-stop cancels widget PendingIntents, so a widget tap then does nothing.
+- `$T app idle` kills the app and puts it in the restricted standby bucket with an idle uid. `$T app idle --off` undoes it.
+- `$T doze on|off` forces deep Doze (emulator only; waits 3 s after `on`). Background `startService` limits only show with `doze on` plus `app idle`.
+- `$T app services` lists the app's running services.
+- `$T widget add <name>` adds a widget through the Pixel launcher picker (emulator only) and saves its config screen if one shows. `$T widget tap` taps the widget on the home screen.
 
 **Build and test:**
 

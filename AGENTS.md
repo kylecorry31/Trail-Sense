@@ -1,3 +1,5 @@
+**Always use the `verify-trail-sense` skill and its `tsctl` script for every device or emulator interaction.** Load the skill before touching a device. Never call `adb`, `am`, `dumpsys`, the `android` CLI, or `gradlew` directly for building, installing, driving, or inspecting the app. `tsctl` enforces the emulator-versus-physical-device safety gates that raw commands skip. If `tsctl` can't do what you need, add a subcommand to it (and its docs) instead of working around it with raw commands. Behavior changes to the app are not verified until you have driven the real user path with `tsctl` on the emulator and checked `tsctl logs --crash` is empty.
+
 Use `.agents/skills/verify-trail-sense/scripts/tsctl` to build, test, lint, and run the app (see the `verify-trail-sense` skill and `tsctl --help`):
 - `tsctl build [variant...]`: build APKs (default `debug`)
 - `tsctl test unit [test-filter]`: run unit tests. The optional filter is forwarded to Gradle with `--tests`.
