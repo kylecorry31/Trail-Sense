@@ -18,7 +18,8 @@ object WidgetHelper {
         theme: WidgetTheme?,
         @LayoutRes layoutId: Int
     ): RemoteViews {
-        val useDynamicColors = getAppService<UserPreferences>().useDynamicColors
+        val prefs = getAppService<UserPreferences>()
+        val useDynamicColors = !prefs.useAppThemeForWidgets || prefs.useDynamicColors
         val themeId = if (useDynamicColors) theme?.themeId else theme?.staticThemeId
         val frameLayoutId = if (useDynamicColors) theme?.layoutId else theme?.staticLayoutId
 
