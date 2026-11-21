@@ -212,11 +212,13 @@ Canvas content (the map) can't be found by UiAutomator. Convert a coordinate to 
 ## Running Tests
 
 ```bash
-./scripts/run-emulator-integration-tests.sh
-./scripts/run-emulator-integration-tests.sh com.kylecorry.trail_sense.tools.notes.ToolNotesTest 180
+T=.agents/skills/verify-trail-sense/scripts/tsctl
+$T emu start                 # reuses a running emulator
+$T test android              # run all Android tests on the emulator
+$T test android com.kylecorry.trail_sense.tools.notes.ToolNotesTest --timeout 180   # run a specific test class with a 180 second timeout
 ```
 
-The filter only supports a single class or method (a comma separated list runs just the first class), so run each class separately. The script defaults to a 1800 second timeout. Most individual integration tests should finish in 60 to 180 seconds, so pass a shorter timeout for focused runs when practical.
+The filter only supports a single class or method (a comma separated list runs just the first class), so run each class separately. `tsctl test android` defaults to a 1800 second timeout. Most individual integration tests should finish in 60 to 180 seconds, so pass a shorter timeout for focused runs when practical.
 
 ## Source Files
 

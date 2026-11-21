@@ -32,7 +32,7 @@ Also update:
 4. Add the entity, DAO accessor, version bump, and migration to `AppDatabase`. This step is complete when the migration SQL exactly matches the entity columns, nullability, primary key, and indices.
 5. Create the Repository. This step is complete when public methods expose domain models, run blocking work on IO, and map DAO entities only inside the repository.
 6. Register the repo singleton in ToolRegistration. This step is complete when the tool owns the repository lifecycle.
-7. Validate the persistence change with the narrowest useful build or test. This step is complete when `./scripts/build.sh` or a focused unit test passes, or the exact blocker is reported.
+7. Validate the persistence change with the narrowest useful build or test. This step is complete when `.agents/skills/verify-trail-sense/scripts/tsctl build` or a focused unit test (`tsctl test unit <filter>`) passes, or the exact blocker is reported.
 
 ## 1. Entity
 
