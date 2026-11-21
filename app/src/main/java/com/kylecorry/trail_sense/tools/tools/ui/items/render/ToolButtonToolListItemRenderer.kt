@@ -27,44 +27,36 @@ class ToolButtonToolListItemRenderer : ToolListItemRenderer {
             com.google.android.material.R.attr.colorOnSurface
         )
 
-        // Icon (start)
         binding.title.setCompoundDrawables(Resources.dp(context, 24f).toInt(), left = item.icon)
         Colors.setImageColor(
             binding.title,
             contentColor
         )
 
-        // Icon (end)
         binding.icon.isVisible = false
 
-        // Background
         binding.root.setBackgroundResource(R.drawable.rounded_rectangle)
         binding.root.backgroundTintList = ColorStateList.valueOf(backgroundColor)
         binding.root.elevation = 2f
 
-        // Text
         binding.title.setTextColor(contentColor)
         binding.title.paint.isFakeBoldText = false
         binding.title.textSize = 14f
         binding.title.text = item.title?.capitalizeWords()
         binding.title.isVisible = item.title != null
 
-        // Click action
         binding.root.setOnClickListener {
             item.onClick(it)
         }
 
-        // Long click action
         binding.root.setOnLongClickListener {
             item.onLongClick(it)
         }
 
-        // Margins
         val margin = Resources.dp(context, 8f).toInt()
         val params = binding.root.layoutParams as ViewGroup.MarginLayoutParams
         params.setMargins(margin)
 
-        // Height
         params.height = Resources.dp(context, 64f).toInt()
     }
 }

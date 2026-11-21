@@ -20,7 +20,6 @@ import kotlin.math.roundToInt
 
 object GeographicImageUtils {
 
-    // TODO: Redo this
     suspend fun getNearestPixelOfAsset(
         source: GeographicImageSource,
         context: Context,
@@ -44,11 +43,9 @@ object GeographicImageUtils {
                 val pixels = bitmap.getPixels()
                 val width = bitmap.width
 
-                // Get the nearest non-zero pixel, wrapping around the image
                 val x = searchSize
                 val y = searchSize
 
-                // Search in a grid pattern
                 for (i in 1 until searchSize) {
                     val topY = y - i
                     val bottomY = y + i
@@ -57,7 +54,6 @@ object GeographicImageUtils {
 
                     val hits = mutableListOf<PixelCoordinate>()
 
-                    // Check the top and bottom rows
                     for (j in leftX..rightX) {
                         if (hasValue(pixels.get(j, topY, width))) {
                             hits.add(PixelCoordinate(j.toFloat(), topY.toFloat()))
@@ -67,7 +63,6 @@ object GeographicImageUtils {
                         }
                     }
 
-                    // Check the left and right columns
                     for (j in topY..bottomY) {
                         if (hasValue(pixels.get(leftX, j, width))) {
                             hits.add(PixelCoordinate(leftX.toFloat(), j.toFloat()))
@@ -79,7 +74,6 @@ object GeographicImageUtils {
 
                     if (hits.isNotEmpty()) {
                         val globalHits = hits.map {
-                            // Only x is wrapped
                             val globalX =
                                 wrap(
                                     actualPixel.x + it.x - searchSize,
@@ -110,14 +104,12 @@ object GeographicImageUtils {
         val cx = center.x.roundToInt()
         val cy = center.y.roundToInt()
 
-        // Step 1: Calculate the region bounds
         val left = cx - size
         val top = cy - size
         val right = cx + size + 1
         val bottom = cy + size + 1
 
 
-        // Step 2: Load as much of the region as possible
         val rect = Rect(left, top, right, bottom)
 
         return ImageRegionLoader.decodeBitmapRegionWrapped(stream, rect, fullImageSize, wrap = true)

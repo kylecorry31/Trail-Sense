@@ -16,14 +16,12 @@ class CrossPathEffect(size: Float = 6f, advance: Float = 3 * size, phase: Float 
             val rotation = 0.70710677f
             val offset = thickness * rotation
 
-            // Bottom to top
             path.moveTo(-size / 2 + offset, -size / 2 - offset)
             path.lineTo(-size / 2 - offset, -size / 2 + offset)
             path.lineTo(size / 2 - offset, size / 2 + offset)
             path.lineTo(size / 2 + offset, size / 2 - offset)
             path.close()
 
-            // Top to bottom
             path.moveTo(-size / 2 - offset, size / 2 - offset)
             path.lineTo(-size / 2 + offset, size / 2 + offset)
             path.lineTo(size / 2 + offset, -size / 2 + offset)

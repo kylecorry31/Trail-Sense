@@ -28,10 +28,8 @@ class BackupService(
      */
     suspend fun backup(destination: Uri): Unit = onIO {
         val preferences = getAppService<UserPreferences>()
-        // Delete previous version files
         deleteVersionFiles()
 
-        // Get the files to backup
         val filesToBackup = getFilesToBackup().toMutableList()
 
         val appVersionFile =
@@ -53,12 +51,10 @@ class BackupService(
                 }
             ).filterNotNull()
 
-            // Create the zip file
             fileSubsystem.output(destination)?.use {
                 ZipUtils.zip(it, *filesToBackup.toTypedArray(), excludedFiles = excludedFiles)
             }
         } finally {
-            // Delete the app version file
             appVersionFile.delete()
         }
     }
@@ -68,24 +64,20 @@ class BackupService(
      * @param source the source file - must be a zip file
      */
     suspend fun restore(source: Uri, onProgress: ((Float) -> Unit)? = null): Unit = onIO {
-        // Check the validity of the zip file
         val backup = verifyBackupFile(source)
 
         val stream = fileSubsystem.stream(source) ?: return@onIO
 
-        // Get the root directory where the files will be restored to
         val root = AppData.getDataDirectory(context)
 
         // Stop the services while restoring to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
 
-        // Close the DB before restoring
         AppDatabase.close()
 
         // Remove the shared prefs directory (this is to support switching between build variants)
         AppData.getSharedPrefsDirectory(context).deleteRecursively()
 
-        // Unzip the files to the root directory (this will overwrite existing files)
         var count = 0
         stream.use {
             ZipUtils.unzip(it, root, MAX_ZIP_FILE_COUNT) {
@@ -94,10 +86,8 @@ class BackupService(
             }
         }
 
-        // Rename the shared prefs file
         renameSharedPrefsFile(backup.sharedPrefsFileName)
 
-        // Clear cache
         deleteVersionFiles()
         CacheFileSystem(context).delete(CachedTileRepo.TILES_FOLDER, true)
         onProgress?.invoke(1f)
@@ -116,7 +106,6 @@ class BackupService(
 
         val sharedPrefsDir = AppData.getSharedPrefsDirectory(context)
 
-        // Get the restored shared preferences file from the backup.
         val prefsFile = File(sharedPrefsDir, name)
         if (!prefsFile.exists()) {
             return@onIO
@@ -136,7 +125,6 @@ class BackupService(
     }
 
     private suspend fun verifyBackupFile(backupUri: Uri): BackupMetadata = onIO {
-        // Retrieve the files in the zip file
         val files = try {
             fileSubsystem.stream(backupUri)?.use {
                 ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
@@ -145,7 +133,6 @@ class BackupService(
             throw InvalidBackupException(e)
         } ?: throw InvalidBackupException()
 
-        // If the app version file doesn't exist or the version code is greater than the current version, return false
         val appVersionFile =
             files.firstOrNull { (file, _) -> file.path.contains("app-version") }
         val version = appVersionFile?.let { extractVersionCode(it.file.path) }
@@ -153,7 +140,6 @@ class BackupService(
             throw NewerBackupException()
         }
 
-        // Verify it looks like a backup
         val pathsToLookFor = listOf(
             Regex("databases/trail_sense.*"),
             Regex("shared_prefs/com\\.kylecorry\\.trail_sense.*_preferences.xml"),

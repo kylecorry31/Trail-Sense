@@ -34,21 +34,18 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
     fun showsTheWeatherFromTheDevicesSensors() {
         assumeTrue(Tools.isToolAvailable(context, Tools.WEATHER))
 
-        // Historic temperature disclaimer
         clickOk()
 
         not(waitForTime = AutomationLibrary.GPS_WAIT_FOR_TIMEOUT) {
             hasText("Updating weather")
         }
 
-        // Weather prediction
         hasText(R.id.weather_title) {
             it == string(R.string.weather_no_change) ||
                     it == string(R.string.weather_overcast) ||
                     it == string(R.string.weather_clear)
         }
 
-        // Wait for a pressure reading
         waitFor(15000) {
             // The readings may still be loading while scrolling
             scrollToStart()
@@ -56,27 +53,22 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         }
         hasText(Regex("\\d+(\\.\\d+)? in"))
 
-        // Historic temperature
         optional {
             hasText(string(R.string.temperature))
             hasText(string(R.string.historic_temperature_years, 30))
             hasText(Regex("\\d+(\\.\\d+)? °F"))
         }
 
-        // High / low
         optional {
             hasText(string(R.string.temperature_high_low))
             hasText(Regex("\\d+(\\.\\d+)? °F / \\d+(\\.\\d+)? °F"))
         }
 
-        // Last reading
         scrollUntil { hasText(string(R.string.last_updated)) }
         scrollToStart()
 
-        // Pressure chart
         isVisible(R.id.chart)
 
-        // High / low chart
         optional {
             click(string(R.string.temperature_high_low))
             hasText(string(R.string.next_24_hours))
@@ -89,13 +81,11 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
     fun canUseWeatherMonitor() {
         assumeTrue(Tools.isToolAvailable(context, Tools.WEATHER))
 
-        // Historic temperature disclaimer
         clickOk()
 
         hasText(R.id.play_bar_title, "Off - 30m")
         click(R.id.play_btn)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             hasNotification(
                 WeatherMonitorService.WEATHER_NOTIFICATION_ID,
@@ -103,7 +93,6 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
             )
         }
 
-        // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
             doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
@@ -113,7 +102,6 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
         click(R.id.play_btn)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             doesNotHaveNotification(WeatherMonitorService.WEATHER_NOTIFICATION_ID)
         }
@@ -123,13 +111,11 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
     fun canUseWeatherMonitorFromTheQuickAction() {
         assumeTrue(Tools.isToolAvailable(context, Tools.WEATHER))
 
-        // Historic temperature disclaimer
         clickOk()
 
         TestUtils.openQuickActions()
         clickQuickAction(Tools.QUICK_ACTION_WEATHER_MONITOR)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             hasNotification(
                 WeatherMonitorService.WEATHER_NOTIFICATION_ID,
@@ -137,7 +123,6 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
             )
         }
 
-        // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
             doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
@@ -145,7 +130,6 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
         clickQuickAction(Tools.QUICK_ACTION_WEATHER_MONITOR)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             doesNotHaveNotification(WeatherMonitorService.WEATHER_NOTIFICATION_ID)
         }

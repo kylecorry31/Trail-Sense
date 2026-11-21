@@ -25,7 +25,6 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
     /** Called when the path is committed (not on every frame of a drag). */
     var onPathChanged: (points: List<Coordinate>) -> Unit = {}
 
-    /** Called as a point is dragged. */
     var onPathDragged: (points: List<Coordinate>) -> Unit = {}
 
     /** Called when the selection or undo/redo availability may have changed. */
@@ -133,7 +132,6 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
             marker.draw(drawer, pixels[index], map.layerScale, rotation, map.resolutionPixels)
         }
 
-        // The end is drawn last so it is never hidden by another point
         (pixels.indices.filter { it != last } + last).forEach { index ->
             val sizeScale = if (index == selected) SELECTED_SCALE else 1f
             if (index == selected) {

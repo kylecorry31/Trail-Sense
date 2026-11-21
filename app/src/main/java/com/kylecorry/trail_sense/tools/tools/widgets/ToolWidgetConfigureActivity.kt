@@ -29,7 +29,6 @@ class ToolWidgetConfigureActivity : AndromedaActivity() {
 
         setContentView(R.layout.activity_tool_widget_configure)
 
-        // Apply insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root)) { v, windowInsets ->
             val insets =
                 windowInsets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
@@ -97,7 +96,6 @@ class ToolWidgetConfigureActivity : AndromedaActivity() {
                     )
                 }
 
-                // Report the result
                 val resultValue =
                     Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
                 setResult(RESULT_OK, resultValue)

@@ -26,10 +26,8 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
     @Test
     fun canTurnWhiteNoiseOnAndOff() {
-        // Turn on white noise
         click(R.id.white_noise_btn)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             waitFor {
                 notification(WhiteNoiseService.NOTIFICATION_ID)
@@ -42,10 +40,8 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         }
 
 
-        // Turn it off
         click(R.id.white_noise_btn)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             not { notification(WhiteNoiseService.NOTIFICATION_ID) }
         }
@@ -56,9 +52,6 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
     @Test
     fun canChangeTheSleepSoundAndClearTheSleepTimerAfterPlaybackStops() {
-        // TODO: The UIAutomator can't enter text in the duration input
-//        canSetSleepTimer()
-
         canChangeSleepSound()
 
         sleepTimerUiClearsAfterPlaybackStops()
@@ -80,10 +73,8 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         click(R.id.sleep_timer_switch)
         input(R.id.duration, "2")
 
-        // Turn on white noise
         click(R.id.white_noise_btn)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             waitFor {
                 notification(WhiteNoiseService.NOTIFICATION_ID)
@@ -96,8 +87,6 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         }
 
 
-        // Wait for the sleep timer to turn off the white noise
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             not { notification(WhiteNoiseService.NOTIFICATION_ID) }
         }
@@ -120,7 +109,6 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
         TestUtils.openQuickActions()
         clickQuickAction(Tools.QUICK_ACTION_WHITE_NOISE)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             waitFor {
                 notification(WhiteNoiseService.NOTIFICATION_ID)
@@ -135,7 +123,6 @@ class ToolWhiteNoiseTest : ToolTestBase(Tools.WHITE_NOISE) {
 
         clickQuickAction(Tools.QUICK_ACTION_WHITE_NOISE)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             not { notification(WhiteNoiseService.NOTIFICATION_ID) }
         }

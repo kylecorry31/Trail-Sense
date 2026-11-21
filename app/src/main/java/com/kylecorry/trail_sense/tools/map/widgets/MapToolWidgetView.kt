@@ -62,7 +62,6 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
                 )
             mapView.setLayersWithPreferences(MapToolRegistration.MAP_ID, layerIds)
 
-            // Set mapview size
             mapView.measure(
                 View.MeasureSpec.makeMeasureSpec(size, View.MeasureSpec.EXACTLY),
                 View.MeasureSpec.makeMeasureSpec(size, View.MeasureSpec.EXACTLY)
@@ -72,7 +71,6 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
             mapView.layerManager.start()
 
             try {
-                // Render the map (it needs time to load)
                 val bitmap = createBitmap(size, size)
                 val canvas = Canvas(bitmap)
                 var totalDelay = 0
@@ -84,7 +82,6 @@ class MapToolWidgetView : ChartToolWidgetViewBase() {
                     delay(100)
                     totalDelay += 100
                 }
-                // A few more draws just in case
                 repeat(3) {
                     mapView.draw(canvas)
                 }

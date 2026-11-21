@@ -17,9 +17,6 @@ class GPSSourceSelector(context: Context) {
     private val context = context.applicationContext
     private val userPrefs by lazy { UserPreferences(this.context) }
 
-    /**
-     * @param useCache true to use the cache instead of the device GPS
-     */
     fun getSource(useCache: Boolean): GPSSource {
         val hasPermission = Permissions.canGetFineLocation(context)
 

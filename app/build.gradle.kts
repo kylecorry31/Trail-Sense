@@ -21,6 +21,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments["clearPackageData"] = "true"
         testInstrumentationRunnerArguments["useTestStorageService"] = "true"
+        if (!project.hasProperty("manualTests")) {
+            testInstrumentationRunnerArguments["notAnnotation"] =
+                "com.kylecorry.trail_sense.test_utils.ManualOnlyTest"
+        }
     }
     signingConfigs {
         create("nightly") {
@@ -109,7 +113,11 @@ android {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
         unitTests.all {
-            it.useJUnitPlatform()
+            it.useJUnitPlatform {
+                if (!project.hasProperty("manualTests")) {
+                    excludeTags("manual")
+                }
+            }
         }
     }
     compileOptions {

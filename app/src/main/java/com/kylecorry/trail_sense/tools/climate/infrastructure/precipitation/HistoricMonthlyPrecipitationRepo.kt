@@ -15,10 +15,8 @@ import java.time.Month
 
 internal object HistoricMonthlyPrecipitationRepo {
 
-    // Cache
     private val cache = MemoryLRUCache<PixelCoordinate, Map<Month, Distance>>(size = 5)
 
-    // Image data source
     private val size = Size(1440, 720)
 
     private val sources = Month.entries.associateWith { month ->

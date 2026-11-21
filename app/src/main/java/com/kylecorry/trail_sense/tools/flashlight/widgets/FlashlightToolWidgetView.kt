@@ -39,7 +39,6 @@ class FlashlightToolWidgetView : SimpleToolWidgetView() {
         views.setViewVisibility(ICON_IMAGEVIEW, View.GONE)
         views.setViewVisibility(ICON_IMAGEVIEW_TEXT_COLOR, View.VISIBLE)
 
-        // Create a pending intent to toggle the flashlight
         val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         val pendingIntent = if (isForegroundServiceWorkaroundNeeded(context)) {
             val intent = Intent(context, FlashlightWidgetActivityWorkaround::class.java)
@@ -62,8 +61,6 @@ class FlashlightToolWidgetView : SimpleToolWidgetView() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return false
         }
-
-        // Normally we would check if the app is in the foreground, but widgets don't initialize often
 
         return !Permissions.isIgnoringBatteryOptimizations(context)
     }

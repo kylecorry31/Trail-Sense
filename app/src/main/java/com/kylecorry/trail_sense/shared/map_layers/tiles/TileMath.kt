@@ -48,7 +48,6 @@ object TileMath {
         val yMin = northEast.y.coerceAtMost(n - 1)
         val yMax = southWest.y.coerceAtMost(n - 1)
 
-        // If range is greater than 100, return an empty list
         if (xMax - xMin > 100 || yMax - yMin > 100) {
             return emptyList()
         }

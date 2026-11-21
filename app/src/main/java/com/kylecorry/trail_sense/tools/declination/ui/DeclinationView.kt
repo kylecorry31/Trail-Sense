@@ -49,7 +49,6 @@ class DeclinationView @JvmOverloads constructor(
 
         drawer.tint(color)
 
-        // True North arrow
         drawer.line(
             drawer.canvas.width / 2f,
             drawer.canvas.height.toFloat() - strokeWeight,
@@ -64,12 +63,10 @@ class DeclinationView @JvmOverloads constructor(
             imageSize * 0.5f
         )
 
-        // Declination arrow
         drawer.push()
         drawer.rotate(declination, drawer.canvas.width / 2f, drawer.canvas.height.toFloat())
 
         val line = mutableListOf(
-            // Vertical
             drawer.canvas.width / 2f,
             drawer.canvas.height.toFloat() - strokeWeight,
             drawer.canvas.width / 2f,

@@ -14,7 +14,6 @@ class BackupCommand(private val context: Context, private val uriPicker: UriPick
     private val backupService = BackupService(context)
 
     override suspend fun execute() {
-        // Alert the user before continuing
         val isCancelled = CoroutineAlerts.dialog(
             context,
             context.getString(R.string.backup),
@@ -24,7 +23,6 @@ class BackupCommand(private val context: Context, private val uriPicker: UriPick
 
         if (isCancelled) return
 
-        // Select the destination file
         val destination = uriPicker.create(
             "trail-sense-${Instant.now().epochSecond}.zip",
             "application/zip"

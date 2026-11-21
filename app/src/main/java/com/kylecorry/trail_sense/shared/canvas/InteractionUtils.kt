@@ -19,7 +19,6 @@ object InteractionUtils {
             .reversed()
             .sortedBy {
                 if (it.second.contains(tap.center)) {
-                    // The point is centered
                     return@sortedBy 0f
                 }
                 // The circle does not overlap with the center, so calculate the distance to the nearest point on the circle

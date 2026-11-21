@@ -53,10 +53,6 @@ class SunsetAlarmReceiver : BroadcastReceiver() {
             )
         }
 
-        // TODO: Extract this out of the receiver
-        /**
-         * Enable sunset alerts and request permissions if needed
-         */
         suspend fun <T> enable(
             fragment: T,
             shouldRequestPermissions: Boolean

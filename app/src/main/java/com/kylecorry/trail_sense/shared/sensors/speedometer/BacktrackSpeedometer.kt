@@ -100,7 +100,6 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
     }
 
     override fun startImpl() {
-        // TODO: Listen for path changes for backtrack ID
         loadJob = scope.launch {
             val backtrack = pathService.getBacktrackPathId() ?: return@launch
             val waypoints = pathService.getWaypointsLive(backtrack)

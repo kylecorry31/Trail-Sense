@@ -63,7 +63,6 @@ class LocationSubsystem private constructor(private val context: Context) {
             context.getString(R.string.pref_latitude_override),
             context.getString(R.string.pref_longitude_override),
             context.getString(R.string.pref_auto_location),
-            // TODO: Technically not true - this should probably by another broadcast
             context.getString(R.string.pref_coordinate_format)
         )
         val elevationChangedPrefs = listOf(

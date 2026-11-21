@@ -34,14 +34,11 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
 
     @Test
     fun canCreateAndViewATideTable() {
-        // Wait for the disclaimer
         clickOk()
 
-        // Wait for the nearby tides to load
         hasText(string(R.string.navigation_nearby_category), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         clickRightToolbarButton(R.id.tide_title)
 
-        // Tide list
         hasText(R.id.tide_list_title, string(R.string.tides))
         hasText(string(R.string.navigation_nearby_category))
         hasText(string(R.string.tide_model_auto))
@@ -68,29 +65,21 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
 
         hasText(R.id.create_tide_title, string(R.string.tide_table))
 
-        // Verify the fields are set
         hasText(R.id.tide_name) { it.startsWith("Tide 1") }
 
-        // Select lunitidal interval
         click(R.id.estimate_algorithm_spinner)
         click(string(R.string.lunitidal_interval_auto))
         clickOk()
 
-        // Verify the fields are set
         hasText(R.id.estimate_algorithm_spinner, string(R.string.lunitidal_interval_auto))
 
-        // TODO: Manual lunitidal interval
-
-        // Save
         clickRightToolbarButton(R.id.create_tide_title)
 
         hasText(R.id.tide_list_title, string(R.string.tides))
         hasText("Tide 1")
 
-        // Open the tide
         click("Tide 1")
 
-        // Verify it is now using the lunitidal interval (just check times are shown)
         hasText(R.id.tide_title, string(R.string.high_tide))
     }
 
@@ -153,10 +142,8 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
     }
 
     private fun canCreateTide() {
-        // Click the add button
         click(R.id.add_btn)
 
-        // Enter the tide details
         hasText(R.id.create_tide_title, string(R.string.tide_table))
         input(R.id.tide_name, "Tide 1")
         isChecked(R.id.tide_frequency_semidiurnal)
@@ -179,7 +166,6 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
         clickOk()
         clickOk()
 
-        // TODO: Verify the time is set
         hasText(R.id.tide_time, index = 1) { it.isNotBlank() }
 
         click(R.id.tide_height, index = 1)
@@ -207,10 +193,8 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
         hasText(R.id.tide_title, string(R.string.high_tide))
         hasText(R.id.tide_title, "Tide 1")
 
-        // Verify that today is selected
         hasText(R.id.tide_list_date, string(R.string.today))
 
-        // Verify at least one high and low tide is shown
         var isHighFirst = false
         hasText(ListItem.title) {
             isHighFirst = it == string(R.string.high_tide)
@@ -227,8 +211,6 @@ class ToolTidesTest : ToolTestBase(Tools.TIDES, boston) {
             ), index = 1
         )
 
-        // TODO: Verify the times are correct
-        // TODO: Verify the chart
     }
 
     private fun canOpenTideList() {

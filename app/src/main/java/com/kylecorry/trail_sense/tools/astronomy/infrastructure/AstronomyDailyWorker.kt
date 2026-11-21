@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.tools.astronomy.infrastructure.commands.Astrono
 import java.time.Duration
 import java.time.LocalTime
 
-// TODO: Autogenerate last run key (pref_andromeda_daily_worker_last_run_date_UNIQUEID)
 class AstronomyDailyWorker(context: Context, params: WorkerParameters) : DailyWorker(
     context,
     params,

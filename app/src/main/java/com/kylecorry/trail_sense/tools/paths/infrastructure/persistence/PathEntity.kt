@@ -19,24 +19,19 @@ import java.time.Instant
 @Entity(tableName = "paths", indices = [Index(value = ["parentId"])])
 data class PathEntity(
     @ColumnInfo(name = "name") val name: String?,
-    // Style
     @ColumnInfo(name = "lineStyle") val lineStyle: LineStyle,
     @ColumnInfo(name = "pointStyle") val pointStyle: PathPointColoringStyle,
     @ColumnInfo(name = "color") val color: AppColor,
     @ColumnInfo(name = "visible") val visible: Boolean,
-    // Saved
     @ColumnInfo(name = "temporary") val temporary: Boolean = false,
-    // Metadata
     @ColumnInfo(name = "distance") val distance: Float,
     @ColumnInfo(name = "numWaypoints") val numWaypoints: Int,
     @ColumnInfo(name = "startTime") val startTime: Long?,
     @ColumnInfo(name = "endTime") val endTime: Long?,
-    // Bounds
     @ColumnInfo(name = "north") val north: Double,
     @ColumnInfo(name = "east") val east: Double,
     @ColumnInfo(name = "south") val south: Double,
     @ColumnInfo(name = "west") val west: Double,
-    // Parent
     @ColumnInfo(name = "parentId") val parentId: Long?
 ) : Identifiable {
     @PrimaryKey(autoGenerate = true)

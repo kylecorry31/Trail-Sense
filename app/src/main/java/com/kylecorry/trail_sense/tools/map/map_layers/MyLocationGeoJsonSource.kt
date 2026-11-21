@@ -109,16 +109,12 @@ class MyLocationGeoJsonSource : GeoJsonSource {
         val bitmapDrawer = CanvasDrawer(context, canvas)
 
         val path = Path()
-        // Bottom left
         path.moveTo(size * 0.1f, size.toFloat())
 
-        // Top
         path.lineTo(size / 2f, 0f)
 
-        // Bottom right
         path.lineTo(size * 0.9f, size.toFloat())
 
-        // Middle dip
         path.lineTo(size / 2f, size * 0.8f)
 
         path.close()

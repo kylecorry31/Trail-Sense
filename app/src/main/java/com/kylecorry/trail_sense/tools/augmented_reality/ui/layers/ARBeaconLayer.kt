@@ -44,7 +44,6 @@ class ARBeaconLayer(
 
     fun setBeacons(beacons: List<Beacon>) {
         synchronized(lock) {
-            // TODO: Convert to markers
             this.beacons = beacons.toList()
             areBeaconsUpToDate = false
         }
@@ -86,7 +85,6 @@ class ARBeaconLayer(
             }
 
         hooks.effect("layer_update", visible) {
-            // TODO: Change opacity if navigating
             layer.setMarkers(visible.flatMap { beacon ->
                 listOfNotNull(
                     ARMarker(

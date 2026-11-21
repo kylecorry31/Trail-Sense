@@ -268,7 +268,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                     TAG,
                     "Skipping weather reading, last reading was at $last (minimum spacing: $maxPeriod)"
                 )
-                // Still send out the weather alerts, just don't log a new reading
                 SendWeatherAlertsCommand(context).execute(getWeather())
                 return@onDefault
             }
@@ -325,11 +324,9 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
     }
 
 
-    // TODO: Extract this to Sol (new forecaster)
     suspend fun getPressureForecast(): List<Reading<Pressure>> = onDefault {
         val forecaster = MonteCarloPressureForecaster()
         val history = getHistory().map { it.pressureReading() }.takeLast(50)
-        // TODO: Determine if the pressure history is reliable - sum of squared errors between raw and smoothed?
         val isPressureTrusted = prefs.weather.pressureSmoothing < 0.15f
         val derivativeSmoothing = if (isPressureTrusted) {
             0f
@@ -371,7 +368,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return location to elevation
     }
 
-    // TODO: Extract this
     private fun calibrateTemperatures(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
         val smoothing = prefs.thermometer.smoothing
 
@@ -384,7 +380,6 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         }
     }
 
-    // TODO: Extract this
     private fun calibrateHumidity(readings: List<Reading<RawWeatherObservation>>): List<Reading<RawWeatherObservation>> {
         if (!Sensors.hasHygrometer(context)) {
             return readings

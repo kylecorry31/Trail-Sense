@@ -16,15 +16,12 @@ internal class GroupCounterTest {
     @ParameterizedTest
     @MethodSource("provideCount")
     fun count(children: List<Groupable>, expected: Int) = runBlocking {
-        // Arrange
         val loader = mock<IGroupLoader<Groupable>>()
         val counter = GroupCounter(loader)
         whenever(loader.getChildren(1, null)).thenReturn(children)
 
-        // Act
         val actual = counter.count(1)
 
-        // Assert
         assertEquals(expected, actual)
     }
 

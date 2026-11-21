@@ -87,7 +87,6 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
             }
             .filter { (sighting, _) -> sighting.location != null && sighting.showOnMap && bounds.contains(sighting.location) }
 
-        // Cache pruning
         val currentPageIds = allSightings.map { it.second.id }.toSet()
         val keysToRemove = bitmapCache.keys.filter { it !in currentPageIds }
         keysToRemove.forEach { bitmapCache.remove(it) }
@@ -136,7 +135,6 @@ class FieldGuideSightingGeoJsonSource : GeoJsonSource {
             return bitmapCache[page.id]
         }
 
-        // Double the size for increased resolution
         val sizePixels = Resources.dp(context, imageSize * 2).toInt()
 
         val sourceBitmap = tryOrDefault(null) {

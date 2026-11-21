@@ -10,7 +10,6 @@ class CrossBoundaryPixelProvider(
     private val primarySource: GeographicImageSource,
     private val primaryBitmap: FloatBitmap,
     private val primaryRect: Rect,
-    // TODO: This can be improved by preloading the neighbor regions that are needed
     private val neighborSources: List<GeographicImageSource>
 ) {
     private val neighborCache =

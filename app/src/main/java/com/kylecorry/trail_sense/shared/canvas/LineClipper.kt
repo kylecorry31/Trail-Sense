@@ -25,14 +25,12 @@ class LineClipper {
         zValues: List<Float>? = null,
         zOutput: MutableList<Float>? = null
     ) {
-        // TODO: Is this allocation needed? What if the bounds were flipped?
         val vectors = pixels.map { it.toVector2(bounds.top) }
 
         if (isOutOfBounds(vectors, bounds)) {
             return
         }
 
-        // TODO: If the z values are provided, this should be a 3D RDP filter
         val filter =
             if (rdpFilterEpsilon != null) RDPFilter<Int>(rdpFilterEpsilon) { pointIdx, startIdx, endIdx ->
                 Geometry.pointLineDistance(
@@ -58,7 +56,6 @@ class LineClipper {
             val pixel = pixels[idx]
             val z = zValues?.getOrNull(idx)
             val vector = vectors[idx]
-            // Remove points that are NaN
             if (pixel.x.isNaN() || pixel.y.isNaN()) continue
             // Remove lines that cross the entire screen (because they are behind the camera)
             val isLineInvalid = preventLineWrapping && previous != null &&
@@ -68,7 +65,6 @@ class LineClipper {
                             pixel.y > maxY && previous.y < minY)
 
             if (previous != null && previousVector != null && !isLineInvalid) {
-                // If the end point is the same as the previous, don't draw a line
                 if (previous.isSamePixel(pixel)) {
                     continue
                 }
@@ -100,7 +96,6 @@ class LineClipper {
                         start.y < bounds.bottom && end.y < bounds.bottom ||
                         start.y > bounds.top && end.y > bounds.top)
             ) {
-                // Potential intersection
                 return false
             }
         }
@@ -120,7 +115,6 @@ class LineClipper {
         endZ: Float?,
         zOutput: MutableList<Float>?
     ) {
-        // Both are in
         if (bounds.contains(startVector) && bounds.contains(endVector)) {
             lines.add(start.x - origin.x)
             lines.add(start.y - origin.y)
@@ -137,7 +131,6 @@ class LineClipper {
             Geometry.getIntersection(startVector, endVector, bounds)
                 .map { it.toPixelCoordinate(bounds.top) }
 
-        // A is in, B is not
         if (bounds.contains(startVector)) {
             if (intersection.any()) {
                 lines.add(start.x - origin.x)
@@ -153,7 +146,6 @@ class LineClipper {
             return
         }
 
-        // B is in, A is not
         if (bounds.contains(endVector)) {
             if (intersection.any()) {
                 lines.add(intersection[0].x - origin.x)
@@ -169,7 +161,6 @@ class LineClipper {
             return
         }
 
-        // Both are out, but may intersect
         if (intersection.size == 2) {
             val first = if (start.squaredDistanceTo(intersection[0]) <= start.squaredDistanceTo(intersection[1])) {
                 0

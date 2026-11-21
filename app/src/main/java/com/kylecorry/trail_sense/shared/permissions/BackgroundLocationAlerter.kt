@@ -40,7 +40,6 @@ class BackgroundLocationAlerter<T>(private val fragment: T) :
             ) { cancelled ->
                 if (!cancelled) {
                     fragment.requestPermissions(listOf(Manifest.permission.ACCESS_BACKGROUND_LOCATION)) {
-                        // Do nothing
                     }
                 }
             }

@@ -58,7 +58,6 @@ class TileLoader(
     )
 
     init {
-        // TODO: This should be handled by a higher level component
         tileQueue.setChangeListener { imageTile ->
             tileCache.onLoadComplete(imageTile)
             tryOrLog {

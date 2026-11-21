@@ -32,7 +32,6 @@ object TrailSenseServiceRegister {
     fun setup(context: Context) {
         val appContext = context.applicationContext
 
-        // Shared services
         DependencyRegistry.addSingleton(appContext)
         DependencyRegistry.addSingleton(Logger(appContext))
         DependencyRegistry.addSingleton(StringLoader(appContext))
@@ -62,7 +61,6 @@ object TrailSenseServiceRegister {
         DependencyRegistry.addSingleton(PluginSubsystem.getInstance(appContext))
         DependencyRegistry.addSingleton(HapticSubsystem.getInstance(appContext))
 
-        // Map layers
         DependencyRegistry.addSingleton(MapLayerLoader(appContext))
         DependencyRegistry.addSingleton(MapLayerPreferenceRepo())
         DependencyRegistry.addSingleton(PersistentTileCache(appContext))

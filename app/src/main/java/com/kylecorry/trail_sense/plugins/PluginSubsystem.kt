@@ -25,11 +25,6 @@ class PluginSubsystem private constructor(private val context: Context) {
         return !isPlayStoreBuild() && preferences.arePluginsEnabled && !SafeMode.isEnabled()
     }
 
-    // ======== Connection ========
-
-    /**
-     * Get all installed plugins
-     */
     fun getAvailablePlugins(): List<Plugin> {
         return if (!arePluginsEnabled()) {
             emptyList()
@@ -38,9 +33,6 @@ class PluginSubsystem private constructor(private val context: Context) {
         }
     }
 
-    /**
-     * Get all installed plugins that are connected
-     */
     suspend fun getConnectedPlugins(): List<Plugin> {
         if (!arePluginsEnabled()) {
             return emptyList()
@@ -52,17 +44,11 @@ class PluginSubsystem private constructor(private val context: Context) {
         }
     }
 
-    /**
-     * Get all installed plugins that are not connected
-     */
     suspend fun getUnconnectedPlugins(): List<Plugin> {
         val connectedIds = getConnectedPlugins().map { it.packageId }.toSet()
         return getAvailablePlugins().filter { it.packageId !in connectedIds }
     }
 
-    /**
-     * Connect a plugin
-     */
     suspend fun connect(plugin: Plugin) {
         if (!arePluginsEnabled()) {
             return
@@ -70,9 +56,6 @@ class PluginSubsystem private constructor(private val context: Context) {
         pluginRepo.upsert(PersistedPlugin(plugin.packageId, plugin.signatureString()))
     }
 
-    /**
-     * Disconnect a plugin
-     */
     suspend fun disconnect(plugin: Plugin) {
         pluginRepo.deleteByPackageId(plugin.packageId)
         pluginRegistrationRepo.deleteByPackageId(plugin.packageId)
@@ -83,9 +66,6 @@ class PluginSubsystem private constructor(private val context: Context) {
         return getPluginResourceServiceDetails(packageId)
     }
 
-    /**
-     * Determines if a plugin is installed and connected
-     */
     suspend fun isConnected(packageId: String): Boolean {
         if (!arePluginsEnabled()) {
             return false
@@ -94,11 +74,6 @@ class PluginSubsystem private constructor(private val context: Context) {
         return pluginRepo.get(packageId)?.signature == plugin.signatureString()
     }
 
-    // ======== Resource Services ========
-
-    /**
-     * Get details about a connected plugin's resource service
-     */
     suspend fun getPluginResourceServiceDetails(packageId: String): PluginResourceServiceDetails? {
         if (!isConnected(packageId)) {
             return null
@@ -107,18 +82,12 @@ class PluginSubsystem private constructor(private val context: Context) {
         return pluginLoader.getPluginResourceService(packageId)
     }
 
-    /**
-     * Get details about all connected plugins' resource services
-     */
     suspend fun getPluginResourceServiceDetails(): List<PluginResourceServiceDetails> {
         return getConnectedPlugins().mapNotNull {
             pluginLoader.getPluginResourceService(it.packageId)
         }
     }
 
-    /**
-     * Get a connection handle for a connected plugin's resource service
-     */
     suspend fun getPluginResourceServiceConnection(packageId: String): PluginResourceServiceConnection? {
         if (!isConnected(packageId)) {
             return null

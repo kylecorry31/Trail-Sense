@@ -19,7 +19,6 @@ class BeaconSharesheet(private val context: Context) : IBeaconSender {
         val sendIntent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, getShareText(beacon))
-            // TODO: Share other details
             type = "text/plain"
         }
 

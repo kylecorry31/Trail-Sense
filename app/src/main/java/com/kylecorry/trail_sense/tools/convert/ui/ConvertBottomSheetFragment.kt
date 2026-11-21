@@ -32,7 +32,6 @@ class ConvertBottomSheetFragment :
             )
         }
 
-        // View effects
         useEffect(tabs, viewpager, convertNames) {
             viewpager.adapter = CustomViewPagerAdapter(this, convertTools)
 

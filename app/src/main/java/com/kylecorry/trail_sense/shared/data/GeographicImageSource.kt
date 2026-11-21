@@ -14,7 +14,6 @@ class GeographicImageSource(
     val bounds: CoordinateBounds = CoordinateBounds.world,
     private val precision: Int = 2,
     private val valuePixelOffset: Float = 0f,
-    // TODO: All of these should be hidden from the geographic image source
     private val interpolationOrder: Int = 1,
     private val verticalResolutionDegrees: Double? = null
 ) {
@@ -102,7 +101,6 @@ class GeographicImageSource(
         var maxX = Float.MIN_VALUE
         var maxY = Float.MIN_VALUE
 
-        // Pre-calculate Y pixels
         val yPixels = FloatArray(latitudes.size)
         val yInside = BooleanArray(latitudes.size)
         for (i in latitudes.indices) {
@@ -122,7 +120,6 @@ class GeographicImageSource(
             return@onIO
         }
 
-        // Pre-calculate X pixels
         val xPixels = FloatArray(longitudes.size)
         val xInside = BooleanArray(longitudes.size)
         for (i in longitudes.indices) {
@@ -142,7 +139,6 @@ class GeographicImageSource(
             return@onIO
         }
 
-        // Read the region and add padding for interpolation
         val left = (floor(minX).toInt() - interpolationOrder).coerceAtLeast(0)
         val top = (floor(minY).toInt() - interpolationOrder).coerceAtLeast(0)
         val right = (floor(maxX).toInt() + 1 + interpolationOrder).coerceAtMost(imageSize.width)
@@ -181,7 +177,6 @@ class GeographicImageSource(
         val outputWidth = output.width
         val channels = output.channels
 
-        // Interpolate
         for (yIdx in latitudes.indices) {
             if (!yInside[yIdx]) continue
             val y = yPixels[yIdx]
@@ -198,10 +193,7 @@ class GeographicImageSource(
 
     suspend fun read(pixels: List<PixelCoordinate>): List<Pair<PixelCoordinate, FloatArray>> =
         onIO {
-            // TODO: Extract this and make the size configurable (maybe make it part of the region loader?)
-            // Divide the pixels into subregions of at most 255x255 pixels in the original image (using x, y)
             val regions = partitionPixels(pixels)
-            // TODO: Move the interpolation out of this class?
             val results = mutableListOf<Pair<PixelCoordinate, FloatArray>>()
             val interpolator = FloatBitmapInterpolator(interpolationOrder)
             for (region in regions) {

@@ -41,10 +41,8 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         var source = prefs.source
 
-        // Handle if the available sources have changed (not likely)
         val allSources = getAvailableSources(context)
 
-        // There were no compass sensors found
         if (allSources.isEmpty()) {
             return MockCompass()
         }
@@ -118,7 +116,6 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
 
         val baseOrientationSensor = getBaseOrientationSensor(sensorDelay)
 
-        // Don't use quick recalibration for custom sensors
         val isCustomSensor = baseOrientationSensor is CustomGeomagneticRotationSensor ||
                 baseOrientationSensor is CustomRotationSensor ||
                 baseOrientationSensor is GravityRotationSensor
@@ -135,7 +132,6 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
                 )
             }
 
-        // Smoothing isn't needed
         if (smoothing <= 1) {
             return MagQualityOrientationWrapper(
                 quickRecalibration,

@@ -21,15 +21,12 @@ class RetryTestRule(private val maxRetryCount: Int = 3) : TestRule {
                 
                 while (currentTry < maxRetryCount) {
                     try {
-                        // Execute the test
                         base.evaluate()
                         return
                     } catch (t: Throwable) {
-                        // Store the exception
                         lastThrowable = t
                         currentTry++
                         
-                        // Log the failure
                         if (currentTry < maxRetryCount) {
                             Log.w(tag, "Test ${description.displayName} failed (attempt $currentTry of $maxRetryCount). Retrying...", t)
                         } else {
@@ -38,7 +35,6 @@ class RetryTestRule(private val maxRetryCount: Int = 3) : TestRule {
                     }
                 }
                 
-                // If we've exhausted all retries and still failed, throw the last exception
                 if (lastThrowable != null) {
                     throw lastThrowable
                 }

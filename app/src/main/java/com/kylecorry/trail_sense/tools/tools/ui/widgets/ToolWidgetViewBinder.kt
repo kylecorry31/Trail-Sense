@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.tools.ui.widgets
 
-import android.annotation.SuppressLint
 import android.appwidget.AppWidgetHostView
 import android.appwidget.AppWidgetManager
 import android.content.ComponentName
@@ -42,7 +41,6 @@ class ToolWidgetViewBinder(
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     fun bind() {
         val selectedWidgets = prefs.toolWidgets
         val allWidgets = Tools.getTools(context)
@@ -50,7 +48,6 @@ class ToolWidgetViewBinder(
             .filter { it.isEnabled(context) && it.canPlaceInApp }
             .sortedByDescending { it.size.ordinal }
 
-        // Only show the selected widgets
         val widgets = allWidgets.filter { selectedWidgets.contains(it.id) }
 
         binding.widgets.removeAllViews()
@@ -143,9 +140,6 @@ class ToolWidgetViewBinder(
     private fun onResume() {
         Tools.subscribe(SettingsToolRegistration.BROADCAST_UPDATE_IN_APP_WIDGET, this::onUpdate)
 
-        // TODO: Get a GPS / elevation reading
-
-        // Update all widgets
         widgets.forEach { it.updateFunction() }
         this.widgets.forEach {
             it.widget.widgetView.onInAppEvent(

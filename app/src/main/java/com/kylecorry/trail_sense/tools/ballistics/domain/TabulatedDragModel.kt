@@ -27,7 +27,6 @@ abstract class TabulatedDragModel(val bc: Float = 1f) : DragModel {
         val dragX = drag * Trigonometry.cosDegrees(angle)
         val dragY = drag * Trigonometry.sinDegrees(angle)
 
-        // Always in the direction opposite to the velocity
         val xSign = if (velocity.x < 0) 1 else -1
         val ySign = if (velocity.y < 0) 1 else -1
 

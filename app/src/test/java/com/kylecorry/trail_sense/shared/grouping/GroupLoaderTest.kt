@@ -13,7 +13,6 @@ class GroupLoaderTest {
     @ParameterizedTest
     @MethodSource("provideLoad")
     fun load(root: Long?, depth: Int?, expected: List<Groupable>) = runBlocking {
-        // Arrange
         val groups = mapOf(
             0L to group(0),
             1L to group(1),
@@ -32,10 +31,8 @@ class GroupLoaderTest {
 
         val loader = GroupLoader(groups::get, children::getValue)
 
-        // Act
         val actual = loader.getChildren(root, depth)
 
-        // Assert
         assertEquals(expected, actual)
     }
 

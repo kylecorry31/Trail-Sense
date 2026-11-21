@@ -61,7 +61,6 @@ class AstronomyPreferences(private val context: Context) {
             return sendLunarEclipseAlerts || sendMeteorShowerAlerts || sendSolarEclipseAlerts
         }
 
-    // TODO: Let the user set this
     var astronomyAlertTime: LocalTime = LocalTime.of(10, 0)
 
     var sendLunarEclipseAlerts by BooleanPreference(
@@ -141,7 +140,6 @@ class AstronomyPreferences(private val context: Context) {
         true
     )
 
-    // Alarms
     val useAlarmForSunsetAlert by BooleanPreference(
         cache,
         context.getString(R.string.pref_astronomy_use_alarm_for_sunset_alert),

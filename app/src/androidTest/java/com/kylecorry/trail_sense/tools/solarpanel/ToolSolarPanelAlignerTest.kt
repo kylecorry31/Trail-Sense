@@ -33,7 +33,6 @@ class ToolSolarPanelAlignerTest :
 
         hasText(R.id.energy, Regex("Up to \\d+(\\.\\d+)? kWh / m²"))
 
-        // TODO: Verify that today is selected
     }
 
     @Test
@@ -56,7 +55,6 @@ class ToolSolarPanelAlignerTest :
 
         hasText(R.id.energy, Regex("Up to \\d+(\\.\\d+)? kWh / m²"))
 
-        // TODO: Verify that the now button is selected
         hasText(R.id.solar_now_btn, "2h")
     }
 }

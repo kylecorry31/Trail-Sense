@@ -30,7 +30,6 @@ class ActiveMapSelector {
             return activeMap
         }
 
-        // Try to find a map that contains the destination and the user
         val navMaps = activeMaps.filter {
             contains(it, destination) && isSimilarZoom(it, mostZoomedIn, NAVIGATION_PCT)
         }

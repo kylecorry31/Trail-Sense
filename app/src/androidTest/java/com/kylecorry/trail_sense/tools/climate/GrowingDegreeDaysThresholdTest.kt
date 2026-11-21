@@ -8,12 +8,14 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.dem.DEM
 import com.kylecorry.trail_sense.shared.io.FileSubsystem
+import com.kylecorry.trail_sense.test_utils.ManualOnlyTest
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
-import kotlinx.coroutines.runBlocking
-import org.junit.Before
 import java.time.LocalDate
 import java.time.Month
 import kotlin.math.roundToInt
+import kotlinx.coroutines.runBlocking
+import org.junit.Before
+import org.junit.Test
 
 class GrowingDegreeDaysThresholdTest {
 
@@ -26,7 +28,8 @@ class GrowingDegreeDaysThresholdTest {
         weather = WeatherSubsystem.getInstance(context)
     }
 
-    //    @Test
+    @ManualOnlyTest
+    @Test
     fun getCumulativeGDDChart() = runBlocking {
         // RI
         val location = Coordinate(41.890833, -71.690556)

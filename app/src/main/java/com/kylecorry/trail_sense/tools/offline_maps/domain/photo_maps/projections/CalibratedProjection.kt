@@ -108,12 +108,10 @@ class CalibratedProjection(
         val minLongitude = coordinates.minByOrNull { it.longitude }?.longitude
         val maxLongitude = coordinates.maxByOrNull { it.longitude }?.longitude
 
-        // TODO: Move this into the coordinate bounds class
         if (minLongitude == -180.0 && maxLongitude == 180.0) {
             bounds = CoordinateBounds(bounds.north, 180.0, bounds.south, -180.0)
         }
 
-        // TODO: Map projection does not work at the poles - move this into the mercator projection class
         if (bounds.north == 90.0) {
             bounds = CoordinateBounds(89.9999, bounds.east, bounds.south, bounds.west)
         }
@@ -122,7 +120,6 @@ class CalibratedProjection(
             bounds = CoordinateBounds(bounds.north, bounds.east, -89.9999, bounds.west)
         }
 
-        // TODO: This should be moved into the mercator projection class
         if (bounds.east < 0 && bounds.west > 0) {
             bounds =
                 CoordinateBounds(bounds.north, bounds.east + 360, bounds.south, bounds.west)

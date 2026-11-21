@@ -203,7 +203,6 @@ class MapLayerPreferenceManager(
                 }
             }
 
-        // Additional layers
         if (selectedLayers.isNotEmpty()) {
             val divider = Preference(context)
             divider.layoutResource = R.layout.preference_divider

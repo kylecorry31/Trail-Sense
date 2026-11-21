@@ -71,14 +71,12 @@ class QuickRecalibrationOrientationSensor(
         val referenceQuat = reference.orientation
         val primaryQuat = primary.orientation
 
-        // Calculate angle between the reference and the primary quaternions
         val euler = primaryQuat.minus(referenceQuat).toEuler()
         val angularMagnitude =
             sqrt(euler.roll * euler.roll + euler.pitch * euler.pitch + euler.yaw * euler.yaw).real(
                 0f
             )
 
-        // Don't reset if the device is moving
         val dt = (System.currentTimeMillis() - lastMotionTime) / 1000f
         if (dt > 0.1f) {
             val motionEuler = primaryQuat.minus(lastOrientation).toEuler()

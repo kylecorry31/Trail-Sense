@@ -83,7 +83,6 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     }
 
 
-    // TODO: Instead of map markers, render the geojson directly
     private fun convertFeaturesToMarkers(drawer: ICanvasDrawer, features: List<GeoJsonFeature>) {
         if (bitmapLoader == null) {
             bitmapLoader = DrawerBitmapLoader(drawer)
@@ -110,10 +109,8 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                 val isSelected =
                     selectedFeatureId != null && feature.id?.toString() == selectedFeatureId
 
-                // Add highlight ring behind the marker when selected
                 if (isSelected) {
                     val ringSize = maxOf(size, iconSize)
-                    // Outer ring
                     newMarkers.add(
                         CircleMapMarker(
                             if (moveWithUserLocation) null else point.coordinate,
@@ -128,7 +125,6 @@ class GeoJsonPointRenderer : FeatureRenderer() {
                         ) { false }
                     )
 
-                    // Inner ring
                     newMarkers.add(
                         CircleMapMarker(
                             if (moveWithUserLocation) null else point.coordinate,

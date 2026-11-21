@@ -24,7 +24,6 @@ class EnglishFuzzySearchStrategy(
             .filter { it.contains("-") }
             .map { setOf(it, it.replace("-", " ")) }
 
-        // Add the synonyms to the preserved words
         additionalPreservedWords.addAll(additionalSynonyms.flatten())
 
         var itemMatch = TextUtils.getQueryMatchPercent(
@@ -72,11 +71,9 @@ class EnglishFuzzySearchStrategy(
         itemMatch *= item.scoreMultiplier
 
         if (parentMatch != null && parentMatch > goodMatchThreshold) {
-            // If the parent matches, boost the item match a little
             itemMatch *= parentMatchBoost
         }
 
-        // If the title has a good match, increase it
         if (titleMatch == 1f && inverseTitleMatch == 1f) {
             titleMatch = titleMatchBoost
         }

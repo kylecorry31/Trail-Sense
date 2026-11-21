@@ -46,7 +46,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
     private val deepSleepWindow = Duration.ofHours(6)
 
     override fun update() {
-        // Views
         val percentageTextView = useView<TextView>(R.id.battery_percentage)
         val capacityTextView = useView<TextView>(R.id.battery_capacity)
         val healthTextView = useView<TextView>(R.id.battery_health)
@@ -57,7 +56,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         val progressView = useView<ProgressBar>(R.id.battery_level_progress)
         val servicesListView = useView<AndromedaListView>(R.id.running_services)
 
-        // Services
         val context = useAndroidContext()
         val navController = useNavController()
         val prefs = useService<UserPreferences>()
@@ -67,7 +65,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         val batteryRepo = useMemo(context) { BatteryRepo.getInstance(context) }
         val lowPowerMode = useMemo(context) { LowPowerMode(context) }
 
-        // State
         val (batteryKey, triggerBatteryUpdate) = useTrigger()
         val (percent, setPercent) = useState(0f)
         val (capacity, setCapacity) = useState(0f)
@@ -106,8 +103,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             }
         }
 
-        // Battery
-        // TODO: Extract battery reading to a custom hook
         useEffect(battery, batteryKey) {
             setChargingStatus(battery.chargingStatus)
             setCapacity(battery.capacity)
@@ -125,7 +120,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             triggerBatteryUpdate()
         }
 
-        // View - Services List
         val onServiceDisable = useCallback<RunningService, Unit> { service: RunningService ->
             runInBackground {
                 service.disable()
@@ -160,7 +154,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             servicesListView.setItems(items)
         }
 
-        // View - Percentage
         useEffect(percentageTextView, progressView, percent) {
             percentageTextView.text = formatter.formatPercentage(percent)
             progressView.progress = percent / 100f
@@ -173,13 +166,11 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             }
         }
 
-        // View - Capacity
         useEffect(capacityTextView, capacity) {
             capacityTextView.isVisible = capacity != 0f
             capacityTextView.text = formatter.formatElectricalCapacity(capacity)
         }
 
-        // View - Title
         useEffect(titleView, time, isCharging) {
             titleView.title.isVisible = time != null
 
@@ -241,14 +232,12 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             }
         }
 
-        // View - Health
         useEffect(healthTextView, health) {
             healthTextView.isVisible = health != BatteryHealth.Good
             healthTextView.text =
                 getString(R.string.battery_health, formatter.formatBatteryHealth(health))
         }
 
-        // View - Current
         useShowCurrent(
             currentTextView,
             current,
@@ -257,7 +246,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             formatter
         )
 
-        // View - Deep sleep
         useEffect(deepSleepTextView, deepSleep) {
             deepSleepTextView.isVisible = deepSleep != null
             if (deepSleep != null) {
@@ -269,7 +257,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             }
         }
 
-        // View - Low power toggle
         useLowPowerToggle(lowPowerSwitchView, lowPowerMode, prefs, triggerServicesUpdate)
     }
 
@@ -278,7 +265,6 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
         val filter = useMemo(resetOnResume, isCharging) { MedianFilter(currentFilterSize) }
 
         useTimer(currentSampleInterval) {
-            // If charging and current is negative, invert current
             val reading = battery.current.absoluteValue * if (isCharging) 1 else -1
             setCurrent(filter.filter(reading).roundToInt())
         }

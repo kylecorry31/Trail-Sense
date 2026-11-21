@@ -19,7 +19,6 @@ class ToolSignalFinderTest : ToolTestBase(Tools.SIGNAL_FINDER, Coordinate(42.03,
     fun showsTheDetectedSignalAndNearbyTowers() {
         hasText(string(R.string.cell_towers))
 
-        // Detected signal
         optional {
             hasText(Regex("[0-9]G"))
             hasText(Regex("[0-9]+% •(\\d+\\.\\d+ (ft|mi) - \\d+\\.\\d+ (ft|mi) •)? [0-9]+:[0-9]+:[0-9]+ (AM|PM) • (Full service | Emergency calls only)"))
@@ -28,23 +27,12 @@ class ToolSignalFinderTest : ToolTestBase(Tools.SIGNAL_FINDER, Coordinate(42.03,
         // Tower (the dataset is bundled with the app, so the exact tower can't be seeded)
         hasText("Cell tower")
         hasText(Regex("\\d+(\\.\\d+)? (ft|mi) • \\d+° [NESW]+"))
-//        hasText("0 ft • 0° N")
-//        hasText("1.54 mi • 90° E")
     }
 
     @Test
     fun canNavigateToATower() {
         hasText("Cell tower")
 
-        // Create a beacon at one of the cell towers
-//        TestUtils.clickListItemMenu(string(R.string.create_beacon))
-//        hasText(R.id.create_beacon_title, string(R.string.create_beacon))
-//        hasText(R.id.beacon_location, "42.030000°,  -71.970000°")
-//
-//        back()
-//        click("Leave")
-
-        // Navigate to the tower
         TestUtils.clickListItemMenu(string(R.string.navigate))
         isVisible(R.id.navigation_sheet)
     }

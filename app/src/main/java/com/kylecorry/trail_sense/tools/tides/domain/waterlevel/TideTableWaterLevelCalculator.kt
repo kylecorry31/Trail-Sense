@@ -41,12 +41,10 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
     }
 
     suspend fun calculateSuspend(time: ZonedDateTime): Float {
-        // Harmonic tides don't require a table
         if (tides.isEmpty() && (table.estimator == TideEstimator.Harmonic || table.estimator == TideEstimator.TideModel)) {
             return getHarmonicCalculator()?.calculate(time) ?: 0f
         }
 
-        // Lunitidal tides don't require a table if the interval is specified
         if (tides.isEmpty() && table.estimator == TideEstimator.LunitidalInterval && table.lunitidalInterval != null) {
             return lunitidal?.calculate(time) ?: 0f
         }
@@ -90,21 +88,17 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
         first: Tide?,
         second: Tide?
     ): IWaterLevelCalculator {
-        // If both are null, it should use the main calculator
         if (first == null && second == null) {
             return PiecewiseWaterLevelCalculator(listOf())
         }
 
-        // The start is null
         if (first == null && second != null) {
             val estimateCalculator = getEstimateCalculator(second)
-            // First check to see if it lines up with the tide table
             val lastTideBefore = getLastTideBefore(estimateCalculator, second.time, second.isHigh)
             if (lastTideBefore?.time == second.time && lastTideBefore.height == second.height) {
                 return estimateCalculator
             }
 
-            // Otherwise, a gap needs to be filled
             val lastOtherTideBefore =
                 getLastTideBefore(estimateCalculator, second.time, !second.isHigh)
             val gapCalculator = RuleOfTwelfthsWaterLevelCalculator(
@@ -119,16 +113,13 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
             )
         }
 
-        // The end is null
         if (first != null && second == null) {
             val estimateCalculator = getEstimateCalculator(first)
-            // First check to see if it lines up with the tide table
             val nextTideAfter = getNextTideAfter(estimateCalculator, first.time, first.isHigh)
             if (nextTideAfter?.time == first.time && nextTideAfter.height == first.height) {
                 return estimateCalculator
             }
 
-            // Otherwise, a gap needs to be filled
             val nextOtherTideAfter = getNextTideAfter(estimateCalculator, first.time, !first.isHigh)
             val gapCalculator = RuleOfTwelfthsWaterLevelCalculator(
                 first,
@@ -142,13 +133,10 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
             )
         }
 
-        // There may be a gap between the two tides
         if (!hasGap(first!!, second!!)) {
             return RuleOfTwelfthsWaterLevelCalculator(first, second)
         }
 
-        // Fill either end of the gap if needed
-        // TODO: This should use the same gap filling logic as above
         return getGapCalculator(first, second).second
     }
 
@@ -189,7 +177,6 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
             return null
         }
 
-        // If the lunitidal interval is specified, use it
         if (table.lunitidalInterval != null) {
             return LunitidalWaterLevelCalculator(
                 table.lunitidalInterval,
@@ -200,7 +187,6 @@ class TideTableWaterLevelCalculator(private val context: Context, private val ta
             )
         }
 
-        // Otherwise, calculate it
         if (!tides.any { it.isHigh }) {
             return null
         }

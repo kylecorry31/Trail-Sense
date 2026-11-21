@@ -6,7 +6,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object NotificationChannels {
 
-    // Legacy (intended for deletion)
     private const val CHANNEL_BACKGROUND_UPDATES = "background_updates"
     private const val CHANNEL_BACKGROUND_LAUNCHER = "background_launcher"
 
@@ -33,7 +32,6 @@ object NotificationChannels {
             )
         }
 
-        // CHANNEL CLEANUP SECTION
         Notify.deleteChannel(context, CHANNEL_BACKGROUND_UPDATES)
         Notify.deleteChannel(context, CHANNEL_BACKGROUND_LAUNCHER)
     }

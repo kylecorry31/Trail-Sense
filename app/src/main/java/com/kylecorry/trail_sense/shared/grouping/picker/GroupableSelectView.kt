@@ -33,13 +33,11 @@ class GroupableSelectView<T : Groupable>(
         inflate(context, R.layout.view_groupable_selector, this)
         binding = ViewGroupableSelectorBinding.bind(this)
 
-        // Search
         binding.searchbox.isVisible = searchEnabled
         binding.searchbox.setOnSearchListener {
             manager.search(binding.searchbox.query)
         }
 
-        // List items
         binding.list.emptyView = binding.emptyText
         binding.emptyText.text = emptyText
         manager.onChange = { root, items, rootChanged ->
@@ -47,7 +45,6 @@ class GroupableSelectView<T : Groupable>(
             binding.groupTitle.leftButton.isVisible = root != null
             binding.groupTitle.title.text = titleProvider(root)
             val mapped = items.map {
-                // TODO: Don't override anything, just intercept the click action to open folders (let the caller decide what to do on click)
                 mapper.map(it).copy(menu = emptyList(), trailingIcon = null, action = {
                     if (it.isGroup) {
                         manager.open(it.id)
@@ -61,7 +58,6 @@ class GroupableSelectView<T : Groupable>(
             }
         }
 
-        // Back
         binding.groupTitle.leftButton.isVisible = false
         binding.groupTitle.leftButton.setOnClickListener {
             manager.up()

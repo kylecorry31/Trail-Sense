@@ -10,7 +10,6 @@ enum class BeaconIcon(
     @DrawableRes val icon: Int,
     val isUserSelectable: Boolean = true
 ) : Identifiable {
-    // Activities
     Trail(26, R.drawable.ic_trail),
     Climbing(30, R.drawable.ic_climbing),
     SkiLift(9, R.drawable.ic_ski_lift),
@@ -20,7 +19,6 @@ enum class BeaconIcon(
     Fire(29, R.drawable.ic_category_fire),
     Hunting(34, R.drawable.ic_deer),
 
-    // Natural features
     Mountain(1, R.drawable.ic_altitude),
     Triangle(69, R.drawable.triangle),
     Volcano(65, R.drawable.volcano),
@@ -38,7 +36,6 @@ enum class BeaconIcon(
     Plant(38, R.drawable.ic_category_natural),
     Track(62, R.drawable.paw),
 
-    // Amenities
     Food(12, R.drawable.ic_category_food),
     Picnic(36, R.drawable.ic_picnic),
     Bench(67, R.drawable.bench),
@@ -53,7 +50,6 @@ enum class BeaconIcon(
     Power(32, R.drawable.ic_torch_on),
     Music(46, R.drawable.ic_music),
 
-    // Buildings
     Tent(5, R.drawable.ic_category_shelter),
     Shelter(70, R.drawable.shelter),
     House(10, R.drawable.ic_house),
@@ -68,7 +64,6 @@ enum class BeaconIcon(
     VisitorCenter(45, R.drawable.ic_visitor_center),
     RangerStation(68, R.drawable.ranger_station),
 
-    // Animals and Field Guide Tags
     Animal(51, R.drawable.paw, isUserSelectable = false),
     Bird(52, R.drawable.bird, isUserSelectable = false),
     Mammal(53, R.drawable.ic_deer, isUserSelectable = false),
@@ -80,14 +75,12 @@ enum class BeaconIcon(
     Rock(59, R.drawable.gem, isUserSelectable = false),
     Weather(60, R.drawable.cloud, isUserSelectable = false),
 
-    // Vehicles
     Road(27, R.drawable.ic_road),
     Car(2, R.drawable.ic_car),
     Boat(3, R.drawable.ic_boat),
     Bike(4, R.drawable.ic_bike),
 
 
-    // Other
     Alert(13, R.drawable.ic_alert_simple),
     Flag(72, R.drawable.flag),
     Information(14, R.drawable.ic_help_simple),

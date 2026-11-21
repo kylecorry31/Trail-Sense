@@ -24,9 +24,6 @@ interface IMapView {
      */
     val mapProjection: IMapViewProjection
 
-    /**
-     * Whether this map view is being rendered as a widget (e.g. home screen widget).
-     */
     var isWidget: Boolean
 
     /**
@@ -45,9 +42,6 @@ interface IMapView {
      */
     var resolutionPixels: Float
 
-    /**
-     * Zoom level using resolution
-     */
     val zoom: Float
 
     /**
@@ -55,20 +49,10 @@ interface IMapView {
      */
     var resolution: Float
 
-    /**
-     * The scale for each layer element
-     * This is likely to be temporary until meters per pixel can be used
-     */
     val layerScale: Float
 
-    /**
-     * The center of the map
-     */
     var mapCenter: Coordinate
 
-    /**
-     * The azimuth of the MapView
-     */
     var mapAzimuth: Float
 
     /**
@@ -85,9 +69,6 @@ interface IMapView {
     val topInset: Int
         get() = 0
 
-    /**
-     * Set the feature click listener for the map
-     */
     fun setOnGeoJsonFeatureClickListener(listener: ((GeoJsonFeature) -> Unit)?)
 }
 

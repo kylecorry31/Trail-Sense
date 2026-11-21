@@ -48,7 +48,6 @@ class Logger(context: Context) {
 
             val file = files.getFile(LOG_FILE_NAME, true)
             if (file.length() > MAX_LOG_LENGTH) {
-                // Clear some room
                 val tempFile = files.getFile("log_temp.txt", true)
                 file.inputStream().use { input ->
                     tempFile.outputStream().use { output ->
@@ -138,7 +137,6 @@ class Logger(context: Context) {
         private const val TAG = "Logger"
         private const val LOG_FILE_NAME = "log.txt"
 
-        // 256 KB
         private const val MAX_LOG_LENGTH = 256 * 1024
     }
 

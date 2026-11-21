@@ -199,9 +199,6 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
             }
         }
 
-    /**
-     * Determines if the map should be kept with its top parallel to the top of the screen
-     */
     var keepMapUp: Boolean = false
         set(value) {
             field = value
@@ -300,9 +297,6 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
         return PixelCoordinate(view?.x ?: 0f, view?.y ?: 0f)
     }
 
-    /**
-     * Convert from view with rotation to view without rotation
-     */
     protected fun toViewNoRotation(view: PointF): PointF? {
         val source = toSource(view.x, view.y, true) ?: return null
         return toView(source.x, source.y, false)

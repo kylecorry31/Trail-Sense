@@ -79,7 +79,6 @@ object PedometerToolRegistration : ToolRegistration {
                     true,
                     groupId = NOTIFICATION_CHANNEL_GROUP_PEDOMETER
                 ),
-                // This may be shared at some point
                 ToolNotificationChannel(
                     NOTIFICATION_CHANNEL_DISTANCE_ALERT,
                     context.getString(R.string.distance_alert),

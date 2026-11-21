@@ -12,9 +12,6 @@ import org.mapsforge.map.datastore.PointOfInterest
 import org.mapsforge.map.datastore.Way
 import org.mapsforge.map.rendertheme.RenderContext
 
-/**
- * Adds POIs to the map read result for the center of named areas.
- */
 class AreaLabelMapReadResultModifier(
     val impactedAreas: Map<String, Set<String>>,
     val referenceZoomLevel: Byte,

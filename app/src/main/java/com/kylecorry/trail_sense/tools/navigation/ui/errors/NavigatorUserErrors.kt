@@ -90,11 +90,8 @@ class NavigatorUserErrors(
         }
     }
 
-    // TODO: Improve architecture using the strategy pattern and remove this class all together
-    // TODO: Each error condition should be responsible for its own display and dismissal
     fun update(diagnosticResultIds: List<String>) {
 
-        // Location unset
         if (!isGPSErrorShown && diagnosticResultIds.contains(GPSDiagnosticScanner.LOCATION_UNSET)) {
             show(GPSDiagnosticScanner.LOCATION_UNSET)
             isGPSErrorShown = true
@@ -103,7 +100,6 @@ class NavigatorUserErrors(
             // Do not reset isGPSErrorShown
         }
 
-        // GPS unavailable
         if (!isGPSErrorShown && diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_UNAVAILABLE)) {
             show(GPSDiagnosticScanner.GPS_UNAVAILABLE)
             isGPSErrorShown = true
@@ -112,7 +108,6 @@ class NavigatorUserErrors(
             // Do not reset isGPSErrorShown
         }
 
-        // GPS timed out
         if (!isTimedOut && diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_TIMED_OUT)) {
             show(GPSDiagnosticScanner.GPS_TIMED_OUT)
             isTimedOut = true
@@ -121,12 +116,10 @@ class NavigatorUserErrors(
             isTimedOut = false
         }
 
-        // Compass unavailable
         if (!isCompassErrorShown && diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE)) {
             show(MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE)
             isCompassErrorShown = true
 
-            // Show a one time dialog containing the missing compass text
             CustomUiUtils.disclaimer(
                 fragment.requireContext(),
                 MissingSensorAlert.getMissingSensorTitle(
@@ -145,7 +138,6 @@ class NavigatorUserErrors(
             // Do not reset isCompassErrorShown
         }
 
-        // Compass poor
         if (!isPoorCompassShown && diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_POOR)) {
             show(MagnetometerDiagnosticScanner.MAGNETOMETER_POOR)
             isPoorCompassShown = true

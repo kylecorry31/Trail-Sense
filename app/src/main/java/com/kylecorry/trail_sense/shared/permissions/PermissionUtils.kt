@@ -140,7 +140,6 @@ fun AndromedaFragment.requestCamera(action: (hasPermission: Boolean) -> Unit) {
 }
 
 fun Permissions.canStartLocationForegroundService(context: Context): Boolean {
-    // Older API versions don't need foreground permission
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         return true
     }

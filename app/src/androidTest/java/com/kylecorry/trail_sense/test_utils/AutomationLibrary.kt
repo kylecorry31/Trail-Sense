@@ -252,7 +252,6 @@ object AutomationLibrary {
                 withWaitForTimeOverride(waitForTime, block)
             }
         } catch (_: Throwable) {
-            // Do nothing
         }
     }
 
@@ -577,16 +576,13 @@ object AutomationLibrary {
                 withWaitForTimeOverride(attemptTimeout) {
                     action()
                 }
-                // Action succeeded, no need to scroll further
                 return
             } catch (e: Throwable) {
-                // Action failed, try scrolling
                 var scrolled = false
                 waitFor(resolveWaitForTime(waitForTime)) {
                     scrolled = viewLookup().scroll(direction, amountPerScroll)
                 }
                 if (!scrolled && failedScrollCount > 2) {
-                    // Couldn't scroll further
                     break
                 }
 
@@ -599,7 +595,6 @@ object AutomationLibrary {
                 }
             }
         }
-        // Try action one last time after all scrolling
         withWaitForTimeOverride(SCROLL_WAIT_FOR_TIMEOUT) {
             action()
         }
@@ -616,15 +611,12 @@ object AutomationLibrary {
                 withWaitForTimeOverride(waitForTime) {
                     action()
                 }
-                // Action succeeded, no need to go back further
                 return
             } catch (e: Throwable) {
-                // Action failed, try going back
                 TestUtils.back(false)
                 backsDone++
             }
         }
-        // Try action one last time after all backs
         withWaitForTimeOverride(waitForTime) {
             action()
         }

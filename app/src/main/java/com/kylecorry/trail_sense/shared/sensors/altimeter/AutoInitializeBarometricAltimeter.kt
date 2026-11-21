@@ -42,7 +42,6 @@ class AutoInitializeBarometricAltimeter(
             return true
         }
 
-        // Initialize the altimeter
         var lastAltitude = cachedAltimeter.altitude
 
         val seaLevelPressure = if (lastAltitude != 0f) {

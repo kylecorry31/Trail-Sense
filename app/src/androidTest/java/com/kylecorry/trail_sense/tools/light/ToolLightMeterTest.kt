@@ -18,14 +18,11 @@ class ToolLightMeterTest : ToolTestBase(Tools.LIGHT_METER) {
 
         hasText(R.id.light_title, Regex("\\d+ lx"))
 
-        // Enter the distance
         input(R.id.amount, "10")
 
-        // The candella and beam distance should be shown
         hasText(R.id.light_title, Regex("\\d+ cd"))
         hasText(R.id.beam_distance_text, Regex("\\d+ ft beam distance"))
 
-        // Reset
         click(R.id.reset_btn)
         hasText(R.id.light_title, Regex("\\d+ cd"))
         hasText(R.id.beam_distance_text, Regex("\\d+ ft beam distance"))

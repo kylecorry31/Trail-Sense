@@ -48,7 +48,6 @@ class OfflineMapService internal constructor(
 
     private val deleter = object : GroupDeleter<OfflineMapCatalogItem>(loader) {
         override suspend fun deleteItems(items: List<OfflineMapCatalogItem>) {
-            // TODO: Bulk delete
             items.filterIsInstance<PhotoMap>().forEach { repo.delete(it) }
             items.filterIsInstance<TrailMap>().forEach { repo.delete(it) }
         }

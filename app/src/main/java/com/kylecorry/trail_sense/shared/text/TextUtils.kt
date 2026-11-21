@@ -111,7 +111,6 @@ object TextUtils {
         val children = sections.mapNotNull { section ->
             val first = section.firstOrNull() ?: return@mapNotNull null
             if (first.level != null && first.title != null) {
-                // Create an expandable section
                 val expandable = expandable(
                     context, first.title
                 ) {
@@ -123,7 +122,6 @@ object TextUtils {
                 }
                 expandable
             } else {
-                // Only text nodes
                 val t = defaultTextView(context)
                 markdown.setMarkdown(t, section.joinToString("\n") { it.toMarkdown() })
                 t.movementMethod = LinkMovementMethodCompat.getInstance()

@@ -71,7 +71,6 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Listen for changes that require a compass reset
         val resetPrefs = listOf(
             getString(R.string.pref_use_true_north),
             getString(R.string.pref_compass_filter_amt),
@@ -105,7 +104,6 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
                 .or(InputType.TYPE_NUMBER_FLAG_SIGNED)
         }
 
-        // Set the compass source options
         val availableSources = CompassProvider.getAvailableSources(requireContext())
         val names = mapOf(
             CompassSource.RotationVector to getString(R.string.compass_source_mag_gyro),
@@ -148,7 +146,6 @@ class CalibrateCompassFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        // Disable compass settings if there is no compass
         val prefsRequiringCompass = listOf(
             compassSource,
             compassSmoothingBar,

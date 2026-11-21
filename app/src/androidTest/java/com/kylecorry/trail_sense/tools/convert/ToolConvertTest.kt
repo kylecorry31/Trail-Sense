@@ -76,7 +76,6 @@ class ToolConvertTest : ToolTestBase(Tools.CONVERT) {
         // 1 m = 3.28084 ft
         hasText(R.id.result, "3.2808 ft")
 
-        // Swap
         click(R.id.swap_btn)
         // 1 ft = 0.3048 m
         hasText(R.id.result, "0.3048 m")
@@ -95,7 +94,6 @@ class ToolConvertTest : ToolTestBase(Tools.CONVERT) {
         // 0 C * 9/5 + 32 = 32 F
         hasText(R.id.result, "32 °F")
 
-        // Swap
         click(R.id.swap_btn)
         // (0 F - 32) * 5/9 = -17.7778 C
         hasText(R.id.result, "-17.7778 °C")
@@ -114,7 +112,6 @@ class ToolConvertTest : ToolTestBase(Tools.CONVERT) {
         // 1 L = 0.264172 US gal
         hasText(R.id.result, "0.2642 gal")
 
-        // Swap
         click(R.id.swap_btn)
         // 1 US gal = 3.785411 L
         hasText(R.id.result, "3.7854 l")
@@ -133,7 +130,6 @@ class ToolConvertTest : ToolTestBase(Tools.CONVERT) {
         // 1 kg = 2.204623 lb
         hasText(R.id.result, "2.2046 lb")
 
-        // Swap
         click(R.id.swap_btn)
         // 1 lb = 0.453592 kg
         hasText(R.id.result, "0.4536 kg")
@@ -152,7 +148,6 @@ class ToolConvertTest : ToolTestBase(Tools.CONVERT) {
         // 60 min / 60 = 1 h
         hasText(R.id.result, "1 h")
 
-        // Swap
         click(R.id.swap_btn)
         // 60 h * 60 = 3600 min
         hasText(R.id.result, "3600 m")

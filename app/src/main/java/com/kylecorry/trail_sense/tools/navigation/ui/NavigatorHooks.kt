@@ -241,7 +241,6 @@ fun ReactiveComponent.useCompassCalibrationPrompt(shouldCheck: Boolean, compass:
     val quality = useTopic(compass, compass.quality) { it.quality }
 
     useEffect(shouldCheck, quality) {
-        // The compass quality is unknown until it reports its first reading
         if (!shouldCheck || hasChecked.current || quality == Quality.Unknown) {
             return@useEffect
         }

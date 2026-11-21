@@ -26,7 +26,6 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideClea
 class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_field_guide) {
 
     override fun update() {
-        // Views
         val listView = useView<AndromedaListView>(R.id.list)
         val addButtonView = useView<FloatingActionButton>(R.id.add_btn)
         val searchView = useView<SearchView>(R.id.search)
@@ -34,20 +33,16 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
 
         listView.emptyView = emptyView
 
-        // State
         val (reloadKey, triggerReload) = useTrigger()
 
-        // Services
         val service = useService<FieldGuideService>()
 
-        // Callbacks
         val createPage = useCreatePage()
         val editPage = useEditPage()
         val viewPage = useViewPage()
         val deletePage = useDeletePage(triggerReload)
         val hidePage = useHidePage(triggerReload)
 
-        // One time setup
         useShowDisclaimer(
             getString(R.string.disclaimer_message_title),
             getString(R.string.field_guide_disclaimer),
@@ -56,7 +51,6 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
         )
         useCleanupPages()
 
-        // List
         val handlePageAction = useCallback<FieldGuidePageListItemActionType, FieldGuidePage, Unit>(
             service,
             viewPage,
@@ -82,15 +76,12 @@ class FieldGuideFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_fie
             reload()
         }
 
-        // Handle back press
         useBackPressedCallback(clearFilters, searchView) {
             val hadFilters = clearFilters()
             searchView.query = ""
-            // If the filter was not set, don't consume the event
             hadFilters
         }
 
-        // Create button
         useClickCallback(addButtonView, createPage, tagFilter) {
             createPage(tagFilter)
         }

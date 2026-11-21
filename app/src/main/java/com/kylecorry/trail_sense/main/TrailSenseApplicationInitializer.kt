@@ -19,7 +19,6 @@ object TrailSenseApplicationInitializer {
         SafeMode.initialize(context)
         getAppService<Logger>().info(TAG, "App started")
 
-        // Initialize all tools
         val tools = Tools.getTools(context, false)
         tools.forEach {
             it.initialize(context)

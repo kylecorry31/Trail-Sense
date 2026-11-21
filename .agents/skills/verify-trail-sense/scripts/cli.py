@@ -626,12 +626,13 @@ def cmd_build(ctx):
 
 
 def cmd_lint(ctx):
-    code = gradle(ctx, ["lintDebug"] if ctx.args.android else ["detekt"])
+    task = "lintDebug" if ctx.args.android else "detektBaseline" if ctx.args.baseline else "detekt"
+    code = gradle(ctx, [task])
     return Out({"exit_code": code}, code=code)
 
 
 def cmd_test_unit(ctx):
-    code = gradle(ctx, ["testDebugUnitTest"] + (["--tests", ctx.args.filter] if ctx.args.filter else []))
+    code = gradle(ctx, ["testDebugUnitTest"] + (["--tests", ctx.args.filter, "-PmanualTests"] if ctx.args.filter else []))
     return Out({"exit_code": code, "reports": str(REPO / "app/build/reports/tests/testDebugUnitTest")}, code=code)
 
 
@@ -645,7 +646,7 @@ def cmd_test_android(ctx):
         return Out({"exit_code": 1}, code=1)
     tasks = ["connectedDebugAndroidTest"]
     if ctx.args.filter:
-        tasks.append(f"-Pandroid.testInstrumentationRunnerArguments.class={ctx.args.filter}")
+        tasks += [f"-Pandroid.testInstrumentationRunnerArguments.class={ctx.args.filter}", "-PmanualTests"]
     if ctx.args.shard:
         index, total = ctx.args.shard
         tasks += [f"-Pandroid.testInstrumentationRunnerArguments.numShards={total}",
@@ -1340,8 +1341,9 @@ def build_parser():
     b = leaf(top, "build", cmd_build, NO_DEVICE_DRY, "assemble variants",
              "variants: " + ", ".join(f"{k} ({v.package})" for k, v in VARIANTS.items()))
     b.add_argument("variants", nargs="*", choices=list(VARIANTS) + [[]], metavar="variant", help="default: --variant")
-    ln = leaf(top, "lint", cmd_lint, NO_DEVICE_DRY, "detekt, or Android lint with --android")
+    ln = leaf(top, "lint", cmd_lint, NO_DEVICE_DRY, "detekt, Android lint with --android, or regenerate the detekt baseline with --baseline")
     ln.add_argument("--android", action="store_true")
+    ln.add_argument("--baseline", action="store_true", help="regenerate app/detekt-baseline.xml")
 
     test = group("test", "unit tests on the JVM or instrumented tests on the target")
     tu = leaf(test, "unit", cmd_test_unit, NO_DEVICE_DRY, "JVM unit tests", "example: tsctl test unit '*BeaconNavigatorTest'")

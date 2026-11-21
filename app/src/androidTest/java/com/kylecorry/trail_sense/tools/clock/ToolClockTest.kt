@@ -43,7 +43,6 @@ class ToolClockTest : ToolTestBase(Tools.CLOCK) {
 
     @Test
     fun showsTheClockOffsetFromTheGps() {
-        // Wait for the GPS to be found
         hasText(R.id.pip_button, string(R.string.pip_button), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         // The offset depends on the emulator's GPS time
         any(
@@ -75,18 +74,14 @@ class ToolClockTest : ToolTestBase(Tools.CLOCK) {
     fun canUpdateTheTimeAndOpenTheTimeSettings() {
         hasText(R.id.pip_button, string(R.string.pip_button), waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
-        // Update time from GPS
         clickRightToolbarButton(R.id.clock_title)
 
-        // Click on the PIP button
         click(R.id.pip_button, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         handleExactAlarmsDialog()
 
         clickOk()
 
-        // Verify the system time settings are opened
-        // Check if the settings app is opened
         hasText("time")
     }
 }

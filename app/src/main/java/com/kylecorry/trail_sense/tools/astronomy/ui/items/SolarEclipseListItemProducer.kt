@@ -21,7 +21,6 @@ class SolarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
     ): ListItem? = onDefault {
         val eclipse = astronomyService.getSolarEclipse(location, date) ?: return@onDefault null
 
-        // Advanced
         val sun = astronomyService.getSunPosition(location, eclipse.peak)
         val peakAzimuth = DeclinationUtils.fromTrueNorthBearing(
             sun.azimuth,

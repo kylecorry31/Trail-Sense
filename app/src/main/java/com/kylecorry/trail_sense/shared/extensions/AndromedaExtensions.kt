@@ -137,7 +137,6 @@ fun Alerts.cancelableLoading(
 }
 
 fun PixelCoordinate.isSamePixel(other: PixelCoordinate): Boolean {
-    // If either contains a NaN, return false
     if (x.isNaN() || y.isNaN() || other.x.isNaN() || other.y.isNaN()) {
         return false
     }

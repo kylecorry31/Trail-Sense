@@ -102,7 +102,6 @@ class WhiteNoiseService : AndromedaService() {
                 clearSleepTimer(context)
             }
 
-            // Allow the last selected sound to be played
             if (sleepSound != null) {
                 cache.putLong(CACHE_KEY_SLEEP_SOUND_ID, sleepSound.id)
             }

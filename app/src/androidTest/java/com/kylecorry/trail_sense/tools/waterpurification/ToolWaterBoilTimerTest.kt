@@ -22,12 +22,10 @@ class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
         hasText(R.id.chip_auto, string(R.string.auto))
         hasText(R.id.time_left, waitForTime = GPS_WAIT_FOR_TIMEOUT) { it == "180" || it == "60" }
 
-        // Select 3 minutes
         hasText(R.id.chip_3_min, "3m")
         click(R.id.chip_3_min)
         hasText(R.id.time_left, "180")
 
-        // Select 1 minute
         hasText(R.id.chip_1_min, "1m")
         click(R.id.chip_1_min)
         hasText(R.id.time_left, "60")
@@ -35,32 +33,23 @@ class ToolWaterBoilTimerTest : ToolTestBase(Tools.WATER_BOIL_TIMER) {
 
     @Test
     fun canStartAndCancelTheTimer() {
-        // Select 1 minute
         click(R.id.chip_1_min)
         hasText(R.id.time_left, "60")
 
-        // Start the timer
         click(R.id.boil_button)
 
-        // Verify it is started
         hasText(R.id.boil_button, string(android.R.string.cancel))
         hasText(R.id.time_left) { it.toInt() <= 60 }
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             notification(WaterPurificationTimerService.NOTIFICATION_ID).hasTitle(R.string.water_boil_timer_title)
         }
 
-        // TODO: Wait for the timer to finish and verify the finished state (simulate time passing)
-
-        // Cancel the timer
         click(R.id.boil_button)
 
-        // Verify it is stopped
         hasText(R.id.boil_button, string(R.string.start))
         hasText(R.id.time_left, "60")
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             not { notification(WaterPurificationTimerService.NOTIFICATION_ID) }
         }

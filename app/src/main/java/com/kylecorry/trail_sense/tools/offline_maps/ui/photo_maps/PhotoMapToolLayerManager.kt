@@ -57,7 +57,6 @@ class PhotoMapToolLayerManager {
             isRunning = true
         }
         fragment.inBackground {
-            // User can't disable the photo maps layer
             preferences.preferences.putBoolean("pref_photo_maps_map_layer_enabled", true)
 
             view.setLayersWithPreferences(
@@ -67,7 +66,6 @@ class PhotoMapToolLayerManager {
                     MyElevationLayer.LAYER_ID,
                     CompassOverlayLayer.LAYER_ID
                 ),
-                // TODO: Extract these to layer config
                 listOf(
                     selectedPointLayer,
                     distanceLayer
@@ -76,7 +74,6 @@ class PhotoMapToolLayerManager {
 
             key++
 
-            // Hardcoded customization for this tool
             distanceLayer.isEnabled = false
             distanceLayer.onPathChanged = { onDistancePathChange(it) }
             distanceLayer.onPathDragged = { updateDistance(it) }
@@ -134,8 +131,6 @@ class PhotoMapToolLayerManager {
             selectedPointLayer.setData(GeoJsonFeatureCollection(listOf(point)))
         }
     }
-
-    // Distance measurement
 
     private fun onDistancePathChange(points: List<Coordinate>) {
         elevationPrefetcher.update(points)

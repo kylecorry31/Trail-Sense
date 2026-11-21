@@ -27,7 +27,6 @@ class ToolTurnBackTest : ToolTestBase(Tools.TURN_BACK, Coordinate(42.03, -71.97)
     fun canSetAndCancelAReturnTime() {
         hasText(R.id.instructions, string(R.string.time_not_set))
 
-        // Enter a time
         click(R.id.edittext)
         val before = ZonedDateTime.now()
         pickTime(8, 0, false)

@@ -24,7 +24,6 @@ object SafeMode {
         )
 
         if ((System.currentTimeMillis() - lastStartTime) <= RESTART_CRASH_THRESHOLD_MILLIS && (lastStartTime - lastMinus1StartTime) <= RESTART_CRASH_THRESHOLD_MILLIS) {
-            // If the app was restarted within the threshold, we are in safe mode
             getAppService<Logger>().warn(TAG, "App restarted twice within ${RESTART_CRASH_THRESHOLD_MILLIS / 1000}s, entering safe mode")
             safeModeEndTime = System.currentTimeMillis() + SAFE_MODE_DURATION_MILLIS
         } else {
@@ -33,8 +32,8 @@ object SafeMode {
     }
 
     private const val TAG = "SafeMode"
-    private const val RESTART_CRASH_THRESHOLD_MILLIS = 30 * 1000 // 30 seconds
-    private const val SAFE_MODE_DURATION_MILLIS = 20 * 1000 // 20 seconds
+    private const val RESTART_CRASH_THRESHOLD_MILLIS = 30 * 1000
+    private const val SAFE_MODE_DURATION_MILLIS = 20 * 1000
     private var safeModeEndTime: Long = 0L
 
     fun isEnabled(): Boolean {

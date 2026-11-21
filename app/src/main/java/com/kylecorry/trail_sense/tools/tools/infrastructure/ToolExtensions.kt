@@ -31,7 +31,7 @@ fun Tools.observe(
                 unsubscribe(toolBroadCastId, onReceiveBroadcast)
             }
 
-            else -> {} // Do nothing
+            else -> {}
         }
     })
 }

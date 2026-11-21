@@ -45,9 +45,6 @@ interface BeaconDao {
         west: Double
     ): List<BeaconEntity>
 
-    /**
-     * Get all beacons in a region that crosses the 180 meridian
-     */
     @Query("SELECT * FROM beacons WHERE `temporary` = 0 AND latitude BETWEEN :south AND :north AND (longitude >= :west OR longitude <= :east)")
     suspend fun getAllInRegionNear180Meridian(
         north: Double,

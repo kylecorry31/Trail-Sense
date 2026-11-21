@@ -21,7 +21,6 @@ class ToolSensorsTest : ToolTestBase(Tools.SENSORS) {
         hasText(string(R.string.accelerometer))
         hasText(string(R.string.tool_battery_title))
 
-        // Click the sensor details button
         clickRightToolbarButton(R.id.sensor_details_title)
 
         hasText(string(R.string.sensors))

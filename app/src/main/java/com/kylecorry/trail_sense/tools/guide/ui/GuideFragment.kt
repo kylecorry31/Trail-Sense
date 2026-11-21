@@ -13,15 +13,12 @@ class GuideFragment : TrailSenseReactiveFragment(R.layout.fragment_guide) {
     override fun update() {
         val context = useAndroidContext()
 
-        // Views
         val titleView = useView<Toolbar>(R.id.guide_name)
         val scrollView = useView<NestedScrollView>(R.id.guide_scroll)
 
-        // Arguments
         val name = useArgument<String>("guide_name") ?: ""
         val resource = useArgument<Int>("guide_contents")
 
-        // State
         val (content, setContent) = useState<String?>(null)
 
         useBackgroundEffect(context, resource) {

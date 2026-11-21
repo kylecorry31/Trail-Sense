@@ -21,10 +21,8 @@ import kotlin.math.sin
 
 internal object HistoricMonthlyTemperatureRangeRepo {
 
-    // Cache
     private val cache = MemoryLRUCache<PixelCoordinate, Map<Month, Range<Temperature>>>(size = 5)
 
-    // Image data source
     private val size = Size(576, 361)
     private const val verticalResolutionDegrees = 0.5
 

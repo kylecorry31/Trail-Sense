@@ -32,11 +32,9 @@ class SingleImageReader(
                 return@onIO null
             }
 
-            // Crop the bitmap to the original region
             if (rect != bounds) {
                 var cropped: Bitmap? = null
                 bitmap.use {
-                    // TODO: Handle when the original region was out of bounds (fill with 0)
                     cropped = Bitmap.createBitmap(
                         bitmap,
                         bounds.left - rect.left,

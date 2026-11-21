@@ -68,8 +68,6 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
 
     // These are words which have nearly the same meaning when searched
     private val synonyms: List<Set<String>> = listOf(
-        // MEDICAL
-        // Headache
         setOf(
             // Preserved
             "head ache",
@@ -83,25 +81,22 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "bleed",
             "blood"
         ),
-        // Defecation
         setOf(
             // Preserved
             "bowel movement",
             "bowel movements",
             // Stemmed (so misspellings are expected)
             "poop",
-            "defec", // Defecate
+            "defec",
             "diahrrea",
             "bowel",
-            "fece" // Feces
+            "fece"
         ),
-        // Urination
         setOf(
             // Stemmed (so misspellings are expected)
-            "urin", // Urine
+            "urin",
             "pee"
         ),
-        // Painkillers
         setOf(
             "painkiller",
             "aspirin",
@@ -110,63 +105,55 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "tylonol",
             "advil"
         ),
-        // Heartbeat
         setOf(
             // Preserved
             "heart rate",
             "heart beat",
             // Stemmed (so misspellings are expected)
             "heartbeat",
-            "puls", // Pulse
-            "heartrat" // Heartrate
+            "puls",
+            "heartrat"
         ),
-        // Trowel
         setOf(
             "trowel",
             "shovel",
             "spade"
         ),
-        // Bathroom
         setOf(
             "bathroom",
             "restroom",
             "toilet",
-            "latrin", // Latrine
-            "outhous", // Outhouse
-            "cathol", // Cathole
+            "latrin",
+            "outhous",
+            "cathol",
             "bidet",
         ),
-        // Fractures (not just medical)
         setOf(
             // Stemmed (so misspellings are expected)
             "fractur",
             "broken",
             "broke"
         ),
-        // Snow
         setOf(
             "snow",
             "ice"
         ),
-        // Actions
-        // Building
         setOf(
             // Stemmed (so misspellings are expected)
             "build",
             "construct",
-            "assembl", // Assemble
-            "creat", // Create
+            "assembl",
+            "creat",
             "make",
             "craft"
         ),
-        // Gather
         setOf(
             // Stemmed (so misspellings are expected)
             "gather",
             "collect",
             "harvest",
             "pick",
-            "forag", // Forage
+            "forag",
             "get",
             "catch",
             "find",
@@ -174,51 +161,44 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "look",
             "seek",
         ),
-        // Move
         setOf(
             "move",
             "movement",
             "walk",
             "hike"
         ),
-        // River
         setOf(
             "river",
             "stream",
             "creek",
             "brook",
-            "waterwai" // Waterway
+            "waterwai"
         ),
-        // Location
         setOf(
-            "locat", // Location
+            "locat",
             "place",
             "spot",
             "area",
             "site",
             "position",
-            "coordin" // Coordinate
+            "coordin"
         ),
-        // Issue
         setOf(
-            "issu", // Issue
+            "issu",
             "problem"
         ),
-        // Phone
         setOf(
             "phone",
-            "smartphon", // Smartphone
+            "smartphon",
             "cell"
         ),
-        // Technique
         setOf(
-            "techniqu", // Technique
+            "techniqu",
             "method",
             "approach",
             "process",
             "wai"
         ),
-        // Flashlight
         setOf(
             "flashlight",
             "headlamp",
@@ -226,60 +206,51 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "lantern",
             "torch"
         ),
-        // Cordage
         setOf(
-            "cordag", // Cordage
+            "cordag",
             "rope",
             "cord",
             "paracord",
             "twine",
             "string",
-            "shoelac" // Shoelace
+            "shoelac"
         ),
-        // Container
         setOf(
-            "contain", // Container
-            "bottl", // Bottle
+            "contain",
+            "bottl",
             "pot",
             "jar",
             "bladder",
             "cup"
         ),
-        // Glue
         setOf(
             "glue",
             "pitch",
-            "adhes" // Adhesive
+            "adhes"
         ),
-        // Tape
         setOf(
             "tape",
             "duct"
         ),
-        // Towel
         setOf(
             "towel",
             "washcloth",
             "facecloth",
             "rag"
         ),
-        // Utensil
         setOf(
             "utensil",
             "fork",
             "spoon"
         ),
-        // Animals
         setOf(
-            "anim", // Animal
+            "anim",
             "game"
         ),
-        // Birds
         setOf(
             "bird",
             "fowl"
         ),
-        // Gear
         setOf(
             "gear",
             "equip",
@@ -301,7 +272,6 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
         query: String,
         section: GuideSection
     ): Float {
-        // Rank the be prepared and overview sections lower
         val scoreMultiplier =
             if (section.title?.uppercase()?.trim() == "BE PREPARED" || section.title == null) {
                 0.9f

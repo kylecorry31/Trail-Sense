@@ -13,7 +13,7 @@ fi
 args=(testDebugUnitTest)
 
 if [ "$#" -eq 1 ]; then
-  args+=(--tests "$1")
+  args+=(--tests "$1" -PmanualTests)
 fi
 
 ./gradlew "${args[@]}"

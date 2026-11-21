@@ -28,27 +28,22 @@ import kotlinx.coroutines.flow.scan
 class DiagnosticsFragment : TrailSenseReactiveFragment(R.layout.fragment_diagnostics) {
 
     override fun update() {
-        // Views
         val titleView = useView<Toolbar>(R.id.diagnostics_title)
         val recyclerView = useView<RecyclerView>(R.id.diagnostics_list)
         val downloadLogsView = useView<View>(R.id.download_logs)
         val emptyTextView = useView<TextView>(R.id.empty_text)
 
-        // Services
         val context = useAndroidContext()
         val navController = useNavController()
 
-        // Diagnostics
         val tools = useMemo(context) { Tools.getTools(context) }
 
-        // TODO: Keep the mapping of tools to diagnostics and the mapping of ID to diagnostic
         val diagnosticIdToTool = useMemo(tools) {
             tools
                 .flatMap { tool -> tool.diagnostics.map { it.id to tool } }
                 .groupBy({ it.first }, { it.second })
         }
 
-        // Every scanner runs while resumed, emitting the latest results seen for each diagnostic
         val resultsFlow = useMemo(tools, context) {
             val scans = tools
                 .flatMap { it.diagnostics }
@@ -89,7 +84,6 @@ class DiagnosticsFragment : TrailSenseReactiveFragment(R.layout.fragment_diagnos
             }.also { it.addLineSeparator() }
         }
 
-        // Effects
         useEffect(titleView, navController) {
             titleView.rightButton.setOnClickListener {
                 navController.navigate(R.id.action_diagnostics_to_sensor_details)

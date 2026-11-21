@@ -67,7 +67,6 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
                 ).value.absoluteValue
             }
 
-        // Calculate the projected corners of the reference bounds
         val projectedNW = projection.toPixels(bounds.northWest)
         val projectedNE = projection.toPixels(bounds.northEast)
         val projectedSE = projection.toPixels(bounds.southEast)
@@ -188,10 +187,8 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
                 return@forEach
             }
 
-            // Convert to pixels
             val pixels = ring.map { projection.toPixels(it) }
 
-            // Clip to bounds
             val clipped = clipper.clip(pixels, bounds)
             if (clipped.isEmpty()) {
                 return@forEach

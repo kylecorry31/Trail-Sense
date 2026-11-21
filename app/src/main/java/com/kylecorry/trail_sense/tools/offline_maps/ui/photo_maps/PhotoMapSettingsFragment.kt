@@ -26,7 +26,6 @@ class PhotoMapSettingsFragment : AndromedaPreferenceFragment() {
             onReduceResolutionChange(reducePhotoResolutionPreference?.isChecked == true)
         }
 
-        // Layers
         onClick(preference(R.string.pref_map_layer_button)) {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(

@@ -16,27 +16,17 @@ class LazyPriorityQueue<T : Any>(initialCapacity: Int, comparator: Comparator<T>
     @Volatile
     private var prioritiesChanged = false
 
-    /**
-     * Enqueue an item into the priority queue.
-     */
     fun enqueue(item: T) {
         stagingQueue.add(item)
         count.incrementAndGet()
         stagedCount.incrementAndGet()
     }
 
-    /**
-     * Recalculate the priorities during the next dequeue
-     */
     fun recalculatePriorities() {
         prioritiesChanged = true
     }
 
-    /**
-     * Dequeue the highest priority items from the queue
-     */
     fun dequeue(count: Int = 1): List<T> = priorityQueueLock.withLock {
-        // Read the staging queue
         val stagedItems = (0 until stagedCount.get()).mapNotNull {
             val item = stagingQueue.poll()
             if (item != null) {
@@ -45,7 +35,6 @@ class LazyPriorityQueue<T : Any>(initialCapacity: Int, comparator: Comparator<T>
             item
         }
 
-        // Reprioritize
         if (prioritiesChanged) {
             // Clear the flag first, so if this changes it will get picked up on the next dequeue
             prioritiesChanged = false
@@ -54,10 +43,8 @@ class LazyPriorityQueue<T : Any>(initialCapacity: Int, comparator: Comparator<T>
             priorityQueue.addAll(originalItems)
         }
 
-        // Prioritize the new items
         priorityQueue.addAll(stagedItems)
 
-        // Dequeue
         return (0 until count).mapNotNull {
             val item = priorityQueue.poll()
             if (item != null) {
@@ -67,9 +54,6 @@ class LazyPriorityQueue<T : Any>(initialCapacity: Int, comparator: Comparator<T>
         }
     }
 
-    /**
-     * Clear the queue
-     */
     fun clear() = priorityQueueLock.withLock {
         stagingQueue.clear()
         priorityQueue.clear()

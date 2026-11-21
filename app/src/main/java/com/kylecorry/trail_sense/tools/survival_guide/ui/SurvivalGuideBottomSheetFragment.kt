@@ -26,7 +26,6 @@ class SurvivalGuideBottomSheetFragment :
     TrailSenseReactiveBottomSheetFragment(R.layout.fragment_survival_guide_bottom_sheet) {
 
     override fun update() {
-        // Views
         val searchView = useView<SearchView>(R.id.search)
         val summaryView = useView<TextView>(R.id.summary)
         val summaryHolderView = useView<View>(R.id.summary_holder)
@@ -37,15 +36,12 @@ class SurvivalGuideBottomSheetFragment :
         val titleView = useView<Toolbar>(R.id.title)
         val navController = useNavController()
 
-        // State
         val (query, setQuery) = useState("")
         val (searchResults, summary) = useSearchSurvivalGuide(query)
 
-        // Services
         val context = useAndroidContext()
         val markdown = useService<MarkdownService>()
 
-        // Navigation
         useEffect(titleView, query, navController) {
             titleView.rightButton.setOnClickListener {
                 dismiss()

@@ -8,9 +8,6 @@ import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projection
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.PhotoMap
 import kotlin.math.absoluteValue
 
-/**
- * A class that calculates the rotation of a map based on the calibration points
- */
 class MapRotationCalculator {
 
     /**
@@ -24,12 +21,10 @@ class MapRotationCalculator {
         }
 
 
-        // If the map is large, only allow it to be flipped vertically
         val bounds = CoordinateBounds.from(map.georeference.calibrationPoints.map { it.location })
         val east = bounds.east
         val west = bounds.west
         if ((east - west).absoluteValue > 180) {
-            // Min and max are flipped because it is dealing with image coordinates from the top left
             val top = map.georeference.calibrationPoints.minBy { it.imageLocation.y }.location
             val bottom = map.georeference.calibrationPoints.maxBy { it.imageLocation.y }.location
 

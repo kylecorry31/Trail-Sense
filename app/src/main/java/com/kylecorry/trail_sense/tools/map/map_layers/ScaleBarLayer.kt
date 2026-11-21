@@ -13,7 +13,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.overlay.OverlayLayer
 import com.kylecorry.trail_sense.tools.paths.ui.DistanceScale
 
-// TODO: Allow position to be adjusted
 class ScaleBarLayer : OverlayLayer() {
 
     override val layerId: String = LAYER_ID

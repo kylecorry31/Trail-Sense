@@ -9,6 +9,5 @@ interface IAsyncLayer : ILayer {
      * Called when the bounds or projection of the map view change
      */
     fun onViewChanged(state: MapViewState) {
-        // Do nothing
     }
 }

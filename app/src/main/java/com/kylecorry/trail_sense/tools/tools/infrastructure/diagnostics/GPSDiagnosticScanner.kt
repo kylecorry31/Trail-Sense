@@ -21,7 +21,6 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
         val prefs = UserPreferences(context)
         val sensorService = SensorService(context)
 
-        // Permissions
         if (!sensorService.hasLocationPermission()) {
             issues.add(
                 ToolDiagnosticResult(
@@ -38,7 +37,6 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             )
         }
 
-        // The location is overridden
         if (prefs.gps.locationSource == GPSLocationSource.Manual || !sensorService.hasLocationPermission()) {
             issues.add(
                 ToolDiagnosticResult(
@@ -70,7 +68,6 @@ class GPSDiagnosticScanner(private val gps: IGPS? = null) : ToolDiagnosticScanne
             }
         }
 
-        // Location is disabled
         if (prefs.gps.locationSource == GPSLocationSource.GPS &&
             sensorService.hasLocationPermission() &&
             !GPS.isAvailable(context)

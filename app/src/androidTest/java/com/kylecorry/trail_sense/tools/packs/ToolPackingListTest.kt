@@ -272,8 +272,6 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
         openPack("Test Pack 2", foodItem(2))
 
         clickToolbarMenuItem(string(R.string.export))
-        // TODO: Figure out how to click save
-//            viewWithText("SAVE").click()
         // Pressing back is needed sometimes to close the drive selector
         backUntil(waitForTime = EXTERNAL_SCREEN_WAIT_FOR_TIMEOUT) {
             hasText("test-pack-2.csv")
@@ -320,10 +318,8 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
     fun canStartImportingAPackingList() {
         click(R.id.add_btn)
         click(string(R.string.import_packing_list))
-        // TODO: Actually import a pack and verify it
     }
 
-    // HELPERS
     private fun hasItemForm(
         name: String,
         amount: Int,
@@ -402,13 +398,11 @@ class ToolPackingListTest : ToolTestBase(Tools.PACKING_LISTS) {
     }
 
     private fun createPackingList(name: String) {
-        // Create a new packing list
         click(R.id.add_btn)
         click(string(R.string.new_packing_list))
         input(string(R.string.name), name)
         clickOk()
 
-        // Verify the new pack is created
         hasText(R.id.inventory_list_title, name)
         hasText(R.id.inventory_empty_text, string(R.string.inventory_empty_text))
     }

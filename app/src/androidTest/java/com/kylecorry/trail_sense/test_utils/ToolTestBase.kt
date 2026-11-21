@@ -110,8 +110,6 @@ open class ToolTestBase(
 
     @Before
     fun setUp() {
-        // TODO: Load from somewhere
-//        AutomationLibrary.packageName = "com.kylecorry.trail_sense.staging"
         val packageName = AutomationLibrary.packageName
 
 

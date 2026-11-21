@@ -19,21 +19,17 @@ class FragmentToolSurvivalGuideReader :
     override fun update() {
         val context = useAndroidContext()
 
-        // Views
         val titleView = useView<Toolbar>(R.id.guide_name)
         val scrollView = useView<NestedScrollView>(R.id.guide_scroll)
 
-        // Arguments
         val chapter = useChapter()
         val content = useChapterContent()
         val headerIndex = useArgument<Int>("header_index") ?: 0
 
-        // Render the title bar
         useEffect(titleView, chapter) {
             titleView.title.text = chapter.title
         }
 
-        // Render the content
         useEffect(scrollView, content, headerIndex) {
             if (content == null) {
                 return@useEffect
@@ -48,8 +44,6 @@ class FragmentToolSurvivalGuideReader :
             )
 
             if (headerIndex > 0) {
-                // Open the ExpansionLayout at the headerIndex - 1 and scroll to it
-
                 val layout = scrollView.getChildAt(0) as? ViewGroup
 
                 val header = layout?.children

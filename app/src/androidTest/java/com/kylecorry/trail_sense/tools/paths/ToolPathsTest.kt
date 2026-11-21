@@ -77,26 +77,20 @@ import org.junit.Test
 
 class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
-    // BACKTRACK (waits for the GPS)
-
     @Test
     fun canRecordAPathWithBacktrack() {
         hasText(R.id.paths_title, string(R.string.paths))
 
-        // Verify it will run every minute by default
         hasText(R.id.play_bar_title, "Off - 1m")
 
-        // Click the start button
         click(R.id.play_btn)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             waitFor {
                 notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
             }
         }
 
-        // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
             doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
@@ -104,15 +98,12 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
         hasText(R.id.play_bar_title, "On - 1m")
 
-        // Wait for the path to be created
         isVisible(ListItem.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         hasText(string(R.string.temporary))
 
-        // Stop backtrack
         click(R.id.play_btn)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             not { notification(BacktrackAlerter.NOTIFICATION_ID) }
         }
@@ -123,24 +114,20 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
 
     @Test
     fun quickActionStartsAndStopsBacktrack() {
-        // TODO: Quick settings tile
         TestUtils.openQuickActions()
         clickQuickAction(Tools.QUICK_ACTION_BACKTRACK)
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             waitFor {
                 notification(BacktrackAlerter.NOTIFICATION_ID).hasTitle(R.string.backtrack)
             }
         }
 
-        // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
             doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
         }
 
-        // Wait for the path to be created
         hasText(string(R.string.temporary), waitForTime = GPS_WAIT_FOR_TIMEOUT)
         TestUtils.closeQuickActions()
         hasText(R.id.play_bar_title, "On - 1m")
@@ -150,13 +137,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         TestUtils.closeQuickActions()
         hasText(R.id.play_bar_title, "Off - 1m")
 
-        // TODO: Figure out how to check this on staging builds
         if (AutomationLibrary.packageName == null) {
             not { notification(BacktrackAlerter.NOTIFICATION_ID) }
         }
     }
-
-    // CREATING PATHS AND GROUPS THROUGH THE UI
 
     @Test
     fun canCreateAGroupAndAnEmptyPathAndOpenTheImportPicker() {
@@ -172,7 +156,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText(string(R.string.no_paths))
         backIfPossible()
 
-        // Open import and verify the picker opens, then back out
         click(R.id.add_btn)
         click(string(R.string.import_gpx))
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.pick_file)) }
@@ -211,8 +194,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         backUntil { isVisible(R.id.paths_title) }
     }
 
-    // MANAGING PATHS AND GROUPS (seeded)
-
     @Test
     fun canRenameAndHideAPathFromTheList() {
         assumeFalse(isStagingBuild)
@@ -244,7 +225,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         val service = PathService.getInstance(TestUtils.context)
         fun pathNamed(name: String) = runBlocking { service.getPaths().first() }.single { it.name == name }
 
-        // Merge "Durfee Short" onto the end of "Durfee Loop"
         clickListItemMenu("Durfee Short", string(R.string.merge))
         click("Durfee Loop", exact = true)
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.merging)) }
@@ -255,7 +235,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         val merged = pathNamed("Durfee Loop")
         assertEquals(96, runBlocking { service.getWaypoints(merged.id) }.size)
 
-        // Simplify
         clickListItemMenu("Durfee Loop", string(R.string.simplify))
         hasText("will be deleted")
         click(R.id.simplify_quality)
@@ -264,7 +243,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         clickOk()
         waitFor { assertTrue(runBlocking { service.getWaypoints(merged.id) }.size < 96) }
 
-        // Move to the group
         clickListItemMenu("Durfee Loop", string(R.string.move_to))
         click("Test Group")
         click(string(R.string.move))
@@ -291,28 +269,24 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         input(R.id.searchbox, "")
         hasText("Dest Group")
 
-        // Rename group "Test Group" -> "Test Group 2"
         clickListItemMenu("Test Group", string(R.string.rename))
         input("Test Group", "Test Group 2")
         clickOk()
         hasText("Test Group 2")
         hasText("1 path")
 
-        // Export current group via toolbar menu
         clickRightToolbarButton(R.id.paths_title)
         click(string(R.string.export))
         clickOk()
         optional { hasText("trail-sense-") }
         backUntil { isVisible(R.id.paths_title) }
 
-        // Move group into Dest Group
         hasText("Test Group 2")
         clickListItemMenu("Test Group 2", string(R.string.move_to))
         click("Dest Group")
         click(string(R.string.move))
         optional(OPTIONAL_WAIT_FOR_TIMEOUT) { hasText(string(R.string.moved_to, "Dest Group")) }
 
-        // Delete moved group (open Dest Group first)
         click("Dest Group")
         hasText("Test Group 2")
         deleteListItem("Test Group 2")
@@ -321,8 +295,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         hasText("Dest Group")
         hasText("Sprague")
     }
-
-    // PATH DETAILS (seeded)
 
     @Test
     fun canChangeAPathsStyle() {
@@ -397,7 +369,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
             hasDataPoint("0.69 mi", string(R.string.distance))
         }
 
-        // Navigate
         click(string(R.string.path_direction_to_end))
 
         isVisible(R.id.navigation_title)
@@ -406,34 +377,10 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         back()
         click("Test Path")
 
-        // Path points
         clickRightToolbarButton(R.id.path_title)
         click("Points")
         hasText("Today")
 
-        // TODO: This isn't working on the emulator
-//        clickListItemMenu("Navigate")
-//        isVisible(R.id.navigation_title)
-//        hasText("Test Path")
-//        back()
-//
-//        clickRightToolbarButton(R.id.path_title)
-//        click("Points")
-//        clickListItemMenu("Create beacon")
-//        isVisible(R.id.create_beacon_title)
-//        hasText("Test Path")
-//        back()
-//        click("Leave")
-//        back()
-//        isVisible(R.id.path_title)
-//
-//        clickRightToolbarButton(R.id.path_title)
-//        click("Points")
-//        clickListItemMenu("Delete")
-//        clickOk()
-//        back()
-//
-//        hasText("1")
     }
 
     @Test
@@ -445,13 +392,11 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         click("Sprague")
         hasText(R.id.path_title, "Sprague")
 
-        // Replace elevations
         clickRightToolbarButton(R.id.path_title)
         click(string(R.string.replace_elevations))
         hasText(string(R.string.replace_elevations_confirmation))
         backIfPossible()
 
-        // Simplify
         clickRightToolbarButton(R.id.path_title)
         click("Simplify")
         hasText("will be deleted")
@@ -463,7 +408,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         clickOk()
         waitFor { assertTrue(runBlocking { service.getWaypoints(path().id) }.size < 90) }
 
-        // Export
         clickRightToolbarButton(R.id.path_title)
         click("Export")
         hasText("trail-sense-")
@@ -471,7 +415,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
             isVisible(R.id.path_title)
         }
 
-        // Hide / show
         clickRightToolbarButton(R.id.path_title)
         click("Hide")
         waitFor { assertFalse(path().style.visible) }
@@ -544,7 +487,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         }
         hasText(R.id.play_bar_title, "On - 1m")
 
-        // Wait for the path to be created
         isVisible(ListItem.title, waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
         click(ListItem.title)
@@ -816,7 +758,6 @@ class ToolPathsTest : ToolTestBase(Tools.PATHS, Coordinate(42.03, -71.97)) {
         assertEquals(listOf(39, 90), imported.tracks.map { it.segments.single().points.size })
     }
 
-    // PATH NAVIGATION
     // These use the navigator directly, with real hikes (androidTest/assets/paths), the database,
     // and the saved navigation state. The routing logic itself is covered by PathRouteTest.
     //

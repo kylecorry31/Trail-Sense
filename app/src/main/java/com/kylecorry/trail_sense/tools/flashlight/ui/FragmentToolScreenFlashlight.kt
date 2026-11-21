@@ -22,21 +22,17 @@ class FragmentToolScreenFlashlight :
 
     private val cache by lazy { PreferencesSubsystem.getInstance(requireContext()).preferences }
 
-    // Held on the fragment so the volume buttons can adjust it from outside the render function
     private var brightness by state(DEFAULT_BRIGHTNESS)
 
     override fun update() {
-        // Views
         val screenFlashlightView = useView<View>(R.id.screen_flashlight)
         val redWhiteSwitcherView = useView<View>(R.id.red_white_switcher)
         val brightnessSeekView = useView<Slider>(R.id.brightness_seek)
         val offButtonView = useView<Button>(R.id.off_btn)
         val statusBarGuideline = useView<Guideline>(R.id.status_bar_guideline)
 
-        // Services
         val screenTorch = useMemo { ScreenTorch(requireActivity().window) }
 
-        // State
         val (savedIsRed, setIsRed) = usePreference(
             "cache_red_light",
             IPreferences::getBoolean,
@@ -55,7 +51,6 @@ class FragmentToolScreenFlashlight :
             }
         }
 
-        // Light
         useEffect(screenTorch, brightness, resetOnResume) {
             screenTorch.on(map(brightness / 100f, 0f, 1f, 0.1f, 1f))
         }
@@ -64,7 +59,6 @@ class FragmentToolScreenFlashlight :
             screenTorch.off()
         }
 
-        // View - Color
         useEffect(screenFlashlightView, redWhiteSwitcherView, isRed) {
             screenFlashlightView.setBackgroundColor(if (isRed) Color.RED else Color.WHITE)
             redWhiteSwitcherView.setBackgroundColor(if (isRed) Color.WHITE else Color.RED)
@@ -76,7 +70,6 @@ class FragmentToolScreenFlashlight :
             }
         }
 
-        // View - Brightness
         useEffect(brightnessSeekView) {
             brightnessSeekView.valueFrom = 0f
             brightnessSeekView.valueTo = 100f
@@ -93,7 +86,6 @@ class FragmentToolScreenFlashlight :
             brightnessSeekView.value = brightness.toFloat()
         }
 
-        // View - Off button
         useEffect(offButtonView, screenTorch) {
             offButtonView.setOnClickListener {
                 screenTorch.off()

@@ -25,9 +25,6 @@ data class MapLayerAttribution(
      * Markdown supported.
      */
     val longAttribution: String? = null,
-    /**
-     * If true it will show up on the map.
-     */
     val alwaysShow: Boolean = false
 )
 

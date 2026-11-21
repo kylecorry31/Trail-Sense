@@ -36,7 +36,6 @@ class CreateFieldGuideSightingFragment :
     TrailSenseReactiveFragment(R.layout.fragment_create_field_guide_sighting) {
 
     override fun update() {
-        // Views
         val datetimeView = useView<MaterialDateTimeInputView>(R.id.time)
         val coordinateView = useCoordinateInputView(R.id.location, lifecycleHookTrigger)
         val elevationView = useElevationInputView(R.id.elevation, lifecycleHookTrigger)
@@ -45,11 +44,9 @@ class CreateFieldGuideSightingFragment :
         val showOnMapSwitchView = useView<MaterialSwitch>(R.id.show_on_map)
         val titleView = useView<Toolbar>(R.id.title)
 
-        // Arguments
         val pageId = useArgument<Long>("page_id") ?: 0
         val sightingId = useArgument<Long>("sighting_id") ?: 0
 
-        // State
         val (datetime, setDatetime) = useState<LocalDateTime?>(null)
         val (location, setLocation) = useState<Coordinate?>(null)
         val (elevation, setElevation) = useState<Distance?>(null)
@@ -58,7 +55,6 @@ class CreateFieldGuideSightingFragment :
         val (showOnMap, setShowOnMap) = useState(true)
         val (initialDatetime, setInitialDatetime) = useState<LocalDateTime?>(null)
 
-        // Services
         val repo = useService<FieldGuideRepo>()
         val navController = useNavController()
         val context = useAndroidContext()
@@ -66,7 +62,6 @@ class CreateFieldGuideSightingFragment :
         val formatter = useService<FormatService>()
         val fieldGuideFormatter = useService<FieldGuideFormatService>()
 
-        // Memo
         val initialSighting = useBackgroundMemo(repo, sightingId) {
             if (sightingId != 0L) {
                 repo.getSighting(sightingId)
@@ -107,7 +102,6 @@ class CreateFieldGuideSightingFragment :
             repo.getPage(pageId)
         }
 
-        // Effects
         useEffect(datetimeView) {
             datetimeView.setOnItemSelectedListener {
                 setDatetime(it)
@@ -162,7 +156,6 @@ class CreateFieldGuideSightingFragment :
             val elevation = sighting.altitude?.let {
                 Distance.meters(it).convertTo(prefs.baseDistanceUnits)
             }
-            // Update views
             sighting.time?.let {
                 datetimeView.setValue(it.toZonedDateTime().toLocalDateTime())
             }
@@ -172,7 +165,6 @@ class CreateFieldGuideSightingFragment :
             harvestedSwitchView.isChecked = sighting.harvested == true
             showOnMapSwitchView.isChecked = sighting.showOnMap
 
-            // Update state
             setDatetime(sighting.time?.toZonedDateTime()?.toLocalDateTime())
             setLocation(sighting.location)
             setElevation(elevation)

@@ -27,7 +27,6 @@ class QuickActionWhistle(btn: QuickActionButtonView, fragment: Fragment) :
                     whistle = Whistle()
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    // The whistle couldn't be instantiated
                     onMain {
                         button.isVisible = false
                     }

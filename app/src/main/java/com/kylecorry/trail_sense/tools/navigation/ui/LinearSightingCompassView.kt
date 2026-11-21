@@ -43,14 +43,12 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             binding.viewCameraLine,
             binding.linearCompass
         ) {
-            // Forward the click event from the sighting compass
             callOnClick()
         }
     }
 
     private val hooks = Hooks()
 
-    // TODO: Make this more efficient (only update when the camera changes)
     private val updateTimer = CoroutineTimer {
         sightingCompass.update()
     }
@@ -66,7 +64,6 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
             }
 
             else -> {
-                // Do nothing
             }
         }
     }
@@ -102,9 +99,6 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
 
     }
 
-    /**
-     * Called when the view is resumed or attached
-     */
     private fun resume() {
         synchronized(lock) {
             if (isResumed) {
@@ -121,9 +115,6 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
         }
     }
 
-    /**
-     * Called when the view is paused or detached
-     */
     private fun pause() {
         synchronized(lock) {
             if (!isResumed) {
@@ -136,9 +127,6 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
         stop()
     }
 
-    /**
-     * Called when the view becomes visible
-     */
     private fun start() {
         synchronized(lock) {
             if (isStarted) {
@@ -149,9 +137,6 @@ class LinearSightingCompassView(context: Context, attrs: AttributeSet?) :
         }
     }
 
-    /**
-     * Called when the view becomes invisible
-     */
     private fun stop() {
         synchronized(lock) {
             if (!isStarted) {

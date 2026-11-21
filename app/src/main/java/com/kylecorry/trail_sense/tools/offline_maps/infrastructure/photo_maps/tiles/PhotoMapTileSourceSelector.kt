@@ -84,9 +84,7 @@ class PhotoMapTileSourceSelector(
             }
         }
 
-        // Remove transparency
         return image.applyOperationsOrNull(
-            // Undo color replacement
             Conditional(
                 backgroundColor.alpha != 255 && loaders.size > 1,
                 ReplaceColor(
@@ -101,7 +99,6 @@ class PhotoMapTileSourceSelector(
         )
     }
 
-    // TODO: Factor in rotation by using projection to see if the bounds intersect/are contained
     private fun getRegionLoaders(bounds: CoordinateBounds): List<PhotoMapRegionLoader> {
         val minArea = bounds.width().meters().value.toDouble() * bounds.height()
             .meters().value.toDouble() * 0.25
@@ -143,7 +140,6 @@ class PhotoMapTileSourceSelector(
                 0.5f
             )
         ) {
-            // The contained map isn't really rotated so only include a map after it
             val index = containedMaps.indexOf(firstContained)
             containedMaps.subList(
                 0,

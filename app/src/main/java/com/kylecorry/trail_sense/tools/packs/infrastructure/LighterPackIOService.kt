@@ -14,9 +14,6 @@ import com.kylecorry.trail_sense.tools.packs.domain.ItemCategory
 import com.kylecorry.trail_sense.tools.packs.domain.PackItem
 import kotlin.math.max
 
-/**
- * Imports/exports pack items to/from the LighterPack CSV format
- */
 class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
     IOService<List<PackItem>> {
 
@@ -106,10 +103,8 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
     }
 
     private fun parseCategoryString(category: String): ItemCategory {
-        // Format: id - name OR name
         val parts = category.split(" - ")
 
-        // Try to use the ID if it exists
         if (parts.size == 2 && parts[0].toIntOrNull() != null) {
             val match = ItemCategory.entries.find { it.id == parts[0].toInt() }
             if (match != null) {
@@ -117,7 +112,6 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
             }
         }
 
-        // Otherwise, use the name
         return ItemCategory.entries.find { it.name.lowercase() == category.lowercase() }
             ?: ItemCategory.Other
     }

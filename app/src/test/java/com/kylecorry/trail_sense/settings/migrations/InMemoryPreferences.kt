@@ -85,7 +85,6 @@ class InMemoryPreferences : IPreferences {
     override fun getAll(): Collection<Preference> = emptyList()
 
     override fun putAll(preferences: Collection<Preference>, clearOthers: Boolean) {
-        // Not needed by the migrator
     }
 
     override fun clear() {
@@ -93,6 +92,5 @@ class InMemoryPreferences : IPreferences {
     }
 
     override fun close() {
-        // Nothing to close
     }
 }

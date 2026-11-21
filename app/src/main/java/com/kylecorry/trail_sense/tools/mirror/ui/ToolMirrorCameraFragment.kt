@@ -43,7 +43,6 @@ class ToolMirrorCameraFragment : TrailSenseReactiveFragment(R.layout.fragment_to
         useResumeEffect(context) {
             setIsCameraEnabled(Permissions.isCameraEnabled(context))
 
-            // Only ask once so returning from the permission dialog doesn't re-prompt
             if (!wasPermissionRequested.current) {
                 wasPermissionRequested.current = true
                 requestCamera {

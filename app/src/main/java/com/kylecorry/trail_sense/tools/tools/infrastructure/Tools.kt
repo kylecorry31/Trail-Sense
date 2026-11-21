@@ -157,7 +157,7 @@ object Tools {
 
         val toolActions = sortedTools.map {
             ToolQuickAction(
-                it.id.toInt() + TOOL_QUICK_ACTION_OFFSET, // Avoid overlap
+                it.id.toInt() + TOOL_QUICK_ACTION_OFFSET,
                 context.getString(R.string.tool_quick_action_name, it.name)
             ) { button, fragment -> QuickActionOpenTool(button, fragment, it.navAction, it.icon) }
         }
@@ -205,8 +205,6 @@ object Tools {
 
     fun triggerWidgetUpdate(context: Context, widgetId: String?) {
         if (widgetId == null) {
-            // Update all widgets
-            // TODO: Also update in app widgets?
             getTools(context)
                 .flatMap { it.widgets }
                 .forEach { Widgets.requestUpdate(context, it.widgetClass) }
@@ -241,7 +239,6 @@ object Tools {
 
     const val TOOL_QUICK_ACTION_OFFSET = 1000
 
-    // Tool IDs
     const val FLASHLIGHT = 1L
     const val WHISTLE = 2L
     const val RULER = 3L
@@ -290,7 +287,6 @@ object Tools {
     const val MAP = 47L
     const val MAGNIFIER = 48L
 
-    // Quick Action IDs
     const val QUICK_ACTION_NONE = -1
     const val QUICK_ACTION_FLASHLIGHT = 1
     const val QUICK_ACTION_RULER = 5

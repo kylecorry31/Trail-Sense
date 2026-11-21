@@ -56,17 +56,11 @@ internal class KalmanFilter(
     // Updated estimate covariance
     var Pk_k = Matrix.zeros(stateSize, stateSize)
 
-    // Post fit residual - not used yet
-//    val Yk_k = createMatrix(measureDimension, 1, 0f)
-
     fun predict() {
-        //Xk|k-1 = Fk*Xk-1|k-1 + Bk*Uk
         Xk_km1 = F.dot(Xk_k).add(B.dot(Uk))
 
-        //Pk|k-1 = Fk*Pk-1|k-1*Fk(t) + Qk
         Pk_km1 = F.dot(Pk_k).dot(F.transpose()).add(Q)
 
-        // Update the current state (the original library had this as an option)
         if (updateStateWithPrediction) {
             Xk_k = Xk_km1.clone()
             Pk_k = Pk_km1.clone()
@@ -74,18 +68,14 @@ internal class KalmanFilter(
     }
 
     fun update(): Boolean {
-        //Yk = Zk - Hk*Xk|k-1
         Yk = Zk.subtract(H.dot(Xk_km1))
 
         val pk_km1DotHkt = Pk_km1.dot(H.transpose())
 
-        //Sk = Rk + Hk*Pk|k-1*Hk(t)
         Sk = R.add(H.dot(pk_km1DotHkt))
 
-        //Kk = Pk|k-1*Hk(t)*Sk(inv)
         K = solveGain(pk_km1DotHkt) ?: return false
 
-        //xk|k = xk|k-1 + Kk*Yk
         Xk_k = Xk_km1.add(K.dot(Yk))
 
         // Joseph form: Pk|k = (I-KH)Pk|k-1(I-KH)t + KRKt
@@ -101,9 +91,6 @@ internal class KalmanFilter(
             }
         }
 
-        // This is not used yet
-        //Yk|k = Zk - Hk*Xk|k
-//        Yk_k = Zk.subtract(H.dot(Xk_k))
         return true
     }
 

@@ -21,15 +21,12 @@ class FragmentToolCoordinateConvert :
     override fun update() {
         val context = useAndroidContext()
 
-        // Views
         val coordinateView = useCoordinateInputView(R.id.coordinate_edit, lifecycleHookTrigger)
         val toUnitsView = useView<Spinner>(R.id.to_units)
         val resultView = useView<TextView>(R.id.result)
 
-        // Services
         val formatter = useService<FormatService>()
 
-        // State
         val (coordinate, setCoordinate) = useState<Coordinate?>(coordinateView.coordinate)
         val (formatIndex, setFormatIndex) = useState(0)
 

@@ -44,7 +44,6 @@ class GradientCalculator {
 
     private fun blur(pixels: IntArray, width: Int, height: Int): IntArray {
         val blurred = IntArray(pixels.size)
-        // Convert to grayscale
         for (i in pixels.indices) {
             val color = pixels[i]
             blurred[i] = (color.red * 30 + color.green * 59 + color.blue * 11) / 100

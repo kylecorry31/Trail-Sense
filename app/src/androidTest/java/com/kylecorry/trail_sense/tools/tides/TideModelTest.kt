@@ -260,9 +260,6 @@ class TideModelTest {
         )
 
         val errors = tests.flatMapIndexed { index, test ->
-//            if (index != 16){
-//                return@flatMapIndexed listOf(0f)
-//            }
             val harmonics = TideModel.getHarmonics(context, test.first)?.harmonics ?: emptyList()
             check(index, harmonics, test.second)
         }
@@ -275,7 +272,6 @@ class TideModelTest {
         println("Min: ${absoluteErrors.minOrNull()?.roundToInt()} m")
         println("Max: ${absoluteErrors.maxOrNull()?.roundToInt()} m")
 
-        // Check the average error and standard deviation
         val absAverageError = Statistics.mean(absoluteErrors)
         val abs50QuantileError = Statistics.quantile(absoluteErrors, 0.5f)
         val abs90QuantileError = Statistics.quantile(absoluteErrors, 0.9f)
@@ -353,7 +349,6 @@ class TideModelTest {
         val end = expected.first().time.atEndOfDay().plusHours(12)
         val actual =
             Oceanography.getTides(calculator, start, end, GoldenSearchExtremaFinder(30.0, 1.0))
-        // Match each tide
         val matchedTides = expected.map {
             val closest = actual.minBy { actualTide ->
                 Duration.between(actualTide.time, it.time).abs()

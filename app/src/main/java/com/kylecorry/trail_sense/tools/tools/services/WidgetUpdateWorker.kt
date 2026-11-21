@@ -27,14 +27,12 @@ class WidgetUpdateWorker(context: Context, params: WorkerParameters) :
         wakelock?.acquire(Duration.ofSeconds(60).toMillis())
         val start = SystemClock.elapsedRealtime()
         try {
-            // Update stale location/elevation data if needed
             tryOrLog {
                 if (Tools.hasAnyWidgetsOnHomeScreen(applicationContext) { it.usesLocation }) {
                     updateStaleSensorData()
                 }
             }
 
-            // Update all widgets
             Tools.triggerWidgetUpdate(applicationContext, null)
         } finally {
             wakelock?.release()

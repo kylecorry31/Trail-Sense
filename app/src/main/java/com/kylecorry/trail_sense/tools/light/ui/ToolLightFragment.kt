@@ -17,19 +17,16 @@ import com.kylecorry.trail_sense.shared.views.Toolbar
 class ToolLightFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_light) {
 
     override fun update() {
-        // Views
         val titleView = useView<Toolbar>(R.id.light_title)
         val beamDistanceTextView = useView<TextView>(R.id.beam_distance_text)
         val lightChartView = useView<LightBarView>(R.id.light_chart)
         val beamDistanceView = useView<DistanceInputView>(R.id.beam_distance)
         val resetButtonView = useView<Button>(R.id.reset_btn)
 
-        // Services
         val sensors = useService<SensorService>()
         val formatter = useService<FormatService>()
         val lightSensor = useMemo(sensors) { sensors.getLightSensor() }
 
-        // State
         val lux = useTopic(lightSensor, lightSensor.illuminance) { it.illuminance }
         val (maxLux, setMaxLux) = useState(0f)
         val (distance, setDistance) = useState<Distance?>(null)
@@ -44,7 +41,6 @@ class ToolLightFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_ligh
             }
         }
 
-        // View - Inputs
         useEffect(beamDistanceView, resetButtonView, lightChartView) {
             beamDistanceView.units =
                 formatter.sortDistanceUnits(DistanceUtils.hikingDistanceUnits)
@@ -57,7 +53,6 @@ class ToolLightFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_ligh
             }
         }
 
-        // View - Title
         useEffect(titleView, lux) {
             titleView.title.text = formatter.formatLux(lux)
         }
@@ -66,7 +61,6 @@ class ToolLightFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_ligh
             titleView.subtitle.text = candela?.let { formatter.formatCandela(it) } ?: ""
         }
 
-        // View - Beam
         useEffect(lightChartView, distance) {
             distance?.let { lightChartView.setDistanceUnits(it.units) }
         }

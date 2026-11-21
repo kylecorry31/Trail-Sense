@@ -10,7 +10,6 @@ class CanSendDailyForecast(private val startTime: LocalTime) : Specification<Loc
             return value in startTime..end
         }
 
-        // start is after end, therefore it starts night and ends in the morning
         return value in startTime..LocalTime.MAX || value in LocalTime.MIN..end
     }
 }

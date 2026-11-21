@@ -81,16 +81,13 @@ class SmokeTest {
         TestUtils.launchApp(packageName)
         completeOnboarding()
 
-        // Click on the tools bottom navigation tab
         click({ viewWithResourceId("$packageName:id/action_experimental_tools") })
 
-        // Open each tool
         val tools = Tools.getTools(TestUtils.context).filterNot { it.isExperimental }
         tools.forEach {
             openTool(it.id, it.name)
         }
 
-        // Quick actions / widgets sheet
         longClick({ viewWithResourceId("$packageName:id/action_experimental_tools") })
         hasText("Quick actions")
         click("Widgets")
@@ -125,22 +122,17 @@ class SmokeTest {
     }
 
     private fun smokeTestPaths() {
-        // Backtrack
         click({ viewWithResourceId("$packageName:id/play_btn") })
-        // Wait for the battery restriction warning to go away
         optional {
             hasText(string(R.string.battery_settings_limit_accuracy))
             doesNotHaveText(string(R.string.battery_settings_limit_accuracy))
         }
 
-        // Wait for the path to be created
         hasText("Temporary", waitForTime = GPS_WAIT_FOR_TIMEOUT)
 
-        // Open the path
         click("Temporary")
         back()
 
-        // Stop backtrack
         click({ viewWithResourceId("$packageName:id/play_btn") })
     }
 
@@ -179,7 +171,6 @@ class SmokeTest {
         click({ viewWithResourceId("$packageName:id/add_btn") })
         click("Camera")
         click({ viewWithResourceId("$packageName:id/capture_button") })
-        // Verify a cloud is selected (the top one)
         isChecked({ viewWithResourceId("$packageName:id/checkbox") })
         back()
     }

@@ -74,10 +74,6 @@ import com.kylecorry.trail_sense.tools.pedometer.infrastructure.AveragePaceSpeed
 import com.kylecorry.trail_sense.tools.pedometer.infrastructure.CurrentPaceSpeedometer
 import java.time.Duration
 
-// Maybe use the concept of a use case
-// Ex. SensorPurpose.Background, SensorPurpose.Calibration, SensorPurpose.Diagnostics
-// Using those, it can adjust settings to be more appropriate for the use case
-
 class SensorService(ctx: Context) {
 
     private var context = ctx.applicationContext
@@ -249,7 +245,6 @@ class SensorService(ctx: Context) {
         return Sensors.hasGyroscope(context)
     }
 
-    // TODO: Expose a way to see that a disturbance is present
     fun getCompass(
         orientationSensor: IOrientationSensor? = null,
         delay: Int = MOTION_SENSOR_DELAY

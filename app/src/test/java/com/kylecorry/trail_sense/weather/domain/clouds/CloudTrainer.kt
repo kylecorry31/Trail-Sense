@@ -9,10 +9,13 @@ import com.kylecorry.sol.math.split
 import com.kylecorry.sol.math.statistics.Statistics
 import java.io.File
 import kotlin.random.Random
+import org.junit.jupiter.api.Tag
+import org.junit.jupiter.api.Test
 
 class CloudTrainer {
 
-//    @Test
+    @Tag("manual")
+    @Test
     fun train() {
         val file = File("src/data/clouds.csv").readText()
         val csv = CSVConvert.parse(file)
@@ -23,7 +26,6 @@ class CloudTrainer {
         val random = Random(1)
         csv.shuffled(random).forEach {
             y.add(it[0].toInt())
-            // Remove label
             x.add(it.subList(1, it.size).map { it.toFloat() })
         }
         val split = x.zip(y).split(0.8f)
@@ -50,7 +52,6 @@ class CloudTrainer {
             loss.add(listOf(epoch, error))
         }
 
-        // Record training data
         val rows =
             clf.dump().to2DArray().joinToString(",\n") { "arrayOf(${it.joinToString(",") { "${it}f" }})" }
 

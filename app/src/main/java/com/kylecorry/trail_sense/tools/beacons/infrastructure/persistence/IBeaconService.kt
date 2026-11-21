@@ -11,11 +11,9 @@ interface IBeaconService {
 
     val loader: IGroupLoader<IBeacon>
 
-    // Add
     suspend fun add(beacon: Beacon): Long
     suspend fun add(group: BeaconGroup): Long
 
-    // Get
     suspend fun getBeacons(
         groupId: Long?,
         includeGroups: Boolean = true,
@@ -33,7 +31,6 @@ interface IBeaconService {
 
     suspend fun getBeaconsInRegion(region: CoordinateBounds): List<Beacon>
 
-    // Delete
     suspend fun delete(group: BeaconGroup?)
     suspend fun delete(beacon: Beacon)
 }

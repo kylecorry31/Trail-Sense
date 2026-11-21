@@ -44,18 +44,14 @@ class BeaconDetailsFragment : TrailSenseReactiveFragment(R.layout.fragment_beaco
     override fun update() {
         val context = useAndroidContext()
 
-        // Views
         val titleView = useView<Toolbar>(R.id.beacon_title)
         val commentView = useView<TextView>(R.id.comment_text)
 
-        // Services
         val formatter = useService<FormatService>()
         val beaconService = useService<BeaconService>()
 
-        // Arguments
         val beaconId = useArgument<Long>("beacon_id") ?: 0L
 
-        // State
         val beacon = useBackgroundMemo(beaconService, beaconId, resetOnResume) {
             beaconService.getBeacon(beaconId)
         }

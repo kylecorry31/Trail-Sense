@@ -121,7 +121,6 @@ class RadarCompassView : BaseCompassView {
         circle(width / 2f, height / 2f, 3 * compassSize / 4f)
         circle(width / 2f, height / 2f, compassSize / 4f)
 
-        // Distance Text
         if (distanceText == null) {
             val distance = maxDistanceBaseUnits.toRelativeDistance()
             distanceText = formatService.formatDistance(
@@ -146,7 +145,6 @@ class RadarCompassView : BaseCompassView {
         pop()
 
 
-        // Directions
         if (shouldDrawDial) {
             drawCardinalDirections()
         }
@@ -311,7 +309,6 @@ class RadarCompassView : BaseCompassView {
         push()
         fill(bearing.color)
 
-        // To end of compass
         opacity(if (stopAt != null) 25 else 100)
         val dp2 = dp(2f)
         arc(
@@ -324,7 +321,6 @@ class RadarCompassView : BaseCompassView {
             ArcMode.Pie
         )
 
-        // To highlighted location
         stopAt?.let {
             val pixel = mapView?.toPixel(it) ?: return@let
             val size = min(compassSize.toFloat(), pixel.distanceTo(centerPixel) * 2)

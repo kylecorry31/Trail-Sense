@@ -113,7 +113,6 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
     }
 
     private fun updateUI() {
-        // Distance of current strike
         val current = lightningTime?.let { getDistance(it) } ?: strike?.value?.distance
         current?.let {
             val distance = it
@@ -128,7 +127,6 @@ class FragmentToolLightning : BoundFragment<FragmentToolLightningBinding>() {
                 Meteorology.isLightningStrikeDangerous(distance)
         }
 
-        // Distance of previous strike
         lastStrike?.let {
             val distance = it.value.distance
                 .convertTo(units)

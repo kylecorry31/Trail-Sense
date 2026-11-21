@@ -43,9 +43,7 @@ class ARGridLayer(
         scope.launch {
             val regularLines = mutableListOf<List<ARPoint>>()
 
-            // Horizontal lines
             for (elevation in -90..90 step spacing) {
-                // Skip horizon
                 if (elevation == 0) {
                     continue
                 }
@@ -63,10 +61,8 @@ class ARGridLayer(
                 regularLines.add(line)
             }
 
-            // Vertical lines
             for (azimuth in 0 until 360 step spacing) {
 
-                // Skip north
                 if (azimuth == 0) {
                     continue
                 }
@@ -84,13 +80,11 @@ class ARGridLayer(
                 regularLines.add(line)
             }
 
-            // North line
             val northLine = mutableListOf<ARPoint>()
             for (elevation in -90..90 step resolution) {
                 northLine.add(SphericalARPoint(0f, elevation.toFloat(), isTrueNorth = useTrueNorth))
             }
 
-            // Horizon line
             val horizonLine = mutableListOf<ARPoint>()
             for (azimuth in 0..360 step resolution) {
                 horizonLine.add(SphericalARPoint(azimuth.toFloat(), 0f, isTrueNorth = useTrueNorth))

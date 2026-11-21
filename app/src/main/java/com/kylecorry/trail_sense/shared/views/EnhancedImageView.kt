@@ -68,7 +68,6 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         }
 
         myDraw()
-        // TODO: Use a flag instead
         tryOrNothing {
             drawer.pop()
         }
@@ -122,23 +121,18 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     protected open fun postDraw() {
-        // Do nothing
     }
 
     protected open fun drawOverlay() {
-        // Do nothing
     }
 
     protected open fun preDraw() {
-        // Do nothing
     }
 
     protected open fun draw() {
-        // Do nothing
     }
 
     protected open fun setup() {
-        // Do nothing
     }
 
     fun setImage(filename: String, rotation: Float = 0f) {
@@ -159,7 +153,6 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         if (lastImage != filename) {
             val uri = files.uri(filename)
 
-            // If the image is a PDF, use the PDF renderer
             if (filename.lowercase().endsWith(".pdf")) {
                 setBitmapDecoderClass(PdfImageDecoder::class.java)
                 setRegionDecoderClass(PdfImageRegionDecoder::class.java)
@@ -179,14 +172,12 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     override fun tileVisible(tile: Tile?): Boolean {
-        // No need to check if the image is not rotated
         if (imageRotation == 0f && rotationOffset == 0f) {
             return super.tileVisible(tile)
         }
 
         val rect = tile?.sRect ?: return false
 
-        // Calculate the bounds of the visible source area (factoring in rotation)
         val topLeftSource = toSource(0f, 0f, true)
         val topRightSource = toSource(width.toFloat(), 0f, true)
         val bottomRightSource = toSource(width.toFloat(), height.toFloat(), true)
@@ -217,7 +208,6 @@ open class EnhancedImageView : SubsamplingScaleImageView {
             bottomLeftSource?.y ?: 0f
         )
 
-        // Check to see if the tile is within the visible source area
         return sVisLeft > rect.right || rect.left > sVisRight || sVisTop > rect.bottom || rect.top <= sVisBottom
 
     }
@@ -236,7 +226,6 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     }
 
     protected open fun onScaleChanged(oldScale: Float, newScale: Float) {
-        // Do nothing
     }
 
     protected open fun onTranslateChanged(
@@ -245,11 +234,9 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         newTranslateX: Float,
         newTranslateY: Float
     ) {
-        // Do nothing
     }
 
     fun recenter() {
-        // TODO: Center the rotated image
         resetScaleAndCenter()
     }
 
@@ -268,10 +255,8 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     ): PointF? {
         val source = PointF(sourceX, sourceY)
 
-        // Apply the scale and translate
         val view = sourceToViewCoord(source.x, source.y) ?: return null
 
-        // Apply the rotation
         if (withRotation) {
             transform(view, inPlace = true) {
                 postRotate(-imageRotation + rotationOffset, width / 2f, height / 2f)
@@ -288,14 +273,12 @@ open class EnhancedImageView : SubsamplingScaleImageView {
     ): PointF? {
         val view = PointF(viewX, viewY)
 
-        // Remove the rotation
         if (withRotation) {
             transform(view, invert = true, inPlace = true) {
                 postRotate(-imageRotation + rotationOffset, width / 2f, height / 2f)
             }
         }
 
-        // Remove the scale and translate
         return viewToSourceCoord(view.x, view.y)
     }
 
@@ -318,18 +301,15 @@ open class EnhancedImageView : SubsamplingScaleImageView {
         }
 
     protected open fun onLongPress(e: MotionEvent) {
-        // Do nothing
     }
 
     protected open fun onSinglePress(e: MotionEvent) {
-        // Do nothing
     }
 
     private val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
         override fun onLongPress(e: MotionEvent) {
             super.onLongPress(e)
 
-            // Don't invoke if it is currently scaling
             if (isZooming || isQuickScaling) return
 
             this@EnhancedImageView.onLongPress(e)

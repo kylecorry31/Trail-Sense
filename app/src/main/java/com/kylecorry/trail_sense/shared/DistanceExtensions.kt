@@ -16,6 +16,5 @@ fun Distance.toRelativeDistance(threshold: Float = 1000f): Distance {
 }
 
 fun DistanceUnits.isLarge(): Boolean {
-    // If it is greater than 100 meters per unit, then it is large
     return meters > 100f
 }

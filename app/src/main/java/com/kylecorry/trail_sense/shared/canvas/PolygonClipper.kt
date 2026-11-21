@@ -11,16 +11,12 @@ class PolygonClipper {
     ): List<PixelCoordinate> {
         var output = polygon
 
-        // Clip against Left
         output = clipEdge(output, bounds.left, true, Axis.X)
 
-        // Clip against Right
         output = clipEdge(output, bounds.right, false, Axis.X)
 
-        // Clip against Top
         output = clipEdge(output, bounds.top, true, Axis.Y)
 
-        // Clip against Bottom
         output = clipEdge(output, bounds.bottom, false, Axis.Y)
 
         return output

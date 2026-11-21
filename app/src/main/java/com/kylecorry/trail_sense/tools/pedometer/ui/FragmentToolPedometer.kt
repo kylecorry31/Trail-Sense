@@ -92,7 +92,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
 
         pedometer.state.replay().asLiveData().observe(viewLifecycleOwner) { updateStatusBar() }
 
-        // TODO: Use pedometer subsystem topics
         scheduleUpdates(500L)
     }
 
@@ -237,7 +236,6 @@ class FragmentToolPedometer : BoundFragment<FragmentToolPedometerBinding>() {
                 inBackground {
                     stepTrackerService.deleteStepTrackingPeriod(period)
                     onMain {
-                        // Refresh the dialog
                         dialog?.dismiss()
                         showPedometerSessions()
                     }

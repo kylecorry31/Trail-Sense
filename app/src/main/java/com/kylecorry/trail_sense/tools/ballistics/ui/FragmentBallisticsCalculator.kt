@@ -49,14 +49,12 @@ class FragmentBallisticsCalculator :
         val scopeHeightView = useView<DistanceInputView>(R.id.scope_height)
         val bulletSpeedView = useView<BulletSpeedInputView>(R.id.bullet_speed)
         val loadingView = useView<LoadingIndicator>(R.id.loading)
-        // TODO: Picker for different bullet types with option for Custom BC
         val ballisticCoefficientView = useView<TextInputEditText>(R.id.ballistic_coefficient)
 
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
         val queue = useCoroutineQueue()
 
-        // TODO: Determine normal value for metric
         val normalScopeHeight = useMemo {
             Distance.from(1.5f, DistanceUnits.Inches)
         }
@@ -155,7 +153,6 @@ class FragmentBallisticsCalculator :
             } else {
                 DistanceUnits.Centimeters
             }
-            // TODO: Set units in header
             val listItems = listOf(
                 getString(
                     R.string.time_header_units, formatter.formatDuration(

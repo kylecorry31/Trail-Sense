@@ -142,7 +142,6 @@ object ToolDiagnosticFactory {
         )
     }
 
-    // Higher level
     fun compass(context: Context): Array<ToolDiagnostic> {
         return arrayOf(
             accelerometer(context),

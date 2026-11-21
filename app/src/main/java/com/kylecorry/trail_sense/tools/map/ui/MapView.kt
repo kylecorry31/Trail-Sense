@@ -105,7 +105,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             resolutionPixels, mapCenter, width, height, mapAzimuth != 0f,
             projection, metersPerProjectedUnit, latitudeScaleFactor
         ) {
-            // Increase size to account for 45 degree rotation
             var rotated = Rectangle(
                 0f,
                 height.toFloat(),
@@ -263,7 +262,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                 ): PixelCoordinate {
 
 
-                    // Always render the hemispheres closest to the map center
                     val projected = projection.toPixels(
                         latitude, mapCenter.longitude + deltaAngle(
                             mapCenter.longitude.toFloat(),
@@ -274,7 +272,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     val x =
                         (projected.x - center.x) * (metersPerProjectedUnit / equatorialResolutionPixels)
                     val y =
-                        (center.y - projected.y) * (metersPerProjectedUnit / equatorialResolutionPixels) // Y inverted
+                        (center.y - projected.y) * (metersPerProjectedUnit / equatorialResolutionPixels)
 
                     return PixelCoordinate(
                         x.toFloat() + width / 2f,
@@ -286,7 +284,7 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
                     val x =
                         (pixel.x - width / 2f) * equatorialResolutionPixels / metersPerProjectedUnit
                     val y =
-                        (height / 2f - pixel.y) * equatorialResolutionPixels / metersPerProjectedUnit // Y inverted
+                        (height / 2f - pixel.y) * equatorialResolutionPixels / metersPerProjectedUnit
 
                     val projected = Vector2(
                         center.x + x.toFloat(),
@@ -360,7 +358,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             lastScale = scale
             layerManager.invalidate()
         }
-        // TODO: If map bounds changed, invalidate layers
 
         layerManager.draw(context, this, this)
     }
@@ -379,7 +376,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
         invalidate()
     }
 
-    // TODO: This doesn't work for world maps
     fun fitIntoView(bounds: CoordinateBounds, paddingFactor: Float = 1.25f) {
         if (width == 0 || height == 0) {
             return
@@ -533,14 +529,12 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private fun zoomWithFocus(scaleFactor: Float, focus: PixelCoordinate) {
         if (!isZoomEnabled) return
 
-        // Calculate the focus coordinate before zooming
         val unrotatedFocus = unrotated(focus)
         val focusCoordinate = toCoordinate(unrotatedFocus)
 
         zoom(scaleFactor)
 
         if (isPanEnabled) {
-            // Keep the focus point stationary
             val newFocusPixel = toPixel(focusCoordinate)
             val dx = unrotatedFocus.x - newFocusPixel.x
             val dy = unrotatedFocus.y - newFocusPixel.y
@@ -555,11 +549,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
     private var isLayerDragging = false
     private var layerTouch = PixelCoordinate(0f, 0f)
 
-    /**
-     * Lets a layer capture a touch that starts on it, so the touch drags something in the layer
-     * rather than panning the map.
-     * @return true if the touch belongs to a layer
-     */
     private fun handleLayerDrag(event: MotionEvent): Boolean {
         layerTouch = PixelCoordinate(event.x, event.y)
         val pixel = unrotated(layerTouch)
@@ -593,7 +582,6 @@ class MapView(context: Context, attrs: AttributeSet? = null) : CanvasView(contex
             if (!isLayerTouch) {
                 scaleDetector.onTouchEvent(event)
             }
-            // Layers still get taps and long presses, but a layer drag doesn't pan the map
             gestureDetector.onTouchEvent(event)
         }
         return true

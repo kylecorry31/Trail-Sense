@@ -54,7 +54,6 @@ class OnboardingActivity : AndromedaActivity() {
     private fun setupBackPressed() {
         onBackPressedDispatcher.addCallback(this) {
             if (pageIdx == 0) {
-                // Allow default back behavior
                 isEnabled = false
                 onBackPressedDispatcher.onBackPressed()
             } else {
@@ -75,7 +74,6 @@ class OnboardingActivity : AndromedaActivity() {
     }
 
     private fun navigateToApp() {
-        // Consider the disclaimer as shown
         cache.putBoolean(getString(R.string.pref_main_disclaimer_shown_key), true)
         cache.putBoolean(getString(R.string.pref_onboarding_completed), true)
         startActivity(Intent(this, MainActivity::class.java))

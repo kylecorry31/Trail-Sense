@@ -101,7 +101,6 @@ fun getPointStyleNames(context: Context): Map<PathPointColoringStyle, String> {
     )
 }
 
-// TODO: Extract this and add solid style
 fun getPointFactory(
     context: Context,
     pointColoringStyle: PathPointColoringStyle

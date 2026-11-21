@@ -75,7 +75,6 @@ class PedometerSubsystem private constructor(private val context: Context) : IPe
             updateSteps(it)
         }
 
-        // Keep them up to date
         state.subscribe { true }
         steps.subscribe { true }
         distance.subscribe {

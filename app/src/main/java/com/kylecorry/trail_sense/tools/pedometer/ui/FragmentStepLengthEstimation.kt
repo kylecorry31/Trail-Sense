@@ -21,19 +21,16 @@ class FragmentStepLengthEstimation :
     TrailSenseReactiveFragment(R.layout.fragment_step_length_estimation) {
 
     override fun update() {
-        // Views
         val titleView = useView<Toolbar>(R.id.step_length_title)
         val descriptionView = useView<TextView>(R.id.step_length_description)
         val stepLengthButtonView = useView<Button>(R.id.step_length_btn)
         val resetButtonView = useView<ImageButton>(R.id.reset_step_btn)
 
-        // Services
         val context = useAndroidContext()
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
         val estimator = useMemo(context) { StepLengthEstimatorFactory(context).getEstimator() }
 
-        // State
         val (isRunning, setIsRunning) = useState(false)
         val (readingKey, refreshReading) = useTrigger()
         val stepLength = useMemo(estimator, readingKey) { estimator.stepLength }
@@ -52,7 +49,6 @@ class FragmentStepLengthEstimation :
             }
         }
 
-        // View - Buttons
         useEffect(stepLengthButtonView, estimator, prefs, isRunning, hasValidReading) {
             stepLengthButtonView.setOnClickListener {
                 when {
@@ -83,7 +79,6 @@ class FragmentStepLengthEstimation :
             }
         }
 
-        // View - Text
         useEffect(resetButtonView, isRunning, stepLength) {
             resetButtonView.isVisible = !isRunning && stepLength != null
         }

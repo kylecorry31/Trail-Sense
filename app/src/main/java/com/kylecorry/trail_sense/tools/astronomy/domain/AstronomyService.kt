@@ -33,20 +33,12 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-/**
- * The facade for astronomy related services
- */
 class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
-
-    // PUBLIC MOON METHODS
 
     fun getCurrentMoonPhase(): MoonPhase {
         return getMoonPhase(ZonedDateTime.now(clock))
     }
 
-    /**
-     * Gets the moon phase at noon (should this be rise/set?)
-     */
     fun getMoonPhase(date: LocalDate): MoonPhase {
         val time = date.atTime(12, 0).toZonedDateTime()
         return getMoonPhase(time)
@@ -138,8 +130,6 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         val brightLimbAngleFromNorth = Astronomy.getMoonPositionAngleOfBrightLimb(timeToUse)
         return MoonTilt(parallacticAngle, brightLimbAngleFromNorth)
     }
-
-    // PUBLIC SUN METHODS
 
     fun getSunTimes(
         location: Coordinate,
@@ -345,7 +335,6 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
             return emptyList()
         }
 
-        // Initial filter based on magnitude / proximity to the sun
         val planetsToConsider = buildList {
             add(Planet.Venus)
             add(Planet.Mars)
@@ -426,7 +415,6 @@ class AstronomyService(private val clock: Clock = Clock.systemDefaultZone()) {
         start: LocalDate = LocalDate.now(),
         maxSearch: Duration = Duration.ofDays(365 * 2L)
     ): LocalDate? = onDefault {
-        // An update to this algorithm is planned to make it more efficient
         var isInEvent = hasEvent(event, location, start)
         var date = start.plusDays(1)
         val end = start.plusDays(maxSearch.toDays())

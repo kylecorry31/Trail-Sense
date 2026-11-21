@@ -27,10 +27,8 @@ class ToolMetalDetectorTest : ToolTestBase(Tools.METAL_DETECTOR) {
         // The field comes from the emulator's magnetometer, so only the format is checked
         hasText(R.id.metal_detector_title, Regex("\\d+ uT"))
 
-        // Make sure the chart is visible
         isVisible(R.id.metal_chart)
 
-        // Can adjust threshold (just verify it is set)
         isVisible(R.id.threshold)
         hasText(R.id.threshold_amount, "5.0 uT")
     }
@@ -39,12 +37,10 @@ class ToolMetalDetectorTest : ToolTestBase(Tools.METAL_DETECTOR) {
     fun canChangeTheSensitivityAndAlerts() {
         assumeTrue(Tools.isToolAvailable(context, Tools.METAL_DETECTOR))
 
-        // Can turn on high sensitivity
         isNotChecked(R.id.high_sensitivity_toggle)
         click(R.id.high_sensitivity_toggle)
         isChecked(R.id.high_sensitivity_toggle)
 
-        // Can play sound
         val originalVolume = mute()
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Right) }, false)
         clickRightToolbarButton(R.id.metal_detector_title)
@@ -53,10 +49,8 @@ class ToolMetalDetectorTest : ToolTestBase(Tools.METAL_DETECTOR) {
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Right) }, false)
         unmute(originalVolume)
 
-        // Can disable vibration
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Left) }, true)
         clickLeftToolbarButton(R.id.metal_detector_title)
         isChecked({ toolbarButton(R.id.metal_detector_title, Side.Left) }, false)
-        // TODO: assert vibration subsystem state
     }
 }

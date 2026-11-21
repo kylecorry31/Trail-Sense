@@ -192,7 +192,6 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
         updateForceCalibrationIntervalSummary()
 
-        // Update the altitude override to the current altitude
         if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
             updateAltitudeOverride()
         }
@@ -206,19 +205,16 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         val isFused =
             hasBarometer && (mode == UserPreferences.AltimeterMode.GPSBarometer || mode == UserPreferences.AltimeterMode.DigitalElevationModelBarometer)
 
-        // Cache, continuous calibration, and force calibration interval are only available on the fused barometer
         clearCachePref.isVisible = isFused
         continuousCalibrationPref.isVisible = isFused
         forceCalibrationPref.isVisible = isFused
 
-        // Overrides are available on the barometer or the manual mode
         val canProvideOverrides =
             mode == UserPreferences.AltimeterMode.Barometer || mode == UserPreferences.AltimeterMode.Override
         altitudeOverridePref.isVisible = canProvideOverrides
         altitudeOverrideGpsBtn.isVisible = canProvideOverrides
         altitudeOverrideBarometerEdit.isVisible = canProvideOverrides && hasBarometer
 
-        // Sample size is only available when the GPS is being used
         accuracyPref.isVisible =
             mode == UserPreferences.AltimeterMode.GPS || mode == UserPreferences.AltimeterMode.GPSBarometer
 
@@ -230,7 +226,6 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         }
         clearDemPref.isVisible = DEM.isExternalModel()
 
-        // Calibration mode options
         val options = listOfNotNull(
             if (hasBarometer) getString(R.string.altimeter_mode_gps_barometer) to "gps_barometer" else null,
             getString(R.string.gps) to "gps",
@@ -242,7 +237,6 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
 
         calibrationModeList.entries = options.map { it.first }.toTypedArray()
         calibrationModeList.entryValues = options.map { it.second }.toTypedArray()
-        // Save the default value
         if (DependencyRegistry.get<PreferencesSubsystem>().preferences.getString(calibrationModeList.key) == null) {
             calibrationModeList.value = if (hasBarometer) "gps_barometer" else "gps"
         }
@@ -348,7 +342,6 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
         restartAltimeter()
         updateConditionalPreferences()
 
-        // Update the altitude override to the current altitude
         if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
             updateAltitudeOverride()
         }
@@ -397,7 +390,6 @@ class CalibrateAltimeterFragment : AndromedaPreferenceFragment() {
             onDefault {
                 overridePopulationRunner.replace {
                     if (prefs.altimeterMode == UserPreferences.AltimeterMode.Barometer) {
-                        // Calculate sea level pressure from the new elevation
                         barometer.read()
                         val seaLevelPressure = Meteorology.getSeaLevelPressure(
                             Pressure.hpa(barometer.pressure),

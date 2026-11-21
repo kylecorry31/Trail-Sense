@@ -26,11 +26,9 @@ import kotlin.math.roundToInt
 
 object TideModel {
 
-    // Cache
     private val cache = MemoryLRUCache<PixelCoordinate, TideModelResult>(size = 5)
     private val locationToPixelCache = MemoryLRUCache<Coordinate, PixelCoordinate?>(size = 20)
 
-    // Image data source
     private val size = Size(1440, 720)
     private val condensedSize = Size(128, 172)
     private const val MIN_AMPLITUDE = 0f
@@ -167,7 +165,6 @@ object TideModel {
         pixel: PixelCoordinate
     ): List<TidalHarmonic> = onIO {
 
-        // Step 1: Get the indices into the amplitudes/phase array
         val indices = source.read(pixel)
         val x = indices[0].toInt() - 1
         val y = indices[1].toInt() - 1
@@ -206,11 +203,9 @@ object TideModel {
             val phasePixel = fileSystem.stream(phaseFile)
                 .use { imageReader.getPixel(it, x.toFloat(), y.toFloat(), false) } ?: continue
 
-            // Construct the harmonics
             for (j in groupedConstituents.indices) {
                 val harmonic = groupedConstituents[j]
 
-                // If there's a match in the large amplitudes array, use that for the amplitude
                 val largeAmplitude =
                     largeAmplitudes.firstOrNull {
                         it.constituent == harmonic &&

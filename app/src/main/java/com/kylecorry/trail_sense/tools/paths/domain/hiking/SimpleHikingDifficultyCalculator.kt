@@ -15,7 +15,6 @@ import kotlin.math.max
 object SimpleHikingDifficultyCalculator {
 
     fun calculate(points: List<PathPoint>): HikingDifficulty {
-        // Distance
         val distance = Geography.getPathDistance(points.map { it.coordinate })
             .convertTo(DistanceUnits.Miles)
             .value
@@ -25,7 +24,6 @@ object SimpleHikingDifficultyCalculator {
             return HikingDifficulty.Hard
         }
 
-        // Gain / Loss
         val gainLoss = HikingService.getElevationLossGain(points)
         val loss = gainLoss.first.convertTo(DistanceUnits.Feet).value
         val gain = gainLoss.second.convertTo(DistanceUnits.Feet).value
@@ -36,7 +34,6 @@ object SimpleHikingDifficultyCalculator {
             return HikingDifficulty.Hard
         }
 
-        // Slopes
         val slopes = HikingService.getSlopes(points)
         val maxSlope = slopes.maxByOrNull { it.third.absoluteValue }?.third?.absoluteValue ?: 0f
 

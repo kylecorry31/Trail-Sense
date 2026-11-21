@@ -47,7 +47,6 @@ class TideTableRepo private constructor(
             addTides(newId, table.tides)
             newId
         } else {
-            // TODO: Only delete the tides if they changed
             deleteTides(table.id)
             addTides(table.id, table.tides)
             dao.update(TideTableEntity.from(table))

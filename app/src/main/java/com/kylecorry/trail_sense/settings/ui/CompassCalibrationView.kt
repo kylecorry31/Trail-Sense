@@ -71,7 +71,6 @@ class CompassCalibrationView : CanvasView {
         val time = (System.currentTimeMillis() - start) / 1000f
 
         if (time >= loopTime) {
-            // TODO: Pause for a little
             start = System.currentTimeMillis()
         }
 
@@ -92,8 +91,6 @@ class CompassCalibrationView : CanvasView {
 
         translate(pos.x, pos.y)
         rotate(heading + 90, 0f, 0f)
-        // Simulates tilting the phone
-//        scale((time / loopTime).coerceAtLeast(0.2f), 1f)
         phone()
         pop()
     }

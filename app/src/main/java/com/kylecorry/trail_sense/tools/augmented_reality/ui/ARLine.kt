@@ -11,7 +11,6 @@ data class ARLine(
     val outlineColor: Int? = null,
     val outlineThickness: Float = 1f,
 ) {
-    // TODO: Extract this
     enum class ThicknessUnits {
         Dp, Angle
     }

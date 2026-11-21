@@ -13,11 +13,9 @@ interface TileSource {
     ): Bitmap?
 
     fun invalidate() {
-        // Do nothing
     }
 
     suspend fun cleanup() {
-        // Do nothing
     }
 
 }

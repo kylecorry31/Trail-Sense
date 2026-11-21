@@ -62,8 +62,6 @@ import java.time.Duration
 import java.util.UUID
 import kotlin.coroutines.CoroutineContext
 
-// Sensors
-
 fun ReactiveComponent.useGPSSensor(
     frequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY,
     tag: String? = null
@@ -106,7 +104,6 @@ fun ReactiveComponent.useSpeedometerSensor(gps: IGPS? = null): ISpeedometer {
     }
 }
 
-// Common sensor readings
 fun ReactiveAndromedaFragment.useGPSLocation(
     frequency: Duration = SensorService.DEFAULT_GPS_FREQUENCY
 ): Pair<Coordinate, Float?> {
@@ -369,8 +366,6 @@ fun ReactiveComponent.useLoadingIndicator(isLoading: Boolean, indicator: ILoadin
     }
 }
 
-// Preferences
-
 fun <T> ReactiveComponent.usePreference(
     key: String,
     load: (IPreferences, String) -> T?,
@@ -602,7 +597,6 @@ fun ReactiveComponent.useResumeEffect(vararg values: Any?, action: () -> Unit) {
 }
 
 
-// LiveData
 fun <T : Any, V> ReactiveComponent.useLiveData(
     data: LiveData<T>,
     default: V,

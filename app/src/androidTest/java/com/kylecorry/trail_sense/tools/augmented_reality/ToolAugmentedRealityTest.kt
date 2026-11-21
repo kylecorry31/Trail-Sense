@@ -22,7 +22,6 @@ class ToolAugmentedRealityTest : ToolTestBase(Tools.AUGMENTED_REALITY) {
     private fun acceptThePrompts() {
         assumeTrue(Tools.isToolAvailable(context, Tools.AUGMENTED_REALITY))
 
-        // Click OK on the prompts
         clickOk()
 
         if (!Sensors.hasGyroscope(context)) {
@@ -71,14 +70,11 @@ class ToolAugmentedRealityTest : ToolTestBase(Tools.AUGMENTED_REALITY) {
         acceptThePrompts()
 
         click(R.id.layers_btn)
-        // Verify the layers panel is visible
         hasText(string(R.string.beacons))
         hasText(string(R.string.ar_path_appearance))
 
-        // Turn off the beacons layer
         click(string(R.string.visible), index = 0)
 
-        // Close the layers panel
         clickRightToolbarButton(R.id.title)
         isNotVisible(R.id.title)
     }

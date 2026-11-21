@@ -38,10 +38,8 @@ class ImportPathsCommand(
         lifecycleOwner.inBackground(BackgroundMinimumState.Created) {
             val gpx = gpxService.import() ?: return@inBackground
 
-            // Get the tracks and routes from the GPX
             val paths = getTracks(gpx) + getRoutes(gpx)
 
-            // Let the user select the paths to import
             val selectedPathIndices = CoroutinePickers.items(
                 context,
                 context.getString(R.string.import_btn),
@@ -53,11 +51,9 @@ class ImportPathsCommand(
 
 
             Alerts.withLoading(context, context.getString(R.string.importing)) {
-                // Import the selected paths
                 val selectedPaths = paths.filterIndices(selectedPathIndices)
                 importPaths(selectedPaths, parentId)
 
-                // Let the user know the import was successful
                 Alerts.toast(
                     context, context.resources.getQuantityString(
                         R.plurals.paths_imported,
@@ -70,7 +66,6 @@ class ImportPathsCommand(
     }
 
     private suspend fun getRoutes(gpx: GPXData): List<FullPath> = onDefault {
-        // Groups are a Trail Sense concept, so routes don't have groups
         gpx.routes.map { route ->
             val path = Path(0, route.name, style, PathMetadata.empty)
             FullPath(path, route.points.toPathPoints())
@@ -108,14 +103,11 @@ class ImportPathsCommand(
             } else {
                 parentId
             }
-            // Create the path
             val pathToCreate = path.path.copy(parentId = parent)
             val pathId = pathService.addPath(pathToCreate)
 
-            // Add the waypoints to the path
             pathService.addWaypointsToPath(path.points, pathId)
 
-            // Simplify the path
             if (shouldSimplify) {
                 pathService.simplifyPath(
                     pathId,

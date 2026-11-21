@@ -32,7 +32,6 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
 
     @Test
     fun showsTheSunAndMoonForToday() {
-        // Verify the title
         hasText(R.id.astronomy_title) {
             val valid = listOf(
                 string(R.string.until_sunset),
@@ -43,10 +42,8 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
 
         hasText(R.id.astronomy_title, Regex("([0-9]+h)? ?([0-9]+m)?"))
 
-        // Verify that today is selected
         hasText(R.id.display_date, string(R.string.today))
 
-        // Verify the list of astronomy events is displayed
         hasText(R.id.astronomy_detail_list) {
             it.startsWith(string(R.string.sun))
         }
@@ -90,15 +87,12 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
 
         clickQuickAction(Tools.QUICK_ACTION_SUNRISE_ALERT)
 
-        // TODO: Simulate time passing to verify the alerts are shown
-
         TestUtils.closeQuickActions()
     }
 
     @Test
     fun canViewTheSunAndMoonIn3D() {
         if (Tools.isToolAvailable(TestUtils.context, Tools.AUGMENTED_REALITY)) {
-            // Wait for the toast do disappear
             not {
                 hasText(
                     string(R.string.sunset_alerts_background_location_disclaimer)
@@ -106,7 +100,6 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
             }
             click(R.id.button_3d)
 
-            // Verify the AR tool is open
             click("Cancel")
             clickOk()
             if (!Sensors.hasGyroscope(TestUtils.context)) {
@@ -123,12 +116,10 @@ class ToolAstronomyTest : ToolTestBase(Tools.ASTRONOMY, location) {
         TestUtils.openQuickActions()
         clickQuickAction(Tools.QUICK_ACTION_NIGHT_MODE)
 
-        // TODO: Need to find a way to test this on staging builds
         if (AutomationLibrary.packageName == null) {
             waitFor {
                 scenario.onActivity {
                     assertTrue(it.isDarkThemeOn())
-                    // TODO: Verify the color filter is applied
                 }
             }
         }

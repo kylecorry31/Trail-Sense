@@ -76,8 +76,6 @@ class MonteCarloPressureForecaster {
         val ensemble = TimeSeriesEnsemble(predictors)
 
         val n = (forecastLengthHours / forecastStepSizeHours).toInt()
-        // TODO: If the pressure turns around, don't forecast further out than that (can't tell what the next pressure system will bring)
-        // TODO: Return the CI or only include samples that are confident
         return ensemble.predictNext(pressures, n, forecastStepSizeHours).filter {
             val confidence = it.upper.y - it.lower.y
             confidence < maxErrorHpa

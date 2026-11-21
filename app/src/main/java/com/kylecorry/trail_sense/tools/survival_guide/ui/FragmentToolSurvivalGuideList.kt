@@ -31,7 +31,6 @@ class FragmentToolSurvivalGuideList :
     TrailSenseReactiveFragment(R.layout.fragment_survival_guide_chapters) {
 
     override fun update() {
-        // Views
         val listView = useView<AndromedaListView>(R.id.list)
         val emptyTextView = useView<TextView>(R.id.empty_text)
         val searchView = useView<SearchView>(R.id.search)
@@ -42,15 +41,12 @@ class FragmentToolSurvivalGuideList :
         val summaryChapterBadgeView = useView<Badge>(R.id.summary_chapter_title)
         val navController = useNavController()
 
-        // Arguments
         val searchArgumentQuery = useArgument<String>("search_query") ?: ""
 
-        // State
         val (query, setQuery) = useState(searchArgumentQuery)
         val chapters = useSurvivalGuideChapters()
         val (searchResults, summary) = useSearchSurvivalGuide(query)
 
-        // Services
         val context = useAndroidContext()
         val markdown = useService<MarkdownService>()
 
@@ -119,7 +115,6 @@ class FragmentToolSurvivalGuideList :
                             )
                         )
                     ) {
-                        // TODO: Scroll to the heading
                         navController.navigateWithAnimation(
                             R.id.fragmentToolSurvivalGuideReader,
                             Bundle().apply {

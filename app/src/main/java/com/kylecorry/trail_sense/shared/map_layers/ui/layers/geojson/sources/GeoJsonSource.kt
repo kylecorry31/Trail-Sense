@@ -14,6 +14,5 @@ interface GeoJsonSource {
     ): GeoJsonObject?
 
     suspend fun cleanup() {
-        // Do nothing
     }
 }

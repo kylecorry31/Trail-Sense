@@ -13,7 +13,6 @@ import kotlin.concurrent.write
 import kotlin.math.log
 
 class TileQueue {
-    // Enable this to log what tiles are being loaded
     private val shouldLog = false
     private var changeListener: suspend (tile: ImageTile) -> Unit = {}
     private val loadingKeys = mutableSetOf<String>()
@@ -97,7 +96,6 @@ class TileQueue {
         while (loadingCount.get() < maxTotalLoads && jobs.size < maxNewLoads) {
             val tile = dequeue() ?: break
             if (tile.tile !in tiles) {
-                // This tile is no longer wanted
                 continue
             }
 
@@ -115,7 +113,6 @@ class TileQueue {
                 }
             }
         }
-        // TODO: Allow cancellation of a job - likely means storing the actual jobs somewhere
         try {
             Parallel.forEach(jobs) {
                 val start = if (shouldLog) SystemClock.elapsedRealtime() else 0L

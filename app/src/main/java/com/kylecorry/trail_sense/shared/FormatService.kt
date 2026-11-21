@@ -507,7 +507,6 @@ class FormatService private constructor(private val context: Context) {
         return strings.getString(R.string.pressure_format, amt, symbol)
     }
 
-    // TODO: Rewrite this
     fun formatSpeed(metersPerSecond: Float): String {
         val distanceUnits = prefs.distanceUnits
         val isMetric = distanceUnits == UserPreferences.DistanceUnits.Meters
@@ -625,7 +624,6 @@ class FormatService private constructor(private val context: Context) {
         units: List<DistanceUnits>,
         metric: Boolean = prefs.baseDistanceUnits == DistanceUnits.Meters
     ): List<DistanceUnits> {
-        // TODO: Secondary sort by size
         val metricUnits =
             listOf(DistanceUnits.Centimeters, DistanceUnits.Meters, DistanceUnits.Kilometers)
         return units.sortedBy {
@@ -641,7 +639,6 @@ class FormatService private constructor(private val context: Context) {
         units: List<WeightUnits>,
         metric: Boolean = prefs.weightUnits == WeightUnits.Kilograms
     ): List<WeightUnits> {
-        // TODO: Secondary sort by size
         val metricUnits =
             listOf(WeightUnits.Grams, WeightUnits.Kilograms)
         return units.sortedBy {

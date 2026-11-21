@@ -82,7 +82,6 @@ class AccuracyFilterGPSModule(
             bestReading = null
         }
 
-        // Only consider a recent best reading
         bestReading = bestReading?.takeIf {
             newData.durationSince(it) <= MAX_RETAINED_FIX_AGE
         }

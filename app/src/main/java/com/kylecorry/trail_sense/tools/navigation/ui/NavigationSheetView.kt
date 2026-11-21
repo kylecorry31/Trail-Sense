@@ -73,7 +73,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private var useTrueNorthOverride: Boolean? = null
     private var restoringJob: Job? = null
 
-    // VIEWS
     private val textContainer: View
     private val titleView: TextView
     private val subtitleView: TextView
@@ -128,7 +127,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         super.onDetachedFromWindow()
     }
 
-    // TODO: Listen for navigation and automatically hide/show with override ability (for navigation tool)
     fun hide() {
         isVisible = false
         destination = null
@@ -149,7 +147,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         updateNavigation()
     }
 
-    // TODO: This should be tracked by a service (for background navigation)
     fun updateNavigationSensorValues(values: NavigationSensorValues) {
         sensorValues = values
         updateNavigation()
@@ -263,7 +260,6 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         subtitleView.text = formatter.join(
             formatter.formatLocation(beacon.coordinate),
             beacon.elevation?.let {
-                // Keep the elevation together if the subtitle wraps
                 context.getString(
                     R.string.navigation_elevation_format,
                     formatter.formatElevation(Distance.meters(it))
@@ -452,10 +448,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     }
 
     companion object {
-        // Within this many degrees of the target, the user is considered to be heading the right way
         private const val ON_TARGET_DEGREES = 5f
 
-        // At or beyond this many degrees from the target, the direction is fully "wrong"
         private const val WRONG_DIRECTION_DEGREES = 45f
 
         // Three digits of the widest glyph

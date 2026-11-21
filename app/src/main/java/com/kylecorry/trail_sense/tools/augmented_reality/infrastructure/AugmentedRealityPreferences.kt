@@ -45,7 +45,6 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         false
     )
 
-    // Layer visibility
     var showBeaconLayer by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_ar_beacon_layer),

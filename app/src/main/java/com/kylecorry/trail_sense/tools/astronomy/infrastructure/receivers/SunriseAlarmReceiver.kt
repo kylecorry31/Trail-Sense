@@ -53,10 +53,6 @@ class SunriseAlarmReceiver : BroadcastReceiver() {
             )
         }
 
-        // TODO: Extract this out of the receiver
-        /**
-         * Enable sunrise alerts and request permissions if needed
-         */
         suspend fun <T> enable(
             fragment: T,
             shouldRequestPermissions: Boolean

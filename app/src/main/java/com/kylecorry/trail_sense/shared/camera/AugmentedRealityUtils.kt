@@ -25,7 +25,6 @@ object AugmentedRealityUtils {
     private val tempWorldVector = FloatArray(4)
     private val tempRotationMatrix = FloatArray(16)
 
-    // Constants for perspective projection
     private const val minDistance = 0.1f
     private const val maxDistance = 1000f
 
@@ -166,7 +165,6 @@ object AugmentedRealityUtils {
         destinationCoordinate: Coordinate,
         destinationElevation: Float
     ): Vector3 {
-        // TODO: Go directly to ENU
         val bearing = myLocation.bearingTo(destinationCoordinate).value
         val distance = myLocation.distanceTo(destinationCoordinate)
         val elevationAngle = if (abs(myElevation - destinationElevation) < 0.0001f) {
@@ -226,7 +224,6 @@ object AugmentedRealityUtils {
             tempWorldVector[2] = ar.y
             tempWorldVector[3] = 1f
 
-            // Invert the rotation matrix
             Matrix.invertM(tempRotationMatrix, 0, rotationMatrix, 0)
 
             Matrix.multiplyMV(tempWorldVector, 0, tempRotationMatrix, 0, tempWorldVector, 0)

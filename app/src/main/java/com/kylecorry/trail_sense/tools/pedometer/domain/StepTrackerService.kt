@@ -112,7 +112,6 @@ class StepTrackerService(
                 activeTime = containedBucket.activeTime.plus(activeTime)
             )
         } else {
-            // Buckets always start on the hour and are 1 hour long
             val startTime = time.toZonedDateTime()
                 .truncatedTo(ChronoUnit.HOURS)
                 .toInstant()

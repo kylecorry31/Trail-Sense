@@ -123,7 +123,6 @@ class MainActivity : AndromedaActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_binding?.root)
 
-        // Handle black theme
         if (isBlackTheme) {
             window.decorView.rootView.setBackgroundColor(Color.BLACK)
             binding.bottomNavigation.setBackgroundColor(Color.BLACK)
@@ -152,14 +151,10 @@ class MainActivity : AndromedaActivity() {
         _binding = null
     }
 
-    /**
-     * Update the bottom nav selection based on the current navigation destination
-     */
     private fun updateBottomNavSelection() {
         val currentNavId = navController?.currentDestination?.id
         val tools = Tools.getTools(this)
         val selectedTool = tools.firstOrNull { it.isOpen(currentNavId ?: 0) }
-        // If the tool appears in the bottom nav, select it. Otherwise, select the Tools tab
         val idToSelect = if (selectedTool != null) {
             val isToolPinnedToNav =
                 binding.bottomNavigation.menu.findItem(selectedTool.navAction) != null
@@ -219,7 +214,6 @@ class MainActivity : AndromedaActivity() {
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 leftMargin = insets.left
                 rightMargin = insets.right
-                // Push the bottom navigation below the keyboard
                 bottomMargin = (ime.bottom - binding.bottomNavigation.height).coerceAtLeast(0)
             }
             updateStatusBarInset()
@@ -537,18 +531,15 @@ class MainActivity : AndromedaActivity() {
                 false
             }
 
-        // Open the left most item by default (and clear the back stack)
         val initialItem = if (SafeMode.isEnabled()) {
             tools.first { it.id == Tools.SETTINGS }.navAction
         } else {
             binding.bottomNavigation.menu[0].itemId
         }
 
-        // Only initialize the nav graph once
         effect("navGraph") {
             initializeNavGraph(initialItem)
         }
-        // Bind to navigation
         navController?.let { binding.bottomNavigation.setupWithNavController(it, false) }
 
         updateBottomNavSelection()
@@ -599,13 +590,10 @@ class MainActivity : AndromedaActivity() {
         val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
 
         if (shouldBeFullscreen) {
-            // Hide system bars (status bar and navigation bar)
             windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
-            // Set behavior to show bars temporarily when user swipes from edge
             windowInsetsController.systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         } else {
-            // Show system bars
             windowInsetsController.show(WindowInsetsCompat.Type.systemBars())
         }
     }

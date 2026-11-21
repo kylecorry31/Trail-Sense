@@ -30,7 +30,6 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
     private val userPrefs by lazy { UserPreferences(context) }
     private val astronomyService = AstronomyService()
 
-    // The window prior the alert time that the alert can be sent
     private val alertWindow = Duration.ofMinutes(20)
 
     override suspend fun execute() = onDefault {
@@ -52,7 +51,6 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
         if (todaySunset != null) {
             when {
                 isPastSunset(todaySunset) -> {
-                    // Missed the sunset, schedule the alarm for tomorrow
                     setAlarm(
                         tomorrowSunset?.minus(alertDuration)
                             ?: todaySunset.plusDays(1),
@@ -61,7 +59,6 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
                 }
 
                 withinAlertWindow(todaySunset, alertDuration) -> {
-                    // Send alert, schedule alarm for tomorrow's sunset or else at some point tomorrow
                     sendNotification(todaySunset)
                     setAlarm(
                         tomorrowSunset?.minus(alertDuration)
@@ -70,8 +67,7 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
                     )
                 }
 
-                else -> { // Before the alert window
-                    // Schedule alarm for sunset
+                else -> {
                     setAlarm(
                         todaySunset.minus(alertDuration),
                         "before alert window for today's sunset at ${todaySunset.toInstant()}"
@@ -79,7 +75,6 @@ class SunsetAlarmCommand(private val context: Context) : CoroutineCommand {
                 }
             }
         } else {
-            // There isn't a sunset today, schedule it for tomorrow
             setAlarm(tomorrowSunset?.minus(alertDuration) ?: now.plusDays(1), "no sunset today")
         }
     }

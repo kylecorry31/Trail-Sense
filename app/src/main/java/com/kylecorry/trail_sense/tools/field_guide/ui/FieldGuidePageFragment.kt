@@ -36,7 +36,6 @@ import com.kylecorry.trail_sense.tools.field_guide.infrastructure.FieldGuideRepo
 class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_field_guide_page) {
 
     override fun update() {
-        // Views
         val titleView = useView<Toolbar>(R.id.field_guide_page_title)
         val notesView = useView<TextView>(R.id.notes)
         val imagesView = useView<ViewPager2>(R.id.images)
@@ -48,11 +47,9 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
         val sightingsView = useView<TextView>(R.id.sightings_title)
         val navController = useNavController()
 
-        // State
         val page = usePage()
         val (photoPosition, setPhotoPosition) = useState(0)
 
-        // Services
         val prefs = useService<UserPreferences>()
         val fieldGuideFormatter = useService<FieldGuideFormatService>()
 

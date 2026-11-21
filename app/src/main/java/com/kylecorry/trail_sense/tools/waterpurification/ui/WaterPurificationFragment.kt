@@ -144,14 +144,12 @@ class WaterPurificationFragment : BoundFragment<FragmentToolWaterPurificationBin
 
     private suspend fun getSelectedDuration(): Duration = onDefault {
         if (selectedTime == TimeSelection.Auto) {
-            // Try to update the altimeter
             if (!altimeter.hasValidReading) {
                 withTimeoutOrNull(Duration.ofSeconds(10).toMillis()) {
                     altimeter.read()
                 }
             }
 
-            // Only use altimeter if there's a valid reading
             if (altimeter.hasValidReading) {
                 return@onDefault waterService.getPurificationTime(
                     Distance.from(altimeter.altitude, DistanceUnits.Meters)

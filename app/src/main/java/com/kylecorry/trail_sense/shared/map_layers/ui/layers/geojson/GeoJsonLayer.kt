@@ -130,7 +130,6 @@ open class GeoJsonLayer<T : GeoJsonSource>(
             DefaultMapLayerDefinitions.OPACITY,
             DefaultMapLayerDefinitions.DEFAULT_OPACITY
         ) / 100f
-        // TODO: Eventually make this a geojson feature property instead of a global setting
         if (preferences.containsKey(DefaultMapLayerDefinitions.BACKGROUND_COLOR)) {
             val backgroundColorId =
                 preferences.getString(DefaultMapLayerDefinitions.BACKGROUND_COLOR)?.toLongOrNull()

@@ -15,9 +15,7 @@ object Automations {
 
         broadcasts.forEach { broadcastId ->
             val queue = CoroutineQueueRunner(10)
-            // TODO: Should there be a way to unregister? Maybe only register when something is listening? When to cancel queue?
             Tools.subscribe(broadcastId) { data ->
-//                Log.d("Tool Broadcast", broadcastId)
                 queue.enqueue {
                     val automationsToRun = getAutomations(context, broadcastId)
                     val actionsToRun = automationsToRun.flatMap { it.actions }
@@ -41,7 +39,6 @@ object Automations {
 
     private suspend fun getAutomations(context: Context, broadcast: String): List<Automation> =
         onIO {
-            // TODO: Load these from the DB
             val automations = listOf(
                 PowerSavingModeAutomation.onEnabled(context),
                 PowerSavingModeAutomation.onDisabled()

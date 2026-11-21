@@ -33,7 +33,6 @@ class ToolsSettingsFragment : AndromedaPreferenceFragment() {
         val names = listOf(getString(R.string.none)) + tools.map { it.name }
         val ids = listOf(0L) + tools.map { it.id }
 
-        // For each available slot, create a preference
         for (i in bottomNavSelection.indices) {
             val preference = Preference(requireContext())
             preference.title = getString(R.string.bottom_navigation_slot, i + 1)
@@ -66,7 +65,6 @@ class ToolsSettingsFragment : AndromedaPreferenceFragment() {
             toolsPreferenceCategory?.addPreference(preference)
         }
 
-        // Add a fixed slot for the tools
         val toolSlotPreference = Preference(requireContext())
         toolSlotPreference.title =
             getString(R.string.bottom_navigation_slot, bottomNavSelection.size + 1)

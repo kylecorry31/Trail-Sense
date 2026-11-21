@@ -7,9 +7,6 @@ fun OfflineMap.getFileSize(): Long {
     return files.sumOf { it.sizeBytes }
 }
 
-/**
- * Determines if this is an external map
- */
 fun OfflineMap.isExternal(): Boolean {
     return files.any { it.isExternal }
 }

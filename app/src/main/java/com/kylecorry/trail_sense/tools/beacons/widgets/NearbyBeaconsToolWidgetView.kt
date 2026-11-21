@@ -112,7 +112,6 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
         }
 
         if (appWidgetIds.isEmpty()) {
-            // Running in app, no widgets exist
             setRemoteAdapter(context, views, 0, R.id.widget_list, items)
         }
 
@@ -130,6 +129,5 @@ class NearbyBeaconsToolWidgetView : ToolWidgetView {
             prefs?.getTheme(),
             R.layout.widget_layout_list
         )
-//        return RemoteViews(Package.getPackageName(context), R.layout.widget_layout_list)
     }
 }

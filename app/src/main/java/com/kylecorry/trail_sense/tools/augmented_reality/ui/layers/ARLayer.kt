@@ -4,23 +4,14 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
-/**
- * An augmented reality layer
- */
 interface ARLayer {
     /**
      * Update the layer's state. Some canvas drawer functions may be unreliable (ex. canvas.width - use view.width instead)
      */
     suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView)
 
-    /**
-     * Draw the layer
-     */
     fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView)
 
-    /**
-     * Invalidate the layer
-     */
     fun invalidate()
 
     /**

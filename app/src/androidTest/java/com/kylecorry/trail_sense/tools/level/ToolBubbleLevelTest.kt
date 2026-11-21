@@ -12,7 +12,6 @@ class ToolBubbleLevelTest : ToolTestBase(Tools.BUBBLE_LEVEL) {
 
     @Test
     fun showsTheAnglesAndTheLevel() {
-        // Verify it shows the current angle
         hasText(
             R.id.level_title,
             Regex(
@@ -25,7 +24,6 @@ class ToolBubbleLevelTest : ToolTestBase(Tools.BUBBLE_LEVEL) {
             )
         )
 
-        // Verify the level is shown (will fail if the level is not visible)
         isVisible(R.id.level)
     }
 }

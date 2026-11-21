@@ -21,11 +21,6 @@ class ARMarker(
         drawer.pop()
     }
 
-    /**
-     * Gets the location of the marker on the screen
-     * @param view The AR view
-     * @return The location of the marker
-     */
     fun getViewLocation(view: AugmentedRealityView): PixelCircle {
         val coordinates = point.getAugmentedRealityCoordinate(view)
         val angularDiameter = point.getAngularDiameter(view)

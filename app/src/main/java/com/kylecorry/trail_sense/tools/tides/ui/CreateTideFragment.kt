@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.tides.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -113,7 +112,6 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         super.onPause()
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -378,18 +376,11 @@ class CreateTideFragment : BoundFragment<FragmentCreateTideBinding>() {
         val lunitidalIntervalIsUtc = estimateType == EstimateType.LunitidalIntervalManualUTC
         val location = binding.tideLocation.coordinate
 
-        // TODO: Eventually this will check for harmonics
         if (
-        // Tide clock requires at least one tide
             (tides.isEmpty() && estimateAlgorithm == TideEstimator.Clock) ||
-            // Manual lunitidal UTC only requires a lunitidal interval is entered
             (estimateType == EstimateType.LunitidalIntervalManualUTC && lunitidalInterval == null) ||
-            // Manual lunitidal local requires a lunitidal interval and location are entered
             (estimateType == EstimateType.LunitidalIntervalManualLocal && (lunitidalInterval == null || location == null)) ||
-            // Auto lunitidal interval requires at least one tide
             (tides.isEmpty() && estimateType == EstimateType.LunitidalIntervalAuto)
-        // Harmonics doesn't require anything right now
-        // Tide model doesn't require anything right now
         ) {
             return null
         }

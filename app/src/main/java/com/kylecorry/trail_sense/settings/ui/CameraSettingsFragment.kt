@@ -10,7 +10,6 @@ class CameraSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.camera_preferences, rootKey)
 
-        // Set the projection type options
         val names = mapOf(
             CameraPreferences.ProjectionType.EstimatedIntrinsics to "${getString(R.string.projection_estimated_intrinsics)} (${
                 getString(R.string.default_string)

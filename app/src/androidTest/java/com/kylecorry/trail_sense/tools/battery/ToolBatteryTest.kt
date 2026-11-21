@@ -65,7 +65,6 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
         click(R.id.low_power_mode_switch)
         isChecked(R.id.low_power_mode_switch)
 
-        // Stop the battery log
         click(ListItem.trailingIconButton)
         doesNotHaveText("Battery log")
     }
@@ -82,7 +81,6 @@ class ToolBatteryTest : ToolTestBase(Tools.BATTERY) {
 
         hasListItems("Airplane mode", "Other tips")
 
-        // Open battery settings
         clickRightToolbarButton(R.id.battery_title)
         hasText("Battery")
     }

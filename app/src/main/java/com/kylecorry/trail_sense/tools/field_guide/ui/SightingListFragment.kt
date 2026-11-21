@@ -35,13 +35,11 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sightings_list) {
     override fun update() {
-        // Views
         val listView = useView<AndromedaListView>(R.id.list)
         val emptyTextView = useView<TextView>(R.id.sightings_empty_text)
         val createButtonView = useView<FloatingActionButton>(R.id.create_btn)
         val titleView = useView<Toolbar>(R.id.title)
 
-        // Services
         val formatter = useService<FormatService>()
         val fieldGuideFormatter = useService<FieldGuideFormatService>()
         val repo = useService<FieldGuideRepo>()
@@ -49,10 +47,8 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
         val navigator = useService<Navigator>()
         val context = useAndroidContext()
 
-        // Arguments
         val pageId = useArgument<Long>("page_id") ?: 0
 
-        // State
         val (refreshKey, triggerRefresh) = useTrigger()
         useToolEventListener(FieldGuideToolRegistration.BROADCAST_SIGHTING_RECORDED) {
             triggerRefresh()
@@ -104,7 +100,6 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
                         BeaconOwner.FieldGuide,
                         elevation = sighting.altitude
                     )
-                    // TODO: Let user set default navigation tool (compass or map)
                     navController.openTool(Tools.NAVIGATION)
                 }
             }
@@ -168,7 +163,6 @@ class SightingListFragment : TrailSenseReactiveFragment(R.layout.fragment_sighti
             }
         }
 
-        // Effects
         useEffect(listView, emptyTextView) {
             listView.emptyView = emptyTextView
         }

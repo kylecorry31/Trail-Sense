@@ -86,7 +86,6 @@ class SolarPanelService(
             return original
         }
 
-        // Try again, but allowing negative values
         return Calculus.integral(
             0.0,
             Duration.between(start, end).seconds * secondsToHours,
@@ -110,18 +109,14 @@ class SolarPanelService(
         }
 
         val startAzimuth = if (location.isNorthernHemisphere) {
-            // East
             80.0
         } else {
-            // West
             -100.0
         }
 
         val endAzimuth = if (location.isNorthernHemisphere) {
-            // West
             280.0
         } else {
-            // East
             100.0
         }
 

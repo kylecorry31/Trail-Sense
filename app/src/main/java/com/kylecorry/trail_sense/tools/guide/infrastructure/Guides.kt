@@ -26,7 +26,6 @@ object Guides {
                     tool.guideId
                 )
             } + listOfNotNull(
-                // Add map layers guide to the bottom of the location category
                 if (category.categoryName == locationCategoryName) {
                     UserGuide(
                         context.getString(R.string.guide_map_layers),

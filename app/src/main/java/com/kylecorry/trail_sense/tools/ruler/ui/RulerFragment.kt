@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.ruler.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +27,6 @@ class RulerFragment : BoundFragment<FragmentToolRulerBinding>() {
 
     private var rulerUnits = DistanceUnits.Centimeters
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rulerUnits =

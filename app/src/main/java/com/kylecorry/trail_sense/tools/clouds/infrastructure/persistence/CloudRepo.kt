@@ -21,7 +21,6 @@ class CloudRepo private constructor(private val dao: CloudReadingDao) :
     override suspend fun clean() = onIO {
         dao.deleteOlderThan(Instant.now().minus(CLOUD_HISTORY_DURATION).toEpochMilli())
 
-        // TODO: Only do this if there was a change
         _readingsChanged.publish()
     }
 

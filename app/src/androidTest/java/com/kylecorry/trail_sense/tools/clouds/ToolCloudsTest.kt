@@ -41,12 +41,10 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
 
         hasText(R.id.cloud_title, string(R.string.clouds))
 
-        // Verify a cloud is selected (the top one)
         isChecked(ListItem.checkbox)
 
         clickRightToolbarButton(R.id.cloud_title)
 
-        // Back on cloud log
         isVisible(R.id.add_btn)
         click(ListItem.title)
         clickOk()
@@ -58,7 +56,6 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
                 deleteListItem()
             }
         } catch (e: Throwable) {
-            // Do nothing
         }
 
         hasText(R.id.cloud_empty_text, string(R.string.no_clouds))
@@ -88,14 +85,12 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
         // Select the first cloud type (Cirrus is the first CloudGenus)
         click(ListItem.checkbox)
 
-        // Verify it is selected
         isChecked(ListItem.checkbox)
 
         clickRightToolbarButton(R.id.cloud_title)
 
         hasText(ListItem.title, string(R.string.cirrus))
 
-        // Delete the cloud result
         deleteListItem()
 
         hasText(R.id.cloud_empty_text, string(R.string.no_clouds))
@@ -116,7 +111,6 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
             listOf(string(R.string.cumulus), string(R.string.stratus))
         )
 
-        // Details
         click(string(R.string.cumulus))
         hasText(string(R.string.cumulus_desc))
         clickOk()
@@ -140,12 +134,10 @@ class ToolCloudsTest : ToolTestBase(Tools.CLOUDS) {
 
         hasText(R.id.cloud_title, string(R.string.clouds))
 
-        // Verify a cloud is selected (the top one)
         isChecked(ListItem.checkbox)
 
         clickRightToolbarButton(R.id.cloud_title)
 
-        // Back on cloud log
         isVisible(R.id.add_btn)
         isVisible(ListItem.title)
     }

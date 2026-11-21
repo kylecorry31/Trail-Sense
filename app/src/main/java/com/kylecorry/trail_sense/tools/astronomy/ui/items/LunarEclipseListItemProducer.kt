@@ -24,7 +24,6 @@ class LunarEclipseListItemProducer(context: Context) : BaseAstroListItemProducer
     ): ListItem? = onDefault {
         val eclipse = astronomyService.getLunarEclipse(location, date) ?: return@onDefault null
 
-        // Advanced
         val moon = astronomyService.getMoonPosition(location, eclipse.peak)
         val peakAzimuth = DeclinationUtils.fromTrueNorthBearing(
             moon.azimuth,

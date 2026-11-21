@@ -119,19 +119,16 @@ class ClinometerView : CanvasView, IClinometerView {
 
         clipInverse(avalancheRiskClipPath)
 
-        // High
         drawAvalancheZone(30f, 45f, AppColor.Red.color)
         drawAvalancheZone(-30f, -45f, AppColor.Red.color)
         drawAvalancheZone(210f, 225f, AppColor.Red.color)
         drawAvalancheZone(-210f, -225f, AppColor.Red.color)
 
-        // Moderate
         drawAvalancheZone(45f, 60f, AppColor.Yellow.color)
         drawAvalancheZone(-45f, -60f, AppColor.Yellow.color)
         drawAvalancheZone(225f, 240f, AppColor.Yellow.color)
         drawAvalancheZone(-225f, -240f, AppColor.Yellow.color)
 
-        // Low
         drawAvalancheZone(-30f, 30f, AppColor.Green.color)
         drawAvalancheZone(-60f, -90f, AppColor.Green.color)
         drawAvalancheZone(60f, 90f, AppColor.Green.color)

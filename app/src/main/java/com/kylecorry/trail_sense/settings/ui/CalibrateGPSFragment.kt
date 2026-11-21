@@ -113,7 +113,6 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
         permissionBtn.setOnPreferenceClickListener {
             val intent = Intents.appSettings(requireContext())
             getResult(intent) { _, _ ->
-                // Do nothing
             }
             true
         }
@@ -262,22 +261,18 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
     }
 
     private fun isLocationOverrideEnabled(): Boolean {
-        // Either there are no other options for GPS or auto location is off
         return !isAutoGPSPreferenceEnabled() || prefs.gps.locationSource == GPSLocationSource.Manual
     }
 
     private fun isAutoGPSPreferenceEnabled(): Boolean {
-        // Only disable when GPS permission is denied
         return sensorService.hasLocationPermission()
     }
 
     private fun shouldUseCachedGPS(): Boolean {
-        // Permission is granted, but GPS is disabled
         return sensorService.hasLocationPermission() && !GPS.isAvailable(requireContext())
     }
 
     private fun shouldUseRealGPS(): Boolean {
-        // When both permission is granted and GPS is enabled
         return GPS.isAvailable(requireContext())
     }
 

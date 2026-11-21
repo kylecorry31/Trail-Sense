@@ -27,7 +27,6 @@ class ActionSheet(
         binding.shareSheetTitle.subtitle.isVisible = subtitle != null
         binding.shareSheetTitle.subtitle.text = subtitle
 
-        // Insert custom view between toolbar and action buttons if provided
         customView?.let { cv ->
             (cv.parent as? ViewGroup)?.removeView(cv)
             val idx = binding.root.indexOfChild(binding.shareSheetItems)

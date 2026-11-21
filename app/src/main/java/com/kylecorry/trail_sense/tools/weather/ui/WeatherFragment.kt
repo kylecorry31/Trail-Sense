@@ -184,25 +184,20 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         val weather = weather ?: return
 
         val fields = listOf(
-            // Alerts
             AlertWeatherField(weather.prediction.alerts),
 
-            // Pressure
             PressureWeatherField(weather.observation?.pressure),
             PressureTendencyWeatherField(weather.pressureTendency),
 
-            // Temperature
             TemperatureWeatherField(weather.observation?.temperature) { showTemperatureChart() },
             HistoricTemperatureRangeWeatherField(
                 weather.prediction.temperature?.low,
                 weather.prediction.temperature?.high
             ) { showTemperatureForecast() },
 
-            // Humidity
             HumidityWeatherField(weather.observation?.humidity) { showHumidityChart() },
             CloudWeatherField(weather.clouds),
 
-            // System
             PressureSystemWeatherField(weather.observation?.pressure),
             FrontWeatherField(weather.prediction.front),
             LastUpdatedWeatherField(weather.observation?.time),

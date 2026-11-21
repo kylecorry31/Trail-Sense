@@ -15,7 +15,6 @@ enum class FieldGuidePageTag(
     val type: FieldGuidePageTagType,
     val parentId: Long? = null
 ) : Identifiable {
-    // Location
     Africa(1, FieldGuidePageTagType.Location),
     Antarctica(2, FieldGuidePageTagType.Location),
     Asia(3, FieldGuidePageTagType.Location),
@@ -24,7 +23,6 @@ enum class FieldGuidePageTag(
     NorthAmerica(6, FieldGuidePageTagType.Location),
     SouthAmerica(7, FieldGuidePageTagType.Location),
 
-    // Classification
     Plant(100, FieldGuidePageTagType.Classification),
     Animal(101, FieldGuidePageTagType.Classification),
     Fungus(102, FieldGuidePageTagType.Classification),
@@ -47,7 +45,6 @@ enum class FieldGuidePageTag(
     Other(119, FieldGuidePageTagType.Classification),
     Weather(120, FieldGuidePageTagType.Classification),
 
-    // Habitat
     Forest(200, FieldGuidePageTagType.Habitat),
     Desert(
         201,
@@ -86,7 +83,6 @@ enum class FieldGuidePageTag(
         FieldGuidePageTagType.Habitat
     ),
 
-    // Activity pattern
     Diurnal(
         300,
         FieldGuidePageTagType.ActivityPattern
@@ -100,7 +96,6 @@ enum class FieldGuidePageTag(
         FieldGuidePageTagType.ActivityPattern
     ),
 
-    // Human interaction
     Edible(400, FieldGuidePageTagType.HumanInteraction),
     Inedible(401, FieldGuidePageTagType.HumanInteraction),
     Dangerous(402, FieldGuidePageTagType.HumanInteraction),

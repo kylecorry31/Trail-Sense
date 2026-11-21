@@ -215,7 +215,6 @@ object CustomUiUtils {
         }
     }
 
-    // TODO: Make this generic - pick icon, takes in a list of resouces, returns selected (and allows user to pick none)
     fun pickBeaconIcon(
         context: Context,
         default: BeaconIcon? = null,
@@ -533,7 +532,6 @@ object CustomUiUtils {
         )
         val padding = Resources.dp(context, 28f).toInt()
         view.setPadding(padding, 0, padding, 0)
-        // TODO: Sort the units properly
         view.units = PressureUnits.entries
         view.value = default
         var selected = default

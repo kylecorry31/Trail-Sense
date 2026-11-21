@@ -5,7 +5,7 @@
     <ID>ComplexCondition:AndromedaExtensions.kt:x.isNaN() || y.isNaN() || other.x.isNaN() || other.y.isNaN()</ID>
     <ID>ComplexCondition:CalibratedCameraAnglePixelMapper.kt:CalibratedCameraAnglePixelMapper$focalLength == null || opticalCenter == null || preActiveArray == null || activeArray == null</ID>
     <ID>ComplexCondition:ClimateFragment.kt:ClimateFragment$start.month == Month.JANUARY &amp;&amp; start.dayOfMonth &lt; 10 &amp;&amp; end.month == Month.DECEMBER &amp;&amp; end.dayOfMonth &gt; 20</ID>
-    <ID>ComplexCondition:CreateTideFragment.kt:CreateTideFragment$(tides.isEmpty() &amp;&amp; estimateAlgorithm == TideEstimator.Clock) || // Manual lunitidal UTC only requires a lunitidal interval is entered (estimateType == EstimateType.LunitidalIntervalManualUTC &amp;&amp; lunitidalInterval == null) || // Manual lunitidal local requires a lunitidal interval and location are entered (estimateType == EstimateType.LunitidalIntervalManualLocal &amp;&amp; (lunitidalInterval == null || location == null)) || // Auto lunitidal interval requires at least one tide (tides.isEmpty() &amp;&amp; estimateType == EstimateType.LunitidalIntervalAuto)</ID>
+    <ID>ComplexCondition:CreateTideFragment.kt:CreateTideFragment$(tides.isEmpty() &amp;&amp; estimateAlgorithm == TideEstimator.Clock) || (estimateType == EstimateType.LunitidalIntervalManualUTC &amp;&amp; lunitidalInterval == null) || (estimateType == EstimateType.LunitidalIntervalManualLocal &amp;&amp; (lunitidalInterval == null || location == null)) || (tides.isEmpty() &amp;&amp; estimateType == EstimateType.LunitidalIntervalAuto)</ID>
     <ID>ComplexCondition:EncodedDataImageReader.kt:EncodedDataImageReader.Companion.&lt;no name provided&gt;$!convertZero &amp;&amp; red == 0f &amp;&amp; green == 0f &amp;&amp; blue == 0f</ID>
     <ID>ComplexCondition:FormatService.kt:FormatService$!(strs.size &gt; 0 &amp;&amp; seconds == 0L) &amp;&amp; seconds &gt;= 0 &amp;&amp; includeSeconds &amp;&amp; (!short || (hours == 0L &amp;&amp; minutes == 0L))</ID>
     <ID>ComplexCondition:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$bulletSpeed != null &amp;&amp; bulletSpeed.value &gt; 0 &amp;&amp; zeroDistance != null &amp;&amp; scopeHeight != null</ID>
@@ -48,159 +48,13 @@
     <ID>EmptyFunctionBlock:ProgressBar.kt:ProgressBar${ }</ID>
     <ID>EmptyFunctionBlock:QuickActionSheet.kt:QuickActionSheet.&lt;no name provided&gt;${ }</ID>
     <ID>ExplicitItLambdaParameter:LighterPackIOService.kt:LighterPackIOService${ it -&gt; val name = it.getOrNull(nameIdx) ?: "" val category = parseCategoryString(it.getOrNull(categoryIdx) ?: "") val weight = it.getOrNull(weightAmountIdx)?.toFloatOrNull() val unit = it.getOrNull(weightUnitIdx)?.let { parseWeightUnit(it) } ?: WeightUnits.Grams val packedQty = it.getOrNull(packedQtyIdx)?.toDoubleCompat() ?: 0.0 val desiredQty = it.getOrNull(desiredQtyIdx)?.toDoubleCompat() ?: it.getOrNull(qtyIdx) ?.toDoubleCompat() ?: 0.0 val isOptional = parseOptional(it.getOrNull(optionalIdx)) PackItem( 0, 0, name, category, amount = packedQty, desiredAmount = desiredQty, weight = weight?.let { Weight.from(it, unit) }, isOptional = isOptional ) }</ID>
-    <ID>ForbiddenComment:ARAstronomyLayer.kt:ARAstronomyLayer$// TODO: The line should be drawn to the horizon</ID>
-    <ID>ForbiddenComment:ARAstronomyLayer.kt:ARAstronomyLayer$// TODO: This isn't efficient</ID>
-    <ID>ForbiddenComment:ARBeaconLayer.kt:ARBeaconLayer$// TODO: Change opacity if navigating</ID>
-    <ID>ForbiddenComment:ARBeaconLayer.kt:ARBeaconLayer$// TODO: Convert to markers</ID>
-    <ID>ForbiddenComment:ARLine.kt:ARLine.ThicknessUnits$// TODO: Extract this</ID>
-    <ID>ForbiddenComment:Action.kt:Action$// TODO: Should receivers return a bundle that can be passed to the next receiver?</ID>
-    <ID>ForbiddenComment:AltitudePointDisplayFactory.kt:AltitudePointDisplayFactory$// TODO: Make these at the beginning and end</ID>
-    <ID>ForbiddenComment:AppDatabase.kt:AppDatabase.Companion$// TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt</ID>
-    <ID>ForbiddenComment:AstronomyDailyWorker.kt:AstronomyDailyWorker$// TODO: Autogenerate last run key (pref_andromeda_daily_worker_last_run_date_UNIQUEID)</ID>
-    <ID>ForbiddenComment:AstronomyPreferences.kt:AstronomyPreferences$// TODO: Let the user set this</ID>
-    <ID>ForbiddenComment:AugmentedRealityFragment.kt:AugmentedRealityFragment$// Beacon layer setup (TODO: Move this to a layer manager)</ID>
-    <ID>ForbiddenComment:AugmentedRealityFragment.kt:AugmentedRealityFragment$// TODO: Extract focus formatters</ID>
-    <ID>ForbiddenComment:AugmentedRealityFragment.kt:AugmentedRealityFragment$// TODO: Move this to the AR view</ID>
-    <ID>ForbiddenComment:AugmentedRealityUtils.kt:AugmentedRealityUtils$// TODO: Go directly to ENU</ID>
-    <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: Notify location change</ID>
-    <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: Should the onFocus method just return a string?</ID>
-    <ID>ForbiddenComment:AugmentedRealityView.kt:AugmentedRealityView$// TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)</ID>
-    <ID>ForbiddenComment:Automations.kt:Automations$// TODO: Load these from the DB</ID>
-    <ID>ForbiddenComment:Automations.kt:Automations$// TODO: Should there be a way to unregister? Maybe only register when something is listening? When to cancel queue?</ID>
-    <ID>ForbiddenComment:BacktrackSpeedometer.kt:BacktrackSpeedometer$// TODO: Listen for path changes for backtrack ID</ID>
-    <ID>ForbiddenComment:BaseMapTileSource.kt:BaseMapTileSource$// TODO: Derive this using calibration points</ID>
-    <ID>ForbiddenComment:BeaconCompassLayer.kt:BeaconCompassLayer$// TODO: Load the icon here</ID>
-    <ID>ForbiddenComment:BeaconSharesheet.kt:BeaconSharesheet$// TODO: Share other details</ID>
-    <ID>ForbiddenComment:CalibrateBarometerFragment.kt:CalibrateBarometerFragment$// TODO: Only call this on change</ID>
-    <ID>ForbiddenComment:CalibratedCameraAnglePixelMapper.kt:CalibratedCameraAnglePixelMapper$// TODO: Distort</ID>
-    <ID>ForbiddenComment:CalibratedCameraAnglePixelMapper.kt:CalibratedCameraAnglePixelMapper$// TODO: Factor in pose translation (just add it to the world position?)</ID>
-    <ID>ForbiddenComment:CalibratedCameraAnglePixelMapper.kt:CalibratedCameraAnglePixelMapper$// The y axis is inverted (TODO: Why?)</ID>
-    <ID>ForbiddenComment:CalibratedProjection.kt:CalibratedProjection$// TODO: Map projection does not work at the poles - move this into the mercator projection class</ID>
-    <ID>ForbiddenComment:CalibratedProjection.kt:CalibratedProjection$// TODO: Move this into the coordinate bounds class</ID>
-    <ID>ForbiddenComment:CalibratedProjection.kt:CalibratedProjection$// TODO: This should be moved into the mercator projection class</ID>
-    <ID>ForbiddenComment:CanvasObject.kt:// TODO: Use this on the MapView as well - maybe extract to Andromeda</ID>
-    <ID>ForbiddenComment:ClimateFragment.kt:ClimateFragment$// TODO: Break these down (ex. borreal, tiaga)</ID>
-    <ID>ForbiddenComment:ClimateFragment.kt:ClimateFragment$// TODO: List out dangers</ID>
-    <ID>ForbiddenComment:ClinometerFragment.kt:ClinometerFragment$// TODO: This should just be clinometer.angle</ID>
-    <ID>ForbiddenComment:CloudRepo.kt:CloudRepo$// TODO: Only do this if there was a change</ID>
-    <ID>ForbiddenComment:CompassCalibrationView.kt:CompassCalibrationView$// TODO: Pause for a little</ID>
-    <ID>ForbiddenComment:CompassOverlayLayer.kt:CompassOverlayLayer$// TODO: Allow setting of position</ID>
-    <ID>ForbiddenComment:CreateTideFragment.kt:CreateTideFragment$// TODO: Eventually this will check for harmonics</ID>
-    <ID>ForbiddenComment:CrossBoundaryPixelProvider.kt:CrossBoundaryPixelProvider$// TODO: This can be improved by preloading the neighbor regions that are needed</ID>
-    <ID>ForbiddenComment:CurrentWeather.kt:WeatherObservation$// TODO: Expose sea level and barometric pressure</ID>
-    <ID>ForbiddenComment:CustomUiUtils.kt:CustomUiUtils$// TODO: Make this generic - pick icon, takes in a list of resouces, returns selected (and allows user to pick none)</ID>
-    <ID>ForbiddenComment:CustomUiUtils.kt:CustomUiUtils$// TODO: Sort the units properly</ID>
-    <ID>ForbiddenComment:DEM.kt:DEM$// TODO: Support tiles with different decoders or an aggregated geographic image source</ID>
-    <ID>ForbiddenComment:DataUtils.kt:DataUtils$// TODO: This isn't performant enough, but is the preferred one</ID>
-    <ID>ForbiddenComment:DiagnosticsFragment.kt:DiagnosticsFragment$// TODO: Keep the mapping of tools to diagnostics and the mapping of ID to diagnostic</ID>
-    <ID>ForbiddenComment:EnhancedImageView.kt:EnhancedImageView$// TODO: Center the rotated image</ID>
-    <ID>ForbiddenComment:EnhancedImageView.kt:EnhancedImageView$// TODO: Use a flag instead</ID>
     <ID>ForbiddenComment:FieldGuidePageFragment.kt:FieldGuidePageFragment$// TODO: Handle tag click</ID>
-    <ID>ForbiddenComment:FileSubsystem.kt:FileSubsystem$// TODO: Handle maxSize</ID>
-    <ID>ForbiddenComment:FormatService.kt:FormatService$// TODO: Rewrite this</ID>
-    <ID>ForbiddenComment:FormatService.kt:FormatService$// TODO: Secondary sort by size</ID>
-    <ID>ForbiddenComment:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$// TODO: Determine normal value for metric</ID>
-    <ID>ForbiddenComment:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$// TODO: Picker for different bullet types with option for Custom BC</ID>
-    <ID>ForbiddenComment:FragmentBallisticsCalculator.kt:FragmentBallisticsCalculator$// TODO: Set units in header</ID>
-    <ID>ForbiddenComment:FragmentToolBattery.kt:FragmentToolBattery$// TODO: Extract battery reading to a custom hook</ID>
-    <ID>ForbiddenComment:FragmentToolMetalDetector.kt:FragmentToolMetalDetector$// TODO: Have two methods: onMetalFound and onMetalLost</ID>
-    <ID>ForbiddenComment:FragmentToolMetalDetector.kt:FragmentToolMetalDetector$// TODO: Once a better orientation is calculated, use that</ID>
-    <ID>ForbiddenComment:FragmentToolPedometer.kt:FragmentToolPedometer$// TODO: Use pedometer subsystem topics</ID>
-    <ID>ForbiddenComment:FragmentToolSurvivalGuideList.kt:FragmentToolSurvivalGuideList$// TODO: Scroll to the heading</ID>
-    <ID>ForbiddenComment:FragmentToolTriangulate.kt:FragmentToolTriangulate$// TODO: Display distance between locations</ID>
-    <ID>ForbiddenComment:FragmentToolTriangulate.kt:FragmentToolTriangulate$// TODO: Display the distance to the location in the title</ID>
-    <ID>ForbiddenComment:GaussianAltimeterWrapper.kt:GaussianAltimeterWrapper$// TODO: Add this to IAltimeter</ID>
-    <ID>ForbiddenComment:GeoJsonLayer.kt:GeoJsonLayer$// TODO: Eventually make this a geojson feature property instead of a global setting</ID>
-    <ID>ForbiddenComment:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$// TODO: Adjust text size / wrapping based on name length</ID>
-    <ID>ForbiddenComment:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$// TODO: Instead of map markers, render the geojson directly</ID>
-    <ID>ForbiddenComment:GeoJsonRenderer.kt:GeoJsonRenderer$// TODO: Handle clicks for other layers</ID>
-    <ID>ForbiddenComment:GeoJsonRenderer.kt:GeoJsonRenderer$// TODO: Handle selection for other renderers</ID>
-    <ID>ForbiddenComment:GeographicImageSource.kt:GeographicImageSource$// TODO: All of these should be hidden from the geographic image source</ID>
-    <ID>ForbiddenComment:GeographicImageSource.kt:GeographicImageSource$// TODO: Extract this and make the size configurable (maybe make it part of the region loader?)</ID>
-    <ID>ForbiddenComment:GeographicImageSource.kt:GeographicImageSource$// TODO: Move the interpolation out of this class?</ID>
-    <ID>ForbiddenComment:GeographicImageUtils.kt:GeographicImageUtils$// TODO: Redo this</ID>
-    <ID>ForbiddenComment:GroupableSelectView.kt:GroupableSelectView$// TODO: Don't override anything, just intercept the click action to open folders (let the caller decide what to do on click)</ID>
-    <ID>ForbiddenComment:HumidityWeatherField.kt:HumidityWeatherField$// TODO: Build chart into this</ID>
-    <ID>ForbiddenComment:ICompassView.kt:ICompassView$// TODO: Replace mappable reference point with a compass marker</ID>
-    <ID>ForbiddenComment:IWeatherSubsystem.kt:IWeatherSubsystem$// TODO: Split into two subsystems: Weather and Weather Monitor</ID>
-    <ID>ForbiddenComment:ImageMagnifier.kt:ImageMagnifier$// TODO: Support zoom</ID>
-    <ID>ForbiddenComment:ImportPackingListCommand.kt:ImportPackingListCommand$// TODO: Default to the file name</ID>
-    <ID>ForbiddenComment:LightBarView.kt:LightBarView$// TODO: Calculate distance of each intensity description</ID>
-    <ID>ForbiddenComment:LineClipper.kt:LineClipper$// TODO: If the z values are provided, this should be a 3D RDP filter</ID>
-    <ID>ForbiddenComment:LineClipper.kt:LineClipper$// TODO: Is this allocation needed? What if the bounds were flipped?</ID>
-    <ID>ForbiddenComment:LinearSightingCompassView.kt:LinearSightingCompassView$// TODO: Make this more efficient (only update when the camera changes)</ID>
-    <ID>ForbiddenComment:LocalMessagingToolRegistration.kt:LocalMessagingToolRegistration$// TODO: Have an open action rather than navigation ID</ID>
-    <ID>ForbiddenComment:LocalTalkToolRegistration.kt:LocalTalkToolRegistration$// TODO: Have an open action rather than navigation ID</ID>
-    <ID>ForbiddenComment:LocationSubsystem.kt:LocationSubsystem$// TODO: Technically not true - this should probably by another broadcast</ID>
-    <ID>ForbiddenComment:MapCalibrationView.kt:MapCalibrationView$// TODO: Support dragging the coordinates</ID>
-    <ID>ForbiddenComment:MapLayerLoader.kt:// TODO: Consider loading required attribution with the layer data rather than the definition (definition can contain the long form attribution)</ID>
-    <ID>ForbiddenComment:MapLayersBottomSheet.kt:MapLayersBottomSheet$// TODO: Show loading indicator once plugin layers are in place</ID>
-    <ID>ForbiddenComment:MapPickers.kt:MapPickers$// TODO: Add sort</ID>
-    <ID>ForbiddenComment:MapRepo.kt:MapRepo$// TODO: Save the size in the DB</ID>
-    <ID>ForbiddenComment:MapView.kt:MapView$// TODO: If map bounds changed, invalidate layers</ID>
-    <ID>ForbiddenComment:MapView.kt:MapView$// TODO: This doesn't work for world maps</ID>
-    <ID>ForbiddenComment:MapViewLayerManager.kt:MapViewLayerManager$// TODO: ERROR HANDLING</ID>
-    <ID>ForbiddenComment:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$// TODO: If the pressure turns around, don't forecast further out than that (can't tell what the next pressure system will bring)</ID>
-    <ID>ForbiddenComment:MonteCarloPressureForecaster.kt:MonteCarloPressureForecaster$// TODO: Return the CI or only include samples that are confident</ID>
-    <ID>ForbiddenComment:MoveBeaconCommand.kt:MoveBeaconCommand$// TODO: Consolidate with move beacon group</ID>
-    <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: Listen for navigation and automatically hide/show with override ability (for navigation tool)</ID>
-    <ID>ForbiddenComment:NavigationSheetView.kt:NavigationSheetView$// TODO: This should be tracked by a service (for background navigation)</ID>
-    <ID>ForbiddenComment:Navigator.kt:Navigator$// TODO: Standardized navigation instructions</ID>
-    <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Extract this logic to the flashlight (if camera is in use)</ID>
-    <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Move selected beacon updating to a coroutine</ID>
-    <ID>ForbiddenComment:NavigatorFragment.kt:NavigatorFragment$// TODO: Wait for GPS location to be up to date (show a loading indicator)</ID>
-    <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Each error condition should be responsible for its own display and dismissal</ID>
-    <ID>ForbiddenComment:NavigatorUserErrors.kt:NavigatorUserErrors$// TODO: Improve architecture using the strategy pattern and remove this class all together</ID>
-    <ID>ForbiddenComment:OfflineMapService.kt:OfflineMapService.&lt;no name provided&gt;$// TODO: Bulk delete</ID>
-    <ID>ForbiddenComment:PathExtensions.kt:// TODO: Extract this and add solid style</ID>
-    <ID>ForbiddenComment:PathOverviewFragment.kt:PathOverviewFragment$// TODO: Eventually move all of this to the path layer (including waypoint rendering)</ID>
-    <ID>ForbiddenComment:PathsFragment.kt:PathsFragment$// TODO: See if it is possible to get notified of changes without loading all paths</ID>
-    <ID>ForbiddenComment:PdfImageRegionDecoder.kt:PdfImageRegionDecoder$// TODO: Pass in scale</ID>
-    <ID>ForbiddenComment:PerspectiveCorrectionView.kt:PerspectiveCorrectionView$// TODO: Extend subsampling image view and disable scrolling</ID>
-    <ID>ForbiddenComment:PhenologyService.kt:PhenologyService$// TODO: This isn't needed right now, but it should be an interpolated version of astronomy get daylight length (for performance)</ID>
-    <ID>ForbiddenComment:PhotoMap.kt:PhotoMap.Companion$// TODO: Make this based on meters per pixel</ID>
-    <ID>ForbiddenComment:PhotoMapTileSourceSelector.kt:PhotoMapTileSourceSelector$// TODO: Factor in rotation by using projection to see if the bounds intersect/are contained</ID>
-    <ID>ForbiddenComment:PhotoMapToolLayerManager.kt:PhotoMapToolLayerManager$// TODO: Extract these to layer config</ID>
-    <ID>ForbiddenComment:PlaceBeaconFragment.kt:PlaceBeaconFragment$// TODO: Prevent interaction until loaded</ID>
-    <ID>ForbiddenComment:PowerSettingsFragment.kt:PowerSettingsFragment$// TODO: Move preference to it's own repo</ID>
-    <ID>ForbiddenComment:PressureChart.kt:PressureChart$// TODO: Dotted line</ID>
-    <ID>ForbiddenComment:PressureChart.kt:PressureChart$// TODO: Support minimum range</ID>
-    <ID>ForbiddenComment:PressureInputView.kt:PressureInputView$// TODO: Support long name</ID>
-    <ID>ForbiddenComment:ScaleBarLayer.kt:ScaleBarLayer$// TODO: Allow position to be adjusted</ID>
-    <ID>ForbiddenComment:SensorService.kt:SensorService$// TODO: Expose a way to see that a disturbance is present</ID>
-    <ID>ForbiddenComment:SettingsToolRegistration.kt:SettingsToolRegistration$// TODO: Add all the tool settings</ID>
-    <ID>ForbiddenComment:SightingCompassBottomSheetFragment.kt:SightingCompassBottomSheetFragment$// TODO: Width should always match parent, height can be cropped</ID>
-    <ID>ForbiddenComment:SightingListFragment.kt:SightingListFragment$// TODO: Let user set default navigation tool (compass or map)</ID>
-    <ID>ForbiddenComment:SingleImageReader.kt:SingleImageReader$// TODO: Handle when the original region was out of bounds (fill with 0)</ID>
-    <ID>ForbiddenComment:SunriseAlarmReceiver.kt:SunriseAlarmReceiver.Companion$// TODO: Extract this out of the receiver</ID>
-    <ID>ForbiddenComment:SunsetAlarmReceiver.kt:SunsetAlarmReceiver.Companion$// TODO: Extract this out of the receiver</ID>
-    <ID>ForbiddenComment:TemperatureWeatherField.kt:TemperatureWeatherField$// TODO: Build chart into this</ID>
-    <ID>ForbiddenComment:ThermometerSettingsFragment.kt:ThermometerSettingsFragment$// TODO: No need for multiple units, use a UnitPreference</ID>
-    <ID>ForbiddenComment:TideGeoJsonSource.kt:TideGeoJsonSource$// TODO: Limit max locations?</ID>
-    <ID>ForbiddenComment:TideTableRepo.kt:TideTableRepo$// TODO: Only delete the tides if they changed</ID>
-    <ID>ForbiddenComment:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$// TODO: This should use the same gap filling logic as above</ID>
-    <ID>ForbiddenComment:TileLoader.kt:TileLoader$// TODO: This should be handled by a higher level component</ID>
-    <ID>ForbiddenComment:TileMapLayer.kt:TileMapLayer$// TODO: This isn't the ideal place to do cleanup since garbage can build up. Likely need some sort of LRU cache for all intermediates.</ID>
-    <ID>ForbiddenComment:TileQueue.kt:TileQueue$// TODO: Allow cancellation of a job - likely means storing the actual jobs somewhere</ID>
-    <ID>ForbiddenComment:ToolAction.kt:ToolAction$// TODO: Indicate required parameters, so it can be matched with a broadcast</ID>
-    <ID>ForbiddenComment:ToolBroadcast.kt:ToolBroadcast$// TODO: Indicate output parameters, so it can be matched with a receiver</ID>
-    <ID>ForbiddenComment:ToolDeclinationFragment.kt:ToolDeclinationFragment$// TODO: Disable the coordinate view instead</ID>
-    <ID>ForbiddenComment:ToolWidgetViewBinder.kt:ToolWidgetViewBinder$// TODO: Get a GPS / elevation reading</ID>
-    <ID>ForbiddenComment:Tools.kt:Tools$// TODO: Also update in app widgets?</ID>
-    <ID>ForbiddenComment:ToolsFragment.kt:ToolsFragment$// TODO: Add a way to customize this</ID>
-    <ID>ForbiddenComment:TurnBackAlarmReceiver.kt:TurnBackAlarmReceiver.Companion$// TODO: Extract this out of the receiver</ID>
-    <ID>ForbiddenComment:ViewPhotoMapFragment.kt:ViewPhotoMapFragment$// TODO: Don't show if location not on map</ID>
-    <ID>ForbiddenComment:WeatherRepo.kt:WeatherRepo$// TODO: Only do this if there was a change</ID>
-    <ID>ForbiddenComment:WeatherSubsystem.kt:WeatherSubsystem$// TODO: Determine if the pressure history is reliable - sum of squared errors between raw and smoothed?</ID>
-    <ID>ForbiddenComment:WeatherSubsystem.kt:WeatherSubsystem$// TODO: Extract this</ID>
-    <ID>ForbiddenComment:WeatherSubsystem.kt:WeatherSubsystem$// TODO: Extract this to Sol (new forecaster)</ID>
-    <ID>ForbiddenComment:Whistle.kt:SoundGenerator2$// TODO: Replace with Andromeda SoundGenerator</ID>
     <ID>LargeClass:FormatService.kt:FormatService</ID>
     <ID>LargeClass:Licenses.kt:Licenses</ID>
     <ID>LargeClass:PathOverviewFragment.kt:PathOverviewFragment : BoundFragment</ID>
     <ID>LongMethod:ARAstronomyLayer.kt:ARAstronomyLayer$private fun updatePositions</ID>
     <ID>LongMethod:AppDatabase.kt:AppDatabase.Companion$private fun buildDatabase: AppDatabase</ID>
-    <ID>LongMethod:CreateTideFragment.kt:CreateTideFragment$@SuppressLint("ClickableViewAccessibility") override fun onViewCreated</ID>
+    <ID>LongMethod:CreateTideFragment.kt:CreateTideFragment$override fun onViewCreated</ID>
     <ID>LongMethod:GeoJsonLineStringRenderer.kt:GeoJsonLineStringRenderer$private suspend fun renderFeaturesInBackground</ID>
     <ID>LongMethod:GeoJsonPointRenderer.kt:GeoJsonPointRenderer$private fun convertFeaturesToMarkers</ID>
     <ID>LongMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>

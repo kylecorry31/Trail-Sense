@@ -26,10 +26,6 @@ fun CoordinateBounds.Companion.from(geofences: List<Geofence>): CoordinateBounds
 
 /**
  * Returns the values between min and max, inclusive, that are divisible by divisor
- * @param min The minimum value
- * @param max The maximum value
- * @param divisor The divisor
- * @return The values between min and max, inclusive, that are divisible by divisor
  */
 fun getValuesBetween(min: Float, max: Float, divisor: Float): List<Float> {
     val values = mutableListOf<Float>()

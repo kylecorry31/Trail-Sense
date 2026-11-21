@@ -63,15 +63,12 @@ class MapCalibrationView : BasePhotoMapView {
         // Not supported
     }
 
-    // TODO: Support dragging the coordinates
-
     private fun drawCalibrationPoints() {
         var calibrationPoints =
             (map?.georeference?.calibrationPoints ?: emptyList()).mapIndexed { index, point ->
                 index to point
             }
 
-        // Sort highlighted last
         calibrationPoints = calibrationPoints.sortedBy { it.first == highlightedIndex }
 
         for ((i, point) in calibrationPoints) {

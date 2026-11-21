@@ -115,7 +115,6 @@ class PhotoImportBottomSheetFragment(
             val success = onIO {
                 val saved = binding.camera.capture(file)
 
-                // Set the orientation EXIF
                 tryOrLog {
                     if (orientation != DeviceOrientation.Orientation.Portrait) {
                         val exif = ExifInterface(file)

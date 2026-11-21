@@ -11,7 +11,6 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.Beacon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-// TODO: Consolidate with move beacon group
 class MoveBeaconCommand(
     private val context: Context,
     private val scope: CoroutineScope,

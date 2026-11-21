@@ -165,7 +165,6 @@ internal class PedometerPreferenceMigrationTest {
         verify(prefs, never()).remove("cache_steps")
         verify(prefs, never()).remove("last_odometer_reset")
 
-        // Retry migration
         whenever(prefs.getLong("cache_steps")).thenReturn(6)
         whenever(prefs.getInstant("last_odometer_reset")).thenReturn(
             Instant.parse("2026-06-14T11:00:00Z")

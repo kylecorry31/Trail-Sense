@@ -34,17 +34,14 @@ class ToolMagnifierTest : ToolTestBase(Tools.MAGNIFIER) {
             isCameraInUse(isBackFacing = true)
         }
 
-        // Freeze button pauses the preview
         click(R.id.freeze_btn)
         isVisible(R.id.frozen_frame)
         isNotVisible(R.id.focus_toggle_btn)
 
-        // Play button resumes the preview
         click(R.id.freeze_btn)
         not { isVisible(R.id.frozen_frame, waitForTime = 0) }
         isVisible(R.id.focus_toggle_btn)
 
-        // Focus toggle switches between auto and close-up focus
         click(R.id.focus_toggle_btn)
         click(R.id.focus_toggle_btn)
     }

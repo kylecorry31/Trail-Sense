@@ -22,7 +22,6 @@ internal class RequestRemoveBatteryRestrictionCommandTest {
 
     @BeforeEach
     fun setup() {
-        // Mock fragment
         val fragment = mock<AndromedaFragment>()
         whenever(fragment.requireContext()).thenReturn(mock())
         flag = mock()
@@ -34,44 +33,32 @@ internal class RequestRemoveBatteryRestrictionCommandTest {
 
     @Test
     fun doesNotAlertWhenNotRequired() {
-        // Mock is required
         whenever(isRequired.isSatisfiedBy(any())).thenReturn(false)
 
-        // Execute
         command.execute()
 
-        // Verify
         verify(alerter, never()).alert()
-        // Verify flag gets set to false
         verify(flag).set(false)
     }
 
     @Test
     fun alertsWhenRequired() {
-        // Mock is required
         whenever(isRequired.isSatisfiedBy(any())).thenReturn(true)
 
-        // Execute
         command.execute()
 
-        // Verify
         verify(alerter).alert()
-        // Verify flag gets set to true
         verify(flag).set(true)
     }
 
     @Test
     fun doesNotAlertWhenFlagIsTrue() {
-        // Mock is required
         whenever(isRequired.isSatisfiedBy(any())).thenReturn(true)
 
-        // Mock flag
         whenever(flag.get()).thenReturn(true)
 
-        // Execute
         command.execute()
 
-        // Verify
         verify(alerter, never()).alert()
     }
 }

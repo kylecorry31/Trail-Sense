@@ -210,7 +210,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
     }
 
     private fun update() {
-        // TODO: Only call this on change
         if (throttle.isThrottled()) {
             return
         }
@@ -223,7 +222,6 @@ class CalibrateBarometerFragment : AndromedaPreferenceFragment() {
                 Units.getDecimalPlaces(units)
             )
 
-        // Disable the offset preference until there's a reading
         preference(R.string.pref_holder_barometer_offset)?.isEnabled = pressure.value != 0f
     }
 

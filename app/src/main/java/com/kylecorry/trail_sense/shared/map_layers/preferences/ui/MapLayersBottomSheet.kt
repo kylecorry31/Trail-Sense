@@ -51,7 +51,6 @@ class MapLayersBottomSheet(
             }
         }
 
-        // TODO: Show loading indicator once plugin layers are in place
         useEffect(titleView, preferences) {
             replaceChildFragment(preferences, R.id.preferences_fragment)
         }

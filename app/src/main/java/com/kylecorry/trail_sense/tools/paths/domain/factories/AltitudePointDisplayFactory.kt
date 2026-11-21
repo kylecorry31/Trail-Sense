@@ -34,7 +34,6 @@ class AltitudePointDisplayFactory(private val context: Context) : IPointDisplayF
         val min = Distance.meters(range.lower).convertTo(units)
         val max = Distance.meters(range.upper).convertTo(units)
 
-        // TODO: Make these at the beginning and end
         return mapOf(
             0.167f to formatService.formatDistance(min, Units.getDecimalPlaces(units), false),
             0.833f to formatService.formatDistance(max, Units.getDecimalPlaces(units), false),

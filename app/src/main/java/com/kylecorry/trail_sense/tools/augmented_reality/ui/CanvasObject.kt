@@ -6,8 +6,6 @@ import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.ImageMode
 import com.kylecorry.trail_sense.shared.canvas.PixelCircle
 
-// TODO: Use this on the MapView as well - maybe extract to Andromeda
-
 interface CanvasObject {
     fun draw(drawer: ICanvasDrawer, area: PixelCircle)
 }
@@ -53,7 +51,6 @@ class CanvasBitmap(
         }
         drawer.opacity(opacity)
 
-        // Choose the maximum width and height that fit in the circle
         val width = area.radius * 2f * scale
         val height = width / aspectRatio
         drawer.imageMode(ImageMode.Center)

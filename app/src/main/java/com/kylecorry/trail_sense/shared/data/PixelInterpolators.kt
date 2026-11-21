@@ -50,12 +50,10 @@ class NearestInterpolator(private val maxSearchRadius: Int = 10) : PixelInterpol
                 val top = yInt - r
                 val bottom = yInt + r
 
-                // Top & bottom
                 for (cx in left..right) {
                     process(cx, top)
                     process(cx, bottom)
                 }
-                // Left & right
                 for (cy in (top + 1) until bottom) {
                     process(left, cy)
                     process(right, cy)
@@ -75,7 +73,6 @@ class BilinearInterpolator : PixelInterpolator {
         pixel: PixelCoordinate,
         getValue: suspend (x: Int, y: Int) -> Float?
     ): Float? {
-        // Find the 4 corners
         val xFloor = pixel.x.toInt()
         val yFloor = pixel.y.toInt()
         val xCeil = xFloor + 1
@@ -85,7 +82,6 @@ class BilinearInterpolator : PixelInterpolator {
         val x2y1 = getValue(xCeil, yFloor)
         val x2y2 = getValue(xCeil, yCeil)
 
-        // Not enough values to interpolate
         if (x1y1 == null || x1y2 == null || x2y1 == null || x2y2 == null ||
             x1y1.isNaN() ||
             x1y2.isNaN() ||
@@ -95,7 +91,6 @@ class BilinearInterpolator : PixelInterpolator {
             return null
         }
 
-        // Interpolate
         val x1y1Weight = (xCeil - pixel.x) * (yCeil - pixel.y)
         val x1y2Weight = (xCeil - pixel.x) * (pixel.y - yFloor)
         val x2y1Weight = (pixel.x - xFloor) * (yCeil - pixel.y)

@@ -55,11 +55,8 @@ import org.junit.Test
 
 class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
 
-    // PHOTO MAPS (created through the UI)
-
     @Test
     fun canCreateAPhotoMapFromTheCamera() {
-        // Disclaimer
         clickOk()
 
         hasText(R.id.map_list_title, string(R.string.offline_maps))
@@ -85,7 +82,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         click("Test Group")
         hasText(string(R.string.no_maps))
 
-        // Create a map in the group
         canCreateBlankMap("Blank Map")
 
         hasTitlesInOrder("Blank Map")
@@ -93,8 +89,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         hasTitlesInOrder("Test Group")
         hasText("1 map")
     }
-
-    // PHOTO MAPS (seeded)
 
     @Test
     fun canRenameSearchAndDeleteAMapGroup() {
@@ -184,8 +178,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         }
     }
 
-    // VIEWING A PHOTO MAP (seeded, the map is centered on the current location)
-
     private fun openPhotoMap(): Long {
         val id = openWith { TestData.addPhotoMap("Test Map", location) }
         click("Test Map")
@@ -267,7 +259,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         isNotChecked(R.id.lock_btn)
         clickLeftToolbarButton(R.id.map_title)
 
-        // Trace
         clickRightToolbarButton(R.id.map_title)
         click("Trace")
         clickOk()
@@ -284,7 +275,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
     fun mapMenuCanCalibrateRenameAndChangeProjection() {
         val id = openPhotoMap()
 
-        // Calibrate
         clickRightToolbarButton(R.id.map_title)
         click("Calibrate")
         clickOkIfShown()
@@ -301,21 +291,18 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         click("Finish calibration")
         isVisible(R.id.map)
 
-        // User guide
         clickRightToolbarButton(R.id.map_title)
         click("User Guide")
         hasText("Offline Maps")
         back()
         isVisible(R.id.map)
 
-        // Rename
         clickRightToolbarButton(R.id.map_title)
         click("Rename")
         input("Test Map", "Test Map 2")
         clickOk()
         hasText(R.id.map_title, "Test Map 2")
 
-        // Change projection
         clickRightToolbarButton(R.id.map_title)
         click("Change projection")
         click("Equidistant")
@@ -333,7 +320,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
     fun mapMenuCanMeasureCreateAPathAndShowLayers() {
         openPhotoMap()
 
-        // Measure
         clickRightToolbarButton(R.id.map_title)
         click("Measure")
         hasText("Distance")
@@ -342,7 +328,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         hasText("Create path")
         clickRightToolbarButton(R.id.map_distance_title)
 
-        // Create path
         clickRightToolbarButton(R.id.map_title)
         click("Create path")
         hasText("Distance")
@@ -350,7 +335,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         hasText("Create path")
         clickRightToolbarButton(R.id.map_distance_title)
 
-        // Layers
         clickRightToolbarButton(R.id.map_title)
         click("Layers")
         scrollUntil { hasText("Location") }
@@ -366,7 +350,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
     fun mapMenuCanExportPrintAndDeleteAMap() {
         openPhotoMap()
 
-        // Export
         clickRightToolbarButton(R.id.map_title)
         click("Export")
         // Pressing back is needed sometimes to close the drive selector
@@ -377,7 +360,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
             isVisible(R.id.map)
         }
 
-        // Print
         clickRightToolbarButton(R.id.map_title)
         click("Print")
         hasText("Copies")
@@ -385,7 +367,6 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
             isVisible(R.id.map)
         }
 
-        // Delete
         clickRightToolbarButton(R.id.map_title)
         click(string(R.string.delete))
         clickOk()
@@ -395,14 +376,10 @@ class ToolOfflineMapsTest : ToolTestBase(Tools.OFFLINE_MAPS, location) {
         assertTrue(runBlocking { MapRepo.getInstance(TestUtils.context).getPhotoMaps() }.isEmpty())
     }
 
-    // MAPSFORGE MAPS
-
     @Test
     fun canOpenTheFilePickerAndCreateAnOfflineMapGroup() {
-        // TODO: To run on staging builds another solution to populating maps will need to be used
         assumeFalse(isStagingBuild)
 
-        // Offline maps disclaimer
         clickOkIfShown()
 
         hasText(R.id.map_list_title, string(R.string.offline_maps))

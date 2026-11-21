@@ -24,7 +24,6 @@ object PathDirectionRecommender {
             return PathDirection.ToStart
         }
 
-        // Detect if a path is a loop
         if (start.distanceTo(end) <= ROUTING_SAME_PLACE_TOLERANCE_METERS) {
             return PathDirection.ToEnd
         }

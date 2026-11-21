@@ -65,7 +65,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         updateMapCalibration()
     }
 
-    // Sensors
     private val sensorService by lazy { SensorService(requireContext()) }
     private val gps by lazy { sensorService.getGPS(tag = "PhotoMapCalibrationFragment") }
     private val compass by lazy { sensorService.getCompass() }
@@ -83,7 +82,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
 
     override fun onResume() {
         super.onResume()
-        // Populate the last known location
         binding.calibrationMap.useDensityPixelsForZoom = !prefs.photoMaps.highDetailMode
         binding.calibrationMap.userLocation = gps.location
         binding.calibrationMap.userLocationAccuracy =
@@ -267,7 +265,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         map ?: return
         loadCalibrationPointsFromMap()
 
-        // Find the first uncalibrated point
         calibrationIndex = manager.getNextUncalibratedIndex().coerceAtLeast(0)
 
         selectPoint(calibrationIndex)
@@ -301,7 +298,6 @@ class PhotoMapCalibrationFragment : BoundFragment<FragmentPhotoMapCalibrationBin
         binding.previewButton.isEnabled = isValid
         updateNextButtonText()
 
-        // If it is calibrated, replace the info icon with a green checkmark
         if (notice.isNotBlank()) {
             binding.mapCalibrationTitle.setCompoundDrawables(
                 Resources.dp(requireContext(), 24f).toInt(),

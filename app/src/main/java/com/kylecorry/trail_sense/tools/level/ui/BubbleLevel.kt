@@ -66,12 +66,10 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
         val yBarLeft = barLength + barGap + bubbleRadius
         val yBarTop = barThickness + barGap + topOffset
 
-        // Top bar
         noStroke()
         fill(if (isLevel(xAngle)) levelBackgroundColor else backgroundColor)
         rect(xBarLeft, xBarTop, barLength, barThickness, barRadius)
 
-        // Right bar
         fill(if (isLevel(yAngle)) levelBackgroundColor else backgroundColor)
         rect(
             yBarLeft,
@@ -81,7 +79,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             barRadius
         )
 
-        // Center circle
         fill(if (isLevel(xAngle) && isLevel(yAngle)) levelBackgroundColor else backgroundColor)
         circle(
             xBarLeft + barLength / 2f,
@@ -89,7 +86,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             barLength
         )
 
-        // Center crosshair
         stroke(lineColor)
         noFill()
         strokeWeight(lineThickness)
@@ -106,7 +102,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             yBarTop + barLength / 2f
         )
 
-        // Top line
         line(
             xBarLeft + barLength / 2f,
             xBarTop,
@@ -114,7 +109,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             xBarTop + barThickness
         )
 
-        // Right line
         line(
             yBarLeft,
             yBarTop + barLength / 2f,
@@ -122,7 +116,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             yBarTop + barLength / 2f
         )
 
-        // Top bubble
         fill(bubbleColor)
         noStroke()
 
@@ -133,7 +126,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             bubbleRadius * 2
         )
 
-        // Right bubble
         val yPercent = (yAngle + 90) / 180f
         circle(
             yBarLeft + barThickness / 2,
@@ -141,7 +133,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             bubbleRadius * 2
         )
 
-        // Center bubble
         fill(bubbleColor)
         val centerPercent = hypot(xAngle, yAngle).coerceAtMost(90f) / 90f
         val centerAngle = atan2(yAngle, xAngle)
@@ -155,7 +146,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
             bubbleRadius * 2
         )
 
-        // Center bubble label
         val centerTilt = hypot(xAngle, yAngle).coerceAtMost(90f)
         val centerLabel = formatter.formatDegrees(centerTilt)
         fill(textColor)
@@ -163,7 +153,6 @@ class BubbleLevel(context: Context?, attrs: AttributeSet? = null) : CanvasView(c
         textMode(TextMode.Center)
         text(centerLabel, xBarLeft + barLength / 2f + xPercentCenter, yBarTop + barLength / 2f + yPercentCenter)
 
-        // Text
         val xText = formatter.formatDegrees(abs(xAngle))
         val yText = formatter.formatDegrees(abs(yAngle))
         fill(textColor)

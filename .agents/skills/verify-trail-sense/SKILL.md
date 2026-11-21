@@ -208,7 +208,7 @@ $T env display status ; $T env display reset    # always reset when done
 **Build and test:**
 
 - `$T build [variant...]`
-- `$T lint`: detekt, or Android lint with `--android`.
+- `$T lint`: detekt, Android lint with `--android`, or regenerate `app/detekt-baseline.xml` with `--baseline`.
 - `$T test unit 'com.kylecorry.trail_sense.tools.beacons*'`. Use the package-qualified name or a `*` wildcard: a bare class name like `Flashlight` finds no tests and Gradle fails.
 - `$T test android com.kylecorry.trail_sense.tools.beacons.ToolBeaconsTest [--timeout 600] [--shard 0/4]`. It pins `ANDROID_SERIAL` to the target, and reports go to `app/build/reports/androidTests/connected`.
 

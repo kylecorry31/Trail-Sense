@@ -65,7 +65,6 @@ class BallisticsCalculator {
         val endDistance = maxDistance.coerceAtMost(maxCalculatedDistance)
 
 
-        // Resample
         val timeInterpolator =
             getInterpolator(trajectory.map { Vector2(it.position.x, it.time) })
         val velocityInterpolator =

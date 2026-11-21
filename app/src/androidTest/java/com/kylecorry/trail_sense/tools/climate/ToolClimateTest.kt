@@ -15,12 +15,10 @@ import org.junit.Test
 class ToolClimateTest : ToolTestBase(Tools.CLIMATE, Coordinate(42.0, -72.0)) {
 
     private fun selectLocationAndDate() {
-        // Verify today is selected by default
         hasText(string(R.string.today))
         input(R.id.utm, "42, -72")
         input(R.id.elevation_input, "1000")
 
-        // Change the date
         click(R.id.date_btn)
         pickDate(2024, 8, 5)
     }
@@ -29,10 +27,8 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE, Coordinate(42.0, -72.0)) {
     fun showsTheTemperatureAndPrecipitationForADate() {
         selectLocationAndDate()
 
-        // Verify the temperature is displayed
         hasText("83 °F / 60 °F")
 
-        // Scroll until precipitation section is visible, then verify it
         scrollUntil {
             hasText("Precipitation: 3.7 in monthly total")
         }
@@ -42,7 +38,6 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE, Coordinate(42.0, -72.0)) {
     fun showsTheClimateZoneAndEcologyForADate() {
         selectLocationAndDate()
 
-        // Scroll until the climate zone section is visible
         scrollUntil {
             hasText(string(R.string.climate_continental))
             hasText(
@@ -54,7 +49,6 @@ class ToolClimateTest : ToolTestBase(Tools.CLIMATE, Coordinate(42.0, -72.0)) {
             )
         }
 
-        // Verify ecology is displayed
         val expectedActivityLines = listOf(
             "Biting flies/mosquitoes: Active from April to October",
             "Ticks: Active from March to November",

@@ -129,7 +129,6 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
         super.onDestroyView()
     }
 
-    // TODO: Add a way to customize this
     private fun updateQuickActions() {
         ToolsQuickActionBinder(this, binding).bind()
     }
@@ -184,7 +183,6 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     private fun updateList() {
         val filter = binding.toolSearchbox.query
 
-        // Hide pinned when searching
         synchronized(listLock) {
             if (filter.isNullOrBlank()) {
                 toolListView.setSpannedData(pinnedListItems + toolListItems)
@@ -306,7 +304,6 @@ class ToolsFragment : BoundFragment<FragmentToolsBinding>() {
     }
 
     private fun editPinnedTools() {
-        // Sort alphabetically, but if the tool is already pinned, put it first
         val sorted = tools.sortedBy { tool ->
             if (pinnedToolManager.isPinned(tool.id)) {
                 "0${tool.name}"

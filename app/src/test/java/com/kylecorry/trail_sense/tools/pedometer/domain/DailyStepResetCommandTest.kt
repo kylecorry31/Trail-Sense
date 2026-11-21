@@ -30,7 +30,6 @@ internal class DailyStepResetCommandTest {
 
     @Test
     fun resetsWhenEnabledAndNoResetToday() = runBlocking {
-        // Arrange
         val time = Instant.ofEpochMilli(100)
         whenever(prefs.resetDaily).thenReturn(true)
         whenever(stepTrackerService.getOpenStepTrackingPeriod()).thenReturn(
@@ -43,16 +42,13 @@ internal class DailyStepResetCommandTest {
         )
         whenever(isToday.isSatisfiedBy(time)).thenReturn(false)
 
-        // Act
         command.execute()
 
-        // Assert
         verify(stepTrackerService).startNewStepTrackingPeriod(any())
     }
 
     @Test
     fun noResetWhenEnabledAndAlreadyResetToday() = runBlocking {
-        // Arrange
         val time = Instant.ofEpochMilli(100)
         whenever(prefs.resetDaily).thenReturn(true)
         whenever(stepTrackerService.getOpenStepTrackingPeriod()).thenReturn(
@@ -65,36 +61,28 @@ internal class DailyStepResetCommandTest {
         )
         whenever(isToday.isSatisfiedBy(time)).thenReturn(true)
 
-        // Act
         command.execute()
 
-        // Assert
         verify(stepTrackerService, never()).startNewStepTrackingPeriod(any())
     }
 
     @Test
     fun noResetWhenDisabled() = runBlocking {
-        // Arrange
         whenever(prefs.resetDaily).thenReturn(false)
         whenever(isToday.isSatisfiedBy(any())).thenReturn(true)
 
-        // Act
         command.execute()
 
-        // Assert
         verify(stepTrackerService, never()).startNewStepTrackingPeriod(any())
     }
 
     @Test
     fun resetsWhenEnabledAndNeverReset(): Unit = runBlocking {
-        // Arrange
         whenever(prefs.resetDaily).thenReturn(true)
         whenever(stepTrackerService.getOpenStepTrackingPeriod()).thenReturn(null)
 
-        // Act
         command.execute()
 
-        // Assert
         verify(stepTrackerService).startNewStepTrackingPeriod(any())
         verify(isToday, never()).isSatisfiedBy(any())
     }

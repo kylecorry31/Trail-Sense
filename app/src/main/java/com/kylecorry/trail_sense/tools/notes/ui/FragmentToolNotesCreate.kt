@@ -20,20 +20,16 @@ import java.time.Instant
 class FragmentToolNotesCreate : TrailSenseReactiveFragment(R.layout.fragment_tool_notes_create) {
 
     override fun update() {
-        // Views
         val titleView = useView<TextInputView>(R.id.title_edit)
         val contentView = useView<Notepad>(R.id.content_edit)
         val createButtonView = useView<FloatingActionButton>(R.id.note_create_btn)
 
-        // Services
         val context = useAndroidContext()
         val navController = useNavController()
         val notesRepo = useMemo(context) { NoteRepo.getInstance(context) }
 
-        // Arguments
         val noteId = useArgument<Long>("edit_note_id") ?: 0L
 
-        // State
         val (title, setTitle) = useState(titleView.text.toString())
         val (content, setContent) = useState(contentView.text?.toString() ?: "")
         val editingNote = useBackgroundMemo(notesRepo, noteId) {
@@ -45,7 +41,6 @@ class FragmentToolNotesCreate : TrailSenseReactiveFragment(R.layout.fragment_too
             !nothingEntered && (title != editingNote?.title || content != editingNote.contents)
         }
 
-        // Effects
         useEffect(titleView) {
             setTitle(titleView.text.toString())
             titleView.setOnTextChangeListener {

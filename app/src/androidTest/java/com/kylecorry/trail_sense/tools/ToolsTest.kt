@@ -25,7 +25,6 @@ class ToolsTest : ToolTestBase(0L) {
 
     @Test
     fun openWithDynamicColors() {
-        // TODO: Figure out how to check this on staging builds
         assumeFalse(isStagingBuild)
 
         val prefs = PreferencesSubsystem.getInstance(TestUtils.context).preferences
@@ -35,13 +34,11 @@ class ToolsTest : ToolTestBase(0L) {
             true
         )
 
-        // Restart the app with Navigation tool (default)
         scenario.close()
         scenario = TestUtils.startWithTool(Tools.NAVIGATION) {
             navController = it.findNavController()!!
         }
 
-        // Verify navigation tool is open
         isTrue {
             Tools.getTool(TestUtils.context, Tools.NAVIGATION)!!
                 .isOpen(navController.currentDestination?.id ?: 0)
@@ -50,7 +47,6 @@ class ToolsTest : ToolTestBase(0L) {
 
     @Test
     fun catchesToolErrors() {
-        // TODO: Figure out how to check this on staging builds (not sure if it will be possible)
         assumeFalse(isStagingBuild)
 
         scenario.close()
@@ -69,24 +65,20 @@ class ToolsTest : ToolTestBase(0L) {
         hasText("An error occurred")
         hasText("Field Guide")
 
-        // Settings
         scrollUntil { click(R.id.open_settings) }
         hasText("Units")
 
         back()
         hasText("An error occurred")
 
-        // View error details
         click(R.id.view_error_details)
         hasText("Build type")
         clickOk()
 
-        // Other buttons
         isVisible(R.id.email_developer)
         isVisible(R.id.copy_error)
         isVisible(R.id.restart_app)
 
-        // Fix the issue and reopen tool
         DependencyRegistry.addSingleton(
             FieldGuideService(
                 TestUtils.context,

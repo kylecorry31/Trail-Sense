@@ -15,7 +15,6 @@ interface ICompassView {
     fun removeCompassLayer(layer: ICompassLayer)
     fun setCompassLayers(layers: List<ICompassLayer>)
 
-    // TODO: Replace mappable reference point with a compass marker
     fun draw(reference: IMappableReferencePoint, size: Int? = null)
 
     fun draw(bearing: IMappableBearing, stopAt: Coordinate? = null)

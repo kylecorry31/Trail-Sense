@@ -9,7 +9,6 @@ import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 import com.kylecorry.trail_sense.shared.map_layers.ui.layers.overlay.OverlayLayer
 
-// TODO: Allow setting of position
 class CompassOverlayLayer : OverlayLayer() {
 
     override val layerId: String = LAYER_ID
@@ -52,14 +51,12 @@ class CompassOverlayLayer : OverlayLayer() {
         drawer.push()
         drawer.rotate(-map.mapAzimuth, location.x, location.y)
 
-        // Background circle
         drawer.noTint()
         drawer.fill(backgroundColor ?: Color.WHITE)
         drawer.stroke(Color.WHITE)
         drawer.strokeWeight(drawer.dp(1f))
         drawer.circle(location.x, location.y, compassSize)
 
-        // Top triangle
         drawer.noStroke()
         drawer.fill(cardinalDirectionColor ?: Color.WHITE)
         drawer.triangle(
@@ -71,7 +68,6 @@ class CompassOverlayLayer : OverlayLayer() {
             location.y
         )
 
-        // Bottom triangle
         drawer.fill(Color.WHITE)
         drawer.triangle(
             location.x,

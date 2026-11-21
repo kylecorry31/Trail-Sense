@@ -42,7 +42,6 @@ class BeaconSender(private val fragment: Fragment) : IBeaconSender {
                 }
 
                 else -> {
-                    // Do nothing
                 }
             }
         }

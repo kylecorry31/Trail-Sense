@@ -19,7 +19,6 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
         location: Coordinate,
         declination: Float
     ): ListItem = onDefault {
-        // At a glance
         val times = astronomyService.getMoonTimes(location, date)
         val phase = if (date == LocalDate.now()) {
             astronomyService.getCurrentMoonPhase()
@@ -36,7 +35,6 @@ class MoonListItemProducer(context: Context) : BaseAstroListItemProducer(context
             )
         }
 
-        // Advanced
         val isSuperMoon = astronomyService.isSuperMoon(date)
         val peak = times.transit?.let { astronomyService.getMoonPosition(location, it).altitude }
         val currentPosition = if (date == LocalDate.now()) astronomyService.getMoonPosition(location) else null

@@ -62,7 +62,6 @@ class QuickActionRecordSighting(btn: QuickActionButtonView, fragment: Fragment) 
                 return@launch
             }
 
-            // Record the sighting
             id = service.recordSighting(
                 Sighting(
                     0,

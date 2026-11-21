@@ -49,7 +49,7 @@ class BaseMapTileSource : TileSource {
                             PercentCoordinate(1f, 0f)
                         )
                     ),
-                    isFullWorld = true // TODO: Derive this using calibration points
+                    isFullWorld = true
                 )
             )
         ),

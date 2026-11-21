@@ -71,7 +71,6 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     }
 
     private fun loadExistingBeacon() {
-        // TODO: Prevent interaction until loaded
         editingBeaconId?.let {
             inBackground {
                 val beacon = onIO {
@@ -88,13 +87,11 @@ class PlaceBeaconFragment : BoundFragment<FragmentCreateBeaconBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         form.bind(binding)
-        // TODO: Prevent interaction until loaded
         updateIcon()
         updateColor()
         updateBeaconGroupName()
         loadExistingBeacon()
 
-        // Fill in the initial location information
         initialLocation?.let {
             val data = CreateBeaconData.from(it).copy(groupId = form.data.groupId)
             fill(data)

@@ -49,7 +49,6 @@ class SightingCompassBottomSheetFragment(
 
         dialog?.setOnCancelListener { onSelect(null) }
 
-        // TODO: Width should always match parent, height can be cropped
         binding.camera.setScaleType(PreviewView.ScaleType.FIT_CENTER)
         binding.camera.start(
             lifecycleOwner = this,

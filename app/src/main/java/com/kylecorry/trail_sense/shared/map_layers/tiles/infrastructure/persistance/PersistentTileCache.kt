@@ -23,21 +23,17 @@ class PersistentTileCache(context: Context) {
         val cached = repo.get(key, tile)
 
         if (cached != null) {
-            // Cache hit - load bitmap and update last used time
             val bitmap = loadBitmap(cached)
             if (bitmap != null) {
                 repo.updateLastUsedOn(cached.id)
                 return@onIO bitmap
             }
-            // File was missing, delete the cache entry
             repo.delete(cached)
         }
 
-        // Cache miss - produce bitmap and save
         val bitmap = producer()
         saveBitmap(key, tile, bitmap)
 
-        // Check if cache exceeds limit and evict if needed
         val totalSize = repo.getTotalSizeBytes()
         if (totalSize > MAX_CACHE_SIZE_BYTES) {
             repo.deleteLeastRecentlyUsed(EVICTION_COUNT)
@@ -101,7 +97,7 @@ class PersistentTileCache(context: Context) {
     }
 
     companion object {
-        private const val MAX_CACHE_SIZE_BYTES = 25 * 1024 * 1024L // 25 MB
+        private const val MAX_CACHE_SIZE_BYTES = 25 * 1024 * 1024L
         private const val EVICTION_COUNT = 150
         private const val LOSSLESS_QUALITY = 100
     }

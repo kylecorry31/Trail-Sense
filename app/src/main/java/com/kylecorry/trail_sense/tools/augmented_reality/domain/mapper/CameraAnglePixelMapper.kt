@@ -79,7 +79,6 @@ interface CameraAnglePixelMapper {
             val cosBearing = cos(bearingRad)
             val sinBearing = sin(bearingRad)
 
-            // X and Y are flipped
             val x = sinBearing * cosAltitude * radius
             val y = sinAltitude * radius
             val z = cosBearing * cosAltitude * radius

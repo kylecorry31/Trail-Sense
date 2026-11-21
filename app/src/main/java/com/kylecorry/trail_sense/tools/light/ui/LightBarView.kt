@@ -80,8 +80,6 @@ class LightBarView : View {
             Optics.luxAtDistance(candela, Distance.from(distance.toFloat(), units))
         }
 
-        // TODO: Calculate distance of each intensity description
-
 
         gradient = getColors(intensities)
     }

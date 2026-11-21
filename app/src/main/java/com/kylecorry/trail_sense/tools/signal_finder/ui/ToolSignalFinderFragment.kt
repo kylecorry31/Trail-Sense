@@ -40,21 +40,18 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
     override fun update() {
         val context = useAndroidContext()
 
-        // Views
         val list = useView<AndromedaListView>(R.id.list)
         val disclaimer = useView<TextView>(R.id.disclaimer)
         val emptyText = useView<TextView>(R.id.empty_text)
         val title = useView<Toolbar>(R.id.title)
         val navController = useNavController()
 
-        // Services
         val markdown = useService<MarkdownService>()
         val navigator = useService<Navigator>()
         val queue = useCoroutineQueue()
         val sensorService = useService<SensorService>()
         val mainActivity = useMainActivity()
 
-        // State
         val hasLocationPermission = useMemo(sensorService, lifecycleHookTrigger.onResume()) {
             sensorService.hasLocationPermission()
         }
@@ -75,13 +72,11 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
 
         list.emptyView = emptyText
 
-        // Set up the disclaimer
         useEffect(disclaimer) {
             disclaimer.text = markdown.toMarkdown(getString(R.string.cell_tower_disclaimer))
             disclaimer.movementMethod = LinkMovementMethodCompat.getInstance()
         }
 
-        // List items
         useEffect(
             list,
             navController,
@@ -120,7 +115,6 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
             list.setItems(signalItems + nearbyItems)
         }
 
-        // Cell tower updating
         useBackgroundEffect(distance(location, Distance.meters(100f))) {
             setLoading(true)
             queue.replace {
@@ -133,7 +127,6 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
             }
         }
 
-        // Loading
         useEffect(title, loading) {
             title.subtitle.text = if (loading) {
                 getString(R.string.loading)

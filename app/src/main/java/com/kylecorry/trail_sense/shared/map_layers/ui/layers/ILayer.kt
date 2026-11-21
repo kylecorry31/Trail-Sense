@@ -10,30 +10,17 @@ import java.time.Instant
 
 interface ILayer {
 
-    /**
-     * The ID of the layer
-     */
     val layerId: String
 
-    /**
-     * Whether the layer is time dependent (changes with time)
-     */
     val isTimeDependent: Boolean
         get() = false
 
     val isLoaded: Boolean
         get() = true
 
-    /**
-     * Set the time of the layer
-     */
     fun setTime(time: Instant?) {
-        // Do nothing
     }
 
-    /**
-     * Set the preferences of the layer
-     */
     fun setPreferences(preferences: Bundle)
 
     /**
@@ -48,9 +35,6 @@ interface ILayer {
      */
     fun drawOverlay(context: Context, drawer: ICanvasDrawer, map: IMapView)
 
-    /**
-     * Invalidate the layer
-     */
     fun invalidate()
 
     /**
@@ -71,21 +55,18 @@ interface ILayer {
      * Called when the layer can start running
      */
     fun start() {
-        // Do nothing
     }
 
     /**
      * Called when the layer should stop running and clean up
      */
     fun stop() {
-        // Do nothing
     }
 
     /**
      * Filter to just the provided feature ID. Pass null to clear the filter.
      */
     fun setFeatureFilter(id: String?) {
-        // Do nothing
     }
 
     val percentOpacity: Float

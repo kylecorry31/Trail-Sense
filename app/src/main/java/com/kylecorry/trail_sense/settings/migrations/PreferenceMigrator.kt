@@ -241,7 +241,6 @@ class PreferenceMigrator private constructor() {
                 }
             },
             PreferenceMigration(16, 17) { context, prefs ->
-                // Replace the old tool quick actions with the generic tool quick action
                 val individualQuickActionPrefs = listOf(
                     context.getString(R.string.pref_navigation_quick_action_left),
                     context.getString(R.string.pref_navigation_quick_action_right),
@@ -313,23 +312,17 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(20, 21) { context, prefs ->
 
                 val disabledByDefault = listOf(
-                    // Elevation
                     "pref_photo_maps_elevation_layer_enabled",
                     "pref_navigation_elevation_layer_enabled",
-                    // Hillshade
                     "pref_photo_maps_hillshade_layer_enabled",
                     "pref_navigation_hillshade_layer_enabled",
-                    // Contour
                     "pref_photo_maps_contour_layer_enabled",
                     "pref_navigation_contour_layer_enabled",
-                    // Base map
                     "pref_photo_maps_base_map_layer_enabled",
                     "pref_navigation_base_map_layer_enabled",
-                    // Cell towers
                     "pref_map_cell_tower_layer_enabled",
                     "pref_photo_maps_cell_tower_layer_enabled",
                     "pref_navigation_cell_tower_layer_enabled",
-                    // Navigation
                     "pref_navigation_navigation_layer_enabled",
                 )
 
@@ -340,19 +333,15 @@ class PreferenceMigrator private constructor() {
                 }
 
                 val halfOpacityByDefault = listOf(
-                    // Elevation
                     "pref_map_elevation_layer_opacity",
                     "pref_photo_maps_elevation_layer_opacity",
                     "pref_navigation_elevation_layer_opacity",
-                    // Hillshade
                     "pref_map_hillshade_layer_opacity",
                     "pref_photo_maps_hillshade_layer_opacity",
                     "pref_navigation_hillshade_layer_opacity",
-                    // Contour
                     "pref_map_contour_layer_opacity",
                     "pref_photo_maps_contour_layer_opacity",
                     "pref_navigation_contour_layer_opacity",
-                    // Photo maps
                     "pref_navigation_map_layer_opacity",
                 )
 
@@ -406,21 +395,18 @@ class PreferenceMigrator private constructor() {
                     MyLocationGeoJsonSource.SOURCE_ID,
                 )
 
-                // Navigation
                 repo.setActiveLayerIds(
                     "navigation", allLayers.filter {
                         isMapLayerEnabled(prefs, "navigation", it)
                     }
                 )
 
-                // Map
                 repo.setActiveLayerIds(
                     "map", allLayers.filter {
                         isMapLayerEnabled(prefs, "map", it)
                     }
                 )
 
-                // Photo Map
                 repo.setActiveLayerIds(
                     "photo_maps", allLayers.filter {
                         it == PhotoMapTileSource.SOURCE_ID || isMapLayerEnabled(
@@ -463,7 +449,6 @@ class PreferenceMigrator private constructor() {
                 prefs.remove(viewDistanceKey)
             },
             PreferenceMigration(26, 27) { context, prefs ->
-                // Enable the offline maps layer by default for the navigation and map tools
                 val repo = getAppService<MapLayerPreferenceRepo>()
                 val idealOrdering = listOf(
                     BaseMapTileSource.SOURCE_ID,

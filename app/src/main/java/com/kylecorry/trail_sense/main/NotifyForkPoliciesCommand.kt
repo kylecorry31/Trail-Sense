@@ -28,17 +28,14 @@ class NotifyForkPoliciesCommand(private val context: Context) : Command {
             "trailsense@protonmail.com"
         )
 
-        // If everything matches, then the app is the original Trail Sense
         if (trailSensePackageNames.contains(packageName) && appName in trailSenseAppNames && supportEmail in trailSenseSupportEmails) {
             return
         }
 
-        // If nothing matches, then it is a valid fork
         if (!trailSensePackageNames.contains(packageName) && appName !in trailSenseAppNames && supportEmail !in trailSenseSupportEmails) {
             return
         }
 
-        // Otherwise, show an alert and ask them to change all the values
         Alerts.dialog(
             context,
             "Fork policy",

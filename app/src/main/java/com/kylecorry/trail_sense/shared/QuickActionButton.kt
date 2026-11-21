@@ -22,7 +22,6 @@ abstract class QuickActionButton(
             Lifecycle.Event.ON_PAUSE -> onPause()
             Lifecycle.Event.ON_DESTROY -> onDestroy()
             else -> {
-                // Do nothing
             }
         }
     }
@@ -46,19 +45,15 @@ abstract class QuickActionButton(
     }
 
     open fun onResume() {
-        // Do nothing
     }
 
     open fun onPause() {
-        // Do nothing
     }
 
     open fun onDestroy() {
-        // Do nothing
     }
 
     open fun onClick() {
-        // Do nothing
     }
 
     open fun onLongClick(): Boolean {

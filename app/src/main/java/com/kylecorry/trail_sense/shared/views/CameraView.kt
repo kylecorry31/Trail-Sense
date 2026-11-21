@@ -114,7 +114,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
             isStarted = true
         }
 
-        // Keep the screen on while the camera is on
         keepScreenOn = true
 
         camera?.stop(this::onCameraUpdate)

@@ -90,7 +90,6 @@ class ImproveAccuracyAlerter(
         appendLine(context.getString(R.string.gps_accuracy_tip))
         appendLine()
 
-        // Horizontal accuracy
         gps.horizontalAccuracy?.let {
             val accuracyText = context.getString(
                 R.string.accuracy_distance_format,
@@ -102,7 +101,6 @@ class ImproveAccuracyAlerter(
             appendLine(accuracyText)
         }
 
-        // Vertical accuracy
         gps.verticalAccuracy?.let {
             val accuracyText = context.getString(
                 R.string.accuracy_distance_format,
@@ -114,7 +112,6 @@ class ImproveAccuracyAlerter(
             appendLine(accuracyText)
         }
 
-        // Satellites
         bold {
             append(context.getString(R.string.gps_satellites) + ": ")
         }

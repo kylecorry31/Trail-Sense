@@ -29,7 +29,6 @@ class ModularGPSData(
     @Volatile var isTimedOut: Boolean = false
 ) : IGPS {
 
-    // Internal filter uncertainty - replace this with a custom data property (map) later
     var kalmanState: GPSKalmanState? = null
     var speedSource: SpeedSource = SpeedSource.Unknown
 

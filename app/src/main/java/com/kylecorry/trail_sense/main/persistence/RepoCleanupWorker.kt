@@ -46,7 +46,6 @@ class RepoCleanupWorker(
             "StepTrackerService" to getAppService<StepTrackerService>()
         )
 
-        // One failing cleanup should not prevent the rest from running
         var failures = 0
         for ((name, repo) in cleanables) {
             try {

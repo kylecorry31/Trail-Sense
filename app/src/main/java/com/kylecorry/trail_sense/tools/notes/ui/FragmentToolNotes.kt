@@ -19,17 +19,14 @@ import com.kylecorry.trail_sense.tools.qr.infrastructure.NoteQREncoder
 class FragmentToolNotes : TrailSenseReactiveFragment(R.layout.fragment_tool_notes) {
 
     override fun update() {
-        // Views
         val listView = useView<AndromedaListView>(R.id.note_list)
         val emptyTextView = useView<TextView>(R.id.notes_empty_text)
         val addButtonView = useView<FloatingActionButton>(R.id.add_btn)
 
-        // Services
         val context = useAndroidContext()
         val navController = useNavController()
         val notesRepo = useMemo(context) { NoteRepo.getInstance(context) }
 
-        // State
         val notesLiveData = useMemo(notesRepo) { notesRepo.getNotes() }
         val notes = useLiveData(notesLiveData, emptyList()) { items ->
             items.sortedByDescending { it.createdOn }
@@ -49,7 +46,6 @@ class FragmentToolNotes : TrailSenseReactiveFragment(R.layout.fragment_tool_note
             }
         }
 
-        // Effects
         useEffect(listView, emptyTextView) {
             listView.emptyView = emptyTextView
         }

@@ -305,8 +305,6 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
         true
     )
 
-    // Calibration
-
     override var useAutoDeclination: Boolean
         get() = cache.getBoolean(getString(R.string.pref_auto_declination)) ?: true
         set(value) = cache.putBoolean(getString(R.string.pref_auto_declination), value)

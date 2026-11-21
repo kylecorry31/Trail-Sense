@@ -28,7 +28,6 @@ class PressureWidgetView : SimpleToolWidgetView() {
 
         views.setTextViewText(TITLE_TEXTVIEW, context.getString(R.string.pressure))
 
-        // Display current pressure in the subtitle
         val pressure = current.observation?.pressure
         if (pressure != null) {
             val convertedPressure = pressure.convertTo(prefs.pressureUnits)
@@ -43,7 +42,6 @@ class PressureWidgetView : SimpleToolWidgetView() {
             views.setTextViewText(SUBTITLE_TEXTVIEW, "")
         }
 
-        // Set the tendency icon
         val tendency = current.pressureTendency
         val iconRes = when {
             tendency.amount > 0 -> R.drawable.ic_arrow_up
@@ -61,7 +59,6 @@ class PressureWidgetView : SimpleToolWidgetView() {
         views.setViewVisibility(ICON_IMAGEVIEW, View.GONE)
         views.setViewVisibility(ICON_IMAGEVIEW_TEXT_COLOR, View.VISIBLE)
 
-        // Set click action to open weather tool
         views.setOnClickPendingIntent(
             ROOT,
             NavigationUtils.toolPendingIntent(context, Tools.WEATHER)

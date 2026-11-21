@@ -63,14 +63,11 @@ class SoftmaxCloudClassifier(
         )
 
         val features = listOf(
-            // Color
             Interpolation.norm(averageNRBR.toFloat(), -1f, 1f) * 2,
-            // Texture
             texture.energy,
             texture.contrast,
             Interpolation.norm(texture.verticalMean, 0f, GLCM_LEVELS.toFloat()),
             Interpolation.norm(sqrt(texture.verticalVariance), 0f, 3f),
-            // Bias
             1f
         )
 

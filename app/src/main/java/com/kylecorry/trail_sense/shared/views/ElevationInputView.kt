@@ -27,9 +27,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/**
- * A view that allows the user to enter an elevation
- */
 class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
@@ -38,18 +35,12 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
     private val location by lazy { LocationSubsystem.getInstance(getContext()) }
     private val formatter by lazy { FormatService.getInstance(getContext()) }
 
-    /**
-     * The entered elevation
-     */
     var elevation: Distance?
         get() = elevationInput.value
         set(value) {
             elevationInput.value = value
         }
 
-    /**
-     * The hint for the elevation input
-     */
     var hint: CharSequence?
         get() = elevationInput.hint
         set(value) {
@@ -67,13 +58,11 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
 
     init {
         context?.let {
-            // Load view
             inflate(it, R.layout.view_elevation_input, this)
             elevationInput = findViewById(R.id.elevation_input)
             gpsLoadingIndicator = findViewById(R.id.gps_loading)
             gpsBtn = findViewById(R.id.gps_btn)
 
-            // Set up elevation input
             elevationInput.defaultHint = it.getString(R.string.elevation)
             elevationInput.hint = it.getString(R.string.elevation)
             elevationInput.showFeetAndInches = false
@@ -83,7 +72,6 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
                 changeListener?.invoke(distance)
             }
 
-            // Set up buttons
             gpsBtn.isVisible = true
             gpsLoadingIndicator.isVisible = false
 
@@ -148,9 +136,6 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
         return false
     }
 
-    /**
-     * Autofill the elevation from the altimeter
-     */
     fun autofill() {
         if (!gpsBtn.isVisible) return
         gpsBtn.isVisible = false
@@ -160,9 +145,6 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
         altimeter.start(this::onAltimeterUpdate)
     }
 
-    /**
-     * Pause the altimeter if it is running
-     */
     fun pause() {
         autofillTimeout.stop()
         altimeter.stop(this::onAltimeterUpdate)
@@ -171,16 +153,10 @@ class ElevationInputView(context: Context?, attrs: AttributeSet? = null) :
         elevationInput.isEnabled = true
     }
 
-    /**
-     * Set the listener for when the user clicks the autofill button
-     */
     fun setOnAutoElevationClickListener(listener: (() -> Unit)?) {
         autofillListener = listener
     }
 
-    /**
-     * Set the listener for when the elevation changes
-     */
     fun setOnElevationChangeListener(listener: ((elevation: Distance?) -> Unit)?) {
         changeListener = listener
     }

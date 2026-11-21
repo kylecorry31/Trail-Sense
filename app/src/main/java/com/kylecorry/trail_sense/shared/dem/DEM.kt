@@ -135,9 +135,6 @@ object DEM {
     }
 
 
-    /**
-     * Get contour lines using marching squares
-     */
     suspend fun getContourLines(
         bounds: CoordinateBounds,
         interval: Float,
@@ -274,7 +271,6 @@ object DEM {
 
     private suspend fun getSources(): List<GeographicImageSource> = onIO {
         sourcesLock.withLock {
-            // Clean the repo before getting sources
             DEMRepo.getInstance().clean()
             val isExternal = isExternalModel()
             val previousSources = cachedSources
@@ -313,7 +309,6 @@ object DEM {
                         EncodedDataImageReader.split16BitDecoder(it.a, it.b)
                 }
                 val maxChannels = if (it.hasWaterMask) 2 else 1
-                // TODO: Support tiles with different decoders or an aggregated geographic image source
                 GeographicImageSource(
                     EncodedDataImageReader(
                         SingleImageReader(

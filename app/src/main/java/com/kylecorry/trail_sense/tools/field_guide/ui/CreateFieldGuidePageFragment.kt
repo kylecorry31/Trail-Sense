@@ -46,7 +46,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
     }
     private var pendingPhotoPosition = 0
 
-    // Tags
     private val tags =
         FieldGuidePageTag.entries.sortedWith(compareBy({ it.type.ordinal }, { it.ordinal }))
 
@@ -84,7 +83,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
             save()
         }
 
-        // Fields
         binding.name.setOnTextChangeListener {
             page = page.copy(name = it.toString())
         }
@@ -149,7 +147,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
     override fun onUpdate() {
         super.onUpdate()
 
-        // Original content
         useEffect(originalPage) {
             binding.name.text = originalPage.name
             binding.scientificName.text = originalPage.scientificName
@@ -185,7 +182,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
     private fun getPhotoMenuItems(position: Int): List<ListMenuItem> {
         return listOfNotNull(
-            // The first photo is already the default
             if (position > 0) {
                 ListMenuItem(getString(R.string.set_as_default_photo)) {
                     val images = page.images.toMutableList()
@@ -215,14 +211,10 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
     private fun onPhotosChanged(images: List<String>) {
         val existing = page.images
         pendingPhotoPosition = when {
-            // Show the photo which was just added
             images.size > existing.size -> images.lastIndex
-            // Show the photo which took the place of the deleted one, or the last photo if the
-            // deleted one was at the end
             images.size < existing.size -> binding.photoUploadPager.currentItem.coerceAtMost(
                 maxOf(images.lastIndex, 0)
             )
-            // Show the new default photo
             else -> 0
         }
 
@@ -234,8 +226,6 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
 
     private fun updatePhotoArrows() {
         val position = binding.photoUploadPager.currentItem
-        // There is always a page for adding a photo, so there is nothing to page through until
-        // there is at least one photo
         val hasMultiplePages = photoAdapter.itemCount > 1
         binding.previousPhotoButton.isVisible = hasMultiplePages
         binding.nextPhotoButton.isVisible = hasMultiplePages

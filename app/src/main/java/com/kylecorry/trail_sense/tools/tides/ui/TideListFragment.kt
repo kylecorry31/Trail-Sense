@@ -129,7 +129,6 @@ class TideListFragment : BoundFragment<FragmentTideListBinding>() {
                 tide.location?.distanceTo(location) ?: Float.POSITIVE_INFINITY
             })).map { it to (null as TideType?) }
 
-            // Update the tide types in parallel and update each time one is done
             tideTypeRunner.run(tides.mapIndexed { index, tide ->
                 {
                     val type = tideTypeCommand.execute(tide.first)

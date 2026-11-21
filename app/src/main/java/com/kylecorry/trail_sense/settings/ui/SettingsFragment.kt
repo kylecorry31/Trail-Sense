@@ -30,7 +30,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         R.string.pref_sensor_settings to R.id.action_settings_to_sensor_settings,
         R.string.pref_backup_settings to R.id.action_settings_to_backup_settings,
         R.string.pref_tool_settings_header_key to R.id.toolsSettingsFragment,
-        // About
         R.string.pref_open_source_licenses to R.id.action_action_settings_to_licenseFragment,
         R.string.pref_diagnostics to R.id.action_settings_to_diagnostics
     )
@@ -72,7 +71,6 @@ class SettingsFragment : AndromedaPreferenceFragment() {
         preference(R.string.pref_app_version)?.summary = version
         setIconColor(preferenceScreen, Resources.androidTextColorSecondary(requireContext()))
 
-        // Populate tool settings
         val toolCategoryPreference =
             findPreference<PreferenceCategory>(getString(R.string.pref_tool_category_holder_key))
         val tools = Tools.getTools(requireContext())

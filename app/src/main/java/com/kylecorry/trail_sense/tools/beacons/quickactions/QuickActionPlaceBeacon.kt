@@ -43,7 +43,6 @@ class QuickActionPlaceBeacon(btn: QuickActionButtonView, fragment: Fragment) :
                         timeout = SensorService.EXTENDED_GPS_READ_TIMEOUT
                     )
 
-                // Create a beacon
                 val formatter = FormatService.getInstance(fragment.requireContext())
                 val time = formatter.formatDateTime(ZonedDateTime.now())
 

@@ -65,19 +65,16 @@ class CameraClinometerView : CanvasView {
         noStroke()
         val w = tickLength
 
-        // High
         fill(AppColor.Red.color)
         opacity(alpha)
         rect(0f, getY(45f), w, (getY(30f) - getY(45f)))
         rect(0f, getY(-30f), w, (getY(-45f) - getY(-30f)))
 
-        // Moderate
         fill(AppColor.Yellow.color)
         opacity(alpha)
         rect(0f, getY(60f), w, (getY(45f) - getY(60f)))
         rect(0f, getY(-45f), w, (getY(-60f) - getY(-45f)))
 
-        // Low
         fill(AppColor.Green.color)
         opacity(alpha)
         rect(0f, getY(90f), w, (getY(60f) - getY(90f)))
@@ -134,7 +131,7 @@ class CameraClinometerView : CanvasView {
     }
 
     private fun getY(inclination: Float): Float {
-        val padding = 20f//textHeight("9")
+        val padding = 20f
         val h = height - 2 * padding
         return h - (map(inclination, -90f, 90f, 0f, 1f) * h) + padding
     }

@@ -72,7 +72,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
         DeviceOrientation.Orientation.FlatInverse,
     )
 
-    // Lock
     private val minimumHoldDuration = Duration.ofMillis(200)
     private val minimumHoldAngle = 0.5f
     private var lockedAngle1: Float? = null
@@ -89,7 +88,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
 
     private var useCamera = true
 
-    // Augmented reality
     private val markerLayer = ARMarkerLayer()
     private val lineLayer = ARLineLayer()
     private var startMarker: ARPoint? = null
@@ -168,7 +166,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
     }
 
     private fun getCurrentAngle(): Float {
-        // TODO: This should just be clinometer.angle
         return normalizeAngle(-clinometer.angle + 180f)
     }
 
@@ -280,7 +277,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
             return
         }
 
-        // Update the lock state
         lockState.write(lockedAngle1 != null)
 
         if (lockState.hasChanges) {
@@ -435,7 +431,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
         lockedIncline1 = clinometer.incline
         lockStartTime = Instant.now()
 
-        // Update the UI
         binding.cameraClinometer.startInclination = lockedIncline1
         binding.clinometer.startAngle = lockedAngle1
         startMarker = addMarker()
@@ -446,16 +441,13 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
             return
         }
 
-        // Determine if the user did a sweep or single angle
         val deltaAngle = abs(clinometer.incline - (lockedIncline1 ?: 0f))
         val deltaTime = Duration.between(lockStartTime, Instant.now())
         if (deltaAngle < minimumHoldAngle || deltaTime < minimumHoldDuration) {
 
-            // These aren't needed for a single angle mode
             binding.cameraClinometer.startInclination = null
             binding.clinometer.startAngle = null
 
-            // If there was a lock, clear it instead of setting a new one
             if (hadLock) {
                 clearLock()
             }
@@ -467,7 +459,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
         lockedAngle2 = getCurrentAngle()
         lockedIncline2 = clinometer.incline
 
-        // Update UI
         endMarker = addMarker()
 
         isHolding = false
@@ -480,7 +471,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
         lockedIncline2 = null
         lockStartTime = null
 
-        // Update UI
         startMarker = null
         endMarker = null
         lineLayer.clearLines()
@@ -491,7 +481,6 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
 
     private fun addMarker(): ARPoint {
         // Distance away is distance from device to the object at 0 inclination
-        // Calculate the distance away using the hypotenuse of the triangle
         val adjacent = distanceAway?.meters()?.value ?: 10f
         val hypotenuse = adjacent / cosDegrees(clinometer.incline)
         val point = SphericalARPoint(

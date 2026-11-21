@@ -19,7 +19,6 @@ abstract class BaseMapReduce(
         val bmp = files.bitmap(originalFileName, maxSize?.toAndroidSize()) ?: return@onIO map
         files.save(originalFileName, bmp, quality, true)
 
-        // Remove the PDF
         map.pdfFile?.let { files.delete(it.path) }
 
         val newFileName = if (!originalFileName.endsWith(".webp")) {

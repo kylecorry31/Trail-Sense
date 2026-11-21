@@ -34,7 +34,6 @@ fun <T> T.useSearchSurvivalGuide(query: String): Pair<List<SurvivalGuideSearchRe
     }
 
     useBackgroundEffect(query, context, search, cancelWhenRerun = true) {
-        // Debounce
         delay(200)
         queue.replace {
             if (query.isBlank()) {

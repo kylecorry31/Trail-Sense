@@ -107,7 +107,6 @@ data class SpeciesPhenology(
                 )
             ),
 
-            // Deer/horse flies
             SpeciesPhenology(
                 "deer-horse-flies",
                 BiologicalActivityType.FliesAndMosquitoes,

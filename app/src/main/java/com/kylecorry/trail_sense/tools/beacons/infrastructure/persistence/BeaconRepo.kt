@@ -56,17 +56,14 @@ class BeaconRepo private constructor(context: Context) {
     }
 
     suspend fun deleteBeaconGroup(group: BeaconGroupEntity?) {
-        // Delete beacons
         beaconDao.deleteInGroup(group?.id)
         Tools.broadcast(BeaconsToolRegistration.BROADCAST_BEACONS_CHANGED)
 
-        // Delete groups
         val groups = getGroupsWithParent(group?.id)
         for (subGroup in groups) {
             deleteBeaconGroup(subGroup)
         }
 
-        // Delete self
         if (group != null) {
             beaconGroupDao.delete(group)
         }

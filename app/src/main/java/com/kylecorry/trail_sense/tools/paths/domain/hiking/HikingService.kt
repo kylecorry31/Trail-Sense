@@ -97,7 +97,6 @@ object HikingService {
             return FloatArray(path.size)
         }
 
-        // Fill the missing elevations prior to the first known elevation with the first known elevation
         for (i in 0 until firstElevationIndex) {
             elevations[i] = elevations[firstElevationIndex]
         }

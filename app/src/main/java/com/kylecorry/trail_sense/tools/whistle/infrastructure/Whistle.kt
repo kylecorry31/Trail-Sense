@@ -24,7 +24,6 @@ private class WhistleGenerator {
         val adjustedBaseAmount = baseFrequencyAmount / totalAmount
         val adjustedDoubleAmount = doubleFrequencyAmount / totalAmount
 
-        // Calculate the shortest possible duration that is seamless
         val lcm = Arithmetic.leastCommonMultiple(1f / frequency, 1f / warbleFrequency)
         var duration = lcm.coerceIn(0f, 1f)
         if (duration == 0f) {
@@ -44,7 +43,6 @@ private class WhistleGenerator {
     }
 }
 
-// TODO: Replace with Andromeda SoundGenerator
 private class SoundGenerator2 {
 
     fun getSound(

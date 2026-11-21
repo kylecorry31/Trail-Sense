@@ -14,7 +14,6 @@ class MapSettingsFragment : AndromedaPreferenceFragment() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.map_preferences, rootKey)
 
-        // Layers
         onClick(preference(R.string.pref_map_layer_button)) {
             layerSheet?.dismiss()
             layerSheet = MapLayersBottomSheet(MapToolRegistration.MAP_ID).also { it.show(this) }

@@ -10,8 +10,6 @@ import androidx.room.Update
 @Dao
 interface TideTableDao {
 
-    // Tide Tables
-
     @Query("SELECT * FROM tide_tables")
     suspend fun getTideTables(): List<TideTableEntity>
 
@@ -27,8 +25,6 @@ interface TideTableDao {
     @Delete
     suspend fun delete(table: TideTableEntity)
 
-    // Tide Table Rows
-
     @Query("SELECT * FROM tide_table_rows WHERE table_id = :tableId")
     suspend fun getTideTableRows(tableId: Long): List<TideTableRowEntity>
 
@@ -43,8 +39,6 @@ interface TideTableDao {
 
     @Query("DELETE FROM tide_table_rows WHERE table_id = :tableId")
     suspend fun deleteRowsForTable(tableId: Long)
-
-    // Tide constituents
 
     @Query("SELECT * FROM tide_constituents WHERE table_id = :tableId")
     suspend fun getTideConstituents(tableId: Long): List<TideConstituentEntry>

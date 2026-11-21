@@ -76,7 +76,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
     fun canNavigateToABeaconCreatedInTheApp() {
         click(R.id.beaconBtn)
 
-        // Create a beacon
         click(R.id.create_btn)
         click("Beacon", exact = true)
         input("Name", "Test Beacon")
@@ -85,7 +84,6 @@ class ToolNavigationTest : ToolTestBase(Tools.NAVIGATION, Coordinate(42.03, -71.
         scrollUntil { input(R.id.comment, "Test Comment") }
         clickRightToolbarButton(R.id.create_beacon_title)
 
-        // Navigate to it
         isVisible(R.id.beacon_recycler)
         click("Test Beacon")
         hasText(R.id.beacon_title, "Test Beacon")

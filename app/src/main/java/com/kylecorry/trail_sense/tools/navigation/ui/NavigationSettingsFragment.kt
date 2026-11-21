@@ -91,12 +91,9 @@ class NavigationSettingsFragment : AndromedaPreferenceFragment() {
             }
         }
 
-        // Hide preferences if there is no compass
         if (!hasCompass) {
-            // Set multi beacons to true (enables other settings)
             switch(R.string.pref_display_multi_beacons)?.isChecked = true
 
-            // Hide the preferences
             listOf(
                 preference(R.string.pref_display_multi_beacons),
                 preference(R.string.pref_num_visible_beacons),

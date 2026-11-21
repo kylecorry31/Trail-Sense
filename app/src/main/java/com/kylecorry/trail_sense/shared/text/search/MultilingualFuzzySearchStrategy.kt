@@ -35,7 +35,6 @@ class MultilingualFuzzySearchStrategy(
         val parentMatch = percentMatch(queryKeywords, chapterKeywords)
 
         if (parentMatch > goodMatchThreshold) {
-            // If the chapter matches, boost the section match a little
             itemMatch *= parentMatchBoost
         }
 

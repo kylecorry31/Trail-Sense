@@ -35,7 +35,6 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
     private val lastSegment = routePoints.lastIndex - 1
     val length: Float = cumulativeDistances.last()
 
-    /** The distance along the route to the point at [pointIndex]. */
     fun distanceAt(pointIndex: Int): Float = cumulativeDistances[pointIndex]
 
     /**
@@ -86,7 +85,6 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         return interpolate(segment, fractionAlong(segment, distance))
     }
 
-    // Projects the plane's origin onto the part of the segment between minDistance and maxDistance
     private fun projectOnto(
         segment: Int,
         plane: LocalPlane,
@@ -109,7 +107,6 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         )
     }
 
-    // How far along the line from a to b the closest point to the origin is
     private fun closestFractionToOrigin(a: Vector2, b: Vector2): Float {
         val ab = b - a
         val squaredLength = ab.squaredMagnitude()

@@ -37,7 +37,6 @@ class FieldGuideService(
 
     suspend fun setPageHidden(pageId: Long, isHidden: Boolean): Boolean {
         if (!repo.isBuiltInPage(pageId)) {
-            // Only built-in pages can be hidden right now
             return false
         }
         repo.setPageHidden(pageId, isHidden)

@@ -39,7 +39,6 @@ class MapMagnifier {
         return if (touch.x > width / 2f) {
             0f
         } else {
-            // Stay clear of the buttons along the right edge of the map
             width - drawer.dp(BUTTON_CLEARANCE_DP) - size
         }
     }

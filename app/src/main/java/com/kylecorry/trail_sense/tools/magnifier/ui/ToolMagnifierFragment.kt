@@ -38,7 +38,6 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
             cameraView.onTopInset { top -> cameraView.setControlsTopInset(top) }
         }
 
-        // Start / stop camera
         useEffect(isCameraEnabled, resetOnResume, hasFrozenBitmap) {
             if (isCameraEnabled && !hasFrozenBitmap) {
                 cameraView.defaultZoomRatio = 2f
@@ -58,7 +57,6 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
             cameraView.stop()
         }
 
-        // Focus mode
         useEffect(isCloseUpFocus, isCameraEnabled) {
             if (isCloseUpFocus) {
                 cameraView.setFocus(0f)
@@ -70,7 +68,6 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
             )
         }
 
-        // Freeze frame
         useEffect(frozenFrameView, cameraView, focusToggleBtn, isFrozen) {
             if (isFrozen) {
                 focusToggleBtn.isVisible = false
@@ -94,11 +91,9 @@ class ToolMagnifierFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_
         }
 
         useEffect(frozenFrameView){
-            // Consume touch events when the frozen frame view is visible to prevent interactions with the camera view behind it
             frozenFrameView.setOnTouchListener { _, _ -> true }
         }
 
-        // Button click listeners
         useEffect(freezeBtn, isFrozen) {
             freezeBtn.setOnClickListener {
                 setIsFrozen(!isFrozen)

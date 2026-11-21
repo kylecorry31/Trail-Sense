@@ -23,7 +23,6 @@ import com.kylecorry.trail_sense.shared.data.SingleImageReader
 
 object LandModel {
 
-    // Image data source
     private val size = Size(3800, 1900)
     private const val PRECISION = 4
     private const val OFFSET = 0.5f
@@ -57,7 +56,6 @@ object LandModel {
             bottomRight.x
         }
 
-        // Add padding for neighbors
         val rect = Rect(
             (topLeft.x.toInt() - 1),
             (topLeft.y.toInt() - 1),
@@ -82,7 +80,6 @@ object LandModel {
                             var landNeighbors = 0
                             var waterNeighbors = 0
 
-                            // Check 8 neighbors
                             for (dy in -1..1) {
                                 for (dx in -1..1) {
                                     if (dx == 0 && dy == 0) {

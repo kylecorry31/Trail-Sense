@@ -34,7 +34,6 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
             val events = Ecology.getLifecycleEventDates(
                 species.events,
                 Range(LocalDate.of(year, 1, 1), LocalDate.of(year, 12, 31)),
-                // TODO: This isn't needed right now, but it should be an interpolated version of astronomy get daylight length (for performance)
                 { Duration.ofHours(12) }
             ) { date ->
                 val newDate = date.withYear(year)
@@ -42,7 +41,6 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
             }.toMutableList()
 
             if (events.none { it.second.name == EVENT_ACTIVE_START }){
-                // Species is never active
                 continue
             }
 
@@ -51,7 +49,6 @@ class PhenologyService(private val weather: IWeatherSubsystem) {
                     .filter { it.start.daysUntil(it.end) > 1 }
         }
 
-        // Merge the active periods for similar biological activity
         val biologicalActivity = mutableMapOf<BiologicalActivityType, List<Range<LocalDate>>>()
         for (type in BiologicalActivityType.entries) {
             val matches = activeDays.entries.filter { it.key.type == type }

@@ -76,7 +76,6 @@ class BeaconCompassLayer(
         }
     }
 
-    // TODO: Load the icon here
     private fun convertToMarkers(
         beacons: List<Beacon>,
         compass: ICompassView
@@ -84,7 +83,6 @@ class BeaconCompassLayer(
         val markers = mutableListOf<Pair<IMappableReferencePoint, Int?>>()
         beacons.forEach {
 
-            // Reduce the opacity if the beacon is not highlighted
             val opacity = if (_highlighted == null || _highlighted?.id == it.id) {
                 1f
             } else {
@@ -98,7 +96,6 @@ class BeaconCompassLayer(
                 compass.useTrueNorth
             )
 
-            // Background
             markers.add(
                 MappableReferencePoint(
                     it.id,

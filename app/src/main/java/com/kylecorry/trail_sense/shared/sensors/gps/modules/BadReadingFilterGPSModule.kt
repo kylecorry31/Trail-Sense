@@ -12,9 +12,6 @@ import com.kylecorry.trail_sense.shared.sensors.gps.age
 import com.kylecorry.trail_sense.shared.sensors.gps.durationSince
 import java.time.Duration
 
-/**
- * Rejects readings which are clearly erroneous.
- */
 class BadReadingFilterGPSModule(
     private val logger: Logger = getAppService(),
     private val timeProvider: TimeProvider = SystemTimeProvider()
@@ -39,7 +36,6 @@ class BadReadingFilterGPSModule(
             return true
         }
 
-        // The new reading is older than the current one, so reject it
         if (newData.durationSince(previousData).isNegative) {
             logger.debug(TAG, "Rejected: older, ${describeNewReading(previousData, newData)}")
             return false

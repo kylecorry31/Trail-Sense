@@ -18,7 +18,6 @@ class ToolWhistleTest : ToolTestBase(Tools.WHISTLE) {
         // Whistle button (needs to press and hold)
         click(R.id.whistle_btn, holdDuration = 200)
 
-        // SOS button
         click(R.id.whistle_sos_btn)
 
         isTrue {
@@ -31,7 +30,6 @@ class ToolWhistleTest : ToolTestBase(Tools.WHISTLE) {
             TestUtils.isPlayingMusic()
         }
 
-        // Emergency button
         click(R.id.whistle_emergency_btn)
 
         isTrue {

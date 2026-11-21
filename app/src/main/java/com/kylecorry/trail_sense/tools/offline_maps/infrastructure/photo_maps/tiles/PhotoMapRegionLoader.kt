@@ -50,7 +50,7 @@ class PhotoMapRegionLoader(
         val region =
             BitmapUtils.getExactRegion(Rect(left, top, right, bottom), size.toAndroidSize())
         if (region.width() <= 0 || region.height() <= 0) {
-            return@onIO null // No area to load
+            return@onIO null
         }
 
         val percentTopRight = PercentCoordinate(
@@ -117,7 +117,6 @@ class PhotoMapRegionLoader(
         reqWidth: Int,
         reqHeight: Int
     ): Int {
-        // Raw height and width of image
         var inSampleSize = 1
 
         if (sourceHeight > reqHeight || sourceWidth > reqWidth) {
@@ -125,8 +124,6 @@ class PhotoMapRegionLoader(
             val halfHeight: Int = sourceHeight / 2
             val halfWidth: Int = sourceWidth / 2
 
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
             while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
                 inSampleSize *= 2
             }

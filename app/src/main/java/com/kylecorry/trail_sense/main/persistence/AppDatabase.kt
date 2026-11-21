@@ -65,9 +65,6 @@ import com.kylecorry.trail_sense.tools.tides.infrastructure.persistence.TideTabl
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingDao
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.PressureReadingEntity
 
-/**
- * The Room database for this app
- */
 @Suppress("LocalVariableName")
 @Database(
     entities = [PackItemEntity::class, Note::class, WaypointEntity::class, PressureReadingEntity::class, BeaconEntity::class, BeaconGroupEntity::class, PhotoMapEntity::class, BatteryReadingEntity::class, PackEntity::class, CloudReadingEntity::class, PathEntity::class, TideTableEntity::class, TideTableRowEntity::class, PathGroupEntity::class, LightningStrikeEntity::class, MapGroupEntity::class, TideConstituentEntry::class, FieldGuidePageEntity::class, FieldGuideSightingEntity::class, DigitalElevationModelEntity::class, NavigationBearingEntity::class, CachedTileEntity::class, PluginEntity::class, PluginRegistrationEntity::class, TrailMapEntity::class, StepTrackingPeriodEntity::class, StepCountBucketEntity::class],
@@ -104,7 +101,6 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         private const val TAG = "AppDatabase"
 
-        // For Singleton instantiation
         @Volatile
         private var instance: AppDatabase? = null
 
@@ -421,7 +417,6 @@ abstract class AppDatabase : RoomDatabase() {
 
             val MIGRATION_44_45 = object : Migration(44, 45) {
                 override fun migrate(db: SupportSQLiteDatabase) {
-                    // Group/parent relationships
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_waypoints_pathId ON waypoints(pathId)")
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_beacons_beacon_group_id ON beacons(beacon_group_id)")
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_items_packId ON items(packId)")
@@ -429,11 +424,9 @@ abstract class AppDatabase : RoomDatabase() {
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_paths_parentId ON paths(parentId)")
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_field_guide_sightings_field_guide_page_id ON field_guide_sightings(field_guide_page_id)")
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_tide_table_rows_table_id ON tide_table_rows(table_id)")
-                    // Time-based queries
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_pressures_time ON pressures(time)")
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_battery_time ON battery(time)")
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_clouds_time ON clouds(time)")
-                    // Beacon filtering
                     db.execSQL("CREATE INDEX IF NOT EXISTS index_beacons_temporary_owner ON beacons(temporary, owner)")
                 }
             }
@@ -667,7 +660,6 @@ abstract class AppDatabase : RoomDatabase() {
                     MIGRATION_59_60,
                     MIGRATION_60_61
                 ))
-                // TODO: Temporary for the android tests, will remove once AppDatabase is injected with hilt
                 .allowMainThreadQueries()
                 .build()
         }

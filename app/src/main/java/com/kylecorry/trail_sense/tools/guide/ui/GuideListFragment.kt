@@ -11,11 +11,9 @@ import com.kylecorry.trail_sense.tools.guide.infrastructure.Guides
 class GuideListFragment : TrailSenseReactiveFragment(R.layout.fragment_guide_list) {
 
     override fun update() {
-        // Views
         val searchView = useView<SearchView>(R.id.searchbox)
         val listContainerView = useView<FragmentContainerView>(R.id.guide_fragment)
 
-        // State
         val context = useAndroidContext()
         val guides = useMemo(context) { Guides.guides(context) }
         val (query, setQuery) = useState("")
@@ -34,7 +32,6 @@ class GuideListFragment : TrailSenseReactiveFragment(R.layout.fragment_guide_lis
             }
         }
 
-        // Effects
         useEffect(searchView) {
             searchView.setOnSearchListener {
                 setQuery(it)

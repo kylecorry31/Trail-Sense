@@ -101,14 +101,12 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
     }
 
     private fun getGPSTime(): Instant {
-        // First try to use the system API
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             tryOrNothing {
                 return SystemClock.currentGnssTimeClock().instant()
             }
         }
 
-        // That didn't work, so get the time from the GPS
         val fixTime = gps.eventTimeElapsedNanos
         if (fixTime == 0L) {
             return gps.eventTime
@@ -198,7 +196,6 @@ class ToolClockFragment : BoundFragment<FragmentToolClockBinding>() {
                 }
                 scheduler.once(sendTime.toZonedDateTime().toInstant())
                 getResult(Intent(Settings.ACTION_DATE_SETTINGS)) { _, _ ->
-                    // Do nothing
                 }
             }
         }

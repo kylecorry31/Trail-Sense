@@ -22,7 +22,6 @@ class FlashlightToggleVolumeAction(
     }
 
     override fun onButtonRelease(isUpButton: Boolean): Boolean {
-        // Do nothing
         return true
     }
 }

@@ -68,12 +68,10 @@ class MapLayerPreferenceRepo {
     ) {
         val sourceLayerOrder = getActiveLayerIds(fromMapId)
 
-        // Clear existing preferences for the destination
         for (mapId in toMapIds) {
             removeLayerPreferences(mapId, layerId)
         }
 
-        // Copy over the new preferences
         val fromPreferences =
             getLayerPreferences(fromMapId, listOf(layerId))[layerId] ?: emptyList()
         for (mapId in toMapIds) {
@@ -81,7 +79,6 @@ class MapLayerPreferenceRepo {
                 fromPreferences.map { it.copy(key = getPreferenceKey(mapId, layerId, it.key)) }
             prefs.preferences.putAll(newPreferences)
 
-            // Add the layer to the destination's active layers if not present
             addLayerInBestPosition(mapId, layerId, sourceLayerOrder)
         }
     }

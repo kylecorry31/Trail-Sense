@@ -17,15 +17,12 @@ internal class GroupFilterTest {
     @MethodSource("provideFilter")
     fun filter(items: List<Groupable>, includeGroups: Boolean, expected: List<Groupable>) =
         runBlocking {
-            // Arrange
             val loader = mock<IGroupLoader<Groupable>>()
             val filter = GroupFilter(loader)
             whenever(loader.getChildren(1, 2)).thenReturn(items)
 
-            // Act
             val result = filter.filter(1, includeGroups, 2) { it.id % 2 == 1L }
 
-            // Assert
             assertEquals(expected.map { it.id }, result.map { it.id })
             assertEquals(expected.map { it.isGroup }, result.map { it.isGroup })
         }

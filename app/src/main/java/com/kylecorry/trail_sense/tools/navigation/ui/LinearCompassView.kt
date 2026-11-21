@@ -67,7 +67,6 @@ class LinearCompassView : BaseCompassView {
         values.forEach {
             val x = toPixel(it.toFloat())
 
-            // Set the color
             if (it % 45 == 0) {
                 stroke(primaryColor)
                 strokeWeight(8f)
@@ -82,7 +81,6 @@ class LinearCompassView : BaseCompassView {
                 else -> 10 / 12f * height
             }
 
-            // Draw the line
             line(
                 x,
                 height.toFloat(),
@@ -90,7 +88,6 @@ class LinearCompassView : BaseCompassView {
                 lineHeight,
             )
 
-            // Draw the label
             if (it % 90 == 0) {
                 val coord = when (it) {
                     -90, 270 -> west

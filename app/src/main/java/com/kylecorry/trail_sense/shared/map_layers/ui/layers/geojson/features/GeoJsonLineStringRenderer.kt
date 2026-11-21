@@ -309,7 +309,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         if (shouldRenderLabels && path.name != null) {
             if (path.points.size < 2) return
 
-            // TODO: Adjust text size / wrapping based on name length
             drawer.textSize(drawer.sp(10f * map.layerScale))
             val strokeWeight = drawer.dp(2.5f * map.layerScale)
             val maxLabels = 5
@@ -323,7 +322,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             val placements = path.labelPlacements
             if (placements.isEmpty()) return
 
-            // Calculate rotation from matrix
             // We can map a vector (1,0) to get angle
             labelPoint[0] = 0f
             labelPoint[1] = 0f

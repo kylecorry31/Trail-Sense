@@ -5,6 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.kylecorry.andromeda.bitmaps.BitmapUtils.resizeExact
 import com.kylecorry.andromeda.files.AssetFileSystem
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.trail_sense.test_utils.ManualOnlyTest
 import com.kylecorry.trail_sense.tools.clouds.domain.classification.SoftmaxCloudClassifier
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
@@ -12,9 +13,9 @@ import org.junit.Test
 
 class CloudClassifierTest {
 
-//    @Test
+    @ManualOnlyTest
+    @Test
     fun classifyCloudImage() = runBlocking {
-        // Load images
         val context = InstrumentationRegistry.getInstrumentation().context
         val assetFiles = AssetFileSystem(context)
 
@@ -30,7 +31,6 @@ class CloudClassifierTest {
                 val bitmap = original.resizeExact(size, size)
                 original.recycle()
 
-                // Calculate training data
                 val classifier = SoftmaxCloudClassifier()
                 val classification = classifier.classify(bitmap)
 

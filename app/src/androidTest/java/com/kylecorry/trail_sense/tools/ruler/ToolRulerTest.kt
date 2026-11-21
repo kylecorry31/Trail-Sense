@@ -60,7 +60,6 @@ class ToolRulerTest : ToolTestBase(Tools.RULER) {
         // 1 in on the map is 10 ft, so the map distance is 10 ft for every 2.54 cm measured
         isTrue { abs(mapDistance() - centimeters / 2.54 * 10) < 0.02 }
 
-        // Switch back to ratio and verify it's still there
         click(R.id.map_ratio_btn)
         hasText(R.id.fractional_map_from, "1")
         hasText(R.id.fractional_map_to, "10")

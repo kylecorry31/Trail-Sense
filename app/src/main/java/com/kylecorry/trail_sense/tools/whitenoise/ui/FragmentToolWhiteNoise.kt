@@ -23,17 +23,14 @@ class FragmentToolWhiteNoise :
     TrailSenseReactiveFragment(R.layout.fragment_tool_white_noise) {
 
     override fun update() {
-        // Views
         val whiteNoiseButtonView = useView<TileButton>(R.id.white_noise_btn)
         val sleepTimerSwitchView = useView<MaterialSwitch>(R.id.sleep_timer_switch)
         val sleepTimerPickerView = useView<DurationInputView>(R.id.sleep_timer_picker)
         val soundSelectorView = useView<MaterialSpinnerView>(R.id.sound_spinner)
 
-        // Services
         val cache = useService<PreferencesSubsystem>().preferences
         val context = useAndroidContext()
 
-        // State
         val soundTypes = useMemo {
             listOf(
                 SleepSound.WhiteNoise to getString(R.string.sleep_sound_white_noise),
@@ -50,7 +47,6 @@ class FragmentToolWhiteNoise :
         val (playbackJustFinished, setPlaybackJustFinished) = useState(false)
         val (isTimerRunning, setIsTimerRunning) = useState(false)
 
-        // Effects
         useEffect(whiteNoiseButtonView, isPlaying) {
             whiteNoiseButtonView.setState(isPlaying)
         }

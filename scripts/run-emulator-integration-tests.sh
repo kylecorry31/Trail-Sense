@@ -44,7 +44,7 @@ ANDROID_SERIAL="$selected_device" ./gradlew "${gradle_args[@]}"
 
 gradle_args=(connectedDebugAndroidTest)
 if [ "$#" -ge 1 ] && [ -n "$1" ]; then
-  gradle_args+=("-Pandroid.testInstrumentationRunnerArguments.class=$1")
+  gradle_args+=("-Pandroid.testInstrumentationRunnerArguments.class=$1" -PmanualTests)
 fi
 
 if [ -n "${NUM_SHARDS:-}" ]; then

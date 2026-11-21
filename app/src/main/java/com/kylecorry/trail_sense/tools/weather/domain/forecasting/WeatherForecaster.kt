@@ -71,7 +71,6 @@ internal class WeatherForecaster(
         clouds: List<Reading<CloudGenus?>>,
         location: Coordinate
     ): Pair<WeatherArrivalTime?, List<WeatherForecast>> {
-        // If there aren't enough readings, don't use them
         val mapped = if (!hasEnoughReadings(readings)) {
             emptyList()
         } else {

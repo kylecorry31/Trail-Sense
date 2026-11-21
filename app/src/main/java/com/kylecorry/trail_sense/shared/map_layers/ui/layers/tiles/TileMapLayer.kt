@@ -153,12 +153,10 @@ open class TileMapLayer<T : TileSource>(
     }
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
-        // Avoid drawing while in safe mode
         if (SafeMode.isEnabled()) {
             return
         }
 
-        // Render loaded tiles
         var shouldSaveLayer = false
         try {
             if (shouldMultiply) {
@@ -287,14 +285,12 @@ open class TileMapLayer<T : TileSource>(
             }
         }
 
-        // Try to replace with the direct children tiles
         val children = findChildren(desiredTile)
         tiles.addAll(children)
         if (children.size >= 4) {
             return tiles
         }
 
-        // Try to find the parent tile(s)
         val parent = findParent(desiredTile)
         if (parent != null) {
             tiles.add(parent)
@@ -394,30 +390,21 @@ open class TileMapLayer<T : TileSource>(
         val actualHeight = bitmap.height - 2 * borderPixels
 
         // Bitmap pixels, exclude the border pixels - this is the bitmap with the borders cropped off (since we only render a region of the bitmap)
-        // Top left
         srcPoints[0] = 0f
         srcPoints[1] = 0f
-        // Top right
         srcPoints[2] = actualWidth.toFloat()
         srcPoints[3] = 0f
-        // Bottom left
         srcPoints[4] = 0f
         srcPoints[5] = actualHeight.toFloat()
-        // Bottom right
         srcPoints[6] = actualWidth.toFloat()
         srcPoints[7] = actualHeight.toFloat()
 
-        // Canvas pixels
-        // Top left
         dstPoints[0] = topLeftPixel.x
         dstPoints[1] = topLeftPixel.y
-        // Top right
         dstPoints[2] = topRightPixel.x
         dstPoints[3] = topRightPixel.y
-        // Bottom left
         dstPoints[4] = bottomLeftPixel.x
         dstPoints[5] = bottomLeftPixel.y
-        // Bottom right
         dstPoints[6] = bottomRightPixel.x
         dstPoints[7] = bottomRightPixel.y
 
@@ -425,14 +412,12 @@ open class TileMapLayer<T : TileSource>(
         renderMatrix.setPolyToPoly(srcPoints, 0, dstPoints, 0, 4)
 
         canvas.withMatrix(renderMatrix) {
-            // The region of the bitmap that is valid (no borders)
             srcRect.set(
                 borderPixels,
                 borderPixels,
                 bitmap.width - borderPixels,
                 bitmap.height - borderPixels
             )
-            // The actual bitmap dimensions (after cropping)
             destRect.set(
                 0,
                 0,
@@ -440,7 +425,6 @@ open class TileMapLayer<T : TileSource>(
                 actualHeight
             )
 
-            // Calculate alpha for fade-in effect
             val originalAlpha = tilePaint.alpha
             tilePaint.alpha = imageTile.getAlpha()
             // There are still tiles being faded in, so keep re-rendering the map
@@ -526,7 +510,6 @@ open class TileMapLayer<T : TileSource>(
         projectedTiles.clear()
         renderedProjection = null
         queue.clear()
-        // TODO: This isn't the ideal place to do cleanup since garbage can build up. Likely need some sort of LRU cache for all intermediates.
         sourceCleanupTask.start()
     }
 

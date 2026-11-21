@@ -48,7 +48,6 @@ data class WeatherPrediction(
     val primaryDaily = primarySelector.getWeather(daily)
 }
 
-// TODO: Expose sea level and barometric pressure
 data class WeatherObservation(
     override val id: Long,
     val time: Instant,

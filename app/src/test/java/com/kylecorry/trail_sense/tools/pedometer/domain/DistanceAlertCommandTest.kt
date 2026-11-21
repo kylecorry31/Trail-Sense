@@ -32,59 +32,47 @@ internal class DistanceAlertCommandTest {
 
     @Test
     fun doesNotAlertWhenNoDistanceSet() = runBlocking {
-        // Arrange
         whenever(prefs.alertDistance).thenReturn(null)
         whenever(calculator.distance(100)).thenReturn(Distance.meters(100f))
 
-        // Act
         command.execute()
 
-        // Assert
         verify(alerter, never()).alert()
         verify(prefs, never()).alertDistance = null
     }
 
     @Test
     fun doesNotAlertWhenDistanceNotReached() = runBlocking {
-        // Arrange
         whenever(prefs.alertDistance).thenReturn(Distance.meters(100f))
         whenever(stepTrackerService.getOpenStepTrackingPeriod()).thenReturn(getOpenPeriod(100))
         whenever(calculator.distance(100)).thenReturn(Distance.meters(99f))
 
-        // Act
         command.execute()
 
-        // Assert
         verify(alerter, never()).alert()
         verify(prefs, never()).alertDistance = null
     }
 
     @Test
     fun alertsWhenDistanceReached() = runBlocking {
-        // Arrange
         whenever(prefs.alertDistance).thenReturn(Distance.meters(100f))
         whenever(stepTrackerService.getOpenStepTrackingPeriod()).thenReturn(getOpenPeriod(100))
         whenever(calculator.distance(100)).thenReturn(Distance.meters(100f))
 
-        // Act
         command.execute()
 
-        // Assert
         verify(alerter).alert()
         verify(prefs).alertDistance = null
     }
 
     @Test
     fun alertsWhenDistanceExceeded() = runBlocking {
-        // Arrange
         whenever(prefs.alertDistance).thenReturn(Distance.meters(100f))
         whenever(stepTrackerService.getOpenStepTrackingPeriod()).thenReturn(getOpenPeriod(100))
         whenever(calculator.distance(100)).thenReturn(Distance.meters(101f))
 
-        // Act
         command.execute()
 
-        // Assert
         verify(alerter).alert()
         verify(prefs).alertDistance = null
     }

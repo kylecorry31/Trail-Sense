@@ -47,8 +47,6 @@ internal class AstronomyServiceTest {
         TimeZone.setDefault(originalTimeZone)
     }
 
-    // SUN
-
     @Test
     fun sunTimesOnTheSummerSolstice() {
         val times = service.getSunTimes(boston, SunTimesMode.Actual, LocalDate.of(2025, 6, 21))
@@ -195,8 +193,6 @@ internal class AstronomyServiceTest {
         assertEquals(Season.Summer, service.getSeason(Coordinate(-33.9, 151.2), december))
     }
 
-    // MOON
-
     @Test
     fun moonPhaseNearAKnownFullMoonIsFull() {
         // Full moon: 2025-03-14 06:55 UTC
@@ -248,8 +244,6 @@ internal class AstronomyServiceTest {
         assertNotNull(times.rise)
         assertTrue(times.rise!!.hour in 16..20, "moonrise was ${times.rise}")
     }
-
-    // EVENT SEARCH
 
     @Test
     fun findsTheNextFullMoon() = runBlocking {
@@ -340,8 +334,6 @@ internal class AstronomyServiceTest {
         assertNull(next)
     }
 
-    // ECLIPSES
-
     @Test
     fun reportsTheTotalSolarEclipseOverCleveland() {
         val eclipse = service.getSolarEclipse(cleveland, LocalDate.of(2024, 4, 8))
@@ -390,8 +382,6 @@ internal class AstronomyServiceTest {
         assertNull(service.getLunarEclipse(boston, LocalDate.of(2025, 3, 25)))
     }
 
-    // METEOR SHOWERS
-
     @Test
     fun reportsThePerseidsOnTheirPeakDay() {
         val shower = service.getMeteorShower(boston, LocalDate.of(2025, 8, 12))
@@ -404,8 +394,6 @@ internal class AstronomyServiceTest {
     fun reportsNoMeteorShowerOnAQuietDay() {
         assertNull(service.getMeteorShower(boston, LocalDate.of(2025, 6, 1)))
     }
-
-    // HELPERS
 
     private fun serviceAt(time: ZonedDateTime): AstronomyService {
         return AstronomyService(Clock.fixed(time.toInstant(), zone))

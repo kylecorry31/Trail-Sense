@@ -72,7 +72,6 @@ class ThermometerSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.thermometer_settings, rootKey)
         setIconColor(Resources.androidTextColorSecondary(requireContext()))
 
-        // TODO: No need for multiple units, use a UnitPreference
         minTempCalibratedC = editText(R.string.pref_min_calibrated_temp_c)
         maxTempCalibratedC = editText(R.string.pref_max_calibrated_temp_c)
         minTempUncalibratedC = editText(R.string.pref_min_uncalibrated_temp_c)

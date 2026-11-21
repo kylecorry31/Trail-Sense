@@ -102,7 +102,6 @@ class TideGeoJsonSource : GeoJsonSource {
             return emptyList()
         }
 
-        // TODO: Limit max locations?
         val coastal = LandModel.getCoastalLocations(DependencyRegistry.get(), bounds)
         return coastal.map {
             TideTable(

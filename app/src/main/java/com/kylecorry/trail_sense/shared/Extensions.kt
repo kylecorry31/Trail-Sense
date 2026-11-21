@@ -152,7 +152,6 @@ fun NavController.navigateWithAnimation(
         val options = builder.build()
         navigate(resId, args, options)
     } catch (e: Exception) {
-        // If for some reason the animation fails, just navigate without it
         navigate(resId, args)
     }
 }

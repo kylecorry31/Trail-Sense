@@ -54,7 +54,6 @@ class FieldGuideRepo private constructor(private val context: Context) : IFieldG
         if (page.isBuiltIn) {
             return@onIO -1
         }
-        // Delete photos if they've changed
         if (page.id != 0L) {
             val existing = pageDao.getPage(page.id)?.toFieldGuidePage()
             existing?.images?.filter { it !in page.images }?.forEach { files.delete(it) }

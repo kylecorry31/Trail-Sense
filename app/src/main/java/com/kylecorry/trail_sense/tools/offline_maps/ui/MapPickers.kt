@@ -16,7 +16,6 @@ import kotlin.coroutines.suspendCoroutine
 
 object MapPickers {
 
-    // TODO: Add sort
     suspend fun pickGroup(
         context: Context,
         title: String? = null,

@@ -45,7 +45,6 @@ class SimplePerspectiveCameraAnglePixelMapper : CameraAnglePixelMapper {
     }
 
     override fun getPixel(world: Vector3, imageRect: RectF, fieldOfView: Size): PixelCoordinate {
-        // Point is behind the camera, so calculate the linear projection
         if (world.z < 0) {
             return linear.getPixel(world, imageRect, fieldOfView)
         }

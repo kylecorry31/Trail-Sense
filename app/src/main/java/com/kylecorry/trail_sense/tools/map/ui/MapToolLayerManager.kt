@@ -59,7 +59,6 @@ class MapToolLayerManager : IMapLayerManager {
                 )
             )
 
-            // Hardcoded configuration
             distanceLayer.onPathChanged = { onDistancePathChange(it) }
             distanceLayer.onPathDragged = { updateDistance(it) }
             distanceLayer.onEditStateChanged = { onDistanceEditStateChanged?.invoke(it) }
@@ -112,8 +111,6 @@ class MapToolLayerManager : IMapLayerManager {
             selectedPointLayer.setData(point)
         }
     }
-
-    // Distance measurement
 
     private fun onDistancePathChange(points: List<Coordinate>) {
         elevationPrefetcher.update(points)

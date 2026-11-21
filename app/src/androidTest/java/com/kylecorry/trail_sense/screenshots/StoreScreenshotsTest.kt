@@ -25,6 +25,7 @@ import com.kylecorry.trail_sense.test_utils.AutomationLibrary.delay
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.hasText
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.isVisible
 import com.kylecorry.trail_sense.test_utils.AutomationLibrary.string
+import com.kylecorry.trail_sense.test_utils.ManualOnlyTest
 import com.kylecorry.trail_sense.test_utils.TestData
 import com.kylecorry.trail_sense.test_utils.TestUtils
 import com.kylecorry.trail_sense.test_utils.TestUtils.context
@@ -63,8 +64,6 @@ import kotlin.math.sin
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import org.junit.After
-import org.junit.Assume.assumeTrue
-import org.junit.BeforeClass
 import org.junit.Test
 
 /**
@@ -90,6 +89,7 @@ import org.junit.Test
  * The photo map is the Glocester Land Trust's trail map of Steere Hill Farm (a georeferenced PDF),
  * and the navigation hero uses a real hike of Tuckerman Ravine on Mount Washington.
  */
+@ManualOnlyTest
 class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
 
     private var timeShiftMillis = 0L
@@ -524,16 +524,6 @@ class StoreScreenshotsTest : ToolTestBase(Tools.NAVIGATION, STEERE_HILL) {
     }
 
     private companion object {
-        @BeforeClass
-        @JvmStatic
-        fun requireExplicitRun() {
-            val filter = InstrumentationRegistry.getArguments().getString("class").orEmpty()
-            assumeTrue(
-                "Screenshot tests only run when selected by name",
-                filter.contains(StoreScreenshotsTest::class.java.simpleName)
-            )
-        }
-
         const val HIGH_DEM_ASSET = "dem-0.6.0-high.zip"
         const val SCREENSHOT_DIRECTORY = "Pictures/TrailSenseStoreScreenshots"
         const val TRAIL_MAP_DEVICE_PATH = "/data/local/tmp/rhode-island.map"

@@ -10,7 +10,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 
 object LocalTalkToolRegistration : ToolRegistration {
     override fun getTool(context: Context): Tool {
-        // TODO: Have an open action rather than navigation ID
         return Tool(
             Tools.LOCAL_TALK,
             context.getString(R.string.local_talk),

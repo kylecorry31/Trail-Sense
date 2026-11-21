@@ -22,7 +22,6 @@ class ImageMagnifier(private val imageSize: Size, private val magnifierSize: Siz
         return com.kylecorry.andromeda.core.units.PixelCoordinate(x, 0f)
     }
 
-    // TODO: Support zoom
     fun magnify(
         source: Bitmap,
         sourceCenter: PixelCoordinate,

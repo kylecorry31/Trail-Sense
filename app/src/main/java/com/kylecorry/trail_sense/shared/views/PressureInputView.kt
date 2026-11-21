@@ -18,7 +18,6 @@ class PressureInputView(context: Context, attributeSet: AttributeSet? = null) :
     }
 
     override fun createDisplayUnit(units: PressureUnits): UnitInputView.DisplayUnit<PressureUnits> {
-        // TODO: Support long name
         return UnitInputView.DisplayUnit(
             units,
             formatService.getPressureUnitName(units),

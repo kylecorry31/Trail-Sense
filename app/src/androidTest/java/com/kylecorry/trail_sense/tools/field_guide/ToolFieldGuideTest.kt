@@ -42,7 +42,6 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         relaunchTool {
             TestData.addFieldGuidePage("A Test", listOf(FieldGuidePageTag.Bird), "Notes")
         }
-        // Disclaimer
         clickOk()
     }
 
@@ -53,23 +52,19 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
     @Test
     fun canBrowseSearchAndHideBuiltInPages() {
-        // Disclaimer
         clickOk()
 
-        // Shows categories
         for (category in listOf("Plant", "Other")) {
             scrollUntil {
                 hasText(category)
             }
         }
 
-        // Open a section
         scrollToStart(R.id.list)
         click("Animal")
         hasText("Ant")
         hasText("Clam")
 
-        // Open a built-in page
         click("Ant")
         hasText(R.id.field_guide_page_title, "Ant")
         hasText("A small insect")
@@ -78,7 +73,6 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         }
         back()
 
-        // Search
         backIfPossible()
         input(R.id.search, "Rabbit")
         hasText("Rabbit")
@@ -89,7 +83,6 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         backIfPossible()
         hasText("Plant")
 
-        // Hide a built-in page
         click("Animal")
         hasText("Ant")
         clickListItemMenu("Hide")
@@ -99,7 +92,6 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
     @Test
     fun canCreateAPage() {
-        // Disclaimer
         clickOk()
 
         // Creating a page from a category preselects its classification
@@ -142,11 +134,9 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
         clickRightToolbarButton(R.id.create_field_guide_page_title)
 
-        // Verify it shows up in the list
         hasText("A Test")
         click("A Test")
 
-        // Verify the details
         hasText(R.id.field_guide_page_title, "A Test")
         hasText("Notes")
 
@@ -167,17 +157,14 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input(R.id.name, "A Test 2")
         clickRightToolbarButton(R.id.create_field_guide_page_title)
 
-        // Verify the changes
         hasText("A Test 2")
 
-        // Open it an edit
         click("A Test 2")
         clickRightToolbarButton(R.id.field_guide_page_title)
         hasText(R.id.name, "A Test 2")
         input(R.id.name, "A Test 3")
         clickRightToolbarButton(R.id.create_field_guide_page_title)
 
-        // Verify the changes
         hasText(R.id.field_guide_page_title, "A Test 3")
 
         back()
@@ -271,7 +258,6 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
 
     @Test
     fun canLogAndEditSightings() {
-        // Disclaimer
         clickOk()
 
         click("Animal")
@@ -292,12 +278,10 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input("Notes", "Test")
         clickRightToolbarButton(R.id.title)
 
-        // Sightings list
         hasText("Sightings")
         hasText("January 1, 2025 6:00 AM")
         hasText("Test")
 
-        // Edit by clicking
         click("January 1, 2025 6:00 AM")
         hasText("January 1, 2025 6:00 AM")
         hasText("42.000000°,  72.000000°")
@@ -308,10 +292,8 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input("Test", "Test 2")
         clickRightToolbarButton(R.id.title)
 
-        // Sightings list is updated
         hasText("Test 2")
 
-        // Edit via menu
         clickListItemMenu("Edit")
         hasText("January 1, 2025 6:00 AM")
         hasText("42.000000°,  72.000000°")
@@ -321,10 +303,8 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         input("Test 2", "Test 3")
         clickRightToolbarButton(R.id.title)
 
-        // Sightings list is updated
         hasText("Test 3")
 
-        // Count on field guide page
         backUntil {
             click("Sightings (1)")
         }
@@ -350,13 +330,11 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
         click("Ant")
         click("Sightings (1)")
 
-        // Navigate
         clickListItemMenu("Navigate")
         hasText(Regex("\\s*\\d+°\\s+[NSEW]+"))
         hasText("Ant")
         back()
 
-        // Create beacon
         clickListItemMenu("Create beacon")
         hasText("Ant")
         hasText("42.000000°,  72.000000°")
@@ -368,18 +346,15 @@ class ToolFieldGuideTest : ToolTestBase(Tools.FIELD_GUIDE) {
             click("Sightings (1)")
         }
 
-        // Delete from the list
         deleteListItem()
 
         hasText("No sightings")
 
-        // Create another sighting to delete from the edit page
         click(R.id.create_btn)
         input("Notes", "Delete from edit page")
         clickRightToolbarButton(R.id.title)
         hasText("Delete from edit page")
 
-        // Delete from the edit page
         click("Delete from edit page")
         clickLeftToolbarButton(R.id.title)
         click("Delete")

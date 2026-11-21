@@ -74,7 +74,6 @@ class DigitalElevationModelLoader {
         val files = DependencyRegistry.get<FileSubsystem>()
         val database = DependencyRegistry.get<AppDatabase>().digitalElevationModelDao()
         val prefs = DependencyRegistry.get<UserPreferences>()
-        // Validate the source URI
         val fileCount = files.stream(source)?.use {
             val files = ZipUtils.list(it, MAX_ZIP_FILE_COUNT)
             if (!files.any { it.file.name == "index.json" }) {
@@ -83,11 +82,9 @@ class DigitalElevationModelLoader {
             files.size
         } ?: 0
 
-        // Clear the existing files
         DEMRepo.lock.withLock {
             files.getDirectory("dem", create = true).deleteRecursively()
 
-            // Unzip the files
             var count = 0
             files.stream(source)?.use {
                 ZipUtils.unzip(it, files.getDirectory("dem", create = true), MAX_ZIP_FILE_COUNT) {
@@ -96,17 +93,13 @@ class DigitalElevationModelLoader {
                 }
             } ?: return@flow
 
-            // Read the index file
             val indexFile = files.get("dem/index.json")
 
-            // Clear tiles
             database.deleteAll()
             database.upsert(getTilesFromIndex(files.get("dem/index.json").readText()))
 
-            // Record version
             files.get("dem/version.txt", create = true).writeText(database.getVersion() ?: "")
 
-            // Delete the index.json file since it is no longer needed
             indexFile.delete()
 
             prefs.altimeter.isDigitalElevationModelLoaded = true

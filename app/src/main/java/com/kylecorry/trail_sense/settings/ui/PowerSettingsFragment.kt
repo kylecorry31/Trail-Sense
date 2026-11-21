@@ -17,7 +17,6 @@ class PowerSettingsFragment : AndromedaPreferenceFragment() {
         setPreferencesFromResource(R.xml.power_preferences, rootKey)
 
         onClick(switch(R.string.pref_low_power_mode)) {
-            // TODO: Move preference to it's own repo
             if (prefs.isLowPowerModeOn) {
                 prefs.power.userEnabledLowPower = true
                 LowPowerMode(requireContext()).enable()

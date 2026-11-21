@@ -16,7 +16,6 @@ class ToolDeclinationTest : ToolTestBase(Tools.DECLINATION) {
 
     @Test
     fun showsTheDeclinationOfAnEnteredLocation() {
-        // Wait for it to load the GPS location
         not(waitForTime = GPS_WAIT_FOR_TIMEOUT) {
             hasText(string(R.string.loading))
         }

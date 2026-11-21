@@ -33,7 +33,6 @@ internal class TileTest {
 
     @Test
     fun getBounds() {
-        // Test zoom 0 bounds (Web Mercator projection limits)
         val tile0 = Tile(0, 0, 0)
         val bounds0 = tile0.getBounds()
         assertEquals(85.0511287798066, bounds0.north, 0.001)
@@ -41,7 +40,6 @@ internal class TileTest {
         assertEquals(-85.0511287798066, bounds0.south, 0.001)
         assertEquals(-180.0, bounds0.west, 0.001)
 
-        // Test zoom 1 bounds validity
         val tile1 = Tile(0, 0, 1)
         val bounds1 = tile1.getBounds()
         assertFalse(bounds1.north.isNaN())
@@ -71,7 +69,6 @@ internal class TileTest {
         assertEquals(1, parent.y)
         assertEquals(1, parent.z)
 
-        // Test zoom 0 has no parent
         val rootTile = Tile(0, 0, 0)
         assertNull(rootTile.getParent())
 

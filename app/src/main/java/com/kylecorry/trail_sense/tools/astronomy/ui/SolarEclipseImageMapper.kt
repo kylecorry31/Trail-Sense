@@ -53,7 +53,6 @@ class SolarEclipseImageMapper(private val context: Context) {
         drawer.push()
         drawer.clip(sunClip)
         if (isTotal) {
-            // Render the total eclipse as a ring of the sun with the moon centered
             drawer.circle(centerX, centerY, sunRadius * 2f * TOTAL_ECLIPSE_MOON_PERCENT_DIAMETER)
         } else {
             drawer.circle(moonCenterX, moonCenterY, moonRadius * 2f)

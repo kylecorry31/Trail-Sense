@@ -32,7 +32,6 @@ object DataUtils {
     ): List<T> {
         return when (type) {
             GeospatialSmoothingType.Nearby -> {
-                // TODO: This isn't performant enough, but is the preferred one
                 val start = data.firstOrNull()?.let(location) ?: Coordinate.zero
                 smoothMultivariate(
                     data,

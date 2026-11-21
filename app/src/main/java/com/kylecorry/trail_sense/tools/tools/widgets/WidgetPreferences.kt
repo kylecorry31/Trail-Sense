@@ -56,8 +56,6 @@ class WidgetPreferences(
 
     fun setTheme(theme: WidgetTheme) {
         prefs.putLong(getThemeKey(appWidgetId), theme.id)
-        // Refresh the widget
-
     }
 
     fun getTheme(): WidgetTheme {

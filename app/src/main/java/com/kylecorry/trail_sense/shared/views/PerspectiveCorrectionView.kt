@@ -26,7 +26,6 @@ import kotlin.math.max
 import kotlin.math.min
 
 
-// TODO: Extend subsampling image view and disable scrolling
 class PerspectiveCorrectionView : CanvasView {
 
     private var image: Bitmap? = null
@@ -97,7 +96,6 @@ class PerspectiveCorrectionView : CanvasView {
             onLoad(bitmap)
         }
 
-        // Center the image
         imageX = (width - bitmap.width * scale) / 2f
         imageY = (height - bitmap.height * scale) / 2f
 

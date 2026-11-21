@@ -52,7 +52,6 @@ class ToolUserGuideTest : ToolTestBase(Tools.USER_GUIDE) {
 
         clickQuickAction(Tools.QUICK_ACTION_USER_GUIDE)
 
-        // Verify it shows the user guide
         hasGuide(string(R.string.tools), R.raw.guide_tool_tools)
     }
 

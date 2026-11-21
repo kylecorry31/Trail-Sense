@@ -48,7 +48,6 @@ object SettingsToolRegistration : ToolRegistration {
                 R.id.toolsSettingsFragment,
                 R.id.themeSettingsFragment,
                 R.id.backupSettingsFragment
-                // TODO: Add all the tool settings
             ),
             notificationChannels = listOf(
                 ToolNotificationChannel(

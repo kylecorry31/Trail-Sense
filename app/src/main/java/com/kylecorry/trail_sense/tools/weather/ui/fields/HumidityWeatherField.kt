@@ -8,7 +8,6 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.colors.AppColor
 
-// TODO: Build chart into this
 class HumidityWeatherField(
     private val humidity: Float?,
     private val onClick: () -> Unit

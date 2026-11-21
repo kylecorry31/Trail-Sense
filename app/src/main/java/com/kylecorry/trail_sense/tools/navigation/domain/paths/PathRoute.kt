@@ -91,7 +91,6 @@ class PathRoute(
     }
 
     private fun getRemainingElevationLossGain(currentPoint: Snap): Pair<Distance, Distance> {
-        // The cumulative losses are negative, but the remaining loss is reported as a positive distance
         return Distance.meters(cumulativeElevationLoss.at(currentPoint) - cumulativeElevationLoss.last()) to
                 Distance.meters(cumulativeElevationGain.last() - cumulativeElevationGain.at(currentPoint))
     }
@@ -121,11 +120,8 @@ class PathRoute(
         val movement = state.location?.distanceTo(location) ?: 0f
         val lastDistance = state.distanceAlong
         val secondsSinceLastUpdate = state.time?.let { Duration.between(it, currentTime).toMillis() / 1000f } ?: 0f
-        // How far the user could have hiked since the last update (likely more than actual)
         val possibleHikingDistance = MAX_HIKING_SPEED_METERS_PER_SECOND * secondsSinceLastUpdate
-        // How far the user could have moved based on the GPS change (likely less than actual)
         val movementDistance = lastDistance + movement
-        // The likely maximum for how far the user could have moved along the route since the last update
         val possibleTravelDistance = max(movement + tolerance, possibleHikingDistance)
         val closest = geometry.getOptimalLocationMatch(
             location,
@@ -158,7 +154,6 @@ class PathRoute(
             lastDistance + possibleTravelDistance,
             estimatedDistance
         )
-        // When there is no leg ahead, the closest point ahead is the last position itself
         val isLegAhead = ahead.distanceAlong > lastDistance + MIN_LEG_AHEAD_PROGRESS_METERS
         val isAboutAsClose = ahead.offset <= closest.offset + ROUTING_SAME_PLACE_TOLERANCE_METERS
         return if (isLegAhead && isAboutAsClose) ahead else closest
@@ -173,25 +168,21 @@ class PathRoute(
         tolerance: Float
     ): Snap {
         val rejoinMargin = min(tolerance, REJOIN_MAX_TOLERANCE_METERS)
-        // If the user is close enough to the nearby match, use it instead of rejoining
         if (nearby.offset <= rejoinMargin) {
             state.pendingRejoin = null
             return nearby
         }
         val bestOverallLocation = geometry.getOptimalLocationMatch(location, 0f, length, estimatedDistance)
         val progressLost = max(lastDistance - bestOverallLocation.distanceAlong, 0f)
-        // If accepting the nearby match is better than rejoining somewhere else, use it instead of rejoining
         if (bestOverallLocation.offset + progressLost >= nearby.offset - rejoinMargin) {
             state.pendingRejoin = null
             return nearby
         }
         val pending = state.pendingRejoin
-        // If the user has a pending rejoin, and it is likely the same as the best overall location, rejoin there
         if (pending != null && abs(bestOverallLocation.distanceAlong - pending) <= tolerance + movement * REJOIN_MOVEMENT_MULTIPLIER) {
             state.pendingRejoin = null
             return bestOverallLocation
         }
-        // Otherwise, mark the intent to rejoin and wait for the next update to confirm it
         state.pendingRejoin = bestOverallLocation.distanceAlong
         return nearby
     }
@@ -224,31 +215,22 @@ class PathRoute(
     }
 
     private companion object {
-        // The maximum tolerance for using the current location for matching/arrival
         private const val CURRENT_LOCATION_MAX_TOLERANCE_METERS = 75f
 
-        // How much larger the arrival radius is after the user has already arrived to prevent back and forth
         private const val ARRIVED_RADIUS_MULTIPLIER = 2f
 
-        // How much the movement since the last update is multiplied by to determine if a rejoin is likely
         private const val REJOIN_MOVEMENT_MULTIPLIER = 2f
 
-        // The cap for rejoin tolerance
         private const val REJOIN_MAX_TOLERANCE_METERS = 30f
 
-        // Speed used to estimate how much of the path the user could have hiked for location matching
         private const val MAX_HIKING_SPEED_METERS_PER_SECOND = 2f
 
-        // How far past the last position a match must be to be on a leg ahead rather than at the last position
         private const val MIN_LEG_AHEAD_PROGRESS_METERS = 1f
 
-        // How far ahead the user should look for a target point
         private const val TARGET_LOOKAHEAD_METERS = 25f
 
-        // How far off route before the projected point becomes the target
         private const val OFF_ROUTE_TARGET_DISTANCE_METERS = 30f
 
-        // How far off route before the projected point is included in the remaining route
         private const val OFF_ROUTE_PROJECTION_INCLUSION_DISTANCE_METERS = 1f
     }
 }

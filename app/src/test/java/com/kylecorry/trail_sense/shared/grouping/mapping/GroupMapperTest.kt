@@ -12,8 +12,6 @@ internal class GroupMapperTest {
 
     @Test
     fun mapGroup() = runBlocking {
-        // Assert
-
         val loader = mock<IGroupLoader<Groupable>>()
         val mapper = MockMapper(loader)
 
@@ -26,23 +24,18 @@ internal class GroupMapperTest {
 
         whenever(loader.getChildren(1, null)).thenReturn(children)
 
-        // Act
         val value = mapper.map(group(1))
 
-        // Assert
         assertEquals(8L, value)
     }
 
     @Test
     fun mapItem() = runBlocking {
-        // Assert
         val loader = mock<IGroupLoader<Groupable>>()
         val mapper = MockMapper(loader)
 
-        // Act
         val value = mapper.map(item(1))
 
-        // Assert
         assertEquals(2L, value)
     }
 

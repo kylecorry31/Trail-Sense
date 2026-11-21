@@ -36,7 +36,6 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
 
     @Test
     fun listsTheChapters() {
-        // Accept the disclaimer
         clickOk()
 
         isVisible(R.id.list)
@@ -51,7 +50,6 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
 
     @Test
     fun canOpenTheFirstAndLastChapters() {
-        // Accept the disclaimer
         clickOk()
 
         isVisible(R.id.list)
@@ -98,7 +96,6 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
         input(R.id.search, "Catching fish", closeKeyboardOnCompletion = true)
         hasText("Fish are most active")
 
-        // Continue search on survival guide list
         clickRightToolbarButton(R.id.title)
 
         isVisible(R.id.list)
@@ -114,7 +111,6 @@ class ToolSurvivalGuideTest : ToolTestBase(Tools.SURVIVAL_GUIDE) {
             click(string(title), exact = true)
         }
 
-        // Wait for the chapter to load
         hasText(R.id.guide_name, string(title), ignoreCase = true)
         // The first paragraph is plain text, so it is shown as written in the guide
         val firstParagraph = rawResourceText(contents).lines()

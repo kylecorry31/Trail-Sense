@@ -83,7 +83,6 @@ class CompassDial(
             drawer.clipInverse(clipPath!!)
         }
 
-        // Outlines
         drawer.strokeCap(StrokeCap.Square)
         drawer.strokeWeight(drawer.dp(tickThicknessDp + 1))
         drawer.noFill()
@@ -96,12 +95,10 @@ class CompassDial(
         }
 
 
-        // Normal ticks
         drawer.strokeWeight(drawer.dp(tickThicknessDp))
         drawer.stroke(tickColor)
         drawer.path(ticks)
 
-        // Cardinal ticks
         drawer.strokeWeight(drawer.dp(trueCardinalTickSize))
         drawer.stroke(cardinalTickColor)
         drawer.path(cardinalTicks)

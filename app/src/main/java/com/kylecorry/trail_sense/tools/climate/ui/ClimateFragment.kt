@@ -35,7 +35,6 @@ import java.time.Month
 class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climate) {
 
     override fun update() {
-        // Views
         val locationInput = useView<CoordinateInputView>(R.id.location)
         val elevationInput = useView<ElevationInputView>(R.id.elevation)
         val datePickerInput = useView<DatePickerView>(R.id.display_date)
@@ -49,13 +48,11 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         val ecologyTitleView = useView<TextView>(R.id.ecology)
         val ecologyDescriptionView = useView<TextView>(R.id.ecology_description)
 
-        // Services
         val locationSubsystem = useService<LocationSubsystem>()
         val weatherSubsystem = useService<WeatherSubsystem>()
         val formatter = useService<FormatService>()
         val prefs = useService<UserPreferences>()
 
-        // Prefs
         val temperatureUnits = useMemo(prefs) {
             prefs.temperatureUnits
         }
@@ -70,7 +67,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             }
         }
 
-        // State
         val (date, setDate) = useState(LocalDate.now())
         val (location, setLocation) = useState(locationSubsystem.location)
         val (elevation, setElevation) = useState(locationSubsystem.elevation.convertTo(distanceUnits))
@@ -80,7 +76,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             dateRef.current = date
         }
 
-        // Charts
         val temperatureChart = useMemo(temperatureChartView) {
             YearlyTemperatureRangeChart(temperatureChartView) {
                 setDate(it)
@@ -132,7 +127,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
                 )
             }
 
-        // View effects
         useEffectWithCleanup(
             lifecycleHookTrigger.onResume(),
             locationInput,
@@ -144,7 +138,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
 
             titleView.subtitle.text = getString(R.string.historic_temperature_years, 30)
 
-            // Set initial values
             val roundedElevation = Distance.from(
                 elevation.value.roundPlaces(
                     Units.getDecimalPlaces(distanceUnits)
@@ -155,7 +148,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             locationInput.coordinate = location
             datePickerInput.date = LocalDate.now()
 
-            // On change listeners
             locationInput.setOnCoordinateChangeListener {
                 setLocation(it ?: locationSubsystem.location)
             }
@@ -196,7 +188,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             datePickerInput.date = date
         }
 
-        // Temperature
         useEffect(temperatures, temperatureTitleView, date) {
             val range = temperatures?.firstOrNull { it.first == date }?.second ?: return@useEffect
             val lowValue = formatter.formatTemperature(
@@ -217,7 +208,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             temperatureChart.highlight(date)
         }
 
-        // Precipitation
         useEffect(precipitation, precipitationTitleView, date) {
             val value = precipitation?.get(date.month)?.convertTo(precipitationDistanceUnits)
                 ?: return@useEffect
@@ -238,7 +228,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             precipitationChart.highlight(date.month)
         }
 
-        // Climate zone
         useEffect(climateClassification, climateZoneTitleView, climateZoneDescriptionView) {
             climateClassification?.let {
                 climateZoneTitleView.text = it.first
@@ -246,7 +235,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             }
         }
 
-        // Activity
         useEffect(activityPatterns, ecologyDescriptionView, formatter) {
             val activeEntries = activityPatterns?.entries
                 ?.filter { it.value.isNotEmpty() }
@@ -291,7 +279,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         val first = activePeriods[0]
         val second = activePeriods[1]
 
-        // If the first is on Jan 1 and the second ends on Dec 31, then it's wrapped
         return first.start.dayOfYear == 1 && second.end.month == Month.DECEMBER && second.end.dayOfMonth == 31
     }
 
@@ -353,8 +340,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
         temperatures: List<Pair<LocalDate, Range<Temperature>>>,
         precipitation: Map<Month, Distance>
     ): Pair<String, String> {
-
-        // TODO: List out dangers
 
         val monthlyAverageTemperatures = temperatures
             .filter { it.first.dayOfMonth == 15 }
@@ -431,7 +416,6 @@ class ClimateFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_climat
             climate.seasonalPrecipitationPattern == KoppenGeigerSeasonalPrecipitationPattern.IceCap -> getString(
                 R.string.climate_ice_cap
             )
-            // TODO: Break these down (ex. borreal, tiaga)
             climate.climateGroup == KoppenGeigerClimateGroup.Temperate -> getString(R.string.climate_temperate)
             climate.climateGroup == KoppenGeigerClimateGroup.Continental -> getString(R.string.climate_continental)
             else -> getString(R.string.unknown)

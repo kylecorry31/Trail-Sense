@@ -12,10 +12,8 @@ import com.kylecorry.trail_sense.shared.data.SingleImageReader
 
 object AltitudeCorrection : GeoidService {
 
-    // Cache
     private var cache = MemoryLRUCache<PixelCoordinate, Float>(size = 5)
 
-    // Image data source
     private const val a = 1.3424748182296753
     private const val b = 106.53070831298828
     private const val file = "geoids.webp"

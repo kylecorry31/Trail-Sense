@@ -15,7 +15,6 @@ import java.time.LocalDate
 import java.time.Month
 import java.time.ZonedDateTime
 
-// TODO: Split into two subsystems: Weather and Weather Monitor
 interface IWeatherSubsystem {
     val weatherChanged: ISubscription
 

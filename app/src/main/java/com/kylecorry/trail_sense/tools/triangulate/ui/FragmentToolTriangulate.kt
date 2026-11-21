@@ -135,7 +135,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             update()
         }
 
-        // Handle expansion
         binding.location1Expansion.setOnExpandStateChangedListener {
             binding.location1DropdownIcon.rotation = if (it) 180f else 0f
         }
@@ -144,10 +143,8 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             binding.location2DropdownIcon.rotation = if (it) 180f else 0f
         }
 
-        // Expand the first location by default (this will change once it loads the last recorded values)
         binding.location1Expansion.expand()
 
-        // TODO: Display the distance to the location in the title
         layer.renderer.configureLineStringRenderer(shouldRenderWithDrawLines = true)
         layer.renderer.configurePointRenderer(shouldRenderLabels = true)
         binding.map.setLayers(listOf(layer, scaleBarLayer))
@@ -164,7 +161,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         val location2 = binding.location2.coordinate
         val destination = location
 
-        // Update map bounds
         val fences = listOfNotNull(
             location1,
             location2,
@@ -177,7 +173,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         binding.map.fitIntoView(bounds)
 
-        // Show the locations on the map
         val points = listOfNotNull(
             location1?.let {
                 GeoJsonFeature.point(
@@ -207,7 +202,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             }
         )
 
-        // Draw bearing lines
         val path1 = getPath(1)
         val path2 = getPath(2)
         val paths = listOfNotNull(path1, path2)
@@ -222,8 +216,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
 
         binding.location1Title.text = getLocationTitle(1)
         binding.location2Title.text = getLocationTitle(2)
-
-        // TODO: Display distance between locations
     }
 
     private fun getLocationTitle(locationIdx: Int): CharSequence {
@@ -343,7 +335,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
         binding.bearing1.start()
         binding.bearing2.start()
         restoreState()
-        // The map width/height needs time to populate for some reason
         updateTimer.once(500)
     }
 
@@ -375,7 +366,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             return
         }
 
-        // All information is available to triangulate
         val declination1 =
             if (binding.bearing1.trueNorth) 0f else Geophysics.getGeomagneticDeclination(location1)
         val declination2 =
@@ -401,7 +391,6 @@ class FragmentToolTriangulate : BoundFragment<FragmentToolTriangulateBinding>() 
             binding.actions.isVisible = true
         }
 
-        // Update action button visibility
         binding.navigate.isVisible = !shouldCalculateMyLocation
         binding.updateGpsOverride.isVisible = prefs.gps.locationSource == GPSLocationSource.Manual && shouldCalculateMyLocation
 

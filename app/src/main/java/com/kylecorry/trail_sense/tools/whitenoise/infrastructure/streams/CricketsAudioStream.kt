@@ -54,7 +54,6 @@ class CricketsAudioStream(private val includeNearbyCricket: Boolean = true) : Au
         startGapDuration: Double = 0.0,
         endGapDuration: Double = 0.5
     ): Double {
-        // Calculate the t value for the current pulse
         var currentCycleT = t % (
                 NUM_PULSES * (IMPULSE_DURATION + IMPULSE_GAP_DURATION)
                         + endGapDuration
@@ -64,17 +63,14 @@ class CricketsAudioStream(private val includeNearbyCricket: Boolean = true) : Au
             return 0.0
         }
         currentCycleT -= startGapDuration
-        // Determine if it is in between pulses
         if (currentCycleT % (IMPULSE_DURATION + IMPULSE_GAP_DURATION) > IMPULSE_DURATION) {
             return 0.0
         }
-        // Determine if it is at the end
         if (currentCycleT > NUM_PULSES * (IMPULSE_DURATION + IMPULSE_GAP_DURATION)) {
             return 0.0
         }
         val newT = (currentCycleT % (IMPULSE_DURATION + IMPULSE_GAP_DURATION)).toFloat()
         var signal = cricketChirpSound.peek(t, sampleRate).toDouble()
-        // Fade
         signal *= chirpFade.peek(newT / IMPULSE_DURATION, sampleRate).toDouble()
         return signal
     }

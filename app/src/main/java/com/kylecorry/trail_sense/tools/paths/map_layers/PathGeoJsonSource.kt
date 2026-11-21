@@ -35,7 +35,6 @@ class PathGeoJsonSource : GeoJsonSource {
             reload()
         }
 
-        // If paths haven't been loaded yet, load them
         if (paths.isEmpty()) {
             paths = pathService.getPaths().first().filter { it.style.visible }
             pathsById = paths.associateBy { it.id }

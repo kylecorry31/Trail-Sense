@@ -56,8 +56,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlin.math.abs
 import kotlin.math.atan2
 
-// TODO: Notify location change
-// TODO: This needs a parent view that has the camera, this, and any buttons (like the freeform button)
 class AugmentedRealityView : CanvasView {
 
     constructor(context: Context?) : super(context)
@@ -84,7 +82,6 @@ class AugmentedRealityView : CanvasView {
     private var lastActiveCamera: ICamera? = null
     private val defaultMapper = SimplePerspectiveCameraAnglePixelMapper()
 
-    // Sensors / preferences
     private val userPrefs = UserPreferences(context)
     private val sensors = SensorService(context)
     private var calibrationBearingOffset: Float = 0f
@@ -108,7 +105,6 @@ class AugmentedRealityView : CanvasView {
     private var fromTrueNorth = Quaternion.zero
     private var toTrueNorth = Quaternion.zero
 
-    // Cache for strings
     private val hooks = Hooks()
 
     /**
@@ -129,9 +125,6 @@ class AugmentedRealityView : CanvasView {
     var sideInclination = 0f
         private set
 
-    /**
-     * The location of the device
-     */
     val location: Coordinate
         get() = gps.location
 
@@ -163,12 +156,10 @@ class AugmentedRealityView : CanvasView {
     private val layers = mutableListOf<ARLayer>()
     private val layerLock = Any()
 
-    // Guidance
     private var guidePoint: ARPoint? = null
     private var guideThreshold: Float? = null
     private var onGuideReached: (() -> Unit)? = null
 
-    // Camera binding
     private var camera: CameraView? = null
     private val fovRunner = CoroutineQueueRunner(1, dispatcher = Dispatchers.Main)
     private var owner: LifecycleOwner? = null
@@ -183,7 +174,7 @@ class AugmentedRealityView : CanvasView {
                 fovRunner.cancel()
             }
 
-            else -> {} // Do nothing
+            else -> {}
         }
     }
     private val syncTimer = CoroutineTimer {
@@ -307,7 +298,6 @@ class AugmentedRealityView : CanvasView {
             }
         }
 
-        // TODO: Should the onFocus method just return a string?
         if (!hasFocus) {
             if (hadFocus) {
                 onFocusLostListener?.invoke()
@@ -348,7 +338,6 @@ class AugmentedRealityView : CanvasView {
     }
 
     private fun drawGuidance() {
-        // Draw an arrow around the reticle that points to the desired location
         reticleColor = Color.WHITE.withAlpha(127)
         val coordinate = guidePoint?.getAugmentedRealityCoordinate(this) ?: return
         val threshold = guideThreshold
@@ -366,7 +355,6 @@ class AugmentedRealityView : CanvasView {
         }
 
         if (reticle.contains(point)) {
-            // No need to draw the arrow - it's already centered
             return
         }
 
@@ -376,19 +364,14 @@ class AugmentedRealityView : CanvasView {
         val size = drawer.dp(16f)
         translate(center.x + reticleDiameter / 2f + size / 2f + dp(4f), center.y)
         rotate(90f, 0f, 0f)
-        // Draw an arrow
         val path = Path()
 
-        // Bottom Left
         path.moveTo(-size / 2.5f, size / 2f)
 
-        // Top
         path.lineTo(0f, -size / 2f)
 
-        // Bottom right
         path.lineTo(size / 2.5f, size / 2f)
 
-        // Middle dip
         path.lineTo(0f, size / 3f)
 
         path.close()
@@ -405,7 +388,6 @@ class AugmentedRealityView : CanvasView {
         val lineSpacing = dp(4f)
         val radius = dp(4f)
 
-        // Background
         noStroke()
         fill(Color.BLACK.withAlpha(127))
         val totalDimensions = textDimensions(text, lineSpacing)
@@ -423,7 +405,6 @@ class AugmentedRealityView : CanvasView {
         textMode(TextMode.Corner)
         textAlign(TextAlign.Center)
 
-        // X is centered, Y is the bottom of the text
         val firstLineHeight = textHeight(text.split("\n").first())
 
         text(
@@ -533,7 +514,6 @@ class AugmentedRealityView : CanvasView {
         inclination = orientation[1]
         sideInclination = orientation[2]
 
-        // Update declination quaternions
         fromTrueNorth = Quaternion.from(Euler(0f, 0f, declinationProvider.getDeclination()))
         toTrueNorth = Quaternion.from(Euler(0f, 0f, -declinationProvider.getDeclination()))
     }
@@ -586,7 +566,6 @@ class AugmentedRealityView : CanvasView {
             layoutParams = defaultLayoutParams
         }
 
-        // Cancel fovRunner on pause
         owner?.lifecycle?.addObserver(lifecycleObserver)
     }
 
@@ -598,12 +577,10 @@ class AugmentedRealityView : CanvasView {
     suspend fun calibrate(calibrator: IARCalibrator, useGyro: Boolean = true) {
         val camera = camera ?: return
         calibrationBearingOffset = 0f
-        // Switch to the reference orientation sensor and recalculate the orientation
         orientationSensor =
             if (useGyro && hasGyro) gyroOrientationSensor else geomagneticOrientationSensor
         updateOrientation()
 
-        // Calculate the offset
         val offset = calibrator.calibrateBearing(this, camera) ?: return
         calibrationBearingOffset = offset
     }

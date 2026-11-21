@@ -62,7 +62,6 @@ class ARPathLayer(
     private val snapDistance = 2 * viewDistanceMeters / 3f // meters
     private val snapDistanceSquared = square(snapDistance)
 
-    // Limits how far paths can float above or below the camera
     private val maxElevationOffset = maxOf(5f, viewDistanceMeters / 4f) // meters
     private val defaultElevationOffset = -2f // meters
 
@@ -171,7 +170,6 @@ class ARPathLayer(
         val nearestPoints = points.mapNotNull { getNearestPoint(it.second) }
         val nearest = nearestPoints.minByOrNull { it.point.squaredDistanceTo(center) }
         if (nearest != null) {
-            // Add it to the path
             if (nearest.previousIndex != null && nearest.nextIndex != null) {
                 nearest.addToPath()
             }
@@ -181,7 +179,6 @@ class ARPathLayer(
                 recenterPoints(it.second.first, nearest.point, center)
             }
 
-            // Set the elevation to the nearest point
             if (adjustForPathElevation) {
                 val elevationDelta = elevation?.minus(nearest.elevation) ?: 0f
                 points.forEach {
@@ -193,13 +190,11 @@ class ARPathLayer(
         }
 
 
-        // Add the offset to all the points
         val lines = points.flatMap { (path, pts) ->
             project(pts).map {
                 path to ARLine(it, path.color, 4f)
             }
         }
-        // Both are kept up to date so switching the appearance doesn't require reloading the paths
         val markers = lines.flatMap { (path, line) ->
             line.points.map { point ->
                 ARMarker(
@@ -258,7 +253,6 @@ class ARPathLayer(
     private fun project(
         points: Pair<MutableList<Float>, MutableList<Float>>
     ): List<List<ARPoint>> {
-        // Step 4: Convert the points back to geographic coordinates and split the lines
         val lines = mutableListOf<List<ARPoint>>()
         var currentLine = mutableListOf<ARPoint>()
 
@@ -274,14 +268,11 @@ class ARPathLayer(
             i += 2
 
             if (last != null && !last.isSamePixel(pixel1) || currentLine.isEmpty()) {
-                // There's a split or this is the first point
                 lines.add(currentLine)
                 currentLine = mutableListOf()
-                // Add the first point
                 val spherical = toARPoint(pixel1, elevation1)
 
                 if (spherical == null) {
-                    // The start point is too far away, skip this line segment (no need to modify the current line)
                     lastPixel = null
                     return@forEachLine
                 }
@@ -289,17 +280,14 @@ class ARPathLayer(
                 currentLine.add(spherical)
             }
 
-            // The line continues
             val spherical = toARPoint(pixel2, elevation2)
             if (spherical == null) {
-                // The point is too far away, break the line and skip this point
                 lines.add(currentLine)
                 currentLine = mutableListOf()
                 lastPixel = null
                 return@forEachLine
             }
 
-            // Otherwise add the point
             currentLine.add(spherical)
             lastPixel = pixel2
         }
@@ -316,9 +304,6 @@ class ARPathLayer(
         path: IMappablePath,
         elevation: Float?
     ): Pair<MutableList<Float>, MutableList<Float>> {
-        // It is easier to work with the points if they are projected onto a cartesian plane
-
-        // Step 1: Project the path points
         val projected = path.points.map {
             project(it.coordinate)
         }
@@ -326,7 +311,6 @@ class ARPathLayer(
         val z = path.points.map { it.elevation ?: elevation ?: 0f }
 
 
-        // Step 2: Clip the projected points
         val output = mutableListOf<Float>()
         val zOutput = mutableListOf<Float>()
         clipper.clip(
@@ -338,7 +322,6 @@ class ARPathLayer(
             zOutput = zOutput
         )
 
-        // Step 3: Interpolate between the points for a higher resolution
         val output2 = mutableListOf<Float>()
         val zOutput2 = mutableListOf<Float>()
         interpolator.increaseResolution(
@@ -394,7 +377,6 @@ class ARPathLayer(
     private fun toLocation(pixel: PixelCoordinate): Coordinate? {
         val squareDistance = pixel.squaredDistanceTo(center)
         if (squareDistance > squareViewDistance) {
-            // The point is too far away
             return null
         }
 

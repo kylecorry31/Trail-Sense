@@ -32,9 +32,6 @@ data class PhotoMap(
     val imageFile = files.single { it.role == FILE_ROLE_IMAGE }
     val pdfFile = files.singleOrNull { it.role == FILE_ROLE_PDF }
 
-    /**
-     * The projection onto the image/pdf.
-     */
     val projection: IMapProjection by lazy { PhotoMapProjection(this) }
 
     override val state by lazy {
@@ -45,9 +42,6 @@ data class PhotoMap(
         }
     }
 
-    /**
-     * The projection onto the image. Does not use the PDF.
-     */
     val imageProjection: IMapProjection by lazy {
         PhotoMapProjection(this, usePdf = false)
     }
@@ -71,24 +65,15 @@ data class PhotoMap(
         return _distancePerPixel
     }
 
-    /**
-     * The rotation of the image to the nearest 90 degrees
-     */
     fun baseRotation(): Int {
         return georeference.rotation.roundNearestAngle(90f).toInt()
     }
 
-    /**
-     * The size of the image with exact rotation applied
-     */
     fun calibratedSize(usePdf: Boolean = true): Size {
         val size = unrotatedSize(usePdf)
         return size.rotate(georeference.rotation)
     }
 
-    /**
-     * The size of the image with base rotation applied (ex. 0, 90, 180, 270)
-     */
     fun baseSize(usePdf: Boolean = true): Size {
         val size = unrotatedSize(usePdf)
         return size.rotate(baseRotation().toFloat())
@@ -119,7 +104,6 @@ data class PhotoMap(
     }
 
     companion object {
-        // TODO: Make this based on meters per pixel
         const val DESIRED_PDF_SIZE = 20000
         const val FILE_ROLE_PDF = "pdf"
         const val FILE_ROLE_IMAGE = "image"

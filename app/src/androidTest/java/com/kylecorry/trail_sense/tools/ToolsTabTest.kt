@@ -25,13 +25,11 @@ class ToolsTabTest : ToolTestBase(0L) {
     fun canPinTools() {
         unpinTheCoreTools()
 
-        // Pin Flashlight
         longClick(string(R.string.flashlight_title))
         click(string(R.string.pin))
 
         hasText(string(R.string.flashlight_title), index = 1)
 
-        // Unpin flashlight
         longClick(string(R.string.flashlight_title))
         click(string(R.string.unpin))
     }

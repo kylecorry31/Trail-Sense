@@ -79,11 +79,9 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private val screenLight by lazy { ScreenTorch(requireActivity().window) }
 
-    // Map layers
     private val layerManager = PhotoMapToolLayerManager()
     private var layerSheet: MapLayersBottomSheet? = null
 
-    // Paths
     private val pathService by lazy { PathService.getInstance(requireContext()) }
 
     private var mapId = 0L
@@ -160,14 +158,10 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
         val keepMapUp = prefs.photoMaps.keepMapFacingUp
 
-        // TODO: Don't show if location not on map
-
-        // Update initial map rotation
         binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
         binding.lockBtn.isChecked = false
 
-        // Handle when the lock button is pressed
         binding.lockBtn.setOnClickListener {
             updateMapLockMode(getNextLockMode(mapLockMode), keepMapUp)
         }
@@ -357,7 +351,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private fun resetLayerManager() {
         layerManager.resume(binding.map, mapId, this)
 
-        // Populate the last known location and map bounds
         layerManager.onBoundsChanged()
         binding.map.userLocation = gps.location
         binding.map.userLocationAccuracy = gps.horizontalAccuracy?.let { Distance.meters(it) }
@@ -378,7 +371,6 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
 
     private fun navigateTo(location: Coordinate) {
         inBackground {
-            // Create a temporary beacon
             val beacon = Beacon(
                 0L,
                 map?.name ?: "",
@@ -435,68 +427,51 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
     private fun updateMapLockMode(mode: MapLockMode, keepMapUp: Boolean) {
         mapLockMode = mode
 
-        // Show zoom buttons
         binding.zoomInBtn.isVisible = true
         binding.zoomOutBtn.isVisible = true
         binding.map.isZoomEnabled = true
 
-        // Make it interactive
         binding.map.isInteractive = true
         binding.map.isZoomEnabled = true
 
-        // Show the bottom navigation
         requireMainActivity().setBottomNavigationEnabled(true)
 
         when (mapLockMode) {
             MapLockMode.Location -> {
-                // Disable pan
                 binding.map.isPanEnabled = false
 
-                // Zoom in and center on location
                 binding.map.resolution = 2f
                 binding.map.mapCenter = gps.location
 
-                // Reset the rotation
                 binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
-                // Show as locked
                 binding.lockBtn.setIconResource(R.drawable.satellite)
                 binding.lockBtn.isChecked = true
 
-                // Reset brightness
                 screenLight.off()
             }
 
             MapLockMode.Compass -> {
-                // Disable pan
                 binding.map.isPanEnabled = false
 
-                // Center on location
                 binding.map.mapCenter = gps.location
 
-                // Rotate
                 binding.map.mapAzimuth = compass.getTrueNorthBearing().value
 
-                // Show as locked
                 binding.lockBtn.setIconResource(R.drawable.ic_compass_icon)
                 binding.lockBtn.isChecked = true
 
-                // Reset brightness
                 screenLight.off()
             }
 
             MapLockMode.Free -> {
-                // Enable pan
                 binding.map.isPanEnabled = true
 
-                // Reset the rotation
                 binding.map.mapAzimuth = getDefaultMapAzimuth(keepMapUp)
 
-                // Show as unlocked
                 binding.lockBtn.setIconResource(R.drawable.satellite)
                 binding.lockBtn.isChecked = false
 
-                // Reset brightness
                 screenLight.off()
             }
 
@@ -509,22 +484,17 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
                     cancelText = null
                 )
 
-                // Disable pan
                 binding.map.isInteractive = false
                 binding.map.isZoomEnabled = false
 
-                // Show as locked
                 binding.lockBtn.setIconResource(R.drawable.lock)
                 binding.lockBtn.isChecked = true
 
-                // Full brightness
                 screenLight.on()
 
-                // Hide zoom buttons
                 binding.zoomInBtn.isVisible = false
                 binding.zoomOutBtn.isVisible = false
 
-                // Hide the bottom navigation
                 requireMainActivity().setBottomNavigationEnabled(false)
             }
         }
@@ -535,10 +505,8 @@ class ViewPhotoMapFragment : BoundFragment<FragmentPhotoMapsViewBinding>() {
         layerSheet?.setOnDismissListener(null)
         layerSheet?.dismiss()
         layerManager.pause(binding.map)
-        // Reset brightness
         screenLight.off()
 
-        // Show the bottom navigation
         requireMainActivity().setBottomNavigationEnabled(true)
     }
 

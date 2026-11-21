@@ -39,7 +39,6 @@ class PressureChart(
         AppColor.Gray.color.withAlpha(50)
     )
 
-    // TODO: Dotted line
     private val forecastLine = LineChartLayer(
         emptyList(),
         AppColor.Gray.color.withAlpha(50)
@@ -112,7 +111,6 @@ class PressureChart(
         }
 
         val range = Chart.getYRange(values + forecastValues, margin, minRange)
-        // TODO: Support minimum range
         chart.configureYAxis(
             minimum = range.start,
             maximum = range.end,

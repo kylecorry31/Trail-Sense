@@ -136,7 +136,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     private var lastBounds = CoordinateBounds.empty
 
-    // TODO: Eventually move all of this to the path layer (including waypoint rendering)
     private val layer = ConfigurableGeoJsonLayer()
     private val myLocationLayer =
         GeoJsonLayer(MyLocationGeoJsonSource(), MyLocationGeoJsonSource.SOURCE_ID)
@@ -181,7 +180,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
     override fun onResume() {
         super.onResume()
-        // Populate the last known location
         updateUserLocation()
 
         binding.pathImage.start()
@@ -621,7 +619,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         binding.pathDuration.title = formatService.formatDuration(duration, false)
         binding.pathWaypoints.title = path.metadata.waypoints.toString()
 
-        // Elevations
         binding.pathElevationGain.title = formatService.formatDistance(
             elevationGain,
             Units.getDecimalPlaces(elevationGain.units),
@@ -759,7 +756,6 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         return FragmentPathOverviewBinding.inflate(layoutInflater, container, false)
     }
 
-    // Waypoints
     private fun drawWaypointListItem(itemBinding: ListItemWaypointBinding, item: PathPoint) {
         val itemStrategy = WaypointListItem(
             requireContext(),
@@ -768,7 +764,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
             { deleteWaypoint(it) },
             { navigateToWaypoint(it) },
             { navigateDirectlyToWaypoint(it) },
-            { /* Do nothing */ },
+            { },
             canFollow
         )
 

@@ -233,7 +233,6 @@ class BeaconListFragment : BoundFragment<FragmentBeaconListBinding>() {
     override fun onResume() {
         super.onResume()
         manager.refresh()
-        // Get a GPS reading
         gps.start(this::onLocationUpdate)
     }
 

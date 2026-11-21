@@ -20,14 +20,12 @@ abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val 
     override fun update() {
         val context = useAndroidContext()
 
-        // Views
         val fromUnitsView = useView<Spinner>(R.id.from_units)
         val toUnitsView = useView<Spinner>(R.id.to_units)
         val swapButtonView = useView<ImageButton>(R.id.swap_btn)
         val unitEditView = useView<TextInputEditText>(R.id.unit_edit)
         val resultView = useView<TextView>(R.id.result)
 
-        // State
         val (amountText, setAmountText) = useState(unitEditView.text?.toString() ?: "")
         val (fromIndex, setFromIndex) = useState(units.indexOf(defaultFrom))
         val (toIndex, setToIndex) = useState(units.indexOf(defaultTo))
@@ -36,7 +34,6 @@ abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val 
             convert(amountText.toFloatOrNull() ?: 0.0f, units[fromIndex], units[toIndex])
         }
 
-        // View - Unit spinners
         useEffect(fromUnitsView, context) {
             bindUnitSpinner(fromUnitsView, context, getString(R.string.distance_from), fromIndex) {
                 setFromIndex(it)
@@ -49,7 +46,6 @@ abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val 
             }
         }
 
-        // Keeps the spinners in sync when the units are swapped
         useEffect(fromUnitsView, fromIndex) {
             if (fromUnitsView.selectedItemPosition != fromIndex) {
                 fromUnitsView.setSelection(fromIndex)
@@ -69,7 +65,6 @@ abstract class SimpleConvertFragment<T>(private val defaultFrom: T, private val 
             }
         }
 
-        // View - Amount and result
         useEffect(unitEditView) {
             setAmountText(unitEditView.text?.toString() ?: "")
             unitEditView.addTextChangedListener {

@@ -63,7 +63,6 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
     private val sensorDetailsMap = mutableMapOf<String, SensorDetails?>()
 
-    // Hardware sensors
     private val accelerometer by lazy { sensorService.getAccelerometer() }
     private val magnetometer by lazy { sensorService.getMagnetometer() }
     private val barometer by lazy { sensorService.getBarometer() }
@@ -74,12 +73,10 @@ class SensorDetailsFragment : BoundFragment<FragmentSensorDetailsBinding>() {
     private val cellSignal by lazy { sensorService.getCellSignal() }
     private val gps by lazy { sensorService.getGPS(tag = "SensorDetailsFragment") }
 
-    // Virtual sensors
     private val gravity by lazy { sensorService.getGravity() }
     private val compass by lazy { sensorService.getCompass() }
     private val altimeter by lazy { sensorService.getAltimeter(tag = "SensorDetailsFragment") }
 
-    // Cache
     private val cachedGPS by lazy { CachedGPS(requireContext(), 500) }
     private val cachedAltimeter by lazy { CachedAltimeter(requireContext(), 500) }
 

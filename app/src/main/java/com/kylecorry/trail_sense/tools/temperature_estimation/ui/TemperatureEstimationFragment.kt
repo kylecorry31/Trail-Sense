@@ -122,7 +122,6 @@ class TemperatureEstimationFragment : BoundFragment<FragmentToolTemperatureEstim
 
         setThermometerFieldFromSensor()
 
-        // Set the initial elevation
         val elevation = location.elevation.convertTo(prefs.baseDistanceUnits)
         val roundedElevation = Distance.from(
             elevation.value.roundPlaces(

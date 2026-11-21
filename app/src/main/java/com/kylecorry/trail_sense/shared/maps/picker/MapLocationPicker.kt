@@ -30,7 +30,6 @@ class MapLocationPicker {
         val mapView = view.findViewById<MapView>(R.id.map)
         val locationView = view.findViewById<TextView>(R.id.location)
 
-        // Zoom buttons
         val zoomInButton = view.findViewById<MaterialButton>(R.id.zoom_in_btn)
         val zoomOutButton = view.findViewById<MaterialButton>(R.id.zoom_out_btn)
         zoomInButton.setOnClickListener { mapView.zoom(2f) }

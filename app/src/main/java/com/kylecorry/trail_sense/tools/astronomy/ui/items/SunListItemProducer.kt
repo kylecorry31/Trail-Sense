@@ -18,11 +18,9 @@ class SunListItemProducer(context: Context) : BaseAstroListItemProducer(context)
         location: Coordinate,
         declination: Float
     ): ListItem = onDefault {
-        // At a glance
         val times = astronomyService.getSunTimes(location, prefs.astronomy.sunTimesMode, date)
         val daylight = astronomyService.getLengthOfDay(location, prefs.astronomy.sunTimesMode, date)
 
-        // Advanced
         val actual = astronomyService.getSunTimes(location, SunTimesMode.Actual, date)
         val civil = astronomyService.getSunTimes(location, SunTimesMode.Civil, date)
         val nautical = astronomyService.getSunTimes(location, SunTimesMode.Nautical, date)

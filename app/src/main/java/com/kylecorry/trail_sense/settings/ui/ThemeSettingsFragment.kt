@@ -32,7 +32,6 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        // Set Compact Mode
         val compactMode = switch(R.string.pref_use_compact_mode)
         val navLabels = switch(R.string.pref_use_bottom_navigation_labels)
         navLabels?.isEnabled = !prefs.useCompactMode
@@ -46,14 +45,12 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
             true
         }
 
-        // Set Night Mode Fullscreen
         val nightModeFullscreen = switch(R.string.pref_night_mode_fullscreen)
         nightModeFullscreen?.setOnPreferenceChangeListener { _, _ ->
             requireMainActivity().reloadTheme()
             true
         }
 
-        // Widget default theme
         val widgetTheme = list(R.string.pref_default_widget_theme)!!
         val items = listOf(
             WidgetTheme.System to getString(R.string.theme_system),
@@ -68,7 +65,6 @@ class ThemeSettingsFragment : AndromedaPreferenceFragment() {
         )
         widgetTheme.entries = items.map { it.second }.toTypedArray()
         widgetTheme.entryValues = items.map { it.first.id.toString() }.toTypedArray()
-        // Save the default value
         if (DependencyRegistry.get<PreferencesSubsystem>().preferences.getString(widgetTheme.key) == null) {
             widgetTheme.value = WidgetTheme.System.id.toString()
         }

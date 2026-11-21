@@ -83,12 +83,10 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
 
     private fun start() {
         if (!isEnabled() || isBlocked()) {
-            // Can't start
             return
         }
 
         if (WeatherMonitorService.isRunning) {
-            // Already running
             return
         }
 
@@ -125,7 +123,6 @@ class WeatherMonitorToolService(private val context: Context) : ToolService {
     }
 
     private fun hasPermissions(context: Context): Boolean {
-        // Either it didn't need location or it has foreground location permission (runtime check)
         return !Permissions.canGetLocation(context) || Permissions.canStartLocationForegroundService(
             context
         )

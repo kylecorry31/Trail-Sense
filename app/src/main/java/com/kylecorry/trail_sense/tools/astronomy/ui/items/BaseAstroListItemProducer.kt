@@ -116,7 +116,6 @@ abstract class BaseAstroListItemProducer(protected val context: Context) :
         )
     }
 
-    // COMMON DATA POINT FIELDS
     protected fun data(value: CharSequence, label: CharSequence? = null): List<ListItemData> {
         return listOf(datapoint(value, label))
     }

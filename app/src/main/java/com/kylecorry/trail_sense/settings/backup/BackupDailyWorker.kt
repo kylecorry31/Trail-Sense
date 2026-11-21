@@ -59,7 +59,6 @@ class BackupDailyWorker(context: Context, params: WorkerParameters) : DailyWorke
             return
         }
 
-        // Backup
         val start = SystemClock.elapsedRealtime()
         val service = BackupService(context)
         try {
@@ -71,7 +70,6 @@ class BackupDailyWorker(context: Context, params: WorkerParameters) : DailyWorke
             throw e
         }
 
-        // Remove older files
         val allFiles = contentFileSystem.listFiles()
         val filesToDelete = allFiles
             .filter { it.name?.matches(Regex("trail-sense-\\d+.zip")) == true }

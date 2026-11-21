@@ -75,11 +75,9 @@ object GeoJsonFeatureClickHandler {
                 }
 
                 else -> {
-                    // Do nothing
                 }
             }
 
-            // Broadcast deselection after the action
             val deselectBundle = Bundle().apply {
                 putString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_FEATURE_ID, null)
                 putString(MapToolRegistration.BROADCAST_PARAM_GEOJSON_LAYER_ID, layerId)

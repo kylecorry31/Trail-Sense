@@ -32,7 +32,6 @@ class ToolDeclinationFragment : TrailSenseReactiveFragment(R.layout.fragment_too
         val loadingIndicator = useMemo(locationView, loadingView) {
             MultiLoadingIndicator(
                 listOf(
-                    // TODO: Disable the coordinate view instead
                     ViewLoadingIndicator(locationView, true),
                     ViewLoadingIndicator(loadingView)
                 )

@@ -42,7 +42,6 @@ internal class DailyTemperatureCalculator(
         val previousHigh = getPreviousHighTime(time)
         val previousLow = getPreviousLowTime(time)
 
-        // Low High x Low High
         if (nextLow.isBefore(nextHigh)) {
 
             val start = if (nextLow.toLocalDate() != time.toLocalDate()) {
@@ -75,7 +74,6 @@ internal class DailyTemperatureCalculator(
             range.end
         }
 
-        // High Low x High Low
         return Range(previousLow, nextHigh) to SineTemperatureCalculator(
             Reading(start, previousLow.toInstant()),
             Reading(end, nextHigh.toInstant())

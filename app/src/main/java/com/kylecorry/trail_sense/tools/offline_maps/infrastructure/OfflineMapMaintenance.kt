@@ -32,7 +32,6 @@ internal class OfflineMapMaintenance(
     }
 
     private suspend fun cleanupTrailMaps(): Boolean {
-        // External maps don't have a file in app storage, so they can't be cleaned up
         val maps = repo.getTrailMaps().filter { !it.isExternal() }
         return cleanupDirectory(maps, OFFLINE_MAPS_DIRECTORY, { it.mapFile.path }) { repo.delete(it) }
     }

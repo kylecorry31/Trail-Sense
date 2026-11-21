@@ -56,7 +56,6 @@ import java.time.Instant
 class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator) {
 
     override fun update() {
-        // Views
         val title = useView<Toolbar>(R.id.navigation_title)
         val altitudeView = useView<DataPointView>(R.id.altitude)
         val speedView = useView<DataPointView>(R.id.speed)
@@ -68,7 +67,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         val sensorStatusBadges = useView<SensorStatusBadgeView>(R.id.accuracy_view)
         val navigationSheet = useView<NavigationSheetView>(R.id.navigation_sheet)
 
-        // Services
         val context = useAndroidContext()
         val activity = useActivity()
         val prefs = useService<UserPreferences>()
@@ -77,8 +75,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         val navigator = useService<Navigator>()
         val hasCompass = useMemo(sensorService) { sensorService.hasCompass() }
 
-        // Sensors
-        // The compass is recreated when its settings change
         val compassSettings = useMemo(prefs, resetOnResume) {
             listOf(
                 prefs.compass.source,
@@ -89,7 +85,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         }
         val useTrueNorth = useMemo(compassSettings) { prefs.compass.useTrueNorth }
         val compassDelay = useMemo(compassSettings) { prefs.compass.updateFrequency.sensorDelay }
-        // The compass and clinometer share an orientation sensor
         val orientationSensor = useMemo(sensorService, compassSettings) {
             sensorService.getOrientation(compassDelay)
         }
@@ -112,7 +107,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         val nearbyBeacons = useNearbyBeacons(location, destination)
         val compassStyle = useCompassStyle(orientationSensor, hasCompass)
 
-        // Radar map
         val radarMap = radarCompass.map
         useEffect(radarMap, prefs, resetOnResume) {
             radarMap.useDensityPixelsForZoom = !prefs.navigation.highDetailMode
@@ -127,7 +121,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         )
         useMapAttribution(radarMap, attributionView, layers.key, compassStyle == CompassStyle.Radar)
 
-        // Compass style
         useEffect(linearCompass, radarCompass, compassStyle) {
             linearCompass.isInvisible = compassStyle != CompassStyle.Linear
             radarCompass.isInvisible = compassStyle != CompassStyle.Radar
@@ -150,7 +143,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
             northReferenceBadge.showLabelTemporarily(Duration.ofSeconds(5))
         }
 
-        // Toolbar
         useEffect(title, prefs) {
             NavigationQuickActionBinder(this, title, prefs.navigation).bind()
         }
@@ -170,7 +162,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
             }
         }
 
-        // Altitude and speed
         useEffect(altitudeView, speedView) {
             altitudeView.setShowDescription(false)
             speedView.setShowDescription(false)
@@ -196,7 +187,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
 
         useBeaconButton(beaconButton, gps, altimeter)
 
-        // Sensor status
         val showAccuracyTips = useCallback<Unit>(context, gps, compass) {
             ImproveAccuracyAlerter(context).alert(listOf(gps, compass))
         }
@@ -213,7 +203,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         }
         useCompassCalibrationPrompt(wasNavigationStarted, compass)
 
-        // Navigation
         val toggleDestinationBearing =
             useToggleDestinationBearing(destination, hasCompass, compass, gps, navigationSheet)
 
@@ -237,7 +226,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
 
         useNavigationSheet(navigationSheet, destination, nearbyBeacons, navigation)
 
-        // Compass
         val azimuthText = useMemo(azimuth.safeRoundToInt(), formatter) {
             val degrees = formatter.formatDegrees(azimuth, replace360 = true).padStart(4, ' ')
             val direction = formatter.formatDirection(CompassDirection.nearest(azimuth)).padStart(2, ' ')
@@ -289,7 +277,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         val prefs = useService<UserPreferences>()
         useEffect(linearCompass, title, prefs) {
             linearCompass.setOnCameraActiveChangeListener { isCameraActive ->
-                // TODO: Extract this logic to the flashlight (if camera is in use)
                 if (prefs.navigation.rightButton == Tools.QUICK_ACTION_FLASHLIGHT) {
                     title.rightButton.isClickable = !isCameraActive
                 }
@@ -339,14 +326,12 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
             when (destination) {
                 null -> if (hasCompass) {
                     inBackground {
-                        // TODO: Wait for GPS location to be up to date (show a loading indicator)
                         navigator.navigateToBearing(compass.bearing.value, gps.location)
                     }
                 }
 
                 is Destination.Bearing -> navigationSheet.cancelNavigation()
 
-                // Beacons and paths are only canceled with the navigation sheet's cancel button
                 else -> {}
             }
         }
@@ -361,8 +346,6 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
         val prefs = useService<UserPreferences>()
         val navigationService = useMemo { NavigationService() }
 
-        // TODO: Move selected beacon updating to a coroutine
-        // The sheet only needs to update when the rounded bearing changes
         useEffect(
             navigationSheet,
             destination,

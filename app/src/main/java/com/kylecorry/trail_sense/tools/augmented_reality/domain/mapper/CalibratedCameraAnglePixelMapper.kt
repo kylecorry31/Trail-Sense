@@ -10,12 +10,6 @@ import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.optics.Optics
 import kotlin.math.max
 
-/**
- * A camera angle pixel mapper that uses the intrinsic calibration of the camera to map angles to pixels.
- * @param camera The camera to use
- * @param fallback The fallback mapper to use if the camera does not have intrinsic calibration
- * @param applyDistortionCorrection Whether to apply distortion correction. Defaults to false.
- */
 class CalibratedCameraAnglePixelMapper(
     private val camera: ICamera,
     private val fallback: CameraAnglePixelMapper = LinearCameraAnglePixelMapper(),
@@ -64,7 +58,6 @@ class CalibratedCameraAnglePixelMapper(
         val correctedX = activeX + activeArray.left
         val correctedY = activeY + activeArray.top
 
-        // TODO: Distort
         val pre = Vector2(correctedX, correctedY)
 
         val world = Optics.inversePerspectiveProjection(pre, focalLength, opticalCenter)
@@ -153,13 +146,11 @@ class CalibratedCameraAnglePixelMapper(
         fieldOfView: Size,
         distance: Float?
     ): PixelCoordinate {
-        // TODO: Factor in pose translation (just add it to the world position?)
         val world = CameraAnglePixelMapper.toCartesian(angleX, angleY, distance ?: 1f)
         return getPixel(world, imageRect, fieldOfView)
     }
 
     override fun getPixel(world: Vector3, imageRect: RectF, fieldOfView: Size): PixelCoordinate {
-        // Point is behind the camera, so calculate the linear projection
         if (world.z < 0) {
             return linear.getPixel(world, imageRect, fieldOfView)
         }
@@ -174,31 +165,25 @@ class CalibratedCameraAnglePixelMapper(
             return fallback.getPixel(world, imageRect, fieldOfView)
         }
 
-        // Get the pixel in the pre-active array
         val pre = Optics.perspectiveProjection(world, focalLength, opticalCenter)
 
-        // Correct for distortion
         val corrected = if (applyDistortionCorrection && distortion != null) {
             undistort(pre.x, pre.y, preActiveArray, opticalCenter.x, opticalCenter.y, distortion)
         } else {
             Vector2(pre.x, pre.y)
         }
 
-        // Translate to the active array
         val activeX = corrected.x - activeArray.left
         val activeY = corrected.y - activeArray.top
 
-        // The y axis is inverted (TODO: Why?)
         val invertedY = activeArray.height() - activeY
 
-        // Unzoom the output image
         val zoom = getZoom()
         val rectLeft = imageRect.centerX() - zoom * imageRect.width() / 2f
         val rectWidth = zoom * imageRect.width()
         val rectTop = imageRect.centerY() - zoom * imageRect.height() / 2f
         val rectHeight = zoom * imageRect.height()
 
-        // Scale to the output image dimensions
         val pctX = activeX / activeArray.width()
         val pctY = invertedY / activeArray.height()
         val pixelX = pctX * rectWidth + rectLeft

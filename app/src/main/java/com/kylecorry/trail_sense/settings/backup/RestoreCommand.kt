@@ -15,7 +15,6 @@ class RestoreCommand(private val context: Context, private val uriPicker: UriPic
     private val backupService = BackupService(context)
 
     override suspend fun execute() {
-        // Alert the user before continuing
         val isCancelled = CoroutineAlerts.dialog(
             context,
             context.getString(R.string.restore),
@@ -25,7 +24,6 @@ class RestoreCommand(private val context: Context, private val uriPicker: UriPic
 
         if (isCancelled) return
 
-        // Select the source file
         val source = uriPicker.open(listOf("application/zip")).getOrNull() ?: return
 
         try {
@@ -41,7 +39,6 @@ class RestoreCommand(private val context: Context, private val uriPicker: UriPic
                 context.getString(R.string.restore_complete_message),
                 short = false
             )
-            // Restart the app
             CurrentApp.restart(context)
         } catch (e: BackupService.InvalidBackupException) {
             Alerts.toast(context, context.getString(R.string.invalid_backup_file))

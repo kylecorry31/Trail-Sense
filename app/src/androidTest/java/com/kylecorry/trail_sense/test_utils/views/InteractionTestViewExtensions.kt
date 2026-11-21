@@ -48,8 +48,6 @@ fun TestView.input(text: String, checkDescendants: Boolean = false): TestView {
     } else {
         getMatchingChild(uiObject) {
             it.className == "android.widget.EditText"
-            // TODO: See if this can be exposed
-//                    it.getAccessibilityNodeInfo().isEditable
         }
     }
 
@@ -76,7 +74,6 @@ fun TestView.scroll(direction: Direction = Direction.DOWN, percent: Float = 0.5f
 
 fun TestView.scrollToEnd(direction: Direction = Direction.DOWN): TestView {
     while (uiObject.scroll(direction, 1f)) {
-        // Do nothing
     }
     // Wait after scrolling (Android 16 issue)
     Thread.sleep(500)

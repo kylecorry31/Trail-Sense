@@ -32,19 +32,15 @@ class DistanceScale {
         val length = distance.meters().value / metersPerPixel
         val height = 12f
 
-        // Horizontal
         path.moveTo(0f, 0f)
         path.lineTo(length, 0f)
 
-        // Start
         path.moveTo(0f, -height / 2)
         path.lineTo(0f, height / 2)
 
-        // End
         path.moveTo(length, -height / 2)
         path.lineTo(length, height / 2)
 
-        // Middle
         path.moveTo(length / 2, height / 2)
         path.lineTo(length / 2, 0f)
 

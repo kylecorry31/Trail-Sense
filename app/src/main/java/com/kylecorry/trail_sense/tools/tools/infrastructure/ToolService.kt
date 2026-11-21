@@ -4,24 +4,12 @@ import java.time.Duration
 
 interface ToolService {
 
-    /**
-     * The unique ID of the service
-     */
     val id: String
 
-    /**
-     * The name of the service
-     */
     val name: String
 
-    /**
-     * Get the frequency at which the service is running
-     */
     fun getFrequency(): Duration
 
-    /**
-     * Determines if the service is actively running
-     */
     fun isRunning(): Boolean
 
     /**

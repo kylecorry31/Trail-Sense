@@ -28,20 +28,16 @@ class ImportPackingListCommand(private val fragment: AndromedaFragment) : Comman
                 items = importService.import()
             }
 
-            // If items are null or empty, show a toast and return
             if (items.isNullOrEmpty()) {
                 fragment.toast(fragment.getString(R.string.no_items_found))
                 return@inBackground
             }
 
-            // Ask the user for the pack name
-            // TODO: Default to the file name
             val name = CoroutinePickers.text(
                 fragment.requireContext(),
                 fragment.getString(R.string.name)
             ) ?: return@inBackground
 
-            // Create the pack
             var packId = 0L
             Alerts.withLoading(fragment.requireContext(), fragment.getString(R.string.loading)) {
                 packId = repo.addPack(Pack(0, name))
@@ -51,7 +47,6 @@ class ImportPackingListCommand(private val fragment: AndromedaFragment) : Comman
                 }
             }
 
-            // Open the pack
             val bundle = Bundle().apply {
                 putLong("pack_id", packId)
             }

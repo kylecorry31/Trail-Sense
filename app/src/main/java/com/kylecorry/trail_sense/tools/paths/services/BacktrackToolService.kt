@@ -97,12 +97,10 @@ class BacktrackToolService(private val context: Context) : ToolService {
 
     private suspend fun start(startNewPath: Boolean) {
         if (!isEnabled() || isBlocked()) {
-            // Can't start
             return
         }
 
         if (isRunning()) {
-            // Already running
             return
         }
 

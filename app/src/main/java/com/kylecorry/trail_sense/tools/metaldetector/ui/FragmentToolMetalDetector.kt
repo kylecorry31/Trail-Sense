@@ -101,7 +101,6 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         binding.metalDetectorTitle.rightButton.isChecked = prefs.metalDetector.isMetalAudioEnabled
 
-        // Configure button: Metal Audio Toggle
         binding.metalDetectorTitle.rightButton.setOnClickListener {
             if (prefs.metalDetector.isMetalAudioEnabled) {
                 prefs.metalDetector.isMetalAudioEnabled = false
@@ -113,7 +112,6 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             binding.metalDetectorTitle.rightButton.isChecked = prefs.metalDetector.isMetalAudioEnabled
         }
 
-        // Configure button: Metal Vibration Toggle
         binding.metalDetectorTitle.leftButton.isChecked = !prefs.metalDetector.isMetalVibrationDisabled
 
         binding.metalDetectorTitle.leftButton.setOnClickListener {
@@ -182,12 +180,11 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
             return
         }
 
-        // Update the metal direction dial
         if (prefs.metalDetector.showMetalDirection) {
             val metal = Physics.removeGeomagneticField(
                 lowPassMagnetometer.magneticField,
                 calibratedField,
-                null // TODO: Once a better orientation is calculated, use that
+                null
             )
             val direction = Physics.getMetalDirection(
                 metal,
@@ -200,20 +197,16 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
 
         val magneticField = getCurrentMagneticFieldStrength()
 
-        // Record the magnetic field
         if (canAddReading(magneticField)) {
             addReading(magneticField)
             updateChart()
         }
 
 
-        // Update the threshold from the slider
         updateThreshold()
 
-        // Update the title
         binding.metalDetectorTitle.title.text = formatService.formatMagneticField(magneticField)
 
-        // TODO: Have two methods: onMetalFound and onMetalLost
         val metalDetected = isMetalDetected(magneticField)
         binding.metalDetectorTitle.title.setCompoundDrawables(
             Resources.dp(requireContext(), 24f).toInt(),
@@ -229,11 +222,6 @@ class FragmentToolMetalDetector : BoundFragment<FragmentToolMetalDetectorBinding
         updateMetalSoundIntensity(magneticField)
     }
 
-    /**
-     * [maybeVibrate] turns off vibration (haptics) if vibration is disabled
-     * or there is no metal detected.
-     * Otherwise vibration is triggered.
-     */
     private fun maybeVibrate(metalDetected: Boolean) {
         if (!metalDetected || prefs.metalDetector.isMetalVibrationDisabled) {
             isVibrating = false

@@ -53,7 +53,6 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 it.invalidate()
             } catch (e: Exception) {
                 e.printStackTrace()
-                // TODO: ERROR HANDLING
             }
         }
     }
@@ -89,7 +88,6 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 it.start()
             } catch (e: Exception) {
                 e.printStackTrace()
-                // TODO: ERROR HANDLING
             }
         }
         invalidateView()
@@ -101,7 +99,6 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 it.stop()
             } catch (e: Exception) {
                 e.printStackTrace()
-                // TODO: ERROR HANDLING
             }
         }
     }
@@ -115,7 +112,6 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                // TODO: ERROR HANDLING
             }
         }
     }
@@ -129,7 +125,6 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                // TODO: ERROR HANDLING
             }
         }
     }
@@ -164,7 +159,6 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                // TODO: ERROR HANDLING
             }
         }
     }

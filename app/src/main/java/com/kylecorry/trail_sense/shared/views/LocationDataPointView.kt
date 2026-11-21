@@ -13,10 +13,6 @@ import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.Units
 
-/**
- * A horizontal row of three DataPointViews showing distance, direction, and elevation difference
- * from the user's location to a selected point on the map.
- */
 class LocationDataPointView(context: Context, attrs: AttributeSet? = null) :
     LinearLayout(context, attrs) {
 
@@ -40,9 +36,6 @@ class LocationDataPointView(context: Context, attrs: AttributeSet? = null) :
         }
     }
 
-    /**
-     * Sets the horizontal distance from user to selected point.
-     */
     fun setDistance(distance: Distance) {
         val relative = distance.toRelativeDistance()
         distanceView.title = formatter.formatDistance(
@@ -52,9 +45,6 @@ class LocationDataPointView(context: Context, attrs: AttributeSet? = null) :
         )
     }
 
-    /**
-     * Sets the direction (bearing) from user to selected point.
-     */
     fun setDirection(bearing: Bearing) {
         val azimuth = bearing.value
         directionView.title = formatter.formatDegrees(azimuth, replace360 = true) +

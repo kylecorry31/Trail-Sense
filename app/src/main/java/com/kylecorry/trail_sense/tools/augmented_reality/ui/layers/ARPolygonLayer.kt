@@ -59,7 +59,6 @@ class ARPolygonLayer : ARLayer {
         return RenderedPolygon(polygon.color, polygon.onFocus, path, parts)
     }
 
-    /** The pixel corners of the part of the polygon in front of the camera, or null if not drawable */
     private fun project(
         vertices: List<AugmentedRealityCoordinate>,
         view: AugmentedRealityView
@@ -111,7 +110,6 @@ class ARPolygonLayer : ARLayer {
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         val center = Vector2(view.width / 2f, view.height / 2f)
         val reticleRadius = view.reticleDiameter / 2f
-        // Try the polygon closest to the center of the view first
         return rendered
             .mapNotNull { polygon ->
                 val onFocus = polygon.onFocus ?: return@mapNotNull null
@@ -123,7 +121,6 @@ class ARPolygonLayer : ARLayer {
             .any { it.first() }
     }
 
-    /** 0 if the point is inside the polygon, otherwise the distance to its nearest edge */
     private fun distanceToPolygon(point: Vector2, polygon: Polygon): Float {
         if (Geometry.contains(polygon, point)) {
             return 0f

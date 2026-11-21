@@ -44,7 +44,6 @@ class FieldGuidePageListBottomSheetFragment :
         useBottomSheetBackPressedCallback(clearFilters, searchView) {
             val hadFilters = clearFilters()
             searchView.query = ""
-            // If the filter was not set, don't consume the event
             hadFilters
         }
     }

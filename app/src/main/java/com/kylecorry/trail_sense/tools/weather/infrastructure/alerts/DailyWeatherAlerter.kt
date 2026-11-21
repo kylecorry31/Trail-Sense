@@ -18,7 +18,6 @@ class DailyWeatherAlerter(
     private val prefs: IWeatherPreferences
 ) : IValueAlerter<WeatherPrediction> {
     override fun alert(value: WeatherPrediction) {
-        // If daily is unchanging, show hourly instead
         val icon = formatter.getWeatherImage(value.primaryDaily ?: value.primaryHourly)
         val condition = formatter.formatWeather(value.primaryDaily ?: value.primaryHourly)
 

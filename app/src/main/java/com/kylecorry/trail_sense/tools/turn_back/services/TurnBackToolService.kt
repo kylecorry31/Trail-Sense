@@ -47,7 +47,6 @@ class TurnBackToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun restart() {
-        // This will short circuit if the tool is not active
         TurnBackAlarmReceiver.start(context)
     }
 

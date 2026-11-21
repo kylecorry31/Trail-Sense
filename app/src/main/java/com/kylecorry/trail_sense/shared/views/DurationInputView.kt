@@ -44,7 +44,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     var showSeconds: Boolean = true
         set(value) {
             if (!value && field) {
-                // Clear the seconds
                 removeDigit(PLACES_SECONDS)
                 removeDigit(PLACES_SECONDS)
                 appendDigit(0, PLACES_SECONDS)
@@ -71,7 +70,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             negateButton = findViewById(R.id.negate_btn)
 
             inputHolder.setEndIconOnClickListener {
-                // Clear
                 durationText = "000000"
                 isNegative = false
                 onDurationTextChanged()
@@ -102,7 +100,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
                     appendDigit(digit, if (showSeconds) PLACES_SECONDS else PLACES_MINUTES)
                 }
 
-                // Move selection to the end
                 input.setSelection(input.text?.length ?: 0)
             }
 
@@ -119,7 +116,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     }
 
     private fun appendDigit(digit: Int, place: Int = PLACES_SECONDS) {
-        // Only apply if the leftmost digit is 0
         if (durationText[0] != '0') {
             updateTextView()
             return
@@ -198,7 +194,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
     }
 
     private fun updateTextView() {
-        // If negatives are allowed, display the start icon as a plus or minus
         if (allowNegative) {
             negateButton.setImageResource(
                 if (isNegative) R.drawable.ic_minus else R.drawable.ic_add
@@ -225,10 +220,8 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
             isNegative = true
         }
 
-        // Set the duration text
         durationText = "%02d%02d%02d".format(h, m, s)
 
-        // Update text view
         onDurationTextChanged(false)
     }
 

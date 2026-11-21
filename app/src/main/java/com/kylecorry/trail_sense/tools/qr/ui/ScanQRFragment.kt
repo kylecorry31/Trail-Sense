@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.qr.ui
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Size
@@ -188,7 +187,6 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     private fun openUrl(text: String) {
         val protocols = listOf("http", "https", "rtsp", "ftp")
         val url = if (protocols.none { text.lowercase().startsWith(it) }) {
-            // Default to HTTPS
             "https://$text"
         } else {
             text
@@ -256,7 +254,6 @@ class ScanQRFragment : BoundFragment<FragmentScanTextBinding>() {
     }
 
 
-    @SuppressLint("UnsafeOptInUsageError")
     private fun onCameraUpdate(
         bitmap: Bitmap,
         isFromGallery: Boolean = false

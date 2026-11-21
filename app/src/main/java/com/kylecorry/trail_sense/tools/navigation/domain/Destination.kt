@@ -91,7 +91,6 @@ sealed class Destination : GuidanceProvider {
             }
 
             return Guidance(
-                // Without a starting location, the recorded bearing is retained regardless of the north setting
                 targetBearing = vector?.direction ?: bearing,
                 traveledDistance = traveledDistance,
                 offRouteDistance = offRouteDistance

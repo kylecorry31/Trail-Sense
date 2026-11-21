@@ -108,7 +108,6 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
 
         sort = prefs.paths.pathSort
 
-        // TODO: See if it is possible to get notified of changes without loading all paths
         observeFlow(pathService.getPaths()) {
             manager.refresh()
         }
@@ -370,7 +369,6 @@ class PathsFragment : BoundFragment<FragmentToolPathsBinding>() {
         )
     }
 
-    // Groups
     private fun deleteGroup(group: PathGroup) {
         val command = DeletePathGroupGroupCommand(requireContext(), pathService)
         inBackground {

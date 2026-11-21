@@ -122,7 +122,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         )
         val navigation = navigationSensors.values
 
-        // This ref is used by listeners to avoid constantly re-registering
         val navigationRef = useRef(navigation)
         useEffect(navigation) {
             navigationRef.current = navigation
@@ -165,7 +164,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             setLockMode(getNextLockMode(lockMode, hasCompass))
         }
 
-        // Layers
         val manager = useMemo { MapToolLayerManager() }
         val layers = useMapLayers(manager, mapView, resetOnResume)
         useEffect(manager, mapView, mapTime, layers.key) {
@@ -188,7 +186,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             onDismiss = layers.resume
         )
 
-        // Distance
         val (hasUnsavedPath, setHasUnsavedPath) = useState(false)
         useUnsavedChangesPrompt(hasUnsavedPath)
 
@@ -197,7 +194,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             mapDistanceSheetView.hide()
         }
 
-        // The sheet starts hidden when the view is recreated, so the measurement it showed is over
         useEffect(manager, mapDistanceSheetView, stopDistanceMeasurement, resetOnResume) {
             if (manager.isMeasuringDistance() && !mapDistanceSheetView.isVisible) {
                 stopDistanceMeasurement()
@@ -273,7 +269,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 mapDistanceSheetView.setEditState(manager.getDistanceEditState())
             }
 
-        // Update layer values
         useEffect(mapView, navigation.location, navigation.locationAccuracy) {
             mapView.userLocation = navigation.location
             mapView.userLocationAccuracy = navigation.locationAccuracy
@@ -365,7 +360,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                     val formattedLocation = formatter.formatLocation(location)
 
                     onMain {
-                        // Build the data point row using the shared LocationDataPointView
                         val currentNavigation = navigationRef.current
                         val infoView = LocationDataPointView(requireContext(), null)
                         infoView.setDistance(
@@ -440,7 +434,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        // Menu
         useClickCallback(menuButton, startDistanceMeasurement, adjustLayers) {
             val actions = listOf<Pair<String, () -> Unit>>(
                 getString(R.string.measure) to { startDistanceMeasurement(null, false, false) },
@@ -465,7 +458,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             }
         }
 
-        // Disclaimer
         useEffect(context) {
             CustomUiUtils.disclaimer(
                 context,
@@ -475,7 +467,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
             )
         }
 
-        // Sensor status
         useEffect(sensorStatusBadges, navigationSensors.gps, navigationSensors.compass) {
             sensorStatusBadges.setSensors(navigationSensors.gps, navigationSensors.compass)
             sensorStatusBadges.setOnClickListener {
@@ -492,7 +483,6 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
         screenLight: ScreenTorch,
         context: android.content.Context
     ) {
-        // Reset trace mode defaults
         map.isInteractive = true
         map.isZoomEnabled = true
         traceViews.forEach { it.isVisible = true }
@@ -501,37 +491,28 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
 
         when (mode) {
             MapLockMode.Location -> {
-                // Disable pan
                 map.isPanEnabled = false
 
-                // Zoom in and center on location
                 map.resolution = 2f
 
-                // Reset the rotation
                 map.mapAzimuth = 0f
 
-                // Show as locked
                 button.setIconResource(R.drawable.satellite)
                 button.isChecked = true
             }
 
             MapLockMode.Compass -> {
-                // Disable pan
                 map.isPanEnabled = false
 
-                // Show as locked
                 button.setIconResource(R.drawable.ic_compass_icon)
                 button.isChecked = true
             }
 
             MapLockMode.Free -> {
-                // Enable pan
                 map.isPanEnabled = true
 
-                // Reset the rotation
                 map.mapAzimuth = 0f
 
-                // Show as unlocked
                 button.setIconResource(R.drawable.satellite)
                 button.isChecked = false
             }
@@ -545,21 +526,16 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                     cancelText = null
                 )
 
-                // Disable all interaction
                 map.isInteractive = false
                 map.isZoomEnabled = false
 
-                // Show as locked
                 button.setIconResource(R.drawable.lock)
                 button.isChecked = true
 
-                // Full brightness
                 screenLight.on()
 
-                // Hide buttons
                 traceViews.forEach { it.isVisible = false }
 
-                // Hide the bottom navigation
                 requireMainActivity().setBottomNavigationEnabled(false)
             }
         }

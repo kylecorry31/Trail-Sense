@@ -60,7 +60,6 @@ class ARLineLayer(
             renderedLines = rendered
 
             if (renderWithPaths) {
-                // Free current paths
                 renderedPaths.forEach {
                     pathPool.release(it.second)
                 }
@@ -73,7 +72,6 @@ class ARLineLayer(
         drawer.noFill()
         drawer.strokeCap(StrokeCap.Round)
 
-        // Draw lines
         for (i in renderedLines.indices) {
             val (line, points) = renderedLines[i]
             val path = renderedPaths.getOrNull(i)?.second

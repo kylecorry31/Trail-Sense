@@ -52,7 +52,6 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
     )
 
     override fun draw(context: Context, drawer: ICanvasDrawer, map: IMapView) {
-        // Avoid drawing while in safe mode
         if (SafeMode.isEnabled()) {
             return
         }
@@ -104,7 +103,6 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
         map: IMapView,
         pixel: PixelCoordinate
     ): Boolean {
-        // Do nothing by default
         return false
     }
 }

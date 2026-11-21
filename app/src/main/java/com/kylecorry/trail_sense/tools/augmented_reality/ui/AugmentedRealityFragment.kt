@@ -155,7 +155,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         if (!userPrefs.augmentedReality.showPathLayer) return@CoroutineTimer
         if (binding.arView.location == lastLocation) return@CoroutineTimer
         lastLocation = binding.arView.location
-        // This is only handling the path layer for now
         val viewDistance = Distance.meters(userPrefs.augmentedReality.pathViewDistance * 2f)
         pathLayerManager?.onBoundsChanged(
             CoordinateBounds.from(
@@ -174,7 +173,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             refreshGuidance()
         }
 
-    // Calibration
     private val calibrationFactory = ARCalibratorFactory()
     private val astronomyService = AstronomyService()
 
@@ -189,7 +187,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             binding.arView.updatePadding(top = top)
         }
 
-        // Beacon layer setup (TODO: Move this to a layer manager)
         observeFlow(beaconRepo.getBeacons()) {
             beaconLayer.setBeacons(it)
         }
@@ -216,7 +213,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             } else {
                 binding.guidancePanel.setState(state.display)
                 binding.arView.guideTo(state.point) {
-                    // Guidance targets remain active until canceled or replaced
                 }
             }
         }
@@ -333,7 +329,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         refreshGuidance()
     }
 
-    // TODO: Move this to the AR view
     private fun startCamera() {
         isCameraEnabled = true
         binding.cameraToggle.setImageResource(R.drawable.ic_camera)
@@ -393,13 +388,11 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             prefs.augmentedReality.increaseExposureAtNight
         }
 
-        // Increase exposure at night
         useEffect(binding.arView, isNight, shouldIncreaseExposureAtNight) {
             binding.arView.setExposureCompensation(if (isNight && shouldIncreaseExposureAtNight) 0.5f else 0f)
         }
     }
 
-    // TODO: Extract focus formatters
     private fun onSunFocused(time: ZonedDateTime): Boolean {
         binding.arView.focusText =
             getString(R.string.sun) + "\n" + formatter.formatRelativeDateTime(
@@ -479,7 +472,6 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         )
         binding.arView.focusText = beacon.name + "\n" + formattedDistance
 
-        // If the beacon isn't the destination, show the navigate button
         if (navigator.getBeaconDestinationId() != beacon.id) {
             binding.focusActionButton.setTextDistinct(getString(R.string.navigate))
             binding.focusActionButton.setOnClickListener {

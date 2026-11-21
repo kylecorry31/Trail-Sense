@@ -34,7 +34,6 @@ class MapLayerLoader(context: Context) {
 
 }
 
-// TODO: Consider loading required attribution with the layer data rather than the definition (definition can contain the long form attribution)
 suspend fun MapLayerLoader.getAttribution(context: Context, layerIds: List<String>): CharSequence? {
     val definitions = getDefinitions()
     val markdown = DependencyRegistry.get<MarkdownService>()

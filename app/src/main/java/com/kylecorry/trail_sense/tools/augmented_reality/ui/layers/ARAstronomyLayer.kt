@@ -326,8 +326,6 @@ class ARAstronomyLayer(
                 val sunPointsToDraw = getMarkersAboveHorizon(sunPositions)
                 val moonPointsToDraw = getMarkersAboveHorizon(moonPositions)
 
-                // TODO: The line should be drawn to the horizon
-
                 val sunLines = sunPointsToDraw.map { markers ->
                     ARLine(
                         markers.map { it.point },
@@ -352,7 +350,6 @@ class ARAstronomyLayer(
                 sunLayer.setMarkers(sunPointsToDraw.flatten())
                 moonLayer.setMarkers(moonPointsToDraw.flatten())
 
-                // The sun and moon can be drawn below the horizon
                 currentSunLayer.setMarkers(listOf(sun))
                 currentMoonLayer.setMarkers(listOf(moon))
             }
@@ -525,7 +522,6 @@ class ARAstronomyLayer(
         var currentLine = mutableListOf<ARMarker>()
         points.forEach {
             val point = it.point as SphericalARPoint
-            // TODO: This isn't efficient
             if (point.coordinate.elevation > 0) {
                 currentLine.add(it)
             } else {

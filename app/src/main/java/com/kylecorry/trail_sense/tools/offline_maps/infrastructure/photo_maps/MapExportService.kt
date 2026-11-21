@@ -37,7 +37,6 @@ class MapExportService(
     private val files = FileSubsystem.getInstance(context)
 
     override suspend fun export(data: PhotoMap, filename: String): Boolean {
-        // If the map was auto calibrated and the PDF exists, just copy it
         if (data.pdfFile != null && isGeospatialPdf(data.pdfFile.path)) {
             val uri = uriPicker.create(filename, "application/pdf") ?: return false
             val outputStream = files.output(uri) ?: return false
@@ -86,7 +85,6 @@ class MapExportService(
             val bounds = map.bounds
 
             if (bounds == null) {
-                // No calibration, just generate a PDF containing the image
                 return listOf(
                     catalog(1, 2),
                     pages(2, listOf(3)),
@@ -95,7 +93,6 @@ class MapExportService(
                 )
             }
 
-            // Generate a Geospatial PDF
             val projections = mapOf(
                 MapProjectionType.Mercator to "Mercator",
                 MapProjectionType.CylindricalEquidistant to "Equidistant_Cylindrical"

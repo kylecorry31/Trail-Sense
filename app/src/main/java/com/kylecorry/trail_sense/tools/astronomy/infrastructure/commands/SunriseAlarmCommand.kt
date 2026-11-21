@@ -30,10 +30,8 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
     private val userPrefs by lazy { UserPreferences(context) }
     private val astronomyService = AstronomyService()
 
-    // The window prior the alert time that the alert can be sent
     private val alertWindow = Duration.ofMinutes(20)
 
-    // The window after the alert time that the alert can be sent
     private val alertWindowAfter = Duration.ofMinutes(5)
 
     override suspend fun execute() = onDefault {
@@ -55,7 +53,6 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
         if (todaySunrise != null) {
             when {
                 isPastSunrise(todaySunrise) -> {
-                    // Missed the sunrise, schedule the alarm for tomorrow
                     setAlarm(
                         tomorrowSunrise?.minus(alertDuration)
                             ?: todaySunrise.plusDays(1),
@@ -64,7 +61,6 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
                 }
 
                 withinAlertWindow(todaySunrise, alertDuration) -> {
-                    // Send alert, schedule alarm for tomorrow's sunrise or else at some point tomorrow
                     sendNotification(todaySunrise)
                     setAlarm(
                         tomorrowSunrise?.minus(alertDuration)
@@ -73,8 +69,7 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
                     )
                 }
 
-                else -> { // Before the alert window
-                    // Schedule alarm for sunrise
+                else -> {
                     setAlarm(
                         todaySunrise.minus(alertDuration),
                         "before alert window for today's sunrise at ${todaySunrise.toInstant()}"
@@ -82,7 +77,6 @@ class SunriseAlarmCommand(private val context: Context) : CoroutineCommand {
                 }
             }
         } else {
-            // There isn't a sunrise today, schedule it for tomorrow
             setAlarm(tomorrowSunrise?.minus(alertDuration) ?: now.plusDays(1), "no sunrise today")
         }
     }

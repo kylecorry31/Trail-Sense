@@ -17,7 +17,6 @@ class RebaseMapCalibrationWorker(
         try {
             migration.migrate()
         } catch (_: Exception) {
-            // Could not migrate
             return Result.failure()
         }
         return Result.success()

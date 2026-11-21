@@ -75,18 +75,15 @@ class Navigator internal constructor(
         }
     )
 
-    // Flows
     private val beaconDestinationId = MutableStateFlow(prefs.getLong(BEACON_DESTINATION_ID_KEY))
     private val beaconDestinationInvalidationKey = MutableStateFlow(0)
 
-    // Bearings
     private val navigationBearing = bearings.getBearing()
 
     private val bearingInvalidationKey = MutableStateFlow(0)
 
     private val bearingDestination = combine(navigationBearing, bearingInvalidationKey) { bearing, _ ->
         bearing?.let {
-            // The start location is hidden when the bearing is not locked to it, so it is not seen by consumers
             val startLocation = it.startLocation.takeIf { settings.lockBearingToLocation }
             Destination.Bearing(
                 Bearing.from(it.bearing),
@@ -97,14 +94,6 @@ class Navigator internal constructor(
             )
         }
     }
-
-    // TODO: Standardized navigation instructions
-    // NavigationInstructions
-    // Bearing
-    // Distance?
-    // ETA?
-    // Elevation change?
-    // Beacons = always to the beacon, bearings = if off track, then back to the bearing reading otherwise bearing end point (or just the bearing if no location info)
 
     private val beaconDestination = combine(beaconDestinationId, beaconDestinationInvalidationKey) { id, _ ->
         id?.let { beacons.getBeacon(it) }?.let { Destination.Beacon(it) }
@@ -135,7 +124,6 @@ class Navigator internal constructor(
         subscribeToLockBearingChanges {
             bearingInvalidationKey.update { it + 1 }
         }
-        // Keeps the beacon destination in sync with external changes to the preferences
         prefs.onChange.subscribe { key ->
             if (key == BEACON_DESTINATION_ID_KEY) {
                 val id = prefs.getLong(BEACON_DESTINATION_ID_KEY)

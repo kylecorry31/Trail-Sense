@@ -158,13 +158,8 @@ object TestUtils {
         throw Exception("Expected exception")
     }
 
-    // STARTUP
-    /**
-     * Setup the application to match the actual application (Trail Sense application)
-     */
     fun setupApplication() {
         WorkManagerTestInitHelper.initializeTestWorkManager(context)
-        // Drop the DB
         AppDatabase.getInstance(context).clearAllTables()
         TrailSenseApplicationInitializer.initialize(context)
         setupDefaultPreferences()
@@ -269,7 +264,6 @@ object TestUtils {
         click(R.id.close_button)
     }
 
-    // PERMISSIONS
     fun mainPermissionsGranted(): TestRule {
         val permissions = mutableListOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -301,7 +295,6 @@ object TestUtils {
         return GrantPermissionRule.grant(*permissions.toTypedArray())
     }
 
-    // PREFERENCES
     fun setupDefaultPreferences() {
         val prefs = PreferencesSubsystem.getInstance(context).preferences
         prefs.clear()
@@ -324,7 +317,6 @@ object TestUtils {
         userPrefs.useCompactMode = true
     }
 
-    // WAITING
     fun waitForIdle() {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync()
     }
@@ -349,7 +341,6 @@ object TestUtils {
         throw Exception("Timeout")
     }
 
-    // NOTIFICATIONS
     fun openNotificationShade() {
         device.openNotification()
     }
@@ -358,7 +349,6 @@ object TestUtils {
         device.swipe(0, device.displayHeight, 0, 0, 10)
     }
 
-    // Helpers
     fun matchesSelfOrChild(
         parent: UiObject2,
         depth: Int = 10,
@@ -560,7 +550,6 @@ object TestUtils {
     }
 
     fun handleExactAlarmsDialog() {
-        // TODO: Add the option to grant the permission
         if (!Permissions.hasPermission(
                 context,
                 SpecialPermission.SCHEDULE_EXACT_ALARMS

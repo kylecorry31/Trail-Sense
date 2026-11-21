@@ -12,7 +12,6 @@ class GaussianAltimeterWrapper(override val altimeter: IAltimeter, samples: Int 
 
     private val filter = GPSGaussianAltitudeFilter(samples)
 
-    // TODO: Add this to IAltimeter
     override val altitudeAccuracy: Float?
         get() = filter.accuracy
 

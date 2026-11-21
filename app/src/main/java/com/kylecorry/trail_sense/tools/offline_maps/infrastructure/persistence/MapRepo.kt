@@ -79,7 +79,6 @@ class MapRepo private constructor(context: Context) {
             return@onIO map
         }
 
-        // This currently only supports a single map file, once additional files are added this will need to be modified
         val saved = files.copyToLocal(
             map.mapFile.path.toUri(),
             OFFLINE_MAPS_DIRECTORY,
@@ -163,7 +162,6 @@ class MapRepo private constructor(context: Context) {
 
     private fun convertToMap(map: PhotoMapEntity): PhotoMap {
         val newMap = map.toMap()
-        // TODO: Save the size in the DB
         val size = files.imageSize(newMap.imageFile.path)
         val pdfFilename = map.filename.replace(".webp", "") + ".pdf"
         val hasPdf = map.pdfHeight != null && map.pdfWidth != null && files.get(pdfFilename).exists()

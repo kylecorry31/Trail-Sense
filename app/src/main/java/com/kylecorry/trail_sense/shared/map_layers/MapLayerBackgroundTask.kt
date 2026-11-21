@@ -73,20 +73,9 @@ class MapLayerBackgroundTask {
 
         scope.launch {
             lock.withLock {
-                // If the bounds/meters per pixel have already been ran or queued, exit
                 if (isUpToDate(newBounds, zoom, isInvalid)) {
                     return@launch
                 }
-
-                // This was causing it to not run when required, figure this out since this causes an extra re-render
-//                if (!isInvalid && areBoundsEqual(
-//                        newBounds,
-//                        lastQueuedBounds ?: CoordinateBounds.empty
-//                    ) &&
-//                    zoom == lastQueuedZoom
-//                ) {
-//                    return@launch
-//                }
 
                 val runPercentScaleDifferent = lastRun?.let {
                     it.zoom != zoom
@@ -105,12 +94,10 @@ class MapLayerBackgroundTask {
                     it.center.distanceTo(newBounds.center) / newBounds.width().meters().value
                 } ?: 0f
 
-                // This will be queued up
                 lastQueuedBounds = newBounds
                 lastQueuedZoom = zoom
                 isDirty = false
 
-                // Otherwise queue it up
                 val run = suspend {
                     lock.withLock {
                         lastRun = RunKey(newBounds, zoom)

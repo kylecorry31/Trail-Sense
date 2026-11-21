@@ -57,20 +57,16 @@ class CachedTileRepo private constructor(context: Context) : ICleanable {
     }
 
     override suspend fun clean() = onIO {
-        // Delete tiles older than 7 days
         deleteCreatedBefore(Instant.now().minus(MAX_AGE))
 
-        // Get all filenames from the cache and files on disk
         val cachedFilenames = dao.getAllFilenames().toSet()
         val diskFilenames = files.list(TILES_FOLDER).map { it.name }.toSet()
 
-        // Delete cache entries for missing files
         val missingFiles = cachedFilenames - diskFilenames
         if (missingFiles.isNotEmpty()) {
             dao.deleteByFilenames(missingFiles.toList())
         }
 
-        // Delete files that aren't in the cache
         val orphanedFiles = diskFilenames - cachedFilenames
         for (filename in orphanedFiles) {
             files.delete("$TILES_FOLDER/$filename")

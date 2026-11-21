@@ -49,7 +49,6 @@ class SunsetAlertsToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun restart() {
-        // Always starts - it short circuits if it doesn't need to run
         if (!isEnabled()) {
             return
         }

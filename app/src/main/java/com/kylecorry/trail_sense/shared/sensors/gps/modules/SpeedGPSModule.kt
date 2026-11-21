@@ -40,7 +40,6 @@ class SpeedGPSModule : GPSModule {
         val shouldReplaceSpeed = newData.speed.value == 0f ||
             (currentSpeedAccuracy != null && newData.speed.value < currentSpeedAccuracy * 0.68)
 
-        // Estimate speed when it is zero or below its accuracy threshold
         if (shouldReplaceSpeed && oldestLocation != null) {
             newData.speed = SpeedEstimator.calculate(
                 oldestLocation.first,
@@ -51,7 +50,6 @@ class SpeedGPSModule : GPSModule {
             newData.speedAccuracy = null
         }
 
-        // Add to location history every second
         if (locations.isEmpty() || newData.durationSince(locations.last().second).seconds >= 1) {
             locationHistory.add(currentLocation to newData.eventTimeElapsedNanos)
         }

@@ -24,7 +24,6 @@ internal class WeatherArrivalTimeCalculator(
         val forecastedTime = forecast.first().time
 
         if (forecastedTime != null) {
-            // This handles the case when the forecasted time is in the past, therefore the weather is now
             if (forecastedTime < Instant.now(clock)) {
                 return WeatherArrivalTime(forecastedTime, true)
             }

@@ -45,7 +45,6 @@ class FileSubsystem private constructor(private val context: Context) {
     }
 
     fun drawable(path: String, maxSize: Size? = null): Drawable? {
-        // TODO: Handle maxSize
         return if (path.startsWith(SCHEME_ASSETS)) {
             context.assets.open(path.replace(SCHEME_ASSETS, "")).use {
                 Drawable.createFromStream(it, null)
@@ -58,7 +57,6 @@ class FileSubsystem private constructor(private val context: Context) {
     fun bitmap(path: String, maxSize: Size? = null): Bitmap? {
         if (path.startsWith(SCHEME_ASSETS)) {
             context.assets.open(path.replace(SCHEME_ASSETS, "")).use {
-                // TODO: Handle maxSize
                 return BitmapFactory.decodeStream(it)
             }
         }
@@ -174,9 +172,6 @@ class FileSubsystem private constructor(private val context: Context) {
         }
     }
 
-    /**
-     * Opens a file input stream for either a local path or an external content URI
-     */
     suspend fun fileInputStream(path: String): FileInputStream? = onIO {
         tryOrDefault(null) {
             if (isExternal(path)) {

@@ -11,15 +11,12 @@ abstract class GroupDeleter<T : Groupable>(private val loader: GroupLoader<T>) {
 
         val children = loader.getChildren(group.id, 1)
 
-        // Delete items
         val items = children.filterNot { it.isGroup }
         deleteItems(items)
 
-        // Delete groups
         val groups = children.filter { it.isGroup }
         groups.forEach { delete(it) }
 
-        // Delete self
         deleteGroup(group)
     }
 

@@ -33,7 +33,6 @@ class GuideLoader(private val context: Context) {
         var guideSections = sections.map {
             val section = getSectionDetails(it, chapter)
 
-            // Level 3 headers in content
             val subsections = TextUtils.groupSections(
                 TextUtils.getSections(section.content ?: ""),
                 3,
@@ -59,7 +58,6 @@ class GuideLoader(private val context: Context) {
             }
         }
 
-        // Distribute keywords in section
         guideSections = guideSections.map { section ->
             val keywords = section.keywords
             val subsections = section.subsections.map {

@@ -58,7 +58,6 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             notification
         )
 
-        // Clear the times
         prefs.preferences.remove(TurnBackFragment.PREF_TURN_BACK_TIME)
         prefs.preferences.remove(TurnBackFragment.PREF_TURN_BACK_RETURN_TIME)
     }
@@ -97,10 +96,6 @@ class TurnBackAlarmReceiver : BroadcastReceiver() {
             scheduler.cancel()
         }
 
-        // TODO: Extract this out of the receiver
-        /**
-         * Enable turn back alerts and request permissions if needed
-         */
         fun <T> enable(
             fragment: T,
             shouldRequestPermissions: Boolean

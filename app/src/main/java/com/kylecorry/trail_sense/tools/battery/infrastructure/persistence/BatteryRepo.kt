@@ -25,7 +25,6 @@ class BatteryRepo private constructor(context: Context) : IBatteryRepo {
         onIO {
             batteryDao.insert(BatteryReadingEntity.from(reading))
 
-            // Record the maximum capacity the battery has reached
             if (getMaxCapacity() < reading.capacity) {
                 maxCapacityPref = reading.capacity
             }

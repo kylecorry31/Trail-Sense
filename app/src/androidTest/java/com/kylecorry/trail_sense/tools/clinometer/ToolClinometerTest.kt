@@ -54,12 +54,8 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
         hasText(R.id.estimated_height, string(R.string.distance_unset))
         hasText(R.id.estimated_height, string(R.string.height))
 
-        // Lock
         click(R.id.incline_container)
 
-        // TODO: Verify it is locked
-
-        // Unlock
         click(R.id.incline_container)
     }
 
@@ -98,7 +94,6 @@ class ToolClinometerTest : ToolTestBase(Tools.CLINOMETER) {
 
         clickOk()
 
-        // Instructions dialog
         isNotVisible(R.id.amount)
         hasText("target that is 5 ft away")
         clickOk()

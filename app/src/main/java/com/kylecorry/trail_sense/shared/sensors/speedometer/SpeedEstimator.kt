@@ -14,13 +14,11 @@ object SpeedEstimator {
         newLocation: ApproximateCoordinate,
         time: Duration
     ): Speed {
-        // If the location is unset, the speed is zero
         if (lastLocation.coordinate == Coordinate.zero || newLocation.coordinate == Coordinate.zero) {
             return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
         }
 
         val distance = lastLocation.coordinate.distanceTo(newLocation.coordinate)
-        // If the time is zero, the speed is zero
         if (time.isZero || time.isNegative) {
             return Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)
         }
