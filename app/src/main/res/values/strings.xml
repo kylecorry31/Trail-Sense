@@ -320,6 +320,7 @@
     <string name="pref_category_about">About</string>
     <string name="pref_app_version_title">Version</string>
     <string name="pref_github_title">GitHub</string>
+    <string name="pref_release_notes_title">Release notes</string>
     <string name="pref_email_title">Email developer</string>
     <string name="continue_button">CONTINUE</string>
     <!--Preference Keys (DO NOT TRANSLATE)-->
@@ -375,6 +376,7 @@
     <string name="pref_holder_pressure" translatable="false">pref_holder_pressure</string>
     <string name="pref_show_pressure_in_notification" translatable="false">pref_show_pressure_in_notification</string>
     <string name="pref_open_source_licenses" translatable="false">pref_open_source_licenses</string>
+    <string name="pref_release_notes" translatable="false">pref_release_notes</string>
     <string name="pref_gps_request_permission" translatable="false">pref_gps_request_permission</string>
     <string name="pref_latitude_override" translatable="false">pref_latitude_override</string>
     <string name="pref_longitude_override" translatable="false">pref_longitude_override</string>
@@ -435,6 +437,7 @@
     <string name="pref_privacy_policy_title">Privacy policy</string>
     <string name="pref_privacy_policy" translatable="false">pref_privacy_policy</string>
     <string name="privacy_policy_url" translatable="false">https://kylecorry.com/Trail-Sense/privacy_policy.html</string>
+    <string name="release_notes_url" translatable="false">https://kylecorry.com/Trail-Sense/release-notes/</string>
     <string name="tool_solar_panel_summary">Position solar panels for optimal power production</string>
     <string name="tool_solar_panel_title">Solar Panel Aligner</string>
     <string name="solar_panel_instructions">Place your phone on the face of the solar panel to begin.</string>

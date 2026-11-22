@@ -127,6 +127,7 @@ A new smoothing setting reduces GPS jitter. It is applied to readings as they co
 - The Map, Augmented Reality, Magnifier, Mirror Camera, and Screen Flashlight tools now extend under the status bar. You can turn this off with the new 'Extend tools under the status bar' theme setting
 - Widgets now follow the Dynamic colors setting, so they use the app's colors instead of your wallpaper colors when it is off. You can turn this off with the new 'Use app theme for widgets' theme setting (thanks to @ibrahim-iqbal for the contribution)
 - Reordered and grouped some settings to make them easier to scan
+- Added a link to the release notes in the Settings screen
 - Added a compass update frequency setting to the compass calibration settings so you can lower it to reduce power use
 - Reduced update frequency on the Navigation, Flashlight, and White Noise tools to use less battery
 - Added the percent of time the device was in deep sleep to the Battery tool

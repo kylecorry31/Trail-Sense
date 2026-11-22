@@ -62,6 +62,11 @@ class SettingsFragment : AndromedaPreferenceFragment() {
             startActivity(i)
         }
 
+        onClick(preference(R.string.pref_release_notes)) {
+            val i = Intents.url(it.summary.toString())
+            startActivity(i)
+        }
+
         onClick(preference(R.string.pref_email)) {
             val intent = Intents.email(it.summary.toString(), getString(R.string.app_name))
             startActivity(Intent.createChooser(intent, it.title.toString()))

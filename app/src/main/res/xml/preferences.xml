@@ -79,6 +79,13 @@
             app:singleLineTitle="false" />
 
         <Preference
+            android:summary="@string/release_notes_url"
+            android:title="@string/pref_release_notes_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_release_notes"
+            app:singleLineTitle="false" />
+
+        <Preference
             android:summary="@string/privacy_policy_url"
             android:title="@string/pref_privacy_policy_title"
             app:iconSpaceReserved="false"

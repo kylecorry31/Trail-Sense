@@ -251,6 +251,7 @@ Scroll to the **About** section at the bottom of **Settings** to find the follow
 - **GitHub**: A link to the GitHub repository (source code) for Trail Sense.
 - **Diagnostics**: Opens the Diagnostics tool, which detects common issues that affect the tools in Trail Sense.
 - **Licenses**: A list of the open source licenses used in Trail Sense.
+- **Release notes**: A link to the Trail Sense release notes.
 
 ## Recover from crashes with safe mode
 If Trail Sense starts three times in a row, each within 30 seconds of the previous start, such as when it keeps crashing, it enters safe mode. Safe mode disables map tile layers and opens to Settings by default, so you can disable any features that might be causing the issue. Safe mode turns off automatically after 20 seconds.
