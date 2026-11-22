@@ -394,7 +394,6 @@
     <string name="high_tide">Πλήμη</string>
     <string name="contents">Περιεχόμενο</string>
     <string name="help">Βοήθεια</string>
-    <string name="pedometer_disclaimer">Η ακρίβεια, και η χρήση της μπαταρίας του βηματόμετρου εξαρτώνται από τον κατασκευαστή της συσκευής σας και το μήκος βηματισμού που έχετε εισαγάγει. Δοκιμάστε το στο σπίτι για λίγο για να επαληθεύσετε την χρήση της μπαταρίας και την ακρίβεια πριν το χρησιμοποιήσετε σε διαδρομή.</string>
     <string name="liter_format">%s l</string>
     <string name="advanced">Για προχωρημένους</string>
     <string name="category_clothing">Ιματισμός</string>

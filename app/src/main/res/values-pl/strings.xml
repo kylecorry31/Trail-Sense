@@ -581,7 +581,6 @@
     <string name="clear_amounts">Wyczyść ilości</string>
     <string name="desired_amount">Docelowa ilość</string>
     <string name="packed_amount">Zapakowana ilość</string>
-    <string name="pedometer_disclaimer">Dokładność oraz użycie baterii przez krokomierz zależą od producenta urządzenia oraz wprowadzonej długości kroku. Wypróbuj przez chwilę w domu, aby sprawdzić dokładność oraz użycie baterii przed korzystaniem na szlaku.</string>
     <string name="action_inventory_clear_confirm">Wyczyścić wszystkie spakowane ilości\?</string>
     <string name="lightning_dangerously_close">Błyskawica niebezpiecznie blisko</string>
     <string name="partial">Częściowe (%s)</string>

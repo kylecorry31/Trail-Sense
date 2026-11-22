@@ -168,7 +168,6 @@
     <string name="no_gps_signal">Nincs GPS Jel</string>
     <string name="meteor_shower">Meteorzivatar</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d meteor / ó</string>
-    <string name="pedometer_disclaimer">A lépésszámláló pontossága és akkumulátorhasználata függ az eszközöd gyártójától és a megadott lépéshossztól. Próbáld ki egy kicsit otthon, hogy ellenőrizd az akkuhasználatot és a pontosságot, mielőtt terepen használnád.</string>
     <string name="rename">Átnevezés</string>
     <string name="no_maps">Nincsenek térképek</string>
     <string name="previous">Előző</string>

@@ -784,7 +784,6 @@
     <string name="always_on">همیشه روشن</string>
     <string name="battery_usage">مصرف باتری %s</string>
     <string name="low_tide">کم</string>
-    <string name="pedometer_disclaimer">دقت و استفاده از باتری گام شمار به سازنده دستگاه شما و طول گام وارد شده بستگی دارد. قبل از استفاده در مسیر، کمی آن را در خانه امتحان کنید تا تخلیه و دقت باتری را بررسی کنید.</string>
     <string name="rename">تغییر نام دهید</string>
     <string name="no_maps">بدون نقشه</string>
     <string name="minutes_format">%s m</string>

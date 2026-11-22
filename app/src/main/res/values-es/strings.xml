@@ -334,7 +334,6 @@
     <string name="low">bajo</string>
     <string name="speedometer">Velocímetro</string>
     <string name="pref_meteor_showers_title">Lluvias de meteoros</string>
-    <string name="pedometer_disclaimer">La precisión y el uso de la batería del podómetro dependen del fabricante del dispositivo y de la longitud de paso configurada. Pruébalo por un tiempo en casa, para verificar la precisión y la descarga de la batería, antes de usarlo en el camino.</string>
     <string name="rename">Renombrar</string>
     <string name="waypoint_time_format">%1$s, %2$s</string>
     <string name="pref_backtrack_enabled_summary">Grabar historial de ubicación</string>

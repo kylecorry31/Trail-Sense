@@ -554,7 +554,6 @@
     <string name="on_map">Op de kaart</string>
     <string name="no_maps">Geen kaarten</string>
     <string name="rename">Hernoemen</string>
-    <string name="pedometer_disclaimer">De nauwkeurigheid en het batterijgebruik van de stappenteller zijn afhankelijk van de fabrikant van je apparaat en de ingevoerde staplengte. Probeer het een tijdje thuis om het leeglopen van de batterij en de nauwkeurigheid te controleren voordat je op pad gaat.</string>
     <string name="pref_meteor_showers_title">Meteorenzwermen</string>
     <string name="meteors_per_hour">Max %d meteoren / h</string>
     <string name="meteor_shower">Meteorenzwerm</string>

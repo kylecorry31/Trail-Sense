@@ -940,7 +940,6 @@
     <string name="keep_forever">永遠保留</string>
     <string name="location_to_triangulate">要三角定位嘅位置</string>
     <string name="pref_dialog_battery_log_summary">電量紀錄已停用，過去紀錄同續航時間或會欠奉。您可以喺設定入面重新啟用</string>
-    <string name="pedometer_disclaimer">步程計嘅準繩與耗電量，取決於您部機嘅生產商以及您所打嘅步幅。可以喺屋企小試牛刀，查驗一下耗電量同準繩，先至拎出街實戰。</string>
     <string name="new_text">新</string>
     <string name="pref_tiles_battery_log">電量紀錄</string>
     <string name="no_group">未有路綫</string>

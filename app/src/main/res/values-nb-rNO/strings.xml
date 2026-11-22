@@ -385,7 +385,6 @@
     <string name="battery_usage">%s batteribruk</string>
     <string name="no_gps_signal">Ikke noe GPS-signal</string>
     <string name="tides">Tidevann</string>
-    <string name="pedometer_disclaimer">Nøyaktigheten og batteribruken til skrittelleren er avhengig av produsenten av enheten og den angitte skrittlengden. Prøv det ut litt hjemme for å kontrollere batteritømming og nøyaktighet før du bruker det på stien.</string>
     <string name="pref_meteor_showers_title">Meteorsvermer</string>
     <string name="meteors_per_hour">Maks %d meteorer / t</string>
     <string name="meteor_shower">Meteorsverm</string>

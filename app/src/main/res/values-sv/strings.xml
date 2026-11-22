@@ -570,7 +570,6 @@
     <string name="meteor_shower">Meteorregn</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Högst %d meteorer/tim</string>
     <string name="pref_meteor_showers_title">Meteorregn</string>
-    <string name="pedometer_disclaimer">Stegräknarens noggrannhet och batteriförbrukning beror på enhetens tillverkare och den angivna steglängden. Prova den hemma en stund för att kontrollera batteriförbrukning och noggrannhet innan du använder den ute på leden.</string>
     <string name="no_maps">Inga kartor</string>
     <string name="on_map">På kartan</string>
     <string name="previous">Föregående</string>

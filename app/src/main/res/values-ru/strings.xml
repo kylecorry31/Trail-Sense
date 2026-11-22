@@ -454,7 +454,6 @@
     <string name="tides">Приливы</string>
     <string name="pref_meteor_showers_title">Звездопад</string>
     <string name="meteor_shower">Звездопад</string>
-    <string name="pedometer_disclaimer">Точность шагомера и его использование батареи зависят от производителя вашего устройства и введенной длины шага. Попробуйте походить немного дома, чтобы проверить разряд батареи и точность перед использованием на тропе.</string>
     <string name="meteors_per_hour">Максимум %d метеоров в час</string>
     <string name="no_tides">Нет приливов</string>
     <string name="pref_step_length_title">Длина шага</string>

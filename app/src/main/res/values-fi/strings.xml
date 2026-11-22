@@ -447,7 +447,6 @@
     <string name="help">Apu</string>
     <string name="pref_clinometer_lock_with_volume_buttons_title">Lukitse äänenvoimakkuuspainikkeilla</string>
     <string name="pref_show_nearest_tide_title">Näytä lähin vuorovesi</string>
-    <string name="pedometer_disclaimer">Askelmittarin tarkkuus ja akun käyttö riippuu laitteesi valmistajasta ja syötetystä askelpituudesta. Kokeile sitä ensin kotioloissa varmistaaksesi akun tyhjenemisen ja tarkkuuden ennen käyttöä retkellä.</string>
     <string name="category_clothing">Vaatetus</string>
     <string name="max_temp_calibrated">Ympäristön korkein lämpötila (kalibroitu)</string>
     <string name="tool_category_angles">Kulmat</string>

@@ -552,7 +552,6 @@
     <string name="pedometer">Pedometer</string>
     <string name="pref_step_length_title">Panjang langkah</string>
     <string name="pref_meteor_showers_title">Hujan meteor</string>
-    <string name="pedometer_disclaimer">Akurasi dan penggunaan baterai pedometer bergantung pada produsen perangkat Anda serta panjang langkah yang dimasukkan. Cobalah di rumah terlebih dahulu untuk memeriksa penggunaan baterai dan akurasinya sebelum digunakan di jalur.</string>
     <string name="rename">Ubah nama</string>
     <string name="no_maps">Tidak ada peta</string>
     <string name="on_map">Pada peta</string>
