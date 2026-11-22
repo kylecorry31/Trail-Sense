@@ -22,7 +22,6 @@
     <string name="on_map">На мапі</string>
     <string name="no_maps">Немає мап</string>
     <string name="rename">Переназвати</string>
-    <string name="pedometer_disclaimer">Точність крокоміра та його зарядоспоживання залежать від виробника вашого пристрою і введеної довжини кроку. Спробуйте походити трохи вдома, щоб перевірити розряджання батареї та точність перед використанням в поході.</string>
     <string name="pref_meteor_showers_title">Зорепади</string>
     <string name="meteors_per_hour">Щонайбільше %d метеорів / год</string>
     <string name="meteor_shower">Зорепад</string>

@@ -735,7 +735,6 @@
     <string name="pedometer">பெடோமீட்டர்</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">அதிகபட்ச %d விண்கற்கள் / ம</string>
     <string name="pref_meteor_showers_title">விண்கல் மழை</string>
-    <string name="pedometer_disclaimer">பெடோமீட்டரின் துல்லியம் மற்றும் பேட்டரி பயன்பாடு உங்கள் சாதனத்தின் உற்பத்தியாளரைப் பொறுத்தது மற்றும் ச்ட்ரைட் நீளம் உள்ளிடப்பட்டது. பாதையில் பயன்படுத்துவதற்கு முன்பு பேட்டரி வடிகால் மற்றும் துல்லியத்தை சரிபார்க்க வீட்டிற்கு சிறிது முயற்சி செய்யுங்கள்.</string>
     <string name="rename">மறுபெயரிடுங்கள்</string>
     <string name="no_maps">வரைபடங்கள் இல்லை</string>
     <string name="on_map">வரைபடத்தில்</string>

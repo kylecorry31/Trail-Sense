@@ -390,7 +390,6 @@
     <string name="imperial_pints">英制品脫</string>
     <string name="take_photo">拍照</string>
     <string name="cloud_stratus_forecast" tools:ignore="PluralsCandidate">如果有霧，可能預示未來 %d 小時內天氣晴朗，否則可能預示很快就會有降雨。</string>
-    <string name="pedometer_disclaimer">計步器的準確度和電池使用情況取決於你的裝置製造商和輸入的步幅。在步道上使用前，請先在家測試片刻，以驗證電池電量消耗和準確度。</string>
     <string name="manual">手動</string>
     <string name="unable_to_find_next_astronomy">無法找到下一個 %s</string>
     <string name="season_spring">春天</string>

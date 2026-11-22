@@ -18,7 +18,6 @@
     <string name="importing_map">Harita içe aktarılıyor</string>
     <string name="time_until_full">dolmasına kalan süre</string>
     <string name="time_until_empty">bitmesine kalan süre</string>
-    <string name="pedometer_disclaimer">Adımsayarın doğruluğu ve pil tüketimi cihazınızın üreticisine ve girilen adım mesafesine bağlıdır. Yolda kullanmadan önce evinizde hassasiyeti doğrulayın.</string>
     <string name="no_tides">Gelgit yok</string>
     <string name="pedometer">Adımsayar</string>
     <string name="speedometer">Hızölçer</string>

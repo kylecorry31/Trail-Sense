@@ -230,7 +230,6 @@
     <string name="whistle_signal_acknowledged">Motteke</string>
     <string name="whistle_signal_come_here">Kom hit</string>
     <string name="pedometer">Stegteljar</string>
-    <string name="pedometer_disclaimer">Grannsemda og straumbruket på stegteljaren spørst på mobilen din og kor lange steg du har skrive at du tek. Freist han heime og sjå at straumbruket og stegtalet er rett før du tek han på tur.</string>
     <string name="activity_recognition_permission_denied">Manglar fysisk aktivitet-løyve; fær ikkje skrutt på stegteljaren. Du kan gje løyve i innstillingane.</string>
     <string name="pref_pedometer_history_days_title">Stegsoge</string>
     <string name="tool_category_signaling">Varsling</string>

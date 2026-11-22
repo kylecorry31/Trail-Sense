@@ -420,7 +420,6 @@
 \n- Dopo aver premuto continua, ti verrà chiesta l\'autorizzazione per accedere alla tua posizione. Negare tale autorizzazione impedirà a Trail Sense di accedere alla tua posizione, è quindi raccomandato inserire manualmente una posizione.</string>
     <string name="left_quick_action">Azione rapida sinistra</string>
     <string name="sleep_timer">Timer per il sonno</string>
-    <string name="pedometer_disclaimer">L\'accuratezza e l\'impatto sulla batteria del pedometro dipendono dal produttore del dispositivo e dalla lunghezza di passo inserita. Provalo a casa per un po\' per verificare il consumo di batteria e l\'accuratezza prima di usarlo fuori.</string>
     <string name="altocumulus_desc">Nubi gonfie di livello medio che assomigliano a batuffoli di cotone. Sono tipicamente bianche con macchie più scure al di sotto e possono essere distanziate o simili a dei fogli.</string>
     <string name="dashed">Tratteggiato a linee</string>
     <string name="backtrack_battery_warning">Intervalli corti (sotto i 15 minuti) potrebbero causare un eccessivo consumo di batteria</string>

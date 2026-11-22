@@ -459,7 +459,6 @@
     <string name="screen_flashlight">Écran</string>
     <string name="speedometer">Tachymètre</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">Max %d météores / h</string>
-    <string name="pedometer_disclaimer">La précision et l\'autonomie de la batterie du podomètre dépendent du fabricant de votre appareil et de la longueur de pas que vous avez saisie. Testez-le un peu chez vous pour vérifier son autonomie et sa précision avant de l\'utiliser en randonnée.</string>
     <string name="no_maps">Pas de cartes</string>
     <string name="on_map">Sur la carte</string>
     <string name="previous">Précédent</string>

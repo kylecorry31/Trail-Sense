@@ -589,7 +589,6 @@
     <string name="on_map">No mapa</string>
     <string name="no_maps">Sem mapas</string>
     <string name="rename">Alterar nome</string>
-    <string name="pedometer_disclaimer">A precisão e o consumo da bateria do pedómetro depende do fabricante do seu aparelho e a distância dos passos configurada nas preferências. Faça primeiro uma experiência em casa para verificar o consumo e a precisão antes de usar num percurso.</string>
     <string name="pref_meteor_showers_title">Chuvas de meteoros</string>
     <string name="meteors_per_hour">Máximo %d meteoros / h</string>
     <string name="meteor_shower">Chuva de meteoros</string>

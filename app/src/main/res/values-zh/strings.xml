@@ -448,7 +448,6 @@
     <string name="meteor_shower">流星雨</string>
     <string name="pref_meteor_showers_title">流星雨</string>
     <string name="meteors_per_hour">最多 %d 颗流星/小时</string>
-    <string name="pedometer_disclaimer">计步器的准确性和电池使用量取决于你设备的制造商和输入的步幅。在实际使用前，请先在家里试一下，验证电池消耗和准确性。</string>
     <string name="next">下一张</string>
     <string name="previous">上一张</string>
     <string name="on_map">在地图上</string>

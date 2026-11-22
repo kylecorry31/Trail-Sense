@@ -459,7 +459,6 @@
     <string name="previous">Zurück</string>
     <string name="no_maps">Keine Karten</string>
     <string name="rename">Umbenennen</string>
-    <string name="pedometer_disclaimer">Der Akkuverbrauch und die Genauigkeit des Schrittzählers hängt vom Hersteller des Geräts und der angegeben Schrittgröße ab. Teste es kurz zu Hause, um den Energieverbrauch und die Genauigkeit festzustellen, bevor du es unterwegs verwendest.</string>
     <string name="experimental">Experimentell</string>
     <string name="import_gpx">GPX importieren</string>
     <string name="importing_map">Karte importieren</string>

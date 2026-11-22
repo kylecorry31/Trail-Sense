@@ -319,7 +319,6 @@
     <string name="meteor_shower">زخة شهب</string>
     <string name="meteors_per_hour" tools:ignore="PluralsCandidate">الحد الأقصى %d شهاب/ساعة</string>
     <string name="pref_meteor_showers_title">زخات الشهب</string>
-    <string name="pedometer_disclaimer">دقة عداد الخطوات واستخدام البطارية يعتمدان على الشركة المصنعة لجهازك وطول الخطوة المدخل. جربها في المنزل لفترة للتحقق من استهلاك البطارية والدقة قبل استخدامها في المسار.</string>
     <string name="no_maps">لا توجد خرائط</string>
     <string name="previous">السابق</string>
     <string name="next">التالي</string>
