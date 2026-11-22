@@ -1667,4 +1667,9 @@
     <string name="navigation_traveled">已旅遊</string>
     <string name="navigation_facing">面對</string>
     <string name="bottom_navigation">底部導航欄</string>
+    <string name="pref_extend_tools_under_status_bar_title">在狀態列下方延伸工具</string>
+    <string name="pref_extend_tools_under_status_bar_summary">讓地圖和相機等工具填滿狀態列後方的螢幕區域</string>
+    <string name="use_app_theme_for_widgets">將應用程式主題套用至小工具</string>
+    <string name="use_app_theme_for_widgets_summary">小工具會採用應用程式的動態色彩設定，而非一律使用系統色彩</string>
+    <string name="pref_show_zoom_buttons_title">顯示縮放按鈕</string>
 </resources>
