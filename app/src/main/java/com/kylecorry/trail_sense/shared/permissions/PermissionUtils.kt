@@ -57,8 +57,11 @@ fun Fragment.requestNotifications(action: () -> Unit) {
         return
     }
     requirePermissionRequester().requestPermissions(listOf(Manifest.permission.POST_NOTIFICATIONS)) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.withResumed { action() }
+        if (!isAdded) {
+            return@requestPermissions
+        }
+        lifecycleScope.launch {
+            lifecycle.withResumed { action() }
         }
     }
 }
