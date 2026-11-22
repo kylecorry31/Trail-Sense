@@ -1,0 +1,21 @@
+Paths
+- Navigate along paths
+- Draw and edit paths on the map
+- Improve Backtrack battery usage (1 min default)
+- Preview path simplification
+- Fill path elevations with DEM
+- Improve elevation smoothing
+
+Navigation
+- Redesign navigation sheet
+- Improve navigation map layer
+
+Augmented Reality
+- Show paths as ribbons
+
+GPS
+- Add accuracy filter and smoothing settings
+
+Misc
+- Improve accuracy of DEM, tide, and climate models
+- Bug fixes
