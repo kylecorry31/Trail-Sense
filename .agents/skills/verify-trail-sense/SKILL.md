@@ -195,7 +195,7 @@ $T env display status ; $T env display reset    # always reset when done
 
 **Notifications:** `$T notifications` lists the app's active notifications. Use it instead of `dumpsys notification`.
 
-**App lifecycle and logs:** `$T app launch|stop|kill|idle|services|current|clear|uninstall|restore`, `$T logs [--lines N] [--all] [--out f]`, `$T logs --crash`, `$T logs --clear`. `$T logs --grep 'Backtrack|FATAL'` keeps only lines matching a regex (the old habit was `adb logcat | grep`). Revoking a permission kills the app, so relaunch with `app launch` before the next step.
+**App lifecycle and logs:** `$T app launch|stop|kill|idle|services|current|clear|uninstall|restore`, `$T logs [--lines N] [--all] [--out f]`, `$T logs --crash`, `$T logs --clear`. `$T logs --grep 'Backtrack|FATAL'` keeps only lines matching a regex across the whole buffer (the old habit was `adb logcat | grep`). Phones keep only a short logcat buffer, so for long field tests have the app write its own log file and read it with `$T app cat files/<name>` (app-private, so it needs approval on a phone like `pref`). Revoking a permission kills the app, so relaunch with `app launch` before the next step.
 
 **Background and widget state:**
 

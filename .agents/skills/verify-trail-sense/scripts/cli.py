@@ -1179,6 +1179,20 @@ def cmd_ui_record(ctx):
     return Out({"mp4": str(dest)}, f"wrote {dest}")
 
 
+DEFAULT_LOG_LINES = 300
+
+
+def cmd_app_cat(ctx):
+    """Print a file from the app's private data directory (debuggable variants)."""
+    require_debuggable(ctx)
+    out = text(run_as(ctx, "cat", ctx.args.path))
+    if ctx.args.out:
+        Path(ctx.args.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(ctx.args.out).write_text(out)
+        return Out({"path": ctx.args.out, "lines": len(out.splitlines())}, f"wrote {ctx.args.out} ({len(out.splitlines())} lines)")
+    return Out({"lines": out.splitlines()}, out.rstrip())
+
+
 def cmd_logs(ctx):
     a = ctx.args
     if a.clear:
@@ -1188,7 +1202,9 @@ def cmd_logs(ctx):
         out = text(run(ctx.target.adb("logcat", "-d", "-b", "crash")))
     else:
         pid = text(ctx.target.shell("pidof", ctx.package, check=False)).strip()
-        cmd = ctx.target.adb("logcat", "-d", "-t", str(a.lines))
+        # A grep searches the whole buffer; otherwise only the last lines are shown
+        cmd = ctx.target.adb("logcat", "-d") if a.grep and a.lines is None else \
+            ctx.target.adb("logcat", "-d", "-t", str(a.lines or DEFAULT_LOG_LINES))
         if pid and not a.all:
             cmd.append(f"--pid={pid.split()[0]}")
         elif not a.all:
@@ -1378,6 +1394,10 @@ def build_parser():
     ai.add_argument("--off", action="store_true", help="return the app to the active standby bucket")
     leaf(app, "services", cmd_app_services, ACT, "running services of the app")
     leaf(app, "current", cmd_app_current, ACT, "the resumed activity")
+    ac = leaf(app, "cat", cmd_app_cat, APP_DATA, "print a file from the app's data directory (debuggable variants)",
+              "example: tsctl app cat files/arground.log --out captures/verify/arground.log")
+    ac.add_argument("path", help="path relative to the app's data directory, e.g. files/arground.log")
+    ac.add_argument("--out", help="write to a file instead of stdout")
 
     env = group("env", "fake the environment on the emulator: GPS, sensors, display, Doze (emulator only)")
     dz = leaf(env, "doze", cmd_doze, EMULATOR, "force the device into deep Doze (on) or release it (off); waits 3 s after on")
@@ -1491,7 +1511,7 @@ def build_parser():
     lg.add_argument("--crash", action="store_true", help="crash buffer only; empty means no crashes")
     lg.add_argument("--all", action="store_true", help="all processes")
     lg.add_argument("--clear", action="store_true")
-    lg.add_argument("--lines", type=positive_int, default=300)
+    lg.add_argument("--lines", type=positive_int, default=None, help="last N lines (default 300; with --grep the whole buffer)")
     lg.add_argument("--out", help="write to a file instead of stdout")
     lg.add_argument("--grep", help="keep only lines matching this regex")
 
