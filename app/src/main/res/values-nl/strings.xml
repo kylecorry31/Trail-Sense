@@ -1689,4 +1689,6 @@
     <string name="pref_extend_tools_under_status_bar_title">Hulpmiddelen uitbreiden onder de statusbalk</string>
     <string name="pref_extend_tools_under_status_bar_summary">Laat hulpmiddelen zoals kaart en camera het scherm achter de statusbalk vullen</string>
     <string name="pref_show_zoom_buttons_title">Zoomknoppen weergeven</string>
+    <string name="use_app_theme_for_widgets">Appthema voor widgets gebruiken</string>
+    <string name="use_app_theme_for_widgets_summary">Widgets volgen de dynamische kleuren van de app, in plaats van de systeemkleuren</string>
 </resources>
