@@ -30,9 +30,9 @@ The smoothing of path elevations was improved to work better on paths with noisy
 
 ### Backtrack Improvements
 
-Backtrack should use less battery while recording paths at a frequency below 15 minutes, as it no longer keeps the device awake continuously. Because of this, the default backtrack frequency has been changed to 1 minute, which is more in line with how most users want it to record paths out of the box. A new minimum distance between recorded points setting has also been added so it will avoid recording points when you are taking a break.
+Backtrack now uses less battery when recording more often than every 15 minutes, because it no longer keeps your device awake continuously. Since this makes recording cheaper, the default frequency is now 1 minute. A new minimum distance setting also stops Backtrack from recording points while you are taking a break.
 
-The behavior of the notification has been improved to open the path when tapped rather than opening the Paths tool. The screen that opens (path details) will let you stop the recording directly from there. Finally, when you do stop recording, the path will be kept until you manually delete it instead of remaining a temporary path.
+Tapping the Backtrack notification now opens the path being recorded, where you can also stop the recording. Paths from stopped recordings are now kept until you delete them, rather than being removed automatically.
 
 <p align="center">
     <img src="images/8.3.0/backtrack_banner.png" height="640" alt="Backtrack recording banner" />
@@ -89,7 +89,7 @@ Paths are now rendered in Augmented Reality as ribbons so you can more clearly t
     <img src="images/8.3.0/ar_path_navigation.jpg" height="640" alt="Path navigation in Augmented Reality" />
 </p>
 
-### Path and Bearing Navigation
+### Navigation Targets
 
 The guidance target now shows the active path or bearing navigation targets when you open the tool.
 
@@ -105,7 +105,7 @@ You can now control what accuracy is acceptable for a GPS reading and how long T
 
 ### Smoothing
 
-A new GPS smoothing setting was added which will run new GPS readings through a smoothing filter to avoid jitter. This smoothing is done in realtime rather than on recorded readings, so be sure to test this out on a few paths before committing to a setting.
+A new smoothing setting reduces GPS jitter. It is applied to readings as they come in, so try it on a few paths before relying on it.
 
 ### Minor Changes
 
@@ -119,31 +119,40 @@ A new GPS smoothing setting was added which will run new GPS readings through a 
 
 ## Miscellaneous
 
-- Added a compass update frequency setting to the compass calibration settings so you can lower it to reduce power use
-- Added a confirmation before deleting a packing list item
-- Trail Sense now asks for the notification permission only when you turn on a feature that needs it (such as Backtrack, the weather monitor, or sunset alerts) instead of every time it starts
-- Removed the pedometer accuracy and battery disclaimer shown when turning on the pedometer in settings
+- Dropped support for Android 6
 - Added a setting to hide the Map tool's zoom buttons (thanks to @Lil-Clanky for the contribution)
 - Improved map tile loading and caching, and failed tiles are now retried
-- Reduced update frequency on the Navigation, Flashlight, and White Noise tools to save battery
-- Reordered and grouped some settings to make them easier to scan
+- The Weather tool can now use elevation data for altitude even when your location is turned off
+- Changed default weather monitor frequency to 30 minutes
 - The Map, Augmented Reality, Magnifier, Mirror Camera, and Screen Flashlight tools now extend under the status bar. You can turn this off with the new 'Extend tools under the status bar' theme setting
 - Widgets now follow the Dynamic colors setting, so they use the app's colors instead of your wallpaper colors when it is off. You can turn this off with the new 'Use app theme for widgets' theme setting (thanks to @ibrahim-iqbal for the contribution)
+- Reordered and grouped some settings to make them easier to scan
+- Added a compass update frequency setting to the compass calibration settings so you can lower it to reduce power use
+- Reduced update frequency on the Navigation, Flashlight, and White Noise tools to use less battery
+- Added the percent of time the device was in deep sleep to the Battery tool
+- Trail Sense now asks for the notification permission only when you turn on a feature that needs it (such as Backtrack, the weather monitor, or sunset alerts) instead of every time it starts
+- Added a confirmation before deleting a packing list item
+- Removed the pedometer accuracy and battery disclaimer shown when turning on the pedometer in settings
+- Improved the accuracy of the built-in elevation, tide, cell tower, temperature, and precipitation data
+
+## Bug Fixes
+
+- Fixed the app failing to start if a setting was corrupted during an update
+- Fixed the map jumping to an old location on resume
 - Fixed the radar compass sometimes showing a distance of 0
 - Fixed the battery charging indicator not updating
-- Added the percent of time the device was in deep sleep to the Battery tool
-- Fixed a bug where sensors were not paused when the screen was off while navigating with show on lock screen enabled
-- Changed default weather monitor frequency to 30 minutes
-- Dropped support for Android 6
-- Fixed clock tool's GPS time on devices running Android 7, 8, and 9
+- Fixed the Flashlight tool showing the wrong on/off state after returning to it
+- Fixed the elevation from the DEM not being used when only a cached GPS location was available
+- Fixed storm alerts using the wrong threshold when sending storm alerts was off
+- Fixed sensors not pausing when the screen was off while navigating with 'Show on lock screen' enabled
+- Fixed the Clock tool's GPS time on devices running Android 7, 8, and 9
 - Fixed the Photo Maps compass declination waiting for the first GPS reading
-- Improved built-in DEM, tide, cell tower, temperature, and precipitation models
 - Fixed a crash when tapping the Astronomy chart while leaving the tool
 - Fixed a crash when importing a geospatial PDF with missing or malformed location information
 - Fixed a crash when importing a corrupt or password protected PDF map
 - Fixed a crash when entering a very large number of days for the Pedometer step history (now limited to 10 years)
 - Fixed a crash that could occur when opening the quick settings panel with a Trail Sense tile added
-- Fixed a crash when the backtrack path contained points without a time
+- Fixed a crash when the Backtrack path contained points without a time
 - Fixed a crash when tapping Learn more on the battery restrictions message after leaving the screen
-- Fixed the app failing to start if a setting was corrupted during an update
+- Fixed a crash when restoring a corrupted backup
 - Fixed a crash when tapping the flashlight widget while the app was idle
