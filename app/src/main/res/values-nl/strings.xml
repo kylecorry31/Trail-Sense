@@ -1691,4 +1691,5 @@
     <string name="pref_show_zoom_buttons_title">Zoomknoppen weergeven</string>
     <string name="use_app_theme_for_widgets">Appthema voor widgets gebruiken</string>
     <string name="use_app_theme_for_widgets_summary">Widgets volgen de dynamische kleuren van de app, in plaats van de systeemkleuren</string>
+    <string name="pref_release_notes_title">Publicatieopmerkingen</string>
 </resources>
