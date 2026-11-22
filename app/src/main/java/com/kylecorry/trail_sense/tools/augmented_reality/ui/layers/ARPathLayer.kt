@@ -69,7 +69,6 @@ class ARPathLayer(
 
     private var projection: IMapProjection? = null
     private var groundOffset = defaultElevationOffset
-    private var terrainHeight: (Coordinate) -> Float? = { null }
 
     private var paths: List<IMappablePath> = listOf()
 
@@ -93,7 +92,6 @@ class ARPathLayer(
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastElevation = view.altitude
         groundOffset = view.groundOffset ?: defaultElevationOffset
-        terrainHeight = view::terrainHeightAt
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
 
         hooks.effect(
@@ -115,8 +113,7 @@ class ARPathLayer(
             paths,
             destination,
             destination?.route?.guidance,
-            (groundOffset * 10).roundToInt(),
-            view.terrain?.version?.div(4)
+            (groundOffset * 10).roundToInt()
         ) {
             updatePaths(getPaths())
         }
@@ -400,11 +397,10 @@ class ARPathLayer(
 
     private fun toARPoint(pixel: PixelCoordinate, elevation: Float?): ARPoint? {
         val location = toLocation(pixel) ?: return null
-        val ground = terrainHeight(location) ?: groundOffset
         val elevationOffset = if (adjustForPathElevation && elevation != null) {
-            (elevation - (lastElevation ?: 0f) + ground)
+            (elevation - (lastElevation ?: 0f) + groundOffset)
         } else {
-            ground
+            groundOffset
         }
         return GeographicARPoint(
             location,

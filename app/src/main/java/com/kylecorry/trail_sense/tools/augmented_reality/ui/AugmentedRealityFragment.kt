@@ -34,7 +34,6 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.databinding.FragmentToolAugmentedRealityBinding
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
@@ -61,10 +60,11 @@ import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTargetCoordinator
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
-import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGroundDebugLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.infrastructure.GroundTracker
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARSurroundingsLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARSatelliteLayer
 import com.kylecorry.trail_sense.tools.beacons.domain.Beacon
 import com.kylecorry.trail_sense.tools.beacons.infrastructure.persistence.BeaconRepo
@@ -148,14 +148,14 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         )
     }
     private var pathLayerManager: AugmentedRealityPathLayerManager? = null
-    private val groundDebugLayer = ARGroundDebugLayer()
-    private val groundTracker by lazy {
-        ARGroundTracker(
-            binding.arView,
-            SensorService(requireContext()).getPedometer(),
-            userPrefs.pedometer.stepLength.meters().value
+    private val surroundingsLayer by lazy {
+        ARSurroundingsLayer(
+            getString(R.string.ar_surroundings_searching),
+            getString(R.string.ar_surroundings_lost)
         )
     }
+    private val groundTracker by lazy { GroundTracker(requireContext()) }
+    private var isMappingSurroundings = false
 
     private var isCameraEnabled = true
 
@@ -346,14 +346,12 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         requestCamera {
             if (it) {
                 binding.camera.isVisible = true
-                val autoGround = userPrefs.augmentedReality.autoGroundHeight
-                groundTracker.reset()
-                if (autoGround) groundTracker.start()
-                binding.camera.start(
-                    readFrames = autoGround,
-                    shouldStabilizePreview = false,
-                    onImage = if (autoGround) groundTracker::onFrame else null
-                )
+                isMappingSurroundings = userPrefs.augmentedReality.showSurroundingsLayer
+                if (isMappingSurroundings) {
+                    startMappingSurroundings()
+                } else {
+                    binding.camera.start(readFrames = false, shouldStabilizePreview = false)
+                }
             } else {
                 binding.camera.isInvisible = true
                 isCameraEnabled = false
@@ -364,8 +362,31 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         }
     }
 
-    private fun stopCamera() {
+    private fun startMappingSurroundings() {
+        val arView = binding.arView
+        groundTracker.onUpdate = { state ->
+            // Keep the last measured ground while tracking recovers
+            state.groundOffset?.let { arView.groundOffset = it }
+            surroundingsLayer.setState(state)
+        }
+        groundTracker.start()
+        binding.camera.start(readFrames = true, shouldStabilizePreview = false) { frame ->
+            // The camera's field of view isn't known until the preview has a size
+            if (arView.previewRect != null) {
+                groundTracker.onFrame(frame, arView.rotationMatrix.copyOf(), arView.fov.width, arView.fov.height)
+            }
+        }
+    }
+
+    private fun stopMappingSurroundings() {
         groundTracker.stop()
+        groundTracker.onUpdate = null
+        binding.arView.groundOffset = null
+        surroundingsLayer.setState(null)
+    }
+
+    private fun stopCamera() {
+        stopMappingSurroundings()
         binding.cameraToggle.setImageResource(R.drawable.ic_camera_off)
         isCameraEnabled = false
         binding.arView.backgroundFillColor = Color.BLACK
@@ -375,7 +396,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     override fun onPause() {
         super.onPause()
-        groundTracker.stop()
+        stopMappingSurroundings()
         binding.camera.stop()
         binding.arView.stop()
         astronomyLayer.pause()
@@ -670,8 +691,16 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             if (userPrefs.augmentedReality.showAstronomyLayer) astronomyLayer else null,
             if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
             if (userPrefs.augmentedReality.showBeaconLayer) beaconLayer else null,
-            if (userPrefs.augmentedReality.autoGroundHeight && userPrefs.augmentedReality.debugGroundGrid) groundDebugLayer else null
+            if (userPrefs.augmentedReality.showSurroundingsLayer) surroundingsLayer else null
         )
+        // Mapping needs the camera's frames, which are only read when it starts
+        if (isCameraEnabled && isMappingSurroundings != userPrefs.augmentedReality.showSurroundingsLayer) {
+            stopMappingSurroundings()
+            binding.camera.stop()
+            binding.camera.post {
+                if (isBound && isCameraEnabled) startCamera()
+            }
+        }
         updateGuidanceButtonState()
     }
 

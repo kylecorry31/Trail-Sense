@@ -31,10 +31,6 @@ import com.kylecorry.sol.math.Euler
 import com.kylecorry.sol.math.MathExtensions.toDegrees
 import com.kylecorry.sol.math.Quaternion
 import com.kylecorry.sol.math.Vector3
-import com.kylecorry.sol.math.MathExtensions.toRadians
-import com.kylecorry.trail_sense.tools.augmented_reality.domain.ground.TerrainMap
-import kotlin.math.cos
-import kotlin.math.sin
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.Coordinate
@@ -81,7 +77,8 @@ class AugmentedRealityView : CanvasView {
 
     val rotationMatrix = FloatArray(16)
     private val orientation = FloatArray(3)
-    private var previewRect: RectF? = null
+    var previewRect: RectF? = null
+        private set
     private var cameraMapper: CameraAnglePixelMapper? = null
     private var lastActiveCamera: ICamera? = null
     private val defaultMapper = SimplePerspectiveCameraAnglePixelMapper()
@@ -142,30 +139,10 @@ class AugmentedRealityView : CanvasView {
         get() = altimeter.altitude
 
     /**
-     * Estimated offset of the ground from the device in meters (negative is below), if known
+     * The ground's height relative to the device in meters (negative is below), if measured
      */
     @Volatile
     var groundOffset: Float? = null
-
-    @Volatile
-    var terrain: TerrainMap? = null
-
-    @Volatile
-    var terrainPosition: Pair<Float, Float> = 0f to 0f
-
-    /**
-     * Height of the terrain at a location in meters relative to the device, if it has been seen
-     */
-    fun terrainHeightAt(target: Coordinate): Float? {
-        val map = terrain ?: return null
-        val distance = location.distanceTo(target)
-        val bearing = location.bearingTo(target).value.toRadians()
-        val offset = getActualPoint(
-            Vector3(distance * sin(bearing), distance * cos(bearing), 0f),
-            true
-        )
-        return map.heightAt(terrainPosition.first + offset.x, terrainPosition.second + offset.y)
-    }
 
     var decimalPlaces = 0
 
@@ -484,10 +461,8 @@ class AugmentedRealityView : CanvasView {
      */
     fun toPixel(
         coordinate: AugmentedRealityCoordinate,
-        nanIfBehindCamera: Boolean = false,
-        rotationMatrixOverride: FloatArray? = null
+        nanIfBehindCamera: Boolean = false
     ): PixelCoordinate {
-        val rotationMatrix = rotationMatrixOverride ?: this.rotationMatrix
         val actual = getActualPoint(coordinate.position, coordinate.isTrueNorth)
 
         if (nanIfBehindCamera) {

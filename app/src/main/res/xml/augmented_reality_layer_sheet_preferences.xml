@@ -56,6 +56,20 @@
     <PreferenceCategory
         app:iconSpaceReserved="false"
         app:singleLineTitle="false"
+        app:title="@string/surroundings">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_show_ar_surroundings_layer"
+            app:singleLineTitle="false"
+            app:title="@string/visible" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
         app:title="@string/grid">
 
         <SwitchPreferenceCompat

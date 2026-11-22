@@ -1508,10 +1508,6 @@
     <string name="use_gyroscope_after_calibration_description">Instead of the compass (avoids magnetic drift)</string>
     <string name="reset_calibration_question">Reset calibration?</string>
     <string name="pref_ar_adjust_for_path_elevation" translatable="false">pref_ar_adjust_for_path_elevation</string>
-    <string name="pref_ar_auto_ground_height" translatable="false">pref_ar_auto_ground_height</string>
-    <string name="pref_ar_debug_ground_grid" translatable="false">pref_ar_debug_ground_grid</string>
-    <string name="debug_ground_grid_poc" translatable="false">Show ground debug grid</string>
-    <string name="auto_ground_height_poc" translatable="false">Auto ground height (experimental)</string>
     <!-- Whether to use path elevations on the augmented reality tool -->
     <string name="use_path_elevation">Use path elevation</string>
     <string name="pref_use_filtered_gps" translatable="false">pref_use_filtered_gps</string>
@@ -1572,6 +1568,11 @@
     <string name="show_all">Show all</string>
     <string name="hide_all">Hide all</string>
     <string name="pref_show_ar_grid_layer" translatable="false">pref_show_ar_grid_layer</string>
+    <string name="pref_show_ar_surroundings_layer" translatable="false">pref_show_ar_surroundings_layer</string>
+    <!-- An augmented reality layer that maps the ground and objects around the user -->
+    <string name="surroundings">Surroundings</string>
+    <string name="ar_surroundings_searching">Point the camera at the ground</string>
+    <string name="ar_surroundings_lost">Tracking lost, point the camera at the ground</string>
     <string name="grid">Grid</string>
     <string name="ar_layer_override_message">Layer settings may be overridden by guidance, such as the Astronomy guide.</string>
     <string name="pref_camera_settings" translatable="false">pref_camera_settings</string>

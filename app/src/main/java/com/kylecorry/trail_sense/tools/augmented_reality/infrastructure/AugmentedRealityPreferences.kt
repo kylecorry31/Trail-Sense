@@ -45,18 +45,6 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         false
     )
 
-    val autoGroundHeight by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_ar_auto_ground_height),
-        false
-    )
-
-    val debugGroundGrid by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_ar_debug_ground_grid),
-        false
-    )
-
     var showBeaconLayer by BooleanPreference(
         cache,
         context.getString(R.string.pref_show_ar_beacon_layer),
@@ -80,6 +68,12 @@ class AugmentedRealityPreferences(context: Context) : PreferenceRepo(context) {
         cache,
         context.getString(R.string.pref_show_ar_astronomy_layer),
         true
+    )
+
+    var showSurroundingsLayer by BooleanPreference(
+        cache,
+        context.getString(R.string.pref_show_ar_surroundings_layer),
+        false
     )
 
     var showGridLayer by BooleanPreference(

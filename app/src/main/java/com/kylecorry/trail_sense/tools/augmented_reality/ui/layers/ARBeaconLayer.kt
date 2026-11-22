@@ -86,9 +86,9 @@ class ARBeaconLayer(
             }
 
         val ground = view.groundOffset
-        hooks.effect("layer_update", visible, ground?.let { (it * 10).roundToInt() }, view.terrain?.version?.div(4)) {
+        hooks.effect("layer_update", visible, ground?.let { (it * 10).roundToInt() }) {
             layer.setMarkers(visible.flatMap { beacon ->
-                val groundHeight = if (beacon.elevation == null) view.terrainHeightAt(beacon.coordinate) ?: ground else null
+                val groundHeight = if (beacon.elevation == null) ground else null
                 listOfNotNull(
                     ARMarker(
                         GeographicARPoint(
