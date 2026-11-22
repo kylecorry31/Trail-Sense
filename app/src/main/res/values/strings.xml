@@ -1508,6 +1508,10 @@
     <string name="use_gyroscope_after_calibration_description">Instead of the compass (avoids magnetic drift)</string>
     <string name="reset_calibration_question">Reset calibration?</string>
     <string name="pref_ar_adjust_for_path_elevation" translatable="false">pref_ar_adjust_for_path_elevation</string>
+    <string name="pref_ar_auto_ground_height" translatable="false">pref_ar_auto_ground_height</string>
+    <string name="pref_ar_debug_ground_grid" translatable="false">pref_ar_debug_ground_grid</string>
+    <string name="debug_ground_grid_poc" translatable="false">Show ground debug grid</string>
+    <string name="auto_ground_height_poc" translatable="false">Auto ground height (experimental)</string>
     <!-- Whether to use path elevations on the augmented reality tool -->
     <string name="use_path_elevation">Use path elevation</string>
     <string name="pref_use_filtered_gps" translatable="false">pref_use_filtered_gps</string>

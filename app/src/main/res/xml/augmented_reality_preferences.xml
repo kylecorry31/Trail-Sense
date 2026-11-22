@@ -56,6 +56,20 @@
             app:singleLineTitle="false"
             app:title="@string/use_path_elevation" />
 
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_ar_auto_ground_height"
+            app:singleLineTitle="false"
+            app:title="@string/auto_ground_height_poc" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/pref_ar_debug_ground_grid"
+            app:singleLineTitle="false"
+            app:title="@string/debug_ground_grid_poc" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

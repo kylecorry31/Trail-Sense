@@ -21,6 +21,7 @@ import com.kylecorry.trail_sense.tools.beacons.infrastructure.BeaconPickers
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.shared.bitmap.DrawerBitmapLoader
 import kotlin.math.hypot
+import kotlin.math.roundToInt
 
 class ARBeaconLayer(
     override val guidanceName: String,
@@ -84,14 +85,17 @@ class ARBeaconLayer(
                     .map { it.first }
             }
 
-        hooks.effect("layer_update", visible) {
+        val ground = view.groundOffset
+        hooks.effect("layer_update", visible, ground?.let { (it * 10).roundToInt() }, view.terrain?.version?.div(4)) {
             layer.setMarkers(visible.flatMap { beacon ->
+                val groundHeight = if (beacon.elevation == null) view.terrainHeightAt(beacon.coordinate) ?: ground else null
                 listOfNotNull(
                     ARMarker(
                         GeographicARPoint(
                             beacon.coordinate,
-                            beacon.elevation,
+                            beacon.elevation ?: groundHeight,
                             beaconSize.value,
+                            isElevationRelative = beacon.elevation == null && groundHeight != null
                         ),
                         CanvasCircle(beacon.color, Color.WHITE),
                         onFocusedFn = {
@@ -107,8 +111,9 @@ class ARBeaconLayer(
                         ARMarker(
                             GeographicARPoint(
                                 beacon.coordinate,
-                                beacon.elevation,
-                                beaconSize.value
+                                beacon.elevation ?: groundHeight,
+                                beaconSize.value,
+                                isElevationRelative = beacon.elevation == null && groundHeight != null
                             ),
                             CanvasBitmap(
                                 loader.load(icon.icon, loadedImageSize),

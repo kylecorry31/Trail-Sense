@@ -34,6 +34,7 @@ import com.kylecorry.sol.time.Time.toZonedDateTime
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.shared.sensors.SensorService
 import com.kylecorry.trail_sense.databinding.FragmentToolAugmentedRealityBinding
 import com.kylecorry.trail_sense.settings.ui.ImproveAccuracyAlerter
 import com.kylecorry.trail_sense.shared.CustomUiUtils.getCardinalDirectionColor
@@ -60,6 +61,7 @@ import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.guidance.BeaconGuidanceTargetCoordinator
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARAstronomyLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARBeaconLayer
+import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGroundDebugLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARGridLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARLayer
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.layers.ARPathLayer
@@ -146,6 +148,14 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         )
     }
     private var pathLayerManager: AugmentedRealityPathLayerManager? = null
+    private val groundDebugLayer = ARGroundDebugLayer()
+    private val groundTracker by lazy {
+        ARGroundTracker(
+            binding.arView,
+            SensorService(requireContext()).getPedometer(),
+            userPrefs.pedometer.stepLength.meters().value
+        )
+    }
 
     private var isCameraEnabled = true
 
@@ -336,8 +346,13 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
         requestCamera {
             if (it) {
                 binding.camera.isVisible = true
+                val autoGround = userPrefs.augmentedReality.autoGroundHeight
+                groundTracker.reset()
+                if (autoGround) groundTracker.start()
                 binding.camera.start(
-                    readFrames = false, shouldStabilizePreview = false
+                    readFrames = autoGround,
+                    shouldStabilizePreview = false,
+                    onImage = if (autoGround) groundTracker::onFrame else null
                 )
             } else {
                 binding.camera.isInvisible = true
@@ -350,6 +365,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
     }
 
     private fun stopCamera() {
+        groundTracker.stop()
         binding.cameraToggle.setImageResource(R.drawable.ic_camera_off)
         isCameraEnabled = false
         binding.arView.backgroundFillColor = Color.BLACK
@@ -359,6 +375,7 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
 
     override fun onPause() {
         super.onPause()
+        groundTracker.stop()
         binding.camera.stop()
         binding.arView.stop()
         astronomyLayer.pause()
@@ -652,7 +669,8 @@ class AugmentedRealityFragment : BoundFragment<FragmentToolAugmentedRealityBindi
             if (userPrefs.augmentedReality.showSatelliteLayer) satelliteLayer else null,
             if (userPrefs.augmentedReality.showAstronomyLayer) astronomyLayer else null,
             if (userPrefs.augmentedReality.showPathLayer) pathsLayer else null,
-            if (userPrefs.augmentedReality.showBeaconLayer) beaconLayer else null
+            if (userPrefs.augmentedReality.showBeaconLayer) beaconLayer else null,
+            if (userPrefs.augmentedReality.autoGroundHeight && userPrefs.augmentedReality.debugGroundGrid) groundDebugLayer else null
         )
         updateGuidanceButtonState()
     }

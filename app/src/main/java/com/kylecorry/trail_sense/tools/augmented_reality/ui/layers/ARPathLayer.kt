@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.augmented_reality.ui.layers
 
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
+import kotlin.math.roundToInt
 import com.kylecorry.andromeda.core.units.PixelCoordinate
 import com.kylecorry.luna.hooks.Hooks
 import com.kylecorry.sol.math.Vector2
@@ -67,6 +68,8 @@ class ARPathLayer(
     private val defaultElevationOffset = -2f // meters
 
     private var projection: IMapProjection? = null
+    private var groundOffset = defaultElevationOffset
+    private var terrainHeight: (Coordinate) -> Float? = { null }
 
     private var paths: List<IMappablePath> = listOf()
 
@@ -89,6 +92,8 @@ class ARPathLayer(
 
     override suspend fun update(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lastElevation = view.altitude
+        groundOffset = view.groundOffset ?: defaultElevationOffset
+        terrainHeight = view::terrainHeightAt
         lastLocationAccuracySquared = view.locationAccuracy?.let { square(it) }
 
         hooks.effect(
@@ -109,7 +114,9 @@ class ARPathLayer(
             view.locationAccuracy,
             paths,
             destination,
-            destination?.route?.guidance
+            destination?.route?.guidance,
+            (groundOffset * 10).roundToInt(),
+            view.terrain?.version?.div(4)
         ) {
             updatePaths(getPaths())
         }
@@ -393,10 +400,11 @@ class ARPathLayer(
 
     private fun toARPoint(pixel: PixelCoordinate, elevation: Float?): ARPoint? {
         val location = toLocation(pixel) ?: return null
+        val ground = terrainHeight(location) ?: groundOffset
         val elevationOffset = if (adjustForPathElevation && elevation != null) {
-            (elevation - (lastElevation ?: 0f) + defaultElevationOffset)
+            (elevation - (lastElevation ?: 0f) + ground)
         } else {
-            defaultElevationOffset
+            ground
         }
         return GeographicARPoint(
             location,
