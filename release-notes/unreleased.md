@@ -130,6 +130,7 @@ A new smoothing setting reduces GPS jitter. It is applied to readings as they co
 - Added a link to the release notes in the Settings screen
 - Added a compass update frequency setting to the compass calibration settings so you can lower it to reduce power use
 - Reduced update frequency on the Navigation, Flashlight, and White Noise tools to use less battery
+- Improved the performance of the Navigation tool's radar compass
 - Added the percent of time the device was in deep sleep to the Battery tool
 - Trail Sense now asks for the notification permission only when you turn on a feature that needs it (such as Backtrack, the weather monitor, or sunset alerts) instead of every time it starts
 - Added a confirmation before deleting a packing list item
