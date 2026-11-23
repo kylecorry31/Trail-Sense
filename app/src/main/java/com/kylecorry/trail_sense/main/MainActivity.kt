@@ -33,6 +33,7 @@ import com.kylecorry.andromeda.core.tryOrLog
 import com.kylecorry.andromeda.core.tryOrNothing
 import com.kylecorry.andromeda.fragments.AndromedaActivity
 import com.kylecorry.andromeda.fragments.AndromedaFragment
+import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
@@ -285,7 +286,7 @@ class MainActivity : AndromedaActivity() {
     override fun onResume() {
         super.onResume()
         isRunning = true
-        updateAllWidgets()
+        inBackground { updateAllWidgets() }
         updateDeviceSurfaceRotation()
         FlashlightSubsystem.getInstance(this).startSystemMonitor()
         PedometerSubsystem.getInstance(this).recalculateState()
