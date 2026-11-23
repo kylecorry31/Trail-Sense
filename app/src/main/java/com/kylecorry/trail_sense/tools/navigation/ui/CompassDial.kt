@@ -1,13 +1,12 @@
 package com.kylecorry.trail_sense.tools.navigation.ui
 
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
 import androidx.annotation.ColorInt
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.canvas.StrokeCap
 import com.kylecorry.andromeda.core.units.PixelCoordinate
-import com.kylecorry.trail_sense.shared.canvas.Dial
+import kotlin.math.cos
+import kotlin.math.sin
 
 class CompassDial(
     private val center: PixelCoordinate,
@@ -24,33 +23,31 @@ class CompassDial(
 ) {
 
     private val tickThicknessDp = 2f
-    private val ticks = Dial.ticks(
-        center,
-        tickRadius,
-        tickLength,
-        15
-    )
-    private val cardinalTicks = Dial.ticks(
-        center,
-        tickRadius,
-        cardinalTickLength,
-        45
-    )
 
-    private val trueCardinalTicks = Dial.ticks(
-        center,
-        tickRadius,
-        cardinalTickLength,
-        90
-    )
+    private val ticks = tickLines(tickRadius, tickLength, 15)
+    private val cardinalTicks = tickLines(tickRadius, cardinalTickLength, 45)
+    private val trueCardinalTicks = tickLines(tickRadius, cardinalTickLength, 90)
 
-    private var clipPath: Path? = null
-
-    private var backgroundPath = Path().apply {
-        addCircle(center.x, center.y, backgroundRadius, Path.Direction.CW)
+    private fun tickLines(radius: Float, length: Float, spacing: Int): FloatArray {
+        val angles = (0 until 360 step spacing).filterNot { hideTrueCardinalTicks && it % 90 == 0 }
+        val lines = FloatArray(angles.size * 4)
+        angles.forEachIndexed { i, angle ->
+            val dx = cos(Math.toRadians(angle.toDouble())).toFloat()
+            val dy = sin(Math.toRadians(angle.toDouble())).toFloat()
+            lines[i * 4] = center.x + dx * (radius - length / 2)
+            lines[i * 4 + 1] = center.y + dy * (radius - length / 2)
+            lines[i * 4 + 2] = center.x + dx * (radius + length / 2)
+            lines[i * 4 + 3] = center.y + dy * (radius + length / 2)
+        }
+        return lines
     }
 
     fun draw(drawer: ICanvasDrawer, drawTicks: Boolean = true, drawBackground: Boolean = true) {
+        val hasBackground = drawBackground && (Color.alpha(backgroundColor) > 0 || bezelThickness > 0f)
+        if (!drawTicks && !hasBackground) {
+            return
+        }
+
         val trueCardinalTickSize = tickThicknessDp * 1.5f
 
         drawer.opacity(255)
@@ -60,9 +57,10 @@ class CompassDial(
             drawer.circle(center.x, center.y, backgroundRadius * 2)
             if (bezelThickness > 0f) {
                 drawer.push()
-                drawer.clipInverse(backgroundPath)
-                drawer.fill(bezelColor)
-                drawer.circle(center.x, center.y, backgroundRadius * 2 + bezelThickness * 2)
+                drawer.noFill()
+                drawer.stroke(bezelColor)
+                drawer.strokeWeight(bezelThickness)
+                drawer.circle(center.x, center.y, (backgroundRadius + bezelThickness / 2f) * 2)
                 drawer.pop()
             }
         }
@@ -70,44 +68,26 @@ class CompassDial(
         if (!drawTicks) return
 
         drawer.push()
-        if (hideTrueCardinalTicks) {
-            if (clipPath == null) {
-                clipPath = Path()
-                val clipPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    style = Paint.Style.STROKE
-                    strokeWidth = drawer.dp(trueCardinalTickSize + 1)
-                    strokeCap = Paint.Cap.SQUARE
-                }
-                clipPaint.getFillPath(trueCardinalTicks, clipPath)
-            }
-            drawer.clipInverse(clipPath!!)
-        }
-
         drawer.strokeCap(StrokeCap.Square)
-        drawer.strokeWeight(drawer.dp(tickThicknessDp + 1))
         drawer.noFill()
         drawer.stroke(Color.BLACK)
-        drawer.path(ticks)
+        drawer.strokeWeight(drawer.dp(tickThicknessDp + 1))
+        drawer.lines(ticks)
         drawer.strokeWeight(drawer.dp(trueCardinalTickSize + 1))
-        drawer.path(cardinalTicks)
+        drawer.lines(cardinalTicks)
         if (!hideTrueCardinalTicks) {
-            drawer.path(trueCardinalTicks)
+            drawer.lines(trueCardinalTicks)
         }
 
-
-        drawer.strokeWeight(drawer.dp(tickThicknessDp))
         drawer.stroke(tickColor)
-        drawer.path(ticks)
-
-        drawer.strokeWeight(drawer.dp(trueCardinalTickSize))
+        drawer.strokeWeight(drawer.dp(tickThicknessDp))
+        drawer.lines(ticks)
         drawer.stroke(cardinalTickColor)
-        drawer.path(cardinalTicks)
+        drawer.strokeWeight(drawer.dp(trueCardinalTickSize))
+        drawer.lines(cardinalTicks)
         if (!hideTrueCardinalTicks) {
-            drawer.path(trueCardinalTicks)
+            drawer.lines(trueCardinalTicks)
         }
-
-        drawer.strokeCap(StrokeCap.Round)
-
         drawer.pop()
     }
 
