@@ -782,8 +782,10 @@ def cmd_widget_add(ctx):
     time.sleep(1)
     adb_shell("input", "swipe", str(w // 2), str(h // 2), str(w // 2), str(h // 2), "1500")
     android_input(ctx, "input tap", "--wait=5", "text=Widgets")
-    android_input(ctx, "input scroll", "--dir=down", "--until=text=Trail Sense", "scrollable=true")
-    android_input(ctx, "input tap", "text=Trail Sense")
+    app_label = "Trail Sense (Staging)" if ctx.package.endswith(".staging") else "Trail Sense"
+    app_sel = f"text=/^{re.escape(app_label)}$/"
+    android_input(ctx, "input scroll", "--dir=down", f"--until={app_sel}", "scrollable=true")
+    android_input(ctx, "input tap", app_sel)
     time.sleep(1)
     android_input(ctx, "input scroll", "--dir=down", f"--until=text=/^{re.escape(label)}$/", "scrollable=true")
     cell = next((n for n in layout_nodes(ctx) if str(n.get("content-desc", "")).startswith(f"{label} widget")
