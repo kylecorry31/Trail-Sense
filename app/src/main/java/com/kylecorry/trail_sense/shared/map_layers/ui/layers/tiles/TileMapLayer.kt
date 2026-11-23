@@ -74,6 +74,9 @@ open class TileMapLayer<T : TileSource>(
         isAntiAlias = false
         isFilterBitmap = true
     }
+    private var layerAlpha = 255
+    private var tileAlpha = 255
+    private val fadeLayerPaint = Paint()
     var multiplyAlpha: Int = 255
         set(value) {
             field = value
@@ -95,6 +98,7 @@ open class TileMapLayer<T : TileSource>(
     private var renderedProjection: IMapViewProjection? = null
     private val projectedTiles = mutableMapOf<Tile, Array<PixelCoordinate>>()
     private var hasFadingTiles = false
+    private var hasOverlappingTiles = false
 
     private val loadTimer = CoroutineTimer(
         scope = CoroutineScope(tileLoadDispatcher),
@@ -237,7 +241,14 @@ open class TileMapLayer<T : TileSource>(
         }
         wasOverTileLimit = isOverTileLimit
 
-        getTilesToRender(desiredTiles).forEach { renderTile ->
+        val tilesToRender = getTilesToRender(desiredTiles)
+        val groupOpacity = layerAlpha != 255 && hasOverlappingTiles
+        tileAlpha = if (groupOpacity) 255 else layerAlpha
+        if (groupOpacity) {
+            fadeLayerPaint.alpha = layerAlpha
+            canvas.saveLayer(null, fadeLayerPaint)
+        }
+        tilesToRender.forEach { renderTile ->
             renderTile.imageTile.withImage { bitmap ->
                 bitmap ?: return@withImage
                 tryOrLog {
@@ -256,6 +267,9 @@ open class TileMapLayer<T : TileSource>(
                 }
             }
         }
+        if (groupOpacity) {
+            canvas.restore()
+        }
         if (hasFadingTiles) {
             notifyListeners()
         }
@@ -263,8 +277,11 @@ open class TileMapLayer<T : TileSource>(
 
     private fun getTilesToRender(desiredTiles: List<Tile>): List<RenderTile> {
         val toRender = mutableSetOf<RenderTile>()
+        hasOverlappingTiles = false
         desiredTiles.forEach { desired ->
-            getTilesToRender(desired).forEach { imageTile ->
+            val imageTiles = getTilesToRender(desired)
+            hasOverlappingTiles = hasOverlappingTiles || imageTiles.size > 1
+            imageTiles.forEach { imageTile ->
                 if (imageTile.tile.z < desired.z) {
                     toRender.add(RenderTile(imageTile, desired))
                 } else {
@@ -426,9 +443,10 @@ open class TileMapLayer<T : TileSource>(
             )
 
             val originalAlpha = tilePaint.alpha
-            tilePaint.alpha = imageTile.getAlpha()
+            val fadeAlpha = imageTile.getAlpha()
+            tilePaint.alpha = fadeAlpha * tileAlpha / 255
             // There are still tiles being faded in, so keep re-rendering the map
-            if (tilePaint.alpha != 255) {
+            if (fadeAlpha != 255) {
                 hasFadingTiles = true
             }
 
@@ -560,10 +578,17 @@ open class TileMapLayer<T : TileSource>(
                 shouldClamp = true
             ).toInt()
         } else {
-            percentOpacity = preferences.getInt(
-                DefaultMapLayerDefinitions.OPACITY,
-                DefaultMapLayerDefinitions.DEFAULT_OPACITY
-            ) / 100f
+            layerAlpha = Interpolation.map(
+                preferences.getInt(
+                    DefaultMapLayerDefinitions.OPACITY,
+                    DefaultMapLayerDefinitions.DEFAULT_OPACITY
+                ) / 100f,
+                0f,
+                1f,
+                0f,
+                255f,
+                shouldClamp = true
+            ).toInt()
         }
     }
 
