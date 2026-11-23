@@ -27,7 +27,11 @@ abstract class FeatureRenderer : IGeoJsonFeatureRenderer {
     private var viewState: MapViewState? = null
 
     override fun setFeatures(features: List<GeoJsonFeature>) {
-        this@FeatureRenderer.features = filterFeatures(features)
+        val filtered = filterFeatures(features)
+        if (filtered.isEmpty() && this.features.isEmpty()) {
+            return
+        }
+        this.features = filtered
         invalidate()
         notifyListeners()
     }

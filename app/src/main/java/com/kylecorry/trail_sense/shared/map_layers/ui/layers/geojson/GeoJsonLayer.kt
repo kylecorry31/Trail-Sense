@@ -67,7 +67,6 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         _renderTime = _timeOverride ?: Instant.now()
         isLoaded = false
         invalidate()
-        notifyListeners()
     }
 
     override fun setFeatureFilter(id: String?) {

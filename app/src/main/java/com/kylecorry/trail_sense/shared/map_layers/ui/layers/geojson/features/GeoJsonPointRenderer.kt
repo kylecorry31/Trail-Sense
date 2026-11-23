@@ -5,6 +5,8 @@ import android.graphics.Color
 import com.kylecorry.andromeda.canvas.ICanvasDrawer
 import com.kylecorry.andromeda.core.ui.Colors
 import com.kylecorry.andromeda.core.units.PixelCoordinate
+import com.kylecorry.sol.units.Coordinate
+import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapViewProjection
 import com.kylecorry.andromeda.geojson.GeoJsonFeature
 import com.kylecorry.andromeda.geojson.GeoJsonPoint
 import com.kylecorry.sol.math.geometry.Rectangle
@@ -47,6 +49,9 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     private var lastWidth = 0
     private var cachedBounds = Rectangle(0f, 0f, 0f, 0f)
     private var markers = listOf<MapMarker>()
+    private var anchors = emptyList<PixelCoordinate>()
+    private var anchorProjection: IMapViewProjection? = null
+    private var anchorUserLocation: Coordinate? = null
     private var showLabels = false
 
     private var onClickListener: (feature: GeoJsonFeature) -> Boolean = { false }
@@ -216,9 +221,9 @@ class GeoJsonPointRenderer : FeatureRenderer() {
             }
 
             markers = newMarkers
+            anchorProjection = null
 
             featuresChanged = false
-            notifyListeners()
         }
     }
 
@@ -230,22 +235,34 @@ class GeoJsonPointRenderer : FeatureRenderer() {
     ) {
         convertFeaturesToMarkers(drawer, features)
         val bounds = getBounds(drawer)
-        markers.forEach {
-            val anchor = map.toPixel(it.location ?: map.userLocation)
+        updateAnchors(map)
+        markers.forEachIndexed { index, marker ->
+            val anchor = anchors[index]
             if (bounds.contains(anchor.toVector2(bounds.top))) {
-                it.draw(
+                marker.draw(
                     drawer,
                     anchor,
-                    if (it.scaleToLocationAccuracy) {
+                    if (marker.scaleToLocationAccuracy) {
                         map.userLocationAccuracy?.meters()?.value ?: 0f
                     } else {
                         map.layerScale
                     },
-                    (if (it.rotateWithUser) map.userAzimuth.value else map.mapAzimuth) + map.mapRotation,
+                    (if (marker.rotateWithUser) map.userAzimuth.value else map.mapAzimuth) + map.mapRotation,
                     map.resolutionPixels
                 )
             }
         }
+    }
+
+    private fun updateAnchors(map: IMapView) {
+        val projection = map.mapProjection
+        val userLocation = map.userLocation
+        if (projection === anchorProjection && userLocation == anchorUserLocation) {
+            return
+        }
+        anchors = markers.map { projection.toPixels(it.location ?: userLocation) }
+        anchorProjection = projection
+        anchorUserLocation = userLocation
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
