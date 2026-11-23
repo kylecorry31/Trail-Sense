@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.util.Range
 import android.view.Surface
+import com.kylecorry.andromeda.sense.SensorThread
 import com.kylecorry.andromeda.sense.Sensors
 import com.kylecorry.andromeda.sense.accelerometer.GravitySensor
 import com.kylecorry.andromeda.sense.accelerometer.LowPassAccelerometer
@@ -186,9 +187,19 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     }
 
     private fun getCustomRotationSensor(sensorDelay: Int): IOrientationSensor {
-        val magnetometer = LowPassMagnetometer(context, sensorDelay, MAGNETOMETER_LOW_PASS)
-        val accelerometer = LowPassAccelerometer(context, sensorDelay, ACCELEROMETER_LOW_PASS)
-        val gyro = Gyroscope(context, sensorDelay)
+        val magnetometer = LowPassMagnetometer(
+            context,
+            sensorDelay,
+            MAGNETOMETER_LOW_PASS,
+            handler = SensorThread.handler
+        )
+        val accelerometer = LowPassAccelerometer(
+            context,
+            sensorDelay,
+            ACCELEROMETER_LOW_PASS,
+            handler = SensorThread.handler
+        )
+        val gyro = Gyroscope(context, sensorDelay, handler = SensorThread.handler)
 
         return CustomRotationSensor(
             magnetometer, accelerometer, gyro,
