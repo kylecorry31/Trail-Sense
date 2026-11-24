@@ -496,7 +496,7 @@
     <string name="find_next_occurrence">Volgende gebeurtenis zoeken</string>
     <string name="daylight">Daglicht</string>
     <string name="pref_auto_low_power_title">Automatische energiebesparing</string>
-    <string name="pref_auto_low_power_summary">Wanneer je batterij bijna leeg is</string>
+    <string name="pref_auto_low_power_summary">Wanneer de batterij bijna leeg is</string>
     <string name="pref_flashlight_toggle_with_volume_title">Aanzetten met volumeknoppen</string>
     <string name="pref_flashlight_toggle_with_volume_summary">Terwijl Trail Sense open is</string>
     <string name="pref_tiles_enabled_summary">Kan voorkomen dat batterijbesparende apps Trail Sense volledig stoppen</string>
@@ -1571,7 +1571,7 @@
     <string name="map_external">Extern</string>
     <string name="map_file_missing">Bestand ontbreekt</string>
     <string name="copy_to_trail_sense">Kopiëren naar Trail Sense</string>
-    <string name="pref_copy_trail_maps_summary">Bij importeren. Wanneer uitgeschakeld, wordt het originele bestand gebruikt en moet op je apparaat bewaard blijven.</string>
+    <string name="pref_copy_trail_maps_summary">Bij importeren. Indien uitgeschakeld, wordt het originele bestand gebruikt en moet op je apparaat bewaard blijven.</string>
     <string name="widget_icon_compatibility_mode_summary">Lost op sommige apparaten ontbrekende widgetpictogrammen op</string>
     <string name="widget_icon_compatibility_mode">Compatibiliteitsmodus voor widgetpictogrammen</string>
     <string name="history">Geschiedenis</string>
