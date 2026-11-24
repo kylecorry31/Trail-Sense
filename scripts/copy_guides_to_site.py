@@ -107,25 +107,34 @@ page_title: "{chapter_name} - Survival Guide"
 
             f.write(new_content)
 
-def get_release_date(version):
-    """Returns the date (YYYY-MM-DD) the version was tagged, or today if it is about to be released."""
+def git_tag_exists(tag):
     result = subprocess.run(
-        ["git", "-C", root, "log", "-1", "--format=%cs", "refs/tags/" + version],
+        ["git", "-C", root, "rev-parse", "--verify", "--quiet", "refs/tags/" + tag],
+        capture_output=True,
+    )
+    return result.returncode == 0
+
+def get_release_tag(version):
+    """Returns the git tag for the version (early versions are prefixed with v), or the version if it is not tagged yet."""
+    for tag in [version, "v" + version]:
+        if git_tag_exists(tag):
+            return tag
+    return version
+
+def get_release_date(tag):
+    """Returns the date (YYYY-MM-DD) the tag was created, or today if it is about to be released."""
+    result = subprocess.run(
+        ["git", "-C", root, "log", "-1", "--format=%cs", "refs/tags/" + tag],
         capture_output=True,
         text=True,
     )
     date = result.stdout.strip()
     return date if result.returncode == 0 and date else datetime.date.today().isoformat()
 
-# Copy release notes (unreleased notes are not published)
+# Copy release notes (unreleased notes are not published). Older release notes only exist on the site, so they are left alone.
 release_notes_source = root + "/release-notes"
 release_notes_destination = root + "/site/src/release-notes"
 release_notes_images_destination = root + "/site/src/assets/images/release-notes"
-
-for filename in os.listdir(release_notes_destination):
-    if filename.endswith(".md"):
-        os.remove(release_notes_destination + "/" + filename)
-shutil.rmtree(release_notes_images_destination, ignore_errors=True)
 
 for filename in os.listdir(release_notes_source):
     version = filename[:-3]
@@ -140,17 +149,20 @@ for filename in os.listdir(release_notes_source):
     content = re.sub(r'\]\(\./(\d+\.\d+\.\d+)\.md\)', r'](/release-notes/\1/)', content)
     content = re.sub(r'(src=|\]\()"?images/', lambda m: m.group(0).replace('images/', '/assets/images/release-notes/'), content)
 
+    tag = get_release_tag(version)
     with open(release_notes_destination + "/" + filename, 'w', encoding='utf8') as f:
         f.write(f"""---
 title: "{version}"
 page_title: "{version} Release Notes"
-date: {get_release_date(version)}
+date: {get_release_date(tag)}
 order: {major * 1000000 + minor * 1000 + patch}
+tag: "{tag}"
 ---
 
 {process_markdown_content(content)}
 """)
 
     images_source = release_notes_source + "/images/" + version
+    shutil.rmtree(release_notes_images_destination + "/" + version, ignore_errors=True)
     if os.path.isdir(images_source):
         shutil.copytree(images_source, release_notes_images_destination + "/" + version)
