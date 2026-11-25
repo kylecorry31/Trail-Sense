@@ -2,11 +2,14 @@ package com.kylecorry.trail_sense.shared.sensors
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.kylecorry.andromeda.core.time.SystemZonedDateTimeProvider
 import com.kylecorry.andromeda.permissions.Permissions
 import com.kylecorry.andromeda.sense.readAll
 import com.kylecorry.sol.math.MathExtensions.real
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
+import com.kylecorry.sol.units.Speed
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.permissions.canGetLocationCustom
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
@@ -16,6 +19,10 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSSource
 import com.kylecorry.trail_sense.shared.sensors.gps.GPSSourceSelector
 import com.kylecorry.trail_sense.shared.sensors.gps.TimezoneGPS
 import com.kylecorry.trail_sense.shared.sensors.gps.modules.CacheGPSModule
+import com.kylecorry.trail_sense.shared.sensors.speedometer.AverageWalkingSpeedCalculator
+import com.kylecorry.trail_sense.tools.paths.infrastructure.persistence.PathService
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepLengthPaceCalculator
+import com.kylecorry.trail_sense.tools.pedometer.domain.StepTrackerService
 import java.time.Duration
 
 class SensorSubsystem private constructor(private val context: Context) {
@@ -118,7 +125,10 @@ class SensorSubsystem private constructor(private val context: Context) {
         }
 
         val altimeter =
-            sensorService.getAltimeter(frequency = SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = "SensorSubsystem.getElevation")
+            sensorService.getAltimeter(
+                frequency = SensorService.SINGLE_FIX_GPS_FREQUENCY,
+                tag = "SensorSubsystem.getElevation"
+            )
 
         readAll(
             listOf(altimeter),
@@ -143,7 +153,10 @@ class SensorSubsystem private constructor(private val context: Context) {
             return lastKnownLocation to lastKnownElevation
         }
 
-        val gps = sensorService.getGPS(SensorService.SINGLE_FIX_GPS_FREQUENCY, tag = "SensorSubsystem.getLocationAndElevation")
+        val gps = sensorService.getGPS(
+            SensorService.SINGLE_FIX_GPS_FREQUENCY,
+            tag = "SensorSubsystem.getLocationAndElevation"
+        )
         val altimeter = sensorService.getAltimeter(gps = gps)
 
         readAll(
@@ -153,6 +166,21 @@ class SensorSubsystem private constructor(private val context: Context) {
         )
 
         return gps.location to Distance.meters(altimeter.altitude)
+    }
+
+    suspend fun getAverageWalkingSpeed(): Speed? {
+        val paceCalculator = StepLengthPaceCalculator(userPrefs.pedometer.stepLength)
+        val stepTrackerService = getAppService<StepTrackerService>()
+        val pathService = getAppService<PathService>()
+        val walkingSpeedCalculator = AverageWalkingSpeedCalculator(
+            paceCalculator,
+            stepTrackerService,
+            pathService,
+            SystemZonedDateTimeProvider(),
+            userPrefs.pedometer.isEnabled
+        )
+
+        return walkingSpeedCalculator.getAverageWalkingSpeed()
     }
 
     enum class SensorRefreshPolicy {

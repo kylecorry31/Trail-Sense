@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.pedometer.domain
 
+import com.kylecorry.sol.units.Speed
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import java.time.Duration
 import java.time.Instant
@@ -36,5 +37,9 @@ data class StepTrackingPeriod(
             AveragePaceTimeMode.Active -> activeTime
             AveragePaceTimeMode.Elapsed -> elapsedTime
         }
+    }
+
+    fun getSpeed(mode: AveragePaceTimeMode, calculator: IPaceCalculator): Speed {
+        return calculator.speed(steps, getDuration(mode))
     }
 }

@@ -611,7 +611,7 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
 
         binding.pathTitle.title.text = PathNameFactory(requireContext()).getName(path)
 
-        val duration = path.metadata.duration
+        val duration = path.metadata.times
             ?.let { Duration.between(it.start, it.end) }
             ?.takeIf { it > Duration.ofMinutes(1) }
             ?: calculatedDuration

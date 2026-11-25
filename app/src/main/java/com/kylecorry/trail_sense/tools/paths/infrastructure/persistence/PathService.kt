@@ -339,15 +339,15 @@ class PathService(
             return
         }
 
-        if (metadata.duration == null && previous.time == null && point.time != null) {
+        if (metadata.times == null && previous.time == null && point.time != null) {
             updatePathMetadata(path.id)
             return
         }
 
         val distance = metadata.distance.meters().value +
                 previous.coordinate.distanceTo(point.coordinate)
-        val duration = if (metadata.duration != null && point.time != null) {
-            Range(metadata.duration.start, point.time)
+        val duration = if (metadata.times != null && point.time != null) {
+            Range(metadata.times.start, point.time)
         } else {
             null
         }

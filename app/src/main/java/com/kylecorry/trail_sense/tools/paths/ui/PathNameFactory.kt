@@ -11,8 +11,8 @@ class PathNameFactory(private val context: Context) {
 
     @Suppress("IfThenToElvis")
     fun getName(path: Path): String {
-        val start = path.metadata.duration?.start
-        val end = path.metadata.duration?.end
+        val start = path.metadata.times?.start
+        val end = path.metadata.times?.end
         return if (path.name != null) {
             path.name
         } else if (start != null && end != null) {

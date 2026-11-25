@@ -23,6 +23,7 @@ import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import com.kylecorry.andromeda.core.cache.DependencyRegistry
 import com.kylecorry.andromeda.core.system.Resources
+import com.kylecorry.luna.time.CoroutineTimer
 import com.kylecorry.sol.math.trigonometry.Trigonometry.deltaAngle
 import com.kylecorry.sol.units.Bearing
 import com.kylecorry.sol.units.CompassDirection
@@ -32,6 +33,7 @@ import com.kylecorry.sol.units.DistanceUnits
 import com.kylecorry.sol.units.Speed
 import com.kylecorry.sol.units.TimeUnits
 import com.kylecorry.trail_sense.R
+import com.kylecorry.trail_sense.main.getAppService
 import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.DistanceUtils.toRelativeDistance
 import com.kylecorry.trail_sense.shared.FormatService
@@ -43,6 +45,7 @@ import com.kylecorry.trail_sense.shared.extensions.flatten
 import com.kylecorry.trail_sense.shared.navigateWithAnimation
 import com.kylecorry.trail_sense.shared.sensors.NavigationSensorValues
 import com.kylecorry.trail_sense.shared.sensors.SensorService
+import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
 import com.kylecorry.trail_sense.shared.views.StatView
 import com.kylecorry.trail_sense.tools.navigation.domain.Destination
 import com.kylecorry.trail_sense.tools.navigation.domain.NavigationService
@@ -52,6 +55,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.ZonedDateTime
 import kotlin.math.absoluteValue
 import kotlin.math.ceil
@@ -72,6 +76,11 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     private var sensorValues: NavigationSensorValues? = null
     private var useTrueNorthOverride: Boolean? = null
     private var restoringJob: Job? = null
+    private var averageWalkingSpeed: Speed? = null
+    private val averageWalkingSpeedTimer = CoroutineTimer {
+        averageWalkingSpeed = getAppService<SensorSubsystem>().getAverageWalkingSpeed()
+        updateNavigation()
+    }
 
     private val textContainer: View
     private val titleView: TextView
@@ -119,11 +128,13 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
                 updateNavigation()
             }
         }
+        averageWalkingSpeedTimer.interval(AVERAGE_WALKING_SPEED_REFRESH_INTERVAL)
     }
 
     override fun onDetachedFromWindow() {
         restoringJob?.cancel()
         restoringJob = null
+        averageWalkingSpeedTimer.stop()
         super.onDetachedFromWindow()
     }
 
@@ -387,7 +398,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
     }
 
     private fun updateEtaStat(guidance: Guidance, values: NavigationSensorValues) {
-        val duration = navigationService.eta(guidance, values.speed)
+        val duration = navigationService.eta(guidance, averageWalkingSpeed ?: values.speed)
         val arrival = duration?.let {
             formatter.formatTime(
                 ZonedDateTime.now().plus(it).toLocalTime(),
@@ -464,6 +475,8 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         private const val NON_BREAKING_SPACE = ' '
 
         private const val TITLE_ICON_SIZE_RATIO = 1.1f
+
+        private val AVERAGE_WALKING_SPEED_REFRESH_INTERVAL = Duration.ofMinutes(1)
     }
 }
 
