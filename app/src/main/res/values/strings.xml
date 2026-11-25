@@ -372,7 +372,7 @@
     <string name="pref_auto_declination" translatable="false">pref_auto_declination</string>
     <string name="pref_declination_override_gps_btn" translatable="false">pref_declination_override_gps_btn</string>
     <string name="pref_holder_location" translatable="false">pref_holder_location</string>
-    <string name="pref_auto_location" translatable="false">pref_auto_location</string>
+    <string name="pref_location_source" translatable="false">pref_location_source</string>
     <string name="pref_holder_pressure" translatable="false">pref_holder_pressure</string>
     <string name="pref_show_pressure_in_notification" translatable="false">pref_show_pressure_in_notification</string>
     <string name="pref_open_source_licenses" translatable="false">pref_open_source_licenses</string>

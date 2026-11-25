@@ -62,7 +62,7 @@ class LocationSubsystem private constructor(private val context: Context) {
             CacheGPSModule.LAST_GPS,
             context.getString(R.string.pref_latitude_override),
             context.getString(R.string.pref_longitude_override),
-            context.getString(R.string.pref_auto_location),
+            context.getString(R.string.pref_location_source),
             context.getString(R.string.pref_coordinate_format)
         )
         val elevationChangedPrefs = listOf(

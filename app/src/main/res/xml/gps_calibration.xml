@@ -23,7 +23,7 @@
         <ListPreference
             app:defaultValue="gps"
             app:iconSpaceReserved="false"
-            app:key="@string/pref_auto_location"
+            app:key="@string/pref_location_source"
             app:singleLineTitle="false"
             app:title="@string/source"
             app:useSimpleSummaryProvider="true" />

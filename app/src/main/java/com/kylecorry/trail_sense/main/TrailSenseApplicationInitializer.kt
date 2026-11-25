@@ -18,6 +18,7 @@ object TrailSenseApplicationInitializer {
         TrailSenseServiceRegister.setup(context)
         SafeMode.initialize(context)
         getAppService<Logger>().info(TAG, "App started")
+        PreferenceMigrator.getInstance().migrate(context)
 
         val tools = Tools.getTools(context, false)
         tools.forEach {
@@ -27,7 +28,6 @@ object TrailSenseApplicationInitializer {
         Automations.setup(context)
         WidgetBroadcastManager.setup(context)
         NotificationChannels.createChannels(context)
-        PreferenceMigrator.getInstance().migrate(context)
         RepoCleanupWorker.scheduler(context).cancel()
         RepoCleanupWorker.scheduler(context).interval(Duration.ofHours(6))
     }

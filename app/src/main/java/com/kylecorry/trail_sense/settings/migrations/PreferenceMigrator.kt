@@ -109,6 +109,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_UPDATE = "last_update"
         internal const val LEGACY_LAST_HORIZONTAL_ACCURACY = "last_horizontal_accuracy"
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
+        internal const val LEGACY_AUTO_LOCATION = "pref_auto_location"
 
         internal const val version = 40
         internal val migrations = listOf(
@@ -562,14 +563,10 @@ class PreferenceMigrator private constructor() {
                 }
             },
             PreferenceMigration(36, 37) { context, prefs ->
-                val key = context.getString(R.string.pref_auto_location)
-                val source = if (prefs.getBoolean(key) == false) {
-                    GPSLocationSource.Manual
-                } else {
-                    GPSLocationSource.GPS
-                }
-                prefs.remove(key)
-                prefs.putString(key, source.id)
+                val autoLocation = prefs.getBoolean(LEGACY_AUTO_LOCATION) ?: return@PreferenceMigration
+                val source = if (autoLocation) GPSLocationSource.GPS else GPSLocationSource.Manual
+                prefs.putString(context.getString(R.string.pref_location_source), source.id)
+                prefs.remove(LEGACY_AUTO_LOCATION)
             },
             PreferenceMigration(37, 38) { _, prefs ->
                 val repo = getAppService<MapLayerPreferenceRepo>()

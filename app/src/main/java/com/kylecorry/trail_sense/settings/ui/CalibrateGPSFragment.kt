@@ -65,7 +65,7 @@ class CalibrateGPSFragment : AndromedaPreferenceFragment() {
 
     private fun bindPreferences() {
         locationTxt = findPreference(getString(R.string.pref_holder_location))!!
-        locationSourceList = list(R.string.pref_auto_location)!!
+        locationSourceList = list(R.string.pref_location_source)!!
         permissionBtn = findPreference(getString(R.string.pref_gps_request_permission))!!
         locationOverridePref = findPreference(getString(R.string.pref_gps_override))!!
         clearCacheBtn = preference(R.string.pref_gps_clear_cache)

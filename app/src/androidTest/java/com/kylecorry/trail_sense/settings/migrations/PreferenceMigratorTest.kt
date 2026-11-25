@@ -519,22 +519,35 @@ class PreferenceMigratorTest {
 
     @Test
     fun migration36To37ConvertsAutomaticLocationToGpsSource() {
-        val key = context.getString(R.string.pref_auto_location)
-        prefs.putBoolean(key, true)
+        prefs.putBoolean(PreferenceMigrator.LEGACY_AUTO_LOCATION, true)
 
         migrate(36)
 
-        assertEquals(GPSLocationSource.GPS.id, prefs.getString(key))
+        assertEquals(
+            GPSLocationSource.GPS.id,
+            prefs.getString(context.getString(R.string.pref_location_source))
+        )
+        assertFalse(prefs.contains(PreferenceMigrator.LEGACY_AUTO_LOCATION))
     }
 
     @Test
     fun migration36To37ConvertsDisabledAutomaticLocationToManualSource() {
-        val key = context.getString(R.string.pref_auto_location)
-        prefs.putBoolean(key, false)
+        prefs.putBoolean(PreferenceMigrator.LEGACY_AUTO_LOCATION, false)
 
         migrate(36)
 
-        assertEquals(GPSLocationSource.Manual.id, prefs.getString(key))
+        assertEquals(
+            GPSLocationSource.Manual.id,
+            prefs.getString(context.getString(R.string.pref_location_source))
+        )
+        assertFalse(prefs.contains(PreferenceMigrator.LEGACY_AUTO_LOCATION))
+    }
+
+    @Test
+    fun migration36To37LeavesSourceUnsetWithoutLegacySetting() {
+        migrate(36)
+
+        assertFalse(prefs.contains(context.getString(R.string.pref_location_source)))
     }
 
     @Test

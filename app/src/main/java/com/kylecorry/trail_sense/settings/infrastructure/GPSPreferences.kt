@@ -12,7 +12,7 @@ class GPSPreferences(context: Context) : PreferenceRepo(context), IGPSPreference
 
     override var locationSource by StringEnumPreference(
         cache,
-        getString(R.string.pref_auto_location),
+        getString(R.string.pref_location_source),
         GPSLocationSource.entries.associateBy { it.id },
         GPSLocationSource.GPS
     )
