@@ -9,6 +9,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.domain.sealevel.LoessSeaLevelCalibrationStrategy
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -29,9 +30,9 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
 
     override var pressureSmoothing: Float
         get() {
-            val raw = (cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing))
-                ?: 150) / 1000f
-            return raw * 100
+            val raw = cache.getInt(context.getString(R.string.pref_barometer_pressure_smoothing))
+                ?: return LoessSeaLevelCalibrationStrategy.DEFAULT_SMOOTHING * 100
+            return raw / 10f
         }
         set(value) {
             val scaled = (value * 10).coerceIn(0f, 1000f)

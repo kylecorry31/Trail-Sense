@@ -632,6 +632,26 @@ class PreferenceMigratorTest {
         }
     }
 
+    @Test
+    fun migration40To41ResetsPressureSmoothingUnlessItWasOff() {
+        val key = context.getString(R.string.pref_barometer_pressure_smoothing)
+
+        for (value in listOf(150, 300, 1000)) {
+            prefs.putInt(key, value)
+            migrate(40)
+            assertFalse(prefs.contains(key))
+            assertEquals(50f, UserPreferences(context).weather.pressureSmoothing, 0.0001f)
+        }
+
+        prefs.putInt(key, 0)
+        migrate(40)
+        assertEquals(0, prefs.getInt(key))
+
+        prefs.remove(key)
+        migrate(40)
+        assertFalse(prefs.contains(key))
+    }
+
     private fun migrate(fromVersion: Int) {
         val migration = PreferenceMigrator.migrations.first { it.fromVersion == fromVersion }
         migration.action(context, prefs)

@@ -111,7 +111,7 @@ class PreferenceMigrator private constructor() {
         internal const val LEGACY_LAST_VERTICAL_ACCURACY = "last_vertical_accuracy"
         internal const val LEGACY_AUTO_LOCATION = "pref_auto_location"
 
-        internal const val version = 40
+        internal const val version = 41
         internal val migrations = listOf(
             PreferenceMigration(0, 1) { _, prefs ->
                 if (prefs.contains("pref_enable_experimental")) {
@@ -641,6 +641,12 @@ class PreferenceMigrator private constructor() {
                     sessionState.putLong(Navigator.BEACON_DESTINATION_ID_KEY, it)
                 }
                 prefs.remove(Navigator.BEACON_DESTINATION_ID_KEY)
+            },
+            PreferenceMigration(40, 41) { context, prefs ->
+                val key = context.getString(R.string.pref_barometer_pressure_smoothing)
+                if (prefs.getInt(key) != 0) {
+                    prefs.remove(key)
+                }
             }
         )
 

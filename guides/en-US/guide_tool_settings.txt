@@ -123,7 +123,7 @@ If the weather monitor is on (see the Weather guide), a chart shows the barometr
 Barometric pressure changes with altitude, which makes it hard to compare pressure readings from different locations. To make readings more consistent, enable **Sea level pressure**. This adjusts the reading to what it would be at sea level, and it improves the accuracy of weather predictions.
 
 ### Reduce pressure noise
-To reduce noise in the pressure readings, increase **Smoothing**. A value of about 15% is recommended. If you increase the smoothing too much, Trail Sense might ignore real pressure changes.
+To reduce noise in the pressure readings, increase **Smoothing**. A value of 50% is recommended. If you increase the smoothing too much, Trail Sense might ignore real pressure changes.
 
 ### Factor in temperature
 To get a more accurate air pressure reading, enable **Factor in temperature**. The reading is then more affected by noise from your phone's thermometer, but it more accurately reflects the actual air pressure.

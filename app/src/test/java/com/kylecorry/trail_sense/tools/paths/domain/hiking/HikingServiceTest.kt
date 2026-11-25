@@ -230,6 +230,18 @@ class HikingServiceTest {
     }
 
     @Test
+    fun correctingElevationsOfPointsAtTheSameLocationFallsBackToOrder() {
+        val points = List(20) {
+            PathPoint(it.toLong(), 1, coordinate(0.0), if (it == 10) 200f else 100f)
+        }
+
+        val corrected = HikingService.correctElevations(points)
+
+        assertEquals(20, corrected.size)
+        assertTrue(corrected[10].elevation!! < 200f, "The spike should be reduced")
+    }
+
+    @Test
     fun correctingElevationsKeepsACleanClimb() {
         val elevations = Array<Float?>(40) { 100f + it * 5f }
 
