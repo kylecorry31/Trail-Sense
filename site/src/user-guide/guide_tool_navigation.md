@@ -2,128 +2,169 @@
 title: "Navigation"
 ---
 
-The Navigation tool can be used to navigate to a beacon, follow a path, or follow a bearing.
+Use the Navigation tool to navigate to a beacon, follow a path, or follow a bearing.
 
-## Compass
+## Use the compass
+Use the compass to orient yourself and to navigate. Your bearing is shown at the top of the screen.
 
-The compass can be used for both orientation and navigation. Your bearing is displayed at the top of the screen.
+The compass isn't available if your device doesn't have a compass sensor.
 
-This feature is not available if your device does not have a compass.
+### Calibrate the compass
+Phone compasses aren't always accurate, so calibrate your compass frequently. To calibrate it, wave your phone in a figure-8 pattern.
 
-### Nearby
+For detailed instructions and a visual, tap the status icons in the bottom-left corner of the Navigation tool. The instructions guide you through calibrating your compass, and the status icons also show details about your location accuracy.
 
-You can choose to display nearby beacons on the compass. The following settings control the nearby beacons:
+If your compass accuracy is low when you start navigating to a beacon, Trail Sense reminds you to calibrate. To stop the reminder, select **Do not ask again** in the reminder, or disable **Settings > Navigation > Calibrate before navigating**.
 
-- **Settings > Navigation > Show nearby beacons**: Determines if nearby beacons are shown on the compass.
-- **Settings > Navigation > Nearby beacon radius**: Determines the maximum distance a beacon can be from your location to be shown on the compass.
+### Choose the north reference
+By default, the compass points to true north. To point it to magnetic north, change the compass settings. For more information, see the Sensors guide. The north reference is shown at the bottom of the screen.
+
+### Show the sun and moon on the compass
+The compass shows the direction of the sun and moon. Use them to navigate and to verify the accuracy of the compass.
+
+To choose when they are shown, set **Settings > Navigation > Show sun/moon on compass**:
+
+- **Always**: Always shows the sun and moon on the compass.
+- **When up**: Shows the sun and moon only when they are above the horizon.
+- **Never**: Never shows the sun and moon on the compass.
+
+### Show nearby beacons on the compass
+Nearby beacons are shown as arrows around the compass. Each arrow points to its beacon. When you face a beacon, more information about it is shown at the bottom of the screen.
+
+The following settings control the nearby beacons:
+
+- **Settings > Navigation > Show nearby beacons**: Shows or hides nearby beacons on the compass.
+- **Settings > Navigation > Nearby beacon distance**: Sets the maximum distance a beacon can be from your location to be shown on the compass.
 - **Settings > Navigation > Nearby beacons**: Limits the number of nearby beacons shown on the compass.
+- **Settings > Navigation > Only show nearby beacons on linear compass**: Hides nearby beacons on the round compass.
 
-Nearby beacons will be shown as arrows around the compass. The arrows will point to the beacon, and when you are facing the beacon, more information about it will be shown at the bottom of the screen.
+### Use the round compass
+To change the nearby beacon radius, pinch to zoom the compass.
 
-### Round compass
+Round compass settings:
 
-You can pinch to zoom the compass, which will change the nearby beacon radius.
+- **Settings > Navigation > Show compass dial bezel**: Moves the degree markings from inside the dial to a bezel around the outside of the compass.
+- **Settings > Navigation > Show azimuth indicator**: Shows or hides the azimuth indicator, which highlights your current bearing on the compass and always faces the top of the device. It is shown by default.
+- **Settings > Navigation > Show dial ticks**: Shows the compass dial ticks if your device doesn't have a compass. Without a compass sensor, moving your device doesn't change the direction of the compass.
+- **Settings > Navigation > High detail mode**: Loads more tiles for higher quality. Use this if the layers look blurry. It uses more memory and loads more slowly.
 
-By default, the compass displays degree markings inside the dial. You can enable Settings > Navigation > Show compass dial bezel to move these markings to a bezel around the outside of the compass instead.
+### Use layers on the compass
+Layers display information on the compass. To open the layer settings, open **Settings > Navigation**, or long-press the compass. For more information, see the Map Layers guide.
 
-The azimuth indicator highlights your current bearing on the compass, always facing the top of the device. It is shown by default and can be turned off in Settings > Navigation > Show azimuth indicator.
-
-If your device does not have a compass, you can still choose to display the compass dial ticks by enabling the Settings > Navigation > 'Show dial ticks' option. Please note, that without a compass sensor, moving your device will not change the direction of the compass.
-
-Layers are used to display information on the compass. You can find layer settings in Settings > Navigation or by long pressing the compass. For more information on layers, refer to the 'Map Layers' guide.
-
-The following layers are not available:
+The following layers aren't available on the compass:
 
 - Scale
 - Compass
 - Elevation
 
+### Use the linear compass
+The linear compass is shown when you hold your phone vertically. To turn it on or off, set **Settings > Navigation > Show linear compass**.
 
-### Linear compass
+To use the sighting compass with the linear compass, do the following:
 
-The linear compass is displayed when you hold your phone vertically. You can also use the sighting compass feature with the linear compass by tapping the camera icon on the right side of the screen. This will display the compass overlaid on a camera viewfinder. With the sighting compass active, you can pinch to zoom the camera viewfinder.
+1. Hold your phone vertically.
+2. Tap the camera icon on the right side of the screen.
 
-You can enable or disable the linear compass under Settings > Navigation > Show linear compass.
+The compass is overlaid on a camera viewfinder. While the sighting compass is on, pinch to zoom the viewfinder.
 
-### North reference
+## Navigate to a beacon
+To navigate to a beacon, do the following:
 
-By default, it will point to True North, but it can be configured to point to magnetic north in the compass settings. The north reference is displayed at the bottom of the screen.
+1. Tap the navigate button in the bottom-right corner. The Beacons tool opens.
+2. Tap the beacon to navigate to.
+3. Tap **Navigate**. For more information, see the Beacons guide.
 
-### Sun and moon
+While you navigate, the compass shows the direction to the beacon, and all other nearby beacons become transparent. For information about the navigation panel at the bottom of the screen, see the Navigation panel section.
 
-The compass shows the direction of the sun and moon, allowing you to navigate using them and verify the accuracy of the compass. You can configure the sun and moon display in Settings > Navigation > Show sun/moon on compass. The options are:
+To stop navigating, tap the **X** button. If you cancel by accident, tap **Undo** in the message that appears.
 
-- **Always**: Always show the sun and moon on the compass.
-- **When up**: Only show the sun and moon when they are above the horizon.
-- **Never**: Never show the sun and moon on the compass.
+### Create a beacon at your location
+To create a beacon from your current location, long-press the navigation icon in the bottom-right corner. The Beacons tool opens with the location and elevation prefilled.
 
-### Calibration
+## Navigate with a bearing
+To navigate with a bearing, tap the compass to set the bearing. The bearing is shown on the compass and in the navigation panel. For more information, see the Navigation panel section.
 
-Phone compasses are not always accurate, so you should frequently calibrate your compass. You can calibrate your compass by waving your phone in a figure-8 pattern. For more detailed instructions and a visual, tap the status icons in the bottom-left of the Navigation tool. This will guide you in calibrating your compass and also show details about location accuracy.
+To clear the bearing, tap the compass again or tap the **X** button.
 
-## Beacon navigation
+By default, a bearing doesn't change when you move to a different location. To keep the bearing fixed to your initial location, enable **Settings > Navigation > Lock bearing to location**. This is similar to creating a beacon at a distance and navigating to it.
 
-You can navigate to a beacon by tapping the navigate button in the bottom-right. This will open the Beacons tool, where you can select a beacon to navigate to. See the Beacons guide for more information.
+To change the length of the bearing line, set **Settings > Navigation > Bearing length**.
 
-While navigating to a beacon, the direction will be displayed on the compass and all other nearby beacons will become transparent. A navigation panel will display at the bottom of your screen with the following information:
+## Navigate with a path
+To navigate with a path, use the Paths tool. For more information, see the Paths guide.
 
-- **Name**: The name of the beacon you are navigating to.
-- **Coordinates**: The coordinates of the beacon.
-- **Distance**: The distance to the beacon.
-- **Bearing**: The bearing to the beacon.
-- **ETA**: The estimated time of arrival to the beacon.
-- **Elevation**: The elevation of the beacon.
-- **Elevation change**: The elevation difference from your current elevation.
-- **Notes**: Any notes you have for the beacon. This will show as an icon if there are notes, and you can tap it to see the notes.
+## Navigation panel
+While you navigate, a navigation panel at the bottom of the screen shows the following information:
 
-You can stop navigating to a beacon by tapping the 'X' button.
+- **Arrow**: Points in the direction you need to go, relative to the direction your phone is facing. The bearing to the target is shown below the arrow. The arrow and bearing change from green to red the further you are from the right direction.
+- **Title**: An icon for the type of navigation, followed by the name of the beacon or path, or the bearing.
 
-You can open the beacon by tapping the beacon name.
+The rest of the panel depends on what you are navigating to.
 
-You can quickly create a beacon from your current location by long-pressing the navigation icon at the bottom-right. This will open the Beacons tool with the location and elevation pre-filled.
+### Beacon
+The panel shows the following information when you navigate to a beacon:
 
-For more information on beacons, see the Beacons guide.
+- **Name**: The name of the beacon. Tap it to open the beacon.
+- **Coordinates and elevation**: The coordinates and elevation of the beacon. Tap them to open the beacon.
+- **Remaining**: The distance to the beacon.
+- **Arrive**: The estimated time to reach the beacon. The estimated time of arrival is shown below it.
+- **Remaining gain** or **Remaining loss**: The elevation difference from your current elevation. It is shown only if the beacon has an elevation.
 
-## Bearing navigation
+### Path
+The panel shows the following information when you navigate with a path:
 
-You can navigate using a bearing by tapping the compass to set a bearing. The set bearing will be displayed on the compass and in the navigation panel. You can tap the compass again or tap the 'X' button to clear the bearing.
+- **Name**: The name of the path. Tap it to open the path.
+- **Progress bar**: How far along the path you are.
+- **Remaining**: The distance to the end of the path.
+- **Arrive**: The estimated time to reach the end of the path. The estimated time of arrival is shown below it.
+- **Elevation gain and loss**: The remaining elevation gain, with the remaining elevation loss below it.
 
-By default, bearings don't change when you move to a different location. If you would like to keep the bearing fixed to your initial location, you can enable Settings > Navigation > 'Lock bearing to location'. This is similar to creating a beacon at a distance and navigating to it.
+### Bearing
+The panel shows the following information when you navigate with a bearing:
 
-You can change the length of the bearing line under Settings > Navigation > 'Bearing length'.
+- **Bearing**: The bearing you are following.
+- **Traveled**: The distance you have traveled from your initial location. It is shown only if **Settings > Navigation > Lock bearing to location** is enabled.
+- **Facing**: The direction your phone is facing.
 
-## Path navigation
+## Use the quick action buttons
+The left and right buttons at the top of the screen are quick actions. By default, they open the Paths and Offline Maps tools. To change them, set **Settings > Navigation > Left quick action** and **Right quick action**.
 
-If you have the Paths map layer enabled, you can see nearby paths on the compass. You can't currently navigate along a path, but you can use the compass to see where the path is relative to you. If you have Backtrack running, you can see your current position on the path. For more information, see the Paths guide.
+## Check your location
+Your current location is shown at the top of the screen. To see more details, tap it. The details panel shows the following information:
 
-## Location
-
-Your current location is shown at the top of the screen. You can tap it to see more details about your location. The details panel shows the following information:
-
-- **Share**: Choose to copy your location to your clipboard, share it as a QR code, open it in a map app, or share it as a text message.
-- **Format**: The coordinate format to see your location in. This defaults to the format you have in Settings > Units > Coordinate format. Changes made here are temporary and will not change your default coordinate format.
+- **Share**: Tap the share icon in the top-right corner of the panel to copy your location to your clipboard, share it as a QR code, open it in a map app, or share it as a text message.
+- **Format**: The coordinate format used to show your location. Tap the format under the coordinates to change it. This defaults to the format in **Settings > Units > Coordinate format**. Changes you make here are temporary and don't change your default coordinate format.
 - **Accuracy**: The accuracy of your location.
 - **Satellites**: The number of satellites used to calculate your location.
 - **Time since last fix**: The time since your location was last updated.
-- **Datum**: The datum of the location. This will always be WGS 84.
+- **Datum**: The datum of the location. This is always WGS 84.
 
-You can long-press the location to quickly bring up the share menu.
+To open the share menu quickly, long-press the location.
 
-## Elevation
+## Check your elevation
+Your elevation is shown in the top-left corner of the screen. To see a history of your elevation, tap it.
 
-Your elevation is shown at the top-left of the screen. You can tap it to see a history of your elevation. The history is only available if you have Backtrack or the weather monitor running - see the Paths or Weather guide for details on how to turn this on. You can adjust the length of the history by tapping the 'Last 24h' dropdown at the top of the history panel.
+The history is available only if Backtrack or the weather monitor is on. For instructions to turn them on, see the Paths guide or the Weather guide.
 
-## Speed
+To change the length of the history, tap the **Last 24h** dropdown at the top of the history panel.
 
-Your speed is shown at the top-right of the screen. You can change the source of the speed in Settings > Navigation > Speedometer. The options are:
+## Check your speed
+Your speed is shown in the top-right corner of the screen. To choose the source of the speed, set **Settings > Navigation > Speedometer**:
 
 - **Current speed (GPS)**: The speed reported by your GPS.
-- **Average speed (Backtrack)**: The average speed calculated by Backtrack. This requires Backtrack to be running. See the Paths guide for more information.
-- **Current speed (Pedometer)**: The speed calculated by your phone's pedometer. This requires the pedometer to be running. See the Pedometer guide for more information.
-- **Average speed (Pedometer)**: The average speed calculated by your phone's pedometer since you started tracking. This requires the pedometer to be running. See the Pedometer guide for more information.
+- **Average speed (Backtrack)**: The average speed calculated by Backtrack. Backtrack must be running. For more information, see the Paths guide.
+- **Current speed (Pedometer)**: The speed calculated by your phone's pedometer. The pedometer must be running. For more information, see the Pedometer guide.
+- **Average speed (Pedometer)**: The average speed calculated by your phone's pedometer since you started tracking. The pedometer must be running. For more information, see the Pedometer guide.
+
+## Show Trail Sense on the lock screen
+By default, Trail Sense follows your device's lock screen behavior. To change this, set **Settings > Navigation > Show on lock screen**:
+
+- **Never**: Follows your device's lock screen behavior.
+- **While navigating**: Keeps Trail Sense visible over your lock screen while you navigate.
+- **While open**: Keeps Trail Sense visible over your lock screen whenever the Navigation tool is open.
 
 ## Widgets
-The following widgets can be placed on your device's homescreen or viewed in-app:
+You can place the following widgets on your device's home screen or view them in the app:
 
 - **Elevation**: Shows your current elevation.
 - **Location**: Shows your current location.

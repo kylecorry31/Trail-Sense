@@ -2,37 +2,40 @@
 title: "QR Code Scanner"
 ---
 
-The QR Code Scanner tool can be used to scan QR codes.
+Use the QR Code Scanner tool to scan QR codes.
 
-## Scanning a QR code
-To scan a QR code, simply point your camera at the code. Once it is recognized, the contents will be displayed on your screen along with some actions you can take.
+## Scan a QR code
+To scan a QR code, point your camera at the code. When the code is recognized, its contents are shown on the screen with actions you can take. The available actions depend on the type of content. The scanner keeps the last 10 results, with the newest at the top.
 
 ### Location
-If the QR code contains a location, you will have the following options:
+If the QR code contains a location, you can choose from the following actions:
 
-- **Beacon**: Create a beacon using the location. This will open the Beacon tool with the location pre-filled.
-- **Maps**: Open the location in a map app on your phone.
-- **Copy**: Copy the contents of the QR code to your clipboard.
-- **Delete**: Remove the result from the list.
+- **Beacon**: Creates a beacon from the location. A message at the bottom of the screen has a button to view the new beacon.
+- **Maps**: Opens the location in a map app on your phone.
+- **Copy**: Copies the contents of the QR code to your clipboard.
+- **Delete**: Removes the result from the list. To restore it, tap **Undo** in the message that appears.
 
 ### URL
-If the QR code contains a URL, you will have the following options:
+If the QR code contains a URL, you can choose from the following actions:
 
-- **Open**: Open the URL in your default browser.
-- **Copy**: Copy the contents of the QR code to your clipboard.
-- **Delete**: Remove the result from the list.
+- **Open**: Opens the URL in your browser. If the URL doesn't start with a protocol, Trail Sense uses https.
+- **Copy**: Copies the contents of the QR code to your clipboard.
+- **Delete**: Removes the result from the list.
 
 ### Text
-If the QR code contains text or is an unsupported type, you will have the following options:
+If the QR code contains text or is an unsupported type, you can choose from the following actions:
 
-- **Note**: Create a note with the text. This will create a note and display a banner at the bottom of the screen with a button to access the note.
-- **Copy**: Copy the contents of the QR code to your clipboard.
-- **Delete**: Remove the result from the list.
+- **Note**: Creates a note with the text. A banner at the bottom of the screen has a button to open the note.
+- **Copy**: Copies the contents of the QR code to your clipboard.
+- **Delete**: Removes the result from the list.
 
-## Sharing data with QR codes
-Some tools support data sharing via QR codes. To use this feature, follow the instructions in the specific tool's guide to generate the code, and scan it with the QR Code Scanner tool. You can also scan a beacon directly from the Beacon tool.
+## Share data with QR codes
+Some tools can share data as QR codes. To share data, do the following:
 
-The tools that support data sharing are:
+1. Follow the instructions in the guide for the tool to generate the QR code.
+2. Scan the QR code with the QR Code Scanner tool. You can also scan a beacon directly from the Beacons tool.
+
+The following tools support sharing data with QR codes:
 
 - Beacons
 - Notes
