@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.QuickActionButton
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
@@ -33,7 +34,9 @@ class QuickActionWhiteNoise(btn: QuickActionButtonView, fragment: Fragment) :
         if (isOn()) {
             WhiteNoiseService.stop(context)
         } else {
-            WhiteNoiseService.play(context)
+            fragment.requestNotifications {
+                WhiteNoiseService.play(context)
+            }
         }
     }
 

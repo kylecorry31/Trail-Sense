@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Build
 import com.kylecorry.luna.specifications.Specification
 import com.kylecorry.trail_sense.tools.astronomy.AstronomyToolRegistration
+import com.kylecorry.trail_sense.tools.flashlight.FlashlightToolRegistration
 import com.kylecorry.trail_sense.tools.paths.PathsToolRegistration
 import com.kylecorry.trail_sense.tools.pedometer.PedometerToolRegistration
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.turn_back.TurnBackToolRegistration
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
+import com.kylecorry.trail_sense.tools.whitenoise.WhiteNoiseToolRegistration
 
 class IsNotificationPermissionRequired : Specification<Context>() {
 
@@ -32,7 +34,9 @@ class IsNotificationPermissionRequired : Specification<Context>() {
             AstronomyToolRegistration.SERVICE_SUNSET_ALERTS,
             AstronomyToolRegistration.SERVICE_SUNRISE_ALERTS,
             AstronomyToolRegistration.SERVICE_ASTRONOMY_ALERTS,
-            TurnBackToolRegistration.SERVICE_TURN_BACK
+            TurnBackToolRegistration.SERVICE_TURN_BACK,
+            WhiteNoiseToolRegistration.SERVICE_WHITE_NOISE,
+            FlashlightToolRegistration.SERVICE_FLASHLIGHT
         )
     }
 }

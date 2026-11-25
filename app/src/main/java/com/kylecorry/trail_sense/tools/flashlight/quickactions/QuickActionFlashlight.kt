@@ -9,6 +9,7 @@ import com.kylecorry.luna.topics.generic.replay
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FeatureState
 import com.kylecorry.trail_sense.shared.openTool
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.quickactions.QuickActionButtonView
 import com.kylecorry.trail_sense.shared.quickactions.TopicQuickAction
 import com.kylecorry.trail_sense.tools.flashlight.domain.FlashlightMode
@@ -27,7 +28,15 @@ class QuickActionFlashlight(btn: QuickActionButtonView, fragment: Fragment) :
 
     override fun onClick() {
         super.onClick()
-        flashlight.toggle()
+        if (flashlight.getMode() == FlashlightMode.Off) {
+            fragment.requestNotifications {
+                if (flashlight.getMode() == FlashlightMode.Off) {
+                    flashlight.toggle()
+                }
+            }
+        } else {
+            flashlight.toggle()
+        }
     }
 
     override fun onLongClick(): Boolean {

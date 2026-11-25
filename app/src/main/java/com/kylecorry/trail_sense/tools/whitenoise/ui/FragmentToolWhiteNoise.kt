@@ -8,6 +8,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.extensions.useToolEventListener
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.views.DurationInputView
 import com.kylecorry.trail_sense.shared.views.MaterialSpinnerView
@@ -91,11 +92,10 @@ class FragmentToolWhiteNoise :
                     WhiteNoiseService.stop(requireContext())
                 } else {
                     val duration = sleepTimerPickerView.duration
-                    WhiteNoiseService.play(
-                        context,
-                        null,
-                        if (sleepTimerSwitchView.isChecked) duration else null
-                    )
+                    val useSleepTimer = sleepTimerSwitchView.isChecked
+                    requestNotifications {
+                        WhiteNoiseService.play(context, null, if (useSleepTimer) duration else null)
+                    }
                 }
             }
         }

@@ -20,6 +20,7 @@ import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
 import com.kylecorry.trail_sense.shared.extensions.usePauseEffect
 import com.kylecorry.trail_sense.shared.extensions.useResumeEffect
 import com.kylecorry.trail_sense.shared.haptics.HapticSubsystem
+import com.kylecorry.trail_sense.shared.permissions.requestNotifications
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.shared.safeRoundToInt
 import com.kylecorry.trail_sense.shared.views.DialSelectView
@@ -99,7 +100,7 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
             brightnessSlider.addOnChangeListener { _, value, fromUser ->
                 if (fromUser && flashlight.brightnessLevels > 0) {
                     flashlight.setBrightness(value / flashlight.brightnessLevels.toFloat())
-                    flashlight.set(selectedMode)
+                    setMode(flashlight, selectedMode)
                 }
             }
         }
@@ -139,11 +140,11 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
                         } else {
                             FlashlightMode.Torch
                         }
-                        flashlight.set(selectedMode)
+                        setMode(flashlight, selectedMode)
                     }
                 } else {
                     selectedMode = option.mode
-                    flashlight.set(selectedMode)
+                    setMode(flashlight, selectedMode)
                 }
             }
         }
@@ -218,9 +219,18 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
     fun toggle() {
         val flashlight = FlashlightSubsystem.getInstance(requireContext())
         HapticSubsystem.getInstance(requireContext()).click()
-        flashlight.set(
+        setMode(
+            flashlight,
             if (flashlight.getMode() != FlashlightMode.Off) FlashlightMode.Off else selectedMode
         )
+    }
+
+    private fun setMode(flashlight: FlashlightSubsystem, mode: FlashlightMode) {
+        if (flashlight.getMode() == FlashlightMode.Off && mode != FlashlightMode.Off) {
+            requestNotifications { flashlight.set(mode) }
+        } else {
+            flashlight.set(mode)
+        }
     }
 
     private data class FlashlightOption(
