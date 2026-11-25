@@ -113,7 +113,7 @@ object Licenses {
                 "dark-uzi",
                 "FrameXX",
                 "ygorigor",
-                "LuccoJ",
+                "LjLies",
                 "L-P",
                 "MateusRodCosta",
                 "NicolaSmaniotto",
