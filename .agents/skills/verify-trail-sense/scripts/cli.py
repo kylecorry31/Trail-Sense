@@ -18,8 +18,8 @@ from pathlib import Path
 from core import (
     BASE_PACKAGE, NO_DEVICE, NO_DEVICE_DRY, PROTECTED_PACKAGE, VARIANTS, Failed, Policy, Refused,
     UsageError, apply_pref_edits, expired, check_dry_run, classify, decide, describe_node, flatten_layout,
-    node_matches, parse_focused_package, parse_granted_permissions, parse_input_results,
-    parse_installed_info, parse_prefs, validate_grant, parse_string_resources, parse_tool_ids, positive_int,
+    node_matches, parse_flash_units, parse_focused_package, parse_granted_permissions, parse_input_results,
+    parse_installed_info, parse_prefs, validate_grant, parse_string_resources, parse_tool_ids, parse_torch_state, positive_int,
     prefs_dict, prune_state, resolve_pref_key, resolve_tool, serialize_prefs, shard,
 )
 
@@ -865,6 +865,29 @@ def cmd_perm_set(ctx):
     return Out(results, permissions_text(results), 1 if any(r["result"] == "failed" for r in results) else 0)
 
 
+def cmd_perm_reset(ctx):
+    names = ALL_PERMISSIONS if "all" in ctx.args.names else ctx.args.names
+    log("note: resetting a runtime permission revokes it, which kills the app process")
+    results = []
+    for name in names:
+        if name in APPOP_ALIASES:
+            ctx.mutate(ctx.target.adb("shell", "appops", "set", ctx.package, APPOP_ALIASES[name], "default"))
+            results.append({"permission": "appop:" + APPOP_ALIASES[name], "result": "default"})
+            continue
+        for perm in PERMISSION_ALIASES.get(name, [name if "." in name else "android.permission." + name.upper()]):
+            failures = []
+            for cmd in (("pm", "revoke", ctx.package, perm),
+                        ("pm", "clear-permission-flags", ctx.package, perm, "user-set", "user-fixed")):
+                result = ctx.mutate(ctx.target.adb("shell", *cmd), check=False)
+                if result is not None and result.returncode != 0:
+                    failures.append((result.stderr or result.stdout).decode().strip())
+            if failures:
+                results.append({"permission": perm, "result": "failed", "error": "; ".join(failures)})
+            else:
+                results.append({"permission": perm, "result": "reset (never asked)"})
+    return Out(results, permissions_text(results), 1 if any(r["result"] == "failed" for r in results) else 0)
+
+
 def cmd_perm_list(ctx):
     granted = parse_granted_permissions(text(ctx.target.shell("dumpsys", "package", ctx.package)))
     appop = text(ctx.target.shell("appops", "get", ctx.package, "SCHEDULE_EXACT_ALARM", check=False)).strip()
@@ -891,6 +914,17 @@ def cmd_sensor_set(ctx):
 def cmd_sensor_get(ctx):
     out = text(run(ctx.target.adb("emu", "sensor", "get", ctx.args.name))).splitlines()[0].strip()
     return Out({"sensor": ctx.args.name, "value": out.split(" = ")[-1]}, out)
+
+
+def cmd_torch(ctx):
+    state = parse_torch_state(text(ctx.target.shell("dumpsys", "activity", "service", "com.android.systemui", check=False)))
+    flash = parse_flash_units(text(ctx.target.shell("dumpsys", "media.camera", check=False)))
+    if state is None:
+        raise Failed("SystemUI did not report a FlashlightController state")
+    data = {**state, "flash_units": flash}
+    lines = [f"torch: {'on' if state['on'] else 'off'} (camera {state['camera']}, available={state['available']})"]
+    lines += [f"camera {c} flash: {f}" for c, f in flash.items()]
+    return Out(data, "\n".join(lines))
 
 
 def cmd_sensor_status(ctx):
@@ -1401,7 +1435,7 @@ def build_parser():
     ac.add_argument("path", help="path relative to the app's data directory, e.g. files/arground.log")
     ac.add_argument("--out", help="write to a file instead of stdout")
 
-    env = group("env", "fake the environment on the emulator: GPS, sensors, display, Doze (emulator only)")
+    env = group("env", "fake the environment on the emulator: GPS, sensors, display, Doze (emulator only); torch state (any device)")
     dz = leaf(env, "doze", cmd_doze, EMULATOR, "force the device into deep Doze (on) or release it (off); waits 3 s after on")
     dz.add_argument("state", choices=["on", "off"])
 
@@ -1420,7 +1454,13 @@ def build_parser():
     for name, help_text in (("grant", "grant permissions"), ("revoke", "revoke permissions (kills the app)")):
         pp = leaf(perm, name, cmd_perm_set, Policy(risk="act", dry_run=True), help_text)
         pp.add_argument("names", nargs="+", help="alias, all, or android.permission.* name")
+    pr = leaf(perm, "reset", cmd_perm_reset, Policy(risk="act", dry_run=True),
+              "revoke and clear the user-set/user-fixed flags so the app asks again as if never asked (kills the app)",
+              "example: tsctl perm reset notifications")
+    pr.add_argument("names", nargs="+", help="alias, all, or android.permission.* name")
     leaf(perm, "list", cmd_perm_list, ACT, "granted state of each permission and the exact-alarm appop")
+
+    leaf(env, "torch", cmd_torch, ACT, "whether the camera torch is on (from SystemUI) and which cameras report a flash; works on any device")
 
     geo = leaf(env, "geo", cmd_geo, EMULATOR, "GPS fix, latitude first", "example: tsctl env geo 42.3601 -71.0589 20")
     geo.add_argument("lat", type=float)

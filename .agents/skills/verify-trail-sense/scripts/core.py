@@ -261,6 +261,29 @@ def parse_granted_permissions(dumpsys: str) -> dict:
     return {p: g == "true" for p, g in re.findall(r"(android\.permission\.[A-Z_]+): granted=(true|false)", dumpsys)}
 
 
+def parse_flash_units(dumpsys_camera: str) -> dict:
+    """Camera id -> whether its static info reports android.flash.info.available."""
+    flash = {}
+    camera = None
+    lines = dumpsys_camera.splitlines()
+    for i, line in enumerate(lines):
+        header = re.match(r"== Camera HAL device \S+/(\S+) .*static information", line)
+        if header:
+            camera = header.group(1)
+        elif camera is not None and camera not in flash and "android.flash.info.available" in line and i + 1 < len(lines):
+            flash[camera] = "TRUE" in lines[i + 1]
+    return dict(sorted(flash.items()))
+
+
+def parse_torch_state(dumpsys_systemui: str):
+    """SystemUI's FlashlightController state: the torch camera, whether it is on, and whether it is usable."""
+    m = re.search(r"FlashlightController state:\s*mCameraId=(\S*)\s*mFlashlightEnabled=(\w+)\s*mTorchAvailable=(\w+)",
+                  dumpsys_systemui)
+    if not m:
+        return None
+    return {"camera": m.group(1) if m.group(1) != "null" else None, "on": m.group(2) == "true", "available": m.group(3) == "true"}
+
+
 def parse_focused_package(dumpsys_window: str) -> str:
     m = re.search(r"mCurrentFocus=Window\{\S+ \S+ ([^/}]+)", dumpsys_window)
     return m.group(1) if m else ""

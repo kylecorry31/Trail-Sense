@@ -22,9 +22,9 @@ $T <group> <cmd> --help   # flags for one command
 | --- | --- |
 | Readiness and targets | `doctor`, `devices`, `grants add\|remove\|list`, `emu start\|stop\|status\|list` |
 | Build and test | `build`, `lint`, `test unit\|android` |
-| The app | `app install\|seed\|launch\|kill\|idle\|clear\|restore...`, `open`, `tools`, `perm`, `widget` |
+| The app | `app install\|seed\|launch\|kill\|idle\|clear\|restore...`, `open`, `tools`, `perm grant\|revoke\|reset\|list`, `widget` |
 | App state | `pref`, `db` |
-| Fake the world (emulator only) | `env geo`, `env sensor set\|get\|status`, `env display`, `env doze` |
+| Fake the world (emulator only) | `env geo`, `env sensor set\|get\|status`, `env display`, `env doze`; `env torch` reads the torch on any device |
 | Drive and capture | `ui tap\|type\|scroll\|find\|snap\|record...`, `logs`, `notifications` |
 | Escape hatch | `adb --` |
 
@@ -151,9 +151,13 @@ $T env geo 42.3601 -71.0589 20          # GPS fix: lat lon [alt m above the elli
 $T env sensor set pressure 990.5        # hPa; also magnetic-field X Y Z, acceleration X Y Z, temperature, humidity, ...
 $T env sensor get pressure ; $T env sensor status
 $T perm grant location camera ; $T perm revoke notifications ; $T perm list   # aliases + "all"; revoke kills the app
+$T perm reset notifications              # back to never-asked, so the app prompts again; also kills the app
+$T env torch                             # torch on/off (SystemUI) and which cameras report a flash
 ```
 
-The emulator has no step counter and no light sensor, so Pedometer and Light Meter aren't available. It has no real camera image (only an emulated scene) and no torch.
+The emulator has no step counter and no light sensor, so Pedometer and Light Meter aren't available. It has no real camera image (only an emulated scene). The Android_16 camera reports a flash, so the Flashlight tool and its service run. There is no visible light, so prove the torch with `env torch`.
+
+**Permission prompts:** `perm revoke` alone isn't enough to see a prompt again. After the user denies a prompt twice, Android stops asking (the `user-fixed` flag) and the request returns denied at once. `perm reset` revokes and clears those flags, so the next request shows the system dialog.
 
 **Preferences** (debug and nightly only). KEY is a raw key, or `@string_resource_name` resolved through `strings.xml`:
 

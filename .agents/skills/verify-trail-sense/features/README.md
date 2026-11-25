@@ -22,7 +22,7 @@ This directory is the maintained source for verifying Trail Sense's user-facing 
 - UI proof: `$T ui snap <feature>/<step>` before and after each action (screenshot + layout JSON).
 - Side-effect proof: `$T db query` or `$T pref get` output saved next to the snaps.
 - `$T logs --crash` is empty at the end of the run.
-- When the emulator can't meet a precondition (no step counter, light sensor, torch, real camera image, or audio), report that journey as not verified with the reason. Don't verify it through a weaker path.
+- When the emulator can't meet a precondition (no step counter, light sensor, visible light, real camera image, or audio), report that journey as not verified with the reason. Don't verify it through a weaker path.
 
 ## Feature entry contract
 
@@ -47,7 +47,7 @@ Each file has an H1 title and a paragraph that links its guide, then exactly fou
 | Declination | [declination.md](./declination.md) | `declination` | yes | yes (Boston and Sydney) |
 | Diagnostics | [diagnostics.md](./diagnostics.md) | `diagnostics` | yes | yes (permission rows) |
 | Field Guide | [field_guide.md](./field_guide.md) | `field-guide` | yes | partly (categories, create page) |
-| Flashlight | [flashlight.md](./flashlight.md) | `flashlight` | yes | partly (screen, torch toggle) |
+| Flashlight | [flashlight.md](./flashlight.md) | `flashlight` | yes | partly (screen, torch toggle via `env torch`) |
 | Light Meter | [light_meter.md](./light_meter.md) | `light-meter` | no | no |
 | Lightning Strike Distance | [lightning_strike_distance.md](./lightning_strike_distance.md) | `lightning-strike-distance` | yes | yes (measure, db row) |
 | Magnifier | [magnifier.md](./magnifier.md) | `magnifier` | yes | no |

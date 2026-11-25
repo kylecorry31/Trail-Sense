@@ -9,8 +9,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import cli  # noqa: E402
 from core import (  # noqa: E402
     BASE_PACKAGE, PROTECTED_PACKAGE, Failed, expired, Policy, Refused, UsageError, apply_pref_edits, check_dry_run,
-    classify, decide, flatten_layout, parse_focused_package, parse_installed_info, parse_prefs,
-    parse_tool_ids, prune_state, resolve_pref_key, resolve_tool, serialize_prefs, shard, validate_grant,
+    classify, decide, flatten_layout, parse_flash_units, parse_focused_package, parse_installed_info, parse_prefs,
+    parse_tool_ids, parse_torch_state, prune_state, resolve_pref_key, resolve_tool, serialize_prefs, shard, validate_grant,
 )
 
 PHONE = "R5CT123ABC"
@@ -221,6 +221,21 @@ class ParserTest(unittest.TestCase):
         ids = cli.tool_ids()
         self.assertEqual(ids["beacons"], 7)
         self.assertEqual(ids["settings"], 34)
+
+    def test_flash_units_take_each_cameras_first_static_entry(self):
+        dumpsys = ("== Camera HAL device device@1.1/internal/1 (v1.3) static information: ==\n"
+                   "      android.flash.info.available (50000): byte[1]\n        [FALSE ]\n"
+                   "      android.flash.info.available (50000): byte[1]\n        [TRUE ]\n"
+                   "== Camera HAL device device@1.1/internal/1 (v1.3) dumpState: ==\n"
+                   "== Camera HAL device device@1.1/internal/0 (v1.3) static information: ==\n"
+                   "      android.flash.info.available (50000): byte[1]\n        [TRUE ]\n")
+        self.assertEqual(parse_flash_units(dumpsys), {"0": True, "1": False})
+
+    def test_torch_state(self):
+        dumpsys = ("    FlashlightController state:\n      mCameraId=0\n      mFlashlightEnabled=true\n"
+                   "      mTorchAvailable=true\n")
+        self.assertEqual(parse_torch_state(dumpsys), {"camera": "0", "on": True, "available": True})
+        self.assertIsNone(parse_torch_state("no flashlight here"))
 
     def test_installed_info(self):
         dumpsys = ("Package [com.kylecorry.trail_sense] (abc):\n versionCode=149 minSdk=24\n versionName=8.3.0\n"
