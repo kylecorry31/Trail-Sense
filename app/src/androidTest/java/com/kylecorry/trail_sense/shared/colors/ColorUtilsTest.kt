@@ -6,15 +6,6 @@ import org.junit.Test
 
 class ColorUtilsTest {
     @Test
-    fun nrbr() {
-        assertEquals(0f, ColorUtils.nrbr(Color.BLACK), 0.0001f)
-        assertEquals(-1f, ColorUtils.nrbr(Color.BLUE), 0.0001f)
-        assertEquals(1f, ColorUtils.nrbr(Color.RED), 0.0001f)
-        assertEquals(0.3333333f, ColorUtils.nrbr(Color.rgb(100, 0, 50)), 0.0001f)
-        assertEquals(-0.3333333f, ColorUtils.nrbr(Color.rgb(50, 0, 100)), 0.0001f)
-    }
-
-    @Test
     fun average() {
         assertEquals(0f, ColorUtils.average(Color.BLACK), 0.0001f)
         assertEquals(255f, ColorUtils.average(Color.WHITE), 0.0001f)

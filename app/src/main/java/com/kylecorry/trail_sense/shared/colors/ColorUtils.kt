@@ -11,15 +11,6 @@ import kotlin.math.min
 object ColorUtils {
 
     /**
-     * Gets the normalized Red to Blue ratio [-1, 1]
-     */
-    fun nrbr(@ColorInt value: Int): Float {
-        val blue = Color.blue(value)
-        val red = Color.red(value)
-        return (red - blue) / (red + blue).toFloat().coerceAtLeast(1f)
-    }
-
-    /**
      * Gets the saturation of the color [0, 1]
      */
     fun saturation(@ColorInt value: Int): Float {

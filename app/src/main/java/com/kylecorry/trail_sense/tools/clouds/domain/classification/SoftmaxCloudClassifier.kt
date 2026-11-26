@@ -1,17 +1,12 @@
 package com.kylecorry.trail_sense.tools.clouds.domain.classification
 
 import android.graphics.Bitmap
-import android.graphics.Rect
-import com.kylecorry.andromeda.bitmaps.BitmapUtils.glcm
-import com.kylecorry.andromeda.bitmaps.ColorChannel
-import com.kylecorry.andromeda.bitmaps.operations.reducePixels
+import android.graphics.Color
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.classifiers.LogisticRegressionClassifier
-import com.kylecorry.sol.math.interpolation.Interpolation
-import com.kylecorry.sol.math.statistics.Statistics
-import com.kylecorry.sol.math.statistics.TextureFeatures
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
-import com.kylecorry.trail_sense.shared.colors.ColorUtils
+import kotlin.math.max
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 class SoftmaxCloudClassifier(
@@ -19,67 +14,95 @@ class SoftmaxCloudClassifier(
 ) : ICloudClassifier {
 
     override suspend fun classify(bitmap: Bitmap): List<ClassificationResult<CloudGenus?>> {
-        val averageNRBR = bitmap.reducePixels(0.0, { acc, pixel ->
-            acc + ColorUtils.nrbr(pixel)
-        }, { a, b -> a + b }) / (bitmap.width * bitmap.height)
+        val pixels = IntArray(bitmap.width * bitmap.height)
+        bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
 
-        val regions = mutableListOf<Rect>()
-        for (x in 0 until bitmap.width step GLCM_WINDOW_SIZE) {
-            for (y in 0 until bitmap.height step GLCM_WINDOW_SIZE) {
-                regions.add(Rect(x, y, x + GLCM_WINDOW_SIZE, y + GLCM_WINDOW_SIZE))
+        val features = colorFeatures(pixels) + textureFeatures(pixels, bitmap.width, bitmap.height)
+        onFeaturesCalculated(features)
+
+        val prediction = LogisticRegressionClassifier.fromWeights(weights).classify(features + 1f)
+        return classes.zip(prediction) { genus, confidence -> ClassificationResult(genus, confidence) }
+            .sortedByDescending { it.confidence }
+    }
+
+    private fun colorFeatures(pixels: IntArray): List<Float> {
+        var sum = 0.0
+        var sumOfSquares = 0.0
+        for (pixel in pixels) {
+            val red = srgbToLinear[Color.red(pixel)]
+            val blue = srgbToLinear[Color.blue(pixel)]
+            val nrbr = (red - blue) / max(red + blue, 0.001)
+            sum += nrbr
+            sumOfSquares += nrbr * nrbr
+        }
+        val mean = sum / pixels.size
+        val variance = max(sumOfSquares / pixels.size - mean * mean, 0.0)
+        return listOf(mean.toFloat(), sqrt(variance).toFloat())
+    }
+
+    private fun textureFeatures(pixels: IntArray, width: Int, height: Int): List<Float> {
+        val blockSize = minOf(width, height) / TEXTURE_SIZE
+        require(blockSize >= 1) { "Image must be at least $TEXTURE_SIZE pixels on each side" }
+
+        val brightness = IntArray(TEXTURE_SIZE * TEXTURE_SIZE)
+        for (y in 0 until TEXTURE_SIZE * blockSize) {
+            for (x in 0 until TEXTURE_SIZE * blockSize) {
+                val pixel = pixels[y * width + x]
+                brightness[(y / blockSize) * TEXTURE_SIZE + x / blockSize] +=
+                    Color.red(pixel) + Color.green(pixel) + Color.blue(pixel)
             }
         }
 
-        val textures = regions.map {
-            val glcm = bitmap.glcm(
-                listOf(
-                    0 to GLCM_STEP_SIZE,
-                    GLCM_STEP_SIZE to GLCM_STEP_SIZE,
-                    GLCM_STEP_SIZE to 0,
-                    GLCM_STEP_SIZE to -GLCM_STEP_SIZE
-                ),
-                ColorChannel.Red,
-                normed = true,
-                symmetric = true,
-                levels = GLCM_LEVELS,
-                region = it
-            )
-            Statistics.textureFeatures(glcm)
+        val threshold = LBP_THRESHOLD * 3 * blockSize * blockSize
+        return LBP_RADII.flatMap { localBinaryPatternShapes(brightness, it, threshold) }
+    }
+
+    /**
+     * @return the fraction of pixels whose ring of 8 neighbors at [radius] is flat, a single edge, or irregular.
+     * A neighbor is "on" when it is at least [threshold] brighter than the center.
+     */
+    private fun localBinaryPatternShapes(brightness: IntArray, radius: Int, threshold: Int): List<Float> {
+        val offsets = listOf(0 to 1, -1 to 1, -1 to 0, -1 to -1, 0 to -1, 1 to -1, 1 to 0, 1 to 1)
+            .map { (dy, dx) -> radius * (dy * TEXTURE_SIZE + dx) }
+        val isOn = BooleanArray(8)
+        var flat = 0
+        var edge = 0
+        var irregular = 0
+        for (y in radius until TEXTURE_SIZE - radius) {
+            for (x in radius until TEXTURE_SIZE - radius) {
+                val center = y * TEXTURE_SIZE + x
+                var onCount = 0
+                for (i in 0 until 8) {
+                    isOn[i] = brightness[center + offsets[i]] >= brightness[center] + threshold
+                    if (isOn[i]) onCount++
+                }
+                var transitions = 0
+                for (i in 0 until 8) {
+                    if (isOn[i] != isOn[(i + 7) % 8]) transitions++
+                }
+                when {
+                    transitions > 2 -> irregular++
+                    onCount == 0 || onCount == 8 -> flat++
+                    onCount in 3..5 -> edge++
+                }
+            }
+        }
+        val total = (TEXTURE_SIZE - 2 * radius).toFloat().pow(2)
+        return listOf(flat / total, edge / total, irregular / total)
+    }
+
+    companion object {
+        const val IMAGE_SIZE = 400
+        private const val TEXTURE_SIZE = 200
+        private const val LBP_THRESHOLD = 3
+        private val LBP_RADII = listOf(1, 2, 4)
+
+        private val srgbToLinear = DoubleArray(256) {
+            val value = it / 255.0
+            if (value <= 0.04045) value / 12.92 else ((value + 0.055) / 1.055).pow(2.4)
         }
 
-        val texture = TextureFeatures(
-            textures.map { it.energy }.avg(),
-            textures.map { it.entropy }.avg(),
-            textures.map { it.contrast }.avg(),
-            textures.map { it.homogeneity }.avg(),
-            textures.map { it.dissimilarity }.avg(),
-            textures.map { it.angularSecondMoment }.avg(),
-            textures.map { it.horizontalMean }.avg(),
-            textures.map { it.verticalMean }.avg(),
-            textures.map { it.horizontalVariance }.avg(),
-            textures.map { it.verticalVariance }.avg(),
-            textures.map { it.correlation }.avg(),
-            textures.map { it.max }.avg(),
-        )
-
-        val features = listOf(
-            Interpolation.norm(averageNRBR.toFloat(), -1f, 1f) * 2,
-            texture.energy,
-            texture.contrast,
-            Interpolation.norm(texture.verticalMean, 0f, GLCM_LEVELS.toFloat()),
-            Interpolation.norm(sqrt(texture.verticalVariance), 0f, 3f),
-            1f
-        )
-
-        onFeaturesCalculated(features)
-
-        val isClear = features[0] < 0.55 && features[4] < 0.15f
-
-        val classifier = LogisticRegressionClassifier.fromWeights(weights)
-
-        val prediction = classifier.classify(features)
-
-        val cloudMap = arrayOf(
+        private val classes = listOf(
             CloudGenus.Cirrus,
             CloudGenus.Cirrocumulus,
             CloudGenus.Cirrostratus,
@@ -89,108 +112,24 @@ class SoftmaxCloudClassifier(
             CloudGenus.Stratocumulus,
             CloudGenus.Cumulus,
             CloudGenus.Stratus,
-            CloudGenus.Cumulonimbus
+            CloudGenus.Cumulonimbus,
+            null
         )
 
-        val result = cloudMap.zip(prediction) { genus, confidence ->
-            ClassificationResult<CloudGenus?>(
-                genus,
-                confidence * (if (isClear) 0.5f else 1f)
-            )
-        } + listOf(
-            ClassificationResult<CloudGenus?>(
-                null,
-                if (isClear) 0.5f else 0f
-            )
-        )
-
-
-        return result.sortedByDescending { it.confidence }
-    }
-
-    private fun List<Float>.avg(): Float {
-        return Statistics.mean(this)
-    }
-
-    companion object {
-        const val IMAGE_SIZE = 400
-        private const val GLCM_LEVELS = 16
-        private const val GLCM_WINDOW_SIZE = IMAGE_SIZE / 4
-        private const val GLCM_STEP_SIZE = 1
         private val weights = Matrix.create(
             arrayOf(
-                floatArrayOf(
-                    -30.499298f,
-                    -32.44622f,
-                    8.59708f,
-                    24.778687f,
-                    -16.14332f,
-                    26.324936f,
-                    16.153542f,
-                    -4.4983864f,
-                    16.956928f,
-                    -8.88946f
-                ),
-                floatArrayOf(
-                    -18.911097f,
-                    -30.558966f,
-                    21.984447f,
-                    -5.2983747f,
-                    -19.40249f,
-                    21.391472f,
-                    6.4511223f,
-                    9.318568f,
-                    -0.7885379f,
-                    16.439323f
-                ),
-                floatArrayOf(
-                    2.7423918f,
-                    7.5182056f,
-                    -0.55555236f,
-                    -19.869183f,
-                    7.2663717f,
-                    8.8256645f,
-                    -2.1093395f,
-                    -1.5292113f,
-                    -0.4180131f,
-                    -1.3353842f
-                ),
-                floatArrayOf(
-                    -0.07265506f,
-                    8.69243f,
-                    -15.892311f,
-                    -17.148743f,
-                    8.161453f,
-                    2.6490138f,
-                    0.9795754f,
-                    -12.541805f,
-                    8.29234f,
-                    17.448767f
-                ),
-                floatArrayOf(
-                    -12.927965f,
-                    -14.036783f,
-                    7.5850844f,
-                    -6.566447f,
-                    -5.2669687f,
-                    -6.070137f,
-                    14.993839f,
-                    17.069252f,
-                    -12.29734f,
-                    17.991028f
-                ),
-                floatArrayOf(
-                    42.331375f,
-                    44.738117f,
-                    -14.025002f,
-                    -6.911371f,
-                    23.916212f,
-                    -36.44089f,
-                    -20.645504f,
-                    -0.49328813f,
-                    -15.2304f,
-                    -16.924234f
-                )
+                floatArrayOf(-14.5887f, -7.89426f, 0.798298f, 5.14896f, -0.694312f, 7.78797f, 7.5909f, -0.510645f, 6.8277f, 4.95638f, -9.42229f),
+                floatArrayOf(-18.9102f, -16.7021f, 9.23345f, 4.44447f, -7.05674f, -5.40085f, -3.70582f, 16.973f, -6.63056f, 25.7675f, 1.98776f),
+                floatArrayOf(1.06043f, -2.46502f, 2.26651f, 1.44748f, -6.04572f, 3.27512f, 0.0415452f, -2.71309f, 0.237694f, 0.427236f, 2.46782f),
+                floatArrayOf(-0.784907f, -6.83036f, -6.15216f, -0.382464f, -2.29202f, -4.26435f, 15.1142f, 9.87469f, -1.05807f, -0.202175f, -3.02237f),
+                floatArrayOf(-12.2924f, 53.352f, -18.6288f, -3.10906f, 1.02841f, 0.799693f, 12.7363f, -12.7421f, -3.66115f, -9.39877f, -8.08416f),
+                floatArrayOf(-2.12811f, -3.18771f, 0.203603f, 3.24323f, -7.55161f, 3.99665f, 0.826324f, 0.317681f, -0.442452f, 0.555154f, 4.16725f),
+                floatArrayOf(0.768057f, -7.71933f, 1.16595f, -2.75214f, 15.068f, -8.61928f, 4.44574f, 4.10086f, -2.09449f, -0.575713f, -3.78769f),
+                floatArrayOf(23.5459f, 13.583f, -5.04473f, -6.03608f, 1.77165f, -7.97218f, -6.03717f, -3.04357f, 0.703347f, -1.82895f, -9.64116f),
+                floatArrayOf(-1.83167f, -4.70993f, 2.43332f, -3.9023f, 2.24147f, 1.23299f, -1.1677f, 5.20303f, -3.73208f, 2.26881f, 1.96406f),
+                floatArrayOf(6.8365f, 7.47138f, 4.07353f, 0.168514f, -20.4578f, 5.75085f, 6.79644f, 1.53068f, -8.6869f, -3.06765f, -0.41553f),
+                floatArrayOf(19.2029f, -1.40591f, 5.46827f, -9.88856f, 10.7015f, -17.91f, 0.771518f, 3.71711f, 3.34855f, 1.64885f, -15.6543f),
+                floatArrayOf(-5.85898f, 2.31017f, -1.5106f, 0.286839f, 11.0509f, -1.14557f, 0.9983f, -1.55195f, 6.23965f, -1.59001f, -9.22875f)
             )
         )
     }

@@ -11,14 +11,8 @@ class DebugCloudCommand(
 
     override fun executeDebug() {
         val header = listOf(
-            listOf(
-                "NRBR",
-                "EN",
-                "CON",
-                "GLCM AVG",
-                "GLCM STDEV",
-                "BIAS"
-            )
+            listOf("NRBR MEAN", "NRBR STDEV") +
+                    listOf(1, 2, 4).flatMap { listOf("LBP$it FLAT", "LBP$it EDGE", "LBP$it IRREGULAR") }
         )
         val data = header + listOf(features)
 
