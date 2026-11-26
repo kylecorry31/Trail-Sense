@@ -56,7 +56,7 @@ internal class WeatherObserver(
             forceStopOnCompletion = true
         )
 
-        // Read the thermometer one last time - historic thermometer depends on updated location/elevation reading
+        // WHY: The historic thermometer depends on the updated location and elevation reading
         if (thermometer is HistoricThermometer) {
             readAll(listOf(thermometer), Duration.ofSeconds(1), forceStopOnCompletion = true)
         }

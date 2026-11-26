@@ -71,7 +71,7 @@ class FragmentStepLengthEstimation :
             }
         }
 
-        // The estimator doesn't notify listeners when reset, so refresh manually
+        // WHY: The estimator doesn't notify listeners when reset
         useEffect(resetButtonView, estimator) {
             resetButtonView.setOnClickListener {
                 estimator.reset()

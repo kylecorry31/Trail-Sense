@@ -95,7 +95,7 @@ abstract class BasePhotoMapView : EnhancedImageView, IMapView {
                 }
 
                 override fun toCoordinate(pixel: Vector2): Coordinate {
-                    // Convert to source - assume the view does not have the rotation offset applied. The resulting source will have the rotation offset applied.
+                    // WHY: Assumes the view has no rotation offset applied; the resulting source has it applied
                     val source = toSource(pixel.x, pixel.y) ?: return Coordinate.zero
                     return projection?.toCoordinate(Vector2(source.x, source.y)) ?: Coordinate.zero
                 }

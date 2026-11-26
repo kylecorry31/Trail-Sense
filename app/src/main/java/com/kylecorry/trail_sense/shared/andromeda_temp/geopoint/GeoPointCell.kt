@@ -2,9 +2,6 @@ package com.kylecorry.trail_sense.shared.andromeda_temp.geopoint
 
 import com.kylecorry.trail_sense.shared.andromeda_temp.BinarySearch
 
-/**
- * The points of a cell of a [GeoPointFile], sorted by latitude (ascending).
- */
 class GeoPointCell(
     val latitudes: DoubleArray,
     val longitudes: DoubleArray,

@@ -563,7 +563,7 @@ class MapFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_map) {
                 setCenter(null)
                 setScale(null)
             } else {
-                // Intentionally not in the useEffect dependencies
+                // WHY: Intentionally not in the useEffect dependencies
                 center?.let { mapView.mapCenter = it }
                 scale?.let { mapView.resolutionPixels = it }
             }

@@ -210,7 +210,7 @@ class FileSubsystem private constructor(private val context: Context) {
             throw e
         } catch (e: Exception) {
             val packageName = if (e is SecurityException) {
-                // Format: com.android.externalstorage has no access
+                // WHY: The exception message looks like "com.android.externalstorage has no access"
                 val regex = Regex("""([\w.]+) has no access""")
                 regex.find(e.message.orEmpty())?.groupValues?.get(1)
             } else {

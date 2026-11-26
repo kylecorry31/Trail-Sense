@@ -26,8 +26,7 @@ internal object HistoricMonthlyTemperatureRangeRepo {
     private val size = Size(576, 361)
     private const val verticalResolutionDegrees = 0.5
 
-    // Each quantity is stored as the mean followed by the cosine and sine of each annual harmonic. The
-    // mean has a polynomial of sin(latitude) subtracted from it.
+    // WHY: Each quantity is stored as the mean then the cosine and sine of each annual harmonic, with a polynomial of sin(latitude) subtracted from the mean
     private const val harmonics = 4
 
     private class Model(
@@ -81,7 +80,6 @@ internal object HistoricMonthlyTemperatureRangeRepo {
         }
     }
 
-    // The sea level temperature (°C) of each month
     private suspend fun load(location: Coordinate, model: Model): FloatArray = onIO {
         val coefficients = Parallel.map(model.sources) { it.read(location)[0].toDouble() }.toDoubleArray()
 

@@ -77,7 +77,7 @@ internal class WeatherForecaster(
             readings.map { it.pressureReading() }
         }
 
-        // Gets the weather reading twice - first to get arrival time, second to determine precipitation type
+        // WHY: The forecast is computed twice: first for arrival time, then for precipitation type
         val original = getForecast(
             mapped,
             clouds,
@@ -88,7 +88,7 @@ internal class WeatherForecaster(
         val arrival = arrivalCalculator.getArrivalTime(original, clouds)
         val arrivesIn = arrival?.let { Duration.between(Instant.now(), it.time) } ?: Duration.ZERO
 
-        // The temperatures are only used when there is precipitation, so short circuit if not needed
+        // WHY: Temperatures only matter for precipitation, so skip fetching them otherwise
         if (original.none { it.conditions.contains(WeatherCondition.Precipitation) }) {
             return arrival to original
         }
@@ -131,9 +131,6 @@ internal class WeatherForecaster(
         )
     }
 
-    /**
-     * Gets the 3h pressure tendency
-     */
     private fun getTendency(forecast: List<WeatherForecast>): PressureTendency {
         return forecast.firstOrNull()?.get3hTendency() ?: PressureTendency.zero
     }

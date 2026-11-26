@@ -23,7 +23,6 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
         "cactus" to "cacti"
     )
 
-    // These are words which the user may type as two words or hyphenated words
     private val preservedWords: Set<String> = setOf(
         "bowel movement",
         "bowel movements",
@@ -66,13 +65,10 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
         "emergency"
     )
 
-    // These are words which have nearly the same meaning when searched
     private val synonyms: List<Set<String>> = listOf(
         setOf(
-            // Preserved
             "head ache",
             "head aches",
-            // Stemmed (so misspellings are expected)
             "headach",
             "migrain",
             "concuss"
@@ -82,10 +78,8 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "blood"
         ),
         setOf(
-            // Preserved
             "bowel movement",
             "bowel movements",
-            // Stemmed (so misspellings are expected)
             "poop",
             "defec",
             "diahrrea",
@@ -93,7 +87,6 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "fece"
         ),
         setOf(
-            // Stemmed (so misspellings are expected)
             "urin",
             "pee"
         ),
@@ -106,10 +99,8 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "advil"
         ),
         setOf(
-            // Preserved
             "heart rate",
             "heart beat",
-            // Stemmed (so misspellings are expected)
             "heartbeat",
             "puls",
             "heartrat"
@@ -129,7 +120,6 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "bidet",
         ),
         setOf(
-            // Stemmed (so misspellings are expected)
             "fractur",
             "broken",
             "broke"
@@ -139,7 +129,6 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "ice"
         ),
         setOf(
-            // Stemmed (so misspellings are expected)
             "build",
             "construct",
             "assembl",
@@ -148,7 +137,6 @@ class EnglishSurvivalGuideFuzzySearch(private val context: Context, loader: Guid
             "craft"
         ),
         setOf(
-            // Stemmed (so misspellings are expected)
             "gather",
             "collect",
             "harvest",

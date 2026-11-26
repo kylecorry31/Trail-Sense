@@ -138,7 +138,6 @@ class EnglishStopWordRemover(private val additionalStopWords: Set<String> = empt
         "at",
         "much",
         "onto",
-        // Some common contractions without the apostrophe
         "im",
         "ive",
         "youre",

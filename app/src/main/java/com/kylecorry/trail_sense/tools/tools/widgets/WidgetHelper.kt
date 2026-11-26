@@ -35,14 +35,7 @@ object WidgetHelper {
         return frame
     }
 
-    /**
-     * Sets the icon of an image view in a widget.
-     *
-     * On some devices, [android.graphics.drawable.Icon.createWithResource] does not reliably
-     * render vector drawables in RemoteViews, leaving the widget icon blank. When the experimental
-     * widget icon compatibility setting is enabled, the drawable is rendered to a bitmap in the app
-     * process instead, which avoids the issue by handing the launcher a fully rasterized image.
-     */
+    // WHY: On some devices Icon.createWithResource doesn't render vector drawables in RemoteViews, so the compatibility setting rasterizes them
     fun setIcon(
         context: Context,
         views: RemoteViews,

@@ -57,13 +57,13 @@ class ARPathLayer(
     private val clipper = LineClipper()
     private val interpolator = LineInterpolator()
 
-    private val pointSpacing = 2f // meters
-    private val pathSimplification = 0.5f // meters
-    private val snapDistance = 2 * viewDistanceMeters / 3f // meters
-    private val snapDistanceSquared = square(snapDistance)
+    private val pointSpacingMeters = 2f
+    private val pathSimplificationMeters = 0.5f
+    private val snapDistanceMeters = 2 * viewDistanceMeters / 3f
+    private val snapDistanceSquared = square(snapDistanceMeters)
 
-    private val maxElevationOffset = maxOf(5f, viewDistanceMeters / 4f) // meters
-    private val defaultElevationOffset = -2f // meters
+    private val maxElevationOffsetMeters = maxOf(5f, viewDistanceMeters / 4f)
+    private val defaultElevationOffsetMeters = -2f
 
     private var projection: IMapProjection? = null
 
@@ -317,7 +317,7 @@ class ARPathLayer(
             projected,
             bounds,
             output,
-            rdpFilterEpsilon = pathSimplification,
+            rdpFilterEpsilon = pathSimplificationMeters,
             zValues = z,
             zOutput = zOutput
         )
@@ -327,7 +327,7 @@ class ARPathLayer(
         interpolator.increaseResolution(
             output,
             output2,
-            pointSpacing,
+            pointSpacingMeters,
             zOutput,
             zOutput2
         )
@@ -386,13 +386,13 @@ class ARPathLayer(
     private fun toARPoint(pixel: PixelCoordinate, elevation: Float?): ARPoint? {
         val location = toLocation(pixel) ?: return null
         val elevationOffset = if (adjustForPathElevation && elevation != null) {
-            (elevation - (lastElevation ?: 0f) + defaultElevationOffset)
+            (elevation - (lastElevation ?: 0f) + defaultElevationOffsetMeters)
         } else {
-            defaultElevationOffset
+            defaultElevationOffsetMeters
         }
         return GeographicARPoint(
             location,
-            elevationOffset.coerceIn(-maxElevationOffset, maxElevationOffset),
+            elevationOffset.coerceIn(-maxElevationOffsetMeters, maxElevationOffsetMeters),
             isElevationRelative = true,
             actualDiameter = 0.25f
         )

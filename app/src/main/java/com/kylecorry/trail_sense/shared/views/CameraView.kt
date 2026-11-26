@@ -164,10 +164,6 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
         hasPendingChanges = true
     }
 
-    /**
-     * Moves the overlay buttons down so they stay clear of the status bar when the preview
-     * extends under it.
-     */
     fun setControlsTopInset(top: Int) {
         listOf(torchBtn, changeCameraBtn).forEach {
             it.updateLayoutParams<MarginLayoutParams> {
@@ -269,8 +265,7 @@ class CameraView(context: Context, attrs: AttributeSet?) : FrameLayout(context, 
                     captureListener = null
                 }
             }
-        } catch (e: Exception) {
-            // Do nothing
+        } catch (ignored: Exception) {
         } finally {
             camera?.image?.close()
         }

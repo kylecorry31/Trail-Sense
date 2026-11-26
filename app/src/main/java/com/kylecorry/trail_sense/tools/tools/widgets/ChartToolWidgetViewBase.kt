@@ -16,7 +16,6 @@ abstract class ChartToolWidgetViewBase : ToolWidgetView {
     protected val CHART = R.id.widget_chart
 
     override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
-        // Do nothing
     }
 
     protected fun renderChart(context: Context, views: RemoteViews, view: View) {

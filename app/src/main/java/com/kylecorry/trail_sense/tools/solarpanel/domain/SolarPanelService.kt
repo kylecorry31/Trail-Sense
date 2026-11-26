@@ -140,7 +140,7 @@ class SolarPanelService(
                 2000
             )
         } else {
-            // When crossing days, hill climbing can get stuck in a local maximum
+            // WHY: When crossing days, hill climbing can get stuck in a local maximum
             SimulatedAnnealingOptimizer(
                 10.0,
                 1.0,

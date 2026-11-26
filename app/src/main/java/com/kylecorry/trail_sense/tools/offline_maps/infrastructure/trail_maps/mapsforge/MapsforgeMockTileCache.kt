@@ -6,9 +6,6 @@ import org.mapsforge.map.layer.cache.TileCache
 import org.mapsforge.map.layer.queue.Job
 import org.mapsforge.map.model.common.Observer
 
-/**
- * A tile cache which only caches the fact that a job ran
- */
 class MapsforgeMockTileCache(maxSize: Int) : TileCache {
 
     private val jobCache = LruCache<String, Boolean>(maxSize)
@@ -53,14 +50,11 @@ class MapsforgeMockTileCache(maxSize: Int) : TileCache {
     }
 
     override fun setWorkingSet(p0: Set<Job?>?) {
-        // Do nothing
     }
 
     override fun addObserver(p0: Observer?) {
-        // Do nothing
     }
 
     override fun removeObserver(p0: Observer?) {
-        // Do nothing
     }
 }

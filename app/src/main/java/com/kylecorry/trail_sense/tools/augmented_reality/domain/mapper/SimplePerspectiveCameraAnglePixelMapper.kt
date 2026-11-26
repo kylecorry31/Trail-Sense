@@ -7,10 +7,6 @@ import com.kylecorry.sol.math.Vector3
 import com.kylecorry.sol.math.geometry.Size
 import com.kylecorry.sol.science.optics.Optics
 
-/**
- * A camera angle pixel mapper that uses a perspective projection to map angles to pixels.
- * This mapper does not use near and far clipping planes.
- */
 class SimplePerspectiveCameraAnglePixelMapper : CameraAnglePixelMapper {
 
     private val linear = LinearCameraAnglePixelMapper()

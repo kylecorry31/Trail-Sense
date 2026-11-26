@@ -27,13 +27,13 @@ class Converters {
 
     @TypeConverter
     fun fromCloudGenus(value: CloudGenus?): Int? {
-        // This was previously the ordinal (zero-indexed), which is why I need to subtract 1
+        // WHY: The stored value was previously the zero-indexed ordinal
         return value?.id?.toInt()?.minus(1)
     }
 
     @TypeConverter
     fun toCloudGenus(value: Int?): CloudGenus? {
-        // This was previously the ordinal (zero-indexed), which is why I need to add 1
+        // WHY: The stored value was previously the zero-indexed ordinal
         return CloudGenus.entries.firstOrNull { it.id == value?.plus(1)?.toLong() }
     }
 

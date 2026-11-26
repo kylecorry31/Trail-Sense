@@ -10,10 +10,6 @@ import com.kylecorry.trail_sense.shared.camera.AugmentedRealityUtils
 import com.kylecorry.trail_sense.tools.augmented_reality.domain.position.AugmentedRealityCoordinate
 import com.kylecorry.trail_sense.tools.augmented_reality.ui.AugmentedRealityView
 
-/**
- * An augmented reality layer that fills polygons, clipping the part behind the camera.
- * The polygons are requested from the source on every update, so they can depend on the view.
- */
 class ARPolygonLayer : ARLayer {
 
     private class RenderedPolygon(
@@ -96,7 +92,6 @@ class ARPolygonLayer : ARLayer {
     }
 
     override fun invalidate() {
-        // Do nothing
     }
 
     override fun onClick(

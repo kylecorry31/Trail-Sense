@@ -16,3 +16,11 @@ If performing a code review, ignore the non en-US translations (strings, guides,
 The `guides/en-US/*.txt` files are the source of truth for the user guides. All other guides (other locales, and the copies in the site and app) are only updated by the translation or weekly update process (`scripts/weekly-update.sh`, run manually by the user), so never edit them.
 
 Always use the android CLI and associated skills when applicable.
+
+## Comments
+
+Do not write comments that say what code does. Make the code say it with names, types, and structure. The only allowed comment explains why some confusing or unclear code is needed, usually because of a behavior of Android, a device, a library, or a file format that we can't change. A rename or refactor can make a surprise in our own code obvious, so prefer that over a comment. Do not leave commented-out code, TODOs, or section banners.
+
+Start every allowed comment with `WHY:`, for example `// WHY: Some Samsung devices report X as Y`. Keep it short. It may end with a link to the issue that explains the constraint. The Orion `WhyComment` detekt rule rejects any `//` or `/* */` comment that doesn't start with `WHY:`.
+
+KDoc (`/** */`) is allowed, but only when a parameter, return value, or thrown exception is unclear from its name and type, for example its units, range, coordinate system, what null or a sentinel value means, a precondition, or which exceptions it throws. Do not write KDoc that restates the name of the function or its parameters.

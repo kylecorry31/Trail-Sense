@@ -47,7 +47,7 @@ class RadarCompassView : BaseCompassView {
 
     private var mapView: MapView? = null
 
-    // The radius depends on the map's width, which may not be known when the scale is first set
+    // WHY: The radius depends on the map's width, which may not be known when the scale is first set
     private val mapLayoutListener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
         updateRadius()
     }

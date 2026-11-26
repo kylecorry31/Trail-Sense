@@ -38,7 +38,7 @@ class MultilingualFuzzySearchStrategy(
             itemMatch *= parentMatchBoost
         }
 
-        // If the user exactly matched the header, they probably want to see that
+        // WHY: If the user exactly matched the header, they probably want to see that
         if (titleMatch == 1f && inverseTitleMatch == 1f) {
             titleMatch = titleMatchBoost
         }

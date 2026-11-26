@@ -11,9 +11,6 @@ interface ToolWidgetView {
 
     suspend fun getPopulatedView(context: Context, prefs: WidgetPreferences?): RemoteViews
 
-    /**
-     * Get the view for the widget without any content (used for the loading state and by the onUpdate method)
-     */
     fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews
 
 }

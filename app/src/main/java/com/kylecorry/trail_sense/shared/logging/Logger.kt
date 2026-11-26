@@ -31,7 +31,7 @@ class Logger(context: Context) {
             } catch (e: Exception) {
                 Log.e(TAG, "Unable to write to the log file", e)
             }
-            // Give the queue time to buffer to make writes more efficient
+            // WHY: Give the queue time to buffer so writes are batched
             delay(1000.milliseconds)
         }
     }

@@ -19,7 +19,7 @@ class NullableGroupSort<T : Groupable, Value : Comparable<Value>>(
                 })
                 .map { it.first }
         } else {
-            // Switched nulls first / last since the order is descending
+            // WHY: Nulls first / last are switched since the order is descending
             items.zip(values)
                 .sortedWith(compareByDescending(if (sortNullsLast) nullsFirst() else nullsLast()) {
                     it.second

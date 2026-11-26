@@ -115,7 +115,7 @@ class FragmentToolBattery : TrailSenseReactiveFragment(R.layout.fragment_tool_ba
             triggerBatteryUpdate()
         }
 
-        // Some battery attributes are polled rather than pushed, so they need a fallback
+        // WHY: Some battery attributes are polled rather than pushed, so they need a fallback
         useTimer(1000) {
             triggerBatteryUpdate()
         }

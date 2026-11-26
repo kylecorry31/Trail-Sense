@@ -111,8 +111,7 @@ class WhiteNoiseService : AndromedaService() {
         fun start(context: Context) {
             try {
                 ContextCompat.startForegroundService(context, intent(context))
-            } catch (e: Exception) {
-                // Don't do anything
+            } catch (ignored: Exception) {
             }
         }
 

@@ -5,6 +5,7 @@ import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
 // Last ID: 72
+@Suppress("WhyComment")
 enum class BeaconIcon(
     override val id: Long,
     @DrawableRes val icon: Int,

@@ -49,7 +49,7 @@ class BacktrackSpeedometer(private val context: Context) : AbstractSensor(), ISp
     override val hasValidReading: Boolean
         get() = prefs.paths.backtrackEnabled && _speed != null
 
-    // Points are only recorded once the user has moved the minimum distance, so a missing point means they stopped
+    // WHY: Points are only recorded once the user has moved the minimum distance, so a missing point means they stopped
     override val speed: Speed
         get() {
             val stopped = Speed.from(0f, DistanceUnits.Meters, TimeUnits.Seconds)

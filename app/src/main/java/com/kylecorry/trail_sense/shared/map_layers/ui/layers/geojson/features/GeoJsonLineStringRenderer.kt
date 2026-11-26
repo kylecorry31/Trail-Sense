@@ -112,7 +112,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         projection: IMapViewProjection,
         features: List<GeoJsonFeature>
     ) = onDefault {
-        // Canvas bounds are inverted
+        // WHY: Canvas bounds are inverted
         val margin = 100f
         val actualViewBounds = Rectangle(
             viewBounds.left - margin,
@@ -188,7 +188,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
         val zoomLevel = projection.zoom.roundToInt()
 
         val gridPoints = if (shouldRenderLabels && zoomLevel >= 13) {
-            // Grid spacing based on zoom level (degrees)
             val resolution = when (zoomLevel) {
                 13 -> 0.048
                 14 -> 0.024
@@ -245,7 +244,7 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             filterEpsilon = drawer.dp(2f)
         }
         val scale = map.layerScale
-        // Paths were originally 6px, so convert that to the default dp size
+        // WHY: Paths were originally 6px, so that is converted to the default dp size
         val dpScale = 6f / drawer.dp(DEFAULT_LINE_STRING_STROKE_WEIGHT_DP)
         synchronized(lock) {
             val projection = map.mapProjection
@@ -322,7 +321,6 @@ class GeoJsonLineStringRenderer : FeatureRenderer() {
             val placements = path.labelPlacements
             if (placements.isEmpty()) return
 
-            // We can map a vector (1,0) to get angle
             labelPoint[0] = 0f
             labelPoint[1] = 0f
             matrix.mapPoints(labelPoint)

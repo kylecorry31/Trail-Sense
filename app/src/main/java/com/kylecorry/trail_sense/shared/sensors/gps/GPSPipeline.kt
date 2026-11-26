@@ -6,7 +6,7 @@ import com.kylecorry.trail_sense.shared.logging.Logger
 import java.time.Instant
 import kotlinx.coroutines.CancellationException
 
-/** Callers must serialize lifecycle and update calls, including across suspension points. */
+// WHY: Callers must serialize lifecycle and update calls, including across suspension points
 class GPSPipeline(
     private val modules: List<GPSModule>,
     private val logger: () -> Logger = { getAppService() }

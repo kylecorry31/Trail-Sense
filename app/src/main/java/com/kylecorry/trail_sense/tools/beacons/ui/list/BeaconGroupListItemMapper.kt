@@ -23,7 +23,8 @@ class BeaconGroupListItemMapper(
         action: (BeaconGroupAction) -> Unit
     ): ListItem {
         return ListItem(
-            -group.id, // Negative to distinguish it from beacons
+            // WHY: Negative to distinguish it from beacon ids
+            -group.id,
             title = group.name,
             icon = ResourceListIcon(R.drawable.ic_beacon_group, AppColor.Gray.color),
             subtitle = context.resources.getQuantityString(

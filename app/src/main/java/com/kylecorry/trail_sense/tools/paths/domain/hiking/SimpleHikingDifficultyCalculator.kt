@@ -11,7 +11,7 @@ import com.kylecorry.trail_sense.tools.paths.domain.PathPoint
 import kotlin.math.absoluteValue
 import kotlin.math.max
 
-// Adapted from https://www.smcgov.org/parks/county-hiking-trail-difficulty-rating-system
+// WHY: Adapted from https://www.smcgov.org/parks/county-hiking-trail-difficulty-rating-system
 object SimpleHikingDifficultyCalculator {
 
     fun calculate(points: List<PathPoint>): HikingDifficulty {

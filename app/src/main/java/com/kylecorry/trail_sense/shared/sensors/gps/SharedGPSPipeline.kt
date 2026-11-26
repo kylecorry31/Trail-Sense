@@ -33,8 +33,7 @@ internal class SharedGPSPipeline(
     private var lastInput: ModularGPSData? = null
 
     init {
-        // Some consumers rely on the hasValidReading property being correct, which depends on the pipeline being initialized
-        // This is fine for now since reinitializing the pipeline is just a cache read right now
+        // WHY: Consumers rely on hasValidReading, which needs the pipeline initialized (just a cache read)
         runBlocking { pipeline.reinitialize() }
         latest = snapshot()
     }
@@ -98,7 +97,7 @@ internal class SharedGPSPipeline(
         val listeners = mutex.withLock {
             if (!acceptTimeout()) return@withLock emptyList()
             pipeline.reading.isTimedOut = true
-            // The last input may have been rejected, so give it another chance to become the fix
+            // WHY: The last input may have been rejected, so give it another chance to become the fix
             lastInput?.let { pipeline.update(it) }
             latest = snapshot()
             consumers.values.toList()

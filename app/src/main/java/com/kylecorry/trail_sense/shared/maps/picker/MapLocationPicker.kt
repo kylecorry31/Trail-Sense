@@ -58,7 +58,7 @@ class MapLocationPicker {
 
         mapView.backgroundColorOverride = Color.rgb(127, 127, 127)
         mapView.resolution = 2f
-        // Rendering in widget mode prevents the map from showing the location marker as an arrow which may cause confusion
+        // WHY: Widget mode avoids drawing the location as an arrow, which may cause confusion
         mapView.isWidget = true
         userLocation?.let { mapView.userLocation = it }
         mapView.mapCenter = defaultLocation

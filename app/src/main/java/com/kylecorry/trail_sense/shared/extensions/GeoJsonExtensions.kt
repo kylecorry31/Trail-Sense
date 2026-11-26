@@ -112,7 +112,6 @@ fun GeoJsonFeature.getName(): String? {
     return getStringProperty(GEO_JSON_PROPERTY_NAME)?.take(GEO_JSON_NAME_MAX_LENGTH)
 }
 
-// POINT ONLY
 fun GeoJsonFeature.getStrokeColor(): Int? {
     return getIntProperty(GEO_JSON_PROPERTY_STROKE_COLOR)
 }
@@ -183,7 +182,6 @@ fun GeoJsonFeature.getMarkerShape(): String? {
 }
 
 
-// LINE STRING ONLY
 fun GeoJsonFeature.getLineStyle(): LineStyle? {
     val lineStyleId = getStringProperty(GEO_JSON_PROPERTY_LINE_STYLE)
     return LineStyle.entries.firstOrNull { it.stringId == lineStyleId }

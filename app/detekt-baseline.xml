@@ -40,15 +40,8 @@
     <ID>CyclomaticComplexMethod:MapLayerPreferenceManager.kt:MapLayerPreferenceManager$fun populatePreferences</ID>
     <ID>CyclomaticComplexMethod:PhotoMapsFragment.kt:PhotoMapsFragment$override fun onViewCreated</ID>
     <ID>EmptyClassBlock:ProguardIgnore.kt:ProguardIgnore${ }</ID>
-    <ID>EmptyFunctionBlock:BeaconCompassLayer.kt:BeaconCompassLayer${ }</ID>
-    <ID>EmptyFunctionBlock:BearingCompassLayer.kt:BearingCompassLayer${ }</ID>
-    <ID>EmptyFunctionBlock:BearingToCompassLayer.kt:BearingToCompassLayer${ }</ID>
-    <ID>EmptyFunctionBlock:MarkerCompassLayer.kt:MarkerCompassLayer${ }</ID>
-    <ID>EmptyFunctionBlock:NavigationCompassLayer.kt:NavigationCompassLayer${ }</ID>
-    <ID>EmptyFunctionBlock:ProgressBar.kt:ProgressBar${ }</ID>
-    <ID>EmptyFunctionBlock:QuickActionSheet.kt:QuickActionSheet.&lt;no name provided&gt;${ }</ID>
+    <ID>EmptyFunctionBlock:FieldGuidePageFragment.kt:FieldGuidePageFragment${ }</ID>
     <ID>ExplicitItLambdaParameter:LighterPackIOService.kt:LighterPackIOService${ it -&gt; val name = it.getOrNull(nameIdx) ?: "" val category = parseCategoryString(it.getOrNull(categoryIdx) ?: "") val weight = it.getOrNull(weightAmountIdx)?.toFloatOrNull() val unit = it.getOrNull(weightUnitIdx)?.let { parseWeightUnit(it) } ?: WeightUnits.Grams val packedQty = it.getOrNull(packedQtyIdx)?.toDoubleCompat() ?: 0.0 val desiredQty = it.getOrNull(desiredQtyIdx)?.toDoubleCompat() ?: it.getOrNull(qtyIdx) ?.toDoubleCompat() ?: 0.0 val isOptional = parseOptional(it.getOrNull(optionalIdx)) PackItem( 0, 0, name, category, amount = packedQty, desiredAmount = desiredQty, weight = weight?.let { Weight.from(it, unit) }, isOptional = isOptional ) }</ID>
-    <ID>ForbiddenComment:FieldGuidePageFragment.kt:FieldGuidePageFragment$// TODO: Handle tag click</ID>
     <ID>LargeClass:FormatService.kt:FormatService</ID>
     <ID>LargeClass:Licenses.kt:Licenses</ID>
     <ID>LargeClass:PathOverviewFragment.kt:PathOverviewFragment : BoundFragment</ID>
@@ -93,7 +86,6 @@
     <ID>ReturnCount:SensorService.kt:SensorService$fun getAltimeter: IAltimeter</ID>
     <ID>ReturnCount:TideTableWaterLevelCalculator.kt:TideTableWaterLevelCalculator$private suspend fun getGapCalculator2: IWaterLevelCalculator</ID>
     <ID>SwallowedException:CachedTileCleanupWorker.kt:CachedTileCleanupWorker$e: Exception</ID>
-    <ID>SwallowedException:CameraView.kt:CameraView$e: Exception</ID>
     <ID>SwallowedException:Extensions.kt:e: Exception</ID>
     <ID>SwallowedException:FieldGuidePageListItemMapper.kt:FieldGuidePageListItemMapper$e: Exception</ID>
     <ID>SwallowedException:FileSubsystem.kt:FileSubsystem$e: Exception</ID>
@@ -103,7 +95,6 @@
     <ID>SwallowedException:PreferenceMigrator.kt:PreferenceMigrator.Companion$e: Exception</ID>
     <ID>SwallowedException:RestoreCommand.kt:RestoreCommand$e: BackupService.InvalidBackupException</ID>
     <ID>SwallowedException:RestoreCommand.kt:RestoreCommand$e: BackupService.NewerBackupException</ID>
-    <ID>SwallowedException:WhiteNoiseService.kt:WhiteNoiseService.Companion$e: Exception</ID>
     <ID>TooGenericExceptionCaught:AndromedaExtensions.kt:e: Exception</ID>
     <ID>TooGenericExceptionCaught:CachedTileCleanupWorker.kt:CachedTileCleanupWorker$e: Exception</ID>
     <ID>TooGenericExceptionCaught:CalibrateAltimeterFragment.kt:CalibrateAltimeterFragment$e: Exception</ID>
@@ -129,7 +120,6 @@
     <ID>TooGenericExceptionCaught:TemperatureServiceExtensions.kt:e: Exception</ID>
     <ID>TooGenericExceptionCaught:ToolWhistleFragment.kt:ToolWhistleFragment$e: Exception</ID>
     <ID>TooGenericExceptionCaught:TrailSenseTextView.kt:TrailSenseTextView$e: Exception</ID>
-    <ID>TooGenericExceptionCaught:WhiteNoiseService.kt:WhiteNoiseService.Companion$e: Exception</ID>
     <ID>TooManyFunctions:AppDatabase.kt:AppDatabase : RoomDatabase</ID>
     <ID>TooManyFunctions:AstronomyService.kt:AstronomyService</ID>
     <ID>TooManyFunctions:CachedTileDao.kt:CachedTileDao</ID>
@@ -171,22 +161,22 @@
     <ID>VariableNaming:ChartToolWidgetViewBase.kt:ChartToolWidgetViewBase$protected val TITLE_TEXTVIEW = R.id.widget_title</ID>
     <ID>VariableNaming:DurationInputView.kt:DurationInputView$private val PLACES_MINUTES = 3</ID>
     <ID>VariableNaming:DurationInputView.kt:DurationInputView$private val PLACES_SECONDS = 5</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Actual values (measured) var Zk = Matrix.zeros(measurementSize, 1)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Control matrix var B = Matrix.zeros(stateSize, controlSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Control vector var Uk = Matrix.zeros(controlSize, 1)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Innovation covariance var Sk = Matrix.zeros(measurementSize, measurementSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Kalman gain (optimal) var K = Matrix.zeros(stateSize, measurementSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Measurement innovation var Yk = Matrix.zeros(measurementSize, 1)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Observation model var H = Matrix.zeros(measurementSize, stateSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Observation noise covariance var R = Matrix.zeros(measurementSize, measurementSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Predicted estimate covariance var Pk_km1 = Matrix.zeros(stateSize, stateSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Predicted state estimate var Xk_km1 = Matrix.zeros(stateSize, 1)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Process noise covariance var Q = Matrix.zeros(stateSize, stateSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// State transition model var F = Matrix.zeros(stateSize, stateSize)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Updated (current) state var Xk_k = Matrix.zeros(stateSize, 1)</ID>
-    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$// Updated estimate covariance var Pk_k = Matrix.zeros(stateSize, stateSize)</ID>
     <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$val pk_km1DotHkt = Pk_km1.dot(H.transpose())</ID>
-    <ID>VariableNaming:RuggednessColorMap.kt:RuggednessDefaultColorMap$// https://www.researchgate.net/figure/Terrain-Ruggedness-Index-TRI-Categories-from-Riley-et-al-102_tbl1_272661635 private val CATEGORY_RESOLUTION = 1000f</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var B = Matrix.zeros(stateSize, controlSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var F = Matrix.zeros(stateSize, stateSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var H = Matrix.zeros(measurementSize, stateSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var K = Matrix.zeros(stateSize, measurementSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Pk_k = Matrix.zeros(stateSize, stateSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Pk_km1 = Matrix.zeros(stateSize, stateSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Q = Matrix.zeros(stateSize, stateSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var R = Matrix.zeros(measurementSize, measurementSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Sk = Matrix.zeros(measurementSize, measurementSize)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Uk = Matrix.zeros(controlSize, 1)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Xk_k = Matrix.zeros(stateSize, 1)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Xk_km1 = Matrix.zeros(stateSize, 1)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Yk = Matrix.zeros(measurementSize, 1)</ID>
+    <ID>VariableNaming:KalmanFilter.kt:KalmanFilter$var Zk = Matrix.zeros(measurementSize, 1)</ID>
+    <ID>VariableNaming:RuggednessColorMap.kt:RuggednessDefaultColorMap$// WHY: TRI category thresholds from Riley et al. https://www.researchgate.net/figure/Terrain-Ruggedness-Index-TRI-Categories-from-Riley-et-al-102_tbl1_272661635 private val CATEGORY_RESOLUTION = 1000f</ID>
     <ID>VariableNaming:RuggednessColorMap.kt:RuggednessDefaultColorMap$private val CATEGORY_EXTREMELY_RUGGED = 4367 / CATEGORY_RESOLUTION</ID>
     <ID>VariableNaming:RuggednessColorMap.kt:RuggednessDefaultColorMap$private val CATEGORY_HIGHLY_RUGGED = 958 / CATEGORY_RESOLUTION</ID>
     <ID>VariableNaming:RuggednessColorMap.kt:RuggednessDefaultColorMap$private val CATEGORY_INTERMEDIATELY_RUGGED = 239 / CATEGORY_RESOLUTION</ID>

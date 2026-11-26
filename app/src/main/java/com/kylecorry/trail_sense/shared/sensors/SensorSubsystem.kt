@@ -41,7 +41,7 @@ class SensorSubsystem private constructor(private val context: Context) {
             return when (gpsSourceSelector.getSource(useCache = true)) {
                 GPSSource.Override -> userPrefs.gps.locationOverride
                 GPSSource.Timezone -> timezoneGPS.location
-                // The device GPS is never selected when using the cache
+                // WHY: The device GPS is never selected when using the cache
                 else -> {
                     val cached = CacheGPSModule.getCachedData(prefs)
                     val override = userPrefs.gps.locationOverride

@@ -169,7 +169,6 @@ object TideModel {
         val x = indices[0].toInt() - 1
         val y = indices[1].toInt() - 1
 
-        // For each constituent, load the amplitude and phase (grouped 4 per file)
         val constituents = listOf(
             TideConstituent.TWO_N2,
             TideConstituent.J1,

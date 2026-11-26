@@ -31,7 +31,7 @@ object PathRouteBuilder {
     private fun followInOrder(path: List<PathPoint>, geometry: RouteGeometry, location: Coordinate): List<PathPoint> {
         val candidates = geometry.candidateSnaps(location)
         val longestRemaining = candidates.maxOf { geometry.length - it.distanceAlong }
-        // Skip candidates that would leave only a sliver of the path, ex. the end of a loop when standing at its start
+        // WHY: Skip candidates that leave only a sliver of the path, ex. the end of a loop when standing at its start
         val snap = candidates
             .filter { geometry.length - it.distanceAlong >= longestRemaining * MIN_REMAINING_FRACTION }
             .minBy { it.offset }

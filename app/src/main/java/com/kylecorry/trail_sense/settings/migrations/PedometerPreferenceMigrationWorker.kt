@@ -27,7 +27,7 @@ class PedometerPreferenceMigrationWorker(
             return if (runAttemptCount < MAX_RETRY_ATTEMPTS) {
                 Result.retry()
             } else {
-                // Accept that this can't be migrated - there's not much data loss
+                // WHY: Giving up is acceptable since little data is lost
                 Result.failure()
             }
         }
@@ -44,8 +44,7 @@ class PedometerPreferenceMigrationWorker(
                 context.applicationContext,
                 PedometerPreferenceMigrationWorker::class.java,
                 WorkTaskScheduler.createStringId(context, UNIQUE_ID),
-                // Below Android 12, expedited work runs as a foreground service and requires the
-                // worker to provide a notification, which isn't worth it for this migration
+                // WHY: Below Android 12, expedited work needs a foreground notification, which isn't worth it here
                 expedited = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
             )
         }

@@ -33,7 +33,7 @@ class PowerService {
             val deltaElapsed = reading.elapsedRealtime!!.toMillis() - previousReading.elapsedRealtime!!.toMillis()
             val deltaUptime = reading.uptime!!.toMillis() - previousReading.uptime!!.toMillis()
 
-            // The clocks reset on reboot, so only trust intervals where they still track wall time
+            // WHY: The clocks reset on reboot, so only trust intervals where they still track wall time
             val deltaTime = Duration.between(previousReading.time, reading.time).toMillis()
             if (deltaElapsed <= 0 || deltaUptime < 0 || (deltaElapsed - deltaTime).absoluteValue > REBOOT_TOLERANCE_MILLIS) {
                 continue

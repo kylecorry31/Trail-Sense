@@ -15,7 +15,6 @@ import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 class LocationWidgetView : ToolWidgetView {
 
     override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
-        // Do nothing
     }
 
     override suspend fun getPopulatedView(
@@ -30,7 +29,7 @@ class LocationWidgetView : ToolWidgetView {
         views.setTextViewText(R.id.widget_title, formatter.formatLocation(location))
         views.setOnClickPendingIntent(
             R.id.widget_frame,
-            // While this widget belongs to the sensor tool, it makes more sense to open the navigation tool
+            // WHY: The widget belongs to the sensor tool, but opening navigation is more useful
             NavigationUtils.toolPendingIntent(context, Tools.NAVIGATION)
         )
         return views

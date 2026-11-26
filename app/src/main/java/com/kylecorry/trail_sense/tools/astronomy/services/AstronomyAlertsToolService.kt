@@ -33,7 +33,7 @@ class AstronomyAlertsToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun enable() {
-        // This is not expected to be called, since users control the individual alerts
+        // WHY: Not expected to be called, since users control the individual alerts
         prefs.astronomy.sendLunarEclipseAlerts = true
         prefs.astronomy.sendMeteorShowerAlerts = true
         prefs.astronomy.sendSolarEclipseAlerts = true

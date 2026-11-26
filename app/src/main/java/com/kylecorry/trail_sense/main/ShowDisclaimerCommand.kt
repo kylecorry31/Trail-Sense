@@ -9,7 +9,7 @@ import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 
 class ShowDisclaimerCommand(private val context: Context) : Command {
     override fun execute() {
-        // Shown value was previously considered to be false, but this was changed to true to make it clearer
+        // WHY: The shown value was changed from false to true to make it clearer
         val prefs = PreferencesSubsystem.getInstance(context).preferences
         if (prefs.getBoolean(context.getString(R.string.pref_main_disclaimer_shown_key)) == false) {
             prefs.putBoolean(context.getString(R.string.pref_main_disclaimer_shown_key), true)

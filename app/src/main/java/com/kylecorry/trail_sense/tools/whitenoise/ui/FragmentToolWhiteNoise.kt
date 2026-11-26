@@ -116,7 +116,7 @@ class FragmentToolWhiteNoise :
                 updateCountdown()
 
                 val timer = CoroutineTimer { updateCountdown() }
-                // Line the timer up to the second so the countdown updates in sync with the white noise timer
+                // WHY: Aligned to the second so the countdown updates in sync with the white noise timer
                 val initialDelayMillis = Duration.between(now, stopTime).toMillis() % 1000
                 timer.interval(1000, initialDelayMillis = initialDelayMillis)
                 return@useEffectWithCleanup {
@@ -124,7 +124,7 @@ class FragmentToolWhiteNoise :
                     timer.stop()
                 }
             } else if (isTimerRunning) {
-                // The timer ended while the tool was closed and the finished event was not caught
+                // WHY: The timer may have ended while the tool was closed, so the finished event was missed
                 setIsTimerRunning(false)
                 setPlaybackJustFinished(true)
             }
@@ -143,7 +143,7 @@ class FragmentToolWhiteNoise :
             setIsPlaying(WhiteNoiseService.isRunning)
         }
 
-        // This intentionally clears the timer even when the user stops the playback
+        // WHY: The timer is cleared even when the user stops playback
         useEffect(sleepTimerSwitchView, sleepTimerPickerView, playbackJustFinished) {
             if (playbackJustFinished) {
                 sleepTimerSwitchView.isChecked = false

@@ -145,9 +145,6 @@ fun PixelCoordinate.isSamePixel(other: PixelCoordinate): Boolean {
 }
 
 fun Path.drawLines(lines: FloatArray, smooth: Boolean = false) {
-    // Lines are in the form [x1, y1, x2, y2, x3, y3, ...]
-    // Where x1, y1 is the first point and x2, y2 is the second point of the line
-    // There can be gaps in the lines
     var i = 0
     var lastX = 0f
     var lastY = 0f

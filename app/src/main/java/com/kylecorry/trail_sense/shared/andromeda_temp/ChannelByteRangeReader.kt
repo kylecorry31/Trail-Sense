@@ -22,7 +22,7 @@ class ChannelByteRangeReader(private val openChannel: suspend () -> OpenChannel)
 
     override suspend fun read(offset: Long, length: Int): ByteArray = onIO {
         val open = getOrOpen()
-        // A range past the end is the caller's mistake, so the channel stays open
+        // WHY: An out-of-range request is a caller error, not a channel failure, so the channel stays open
         if (offset < 0 || length < 0 || offset + length > open.size) {
             throw EOFException()
         }
@@ -51,7 +51,7 @@ class ChannelByteRangeReader(private val openChannel: suspend () -> OpenChannel)
         }
         val opened = openChannel()
         synchronized(this) {
-            // The reader may have been closed, or another read may have opened it, in the meantime
+            // WHY: The reader may have been closed, or another read may have opened the channel, while this one was opening
             if (isClosed) {
                 opened.resource.close()
                 throw IOException("The reader is closed")

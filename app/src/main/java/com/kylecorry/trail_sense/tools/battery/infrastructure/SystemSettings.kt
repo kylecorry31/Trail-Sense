@@ -32,8 +32,7 @@ object SystemSettings {
         if (!isAirplaneModeEnabled(context)) {
             return true
         }
-        // Airplane mode is on but Wi-Fi was re-enabled; the raw setting may be
-        // stale and cannot be trusted without ACCESS_WIFI_STATE permission.
+        // WHY: After re-enabling Wi-Fi in airplane mode the raw setting may be stale without ACCESS_WIFI_STATE
         return null
     }
 
@@ -44,8 +43,7 @@ object SystemSettings {
         if (!isAirplaneModeEnabled(context)) {
             return true
         }
-        // Airplane mode is on but Bluetooth was re-enabled; the raw setting may be
-        // stale and cannot be trusted without BLUETOOTH_CONNECT permission.
+        // WHY: After re-enabling Bluetooth in airplane mode the raw setting may be stale without BLUETOOTH_CONNECT
         return null
     }
 

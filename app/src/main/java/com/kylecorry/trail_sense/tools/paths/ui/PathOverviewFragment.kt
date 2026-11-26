@@ -560,10 +560,10 @@ class PathOverviewFragment : BoundFragment<FragmentPathOverviewBinding>() {
         if (!isBound) {
             return
         }
-        // The waypoints are ordered from newest to oldest
+        // WHY: Waypoints are ordered newest to oldest
         val start = waypoints.lastOrNull()?.coordinate
         val end = waypoints.firstOrNull()?.coordinate
-        // The recording path's end is the user's location, so a GPS reading isn't needed
+        // WHY: A recording path ends at the user's location, so no GPS reading is needed
         val hasLocation = isRecording || gps.hasValidReading
         val recommended = if (start != null && end != null && hasLocation) {
             PathDirectionRecommender.recommend(start, end, gps.location, isRecording)

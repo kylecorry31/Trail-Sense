@@ -4,9 +4,6 @@ import java.io.ByteArrayOutputStream
 import java.util.zip.DataFormatException
 import java.util.zip.Inflater
 
-/**
- * Deflate data without a zlib or gzip header (RFC 1951).
- */
 object RawDeflate {
 
     private const val BUFFER_BYTES = 8 * 1024

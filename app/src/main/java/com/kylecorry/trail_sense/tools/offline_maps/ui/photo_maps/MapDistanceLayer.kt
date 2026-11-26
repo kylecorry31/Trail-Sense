@@ -22,12 +22,10 @@ import kotlin.math.hypot
 
 class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
 
-    /** Called when the path is committed (not on every frame of a drag). */
     var onPathChanged: (points: List<Coordinate>) -> Unit = {}
 
     var onPathDragged: (points: List<Coordinate>) -> Unit = {}
 
-    /** Called when the selection or undo/redo availability may have changed. */
     var onEditStateChanged: (state: PathEditState) -> Unit = {}
 
     private val editor = PathEditor()
@@ -87,7 +85,6 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
     override val layerId: String = LAYER_ID
 
     override fun setPreferences(preferences: Bundle) {
-        // Do nothing
     }
 
     override fun setHasUpdateListener(listener: (() -> Unit)?) {
@@ -164,11 +161,9 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        // Do nothing
     }
 
     override fun invalidate() {
-        // Do nothing
     }
 
     override fun onClick(drawer: ICanvasDrawer, map: IMapView, pixel: PixelCoordinate): Boolean {
@@ -242,10 +237,6 @@ class MapDistanceLayer : IAsyncLayer, IDraggableLayer {
         }
     }
 
-    /**
-     * The point under the touch. When points share a location, the selected point wins (new points
-     * are selected when added), followed by the one latest in the path.
-     */
     private fun findPoint(
         drawer: ICanvasDrawer,
         pixels: List<PixelCoordinate>,

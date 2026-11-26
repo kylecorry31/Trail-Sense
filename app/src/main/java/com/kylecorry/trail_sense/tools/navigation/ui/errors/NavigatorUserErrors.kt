@@ -97,7 +97,6 @@ class NavigatorUserErrors(
             isGPSErrorShown = true
         } else if (!diagnosticResultIds.contains(GPSDiagnosticScanner.LOCATION_UNSET)) {
             banner.dismiss(ErrorBannerReason.LocationNotSet)
-            // Do not reset isGPSErrorShown
         }
 
         if (!isGPSErrorShown && diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_UNAVAILABLE)) {
@@ -105,7 +104,6 @@ class NavigatorUserErrors(
             isGPSErrorShown = true
         } else if (!diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_UNAVAILABLE)) {
             banner.dismiss(ErrorBannerReason.NoGPS)
-            // Do not reset isGPSErrorShown
         }
 
         if (!isTimedOut && diagnosticResultIds.contains(GPSDiagnosticScanner.GPS_TIMED_OUT)) {
@@ -135,7 +133,6 @@ class NavigatorUserErrors(
             )
         } else if (!diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_UNAVAILABLE)) {
             banner.dismiss(ErrorBannerReason.NoCompass)
-            // Do not reset isCompassErrorShown
         }
 
         if (!isPoorCompassShown && diagnosticResultIds.contains(MagnetometerDiagnosticScanner.MAGNETOMETER_POOR)) {

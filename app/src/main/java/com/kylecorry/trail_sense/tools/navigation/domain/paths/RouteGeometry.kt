@@ -25,9 +25,6 @@ internal class Snap(
     val offset: Float
 )
 
-/**
- * Spatial queries over a polyline, with positions given as distances along it.
- */
 internal class RouteGeometry(private val routePoints: List<Coordinate>) {
     private val latitudes = DoubleArray(routePoints.size) { routePoints[it].latitude }
     private val longitudes = DoubleArray(routePoints.size) { routePoints[it].longitude }
@@ -121,8 +118,6 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         return Snap(segment, fraction, clamped, location.distanceTo(interpolate(segment, fraction)))
     }
 
-    // The first segment that ends at or after the distance. The last segment is never searched
-    // since it is the fallback.
     private fun segmentContaining(distance: Float): Int {
         return BinarySearch.firstIndex(lastSegment) { cumulativeDistances[it + 1] >= distance }
     }
@@ -143,10 +138,7 @@ internal class RouteGeometry(private val routePoints: List<Coordinate>) {
         return Coordinate(latitude, longitudes[segment] + fraction * longitudeChange)
     }
 
-    /**
-     * A flat approximation of the area around [origin] in meters east (x) and north (y) of it. It is
-     * accurate over the distances that route segments span, and much cheaper than geodesic math.
-     */
+    // WHY: A flat approximation is accurate over route segment distances and much cheaper than geodesic math
     private class LocalPlane(origin: Coordinate) {
         private val originLatitude = origin.latitude
         private val originLongitude = origin.longitude

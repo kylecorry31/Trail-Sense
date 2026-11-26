@@ -128,17 +128,11 @@ class MultipartUnitInputView<Units : Enum<*>>(
         }
     }
 
-    /**
-     * Set the field amount without triggering an on change event
-     */
     fun setAmountEditText(amount: Number?) {
         val str = if (amount == null) null else DecimalFormatter.format(amount, 5, false)
         amountEdit.setText(str)
     }
 
-    /**
-     * Set the field amount without triggering an on change event
-     */
     fun setSecondaryAmountEditText(amount: Number?) {
         val str = if (amount == null) null else DecimalFormatter.format(amount, 5, false)
         secondaryAmountEdit.setText(str)

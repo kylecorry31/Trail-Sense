@@ -26,9 +26,6 @@ interface IMapView {
 
     var isWidget: Boolean
 
-    /**
-     * Whether layers should render at physical pixel resolution instead of density-adjusted resolution.
-     */
     val isHighDetailMode: Boolean
 
     var userLocation: Coordinate

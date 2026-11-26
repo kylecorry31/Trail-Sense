@@ -38,7 +38,7 @@ class GuideListFragment : TrailSenseReactiveFragment(R.layout.fragment_guide_lis
             }
         }
 
-        // A new fragment is used for each view since the old one is destroyed with its container
+        // WHY: A new fragment is needed for each view since the old one is destroyed with its container
         useEffect(listContainerView) {
             val fragment = GuideListPreferenceFragment()
             childFragmentManager.commit {

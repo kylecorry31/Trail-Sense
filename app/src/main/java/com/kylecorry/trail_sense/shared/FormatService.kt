@@ -674,7 +674,7 @@ class FormatService private constructor(private val context: Context) {
     }
 
     fun getBulletSpeedUnitName(unit: DistanceUnits, short: Boolean = false): String {
-        // Only supports Feet and Meters
+        // WHY: Bullet speed only supports Feet and Meters
         if (short) {
             return when (unit) {
                 DistanceUnits.Feet -> context.getString(R.string.speed_format_feet_per_second, "")

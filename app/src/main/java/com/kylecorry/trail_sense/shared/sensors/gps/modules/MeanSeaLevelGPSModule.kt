@@ -16,7 +16,7 @@ class MeanSeaLevelGPSModule(
         previousData: ModularGPSData,
         newData: ModularGPSData
     ): Boolean {
-        // The altitude of a repeated fix was already corrected
+        // WHY: The altitude of a repeated fix was already corrected
         if (newData.id == previousData.id) {
             return true
         }

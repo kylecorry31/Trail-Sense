@@ -106,10 +106,7 @@ class TideService(private val context: Context) {
         table: TideTable,
         time: ZonedDateTime = ZonedDateTime.now()
     ): Float? {
-        // High = 0
-        // Falling = 90
-        // Low = 180
-        // Rising = 270
+        // WHY: Tide phase angles are High = 0, Falling = 90, Low = 180, Rising = 270
         val next = getNextTide(table, time) ?: return null
         val previous =
             getPreviousTide(table, time, type = if (next.isHigh) TideType.Low else TideType.High)
@@ -185,7 +182,7 @@ class TideService(private val context: Context) {
     }
 
     private suspend fun getTableCalculator(table: TideTable): TideTableWaterLevelCalculator {
-        // Automatic nearby tides require on the fly locations rather than the location being part of the model
+        // WHY: Automatic nearby tides use the current location because it is not stored in the table
         val key = table to if (table.isAutomaticNearbyTide) {
             locationKeyCache.getOrPut { TideLocationKey.of(locationSubsystem.location) }
         } else {
@@ -193,7 +190,7 @@ class TideService(private val context: Context) {
         }
         return cache.getOrPut(key) {
             val calculator = TideTableWaterLevelCalculator(context, table)
-            // Precompute to populate all lookups
+            // WHY: Precompute once to populate all of the calculator lookups
             calculator.calculateSuspend(ZonedDateTime.now())
             calculator
         }

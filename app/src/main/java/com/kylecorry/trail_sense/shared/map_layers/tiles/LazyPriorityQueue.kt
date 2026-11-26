@@ -36,7 +36,7 @@ class LazyPriorityQueue<T : Any>(initialCapacity: Int, comparator: Comparator<T>
         }
 
         if (prioritiesChanged) {
-            // Clear the flag first, so if this changes it will get picked up on the next dequeue
+            // WHY: Clear the flag first so changes made during the rebuild are picked up on the next dequeue
             prioritiesChanged = false
             val originalItems = priorityQueue.toList()
             priorityQueue.clear()

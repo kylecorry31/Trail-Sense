@@ -31,7 +31,7 @@ material = "1.14.0"
 luna = "2.4.2"
 mockitoKotlin = "6.4.0"
 mapsforge = "32021e8ff7"
-orion = "1.1.0"
+orion = "1.2.1"
 roomVersion = "2.8.5"
 sol = "19.4.3"
 workRuntimeKtx = "2.12.0"
@@ -109,7 +109,7 @@ material = { module = "com.google.android.material:material", version.ref = "mat
 mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navVersion" }
 navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navVersion" }
-orion = { module = "com.kylecorry:orion", version.ref = "orion" }
+orion = { module = "com.github.kylecorry31:orion", version.ref = "orion" }
 room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomVersion" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }

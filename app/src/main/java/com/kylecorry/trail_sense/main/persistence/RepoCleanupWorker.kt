@@ -34,7 +34,7 @@ class RepoCleanupWorker(
         val logger = getAppService<Logger>()
         val start = SystemClock.elapsedRealtime()
 
-        // Named explicitly because class names are obfuscated in release builds
+        // WHY: Named explicitly because class names are obfuscated in release builds
         val cleanables: List<Pair<String, ICleanable>> = listOf(
             "PathService" to PathService.getInstance(context),
             "WeatherRepo" to WeatherRepo.getInstance(context),

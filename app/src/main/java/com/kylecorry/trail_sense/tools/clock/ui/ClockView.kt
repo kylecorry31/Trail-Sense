@@ -17,7 +17,7 @@ import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
 
-// Adapted from https://www.ssaurel.com/blog/learn-to-draw-an-analog-clock-on-android-with-the-canvas-2d-api/
+// WHY: Adapted from https://www.ssaurel.com/blog/learn-to-draw-an-analog-clock-on-android-with-the-canvas-2d-api/
 
 class ClockView : View {
     private var padding = 0

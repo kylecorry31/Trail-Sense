@@ -25,7 +25,7 @@ class PathElevationPrefetcher {
         if (points.isEmpty()) {
             scope.coroutineContext.cancelChildren()
             requested.clear()
-            // Lookups that were already running keep writing to the old map
+            // WHY: Lookups that were already running keep writing to the old map
             elevations = ConcurrentHashMap()
             return
         }

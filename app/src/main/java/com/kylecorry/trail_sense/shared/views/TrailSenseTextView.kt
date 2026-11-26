@@ -9,7 +9,7 @@ class TrailSenseTextView @JvmOverloads constructor(
 ) : AppCompatTextView(context, attrs) {
 
     override fun performLongClick(): Boolean {
-        // Prevents hitting "Drag shadow dimensions must be positive" when Android can't calculate a drag shadow
+        // WHY: Android throws "Drag shadow dimensions must be positive" when it can't calculate a drag shadow
         return try {
             super.performLongClick()
         } catch (e: Exception) {

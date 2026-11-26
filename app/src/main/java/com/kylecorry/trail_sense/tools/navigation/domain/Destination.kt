@@ -64,7 +64,7 @@ sealed class Destination : GuidanceProvider {
                 return startingLocation?.plus(bearingDistance, trueBearing)
             }
 
-        // Bearings are recorded against the compass setting, so the override does not apply
+        // WHY: Bearings are recorded against the compass setting, so the override does not apply
         override fun usesTrueNorth(compassUsesTrueNorth: Boolean, trueNorthOverride: Boolean?): Boolean {
             return compassUsesTrueNorth
         }

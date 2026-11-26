@@ -159,14 +159,11 @@ fun isAppForeground(): Boolean {
 fun Permissions.canGetLocationCustom(context: Context): Boolean {
     return isBackgroundLocationEnabled(context) || canGetLocation(
         context,
-        // We only need to check app ops when running in the background. Running in foreground grants while-in-use and some manufacters incorrectly deal with app ops
+        // WHY: Foreground use grants while-in-use access and some manufacturers report app ops incorrectly, so only check them in the background
         checkAppOps = !isAppForeground()
     )
 }
 
-/**
- * Request location permission when absolutely required to start a foreground service (Android 14+)
- */
 fun Fragment.requestBacktrackPermission(action: (hasPermission: Boolean) -> Unit) {
     if (Permissions.canStartLocationForegroundService(requireContext())) {
         action(true)

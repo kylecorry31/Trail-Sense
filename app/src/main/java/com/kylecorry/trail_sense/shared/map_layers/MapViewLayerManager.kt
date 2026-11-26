@@ -71,7 +71,7 @@ class MapViewLayerManager(private val invalidateView: () -> Unit) {
                 )
             }
 
-        // Layers added after the view last changed still need to load for it
+        // WHY: Layers added after the view last changed still need to load for it
         viewState.value?.let {
             viewState.value = MapViewState(it.context, it.viewBounds, it.bounds, it.projection)
         }

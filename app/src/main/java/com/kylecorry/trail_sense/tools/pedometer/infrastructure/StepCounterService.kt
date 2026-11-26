@@ -88,7 +88,7 @@ class StepCounterService : AndromedaService() {
 
     override fun onCreate() {
         super.onCreate()
-        // The foreground notification already shows the initial 0 steps, so skip the first value.
+        // WHY: The foreground notification already shows the initial 0 steps
         steps
             .map { formatDistance(StepLengthPaceCalculator(prefs.pedometer.stepLength).distance(it)) }
             .distinctUntilChanged()

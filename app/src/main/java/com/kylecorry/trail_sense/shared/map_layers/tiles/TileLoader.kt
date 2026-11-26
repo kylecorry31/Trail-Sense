@@ -122,7 +122,7 @@ class TileLoader(
             )
         }
         imageTiles.forEach { imageTile ->
-            // Replace the load function every cycle to ensure it uses the latest parameters
+            // WHY: The loader captures the params, so it is replaced every cycle to use the latest ones
             imageTile.setLoader {
                 loadTile(source, context, imageTile.tile, params)
             }
@@ -182,7 +182,7 @@ class TileLoader(
         tileCache.peek(tile)?.withImage { bitmap ->
             bitmap ?: return@withImage
             tryOrNothing {
-                // NOTE: This modifies the bitmap in place under a read lock, but if we use the write lock then the UI will block until the bitmap is loaded, which is worse
+                // WHY: Modifies the bitmap under a read lock since a write lock would block the UI until the bitmap loads
                 fillNeighborPixels(tile, bitmap)
             }
         }

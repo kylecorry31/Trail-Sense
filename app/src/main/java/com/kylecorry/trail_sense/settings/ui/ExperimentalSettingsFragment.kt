@@ -28,7 +28,7 @@ class ExperimentalSettingsFragment : AndromedaPreferenceFragment() {
         }
 
         onClick(switch(R.string.pref_widget_icon_compatibility)) {
-            // Refresh all widgets so the new icon rendering takes effect immediately
+            // WHY: Refresh all widgets so the new icon rendering takes effect immediately
             Tools.triggerWidgetUpdate(requireContext(), null)
         }
 

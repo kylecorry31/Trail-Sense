@@ -17,7 +17,7 @@ class PhotoUploadPagerAdapter(
         notifyDataSetChanged()
     }
 
-    // The last page is used to add another photo
+    // WHY: The last page is used to add another photo
     override fun getItemCount(): Int {
         return photos.size + 1
     }

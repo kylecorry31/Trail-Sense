@@ -150,7 +150,7 @@ object HikingService {
 
     private const val MIN_DISTANCE_BETWEEN_SMOOTHED_POINTS = 0.1f
 
-    // Chosen by minimizing the difference from USGS elevations on real paths (see HikingServiceTest)
+    // WHY: Chosen by minimizing the difference from USGS elevations on real paths (see HikingServiceTest)
     private val ELEVATION_SMOOTHING_OPTIONS = DataUtils.AutomaticSmoothingOptions(
         targetNoise = 1.2f,
         minimumSpan = 60f,

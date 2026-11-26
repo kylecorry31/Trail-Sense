@@ -192,9 +192,9 @@ object AugmentedRealityUtils {
         val bearingRad = bearing.toRadians()
 
         val cosElevation = cos(elevationRad)
-        val x = d * cosElevation * sin(bearingRad) // East
-        val y = d * cosElevation * cos(bearingRad) // North
-        val z = d * sin(elevationRad) // Up
+        val x = d * cosElevation * sin(bearingRad)
+        val y = d * cosElevation * cos(bearingRad)
+        val z = d * sin(elevationRad)
         return Vector3(x, y, z)
     }
 
@@ -211,7 +211,7 @@ object AugmentedRealityUtils {
             tempWorldVector[2] = enu.z
             tempWorldVector[3] = 1f
             Matrix.multiplyMV(tempWorldVector, 0, rotationMatrix, 0, tempWorldVector, 0)
-            // Swap y and z to convert to AR coordinate system
+            // WHY: The AR coordinate system swaps the y and z axes of ENU
             Vector3(tempWorldVector[0], tempWorldVector[2], tempWorldVector[1])
         }
     }
@@ -219,7 +219,7 @@ object AugmentedRealityUtils {
     fun arToEnu(ar: Vector3, rotationMatrix: FloatArray): Vector3 {
         return synchronized(worldVectorLock) {
             tempWorldVector[0] = ar.x
-            // Undo the y/z swap applied by enuToAr before inverting the rotation.
+            // WHY: enuToAr swapped y and z, so it is undone before inverting the rotation
             tempWorldVector[1] = ar.z
             tempWorldVector[2] = ar.y
             tempWorldVector[3] = 1f

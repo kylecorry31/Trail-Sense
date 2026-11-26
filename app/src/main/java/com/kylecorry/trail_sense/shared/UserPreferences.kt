@@ -456,7 +456,6 @@ class UserPreferences(ctx: Context) : IDeclinationPreferences {
                 return value
             }
 
-            // The user hasn't made a selection, so default to all widgets
             return Tools.getTools(context)
                 .flatMap { it.widgets }
                 .filter { it.isEnabled(context) && it.canPlaceInApp }

@@ -48,8 +48,7 @@ class BacktrackService :
         getAppService<Logger>().info(TAG, "Using location updates as the timer")
 
         return FlowableTimer({ periodMillis ->
-            // This intentionally does not use the CustomGPS because it only needs to use the GPS as a wakeup source
-            // This has the side effect of warming up the GPS for backtrack
+            // WHY: CustomGPS isn't used because the GPS is only a wakeup source here, which also warms it up for backtrack
             GPS(
                 this,
                 LocationRequestConfig(

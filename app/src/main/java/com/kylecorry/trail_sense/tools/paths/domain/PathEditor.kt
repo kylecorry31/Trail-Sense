@@ -8,12 +8,6 @@ data class PathEditState(
     val hasSelection: Boolean
 )
 
-/**
- * The points of a path being drawn, the selected point, and the undo/redo history.
- *
- * New points are added relative to the selected point, so the path can be extended from either
- * end or from the middle. With nothing selected, points are added to the end.
- */
 class PathEditor {
 
     private val _points = mutableListOf<Coordinate>()
@@ -33,11 +27,6 @@ class PathEditor {
             selectedIndex != null
         )
 
-    /**
-     * Adds a point after the selected point (before the first point if it is the one selected),
-     * and selects it. Does nothing if the point is at the same location as a point it would be next
-     * to, since that would add a zero length segment.
-     */
     fun add(location: Coordinate) {
         val selected = selectedIndex
         val index = when {
@@ -59,9 +48,6 @@ class PathEditor {
         selectedIndex = index
     }
 
-    /**
-     * Call before a series of [move] calls, so they are undone as a single step.
-     */
     fun startMove() {
         recordUndo()
     }

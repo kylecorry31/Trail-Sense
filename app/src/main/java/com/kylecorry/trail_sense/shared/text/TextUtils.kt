@@ -63,9 +63,6 @@ object TextUtils {
         return sections
     }
 
-    /**
-     * Groups sections by their level. Nested sections are grouped together.
-     */
     fun groupSections(sections: List<TextSection>, splitLevel: Int?): List<List<TextSection>> {
         val grouped = mutableListOf<MutableList<TextSection>>()
         var currentGroup = mutableListOf<TextSection>()
@@ -204,7 +201,7 @@ object TextUtils {
                 additionalStemWords
             ).toMutableSet()
 
-        // Add the synonyms to the text keywords (but not query keywords, since that will skew the results)
+        // WHY: Synonyms are only added to the text keywords because adding them to the query keywords skews the results
         val toAdd = mutableSetOf<String>()
         for (keyword in textKeywords) {
             for (synonymSet in synonyms) {

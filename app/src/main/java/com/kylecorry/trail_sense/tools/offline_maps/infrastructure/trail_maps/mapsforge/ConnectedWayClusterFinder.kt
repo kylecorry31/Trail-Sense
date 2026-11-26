@@ -6,10 +6,6 @@ import org.mapsforge.map.datastore.Way
 
 object ConnectedWayClusterFinder {
 
-    /**
-     * Groups ways into clusters where any two ways in the same cluster have intersecting bounds.
-     * Uses union-find to handle transitive connectivity.
-     */
     fun findClusters(ways: List<Way>): List<List<Way>> {
         if (ways.size <= 1) {
             return listOf(ways)

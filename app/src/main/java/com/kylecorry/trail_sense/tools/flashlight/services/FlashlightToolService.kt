@@ -33,7 +33,6 @@ class FlashlightToolService(context: Context) : ToolService {
     }
 
     override suspend fun enable() {
-        // Not expected to be called directly
         subsystem.set(FlashlightMode.Torch)
     }
 
@@ -42,7 +41,6 @@ class FlashlightToolService(context: Context) : ToolService {
     }
 
     override suspend fun restart() {
-        // Does not support restarting
     }
 
     override suspend fun stop() {

@@ -65,7 +65,7 @@ fun AndromedaPreferenceFragment.setupDistanceSetting(
             }
             setDistance(distance)
 
-            // Reload the current because it will be in relative units
+            // WHY: Reload the saved value because it will be in relative units
             val current = getDistance()
             pref.summary = current?.let {
                 formatter.formatDistance(

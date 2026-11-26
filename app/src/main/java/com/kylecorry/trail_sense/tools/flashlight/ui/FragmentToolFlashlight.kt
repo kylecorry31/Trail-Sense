@@ -189,7 +189,7 @@ class FragmentToolFlashlight : TrailSenseReactiveFragment(R.layout.fragment_tool
             updateCountdown()
             val timer = CoroutineTimer { updateCountdown() }
             if (mode != FlashlightMode.Off && prefs.flashlight.shouldTimeout) {
-                // Line the timer up to the second so it better reflects the countdown
+                // WHY: Aligning the timer to the second better reflects the countdown
                 val initialDelayMillis = getRemainingTimeout(cache, prefs).toMillis() % 1000
                 timer.interval(1000, initialDelayMillis = initialDelayMillis)
             }

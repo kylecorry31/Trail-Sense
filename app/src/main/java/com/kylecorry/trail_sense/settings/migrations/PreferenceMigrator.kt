@@ -62,7 +62,7 @@ class PreferenceMigrator private constructor() {
                 getAppService<Logger>().info(TAG, "Migrating preferences from version $startVersion to $version")
             }
             migrate(prefs) { migration ->
-                // A migration failing (such as from a corrupted preference) should not stop the app from starting
+                // WHY: A corrupted preference shouldn't stop the app from starting
                 try {
                     migration.action(context, prefs)
                 } catch (e: Exception) {
@@ -218,7 +218,7 @@ class PreferenceMigrator private constructor() {
                 if (wasLegacyCompass) {
                     userPrefs.compass.source = CompassSource.Orientation
                 } else if (sources.contains(CompassSource.RotationVector)) {
-                    // The rotation vector is accurate, no need for smoothing
+                    // WHY: The rotation vector is accurate, so it doesn't need smoothing
                     userPrefs.compass.compassSmoothing = 1
                 }
                 userPrefs.compass.source = sources.firstOrNull() ?: CompassSource.CustomMagnetometer
@@ -227,7 +227,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(14, 15) { context, _ ->
                 val userPrefs = UserPreferences(context)
 
-                // By grabbing the preferences, it will solidify the defaults
+                // WHY: Reading the preferences persists their defaults
                 userPrefs.use24HourTime
                 userPrefs.distanceUnits
                 userPrefs.weightUnits
@@ -236,7 +236,7 @@ class PreferenceMigrator private constructor() {
             },
             PreferenceMigration(15, 16) { context, prefs ->
                 if (prefs.getBoolean("cache_dialog_tool_cliff_height") != null) {
-                    // Enable the cliff height tool since it was previously used
+                    // WHY: A cached cliff height dialog means the user already used the tool
                     val userPrefs = UserPreferences(context)
                     userPrefs.isCliffHeightEnabled = true
                 }
@@ -284,7 +284,7 @@ class PreferenceMigrator private constructor() {
                 }
             },
             PreferenceMigration(17, 18) { context, prefs ->
-                // Disable the map layer by default for returning users to not be disruptive
+                // WHY: Returning users keep the map layer off so the change isn't disruptive
                 val key = "pref_navigation_map_layer_enabled"
                 prefs.putBoolean(key, !AppState.isReturningUser)
             },
@@ -438,7 +438,7 @@ class PreferenceMigrator private constructor() {
                 if (distanceKm != null) {
                     val metrics = context.resources.displayMetrics
                     val density = metrics.density
-                    // compassSize mirrors RadarCompassView: width - 2*dp(24) - 2*dp(2)
+                    // WHY: Matches RadarCompassView's compass size: width - 2*dp(24) - 2*dp(2)
                     val compassSize = metrics.widthPixels - (2 * 24 + 2 * 2) * density
                     if (compassSize > 0f) {
                         val resolutionPixels = (distanceKm * 1000f) / (compassSize / 2f)
@@ -549,7 +549,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(34, 35) { context, prefs ->
                 val backtrackEnabledKey = context.getString(R.string.pref_backtrack_enabled)
                 val backtrackFrequencyKey = context.getString(R.string.pref_backtrack_frequency)
-                // If the user enabled backtrack in the past but didn't change the frequency, default to the original 15 minutes so they aren't surprised
+                // WHY: Users who enabled backtrack before keep the original 15 minute default so they aren't surprised
                 if (prefs.contains(backtrackEnabledKey) && !prefs.contains(backtrackFrequencyKey)) {
                     prefs.putDuration(backtrackFrequencyKey, Duration.ofMinutes(15))
                 }
@@ -557,7 +557,7 @@ class PreferenceMigrator private constructor() {
             PreferenceMigration(35, 36) { context, prefs ->
                 val weatherMonitorEnabledKey = context.getString(R.string.pref_monitor_weather)
                 val weatherFrequencyKey = context.getString(R.string.pref_weather_update_frequency)
-                // If the user enabled the weather monitor in the past but didn't change the frequency, default to the original 15 minutes so they aren't surprised
+                // WHY: Users who enabled the weather monitor before keep the original 15 minute default so they aren't surprised
                 if (prefs.contains(weatherMonitorEnabledKey) && !prefs.contains(weatherFrequencyKey)) {
                     prefs.putDuration(weatherFrequencyKey, Duration.ofMinutes(15))
                 }
@@ -570,7 +570,6 @@ class PreferenceMigrator private constructor() {
             },
             PreferenceMigration(37, 38) { _, prefs ->
                 val repo = getAppService<MapLayerPreferenceRepo>()
-                // Navigation is above paths and below beacons
                 val idealOrdering = listOf(
                     BaseMapTileSource.SOURCE_ID,
                     ElevationMapTileSource.SOURCE_ID,
@@ -596,7 +595,6 @@ class PreferenceMigrator private constructor() {
                 for (mapId in mapIds) {
                     val layers = repo.getActiveLayerIds(mapId)
                     if (NavigationGeoJsonSource.SOURCE_ID in layers) {
-                        // Returning users keep their existing placement
                         if (AppState.isReturningUser) {
                             continue
                         }
@@ -623,7 +621,7 @@ class PreferenceMigrator private constructor() {
                 val showWhileNavigatingKey = "pref_navigation_show_on_lock_screen"
                 val showWhileOpenKey = "pref_navigation_keep_unlocked"
                 val modeKey = context.getString(R.string.pref_navigation_lock_screen_mode)
-                // Showing while open also covers navigating, so it takes priority
+                // WHY: Showing while open also covers navigating, so it takes priority
                 val mode = when {
                     prefs.getBoolean(showWhileOpenKey) == true -> "open"
                     prefs.getBoolean(showWhileNavigatingKey) == true -> "navigating"

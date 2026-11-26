@@ -14,46 +14,32 @@ internal class KalmanFilter(
     private val updateStateWithPrediction: Boolean = false
 ) {
     private val identity = Matrix.identity(stateSize)
-    // State transition model
     var F = Matrix.zeros(stateSize, stateSize)
 
-    // Observation model
     var H = Matrix.zeros(measurementSize, stateSize)
 
-    // Control matrix
     var B = Matrix.zeros(stateSize, controlSize)
 
-    // Process noise covariance
     var Q = Matrix.zeros(stateSize, stateSize)
 
-    // Observation noise covariance
     var R = Matrix.zeros(measurementSize, measurementSize)
 
-    // Control vector
     var Uk = Matrix.zeros(controlSize, 1)
 
-    // Actual values (measured)
     var Zk = Matrix.zeros(measurementSize, 1)
 
-    // Predicted state estimate
     var Xk_km1 = Matrix.zeros(stateSize, 1)
 
-    // Predicted estimate covariance
     var Pk_km1 = Matrix.zeros(stateSize, stateSize)
 
-    // Measurement innovation
     var Yk = Matrix.zeros(measurementSize, 1)
 
-    // Innovation covariance
     var Sk = Matrix.zeros(measurementSize, measurementSize)
 
-    // Kalman gain (optimal)
     var K = Matrix.zeros(stateSize, measurementSize)
 
-    // Updated (current) state
     var Xk_k = Matrix.zeros(stateSize, 1)
 
-    // Updated estimate covariance
     var Pk_k = Matrix.zeros(stateSize, stateSize)
 
     fun predict() {
@@ -78,11 +64,11 @@ internal class KalmanFilter(
 
         Xk_k = Xk_km1.add(K.dot(Yk))
 
-        // Joseph form: Pk|k = (I-KH)Pk|k-1(I-KH)t + KRKt
+        // WHY: Joseph form keeps the covariance positive semi-definite despite rounding error
         val correction = identity.subtract(K.dot(H))
         Pk_k = correction.dot(Pk_km1).dot(correction.transpose())
             .add(K.dot(R).dot(K.transpose()))
-        // Ensure Pk_k is symmetric after floating point math
+        // WHY: Floating point error can make the covariance slightly asymmetric
         for (row in 0 until stateSize) {
             for (column in 0 until row) {
                 val average = (Pk_k[row, column].toDouble() + Pk_k[column, row]) / 2
@@ -94,9 +80,7 @@ internal class KalmanFilter(
         return true
     }
 
-    // Computes the Kalman gain by solving Sk * Kᵀ = crossCovarianceᵀ using
-    // Cholesky decomposition and Double-precision forward/back substitution,
-    // avoiding an explicit inverse. Returns null if factorization or solving fails.
+    // WHY: A Cholesky solve in Double precision is more stable than inverting Sk
     private fun solveGain(crossCovariance: Matrix): Matrix? {
         val size = Sk.rows()
         val lower = Array(size) { DoubleArray(size) }

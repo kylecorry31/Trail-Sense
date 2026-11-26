@@ -37,31 +37,24 @@ class ModularGPSData(
     val id: Long
         get() = eventTimeElapsedNanos
 
-    // This is a data holder, so it never emits
     override val flow: Flow<Unit> = emptyFlow()
 
     override fun start(subscriber: Subscriber) {
-        // Do nothing
     }
 
     override fun stop(subscriber: Subscriber?) {
-        // Do nothing
     }
 
     override fun subscribe(subscriber: Subscriber) {
-        // Do nothing
     }
 
     override fun unsubscribe(subscriber: Subscriber) {
-        // Do nothing
     }
 
     override fun unsubscribeAll() {
-        // Do nothing
     }
 
     override suspend fun read(isSatisfied: () -> Boolean) {
-        // Do nothing
     }
 
     fun copyInto(other: ModularGPSData) {

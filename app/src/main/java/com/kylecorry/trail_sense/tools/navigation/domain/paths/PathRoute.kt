@@ -133,11 +133,7 @@ class PathRoute(
         return rejoinRoute(location, nearby, lastDistance, movementDistance, movement, tolerance)
     }
 
-    /**
-     * Overlapping legs (ex. after the turnaround of an out and back) are indistinguishable within
-     * the GPS error, so a match behind the user may really be on the leg ahead. The user is following
-     * the route, so the leg ahead is used when it is about as close.
-     */
+    // WHY: Overlapping legs (ex. out and back) are indistinguishable within GPS error, so the leg ahead is preferred
     private fun preferLegAhead(
         location: Coordinate,
         closest: Snap,

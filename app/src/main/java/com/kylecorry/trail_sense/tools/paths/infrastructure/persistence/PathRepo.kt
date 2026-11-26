@@ -16,9 +16,6 @@ class PathRepo private constructor(context: Context) {
     private val pathDao = AppDatabase.getInstance(context).pathDao()
     private val groupDao = AppDatabase.getInstance(context).pathGroupDao()
 
-    /**
-     * A key that increments when a change is made
-     */
     var changeKey: Int = 0
         private set
     private val changeLock = Any()

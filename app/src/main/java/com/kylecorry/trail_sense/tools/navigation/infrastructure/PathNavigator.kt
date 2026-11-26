@@ -48,7 +48,6 @@ class PathNavigator(
     private val restoringState = MutableStateFlow(false)
     val isRestoring = restoringState.asStateFlow()
 
-    // Guards the navigation state and the store, which are changed by building, navigating, and cancelling
     private val lock = Any()
     private var session: PathNavigationSession? = null
     private var buildJob: Job? = null
@@ -82,16 +81,10 @@ class PathNavigator(
         }
     }
 
-    /**
-     * Starts following the path from the user's current location. The route is built in the
-     * background, during which [isRestoring] is true. If the path can't be followed, the navigation
-     * is cleared.
-     */
     fun navigate(path: Path, follow: PathFollow) {
         restore(PathNavigationSession(path.id, follow, currentLocation()))
     }
 
-    // The lock must be held
     private fun startBuild(): Job {
         restoringState.value = true
         return CoroutineScope(Dispatchers.Default).launch {
@@ -114,7 +107,6 @@ class PathNavigator(
                 }
             } finally {
                 synchronized(lock) {
-                    // A newer build keeps the route loading
                     if (buildJob === coroutineContext.job) {
                         restoringState.value = false
                     }
@@ -158,9 +150,6 @@ class PathNavigator(
         }
     }
 
-    /**
-     * Restarts a navigation session, including its progress, that was previously cancelled.
-     */
     fun restore(restored: PathNavigationSession) {
         synchronized(lock) {
             cancel()

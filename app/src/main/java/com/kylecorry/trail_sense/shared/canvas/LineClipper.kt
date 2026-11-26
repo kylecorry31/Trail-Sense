@@ -57,7 +57,7 @@ class LineClipper {
             val z = zValues?.getOrNull(idx)
             val vector = vectors[idx]
             if (pixel.x.isNaN() || pixel.y.isNaN()) continue
-            // Remove lines that cross the entire screen (because they are behind the camera)
+            // WHY: Lines that cross the entire screen are behind the camera
             val isLineInvalid = preventLineWrapping && previous != null &&
                     (pixel.x < minX && previous.x > maxX ||
                             pixel.x > maxX && previous.x < minX ||

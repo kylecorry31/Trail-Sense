@@ -40,7 +40,7 @@ class ToolDeclinationFragment : TrailSenseReactiveFragment(R.layout.fragment_too
 
         useLoadingIndicator(!isLocationUpToDate, loadingIndicator)
 
-        // Purposely excluding initial location from this hook
+        // WHY: initialLocation is deliberately left out of this hook's keys
         useEffect(locationView) {
             locationView.coordinate = initialLocation
             locationView.setOnCoordinateChangeListener {

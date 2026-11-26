@@ -42,7 +42,7 @@ class MapLayerPreferenceManager(
         val selectedLayers = repo.getActiveLayerIds(mapId).toMutableList()
         val factory = MapLayerViewPreferenceConverterFactory()
         screen.removeAll()
-        // Reversing the layers so the highest layer appears at the top of the list like other map apps
+        // WHY: Reversed so the highest layer appears at the top of the list like other map apps
         layers.filter { selectedLayers.contains(it.id) }
             .sortedBy { selectedLayers.indexOf(it.id) }
             .reversed()
@@ -58,7 +58,7 @@ class MapLayerPreferenceManager(
                 header.title = layer.name
                 header.summary = layer.description
                 header.isExpanded = lastExpanded == layer.id
-                // NOTE: Up and down are reversed from what is displayed to the user
+                // WHY: Up and down are reversed from what is displayed to the user
                 val currentIndex = selectedLayers.indexOf(layer.id)
                 header.canMoveUp = currentIndex < selectedLayers.size - 1
                 header.canMoveDown = currentIndex > 0

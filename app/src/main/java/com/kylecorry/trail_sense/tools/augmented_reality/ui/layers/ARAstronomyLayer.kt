@@ -125,7 +125,7 @@ class ARAstronomyLayer(
 
     override fun draw(drawer: ICanvasDrawer, view: AugmentedRealityView) {
         lineLayer.draw(drawer, view)
-        // NOTE: The moon renders in front of the sun, but the focus/click order prioritizes the sun
+        // WHY: The moon renders in front of the sun, but the focus/click order prioritizes the sun
         sunLayer.draw(drawer, view)
         moonLayer.draw(drawer, view)
         constellationLayer.draw(drawer, view)

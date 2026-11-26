@@ -34,8 +34,7 @@ class CustomBottomNavigationView @JvmOverloads constructor(
             bindItemLongClickListeners()
         }
 
-    // Below API 26, Material replaces the item long-click listeners with a tooltip whenever it
-    // updates the items
+    // WHY: Below API 26, Material replaces item long-click listeners with a tooltip whenever it updates the items
     private val preDrawListener = ViewTreeObserver.OnPreDrawListener {
         bindItemLongClickListeners()
         true
@@ -43,8 +42,7 @@ class CustomBottomNavigationView @JvmOverloads constructor(
 
     init {
         val initialPaddingBottom = paddingBottom
-        // This replaces the listener added by Material, which also insets by the IME
-        // We want the bottom navigation to be below the keyboard so it doesn't take up unnecessary space
+        // WHY: Replaces Material's listener, which also insets by the IME, so the navigation stays below the keyboard
         ViewCompat.setOnApplyWindowInsetsListener(this) { view, windowInsets ->
             val systemBars = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(bottom = initialPaddingBottom + systemBars.bottom)
@@ -66,7 +64,7 @@ class CustomBottomNavigationView @JvmOverloads constructor(
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        // Item views are recreated when the menu changes
+        // WHY: Item views are recreated when the menu changes
         bindItemLongClickListeners()
     }
 
@@ -76,7 +74,6 @@ class CustomBottomNavigationView @JvmOverloads constructor(
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }
-        // The inset padding is applied by the time this runs, so it doesn't need to be recalculated
         super.onMeasure(
             widthMeasureSpec,
             MeasureSpec.makeMeasureSpec(

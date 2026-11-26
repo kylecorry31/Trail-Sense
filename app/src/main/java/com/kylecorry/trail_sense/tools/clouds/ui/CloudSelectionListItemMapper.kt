@@ -23,7 +23,7 @@ internal class CloudSelectionListItemMapper(
     private val imageModal = CloudImageModal(context)
     private val detailsModal = CloudDetailsModal(context)
 
-    // Clouds with limited training data / low accuracy
+    // WHY: These clouds have limited training data or low accuracy
     private val unreliable =
         listOf(
             CloudGenus.Cumulonimbus,

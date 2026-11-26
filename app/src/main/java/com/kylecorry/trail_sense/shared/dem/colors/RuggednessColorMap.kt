@@ -12,7 +12,7 @@ interface RuggednessColorMap {
 
 class RuggednessDefaultColorMap : RuggednessColorMap {
 
-    // https://www.researchgate.net/figure/Terrain-Ruggedness-Index-TRI-Categories-from-Riley-et-al-102_tbl1_272661635
+    // WHY: TRI category thresholds from Riley et al. https://www.researchgate.net/figure/Terrain-Ruggedness-Index-TRI-Categories-from-Riley-et-al-102_tbl1_272661635
     private val CATEGORY_RESOLUTION = 1000f
     private val CATEGORY_LEVEL = 80 / CATEGORY_RESOLUTION
     private val CATEGORY_NEARLY_LEVEL = 116 / CATEGORY_RESOLUTION

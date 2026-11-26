@@ -9,8 +9,6 @@ import kotlin.math.abs
 object WayCentroidCalculator {
 
     fun calculate(ways: List<Way>): LatLong? {
-        // https://mathworld.wolfram.com/PolygonArea.html
-        // https://mathworld.wolfram.com/PolygonCentroid.html
         var totalArea = 0.0
         var centroidLat = 0.0
         var centroidLon = 0.0

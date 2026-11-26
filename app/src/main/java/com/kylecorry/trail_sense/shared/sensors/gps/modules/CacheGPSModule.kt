@@ -40,9 +40,6 @@ data class GPSCacheData(
     val bootTimeMillis: Long? = null
 ) : ProguardIgnore
 
-/**
- * Persists accepted readings so the last known location survives a restart.
- */
 class CacheGPSModule(
     private val cache: IPreferences = getAppService<PreferencesSubsystem>().preferences,
     private val timeProvider: TimeProvider = SystemTimeProvider(),
@@ -80,10 +77,7 @@ class CacheGPSModule(
         return true
     }
 
-    /**
-     * The cache is written by every instance of this module, so another one may have recorded a
-     * newer reading than the given data.
-     */
+    // WHY: Every instance of this module writes the cache, so another one may have recorded a newer reading
     fun hasNewerReading(data: ModularGPSData): Boolean {
         val cached = getCurrentBootCachedData() ?: return false
         val cachedElapsedNanos = cached.elapsedRealtimeNanos ?: return false
@@ -113,7 +107,7 @@ class CacheGPSModule(
         data.rawBearing = cached?.bearing?.takeIf { it.isFinite() }
         data.bearing = data.rawBearing?.let { Bearing.from(it) }
 
-        // The cache doesn't record these
+        // WHY: The cache doesn't record these
         data.quality = Quality.Unknown
         data.bearingAccuracy = null
         data.speedAccuracy = null

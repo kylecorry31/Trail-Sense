@@ -4,7 +4,6 @@ import com.kylecorry.sol.science.geology.CoordinateBounds
 import com.kylecorry.trail_sense.shared.map_layers.tiles.Tile
 import com.kylecorry.trail_sense.shared.map_layers.tiles.TileMath
 
-/** Keeps only the most recent viewport; tile image availability is deliberately not cached. */
 internal class VisibleTileCache(private val maxTiles: Int) {
     private var lastBounds: CoordinateBounds? = null
     private var lastZoom = 0

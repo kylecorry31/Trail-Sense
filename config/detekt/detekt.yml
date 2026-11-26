@@ -32,3 +32,9 @@ naming:
 orion:
   NoRecursion:
     active: true
+  WhyComment:
+    active: true
+
+empty-blocks:
+  EmptyFunctionBlock:
+    ignoreOverridden: true

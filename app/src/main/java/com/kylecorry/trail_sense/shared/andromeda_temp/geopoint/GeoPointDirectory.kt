@@ -5,14 +5,9 @@ import com.kylecorry.trail_sense.shared.andromeda_temp.ByteRangeReader
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-/**
- * Where the blocks of a [GeoPointFile] are, and which cells each one holds.
- */
 class GeoPointDirectory private constructor(
-    // The first and last cell with points of each block
     private val firstCells: IntArray,
     private val lastCells: IntArray,
-    // The offset of each block, plus the end of the last one
     private val offsets: LongArray
 ) {
 
@@ -30,7 +25,6 @@ class GeoPointDirectory private constructor(
      * The block that holds a cell, or -1 if no block can (the cell has no points).
      */
     fun findBlock(cell: Int): Int {
-        // The last block that starts at or before the cell
         val block = BinarySearch.firstIndex(size) { firstCells[it] > cell } - 1
         return if (block >= 0 && cell <= lastCells[block]) block else -1
     }
@@ -54,7 +48,6 @@ class GeoPointDirectory private constructor(
                 offsets[i] = buffer.getInt().toLong() and 0xFFFFFFFFL
             }
 
-            // The blocks are in order and do not overlap, and the last entry only marks the end
             require(firstCells[blockCount] == cellCount) { "The directory does not end with the cell count" }
             require(offsets[0] == start + (blockCount + 1) * ENTRY_BYTES) { "The blocks do not follow the directory" }
             for (i in 0 until blockCount) {

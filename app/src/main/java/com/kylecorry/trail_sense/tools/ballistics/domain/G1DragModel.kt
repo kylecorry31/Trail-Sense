@@ -1,9 +1,6 @@
 package com.kylecorry.trail_sense.tools.ballistics.domain
 
-/*
-* Calculated from https://www.jbmballistics.com/ballistics/downloads/text/olin.txt
-* Convert v to meters, then multiple v by the G1 column to get acceleration
-*/
+// WHY: v converted to meters and multiplied by the G1 column to get acceleration, from https://www.jbmballistics.com/ballistics/downloads/text/olin.txt
 class G1DragModel(bc: Float = 1f) : TabulatedDragModel(bc) {
     override val dragTable: Map<Float, Float> = mapOf(
         121.92f to 2.145792f,

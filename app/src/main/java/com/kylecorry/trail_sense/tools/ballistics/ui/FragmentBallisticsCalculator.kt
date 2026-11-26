@@ -73,7 +73,7 @@ class FragmentBallisticsCalculator :
             }
         }
 
-        // Intentionally not re-running when the values change
+        // WHY: Deliberately not re-run when the values change
         useEffect(
             zeroDistanceView,
             scopeHeightView,

@@ -19,7 +19,6 @@ object TileMath {
         bounds: CoordinateBounds,
         zoom: Int
     ): List<Tile> {
-        // If the bounds crosses the -180/180 line, split this into 2 calls - one for each hemisphere
         if (Coordinate.toLongitude(bounds.west) > Coordinate.toLongitude(bounds.east)) {
             val leftBounds = CoordinateBounds(
                 bounds.south,

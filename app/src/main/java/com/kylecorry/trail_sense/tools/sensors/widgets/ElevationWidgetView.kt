@@ -47,7 +47,7 @@ class ElevationWidgetView : SimpleToolWidgetView() {
         views.setViewVisibility(ICON_IMAGEVIEW, View.GONE)
         views.setOnClickPendingIntent(
             ROOT,
-            // While this widget belongs to the sensor tool, it makes more sense to open the navigation tool
+            // WHY: The widget belongs to the sensor tool, but the navigation tool is the more useful destination
             NavigationUtils.toolPendingIntent(context, Tools.NAVIGATION)
         )
         return views

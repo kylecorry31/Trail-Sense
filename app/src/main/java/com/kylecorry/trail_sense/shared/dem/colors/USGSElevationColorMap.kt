@@ -27,6 +27,7 @@ import com.kylecorry.sol.math.interpolation.Interpolation
 </distribute>
 </copying>
  */
+@Suppress("WhyComment")
 class USGSElevationColorMap : SampledColorMap(
     mapOf(
         0f to Color.rgb(127, 159, 101),

@@ -14,7 +14,7 @@ class PlanetMapper(private val context: Context) {
             Planet.Saturn -> context.getString(R.string.planet_saturn)
             Planet.Uranus -> context.getString(R.string.planet_uranus)
             Planet.Neptune -> context.getString(R.string.planet_neptune)
-            else -> "" // Not including Earth since that isn't going to show up anywhere
+            else -> ""
         }
     }
 
@@ -27,7 +27,7 @@ class PlanetMapper(private val context: Context) {
             Planet.Saturn -> R.drawable.planet_saturn
             Planet.Uranus -> R.drawable.planet_uranus
             Planet.Neptune -> R.drawable.planet_netpune
-            else -> R.drawable.bubble // Not including Earth since that isn't going to show up anywhere
+            else -> R.drawable.bubble
         }
     }
 }

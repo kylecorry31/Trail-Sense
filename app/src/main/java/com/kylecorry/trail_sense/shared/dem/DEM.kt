@@ -109,7 +109,7 @@ object DEM {
 
             val allSources = getSources()
 
-            // Need to expand the bounds because the tile borders don't fully populate without it
+            // WHY: Tile borders don't fully populate unless the bounds are expanded
             val expandedBounds = bounds.grow(0.1f)
             val sources = allSources.filter {
                 it.bounds.intersects(expandedBounds)
@@ -277,7 +277,7 @@ object DEM {
             if (previousSources != null && cachedIsExternal == isExternal) {
                 if (!hasLoadedPeaks) {
                     loadPeaks(isExternal)
-                    // Elevations from before the peaks could be read are missing them
+                    // WHY: Elevations cached before the peaks could be read are missing them
                     if (cachedPeaks != null) {
                         clearElevationCaches()
                     }

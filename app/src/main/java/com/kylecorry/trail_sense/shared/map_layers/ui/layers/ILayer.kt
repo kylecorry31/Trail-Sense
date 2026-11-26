@@ -51,15 +51,9 @@ interface ILayer {
         return false
     }
 
-    /**
-     * Called when the layer can start running
-     */
     fun start() {
     }
 
-    /**
-     * Called when the layer should stop running and clean up
-     */
     fun stop() {
     }
 

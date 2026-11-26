@@ -30,7 +30,6 @@ abstract class BaseSurvivalGuideSearch(private val loader: GuideLoader) :
             val bestSubsections =
                 subsectionScores.filter { it.third == subsectionScores.firstOrNull()?.third }
 
-            // If there are multiple subsections with the same score, then there is no best subsection
             val bestSubsection = bestSubsections.singleOrNull()
 
             matches.add(

@@ -46,7 +46,8 @@ class LighterPackIOService(uriPicker: UriPicker, uriService: UriService) :
             listOf(
                 it.name,
                 "${it.category.id} - ${it.category.name}",
-                "", // No description, required for LighterPack
+                // WHY: LighterPack requires a description column
+                "",
                 max(it.amount, it.desiredAmount).toString(),
                 (it.weight?.value ?: 0f).toString(),
                 formatWeightUnit(it.weight?.units ?: WeightUnits.Grams),

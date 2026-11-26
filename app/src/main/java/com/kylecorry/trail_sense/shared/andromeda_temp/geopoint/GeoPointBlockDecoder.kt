@@ -3,9 +3,6 @@ package com.kylecorry.trail_sense.shared.andromeda_temp.geopoint
 import com.kylecorry.trail_sense.shared.andromeda_temp.BytePlanes
 import com.kylecorry.trail_sense.shared.andromeda_temp.VarintReader
 
-/**
- * Decodes a decompressed block of a [GeoPointFile] into its cells.
- */
 class GeoPointBlockDecoder(private val grid: GeoPointGrid, private val fields: List<GeoPointField>) {
 
     /**
@@ -18,7 +15,7 @@ class GeoPointBlockDecoder(private val grid: GeoPointGrid, private val fields: L
         val counts = IntArray(cellIds.size) { reader.nextInt() }
         val total = counts.fold(0L) { sum, count -> sum + count }
         val fieldBytes = fields.sumOf { it.bytes }
-        // Every point takes at least one byte for its position, even if the file has no fields
+        // WHY: Every point takes at least one byte for its position, even if the file has no fields
         require(total * (fieldBytes + 1) <= data.size - reader.offset) { "The block has more points than bytes" }
         val positions = Array(cellIds.size) { readPositions(reader, counts[it]) }
         val fieldValues = readFields(data, reader.offset, total.toInt())
@@ -27,7 +24,7 @@ class GeoPointBlockDecoder(private val grid: GeoPointGrid, private val fields: L
         var firstPoint = 0
         for (i in cellIds.indices) {
             val cell = cellIds[i]
-            // The points are stored in Morton order, so they are sorted by position (latitude, then longitude) here
+            // WHY: Points are stored in Morton order, so they must be re-sorted by latitude, then longitude
             val sortedIndices = positions[i].indices.sortedBy { positions[i][it] }
             val cellPositions = LongArray(counts[i]) { positions[i][sortedIndices[it]] }
             val values = fields.indices.associate { index ->
@@ -43,7 +40,7 @@ class GeoPointBlockDecoder(private val grid: GeoPointGrid, private val fields: L
         return cells
     }
 
-    // Each cell is stored as the gap after the one before it
+    // WHY: The file stores each cell as the gap after the one before it
     private fun readCellIds(reader: VarintReader, firstCell: Int, lastCell: Int): IntArray {
         val count = reader.nextInt()
         require(count <= lastCell - firstCell + 1) { "The block has more cells than its range" }
@@ -55,7 +52,7 @@ class GeoPointBlockDecoder(private val grid: GeoPointGrid, private val fields: L
         }
     }
 
-    // Each point is stored as the difference from the one before it in its cell, in Morton order
+    // WHY: The file stores each point as the difference from the one before it in its cell, in Morton order
     private fun readPositions(reader: VarintReader, count: Int): LongArray {
         var code = 0L
         return LongArray(count) {

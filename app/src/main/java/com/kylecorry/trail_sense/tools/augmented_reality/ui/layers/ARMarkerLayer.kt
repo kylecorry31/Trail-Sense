@@ -73,7 +73,6 @@ class ARMarkerLayer(
     }
 
     override fun invalidate() {
-        // Do nothing
     }
 
     override fun onClick(
@@ -141,7 +140,7 @@ class ARMarkerLayer(
 
     override fun onFocus(drawer: ICanvasDrawer, view: AugmentedRealityView): Boolean {
         val center = PixelCoordinate(view.width / 2f, view.height / 2f)
-        // potentialFocusPoints is ordered by farthest to closest to the camera
+        // WHY: potentialFocusPoints is ordered farthest to closest to the camera
         val sorted = potentialFocusPoints
             .reversed()
             .sortedBy {

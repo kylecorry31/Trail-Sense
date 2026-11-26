@@ -298,8 +298,7 @@ class GeoJsonPointRenderer : FeatureRenderer() {
         if (drawer.canvas.height != lastHeight || drawer.canvas.width != lastWidth) {
             lastHeight = drawer.canvas.height
             lastWidth = drawer.canvas.width
-            // Rotating by map rotation wasn't working around 90/270 degrees - this is a workaround
-            // It will just render slightly more of the path than needed, but never less (since 45 is when the area is at its largest)
+            // WHY: Rotating by the map rotation failed near 90/270 degrees, and 45 gives the largest area so it never renders too little
             cachedBounds = drawer.getBounds(45f)
         }
         return cachedBounds

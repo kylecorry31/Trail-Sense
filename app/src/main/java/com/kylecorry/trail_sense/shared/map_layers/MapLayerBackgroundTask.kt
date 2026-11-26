@@ -66,7 +66,7 @@ class MapLayerBackgroundTask {
             bounds
         }
 
-        // This runs on every draw, so avoid launching a coroutine when nothing has changed
+        // WHY: This runs on every draw, so avoid launching a coroutine when nothing has changed
         if (isUpToDate(newBounds, zoom, isInvalid)) {
             return
         }

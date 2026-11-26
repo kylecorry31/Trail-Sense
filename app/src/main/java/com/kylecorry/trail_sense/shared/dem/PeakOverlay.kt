@@ -44,7 +44,7 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
         }
     }
 
-    // Every summit works from the elevation of the model, not from what other summits have added
+    // WHY: Each summit builds on the model elevation, not on what other summits have added
     private suspend fun getOffsets(
         gridLatitudes: DoubleArray,
         gridLongitudes: DoubleArray,
@@ -57,7 +57,7 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
         val grid = Grid(gridLatitudes, gridLongitudes, data, channels)
         val offsets = Offsets(gridLatitudes.size * gridLongitudes.size)
         val reach = radiusDegrees + grid.footprintDegrees
-        // A degree of longitude is shortest far from the equator, so that is where the reach spans the most of them
+        // WHY: A degree of longitude is shortest at the highest latitude, so the reach spans the most columns there
         val longitudeReach = getLongitudeReach(reach, Trigonometry.cosDegrees(gridLatitudes.maxOf { abs(it) }))
         val (west, east) = getLongitudeSpan(gridLongitudes)
         val south = gridLatitudes.first() - reach
@@ -111,7 +111,6 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
         private val longitudeSpacing =
             if (longitudes.size > 1) abs(Coordinate.toLongitude(longitudes[1] - longitudes[0])) else 0.0
 
-        // Half the diagonal of the area each point covers
         val footprintDegrees = hypot(latitudeSpacing, longitudeSpacing) / 2
         val footprintsKm = DoubleArray(latitudes.size) {
             hypot(latitudeSpacing, longitudeSpacing * cosLatitudes[it]) / 2 * KM_PER_DEGREE
@@ -146,7 +145,6 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
         }
     }
 
-    // The summed bumps at each point, and the highest bump within the area each point covers
     private class Offsets(size: Int) {
         private val sums = FloatArray(size)
         private val highest = FloatArray(size)
@@ -164,7 +162,6 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
         }
     }
 
-    // A file without these fields is not opened
     private class Summits(cell: GeoPointCell) {
         val latitudes = cell.latitudes
         val longitudes = cell.longitudes
@@ -178,7 +175,7 @@ class PeakOverlay private constructor(private val summits: GeoPointFile, private
 
     private fun getLongitudeSpan(longitudes: DoubleArray): Pair<Double, Double> {
         val sorted = DoubleArray(longitudes.size) { Coordinate.toLongitude(longitudes[it]) }.also { it.sort() }
-        // The span is everything except the largest gap between neighboring columns
+        // WHY: Longitudes wrap, so the span is everything except the largest gap between neighboring columns
         var largestGap = sorted.first() + 360.0 - sorted.last()
         var westIndex = 0
         for (i in 1 until sorted.size) {

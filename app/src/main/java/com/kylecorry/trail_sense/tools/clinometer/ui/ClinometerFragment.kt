@@ -480,7 +480,7 @@ class ClinometerFragment : BoundFragment<FragmentToolClinometerBinding>() {
     }
 
     private fun addMarker(): ARPoint {
-        // Distance away is distance from device to the object at 0 inclination
+        // WHY: The distance away is measured at 0 inclination, so it is the adjacent side
         val adjacent = distanceAway?.meters()?.value ?: 10f
         val hypotenuse = adjacent / cosDegrees(clinometer.incline)
         val point = SphericalARPoint(

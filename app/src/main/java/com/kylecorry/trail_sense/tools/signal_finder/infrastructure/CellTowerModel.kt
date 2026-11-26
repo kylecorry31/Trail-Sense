@@ -16,10 +16,10 @@ object CellTowerModel {
     private const val PATH = "cell_towers/cell_towers.tsgeo"
     private const val TYPE = "cell_towers"
 
-    // Towers are snapped to a grid of this size, so can't be more accurate than this resolution
+    // WHY: Towers are snapped to a grid of this size, so they can't be more accurate than this resolution
     private const val ACCURACY_RESOLUTION = 0.01
 
-    // Accounts for errors in the dataset
+    // WHY: Accounts for errors in the dataset
     private const val ACCURACY_SCALE = 2f
 
     private val mutex = Mutex()
@@ -43,7 +43,6 @@ object CellTowerModel {
     ): List<ApproximateCoordinate> = onIO {
         val file = getFile() ?: return@onIO emptyList()
 
-        // Each cell is trimmed to the closest towers before the next one is read, so only the closest are kept
         var closest = emptyList<ApproximateCoordinate>()
         val east = if (bounds.east < 0 && bounds.west > 0) bounds.east + 360 else bounds.east
         for (cell in file.getCells(bounds.south, bounds.north, bounds.west, east)) {

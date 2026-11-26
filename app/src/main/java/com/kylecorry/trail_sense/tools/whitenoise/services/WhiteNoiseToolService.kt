@@ -37,7 +37,6 @@ class WhiteNoiseToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun restart() {
-        // Does not support restarting
     }
 
     override suspend fun stop() {

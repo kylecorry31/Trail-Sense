@@ -12,7 +12,6 @@ import com.kylecorry.trail_sense.shared.sensors.gps.durationSince
 import com.kylecorry.trail_sense.shared.sensors.speedometer.SpeedEstimator
 
 class SpeedGPSModule : GPSModule {
-    // Location and fix elapsed realtime nanos
     private val locationHistory = RingBuffer<Pair<ApproximateCoordinate, Long>>(10)
 
     override suspend fun stop(data: ModularGPSData) {

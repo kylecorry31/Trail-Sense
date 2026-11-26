@@ -17,7 +17,6 @@ class EnglishContractionSplitter(private val additionalContractions: Map<String,
             "'m" to "am",
         )
 
-        // Contractions that aren't just the base word + a suffix
         val specialContractions = mapOf(
             "it's" to listOf("it", "is"),
             "he's" to listOf("he", "is"),

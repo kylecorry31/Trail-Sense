@@ -9,7 +9,7 @@ class BrownNoiseAudioStream(seed: Int = 0) : AudioStream {
     override suspend fun next(sampleRate: Int): Float {
         val white = whiteNoise.next(sampleRate)
         brown += white * 0.02f
-        // Leaky integration
+        // WHY: Leaky integration keeps the brown noise from drifting out of range
         brown /= 1.02f
         return brown
     }

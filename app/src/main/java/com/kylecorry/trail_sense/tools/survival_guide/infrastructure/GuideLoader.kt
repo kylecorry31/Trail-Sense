@@ -50,7 +50,7 @@ class GuideLoader(private val context: Context) {
             )
         }
 
-        // Distribute the keywords from the first section to the rest of the sections (assuming the first section is the overview)
+        // WHY: The first section is assumed to be the overview, so its keywords apply to the rest of the sections
         if (guideSections.firstOrNull()?.title == null) {
             val keywords = guideSections.firstOrNull()?.keywords ?: emptySet()
             guideSections = guideSections.map {

@@ -3,6 +3,7 @@ package com.kylecorry.trail_sense.shared.colors
 import androidx.annotation.ColorInt
 import com.kylecorry.trail_sense.shared.data.Identifiable
 
+@Suppress("WhyComment")
 enum class AppColor(override val id: Long, @ColorInt override val color: Int) : IAppColor {
     Red(0, -1092784), // #ef5350
     Orange(1, -37632), // #FF6D00

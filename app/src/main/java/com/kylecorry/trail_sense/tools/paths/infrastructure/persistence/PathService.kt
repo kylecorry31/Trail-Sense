@@ -142,7 +142,7 @@ class PathService(
         deletePathContents(path)
     }
 
-    // The backtrack lock must be held
+    // WHY: Callers must hold the backtrack lock
     private fun stopBacktrackingTo(pathId: Long) {
         if (cache.getLong(BACKTRACK_PATH_KEY) == pathId) {
             cache.remove(BACKTRACK_PATH_KEY)
@@ -351,7 +351,7 @@ class PathService(
         } else {
             null
         }
-        // Using the first point keeps the bounds calculation consistent when at the anti-meridian
+        // WHY: Using the first point keeps the bounds consistent at the anti-meridian
         val first = waypointRepo.getFirstInPath(path.id) ?: previous
         val bounds = Geography.getBounds(
             listOf(

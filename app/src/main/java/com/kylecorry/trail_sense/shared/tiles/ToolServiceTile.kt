@@ -48,7 +48,6 @@ abstract class ToolServiceTile(
             FeatureState.On -> stop()
             FeatureState.Off -> start()
             else -> {
-                // Do nothing, the feature is disabled
             }
         }
     }

@@ -16,7 +16,7 @@ object ToolKeywordLoader {
             val trimmed = line.trim()
             if (trimmed.isEmpty()) continue
 
-            // Format: ID (Tool Name): keyword1, keyword2, keyword3
+            // WHY: Each line has the format ID (Tool Name): keyword1, keyword2, keyword3
             val colonIndex = trimmed.indexOf(':')
             if (colonIndex == -1) continue
 

@@ -358,7 +358,6 @@ class PerspectiveCorrectionView : CanvasView {
                     }
 
                     null -> {
-                        // Do nothing, not a valid corner
                     }
                 }
             }

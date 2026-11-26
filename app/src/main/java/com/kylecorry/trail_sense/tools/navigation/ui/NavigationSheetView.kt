@@ -110,7 +110,7 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
         reserveTargetBearingWidth()
     }
 
-    // The bearing sits next to the title, so it must not resize as the text changes
+    // WHY: The bearing sits next to the title, so it must not resize as the text changes
     private fun reserveTargetBearingWidth() {
         val paint = targetBearingView.paint
         val widest = CompassDirection.entries.maxOf {
@@ -463,13 +463,11 @@ class NavigationSheetView(context: Context, attrs: AttributeSet? = null) :
 
         private const val WRONG_DIRECTION_DEGREES = 45f
 
-        // Three digits of the widest glyph
+        // WHY: 888 is three digits of the widest glyph
         private const val WIDEST_BEARING_DEGREES = 888f
 
-        // Distances this large (in their displayed units) drop their decimals to keep the stat narrow
         private const val LARGE_DISTANCE_THRESHOLD = 100f
 
-        // Durations this long drop their minutes to keep the stat narrow
         private const val LONG_DURATION_HOURS = 100L
 
         private const val NON_BREAKING_SPACE = ' '

@@ -30,7 +30,6 @@ import com.kylecorry.trail_sense.tools.tools.widgets.WidgetPreferences
 
 class NearbyBeaconsToolWidgetView : ToolWidgetView {
     override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
-        // Do nothing
     }
 
     override suspend fun getPopulatedView(

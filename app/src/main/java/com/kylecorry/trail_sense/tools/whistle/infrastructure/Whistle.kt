@@ -50,7 +50,7 @@ private class SoundGenerator2 {
         durationSeconds: Float = 1f,
         sampleGenerator: (i: Int) -> Double
     ): AudioTrack {
-        // Adapted from https://stackoverflow.com/questions/2413426/playing-an-arbitrary-tone-with-android
+        // WHY: Tone generation adapted from https://stackoverflow.com/questions/2413426/playing-an-arbitrary-tone-with-android
         val size = (durationSeconds * sampleRate).toInt()
         val sound = ByteArray(2 * size)
 

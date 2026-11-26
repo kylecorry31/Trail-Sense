@@ -34,7 +34,6 @@ class ToolLightFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_ligh
             distance?.let { Optics.luxToCandela(maxLux, it) }
         }
 
-        // Tracks the peak reading. Resetting maxLux to 0 re-seeds it from the current reading.
         useEffect(lux, maxLux) {
             if (lux > maxLux) {
                 setMaxLux(lux)

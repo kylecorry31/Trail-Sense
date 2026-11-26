@@ -53,9 +53,6 @@ internal class WeatherArrivalTimeCalculator(
         }
     }
 
-    /**
-     * Gets the 3h pressure tendency
-     */
     private fun getTendency(forecast: List<WeatherForecast>): PressureTendency {
         return forecast.firstOrNull()?.get3hTendency() ?: PressureTendency.zero
     }

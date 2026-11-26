@@ -11,10 +11,6 @@ import com.kylecorry.trail_sense.shared.sensors.gps.GPSModule
 import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.age
 
-/**
- * Calls onTimeout when accepted updates stop arriving.
- * Run after modules which can reject a reading so rejected readings do not reset the timeout.
- */
 class TimeoutGPSModule(
     private val onTimeout: suspend (() -> Boolean) -> Unit,
     private val logger: Logger = getAppService(),
@@ -43,7 +39,7 @@ class TimeoutGPSModule(
     }
 
     override suspend fun update(previousData: ModularGPSData, newData: ModularGPSData): Boolean {
-        // Secondary-field updates are not new fixes and must not postpone the timeout.
+        // WHY: Secondary-field updates are not new fixes and must not postpone the timeout
         if (newData.id == previousData.id) {
             newData.isTimedOut = previousData.isTimedOut
             return true
@@ -65,7 +61,7 @@ class TimeoutGPSModule(
     }
 
     private fun acceptTimeout(token: Any): Boolean {
-        // A queued callback may belong to a superseded fix or a previous start/stop session.
+        // WHY: A queued callback may belong to a superseded fix or a previous start/stop session
         if (!isStarted || token !== timeoutToken) {
             return false
         }

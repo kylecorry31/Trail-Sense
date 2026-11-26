@@ -13,10 +13,6 @@ import com.kylecorry.trail_sense.shared.sensors.gps.ModularGPSData
 import com.kylecorry.trail_sense.shared.sensors.gps.durationSince
 import java.time.Duration
 
-/**
- * Rejects readings which do not meet the user's accuracy filter for a bounded time.
- * After the wait, the most accurate recent reading seen during the wait can update the location (if available, otherwise the next reading).
- */
 class AccuracyFilterGPSModule(
     private val prefs: IGPSPreferences = getAppService<UserPreferences>().gps,
     private val logger: Logger = getAppService(),
@@ -26,7 +22,7 @@ class AccuracyFilterGPSModule(
     private val breaker = AccuracyCircuitBreaker(timeProvider)
     private var bestReading: ModularGPSData? = null
 
-    // Rejections are summarized rather than logged individually because they can occur on every fix
+    // WHY: Rejections can happen on every fix, so they are summarized instead of logged individually
     private var rejectedCount = 0
     private var firstRejectedTimeNanos = 0L
     private var lastRejectedTimeNanos = 0L
@@ -60,7 +56,6 @@ class AccuracyFilterGPSModule(
         val filter = prefs.accuracyFilter
         val minAccuracy = filter.minAccuracy
 
-        // An unknown accuracy can't be judged against the filter
         val accuracy = newData.horizontalAccuracy?.takeIf { it > 0f }
 
         if (minAccuracy == null || accuracy == null || accuracy <= minAccuracy) {
@@ -71,13 +66,11 @@ class AccuracyFilterGPSModule(
 
         breaker.resetIfAccepted(previousData.id)
 
-        // The breaker tripped without the candidate being accepted, so just take whatever is next
         if (breaker.isOpen) {
             logAccepted("breaker open", newData)
             return true
         }
 
-        // Discard the retained fix once the pipeline has accepted it or a newer fix.
         if (bestReading?.let { it.durationSince(previousData) <= Duration.ZERO } == true) {
             bestReading = null
         }

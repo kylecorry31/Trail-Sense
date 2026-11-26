@@ -189,11 +189,9 @@ open class TileMapLayer<T : TileSource>(
     }
 
     override fun drawOverlay(context: Context, drawer: ICanvasDrawer, map: IMapView) {
-        // Do nothing
     }
 
     override fun invalidate() {
-        // Do nothing, invalidation is handled separately
     }
 
     protected fun notifyListeners() {
@@ -231,7 +229,7 @@ open class TileMapLayer<T : TileSource>(
             )
         }
 
-        // This runs every frame, so only log when the limit is first exceeded
+        // WHY: This runs every frame, so only log when the limit is first exceeded
         val isOverTileLimit = desiredTiles.size > MAX_TILES
         if (isOverTileLimit && !wasOverTileLimit) {
             getAppService<Logger>().debug(
@@ -406,7 +404,7 @@ open class TileMapLayer<T : TileSource>(
         val actualWidth = bitmap.width - 2 * borderPixels
         val actualHeight = bitmap.height - 2 * borderPixels
 
-        // Bitmap pixels, exclude the border pixels - this is the bitmap with the borders cropped off (since we only render a region of the bitmap)
+        // WHY: The bitmap has border pixels around the rendered region, so they are cropped off
         srcPoints[0] = 0f
         srcPoints[1] = 0f
         srcPoints[2] = actualWidth.toFloat()
@@ -445,7 +443,6 @@ open class TileMapLayer<T : TileSource>(
             val originalAlpha = tilePaint.alpha
             val fadeAlpha = imageTile.getAlpha()
             tilePaint.alpha = fadeAlpha * tileAlpha / 255
-            // There are still tiles being faded in, so keep re-rendering the map
             if (fadeAlpha != 255) {
                 hasFadingTiles = true
             }

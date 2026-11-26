@@ -27,7 +27,6 @@ class SimpleWordTokenizer(preservedWords: Set<String> = emptySet()) : Tokenizer 
     }
 
     companion object {
-        // Matches one or more characters that are not letters (\p{L}), combining marks (\p{M}), numbers (\p{N}), or apostrophes.
         private val separatorRegex = Regex("[^\\p{L}\\p{M}\\p{N}'’]+")
         private const val PRESERVED_TOKEN_PREFIX = "PRESERVED00000"
 

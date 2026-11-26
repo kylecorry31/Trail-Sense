@@ -10,7 +10,6 @@ import com.kylecorry.trail_sense.shared.map_layers.ui.layers.IMapView
 abstract class OverlayLayer : ILayer {
 
     override fun setPreferences(preferences: Bundle) {
-        // Do nothing
     }
 
     override fun draw(
@@ -18,11 +17,9 @@ abstract class OverlayLayer : ILayer {
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        // Do nothing
     }
 
     override fun invalidate() {
-        // Do nothing
     }
 
     override fun onClick(

@@ -36,7 +36,6 @@ class TurnBackToolService(private val context: Context) : ToolService {
     }
 
     override suspend fun enable() {
-        // This does not support direct enabling
         restart()
     }
 

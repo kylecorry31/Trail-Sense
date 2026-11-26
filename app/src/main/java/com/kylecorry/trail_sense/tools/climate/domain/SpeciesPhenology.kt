@@ -52,7 +52,7 @@ data class SpeciesPhenology(
             SpeciesPhenology(
                 "ticks",
                 BiologicalActivityType.Ticks,
-                // Ticks have lifecycles of 2 years, adults aren't driven by GDD - they are active whenever the temperature is ideal for them
+                // WHY: Ticks have 2-year lifecycles and adults aren't driven by GDD, they are active whenever the temperature suits them
                 listOf(
                     LifecycleEvent(
                         PhenologyService.EVENT_ACTIVE_START,

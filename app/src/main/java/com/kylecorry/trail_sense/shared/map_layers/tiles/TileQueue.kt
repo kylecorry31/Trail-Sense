@@ -178,7 +178,7 @@ class TileQueue {
         val tileCenter = projection.toPixels(tile.tile.getCenter())
         val distance = center.distanceTo(tileCenter)
         val resolution = tile.tile.getResolution()
-        // https://github.com/openlayers/openlayers/blob/main/src/ol/TileQueue.js
+        // WHY: Priority formula from OpenLayers https://github.com/openlayers/openlayers/blob/main/src/ol/TileQueue.js
         return 65536 * log(resolution, 10.0) + distance / resolution
     }
 

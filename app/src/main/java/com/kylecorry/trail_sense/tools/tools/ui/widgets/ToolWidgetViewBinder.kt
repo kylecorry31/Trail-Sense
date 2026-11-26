@@ -52,7 +52,7 @@ class ToolWidgetViewBinder(
 
         binding.widgets.removeAllViews()
 
-        // 2 cells on a Pixel phone = 102dp
+        // WHY: 2 cells on a Pixel phone = 102dp
         val halfSummaryHeight = Resources.dp(context, 102f).toInt()
         val fullSummaryHeight = halfSummaryHeight * 2
         val summaryGap = Resources.dp(context, 4f).toInt()

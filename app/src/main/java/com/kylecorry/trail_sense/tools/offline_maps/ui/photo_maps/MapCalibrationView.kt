@@ -60,7 +60,6 @@ class MapCalibrationView : BasePhotoMapView {
     }
 
     override fun setOnGeoJsonFeatureClickListener(listener: ((GeoJsonFeature) -> Unit)?) {
-        // Not supported
     }
 
     private fun drawCalibrationPoints() {

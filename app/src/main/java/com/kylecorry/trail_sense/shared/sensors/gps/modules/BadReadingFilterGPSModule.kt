@@ -27,7 +27,7 @@ class BadReadingFilterGPSModule(
             return true
         }
 
-        // The current reading is somehow in the future, so just accept a new reading (prevents stuck readings)
+        // WHY: A reading from the future would block new readings, so accept the new one
         if (previousData.age(timeProvider) < FUTURE_TOLERANCE) {
             logger.warn(
                 TAG,

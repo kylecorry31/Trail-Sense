@@ -192,7 +192,6 @@ class FieldGuidePageFragment : TrailSenseReactiveFragment(R.layout.fragment_fiel
     }
 
     private fun onTagClicked(tag: FieldGuidePageTag) {
-        // TODO: Handle tag click
     }
 
 }

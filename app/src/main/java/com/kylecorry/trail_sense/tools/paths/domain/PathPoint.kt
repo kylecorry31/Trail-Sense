@@ -11,5 +11,5 @@ data class PathPoint(
     val elevation: Float? = null,
     val time: Instant? = null,
     val cellSignal: CellNetworkQuality? = null,
-    var slope: Float = 0f // This field is populated by the consumer
+    var slope: Float = 0f
 )

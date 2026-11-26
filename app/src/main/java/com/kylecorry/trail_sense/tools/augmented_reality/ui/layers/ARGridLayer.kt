@@ -155,7 +155,6 @@ class ARGridLayer(
     }
 
     override fun invalidate() {
-        // Do nothing
     }
 
     override fun onClick(

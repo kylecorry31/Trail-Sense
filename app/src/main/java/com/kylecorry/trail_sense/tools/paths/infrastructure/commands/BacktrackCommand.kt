@@ -90,7 +90,7 @@ class BacktrackCommand(private val context: Context) : CoroutineCommand {
                 cellSignalSensor?.networkQuality()
             )
 
-            // Backtrack may have been stopped while waiting for a GPS fix
+            // WHY: Backtrack may have been stopped while waiting for a GPS fix
             if (!prefs.paths.backtrackEnabled || !isFarEnoughFromPreviousPoint(waypoint)) {
                 return@onIO null
             }

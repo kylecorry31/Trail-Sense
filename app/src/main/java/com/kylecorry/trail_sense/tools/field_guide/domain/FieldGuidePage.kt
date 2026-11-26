@@ -12,8 +12,6 @@ data class FieldGuidePage(
     val notes: String? = null,
     val isBuiltIn: Boolean = false,
     val isHidden: Boolean = false,
-
-    // User specific fields (not exported)
     val sightings: List<Sighting> = emptyList(),
     val importId: Long? = null
 ) : Identifiable {

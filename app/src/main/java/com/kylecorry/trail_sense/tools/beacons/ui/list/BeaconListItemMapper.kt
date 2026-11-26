@@ -135,7 +135,7 @@ class BeaconListItemMapper(
 
         val formatService = FormatService.getInstance(context)
 
-        // Cell signal is the only other shown beacon owner
+        // WHY: Cell signal is the only other beacon owner shown, so its quality is parsed from the name
         val quality = when {
             name.contains(formatService.formatQuality(Quality.Poor)) -> Quality.Poor
             name.contains(formatService.formatQuality(Quality.Moderate)) -> Quality.Moderate

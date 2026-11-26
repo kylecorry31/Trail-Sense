@@ -59,9 +59,6 @@ object TrailSenseServiceUtils {
         )
     }
 
-    /**
-     * Temporarily stops all services (will restart when the app is opened again)
-     */
     suspend fun stopServices(context: Context) {
         val appContext = context.applicationContext
 

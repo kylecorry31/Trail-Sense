@@ -16,7 +16,6 @@ abstract class SimpleToolWidgetView : ToolWidgetView {
     protected val ICON_IMAGEVIEW_TEXT_COLOR = R.id.widget_icon_text_color
 
     override fun onInAppEvent(context: Context, event: Lifecycle.Event, triggerUpdate: () -> Unit) {
-        // Do nothing
     }
 
     override fun getView(context: Context, prefs: WidgetPreferences?): RemoteViews {

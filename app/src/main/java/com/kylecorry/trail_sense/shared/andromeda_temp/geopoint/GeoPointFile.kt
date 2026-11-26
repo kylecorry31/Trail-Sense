@@ -11,13 +11,6 @@ import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-/**
- * A file of points on the globe, each with some values, grouped into square cells and stored in compressed blocks (see
- * docs/geo-point-file-format.md in the earth model generator for the format). What the values mean is up to the caller,
- * using the properties of the file.
- *
- * Only the blocks around a location are read (and kept for next time), so a large file can be used with little memory.
- */
 class GeoPointFile private constructor(
     private val reader: ByteRangeReader,
     private val metadata: GeoPointMetadata,
@@ -49,7 +42,6 @@ class GeoPointFile private constructor(
      * The cells with points that cover an area. The area can extend past the antimeridian (a west of -190 is 170).
      */
     suspend fun getCells(south: Double, north: Double, west: Double, east: Double): List<GeoPointCell> {
-        // Each block is read once, however many of its cells are needed
         val cellsByBlock = metadata.grid.getCells(south, north, west, east)
             .groupBy { directory.findBlock(it) }
             .filterKeys { it >= 0 }
@@ -61,7 +53,6 @@ class GeoPointFile private constructor(
 
     private suspend fun getBlockCells(block: Int): Map<Int, GeoPointCell>? {
         cache.get(block)?.let { return it }
-        // A block that could not be read is not kept, so it is tried again next time
         val cells = reads.invoke(block) { readBlock(block) } ?: return null
         cache.put(block, cells)
         return cells
@@ -78,7 +69,6 @@ class GeoPointFile private constructor(
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
-            // A block that cannot be read just has no points
             null
         }
     }
@@ -86,7 +76,6 @@ class GeoPointFile private constructor(
     companion object {
         private val MAGIC = "TSGP".toByteArray(Charsets.US_ASCII)
 
-        // Files of a newer version may be laid out differently, so they are not used
         private const val FORMAT_VERSION = 1
         private const val HEADER_BYTES = 16
         private const val MAX_METADATA_BYTES = 64 * 1024
@@ -137,7 +126,6 @@ class GeoPointFile private constructor(
             } catch (e: IOException) {
                 throw e
             } catch (e: Exception) {
-                // Includes a file that does not pass the checks
                 null
             }
         }

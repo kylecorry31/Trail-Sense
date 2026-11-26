@@ -115,11 +115,7 @@ fun ReactiveAndromedaFragment.useGPSLocation(
 
 private class TimestampedValue<V>(val value: V, val elapsedNanos: Long)
 
-/**
- * [useTopic] keeps its last value while paused, so the first frame after resuming would show the
- * reading from before the pause even if the topic has since received newer data (such as GPS
- * updates from backtrack). This also reads the topic when the fragment resumes.
- */
+// WHY: useTopic keeps its last value while paused, so the topic is reread on resume to avoid showing stale data
 fun <T : ITopic, V> ReactiveAndromedaFragment.useTopicRefreshedOnResume(
     topic: T,
     default: V,
@@ -323,7 +319,7 @@ fun <T> T.useUnsavedChangesPrompt(hasChanges: Boolean) where T : Fragment, T : R
 fun ReactiveComponent.useSearch(view: SearchView, onSearch: (String) -> Unit) {
     useEffect(view) {
         view.setOnSearchListener(onSearch)
-        // Text entered before the first update would otherwise be missed
+        // WHY: Text entered before the first update would otherwise be missed
         if (view.query.isNotEmpty()) {
             onSearch(view.query)
         }
@@ -605,7 +601,6 @@ fun <T : Any, V> ReactiveComponent.useLiveData(
     val (state, setState) = useState(default)
     val owner = useLifecycleOwner()
 
-    // Note: This does not change when the mapper changes
     useEffect(data, owner) {
         data.observe(owner) {
             setState(mapper(it))

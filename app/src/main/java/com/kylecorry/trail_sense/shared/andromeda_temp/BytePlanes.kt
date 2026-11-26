@@ -1,8 +1,5 @@
 package com.kylecorry.trail_sense.shared.andromeda_temp
 
-/**
- * Unsigned little endian integers stored by byte: byte 0 of every value, then byte 1 of every value, and so on.
- */
 object BytePlanes {
 
     /**

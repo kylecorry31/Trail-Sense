@@ -26,7 +26,6 @@ class HiddenSpan : ReplacementSpan() {
         bottom: Int,
         paint: Paint
     ) {
-        // Do nothing
     }
 
 }

@@ -1,6 +1,6 @@
 package com.kylecorry.trail_sense.shared.text.nlp.processors
 
-// From https://www.tartarus.org/~martin/PorterStemmer/
+// WHY: Porter stemming algorithm https://www.tartarus.org/~martin/PorterStemmer/
 class PorterStemmer(private val additionalReplacements: Map<String, String> = emptyMap()) :
     TokenProcessor {
     private fun step1a(word: String): String {

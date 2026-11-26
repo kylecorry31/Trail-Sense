@@ -109,7 +109,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
 
     private fun removeDigit(place: Int = PLACES_SECONDS) {
 
-        // Remove the digit at the given position and insert a 0 at the leftmost position
         durationText = ("0" + durationText.substring(0, place)).padEnd(6, '0')
 
         onDurationTextChanged()
@@ -122,7 +121,6 @@ class DurationInputView(context: Context?, attrs: AttributeSet?) : LinearLayout(
         }
 
 
-        // Insert the digit at the given position and remove the leftmost digit, fill remaining digits with 0
         durationText = (durationText.substring(1, place + 1) + digit.toString()).padEnd(6, '0')
 
         onDurationTextChanged()

@@ -12,9 +12,6 @@ class GeoPointField(val name: String, val bytes: Int, private val step: Double, 
     }
 }
 
-/**
- * The metadata of a [GeoPointFile], checked when the file is opened.
- */
 class GeoPointMetadata(
     val grid: GeoPointGrid,
     val fields: List<GeoPointField>,

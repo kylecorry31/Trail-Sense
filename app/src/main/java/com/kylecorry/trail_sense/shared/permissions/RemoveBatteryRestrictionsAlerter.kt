@@ -21,7 +21,7 @@ class RemoveBatteryRestrictionsAlerter(private val fragment: Fragment) : IAlerte
                 return@snackbar
             }
             fragment.requestIgnoreBatteryOptimizations { isGranted ->
-                // Let the user know they did it right since this process is confusing
+                // WHY: The battery optimization process is confusing, so confirm it worked
                 if (isGranted) {
                     Alerts.toast(context, context.getString(R.string.battery_usage_allowed))
                 }

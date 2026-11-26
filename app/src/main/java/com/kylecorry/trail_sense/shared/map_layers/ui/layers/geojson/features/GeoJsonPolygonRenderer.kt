@@ -106,7 +106,7 @@ class GeoJsonPolygonRenderer : FeatureRenderer() {
             )
         }
 
-        // Canvas bounds are inverted
+        // WHY: Canvas bounds are inverted
         val margin = 100f
         val actualViewBounds = Rectangle(
             viewBounds.left - margin,

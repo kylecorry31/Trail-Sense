@@ -26,7 +26,7 @@ class HistoricThermometer(
     override var hasValidReading: Boolean = false
 
     override suspend fun update() {
-        // Purposely not calibrated because there's a wrapper for that
+        // WHY: Not calibrated because a wrapper handles calibration
         temperature = weather.getTemperature(
             ZonedDateTime.now(),
             location.location,

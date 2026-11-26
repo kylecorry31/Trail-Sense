@@ -115,7 +115,7 @@ class FlashlightSubsystem private constructor(private val context: Context) : IF
             try {
                 FlashlightService.start(context)
             } catch (e: IllegalStateException) {
-                // The system refuses background service starts (ex. widget tap while the app is idle).
+                // WHY: The system refuses background service starts (ex. widget tap while the app is idle)
                 getAppService<Logger>().warn(TAG, "Unable to start the flashlight service", e)
                 clearTimeout()
                 setTransitioning(false)

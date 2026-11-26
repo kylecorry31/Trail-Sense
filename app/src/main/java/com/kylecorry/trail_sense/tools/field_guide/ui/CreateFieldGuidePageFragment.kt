@@ -232,7 +232,7 @@ class CreateFieldGuidePageFragment : BoundFragment<FragmentCreateFieldGuidePageB
         binding.previousPhotoButton.isEnabled = position > 0
         binding.nextPhotoButton.isEnabled = position < photoAdapter.itemCount - 1
 
-        // The last page is used to add a photo rather than to view one
+        // WHY: The last page adds a photo rather than showing one
         val photoCount = photoAdapter.itemCount - 1
         binding.photoPosition.isVisible = hasMultiplePages && position < photoCount
         binding.photoPosition.text = getString(R.string.image_index, position + 1, photoCount)

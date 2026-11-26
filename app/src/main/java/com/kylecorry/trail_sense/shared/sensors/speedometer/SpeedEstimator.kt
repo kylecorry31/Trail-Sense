@@ -25,7 +25,6 @@ object SpeedEstimator {
 
         val speed = distance / (time.toMillis() / 1000f)
 
-        // Estimate the range of the speed, given that the locations are as far apart as the accuracy
         val maxDistance = distance + lastLocation.accuracy.value + newLocation.accuracy.value
         val minDistance =
             (distance - lastLocation.accuracy.value - newLocation.accuracy.value).coerceAtLeast(
@@ -35,7 +34,6 @@ object SpeedEstimator {
         val minSpeed = minDistance / (time.toMillis() / 1000f)
         val speedAccuracy = (maxSpeed - minSpeed) / 2f
 
-        // Use the same logic as the GPS speedometer to determine if the speed is valid
         val trueSpeed = if (speed < speedAccuracy * 0.68) {
             0f
         } else {

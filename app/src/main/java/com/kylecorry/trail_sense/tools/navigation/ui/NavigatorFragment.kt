@@ -267,7 +267,7 @@ class NavigatorFragment : TrailSenseReactiveFragment(R.layout.activity_navigator
 
         useCompassLayers(linearCompass, radarCompass, destination, nearbyBeacons, navigation, resetOnResume)
 
-        // The radar's layers can change without the compass moving
+        // WHY: The radar's layers can change without the compass moving
         useTimer(RADAR_INVALIDATION_INTERVAL) {
             radarCompass.redraw()
         }

@@ -66,7 +66,7 @@ class HillshadeMapTileSource : TileSource {
 
         val cellSizeX = getCellSizeX(resolution, bounds)
         val cellSizeY = getCellSizeY(resolution)
-        // https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-hillshade-works.htm
+        // WHY: Hillshade algorithm from https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/how-hillshade-works.htm
         val zenithRad = (90 - altitude).toRadians()
         val azimuths = mutableListOf<Float>()
         var start = azimuth - (samples / 2f) * sampleSpacing

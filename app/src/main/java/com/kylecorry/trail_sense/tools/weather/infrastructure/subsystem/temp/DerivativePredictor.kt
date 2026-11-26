@@ -42,7 +42,7 @@ class DerivativePredictor(
                 if (i < order) {
                     y[i + 1]
                 } else {
-                    // Highest order derivative is constant
+                    // WHY: The highest order derivative is treated as constant
                     0f
                 }
             })

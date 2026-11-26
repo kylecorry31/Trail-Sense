@@ -54,8 +54,7 @@ class KalmanGPSModule(
             reset()
             return true
         }
-        // Another consumer can repeat the accepted fix after the filter has advanced
-        // through candidates rejected by a later module.
+        // WHY: Another consumer can repeat an accepted fix after the filter advanced past fixes a later module rejected
         if (newData.id == previousData.id && previousData.location != Coordinate.zero) {
             newData.location = previousData.location
             newData.kalmanState = previousData.kalmanState
@@ -87,8 +86,7 @@ class KalmanGPSModule(
                 val dt = newData.durationSince(lastTime)
                     .let { it.seconds + it.nano / 1_000_000_000.0 }.toFloat()
                 if (dt >= MAX_PREDICTION_SECONDS) {
-                    // Motion before a long outage says little about motion now. Start
-                    // with the new fix rather than extrapolating stale velocity.
+                    // WHY: Velocity from before a long outage is stale, so start from the new fix instead of extrapolating
                     restore(newData, useSavedState = false)
                 } else {
                     predict(dt, smoothing)
@@ -125,9 +123,7 @@ class KalmanGPSModule(
         transition[POSITION_EAST, VELOCITY_EAST] = dt
         transition[POSITION_NORTH, VELOCITY_NORTH] = dt
         kalman.F = transition
-        // Continuous acceleration noise density (m²/s³), not acceleration variance.
-        // The ratio makes low percentages approach raw fixes while retaining a
-        // motion-noise floor at 100% for hiking stops and switchbacks.
+        // WHY: Acceleration noise density (m²/s³) keeps a motion floor at 100% for stops and switchbacks while low values approach raw fixes
         val responsiveness = (100 - smoothing) / smoothing.toFloat()
         val accelerationNoise = MIN_ACCELERATION_NOISE + ACCELERATION_NOISE_SCALE * responsiveness.pow(2)
         val dt2 = dt * dt
@@ -321,8 +317,7 @@ class KalmanGPSModule(
         private const val VELOCITY_NORTH = 3
         private const val DEFAULT_ACCURACY = 50f
         private const val DEFAULT_VELOCITY_VARIANCE = 9f
-        // Android accuracy is a 68% horizontal radius. For isotropic Gaussian
-        // errors, radius² = -2 ln(1 - 0.68) * per-axis variance.
+        // WHY: Android accuracy is a 68% radius; for isotropic Gaussian error radius² = -2 ln(1 - 0.68) * per-axis variance
         private const val HORIZONTAL_CONFIDENCE_FACTOR = 2.2788686f
         private const val MIN_ACCELERATION_NOISE = 0.05f
         private const val ACCELERATION_NOISE_SCALE = 0.2f

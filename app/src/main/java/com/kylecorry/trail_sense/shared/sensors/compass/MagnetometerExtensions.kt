@@ -7,7 +7,7 @@ import com.kylecorry.sol.math.Vector3Utils
 import com.kylecorry.sol.math.arithmetic.Arithmetic
 
 fun IMagnetometer.getQualityFromFieldStrength(): Quality {
-    // https://geomag.bgs.ac.uk/education/earthmag.html
+    // WHY: Normal field strength range from https://geomag.bgs.ac.uk/education/earthmag.html
     val normalStrengthRange = Range(22f, 67f)
     val warningStrengthRange =
         Range(normalStrengthRange.start * 0.9f, normalStrengthRange.end * 1.1f)

@@ -7,15 +7,11 @@ import java.io.RandomAccessFile
 import java.nio.ByteBuffer
 import java.nio.channels.FileChannel
 
-/**
- * Reads pieces of a file without loading the rest of it.
- */
 fun interface ByteRangeReader : Closeable {
 
     suspend fun read(offset: Long, length: Int): ByteArray
 
     override fun close() {
-        // Nothing to close by default
     }
 
     companion object {

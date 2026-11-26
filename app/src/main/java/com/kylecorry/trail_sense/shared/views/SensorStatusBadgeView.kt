@@ -75,7 +75,6 @@ class SensorStatusBadgeView(
         this.compassSensor = compass
         gpsStatusBadgeProvider = gps?.let { GpsStatusBadgeProvider(it, context) }
         compassStatusBadgeProvider = SensorStatusBadgeProvider(compass, context, R.drawable.ic_compass_icon)
-        // Immediately update so badges don't show stale data
         updateBadges()
     }
 

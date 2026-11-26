@@ -19,7 +19,6 @@ class EnglishFuzzySearchStrategy(
         val additionalPreservedWords =
             item.keywords.filter { it.contains(" ") || it.contains("-") }.toMutableSet()
 
-        // Any keywords with a dash should have a synonym with a space
         val additionalSynonyms = item.keywords
             .filter { it.contains("-") }
             .map { setOf(it, it.replace("-", " ")) }

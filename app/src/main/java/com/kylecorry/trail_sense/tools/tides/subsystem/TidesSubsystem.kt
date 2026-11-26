@@ -30,7 +30,7 @@ class TidesSubsystem private constructor(private val context: Context) {
 
     suspend fun getNearestTide(location: Coordinate? = null): TideDetails? {
         val table = getTideTable(location) ?: return null
-        // Automatic nearby tides require on the fly locations rather than the location being part of the model
+        // WHY: Automatic nearby tides resolve their location on the fly rather than storing it in the model
         val resolvedLocation = if (table.isAutomaticNearbyTide) {
             TideLocationKey.of(location ?: LocationSubsystem.getInstance(context).location)
         } else {

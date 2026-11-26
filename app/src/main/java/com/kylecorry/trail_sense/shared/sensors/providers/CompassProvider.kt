@@ -80,7 +80,6 @@ class CompassProvider(private val context: Context, private val prefs: ICompassP
     private fun getBaseOrientationSensor(sensorDelay: Int): IOrientationSensor {
         var source = prefs.source
 
-        // Swap out the legacy orientation sensor for the rotation vector sensor
         if (source == CompassSource.Orientation) {
             source = CompassSource.RotationVector
         }

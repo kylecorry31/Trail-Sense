@@ -38,7 +38,7 @@ class BackupService(
         filesToBackup.add(appVersionFile)
 
         try {
-            // Create a DB checkpoint to avoid losing data
+            // WHY: Checkpoint the DB so recent writes are not lost from the backup
             AppDatabase.createCheckpoint(context)
 
             val excludedFiles = listOf(
@@ -70,12 +70,12 @@ class BackupService(
 
         val root = AppData.getDataDirectory(context)
 
-        // Stop the services while restoring to prevent DB corruption
+        // WHY: Services must be stopped while restoring to prevent DB corruption
         TrailSenseServiceUtils.stopServices(context)
 
         AppDatabase.close()
 
-        // Remove the shared prefs directory (this is to support switching between build variants)
+        // WHY: Remove old shared prefs to support switching between build variants
         AppData.getSharedPrefsDirectory(context).deleteRecursively()
 
         var count = 0
@@ -111,7 +111,7 @@ class BackupService(
             return@onIO
         }
 
-        // Rename it to match the current package name (allows switching between build variants)
+        // WHY: Shared prefs are renamed to the current package name to support switching between build variants
         val target = File(sharedPrefsDir, "${context.packageName}_preferences.xml")
         if (prefsFile.absolutePath == target.absolutePath) {
             return@onIO

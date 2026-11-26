@@ -81,10 +81,6 @@ class MainActivity : AndromedaActivity() {
     private val themeProvider = ThemeProvider()
 
     private var statusBarInset = 0
-    /**
-     * True when the current screen is drawn under the status bar and so applies the top inset
-     * itself, rather than this activity applying it as a margin.
-     */
     var extendsUnderStatusBar = false
         private set
 
@@ -93,8 +89,7 @@ class MainActivity : AndromedaActivity() {
 
 
     override fun attachBaseContext(newBase: Context) {
-        // This is needed to prevent old colors from remaining when the theme changes
-        // Dynamic colors are only disabled until onCreate is called since it needs the activity to be created
+        // WHY: Applying the theme before attach clears stale colors after a theme change; dynamic colors need onCreate
         setColorTheme(themeProvider.getColorTheme(), false)
         super.attachBaseContext(newBase)
     }
@@ -114,7 +109,7 @@ class MainActivity : AndromedaActivity() {
 
         if (cache.getBoolean(getString(R.string.pref_onboarding_completed)) != true) {
             startActivity(Intent(this, OnboardingActivity::class.java))
-            // Calling finish() here can crash some devices, so we need to set the flag and finish in onStart()
+            // WHY: Calling finish() here crashes some devices, so it is deferred to onStart()
             isOnboarding = true
             return
         }
@@ -173,7 +168,7 @@ class MainActivity : AndromedaActivity() {
         extendsUnderStatusBar = userPrefs.extendToolsUnderStatusBar &&
                 selectedTool?.extendsUnderStatusBar(currentNavId ?: 0) == true
         updateStatusBarInset()
-        // Screens that are already showing need to re-read whether they apply the inset
+        // WHY: Screens already showing must re-read whether they apply the status bar inset
         ViewCompat.requestApplyInsets(binding.root)
 
         lastKnownFragment = getFragment()?.javaClass?.simpleName
@@ -222,8 +217,6 @@ class MainActivity : AndromedaActivity() {
         }
     }
 
-    // Tools that extend under the status bar handle the top inset themselves. The error banner
-    // stays clear of the status bar so it remains readable.
     private fun updateStatusBarInset() {
         val binding = _binding ?: return
         binding.root.updateLayoutParams<ViewGroup.MarginLayoutParams> {
@@ -445,7 +438,6 @@ class MainActivity : AndromedaActivity() {
         val fragment = getFragment() as? AndromedaFragment ?: return null
         val tools = Tools.getTools(this)
 
-        // Sort order = High priority active, open tool, normal priority active
 
         val highPriorityAction = tools.flatMap { tool ->
             tool.volumeActions.filter {

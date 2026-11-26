@@ -67,9 +67,6 @@ abstract class TrailSenseReactiveFragment(
         update()
     }
 
-    /**
-     * Called whenever the fragment should update its content. Mostly due to changes in state.
-     */
     abstract fun update()
 
     override fun onPause() {

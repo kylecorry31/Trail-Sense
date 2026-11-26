@@ -179,7 +179,6 @@ open class GeoJsonLayer<T : GeoJsonSource>(
         drawer: ICanvasDrawer,
         map: IMapView
     ) {
-        // Do nothing
     }
 
     override fun invalidate() {

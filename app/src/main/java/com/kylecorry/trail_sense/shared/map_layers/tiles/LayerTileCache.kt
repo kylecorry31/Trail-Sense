@@ -13,9 +13,7 @@ class LayerTileCache(
     maxSize: Int
 ) {
 
-    // This lock coordinates normal cache operations with whole-layer lifecycle operations. A read lock does not mean
-    // the cache is immutable: it allows thread-safe LRU mutations to run concurrently while preventing clear or
-    // invalidation. The write lock gives those lifecycle operations exclusive access to both cache tiers.
+    // WHY: The read lock still allows thread-safe LRU mutations; it only blocks clear and invalidation, which take the write lock
     private val lifecycleLock = ReentrantReadWriteLock()
     private val layerCache = TileCache(source, maxSize) { tile ->
         if (isCacheable(tile)) {
@@ -38,7 +36,7 @@ class LayerTileCache(
         tiles: List<Tile>,
         provider: (tile: Tile, key: String) -> ImageTile
     ): List<ImageTile> {
-        // Batch normal cache mutations under one shared lock acquisition for the rendering hot path.
+        // WHY: One shared lock acquisition per batch keeps the rendering hot path fast
         return lifecycleLock.read {
             tiles.map { tile ->
                 getOrPutLocked(tile) { key -> provider(tile, key) }
@@ -67,7 +65,7 @@ class LayerTileCache(
     }
 
     fun resize(maxSize: Int) {
-        // Resizing mutates the thread-safe LRU, but only needs to be excluded from whole-layer lifecycle operations.
+        // WHY: Resizing mutates the thread-safe LRU, so it only needs to be excluded from whole-layer lifecycle operations
         lifecycleLock.read {
             layerCache.resize(maxSize)
         }

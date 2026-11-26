@@ -4,7 +4,7 @@ import android.graphics.Color
 import com.kylecorry.andromeda.core.ui.colormaps.SampledColorMap
 import com.kylecorry.sol.math.interpolation.Interpolation
 
-// http://seaviewsensing.com/pub/cpt-city/tp/index.html
+// WHY: Colors from Tom Patterson's elevation palette, http://seaviewsensing.com/pub/cpt-city/tp/index.html
 class TomPattersonElevationColorMap : SampledColorMap(
     mapOf(
         0f / 8000f to Color.rgb(105, 152, 133),

@@ -57,7 +57,7 @@ class FlashlightToolWidgetView : SimpleToolWidgetView() {
             return false
         }
 
-        // Background execution limits (no startService while idle) apply from Android 8
+        // WHY: Background execution limits (no startService while idle) apply from Android 8
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return false
         }

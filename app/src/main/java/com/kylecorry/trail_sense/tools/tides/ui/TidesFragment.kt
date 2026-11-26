@@ -144,7 +144,7 @@ class TidesFragment : BoundFragment<FragmentToolTideBinding>() {
         super.onUpdate()
 
         effect("displayDate", displayDate, lifecycleHookTrigger.onResume()) {
-            // This will only trigger a subsequent change event if it actually changes
+            // WHY: Setting the date only triggers a change event if it actually changes
             binding.tideListDate.date = displayDate
         }
 

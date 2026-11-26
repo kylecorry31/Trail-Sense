@@ -60,8 +60,7 @@ class ToolSignalFinderFragment : TrailSenseReactiveFragment(R.layout.fragment_to
         val (nearby, setNearby) = useState<List<ApproximateCoordinate>>(emptyList())
         val (loading, setLoading) = useState(false)
 
-        // Only reported when the permission changes so a banner the user closed doesn't come back
-        // every time they resume the tool
+        // WHY: Only reported when the permission changes so a banner the user closed doesn't return on every resume
         useEffect(mainActivity, hasLocationPermission) {
             updateLocationPermissionError(mainActivity, hasLocationPermission)
         }

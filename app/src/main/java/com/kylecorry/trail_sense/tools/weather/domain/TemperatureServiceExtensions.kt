@@ -8,7 +8,7 @@ import java.time.ZonedDateTime
 
 private const val TAG = "TemperaturePrediction"
 
-// Lookups repeat on every weather calculation, so only log the first failure until one succeeds
+// WHY: Lookups repeat on every weather calculation, so only the first failure is logged until one succeeds
 @Volatile
 private var isLookupFailing = false
 
