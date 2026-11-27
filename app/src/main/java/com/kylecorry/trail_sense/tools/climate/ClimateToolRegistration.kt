@@ -25,7 +25,7 @@ object ClimateToolRegistration : ToolRegistration {
                 *ToolDiagnosticFactory.altimeter(context)
             ).distinctBy { it.id },
             initialize = {
-                DependencyRegistry.addSingleton(ClimateSubsystem.getInstance(it))
+                DependencyRegistry.addSingleton(ClimateSubsystem.getInstance())
             }
         )
     }

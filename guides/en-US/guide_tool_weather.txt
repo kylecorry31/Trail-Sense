@@ -3,7 +3,7 @@ Use the Weather tool to roughly predict the weather without an Internet connecti
 **Warning:** The weather prediction is a best guess from the available sensor data, and it might not be accurate. If Trail Sense predicts clear weather but you see what look like storm clouds rolling in, trust your instincts. Storms can roll in with gradual changes in pressure. Seek shelter if you sense a storm approaching, regardless of what Trail Sense predicts.
 
 ## Read the weather prediction
-The weather prediction is shown at the top of the screen. It doesn't use the Internet. It uses the pressure history, historic temperatures (the 30-year average), and the clouds from the Clouds tool.
+The weather prediction is shown at the top of the screen. It doesn't use the Internet. It uses the pressure history, historic temperatures and precipitation (the 30-year averages), and the clouds from the Clouds tool.
 
 To see all of the predicted conditions, tap the prediction.
 

@@ -18,6 +18,14 @@
         app:key="pref_debug_compass_unavailable"
         app:singleLineTitle="false" />
 
+    <SwitchPreferenceCompat
+        android:summary="Predicts weather from pressure and climate with a model fit to airport observations instead of the forecast rules"
+        android:title="Learned weather forecast"
+        app:defaultValue="false"
+        app:iconSpaceReserved="false"
+        app:key="pref_debug_learned_weather_forecast"
+        app:singleLineTitle="false" />
+
     <Preference
         android:summary="Replaces all weather observations with an exported weather CSV"
         android:title="Import weather CSV"

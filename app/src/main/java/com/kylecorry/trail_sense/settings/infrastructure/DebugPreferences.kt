@@ -30,8 +30,21 @@ class DebugPreferences(context: Context) : PreferenceRepo(context) {
             isCompassUnavailableEnabled = value
         }
 
-    private companion object {
-        const val TAP_MAP_TO_SET_LOCATION_KEY = "pref_debug_tap_map_to_set_location"
-        const val COMPASS_UNAVAILABLE_KEY = "pref_debug_compass_unavailable"
+    private var isLearnedWeatherForecastEnabled by BooleanPreference(
+        cache,
+        LEARNED_WEATHER_FORECAST_KEY,
+        false
+    )
+
+    var useLearnedWeatherForecast: Boolean
+        get() = isDebug() && isLearnedWeatherForecastEnabled
+        set(value) {
+            isLearnedWeatherForecastEnabled = value
+        }
+
+    companion object {
+        private const val TAP_MAP_TO_SET_LOCATION_KEY = "pref_debug_tap_map_to_set_location"
+        private const val COMPASS_UNAVAILABLE_KEY = "pref_debug_compass_unavailable"
+        const val LEARNED_WEATHER_FORECAST_KEY = "pref_debug_learned_weather_forecast"
     }
 }

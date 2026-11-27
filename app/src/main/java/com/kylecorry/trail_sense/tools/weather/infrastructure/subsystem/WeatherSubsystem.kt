@@ -19,6 +19,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
+import com.kylecorry.trail_sense.settings.infrastructure.DebugPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
@@ -34,6 +35,7 @@ import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.IWeatherForecaster
+import com.kylecorry.trail_sense.tools.weather.domain.forecasting.LocalClimate
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.PressureForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.WeatherForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.CalibratedTemperatureService
@@ -43,6 +45,7 @@ import com.kylecorry.trail_sense.tools.weather.domain.sealevel.SeaLevelCalibrati
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.MonitorWeatherCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.SendWeatherAlertsCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -56,7 +59,7 @@ import java.time.ZonedDateTime
 class WeatherSubsystem private constructor(private val context: Context) : IWeatherSubsystem {
 
     private val weatherRepo by lazy { WeatherRepo.getInstance(context) }
-    private val climate by lazy { ClimateSubsystem.getInstance(context) }
+    private val climate by lazy { ClimateSubsystem.getInstance() }
     private val cloudRepo by lazy { CloudRepo.getInstance(context) }
     private val prefs by lazy { UserPreferences(context) }
     private val sharedPrefs by lazy { PreferencesSubsystem.getInstance(context).preferences }
@@ -81,7 +84,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_temperature_smoothing,
         R.string.pref_barometer_offset,
         R.string.pref_pressure_units
-    ).map { context.getString(it) }
+    ).map { context.getString(it) } + DebugPreferences.LEARNED_WEATHER_FORECAST_KEY
 
     init {
         sharedPrefs.onChange.subscribe { key ->
@@ -302,7 +305,31 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         val lookupLocation = resolved.first
         val lookupElevation = resolved.second
         val temperatureService = getTemperatureService(lookupLocation, lookupElevation, true)
-        return WeatherForecaster(temperatureService, prefs.weather)
+        val climate = getLocalClimate(lookupLocation, getTemperatureService(lookupLocation, lookupElevation, false))
+        return WeatherForecaster(
+            temperatureService,
+            prefs.weather,
+            climate = climate,
+            useLearnedModel = prefs.debug.useLearnedWeatherForecast
+        )
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private suspend fun getLocalClimate(
+        location: Coordinate,
+        temperatureService: ITemperatureService
+    ): LocalClimate? {
+        return try {
+            LocalClimate(
+                getMonthlyPrecipitation(location),
+                temperatureService.getTemperatureRange(LocalDate.now())
+            )
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            getAppService<Logger>().warn(TAG, "Unable to lookup the climate for the forecast", e)
+            null
+        }
     }
 
     private fun invalidate() {

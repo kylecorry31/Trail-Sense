@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure
 
-import android.annotation.SuppressLint
-import android.content.Context
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Reading
@@ -11,9 +9,9 @@ import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.ITemp
 import java.time.LocalDate
 import java.time.ZonedDateTime
 
-class ClimateSubsystem private constructor(private val context: Context) : ITemperatureRepo {
+class ClimateSubsystem private constructor() : ITemperatureRepo {
 
-    private val temperatureRepo = HistoricTemperatureRepo(context)
+    private val temperatureRepo = HistoricTemperatureRepo()
 
     override suspend fun getYearlyTemperatures(
         year: Int,
@@ -42,13 +40,12 @@ class ClimateSubsystem private constructor(private val context: Context) : ITemp
     }
 
     companion object {
-        @SuppressLint("StaticFieldLeak")
         private var instance: ClimateSubsystem? = null
 
         @Synchronized
-        fun getInstance(context: Context): ClimateSubsystem {
+        fun getInstance(): ClimateSubsystem {
             if (instance == null) {
-                instance = ClimateSubsystem(context.applicationContext)
+                instance = ClimateSubsystem()
             }
             return instance!!
         }
