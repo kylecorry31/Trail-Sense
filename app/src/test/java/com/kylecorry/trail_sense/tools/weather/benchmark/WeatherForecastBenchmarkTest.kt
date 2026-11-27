@@ -16,7 +16,6 @@ import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.H
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.LoessSeaLevelCalibrationStrategy
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.NullSeaLevelCalibrationStrategy
 import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreferences
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -40,15 +39,6 @@ internal class WeatherForecastBenchmarkTest {
 
     @Test
     fun benchmark() = runBlocking {
-        runBenchmark("", useLearnedModel = false)
-    }
-
-    @Test
-    fun learnedBenchmark() = runBlocking {
-        runBenchmark("learned-", useLearnedModel = true)
-    }
-
-    private suspend fun runBenchmark(prefix: String, useLearnedModel: Boolean) {
         val stations = BenchmarkStation.loadAll()
         val climateNormals = BenchmarkStation.loadClimateNormals()
         val monthlyPrecipitation = BenchmarkStation.loadMonthlyPrecipitation()
@@ -56,16 +46,15 @@ internal class WeatherForecastBenchmarkTest {
             score(
                 it,
                 climateNormals.getValue(it.id),
-                monthlyPrecipitation = monthlyPrecipitation.getValue(it.id),
-                useLearnedModel = useLearnedModel
+                monthlyPrecipitation = monthlyPrecipitation.getValue(it.id)
             )
         }
         val stationResults = scores.associate { it.station to it.metrics() }
         val results = stationResults + (ALL to scores.reduce { a, b -> a + b }.metrics() + getStationMeans(stationResults))
 
         val outputDirectory = File("build/reports/weather-benchmark").apply { mkdirs() }
-        File(outputDirectory, "${prefix}results.csv").writeText(toCsv(results))
-        File(outputDirectory, "${prefix}report.md").writeText(toReport(stations, results))
+        File(outputDirectory, "results.csv").writeText(toCsv(results))
+        File(outputDirectory, "report.md").writeText(toReport(stations, results))
     }
 
     @Test
@@ -82,7 +71,7 @@ internal class WeatherForecastBenchmarkTest {
         for ((label, scenario) in scenarios) {
             val (hours, missing) = scenario
             val metrics = stations.parallelMap {
-                score(it, climateNormals.getValue(it.id), monthlyPrecipitation.getValue(it.id), false, hours, missing)
+                score(it, climateNormals.getValue(it.id), monthlyPrecipitation.getValue(it.id), hours, missing)
             }
                 .reduce { a, b -> a + b }.metrics()
             builder.append(
@@ -98,7 +87,6 @@ internal class WeatherForecastBenchmarkTest {
         station: BenchmarkStation,
         climateNormals: Map<Month, Range<Temperature>>,
         monthlyPrecipitation: Map<Month, Distance>,
-        useLearnedModel: Boolean,
         maxHistory: Duration = HISTORY,
         missingFraction: Float = 0f
     ): StationScore {
@@ -139,7 +127,7 @@ internal class WeatherForecastBenchmarkTest {
                 monthlyPrecipitation,
                 temperatures.getTemperatureRange(now.atZone(ZoneOffset.UTC).toLocalDate())
             )
-            val weather = WeatherForecaster(temperatures, prefs, clock, climate, useLearnedModel)
+            val weather = WeatherForecaster(temperatures, prefs, clock, climate)
                 .forecast(history, emptyList(), station.location)
             val conditions = weather.prediction.hourly.map { it.condition }
             score.precipitation.add(WeatherCondition.Precipitation in conditions, next.any { it.isWet })
@@ -270,8 +258,6 @@ internal class WeatherForecastBenchmarkTest {
 
     private fun defaultPreferences(): IWeatherPreferences {
         val prefs = mock<IWeatherPreferences>()
-        whenever(prefs.hourlyForecastChangeThreshold).thenReturn(WeatherPreferences.HPA_FORECAST_MEDIUM)
-        whenever(prefs.stormAlertThreshold).thenReturn(WeatherPreferences.HPA_STORM_MEDIUM)
         whenever(prefs.forecastSensitivity).thenReturn(ForecastSensitivity.Medium)
         whenever(prefs.stormSensitivity).thenReturn(ForecastSensitivity.Medium)
         return prefs

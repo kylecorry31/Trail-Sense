@@ -13,11 +13,8 @@ import com.kylecorry.andromeda.pickers.Pickers
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.luna.concurrency.onMain
 import com.kylecorry.sol.math.statistics.Statistics
-import com.kylecorry.sol.units.Pressure
-import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.FormatService
-import com.kylecorry.trail_sense.shared.Units
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.debugging.isDebug
 import com.kylecorry.trail_sense.shared.io.IOFactory
@@ -30,7 +27,6 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
 import com.kylecorry.trail_sense.tools.tools.infrastructure.observe
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherCsvConverter
-import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.alerts.CurrentWeatherAlerter
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
 import com.kylecorry.trail_sense.tools.weather.infrastructure.persistence.WeatherRepo
@@ -159,11 +155,11 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
 
         val forecastSensitivity =
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_forecast_sensitivity))
-        forecastSensitivity?.entries = getForecastSensitivities(userPrefs.pressureUnits)
+        forecastSensitivity?.entries = getSensitivities()
 
         val stormSensitivity =
             preferenceScreen.findPreference<ListPreference>(getString(R.string.pref_storm_alert_sensitivity))
-        stormSensitivity?.entries = getStormSensitivities(userPrefs.pressureUnits)
+        stormSensitivity?.entries = getSensitivities()
 
         onClick(preference(R.string.pref_export_weather_csv)) {
             exportWeatherData()
@@ -238,52 +234,8 @@ class WeatherSettingsFragment : AndromedaPreferenceFragment() {
         }
     }
 
-    private fun getForecastSensitivities(units: PressureUnits): Array<CharSequence> {
-        val hpa = listOf(
-            Pressure.from(WeatherPreferences.HPA_FORECAST_LOW, PressureUnits.Hpa),
-            Pressure.from(WeatherPreferences.HPA_FORECAST_MEDIUM, PressureUnits.Hpa),
-            Pressure.from(WeatherPreferences.HPA_FORECAST_HIGH, PressureUnits.Hpa),
-        )
-
-        val stringValues = hpa.map {
-            getString(
-                R.string.pressure_tendency_format_2, formatService.formatPressure(
-                    it.convertTo(units),
-                    Units.getDecimalPlaces(units) + 1,
-                    false
-                )
-            )
-        }
-
-        return arrayOf(
-            getString(R.string.low_amount, stringValues[0]),
-            getString(R.string.medium_amount, stringValues[1]),
-            getString(R.string.high_amount, stringValues[2])
-        )
-    }
-
-    private fun getStormSensitivities(units: PressureUnits): Array<CharSequence> {
-        val hpa = listOf(
-            Pressure.from(WeatherPreferences.HPA_STORM_LOW, PressureUnits.Hpa),
-            Pressure.from(WeatherPreferences.HPA_STORM_MEDIUM, PressureUnits.Hpa),
-            Pressure.from(WeatherPreferences.HPA_STORM_HIGH, PressureUnits.Hpa),
-        )
-
-        val stringValues = hpa.map {
-            getString(
-                R.string.pressure_tendency_format_2, formatService.formatPressure(
-                    it.convertTo(units),
-                    Units.getDecimalPlaces(units) + 1,
-                    false
-                )
-            )
-        }
-
-        return arrayOf(
-            getString(R.string.low_amount, stringValues[0]),
-            getString(R.string.medium_amount, stringValues[1]),
-            getString(R.string.high_amount, stringValues[2])
-        )
+    private fun getSensitivities(): Array<CharSequence> {
+        return arrayOf(getString(R.string.low), getString(R.string.medium), getString(R.string.high))
     }
 
     private fun exportWeatherData() {

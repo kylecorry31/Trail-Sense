@@ -43,11 +43,8 @@ internal class WeatherForecasterTest {
     fun setup() = runBlocking {
         temperatureService = mock()
         prefs = mock()
-
-        whenever(prefs.stormAlertThreshold).thenReturn(-6f)
         whenever(prefs.forecastSensitivity).thenReturn(ForecastSensitivity.Medium)
         whenever(prefs.stormSensitivity).thenReturn(ForecastSensitivity.Medium)
-        whenever(prefs.hourlyForecastChangeThreshold).thenReturn(1.5f)
 
         setTemperatures(10f, 20f, 15f)
     }
@@ -220,37 +217,26 @@ internal class WeatherForecasterTest {
     }
 
     @Test
-    fun aLoggedCloudDecidesTheSkyOverPressure() = runBlocking {
-        val observations = fallingPressure(Duration.ofHours(12), 1025f, 1025f)
-        val cloud = Reading<CloudGenus?>(CloudGenus.Stratus, now.minus(Duration.ofMinutes(30)))
-
-        val weather = forecaster().forecast(observations, listOf(cloud), polarLocation)
-
-        assertTrue(WeatherCondition.Overcast in weather.hourly)
-        assertFalse(WeatherCondition.Clear in weather.hourly)
-    }
-
-    @Test
-    fun theLearnedForecastPredictsPrecipitationFromAFastFallingLow() = runBlocking {
+    fun theForecastPredictsPrecipitationFromAFastFallingLow() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
 
-        val weather = learnedForecaster().forecast(observations, emptyList(), temperateLocation)
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
 
         assertTrue(WeatherCondition.Precipitation in weather.hourly)
         assertTrue(WeatherCondition.Rain in weather.hourly)
     }
 
     @Test
-    fun theLearnedForecastDoesNotPredictPrecipitationFromSteadyHighPressure() = runBlocking {
+    fun theForecastDoesNotPredictPrecipitationFromSteadyHighPressure() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(24), 1030f, 1030f, temperateLocation)
 
-        val weather = learnedForecaster().forecast(observations, emptyList(), temperateLocation)
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
 
         assertFalse(WeatherCondition.Precipitation in weather.hourly)
     }
 
     @Test
-    fun aMoreSensitiveLearnedForecastPredictsPrecipitationFromSmallerFalls() = runBlocking {
+    fun aMoreSensitiveForecastPredictsPrecipitationFromSmallerFalls() = runBlocking {
         val falls = ForecastSensitivity.entries.map { sensitivity ->
             whenever(prefs.forecastSensitivity).thenReturn(sensitivity)
             countFallsPredicting(WeatherCondition.Precipitation)
@@ -260,7 +246,7 @@ internal class WeatherForecasterTest {
     }
 
     @Test
-    fun aMoreSensitiveLearnedForecastPredictsStormsFromSmallerFalls() = runBlocking {
+    fun aMoreSensitiveForecastPredictsStormsFromSmallerFalls() = runBlocking {
         val falls = ForecastSensitivity.entries.map { sensitivity ->
             whenever(prefs.stormSensitivity).thenReturn(sensitivity)
             countFallsPredicting(WeatherCondition.Storm)
@@ -270,10 +256,10 @@ internal class WeatherForecasterTest {
     }
 
     @Test
-    fun theLearnedForecastGivesTheProbabilityOfItsOwnConditionsAndThePrecipitationType() = runBlocking {
+    fun theForecastGivesTheProbabilityOfItsOwnConditionsAndThePrecipitationType() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
 
-        val weather = learnedForecaster().forecast(observations, emptyList(), temperateLocation)
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
 
         val probabilities = weather.probabilities
         assertTrue(WeatherCondition.Precipitation in probabilities)
@@ -282,56 +268,57 @@ internal class WeatherForecasterTest {
     }
 
     @Test
-    fun theLearnedForecastHasNoSkyProbabilityWhenACloudSetsTheSky() = runBlocking {
+    fun theForecastHasNoSkyProbabilityWhenACloudSetsTheSky() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(24), 1030f, 1030f, temperateLocation)
         val cloud = Reading<CloudGenus?>(CloudGenus.Stratus, now.minus(Duration.ofMinutes(30)))
 
-        val weather = learnedForecaster().forecast(observations, listOf(cloud), temperateLocation)
+        val weather = forecaster().forecast(observations, listOf(cloud), temperateLocation)
 
         assertFalse(WeatherCondition.Overcast in weather.probabilities)
         assertFalse(WeatherCondition.Clear in weather.probabilities)
     }
 
     @Test
-    fun theRulesForecastHasNoProbabilities() = runBlocking {
-        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
-
-        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
-
-        assertEquals(emptyMap<WeatherCondition, Float>(), weather.probabilities)
-    }
-
-    @Test
-    fun theLearnedForecastUsesALoggedCloudForTheSky() = runBlocking {
+    fun theForecastUsesALoggedCloudForTheSky() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(24), 1030f, 1030f, temperateLocation)
         val cloud = Reading<CloudGenus?>(CloudGenus.Stratus, now.minus(Duration.ofMinutes(30)))
 
-        val weather = learnedForecaster().forecast(observations, listOf(cloud), temperateLocation)
+        val weather = forecaster().forecast(observations, listOf(cloud), temperateLocation)
 
         assertTrue(WeatherCondition.Overcast in weather.hourly)
         assertFalse(WeatherCondition.Clear in weather.hourly)
     }
 
     @Test
-    fun aDryMonthNeedsARealFallForPrecipitation() = runBlocking {
-        val observations = fallingPressure(Duration.ofHours(12), 1011f, 1010f)
+    fun predictsSnowWhenItWillBeBelowFreezing() = runBlocking {
+        setTemperatures(low = -10f, high = -2f, current = -5f)
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
 
-        val unknownClimate = forecaster().forecast(observations, emptyList(), polarLocation)
-        val dryMonth = WeatherForecaster(temperatureService, prefs, climate = climate(10f))
-            .forecast(observations, emptyList(), polarLocation)
-        val wetMonth = WeatherForecaster(temperatureService, prefs, climate = climate(120f))
-            .forecast(observations, emptyList(), polarLocation)
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
 
-        assertTrue(WeatherCondition.Precipitation in unknownClimate.hourly)
-        assertFalse(WeatherCondition.Precipitation in dryMonth.hourly)
-        assertTrue(WeatherCondition.Precipitation in wetMonth.hourly)
+        assertTrue(WeatherCondition.Snow in weather.hourly)
+        assertFalse(WeatherCondition.Rain in weather.hourly)
     }
 
     @Test
-    fun theLearnedForecastNeedsTwoHoursOfHistory() = runBlocking {
+    fun withoutAClimateOnlyLoggedCloudsGiveConditions() = runBlocking {
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
+        val cloud = Reading<CloudGenus?>(CloudGenus.Stratus, now.minus(Duration.ofMinutes(30)))
+        val forecaster = WeatherForecaster(temperatureService, prefs)
+
+        val withoutClouds = forecaster.forecast(observations, emptyList(), temperateLocation)
+        val withClouds = forecaster.forecast(observations, listOf(cloud), temperateLocation)
+
+        assertEquals(emptyList<WeatherCondition>(), withoutClouds.hourly)
+        assertTrue(WeatherCondition.Overcast in withClouds.hourly)
+        assertEquals(emptyMap<WeatherCondition, Float>(), withClouds.probabilities)
+    }
+
+    @Test
+    fun theForecastNeedsTwoHoursOfHistory() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(1), 1010f, 990f, temperateLocation)
 
-        val weather = learnedForecaster().forecast(observations, emptyList(), temperateLocation)
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
 
         assertEquals(emptyList<WeatherCondition>(), weather.hourly)
     }
@@ -343,15 +330,11 @@ internal class WeatherForecasterTest {
         get() = prediction.hourly.mapNotNull { (condition, probability) -> probability?.let { condition to it } }.toMap()
 
     private fun forecaster(): WeatherForecaster {
-        return WeatherForecaster(temperatureService, prefs)
-    }
-
-    private fun learnedForecaster(): WeatherForecaster {
-        return WeatherForecaster(temperatureService, prefs, climate = climate(80f), useLearnedModel = true)
+        return WeatherForecaster(temperatureService, prefs, climate = climate(80f))
     }
 
     private suspend fun countFallsPredicting(condition: WeatherCondition): Int {
-        val forecaster = learnedForecaster()
+        val forecaster = forecaster()
         return (0..60).count { step ->
             val observations = fallingPressure(Duration.ofHours(12), 1015f, 1015f - step / 2f, temperateLocation)
             condition in forecaster.forecast(observations, emptyList(), temperateLocation).hourly

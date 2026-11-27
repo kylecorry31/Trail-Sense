@@ -19,7 +19,6 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.settings.infrastructure.DebugPreferences
 import com.kylecorry.trail_sense.shared.UserPreferences
 import com.kylecorry.trail_sense.shared.data.DataUtils
 import com.kylecorry.trail_sense.shared.debugging.DebugWeatherCommand
@@ -84,7 +83,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         R.string.pref_temperature_smoothing,
         R.string.pref_barometer_offset,
         R.string.pref_pressure_units
-    ).map { context.getString(it) } + DebugPreferences.LEARNED_WEATHER_FORECAST_KEY
+    ).map { context.getString(it) }
 
     init {
         sharedPrefs.onChange.subscribe { key ->
@@ -309,8 +308,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
         return WeatherForecaster(
             temperatureService,
             prefs.weather,
-            climate = climate,
-            useLearnedModel = prefs.debug.useLearnedWeatherForecast
+            climate = climate
         )
     }
 

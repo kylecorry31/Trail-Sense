@@ -5,7 +5,7 @@ Use the Weather tool to roughly predict the weather without an Internet connecti
 ## Read the weather prediction
 The weather prediction is shown at the top of the screen. It doesn't use the Internet. It uses the pressure history, historic temperatures and precipitation (the 30-year averages), and the clouds from the Clouds tool.
 
-To see all of the predicted conditions, tap the prediction.
+To see all of the predicted conditions, tap the prediction. Conditions predicted from the pressure history show their chance of happening, such as "Precipitation (70%)".
 
 An estimate of when the weather will change is shown below the prediction. The accuracy of the time frame depends on whether the clouds indicate a weather front. If a front is detected, an approximate time is shown. Otherwise, the estimate is vaguer, such as "soon" or "later".
 

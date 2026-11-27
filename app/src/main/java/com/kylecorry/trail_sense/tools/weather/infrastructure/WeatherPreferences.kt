@@ -93,24 +93,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override val stormSensitivity: ForecastSensitivity
         get() = getSensitivity(R.string.pref_storm_alert_sensitivity)
 
-    override val hourlyForecastChangeThreshold: Float
-        get() {
-            return when (forecastSensitivity) {
-                ForecastSensitivity.Low -> HPA_FORECAST_LOW
-                ForecastSensitivity.High -> HPA_FORECAST_HIGH
-                ForecastSensitivity.Medium -> HPA_FORECAST_MEDIUM
-            }
-        }
-
-    override val stormAlertThreshold: Float
-        get() {
-            return when (stormSensitivity) {
-                ForecastSensitivity.Low -> HPA_STORM_LOW
-                ForecastSensitivity.High -> HPA_STORM_HIGH
-                ForecastSensitivity.Medium -> HPA_STORM_MEDIUM
-            }
-        }
-
     private fun getSensitivity(key: Int): ForecastSensitivity {
         return when (cache.getString(context.getString(key))) {
             "low" -> ForecastSensitivity.Low
@@ -196,15 +178,5 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
                 Range(LocalTime.MIN, LocalTime.MAX)
             }
         }
-
-    companion object {
-        const val HPA_FORECAST_LOW = 2.5f
-        const val HPA_FORECAST_MEDIUM = 1.5f
-        const val HPA_FORECAST_HIGH = 0.5f
-
-        const val HPA_STORM_LOW = -6f
-        const val HPA_STORM_MEDIUM = -4.5f
-        const val HPA_STORM_HIGH = -3f
-    }
 
 }

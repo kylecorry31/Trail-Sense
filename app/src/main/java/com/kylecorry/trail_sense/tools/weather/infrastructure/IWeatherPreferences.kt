@@ -20,8 +20,6 @@ interface IWeatherPreferences {
     val sendStormAlerts: Boolean
     val forecastSensitivity: ForecastSensitivity
     val stormSensitivity: ForecastSensitivity
-    val hourlyForecastChangeThreshold: Float
-    val stormAlertThreshold: Float
     var dailyWeatherLastSent: LocalDate
     val dailyWeatherIsForTomorrow: Boolean
     var dailyForecastTime: LocalTime

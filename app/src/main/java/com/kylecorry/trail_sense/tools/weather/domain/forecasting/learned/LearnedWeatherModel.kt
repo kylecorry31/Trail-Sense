@@ -1,12 +1,10 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting.learned
 
-import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.LocalClimate
 import java.time.Duration
@@ -57,21 +55,6 @@ internal class LearnedWeatherModel(
             sky?.first,
             WeatherCondition.Precipitation.takeIf { getMargin(probabilities, LearnedOutput.LaterPrecipitation) >= 0 }
         )
-    }
-
-    /**
-     * @param temperatures the expected temperature range while it is precipitating
-     */
-    fun addTemperatureConditions(
-        conditions: List<WeatherCondition>,
-        temperatures: Range<Temperature>
-    ): List<WeatherCondition> {
-        if (WeatherCondition.Precipitation !in conditions) {
-            return conditions
-        }
-        val mean = (temperatures.start.celsius().value + temperatures.end.celsius().value) / 2
-        val type = if (mean <= SNOW_MEAN_TEMPERATURE_C) WeatherCondition.Snow else WeatherCondition.Rain
-        return (conditions.filterNot { it == WeatherCondition.Rain || it == WeatherCondition.Snow } + type).distinct()
     }
 
     private fun getProbabilities(pressures: List<Reading<Pressure>>): Map<LearnedOutput, Float>? {
@@ -160,7 +143,6 @@ internal class LearnedWeatherModel(
 
     companion object {
         private const val STANDARD_PRESSURE_HPA = 1013f
-        private const val SNOW_MEAN_TEMPERATURE_C = 0f
         private const val MIN_PROBABILITY = 1e-6f
         private val SENSITIVITY_LOG_ODDS = ln(2f)
         private val SHORT_WINDOW = Duration.ofHours(3)
