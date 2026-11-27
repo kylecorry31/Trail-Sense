@@ -1,135 +1,98 @@
 package com.kylecorry.trail_sense.tools.cliffheight.ui
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
-import com.kylecorry.luna.time.CoroutineTimer
-import com.kylecorry.andromeda.fragments.BoundFragment
-import com.kylecorry.sol.units.Coordinate
-import com.kylecorry.sol.units.DistanceUnits
+import com.kylecorry.andromeda.core.ui.useService
 import com.kylecorry.trail_sense.R
-import com.kylecorry.trail_sense.databinding.FragmentToolCliffHeightBinding
-import com.kylecorry.trail_sense.main.getAppService
-import com.kylecorry.trail_sense.shared.CustomUiUtils
 import com.kylecorry.trail_sense.shared.FormatService
 import com.kylecorry.trail_sense.shared.PressState
 import com.kylecorry.trail_sense.shared.UserPreferences
+import com.kylecorry.trail_sense.shared.extensions.TrailSenseReactiveFragment
+import com.kylecorry.trail_sense.shared.extensions.useShowDisclaimer
+import com.kylecorry.trail_sense.shared.extensions.useTimer
 import com.kylecorry.trail_sense.shared.sensors.SensorSubsystem
+import com.kylecorry.trail_sense.shared.views.TileButton
+import com.kylecorry.trail_sense.shared.views.Toolbar
 import com.kylecorry.trail_sense.tools.cliffheight.domain.CliffHeightService
 import com.kylecorry.trail_sense.tools.guide.infrastructure.UserGuideUtils
 import java.time.Duration
 import java.time.Instant
 
-class ToolCliffHeightFragment : BoundFragment<FragmentToolCliffHeightBinding>() {
+class ToolCliffHeightFragment : TrailSenseReactiveFragment(R.layout.fragment_tool_cliff_height) {
 
     private val service = CliffHeightService()
-    private val timer = CoroutineTimer {
-        update()
-    }
-    private val formatService by lazy { FormatService.getInstance(requireContext()) }
-    private val userPrefs by lazy { UserPreferences(requireContext()) }
-    private val sensors by lazy { getAppService<SensorSubsystem>() }
-
-    private lateinit var units: DistanceUnits
-    private var startTime: Instant? = null
-    private var running = false
-    private var location: Coordinate? = null
-
     private val singlePressDuration = Duration.ofMillis(200)
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun update() {
+        val titleView = useView<Toolbar>(R.id.cliff_height_title)
+        val startButton = useView<TileButton>(R.id.start_btn)
 
-        binding.startBtn.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_UP -> updateState(PressState.Up)
-                MotionEvent.ACTION_DOWN -> updateState(PressState.Down)
-            }
-            true
-        }
+        val formatter = useService<FormatService>()
+        val prefs = useService<UserPreferences>()
+        val sensors = useService<SensorSubsystem>()
+        val units = useMemo(prefs, resetOnResume) { prefs.baseDistanceUnits }
+        val location = useMemo(sensors, resetOnResume) { sensors.lastKnownLocation }
 
-        binding.cliffHeightTitle.rightButton.setOnClickListener {
-            UserGuideUtils.showGuide(this, R.raw.guide_tool_cliff_height)
-        }
-    }
+        val (startTime, setStartTime) = useState<Instant?>(null)
+        val (endTime, setEndTime) = useState<Instant?>(null)
+        val (now, setNow) = useState(Instant.now())
+        val isRunning = startTime != null && endTime == null
 
-    private fun updateState(action: PressState) {
-        if (!running) {
-            if (action == PressState.Down) {
-                start()
-                running = true
-            }
-        } else {
-            if (action == PressState.Up && Duration.between(
-                    startTime,
-                    Instant.now()
-                ) > singlePressDuration
-            ) {
-                stop()
-                running = false
-            }
-
-            if (action == PressState.Down) {
-                stop()
-                running = false
-            }
-        }
-    }
-
-    private fun stop() {
-        timer.stop()
-        binding.startBtn.setState(false)
-
-    }
-
-    private fun start() {
-        startTime = Instant.now()
-        timer.interval(16)
-        binding.startBtn.setState(true)
-    }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        CustomUiUtils.disclaimer(
-            requireContext(),
+        useShowDisclaimer(
             getString(R.string.disclaimer_message_title),
             getString(R.string.tool_cliff_height_disclaimer),
             "cache_dialog_tool_cliff_height",
-            considerShownIfCancelled = true,
-            cancelText = null
+            cancelText = null,
+            considerShownIfCancelled = true
         )
 
+        useTimer(16) {
+            if (isRunning) {
+                setNow(Instant.now())
+            }
+        }
 
-    }
+        useEffect(titleView) {
+            titleView.rightButton.setOnClickListener {
+                UserGuideUtils.showGuide(this, R.raw.guide_tool_cliff_height)
+            }
+        }
 
-    override fun onResume() {
-        super.onResume()
-        units = userPrefs.baseDistanceUnits
-        location = sensors.lastKnownLocation
-    }
+        val height = startTime?.let {
+            service.getCliffHeight(it, endTime ?: maxOf(it, now), location).convertTo(units)
+        }
 
-    override fun onPause() {
-        super.onPause()
-        timer.stop()
-    }
+        useEffect(titleView, height, formatter) {
+            titleView.title.text = height?.let { formatter.formatDistance(it, 2) } ?: ""
+        }
 
-    fun update() {
-        val start = startTime ?: return
-        val height = service.getCliffHeight(start, Instant.now(), location)
-        val converted = height.convertTo(units)
-        val formatted = formatService.formatDistance(converted, 2)
-        binding.cliffHeightTitle.title.text = formatted
-    }
+        useEffect(startButton, isRunning) {
+            startButton.setState(isRunning)
+        }
 
-    override fun generateBinding(
-        layoutInflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentToolCliffHeightBinding {
-        return FragmentToolCliffHeightBinding.inflate(layoutInflater, container, false)
+        useEffect(startButton, startTime, isRunning) {
+            startButton.setOnTouchListener { _, event ->
+                val action = when (event.action) {
+                    MotionEvent.ACTION_UP -> PressState.Up
+                    MotionEvent.ACTION_DOWN -> PressState.Down
+                    else -> null
+                }
+                val pressTime = Instant.now()
+                val isHeldLongEnough = startTime != null &&
+                        Duration.between(startTime, pressTime) > singlePressDuration
+                when {
+                    !isRunning && action == PressState.Down -> {
+                        setStartTime(pressTime)
+                        setEndTime(null)
+                        setNow(pressTime)
+                    }
+
+                    isRunning && action == PressState.Down -> setEndTime(pressTime)
+                    isRunning && action == PressState.Up && isHeldLongEnough -> setEndTime(pressTime)
+                }
+                true
+            }
+        }
     }
 }
