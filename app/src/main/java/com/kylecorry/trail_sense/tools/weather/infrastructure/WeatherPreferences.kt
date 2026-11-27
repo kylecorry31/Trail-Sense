@@ -9,6 +9,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.LoessSeaLevelCalibrationStrategy
 import java.time.Duration
 import java.time.LocalDate
@@ -86,23 +87,37 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override val sendStormAlerts: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_send_storm_alert)) ?: true
 
+    override val forecastSensitivity: ForecastSensitivity
+        get() = getSensitivity(R.string.pref_forecast_sensitivity)
+
+    override val stormSensitivity: ForecastSensitivity
+        get() = getSensitivity(R.string.pref_storm_alert_sensitivity)
+
     override val hourlyForecastChangeThreshold: Float
         get() {
-            return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
-                "low" -> HPA_FORECAST_LOW
-                "high" -> HPA_FORECAST_HIGH
-                else -> HPA_FORECAST_MEDIUM
+            return when (forecastSensitivity) {
+                ForecastSensitivity.Low -> HPA_FORECAST_LOW
+                ForecastSensitivity.High -> HPA_FORECAST_HIGH
+                ForecastSensitivity.Medium -> HPA_FORECAST_MEDIUM
             }
         }
 
     override val stormAlertThreshold: Float
         get() {
-            return when (cache.getString(context.getString(R.string.pref_storm_alert_sensitivity))) {
-                "low" -> HPA_STORM_LOW
-                "high" -> HPA_STORM_HIGH
-                else -> HPA_STORM_MEDIUM
+            return when (stormSensitivity) {
+                ForecastSensitivity.Low -> HPA_STORM_LOW
+                ForecastSensitivity.High -> HPA_STORM_HIGH
+                ForecastSensitivity.Medium -> HPA_STORM_MEDIUM
             }
         }
+
+    private fun getSensitivity(key: Int): ForecastSensitivity {
+        return when (cache.getString(context.getString(key))) {
+            "low" -> ForecastSensitivity.Low
+            "high" -> ForecastSensitivity.High
+            else -> ForecastSensitivity.Medium
+        }
+    }
 
     override var dailyWeatherLastSent: LocalDate
         get() {

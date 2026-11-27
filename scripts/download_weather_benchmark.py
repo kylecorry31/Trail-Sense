@@ -3,13 +3,16 @@ Downloads hourly airport observations used by WeatherForecastBenchmarkTest:
 - US stations from the Iowa Environmental Mesonet (ASOS), which report sea level pressure to 0.1 hPa
 - International stations from NOAA's Integrated Surface Database (ISD) on AWS
 
-Usage: python3 scripts/download_weather_benchmark.py
+Usage: python3 scripts/download_weather_benchmark.py [ID ...]
+
+With ids, only those series are downloaded and the rest of the data is kept.
 """
 import csv
 import gzip
 import io
 import os
 import re
+import sys
 import time
 import urllib.parse
 import urllib.request
@@ -18,6 +21,8 @@ YEAR_START = "2025-12-01"
 YEAR_END = "2026-11-28"
 ISD_YEAR = 2025
 
+# WHY: Left out stations whose reports can't label the weather: VHHH, ZBAA and WSSS report nearly one sky cover all
+# year, NZQN reports no sky, and HKJK and HTKJ rarely report precipitation for how much falls there
 # id, source, station, start, end, description
 SERIES = [
     ("PVD", "asos", "PVD", YEAR_START, YEAR_END, "Providence, RI: coastal fronts, nor'easters"),
@@ -46,10 +51,7 @@ SERIES = [
     ("LGAV", "isd", "16716199999", None, None, "Athens, Greece: Mediterranean, dry summer"),
     ("UUEE", "isd", "27515599999", None, None, "Moscow, Russia: continental, cold winter"),
     ("RJTT", "isd", "47671099999", None, None, "Tokyo, Japan: East Asian monsoon, typhoons"),
-    ("VHHH", "isd", "45007099999", None, None, "Hong Kong: subtropical monsoon, typhoons"),
-    ("ZBAA", "isd", "54511099999", None, None, "Beijing, China: dry winter, summer monsoon"),
     ("VIDP", "isd", "42181099999", None, None, "Delhi, India: South Asian monsoon"),
-    ("WSSS", "isd", "48698099999", None, None, "Singapore: equatorial convection"),
     ("OERK", "isd", "40437099999", None, None, "Riyadh, Saudi Arabia: hot desert"),
     ("HECA", "isd", "62366099999", None, None, "Cairo, Egypt: hot desert"),
     ("YSSY", "isd", "94767099999", None, None, "Sydney, Australia: southern east coast"),
@@ -58,11 +60,32 @@ SERIES = [
     ("FACT", "isd", "68816099999", None, None, "Cape Town, South Africa: winter rain"),
     ("SAEZ", "isd", "87576099999", None, None, "Buenos Aires, Argentina: southern plains storms"),
     ("SCEL", "isd", "85574099999", None, None, "Santiago, Chile: dry summer, winter fronts"),
-    ("HKJK", "isd", "63740099999", None, None, "Nairobi, Kenya: equatorial highland"),
     ("DNMM", "isd", "65201099999", None, None, "Lagos, Nigeria: West African monsoon"),
     ("SBEG", "isd", "82111099999", None, None, "Manaus, Brazil: Amazon rainforest"),
     ("YPDN", "isd", "94120099999", None, None, "Darwin, Australia: tropical monsoon, cyclones"),
     ("FIMP", "isd", "61990099999", None, None, "Mauritius: southern Indian Ocean trade winds, cyclones"),
+    ("JAC", "asos", "JAC", YEAR_START, YEAR_END, "Jackson Hole, WY: Tetons, mountain snow"),
+    ("ASE", "asos", "ASE", YEAR_START, YEAR_END, "Aspen, CO: high Rockies valley"),
+    ("FLG", "asos", "FLG", YEAR_START, YEAR_END, "Flagstaff, AZ: high plateau, monsoon thunderstorms"),
+    ("TVL", "asos", "TVL", YEAR_START, YEAR_END, "South Lake Tahoe, CA: Sierra Nevada snow"),
+    ("BZN", "asos", "BZN", YEAR_START, YEAR_END, "Bozeman, MT: northern Rockies"),
+    ("AVL", "asos", "AVL", YEAR_START, YEAR_END, "Asheville, NC: Appalachian ridges, summer storms"),
+    ("UIL", "asos", "UIL", YEAR_START, YEAR_END, "Quillayute, WA: Olympic coastal rainforest"),
+    ("PAJN", "asos", "PAJN", YEAR_START, YEAR_END, "Juneau, AK: temperate rainforest, fjords"),
+    ("PAFA", "asos", "PAFA", YEAR_START, YEAR_END, "Fairbanks, AK: subarctic interior"),
+    ("LSZS", "isd", "06630499999", None, None, "Samedan, Switzerland: high Alpine valley"),
+    ("LOWI", "isd", "11120099999", None, None, "Innsbruck, Austria: Alpine valley, foehn"),
+    ("LFLS", "isd", "07486099999", None, None, "Grenoble, France: western Alps foothills"),
+    ("EGPE", "isd", "03059099999", None, None, "Inverness, UK: Scottish Highlands"),
+    ("ENTC", "isd", "01025099999", None, None, "Tromso, Norway: arctic coast mountains"),
+    ("CYXY", "isd", "71964099999", None, None, "Whitehorse, Canada: Yukon subarctic"),
+    ("CYYC", "isd", "71877099999", None, None, "Calgary, Canada: Rockies foothills, chinooks"),
+    ("VNKT", "isd", "44454099999", None, None, "Kathmandu, Nepal: Himalayan foothills, monsoon"),
+    ("SLLP", "isd", "85201099999", None, None, "La Paz, Bolivia: Andean altiplano"),
+    ("SPZO", "isd", "84686099999", None, None, "Cusco, Peru: Andes, wet season storms"),
+    ("SEQM", "isd", "84072599999", None, None, "Quito, Ecuador: equatorial Andes"),
+    ("SAZS", "isd", "87765099999", None, None, "Bariloche, Argentina: Patagonian Andes"),
+    ("YMHB", "isd", "94975099999", None, None, "Hobart, Australia: Tasmanian westerlies"),
 ]
 
 MAX_PRESSURE_JUMP_HPA = 10.0
@@ -275,13 +298,24 @@ def is_plausible_pressure(observations, i):
     return abs(pressure - neighbours[len(neighbours) // 2]) <= MAX_PRESSURE_JUMP_HPA
 
 
-os.makedirs(output_dir, exist_ok=True)
-for name in os.listdir(output_dir):
-    if name.endswith(".csv.gz"):
-        os.remove(os.path.join(output_dir, name))
+selected_ids = set(sys.argv[1:])
+unknown = selected_ids - {series[0] for series in SERIES}
+if unknown:
+    raise SystemExit(f"Unknown series: {', '.join(sorted(unknown))}")
+selected = [series for series in SERIES if not selected_ids or series[0] in selected_ids]
 
-index = []
-for series_id, source, station, start, end, description in SERIES:
+os.makedirs(output_dir, exist_ok=True)
+stations_path = os.path.join(output_dir, "stations.csv")
+index = {}
+if selected_ids and os.path.exists(stations_path):
+    with open(stations_path) as f:
+        index = {row[0]: row for row in list(csv.reader(f))[1:]}
+else:
+    for name in os.listdir(output_dir):
+        if name.endswith(".csv.gz"):
+            os.remove(os.path.join(output_dir, name))
+
+for series_id, source, station, start, end, description in selected:
     if source == "asos":
         observations, (latitude, longitude, elevation) = download_asos(station, start, end)
         # WHY: The Mesonet rejects rapid repeated requests
@@ -303,10 +337,10 @@ for series_id, source, station, start, end, description in SERIES:
             writer.writerow([observation["time"], pressure, observation["temperature"], observation["humidity"],
                              observation["precipitation"], observation["weather"], observation["gust"],
                              observation["wind"], observation["sky"]])
-    index.append([series_id, latitude, longitude, elevation, description])
+    index[series_id] = [series_id, latitude, longitude, elevation, description]
     print(f"{series_id}: {len(observations)} observations, {removed} implausible pressures removed")
 
-with open(os.path.join(output_dir, "stations.csv"), "w", newline="") as f:
+with open(stations_path, "w", newline="") as f:
     writer = csv.writer(f)
     writer.writerow(["id", "latitude", "longitude", "elevation_m", "description"])
-    writer.writerows(index)
+    writer.writerows(index[series[0]] for series in SERIES if series[0] in index)

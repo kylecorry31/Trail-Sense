@@ -4,16 +4,23 @@ Fits the learned weather forecast (LearnedWeatherCoefficients.kt) to the weather
 1. Download the stations: python3 scripts/download_weather_benchmark.py
 2. Export the app's climate temperatures for them:
    .agents/skills/verify-trail-sense/scripts/tsctl test unit '*ClimateFeatureExport*'
-3. Fit and write the coefficients: python3 scripts/train_weather_model.py [--evaluate]
+3. Fit and write the network: python3 scripts/train_weather_model.py
 
---evaluate also scores the model on each station after fitting it without that station, which takes a few minutes.
+The forecast is one network with a sigmoid output per condition, so each condition gets its own probability. Each
+condition's yes or no threshold maximizes HSS on stations the network was not trained on (5 folds by site), and those
+held out predictions are also what the script reports: HSS for the yes or no forecast and the Brier skill score for the
+probability, relative to always forecasting the station's own observed rate (above 0 means more skill than knowing the
+local climate). The Brier skill is the median station, because a station that rarely sees a condition swings the mean.
+
+The network size, L2 penalty and epochs scored best on held out sites and held out continents. Early stopping on held
+out sites stopped within a few epochs, with worse held out probabilities, so a fixed number of epochs is used instead.
 """
 import bisect
 import csv
 import gzip
 import math
 import os
-import sys
+from multiprocessing import Pool
 from datetime import datetime, timedelta
 
 import numpy as np
@@ -22,6 +29,7 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 RESOURCES = os.path.join(ROOT, "app/src/test/resources/weather_benchmark")
 CLIMATE_FEATURES = os.path.join(ROOT, "app/build/reports/weather-benchmark/climate_features.csv")
 OUTPUT = os.path.join(ROOT, "app/src/main/java/com/kylecorry/trail_sense/tools/weather/domain/forecasting/learned/LearnedWeatherCoefficients.kt")
+GOLDEN = os.path.join(ROOT, "app/src/test/resources/weather_benchmark/learned_network_golden.csv")
 PRECIPITATION_CODES = ("RA", "SN", "DZ", "PL", "GR", "GS", "UP", "SG", "IC")
 STANDARD_PRESSURE_HPA = 1013
 # WHY: Consecutive hours are nearly identical, so every third hour keeps the fit fast without losing information
@@ -151,37 +159,76 @@ PRESSURE_CURVES = ["pressure_from_standard_squared", "change_3h_squared", "chang
                    "change_3h_x_change_12h", "fall_3h", "fall_12h"]
 CLIMATE = ["mean_temperature", "high_temperature", "temperature_range",
            "log_monthly_precipitation", "monthly_precipitation_share", "log_annual_precipitation"]
-# WHY: Each condition keeps only the input groups that improved it on held out stations and regions, the rest made it worse or no better
-INPUTS = {
-    "precipitation": CORE + CLIMATE,
-    "storm": CORE + PRESSURE_CURVES + CLIMATE,
-    "wind": CORE,
-    "thunderstorm": CORE + PRESSURE_CURVES + CLIMATE,
-    "clear": CORE,
-    "overcast": CORE,
-    "later_precipitation": CORE,
-    "later_clear": CORE,
-    "later_overcast": CORE + PRESSURE_CURVES + CLIMATE,
-}
-CONDITIONS = list(INPUTS)
+FEATURES = CORE + PRESSURE_CURVES + CLIMATE
+CONDITIONS = ["precipitation", "storm", "wind", "thunderstorm", "clear", "overcast",
+              "later_precipitation", "later_clear", "later_overcast"]
+HIDDEN_UNITS = 32
+L2_PENALTY = 1e-3
+EPOCHS = 60
+BATCH_SIZE = 512
+LEARNING_RATE = 3e-3
+FOLDS = 5
+SEED = 0
+# WHY: Hurricane event stations repeat the site of a normal station, so they must be held out together
+SITES = {"MSY_IDA_2021": "MSY"}
 
 
-def fit(X, y, ridge=1e-3, iterations=12):
-    mean = X.mean(0)
-    scale = X.std(0) + 1e-9
-    Z = np.hstack([np.ones((len(X), 1)), (X - mean) / scale])
-    w = np.zeros(Z.shape[1])
-    for _ in range(iterations):
-        probability = 1 / (1 + np.exp(-Z @ w))
-        gradient = Z.T @ (probability - y) / len(y) + ridge * np.r_[0, w[1:]]
-        hessian = (Z.T * (probability * (1 - probability))) @ Z / len(y) + ridge * np.eye(len(w))
-        w -= np.linalg.solve(hessian, gradient)
-    return w, mean, scale
+class Network:
+    """A ReLU hidden layer and a sigmoid output per condition, matching Sol's NeuralNetwork relu and sigmoid layers"""
+
+    def __init__(self, mean, scale, hidden_weights, hidden_bias, output_weights, output_bias):
+        self.mean, self.scale = mean, scale
+        self.hidden_weights, self.hidden_bias = hidden_weights, hidden_bias
+        self.output_weights, self.output_bias = output_weights, output_bias
+
+    def predict(self, X):
+        hidden = np.maximum((X - self.mean) / self.scale @ self.hidden_weights + self.hidden_bias, 0)
+        return 1 / (1 + np.exp(-(hidden @ self.output_weights + self.output_bias)))
+
+    def raw_layers(self):
+        """The layers with the standardization folded into the hidden layer, so the network takes raw inputs"""
+        hidden_weights = self.hidden_weights / self.scale[:, None]
+        hidden_bias = self.hidden_bias - (self.mean / self.scale) @ self.hidden_weights
+        return (hidden_weights, hidden_bias), (self.output_weights, self.output_bias)
 
 
-def predict(model, X):
-    w, mean, scale = model
-    return 1 / (1 + np.exp(-(np.hstack([np.ones((len(X), 1)), (X - mean) / scale]) @ w)))
+def train(X, Y, known, seed=SEED):
+    """Adam on the cross entropy of the known labels, with He initialization for the ReLU layer"""
+    rng = np.random.default_rng(seed)
+    mean, scale = X.mean(0), X.std(0) + 1e-9
+    Z = (X - mean) / scale
+    rate = np.clip((Y * known).sum(0) / np.maximum(known.sum(0), 1), 1e-3, 1 - 1e-3)
+    params = [
+        rng.normal(0, math.sqrt(2 / Z.shape[1]), (Z.shape[1], HIDDEN_UNITS)),
+        np.zeros(HIDDEN_UNITS),
+        rng.normal(0, math.sqrt(1 / HIDDEN_UNITS), (HIDDEN_UNITS, Y.shape[1])),
+        np.log(rate / (1 - rate)),
+    ]
+    first_moment = [np.zeros_like(p) for p in params]
+    second_moment = [np.zeros_like(p) for p in params]
+    step = 0
+    for _ in range(EPOCHS):
+        order = rng.permutation(len(Z))
+        for start in range(0, len(Z), BATCH_SIZE):
+            batch = order[start:start + BATCH_SIZE]
+            hidden_input = Z[batch] @ params[0] + params[1]
+            hidden = np.maximum(hidden_input, 0)
+            probability = 1 / (1 + np.exp(-(hidden @ params[2] + params[3])))
+            output_delta = (probability - Y[batch]) * known[batch] / max(known[batch].sum(), 1)
+            hidden_delta = (output_delta @ params[2].T) * (hidden_input > 0)
+            gradients = [
+                Z[batch].T @ hidden_delta + L2_PENALTY * params[0],
+                hidden_delta.sum(0),
+                hidden.T @ output_delta + L2_PENALTY * params[2],
+                output_delta.sum(0),
+            ]
+            step += 1
+            for i, gradient in enumerate(gradients):
+                first_moment[i] = 0.9 * first_moment[i] + 0.1 * gradient
+                second_moment[i] = 0.999 * second_moment[i] + 0.001 * gradient ** 2
+                params[i] -= LEARNING_RATE * (first_moment[i] / (1 - 0.9 ** step)) / (
+                        np.sqrt(second_moment[i] / (1 - 0.999 ** step)) + 1e-8)
+    return Network(mean, scale, *params)
 
 
 def hss(predicted, observed):
@@ -192,6 +239,12 @@ def hss(predicted, observed):
     n = a + b + c + d
     expected = ((a + c) * (a + b) + (c + d) * (b + d)) / n
     return (a + d - expected) / (n - expected) if n != expected else 0.0
+
+
+def brier_skill_score(probability, observed):
+    rate = observed.mean()
+    reference = rate * (1 - rate)
+    return 1 - np.mean((probability - observed) ** 2) / reference if reference > 0 else 0.0
 
 
 def best_threshold(probability, observed):
@@ -207,65 +260,103 @@ def best_threshold(probability, observed):
     return probability[order][int(np.argmax((a + d - expected) / np.maximum(n - expected, 1e-9)))]
 
 
-def fit_condition(X, observed):
-    model = fit(X, observed.astype(float))
-    return model, best_threshold(predict(model, X), observed)
+def train_fold(args):
+    X, Y, known, train_mask = args
+    return train(X[train_mask], Y[train_mask], known[train_mask])
 
 
 def kotlin_floats(values):
-    return "floatArrayOf(" + ", ".join(f"{v:.6g}f" for v in values) + ")"
+    return "floatArrayOf(" + ", ".join(f"{v:.7g}f" for v in values) + ")"
 
 
-def camel_case(name):
-    head, *rest = name.split("_")
-    return head + "".join(word.capitalize() for word in rest)
+def kotlin_matrix(rows, indent):
+    return "Matrix.create(\n" + indent + "    arrayOf(\n" + ",\n".join(
+        indent + "        " + kotlin_floats(row) for row in rows) + "\n" + indent + "    )\n" + indent + ")"
+
+
+def camel_case(name, capitalize=False):
+    words = name.split("_")
+    head = words[0].capitalize() if capitalize else words[0]
+    return head + "".join(word.capitalize() for word in words[1:])
+
+
+def write_kotlin(network, thresholds):
+    (hidden_weights, hidden_bias), (output_weights, output_bias) = network.raw_layers()
+    indent = "        "
+    layer = lambda weights, bias: (f"NeuralNetwork.LayerWeights(\n{indent}{kotlin_matrix(weights.T, indent)},\n"
+                                   f"{indent}{kotlin_matrix(bias[:, None], indent)}\n    )")
+    with open(OUTPUT, "w") as f:
+        f.write(f"""package com.kylecorry.trail_sense.tools.weather.domain.forecasting.learned
+
+import com.kylecorry.sol.math.algebra.Matrix
+import com.kylecorry.sol.math.classifiers.NeuralNetwork
+
+// WHY: Generated by scripts/train_weather_model.py, do not edit by hand
+internal enum class LearnedOutput(val threshold: Float) {{
+{",\n".join(f"    {camel_case(c, True)}({t:.7g}f)" for c, t in zip(CONDITIONS, thresholds))}
+}}
+
+internal object LearnedWeatherCoefficients {{
+    const val HIDDEN_UNITS = {HIDDEN_UNITS}
+
+    val features = listOf(
+{",\n".join(f'        "{n}"' for n in FEATURES)}
+    )
+
+    val hidden = {layer(hidden_weights, hidden_bias)}
+
+    val output = {layer(output_weights, output_bias)}
+}}
+""")
+
+
+def write_golden(network, X):
+    """A few inputs and the probabilities the network gives, so a Kotlin test can check the exported network"""
+    rng = np.random.default_rng(SEED)
+    sample = X[rng.choice(len(X), 5, replace=False)]
+    probability = network.predict(sample)
+    with open(GOLDEN, "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(FEATURES + CONDITIONS)
+        for features, outputs in zip(sample, probability):
+            writer.writerow([f"{v:.7g}" for v in features] + [f"{v:.7g}" for v in outputs])
 
 
 def main():
     rows = load_rows()
     stations = np.array([r["station"] for r in rows])
+    sites = np.array([SITES.get(s, s) for s in stations])
     terms = features(rows)
-    blocks = []
-    for condition in CONDITIONS:
-        names = INPUTS[condition]
-        X = np.column_stack([terms[n] for n in names])
-        valid = np.array([r[condition] is not None for r in rows])
-        observed = np.array([bool(r[condition]) for r in rows])
-        (w, mean, scale), threshold = fit_condition(X[valid], observed[valid])
-        blocks.append(f"""    val {camel_case(condition)} = LearnedCondition(
-        listOf(
-{",\n".join(f'            "{n}"' for n in names)}
-        ),
-        BinaryLogisticClassifier(
-            {kotlin_floats(mean)},
-            {kotlin_floats(scale)},
-            {w[0]:.6g}f,
-            {kotlin_floats(w[1:])},
-            {threshold:.6g}f
-        )
-    )""")
-        if "--evaluate" in sys.argv:
-            predicted = np.zeros(len(rows), bool)
-            for station in sorted(set(stations)):
-                train = valid & (stations != station)
-                model, station_threshold = fit_condition(X[train], observed[train])
-                predicted[stations == station] = predict(model, X[stations == station]) >= station_threshold
-            per_station = [hss(predicted[valid & (stations == s)], observed[valid & (stations == s)])
-                           for s in sorted(set(stations)) if (valid & (stations == s)).sum() > 100]
-            print(f"{condition}: held out station mean HSS {np.mean(per_station):.3f}, pooled "
-                  f"{hss(predicted[valid], observed[valid]):.3f}", flush=True)
+    X = np.column_stack([terms[n] for n in FEATURES])
+    known = np.column_stack([[r[c] is not None for r in rows] for c in CONDITIONS])
+    Y = np.column_stack([[bool(r[c]) for r in rows] for c in CONDITIONS]).astype(float)
 
-    with open(OUTPUT, "w") as f:
-        f.write(f"""package com.kylecorry.trail_sense.tools.weather.domain.forecasting.learned
+    order = np.random.default_rng(SEED).permutation(sorted(set(sites)))
+    fold_of_site = {site: i % FOLDS for i, site in enumerate(order)}
+    fold = np.array([fold_of_site[site] for site in sites])
+    train_masks = [fold != k for k in range(FOLDS)] + [np.ones(len(rows), bool)]
+    with Pool() as pool:
+        *fold_networks, network = pool.map(train_fold, [(X, Y, known.astype(float), m) for m in train_masks])
 
-import com.kylecorry.sol.math.classifiers.BinaryLogisticClassifier
+    held_out = np.zeros(Y.shape)
+    for k, fold_network in enumerate(fold_networks):
+        held_out[fold == k] = fold_network.predict(X[fold == k])
 
-// WHY: Generated by scripts/train_weather_model.py, do not edit by hand
-internal object LearnedWeatherCoefficients {{
-{chr(10).join(blocks)}
-}}
-""")
-    print(f"Wrote {OUTPUT}")
+    thresholds = []
+    for j, condition in enumerate(CONDITIONS):
+        valid, observed = known[:, j], Y[:, j] > 0
+        threshold = best_threshold(held_out[valid, j], observed[valid])
+        thresholds.append(threshold)
+        evaluated = [valid & (stations == s) for s in sorted(set(stations)) if (valid & (stations == s)).sum() > 100]
+        station_hss = [hss(held_out[m, j] >= threshold, observed[m]) for m in evaluated]
+        station_bss = [brier_skill_score(held_out[m, j], observed[m]) for m in evaluated]
+        print(f"{condition}: held out station mean HSS {np.mean(station_hss):.3f}, pooled "
+              f"{hss(held_out[valid, j] >= threshold, observed[valid]):.3f}; "
+              f"station median Brier skill {np.median(station_bss):.3f}", flush=True)
+
+    write_kotlin(network, thresholds)
+    write_golden(network, X)
+    print(f"Wrote {OUTPUT} and {GOLDEN}")
 
 
 if __name__ == "__main__":

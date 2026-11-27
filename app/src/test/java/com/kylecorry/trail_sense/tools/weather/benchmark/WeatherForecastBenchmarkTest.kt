@@ -6,6 +6,7 @@ import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
+import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.PressureForecaster
@@ -16,6 +17,10 @@ import com.kylecorry.trail_sense.tools.weather.domain.sealevel.LoessSeaLevelCali
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.NullSeaLevelCalibrationStrategy
 import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreferences
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherPreferences
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
@@ -47,7 +52,7 @@ internal class WeatherForecastBenchmarkTest {
         val stations = BenchmarkStation.loadAll()
         val climateNormals = BenchmarkStation.loadClimateNormals()
         val monthlyPrecipitation = BenchmarkStation.loadMonthlyPrecipitation()
-        val scores = stations.map {
+        val scores = stations.parallelMap {
             score(
                 it,
                 climateNormals.getValue(it.id),
@@ -76,7 +81,7 @@ internal class WeatherForecastBenchmarkTest {
             listOf(6L, 48L).map { "$it h, 40% missing" to (Duration.ofHours(it) to MISSING_FRACTION) }
         for ((label, scenario) in scenarios) {
             val (hours, missing) = scenario
-            val metrics = stations.map {
+            val metrics = stations.parallelMap {
                 score(it, climateNormals.getValue(it.id), monthlyPrecipitation.getValue(it.id), false, hours, missing)
             }
                 .reduce { a, b -> a + b }.metrics()
@@ -112,15 +117,18 @@ internal class WeatherForecastBenchmarkTest {
         )
         val prefs = defaultPreferences()
         var historyStart = 0
+        var lastForecastHour: Long? = null
 
         for ((index, current) in withPressure.withIndex()) {
             val now = current.time
             while (Duration.between(withPressure[historyStart].time, now) > maxHistory) {
                 historyStart++
             }
-            if (now < start || now > end) {
+            // WHY: Forecasts minutes apart are nearly identical, so one per hour scores the same and runs much faster
+            if (now < start || now > end || hourKey(now) == lastForecastHour) {
                 continue
             }
+            lastForecastHour = hourKey(now)
             val history = toWeatherObservations(station, withPressure.subList(historyStart, index + 1))
             val clock = Clock.fixed(now, ZoneOffset.UTC)
             val next = observations.subList(times.firstIndexAtOrAfter(now), times.firstIndexAfter(now.plus(EVENT_WINDOW)))
@@ -133,7 +141,7 @@ internal class WeatherForecastBenchmarkTest {
             )
             val weather = WeatherForecaster(temperatures, prefs, clock, climate, useLearnedModel)
                 .forecast(history, emptyList(), station.location)
-            val conditions = weather.prediction.hourly
+            val conditions = weather.prediction.hourly.map { it.condition }
             score.precipitation.add(WeatherCondition.Precipitation in conditions, next.any { it.isWet })
             score.storm.add(WeatherCondition.Storm in conditions, next.any { it.isStormy })
             score.thunderstorm.add(WeatherCondition.Thunderstorm in conditions, next.any { it.isThunder })
@@ -147,7 +155,7 @@ internal class WeatherForecastBenchmarkTest {
                 times.firstIndexAfter(now.plus(LATER_WINDOW_END))
             )
             val laterSky = later.filter { it.skyCover != null }
-            val laterConditions = weather.prediction.daily
+            val laterConditions = weather.prediction.daily.map { it.condition }
             score.laterPrecipitation.add(WeatherCondition.Precipitation in laterConditions, later.any { it.isWet })
             if (laterSky.isNotEmpty()) {
                 score.laterClear.add(WeatherCondition.Clear in laterConditions, laterSky.count { it.isClearSky } * 2 > laterSky.size)
@@ -184,7 +192,7 @@ internal class WeatherForecastBenchmarkTest {
     private fun getStationMeans(stationResults: Map<String, Map<String, Double>>): Map<String, Double> {
         val skillScores = stationResults.values.flatMap { it.keys }.filter { it.endsWith("_hss") }.distinct()
         return skillScores.associate { metric ->
-            "station_mean_$metric" to stationResults.values.mapNotNull { it[metric] }.average()
+            "station_mean_$metric" to stationResults.values.mapNotNull { it[metric] }.filterNot { it.isNaN() }.average()
         }
     }
 
@@ -209,6 +217,10 @@ internal class WeatherForecastBenchmarkTest {
             )
         }
         return builder.append("\n").toString()
+    }
+
+    private suspend fun <T, R> List<T>.parallelMap(transform: suspend (T) -> R): List<R> = coroutineScope {
+        map { async(Dispatchers.Default) { transform(it) } }.awaitAll()
     }
 
     private fun List<Instant>.firstIndexAtOrAfter(time: Instant): Int {
@@ -260,6 +272,8 @@ internal class WeatherForecastBenchmarkTest {
         val prefs = mock<IWeatherPreferences>()
         whenever(prefs.hourlyForecastChangeThreshold).thenReturn(WeatherPreferences.HPA_FORECAST_MEDIUM)
         whenever(prefs.stormAlertThreshold).thenReturn(WeatherPreferences.HPA_STORM_MEDIUM)
+        whenever(prefs.forecastSensitivity).thenReturn(ForecastSensitivity.Medium)
+        whenever(prefs.stormSensitivity).thenReturn(ForecastSensitivity.Medium)
         return prefs
     }
 

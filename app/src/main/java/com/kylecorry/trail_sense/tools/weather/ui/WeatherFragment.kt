@@ -289,8 +289,13 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             binding.weatherTitle.title.text = formatService.formatWeather(prediction.primaryHourly)
             binding.weatherTitle.title.setOnClickListener {
                 if (prediction.hourly.isNotEmpty()) {
-                    val conditions = prediction.hourly.joinToString("\n") {
-                        formatService.formatWeather(it)
+                    val conditions = prediction.hourly.joinToString("\n") { (condition, probability) ->
+                        val name = formatService.formatWeather(condition)
+                        if (probability == null) {
+                            name
+                        } else {
+                            getString(R.string.parenthesized_pair, name, formatService.formatPercentage(probability * 100))
+                        }
                     }
                     dialog(getString(R.string.weather), conditions, cancelText = null)
                 }

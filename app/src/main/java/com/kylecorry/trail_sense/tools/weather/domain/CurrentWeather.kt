@@ -35,8 +35,8 @@ data class TemperaturePrediction(
 )
 
 data class WeatherPrediction(
-    val hourly: List<WeatherCondition>,
-    val daily: List<WeatherCondition>,
+    val hourly: List<ForecastCondition>,
+    val daily: List<ForecastCondition>,
     val front: WeatherFront?,
     val hourlyArrival: WeatherArrivalTime?,
     val temperature: TemperaturePrediction?,
@@ -45,8 +45,8 @@ data class WeatherPrediction(
 
     private val primarySelector = PrimaryWeatherSelector()
 
-    val primaryHourly = primarySelector.getWeather(hourly)
-    val primaryDaily = primarySelector.getWeather(daily)
+    val primaryHourly = primarySelector.getWeather(hourly.map { it.condition })
+    val primaryDaily = primarySelector.getWeather(daily.map { it.condition })
 }
 
 data class WeatherObservation(

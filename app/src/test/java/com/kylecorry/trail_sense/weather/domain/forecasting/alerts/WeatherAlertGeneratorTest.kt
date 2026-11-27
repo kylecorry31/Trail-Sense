@@ -37,7 +37,7 @@ internal class WeatherAlertGeneratorTest {
     ): CurrentWeather {
         return CurrentWeather(
             WeatherPrediction(
-                conditions,
+                conditions.map { ForecastCondition(it) },
                 emptyList(),
                 null,
                 WeatherArrivalTime(Instant.now(), false),
