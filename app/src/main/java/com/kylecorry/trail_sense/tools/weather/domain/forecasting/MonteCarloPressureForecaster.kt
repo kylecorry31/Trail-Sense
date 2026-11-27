@@ -1,7 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting
 
 import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.arithmetic.Arithmetic
 import com.kylecorry.sol.math.random.nextGaussian
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
@@ -12,15 +11,6 @@ import java.time.Instant
 import kotlin.random.Random
 
 class MonteCarloPressureForecaster {
-    private fun randomValue(
-        random: Random,
-        center: Float,
-        deviation: Float,
-        minimum: Float,
-        maximum: Float
-    ): Float {
-        return (random.nextGaussian().toFloat() * deviation + center).coerceIn(minimum, maximum)
-    }
 
     fun getPressureForecast(
         history: List<Reading<Pressure>>,
@@ -28,9 +18,7 @@ class MonteCarloPressureForecaster {
         maxErrorHpa: Float = 5f,
         forecastStepSizeHours: Float = 1f,
         velocityError: Float = 0.2f,
-        velocitySmoothing: Float = 0.15f,
-        accelerationError: Float = 0.2f,
-        accelerationSmoothing: Float = 0.15f
+        accelerationError: Float = 0.2f
     ): List<Reading<Pressure>> {
         val start = history.firstOrNull()?.time?.toEpochMilli() ?: return emptyList()
         val pressures = history.map {
@@ -42,34 +30,31 @@ class MonteCarloPressureForecaster {
         }
 
         val random = Random(1)
-        var cachedFirstDerivative: List<Vector2>? = null
-        var cachedSecondDerivative: List<Vector2>? = null
+        var smoothedVelocity: List<Vector2>? = null
+        var smoothedAcceleration: List<Vector2>? = null
         val predictors = (0 until 50).map {
-            val velocityOffset = randomValue(random, 0f, velocityError, -1f, 1f)
-            val accelerationOffset = randomValue(random, 0f, accelerationError, -0.5f, 0.5f)
+            val velocityOffset =
+                (random.nextGaussian().toFloat() * velocityError).coerceIn(-1f, 1f)
+            val accelerationOffset =
+                (random.nextGaussian().toFloat() * accelerationError).coerceIn(-0.5f, 0.5f)
             DerivativePredictor(
-                2, mapOf(
-                    1 to DerivativePredictor.DerivativePredictorConfig {
-                        if (cachedFirstDerivative == null) {
-                            cachedFirstDerivative = if (Arithmetic.isZero(velocitySmoothing)) {
-                                it
-                            } else {
-                                DataUtils.smooth(it, velocitySmoothing)
-                            }
+                2,
+                mapOf(
+                    1 to DerivativePredictor.DerivativePredictorConfig { velocity ->
+                        val smoothed = smoothedVelocity ?: smooth(velocity, VELOCITY_SMOOTHING_OPTIONS).also {
+                            smoothedVelocity = it
                         }
-                        cachedFirstDerivative.map { it.copy(y = it.y + velocityOffset) }
+                        smoothed.map { it.copy(y = it.y + velocityOffset) }
                     },
-                    2 to DerivativePredictor.DerivativePredictorConfig {
-                        if (cachedSecondDerivative == null) {
-                            cachedSecondDerivative = if (Arithmetic.isZero(accelerationSmoothing)) {
-                                it
-                            } else {
-                                DataUtils.smooth(it, accelerationSmoothing)
+                    2 to DerivativePredictor.DerivativePredictorConfig { acceleration ->
+                        val smoothed = smoothedAcceleration
+                            ?: smooth(acceleration, ACCELERATION_SMOOTHING_OPTIONS).also {
+                                smoothedAcceleration = it
                             }
-                        }
-                        cachedSecondDerivative.map { it.copy(y = it.y + accelerationOffset) }
+                        smoothed.map { it.copy(y = it.y + accelerationOffset) }
                     }
-                )
+                ),
+                ACCELERATION_DECAY_HOURS
             )
         }
 
@@ -85,5 +70,35 @@ class MonteCarloPressureForecaster {
                 Instant.ofEpochMilli(start + (it.value.x * 3600000f).toLong())
             )
         }
+    }
+
+    private fun smooth(
+        values: List<Vector2>,
+        options: DataUtils.AutomaticSmoothingOptions
+    ): List<Vector2> {
+        return DataUtils.smoothAutomatically(
+            values,
+            options,
+            x = { _, value -> value.x },
+            y = { it.y }
+        ) { value, smoothed -> value.copy(y = smoothed) }
+    }
+
+    companion object {
+        private val VELOCITY_SMOOTHING_OPTIONS = DataUtils.AutomaticSmoothingOptions(
+            targetNoise = 0.05f,
+            minimumSpan = 1f,
+            maximumSpan = 6f,
+            spanStep = 0.5f
+        )
+
+        private val ACCELERATION_SMOOTHING_OPTIONS = DataUtils.AutomaticSmoothingOptions(
+            targetNoise = 0.02f,
+            minimumSpan = 2f,
+            maximumSpan = 8f,
+            spanStep = 0.5f
+        )
+
+        private const val ACCELERATION_DECAY_HOURS = 1f
     }
 }

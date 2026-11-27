@@ -11,6 +11,7 @@ import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.tools.weather.domain.PressureTide
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.alerts.WeatherAlertGenerator
@@ -21,6 +22,7 @@ import com.kylecorry.trail_sense.tools.weather.domain.get3hTendency
 import com.kylecorry.trail_sense.tools.weather.domain.getLastCloud
 import com.kylecorry.trail_sense.tools.weather.domain.getTemperaturePrediction
 import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreferences
+import java.time.Clock
 import java.time.Duration
 import java.time.Instant
 import java.time.ZonedDateTime
@@ -28,12 +30,13 @@ import kotlin.math.absoluteValue
 
 internal class WeatherForecaster(
     private val temperatureService: ITemperatureService,
-    prefs: IWeatherPreferences
+    prefs: IWeatherPreferences,
+    private val clock: Clock = Clock.systemDefaultZone()
 ) : IWeatherForecaster {
 
     private val stormThreshold = prefs.stormAlertThreshold
     private val hourlyForecastChangeThreshold = prefs.hourlyForecastChangeThreshold
-    private val arrivalCalculator = WeatherArrivalTimeCalculator()
+    private val arrivalCalculator = WeatherArrivalTimeCalculator(clock)
     private val alertGenerator = WeatherAlertGenerator()
 
     override suspend fun forecast(
@@ -53,7 +56,7 @@ internal class WeatherForecaster(
                 forecast.last().conditions,
                 forecast.first().front,
                 arrival,
-                temperatureService.getTemperaturePrediction(ZonedDateTime.now()),
+                temperatureService.getTemperaturePrediction(ZonedDateTime.now(clock)),
                 emptyList()
             ),
             tendency,
@@ -74,7 +77,7 @@ internal class WeatherForecaster(
         val mapped = if (!hasEnoughReadings(readings)) {
             emptyList()
         } else {
-            readings.map { it.pressureReading() }
+            readings.map { PressureTide.remove(it.pressureReading(), it.location) }
         }
 
         // WHY: The forecast is computed twice: first for arrival time, then for precipitation type
@@ -86,7 +89,7 @@ internal class WeatherForecaster(
         )
 
         val arrival = arrivalCalculator.getArrivalTime(original, clouds)
-        val arrivesIn = arrival?.let { Duration.between(Instant.now(), it.time) } ?: Duration.ZERO
+        val arrivesIn = arrival?.let { Duration.between(Instant.now(clock), it.time) } ?: Duration.ZERO
 
         // WHY: Temperatures only matter for precipitation, so skip fetching them otherwise
         if (original.none { it.conditions.contains(WeatherCondition.Precipitation) }) {
@@ -94,7 +97,7 @@ internal class WeatherForecaster(
         }
 
         val temperatures = getHighLowTemperature(
-            ZonedDateTime.now(),
+            ZonedDateTime.now(clock),
             arrivesIn,
             Duration.ofHours(6)
         )
@@ -126,7 +129,7 @@ internal class WeatherForecaster(
             temperatureRange,
             hourlyForecastChangeThreshold.absoluteValue / 3f,
             stormThreshold.absoluteValue / 3f,
-            Instant.now(),
+            Instant.now(clock),
             location ?: Coordinate.zero
         )
     }

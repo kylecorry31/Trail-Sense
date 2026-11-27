@@ -75,6 +75,17 @@ class MonteCarloPressureForecasterTest {
     }
 
     @Test
+    fun aSlowingFallFallsLessEachHour() {
+        val readings = history(1020f, 1014f, 1009f, 1005f, 1002f, 1000f, 999f)
+
+        val forecast = forecaster.getPressureForecast(readings, forecastLengthHours = 4f)
+
+        val drops = forecast.map { it.value.hpa().value }.zipWithNext { a, b -> a - b }
+        assertTrue(drops.isNotEmpty())
+        drops.zipWithNext { a, b -> assertTrue(b < a, "Expected the fall to slow: $drops") }
+    }
+
+    @Test
     fun holdsSteadyPressureSteady() {
         val readings = history(1013f, 1013f, 1013f, 1013f, 1013f)
 

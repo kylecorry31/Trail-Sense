@@ -8,6 +8,7 @@ import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
+import com.kylecorry.trail_sense.tools.weather.domain.PressureTide
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.ITemperatureService
@@ -48,14 +49,14 @@ internal class WeatherForecasterTest {
     fun returnsTheMostRecentObservation() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(3), 1015f, 1013f)
 
-        val weather = forecaster().forecast(observations, emptyList(), location)
+        val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
         assertEquals(observations.last(), weather.observation)
     }
 
     @Test
     fun hasNoObservationWhenThereAreNoReadings() = runBlocking {
-        val weather = forecaster().forecast(emptyList(), emptyList(), location)
+        val weather = forecaster().forecast(emptyList(), emptyList(), polarLocation)
 
         assertNull(weather.observation)
     }
@@ -64,7 +65,7 @@ internal class WeatherForecasterTest {
     fun returnsTheMostRecentCloudObservationWithinFourHours() = runBlocking {
         val cloud = Reading<CloudGenus?>(CloudGenus.Cumulus, now.minus(Duration.ofHours(3)))
 
-        val weather = forecaster().forecast(emptyList(), listOf(cloud), location)
+        val weather = forecaster().forecast(emptyList(), listOf(cloud), polarLocation)
 
         assertEquals(cloud, weather.clouds)
     }
@@ -73,7 +74,7 @@ internal class WeatherForecasterTest {
     fun ignoresCloudObservationsOlderThanFourHours() = runBlocking {
         val cloud = Reading<CloudGenus?>(CloudGenus.Cumulus, now.minus(Duration.ofHours(5)))
 
-        val weather = forecaster().forecast(emptyList(), listOf(cloud), location)
+        val weather = forecaster().forecast(emptyList(), listOf(cloud), polarLocation)
 
         assertNull(weather.clouds)
     }
@@ -82,7 +83,7 @@ internal class WeatherForecasterTest {
     fun reportsTheThreeHourPressureTendency() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(3), 1015f, 1012f)
 
-        val weather = forecaster().forecast(observations, emptyList(), location)
+        val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
         assertEquals(PressureCharacteristic.Falling, weather.pressureTendency.characteristic)
         // 3 hPa lost over 3 hours
@@ -90,11 +91,23 @@ internal class WeatherForecasterTest {
     }
 
     @Test
+    fun removesTheDailyPressureTideFromTheTendency() = runBlocking {
+        val equator = Coordinate(0.0, 0.0)
+        val observations = fallingPressure(Duration.ofHours(3), 1013f, 1013f, equator)
+
+        val weather = forecaster().forecast(observations, emptyList(), equator)
+
+        val tideChange = PressureTide.getOffsetHpa(observations.last().time, equator) -
+            PressureTide.getOffsetHpa(observations.first().time, equator)
+        assertEquals(-tideChange, weather.pressureTendency.amount, 0.01f)
+    }
+
+    @Test
     fun ignoresPressureReadingsThatSpanLessThanTenMinutes() = runBlocking {
         // The same drop over 5 minutes is not enough history to be trusted
         val observations = fallingPressure(Duration.ofMinutes(5), 1015f, 1009f)
 
-        val weather = forecaster().forecast(observations, emptyList(), location)
+        val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
         assertEquals(PressureCharacteristic.Steady, weather.pressureTendency.characteristic)
         assertEquals(0f, weather.pressureTendency.amount, 0.001f)
@@ -104,7 +117,7 @@ internal class WeatherForecasterTest {
     fun usesPressureReadingsThatSpanAtLeastTenMinutes() = runBlocking {
         val observations = fallingPressure(Duration.ofMinutes(15), 1015f, 1014.8f)
 
-        val weather = forecaster().forecast(observations, emptyList(), location)
+        val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
         assertEquals(PressureCharacteristic.Falling, weather.pressureTendency.characteristic)
     }
@@ -113,7 +126,7 @@ internal class WeatherForecasterTest {
     fun includesTheTemperaturePredictionFromTheTemperatureService() = runBlocking {
         setTemperatures(low = 4f, high = 24f, current = 18f)
 
-        val weather = forecaster().forecast(emptyList(), emptyList(), location)
+        val weather = forecaster().forecast(emptyList(), emptyList(), polarLocation)
 
         val temperature = weather.prediction.temperature
         assertNotNull(temperature)
@@ -127,7 +140,7 @@ internal class WeatherForecasterTest {
     fun alertsWhenTheDayWillBeCold() = runBlocking {
         setTemperatures(low = 0f, high = 10f, current = 5f)
 
-        val weather = forecaster().forecast(emptyList(), emptyList(), location)
+        val weather = forecaster().forecast(emptyList(), emptyList(), polarLocation)
 
         assertTrue(weather.prediction.alerts.contains(WeatherAlert.Cold))
         assertFalse(weather.prediction.alerts.contains(WeatherAlert.Hot))
@@ -137,7 +150,7 @@ internal class WeatherForecasterTest {
     fun alertsWhenTheDayWillBeHot() = runBlocking {
         setTemperatures(low = 25f, high = 35f, current = 30f)
 
-        val weather = forecaster().forecast(emptyList(), emptyList(), location)
+        val weather = forecaster().forecast(emptyList(), emptyList(), polarLocation)
 
         assertTrue(weather.prediction.alerts.contains(WeatherAlert.Hot))
         assertFalse(weather.prediction.alerts.contains(WeatherAlert.Cold))
@@ -147,7 +160,7 @@ internal class WeatherForecasterTest {
     fun doesNotAlertForComfortableTemperatures() = runBlocking {
         setTemperatures(low = 10f, high = 20f, current = 15f)
 
-        val weather = forecaster().forecast(emptyList(), emptyList(), location)
+        val weather = forecaster().forecast(emptyList(), emptyList(), polarLocation)
 
         assertEquals(emptyList<WeatherAlert>(), weather.prediction.alerts)
     }
@@ -156,7 +169,7 @@ internal class WeatherForecasterTest {
     fun alertsWhenAStormIsPredicted() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(3), 1015f, 985f)
 
-        val weather = forecaster().forecast(observations, emptyList(), location)
+        val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
         assertTrue(
             weather.prediction.hourly.contains(WeatherCondition.Storm),
@@ -169,14 +182,14 @@ internal class WeatherForecasterTest {
     fun aStormArrivesAtAKnownTime() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(3), 1015f, 985f)
 
-        val weather = forecaster().forecast(observations, emptyList(), location)
+        val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
         assertNotNull(weather.prediction.hourlyArrival)
     }
 
     @Test
     fun doesNotLookUpTheTemperatureRangeWhenNoPrecipitationIsPredicted() = runBlocking {
-        forecaster().forecast(emptyList(), emptyList(), location)
+        forecaster().forecast(emptyList(), emptyList(), polarLocation)
 
         verify(temperatureService, never()).getTemperatureRange(any(), any())
     }
@@ -185,7 +198,7 @@ internal class WeatherForecasterTest {
     fun looksUpTheTemperatureRangeWhenPrecipitationIsPredicted() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(3), 1015f, 985f)
 
-        forecaster().forecast(observations, emptyList(), location)
+        forecaster().forecast(observations, emptyList(), polarLocation)
 
         verify(temperatureService).getTemperatureRange(any(), any())
     }
@@ -204,7 +217,8 @@ internal class WeatherForecasterTest {
     private fun fallingPressure(
         span: Duration,
         from: Float,
-        to: Float
+        to: Float,
+        location: Coordinate = polarLocation
     ): List<WeatherObservation> {
         val steps = 10
         return (0..steps).map {
@@ -214,13 +228,14 @@ internal class WeatherForecasterTest {
                 now.minus(span).plus(Duration.ofMillis((span.toMillis() * percent).toLong())),
                 Pressure.hpa(from + (to - from) * percent),
                 Temperature.celsius(15f),
-                50f
+                50f,
+                location
             )
         }
     }
 
     companion object {
-        private val location = Coordinate(40.0, -80.0)
+        private val polarLocation = Coordinate(90.0, 0.0)
         private val now: Instant get() = Instant.now()
     }
 }

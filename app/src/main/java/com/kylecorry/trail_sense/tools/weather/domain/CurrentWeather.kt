@@ -4,6 +4,7 @@ import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.WeatherFront
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
+import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
@@ -53,7 +54,8 @@ data class WeatherObservation(
     val time: Instant,
     val pressure: Pressure,
     val temperature: Temperature,
-    val humidity: Float?
+    val humidity: Float?,
+    val location: Coordinate
 ) : Identifiable {
     fun pressureReading(): Reading<Pressure> {
         return Reading(pressure, time)

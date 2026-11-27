@@ -34,7 +34,7 @@ import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.IWeatherForecaster
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.MonteCarloPressureForecaster
+import com.kylecorry.trail_sense.tools.weather.domain.forecasting.PressureForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.WeatherForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.CalibratedTemperatureService
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.HistoricTemperatureService
@@ -129,7 +129,8 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
                 it.time,
                 Pressure.from(it.value.value + offset, it.value.units),
                 Temperature.celsius(reading?.value?.temperature ?: 0f),
-                reading?.value?.humidity
+                reading?.value?.humidity,
+                reading?.value?.location ?: location.location
             )
         }
 
@@ -325,27 +326,7 @@ class WeatherSubsystem private constructor(private val context: Context) : IWeat
 
 
     suspend fun getPressureForecast(): List<Reading<Pressure>> = onDefault {
-        val forecaster = MonteCarloPressureForecaster()
-        val history = getHistory().map { it.pressureReading() }.takeLast(50)
-        val isPressureTrusted = prefs.weather.pressureSmoothing < 0.15f
-        val derivativeSmoothing = if (isPressureTrusted) {
-            0f
-        } else {
-            0.1f
-        }
-        val error = if (isPressureTrusted) {
-            0.1f
-        } else {
-            0.2f
-        }
-        forecaster.getPressureForecast(
-            history,
-            maxErrorHpa = 8f,
-            velocitySmoothing = derivativeSmoothing,
-            accelerationSmoothing = derivativeSmoothing,
-            velocityError = error,
-            accelerationError = error
-        )
+        PressureForecaster().forecast(getHistory(), prefs.weather.pressureSmoothing < 15f)
     }
 
     private suspend fun populateCache(): CurrentWeather {

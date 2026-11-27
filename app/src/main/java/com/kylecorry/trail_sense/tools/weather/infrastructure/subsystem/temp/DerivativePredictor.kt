@@ -6,9 +6,14 @@ import com.kylecorry.sol.math.Vector2
 import com.kylecorry.sol.math.calculus.Calculus
 import com.kylecorry.sol.math.calculus.RungeKutta4thOrderSolver
 
+/**
+ * @param highestDerivativeDecayTime the e-folding time, in x units, over which the highest order
+ *   derivative decays to zero; null keeps it constant
+ */
 class DerivativePredictor(
     private val order: Int = 2,
-    private val configs: Map<Int, DerivativePredictorConfig> = emptyMap()
+    private val configs: Map<Int, DerivativePredictorConfig> = emptyMap(),
+    private val highestDerivativeDecayTime: Float? = null
 ) : ITimeSeriesPredictor {
 
     private val solver = RungeKutta4thOrderSolver()
@@ -41,9 +46,10 @@ class DerivativePredictor(
             Vector(FloatArray(order + 1) { i ->
                 if (i < order) {
                     y[i + 1]
-                } else {
-                    // WHY: The highest order derivative is treated as constant
+                } else if (highestDerivativeDecayTime == null) {
                     0f
+                } else {
+                    -y[i] / highestDerivativeDecayTime
                 }
             })
         }
