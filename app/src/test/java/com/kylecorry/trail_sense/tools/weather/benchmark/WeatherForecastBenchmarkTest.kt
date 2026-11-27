@@ -8,8 +8,8 @@ import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures.HistoricTemperatureRepo
 import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
+import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.PressureForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.LocalClimate
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.WeatherForecaster
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.HistoricTemperatureService
@@ -31,7 +31,6 @@ import java.time.Duration
 import java.time.Instant
 import java.time.Month
 import java.time.ZoneOffset
-import kotlin.math.abs
 import kotlin.random.Random
 
 @Tag("manual")
@@ -64,8 +63,8 @@ internal class WeatherForecastBenchmarkTest {
         val monthlyPrecipitation = BenchmarkStation.loadMonthlyPrecipitation()
         val builder = StringBuilder("# Weather forecast benchmark with short history\n\n")
         builder.append("Each forecast only sees the given hours of hourly readings. HSS: 1 is perfect, 0 is chance.\n\n")
-        builder.append("| History | Projection MAE +3 h | No change MAE +3 h | " + SHORT_HISTORY_CONDITIONS.joinToString(" | ") + " |\n")
-        builder.append("|---" + "|---".repeat(SHORT_HISTORY_CONDITIONS.size + 2) + "|\n")
+        builder.append("| History | " + SHORT_HISTORY_CONDITIONS.joinToString(" | ") + " |\n")
+        builder.append("|---" + "|---".repeat(SHORT_HISTORY_CONDITIONS.size) + "|\n")
         val scenarios = listOf(3L, 6L, 12L, 48L).map { "$it h" to (Duration.ofHours(it) to 0f) } +
             listOf(6L, 48L).map { "$it h, 40% missing" to (Duration.ofHours(it) to MISSING_FRACTION) }
         for ((label, scenario) in scenarios) {
@@ -75,7 +74,7 @@ internal class WeatherForecastBenchmarkTest {
             }
                 .reduce { a, b -> a + b }.metrics()
             builder.append(
-                "| $label | ${"%.2f".format(metrics.getValue("projection_mae_3h"))} | ${"%.2f".format(metrics.getValue("no_change_mae_3h"))} | " +
+                "| $label | " +
                     SHORT_HISTORY_CONDITIONS.joinToString(" | ") { "%.3f".format(metrics.getValue("${it}_hss")) } + " |\n"
             )
         }
@@ -95,7 +94,6 @@ internal class WeatherForecastBenchmarkTest {
         val times = observations.map { it.time }
         val random = Random(station.id.hashCode())
         val withPressure = observations.filter { it.pressureHpa != null && random.nextFloat() >= missingFraction }
-        val pressureByHour = observations.filter { it.pressureHpa != null }.associate { hourKey(it.time) to it.pressureHpa!! }
         val start = withPressure.first().time.plus(WARM_UP)
         val end = observations.last().time.minus(LATER_WINDOW_END)
         val temperatures = HistoricTemperatureService(
@@ -119,9 +117,9 @@ internal class WeatherForecastBenchmarkTest {
             lastForecastHour = hourKey(now)
             val history = toWeatherObservations(station, withPressure.subList(historyStart, index + 1))
             val clock = Clock.fixed(now, ZoneOffset.UTC)
+            val soonWindow = observations.subList(times.firstIndexAtOrAfter(now), times.firstIndexAfter(now.plus(SOON_WINDOW)))
+            val laterWindow = observations.subList(times.firstIndexAfter(now.plus(SOON_WINDOW)), times.firstIndexAfter(now.plus(EVENT_WINDOW)))
             val next = observations.subList(times.firstIndexAtOrAfter(now), times.firstIndexAfter(now.plus(EVENT_WINDOW)))
-            val nextSky = observations.subList(times.firstIndexAtOrAfter(now), times.firstIndexAfter(now.plus(SKY_WINDOW)))
-                .filter { it.skyCover != null }
 
             val climate = LocalClimate(
                 monthlyPrecipitation,
@@ -129,28 +127,30 @@ internal class WeatherForecastBenchmarkTest {
             )
             val weather = WeatherForecaster(temperatures, prefs, clock, climate)
                 .forecast(history, emptyList(), station.location)
-            val conditions = weather.prediction.hourly.map { it.condition }
-            score.precipitation.add(WeatherCondition.Precipitation in conditions, next.any { it.isWet })
-            score.storm.add(WeatherCondition.Storm in conditions, next.any { it.isStormy })
-            score.thunderstorm.add(WeatherCondition.Thunderstorm in conditions, next.any { it.isThunder })
-            score.wind.add(WeatherCondition.Wind in conditions, next.any { it.isWindy })
-            if (nextSky.isNotEmpty()) {
-                score.clear.add(WeatherCondition.Clear in conditions, nextSky.count { it.isClearSky } * 2 > nextSky.size)
-                score.overcast.add(WeatherCondition.Overcast in conditions, nextSky.count { it.isOvercastSky } * 2 > nextSky.size)
+            val hourly = weather.prediction.hourly
+            val conditions = hourly.map { it.condition }
+            fun arrival(condition: WeatherCondition) = hourly.firstOrNull { it.condition == condition }?.arrival
+            for ((name, condition, isEvent) in EVENTS) {
+                val isSoon = soonWindow.any(isEvent)
+                score.add("${name}_soon", arrival(condition) == RelativeArrivalTime.Soon, isSoon)
+                score.add("${name}_later", arrival(condition) == RelativeArrivalTime.Later, !isSoon && laterWindow.any(isEvent))
+            }
+            score.add("thunderstorm", WeatherCondition.Thunderstorm in conditions, next.any { it.isThunder })
+            for ((name, condition, isSky) in SKIES) {
+                val isSoon = mostly(soonWindow, isSky) ?: continue
+                score.add("${name}_soon", arrival(condition) == RelativeArrivalTime.Soon, isSoon)
+                mostly(laterWindow, isSky)?.let {
+                    score.add("${name}_later", arrival(condition) == RelativeArrivalTime.Later, !isSoon && it)
+                }
             }
             val later = observations.subList(
                 times.firstIndexAtOrAfter(now.plus(LATER_WINDOW_START)),
                 times.firstIndexAfter(now.plus(LATER_WINDOW_END))
             )
-            val laterSky = later.filter { it.skyCover != null }
             val laterConditions = weather.prediction.daily.map { it.condition }
-            score.laterPrecipitation.add(WeatherCondition.Precipitation in laterConditions, later.any { it.isWet })
-            if (laterSky.isNotEmpty()) {
-                score.laterClear.add(WeatherCondition.Clear in laterConditions, laterSky.count { it.isClearSky } * 2 > laterSky.size)
-                score.laterOvercast.add(
-                    WeatherCondition.Overcast in laterConditions,
-                    laterSky.count { it.isOvercastSky } * 2 > laterSky.size
-                )
+            score.add("precipitation_12h_to_24h", WeatherCondition.Precipitation in laterConditions, later.any { it.isWet })
+            for ((name, condition, isSky) in SKIES) {
+                mostly(later, isSky)?.let { score.add("${name}_12h_to_24h", condition in laterConditions, it) }
             }
             val firstPrecipitation = next.firstOrNull { it.isWet }
             val predictedType = when {
@@ -159,18 +159,7 @@ internal class WeatherForecastBenchmarkTest {
                 else -> null
             }
             if (firstPrecipitation != null && predictedType != null) {
-                score.precipitationType.add(predictedType, firstPrecipitation.isSnow)
-            }
-
-            val projection = PressureForecaster().forecast(history, false)
-            val currentPressure = history.last().pressure.hpa().value
-            for (lead in LEADS) {
-                val actual = pressureByHour[hourKey(now.plus(Duration.ofHours(lead)))] ?: continue
-                score.noChangeErrors.getValue(lead).add(abs(currentPressure - actual))
-                val projected = projection.firstOrNull { abs(Duration.between(now, it.time).toMinutes() - lead * 60) <= 30 }
-                if (projected != null) {
-                    score.projectionErrors.getValue(lead).add(abs(projected.value.hpa().value - actual))
-                }
+                score.add(PRECIPITATION_TYPE, predictedType, firstPrecipitation.isSnow)
             }
         }
         return score
@@ -338,83 +327,66 @@ internal class WeatherForecastBenchmarkTest {
     }
 
     private class StationScore(val station: String) {
-        val projectionErrors = LEADS.associateWith { mutableListOf<Float>() }
-        val noChangeErrors = LEADS.associateWith { mutableListOf<Float>() }
-        var precipitation = Contingency()
-        var storm = Contingency()
-        var thunderstorm = Contingency()
-        var wind = Contingency()
-        var clear = Contingency()
-        var overcast = Contingency()
-        var precipitationType = Contingency()
-        var laterPrecipitation = Contingency()
-        var laterClear = Contingency()
-        var laterOvercast = Contingency()
+        val conditions = mutableMapOf<String, Contingency>()
+
+        fun add(name: String, predicted: Boolean, observed: Boolean) {
+            conditions.getOrPut(name) { Contingency() }.add(predicted, observed)
+        }
 
         operator fun plus(other: StationScore): StationScore {
             val combined = StationScore(ALL)
-            for (lead in LEADS) {
-                combined.projectionErrors.getValue(lead).addAll(projectionErrors.getValue(lead) + other.projectionErrors.getValue(lead))
-                combined.noChangeErrors.getValue(lead).addAll(noChangeErrors.getValue(lead) + other.noChangeErrors.getValue(lead))
+            for (name in conditions.keys + other.conditions.keys) {
+                combined.conditions[name] = (conditions[name] ?: Contingency()) + (other.conditions[name] ?: Contingency())
             }
-            combined.precipitation = precipitation + other.precipitation
-            combined.storm = storm + other.storm
-            combined.thunderstorm = thunderstorm + other.thunderstorm
-            combined.wind = wind + other.wind
-            combined.clear = clear + other.clear
-            combined.overcast = overcast + other.overcast
-            combined.precipitationType = precipitationType + other.precipitationType
-            combined.laterPrecipitation = laterPrecipitation + other.laterPrecipitation
-            combined.laterClear = laterClear + other.laterClear
-            combined.laterOvercast = laterOvercast + other.laterOvercast
             return combined
         }
 
         fun metrics(): Map<String, Double> {
-            val projection = LEADS.associate { "projection_mae_${it}h" to projectionErrors.getValue(it).average() }
-            val noChange = LEADS.associate { "no_change_mae_${it}h" to noChangeErrors.getValue(it).average() }
-            val coverage = LEADS.associate {
-                "projection_coverage_${it}h" to projectionErrors.getValue(it).size.toDouble() /
-                    noChangeErrors.getValue(it).size.coerceAtLeast(1)
-            }
-            return projection + noChange + coverage +
-                precipitation.metrics("precipitation") +
-                storm.metrics("storm") +
-                thunderstorm.metrics("thunderstorm") +
-                wind.metrics("wind") +
-                clear.metrics("clear") +
-                overcast.metrics("overcast") +
-                laterPrecipitation.metrics("later_precipitation") +
-                laterClear.metrics("later_clear") +
-                laterOvercast.metrics("later_overcast") +
-                mapOf(
-                    "snow_vs_rain_accuracy" to precipitationType.accuracy(),
-                    "snow_vs_rain_cases" to precipitationType.total.toDouble()
-                )
+            return conditions.filterKeys { it != PRECIPITATION_TYPE }.flatMap { (name, contingency) ->
+                    contingency.metrics(name).toList()
+                }.toMap() +
+                (conditions[PRECIPITATION_TYPE] ?: Contingency()).let {
+                    mapOf("snow_vs_rain_accuracy" to it.accuracy(), "snow_vs_rain_cases" to it.total.toDouble())
+                }
         }
     }
 
     companion object {
         private const val ALL = "ALL"
         private const val SECONDS_PER_HOUR = 3600L
-        private val LEADS = (1L..5L).toList()
         private val WARM_UP = Duration.ofHours(24)
         private val HISTORY = Duration.ofHours(48)
+        private val SOON_WINDOW = Duration.ofHours(3)
         private val EVENT_WINDOW = Duration.ofHours(12)
-        private val SKY_WINDOW = Duration.ofHours(6)
+        private const val PRECIPITATION_TYPE = "precipitation_type"
+        private val EVENTS = listOf<Triple<String, WeatherCondition, (BenchmarkObservation) -> Boolean>>(
+            Triple("precipitation", WeatherCondition.Precipitation) { it.isWet },
+            Triple("storm", WeatherCondition.Storm) { it.isStormy },
+            Triple("wind", WeatherCondition.Wind) { it.isWindy }
+        )
+        private val SKIES = listOf<Triple<String, WeatherCondition, (BenchmarkObservation) -> Boolean>>(
+            Triple("clear", WeatherCondition.Clear) { it.isClearSky },
+            Triple("overcast", WeatherCondition.Overcast) { it.isOvercastSky }
+        )
+
+        private fun mostly(observations: List<BenchmarkObservation>, isSky: (BenchmarkObservation) -> Boolean): Boolean? {
+            val reported = observations.filter { it.skyCover != null }
+            return if (reported.isEmpty()) null else reported.count(isSky) * 2 > reported.size
+        }
         private val LATER_WINDOW_START = Duration.ofHours(12)
         private val LATER_WINDOW_END = Duration.ofHours(24)
         private const val MISSING_FRACTION = 0.4f
         private val SHORT_HISTORY_CONDITIONS = listOf(
-            "precipitation",
-            "storm",
+            "precipitation_soon",
+            "precipitation_later",
+            "storm_soon",
+            "storm_later",
+            "wind_soon",
+            "wind_later",
             "thunderstorm",
-            "wind",
-            "clear",
-            "overcast",
-            "later_precipitation",
-            "later_clear",
-            "later_overcast"
+            "clear_soon",
+            "overcast_soon",
+            "precipitation_12h_to_24h"
         )
     }
 }

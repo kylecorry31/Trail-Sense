@@ -168,7 +168,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         openWithPressureTrend(1020f, 1010f, Duration.ofHours(3))
 
         hasText(R.id.weather_title, string(R.string.precipitation_rain))
-        hasText(R.id.weather_title, string(R.string.very_soon).lowercase())
+        hasText(R.id.weather_title, string(R.string.weather_within_hours, 3))
         hasText("-10.00 hPa / 3h", exact = true)
         hasText("1010.0 hPa", exact = true)
 

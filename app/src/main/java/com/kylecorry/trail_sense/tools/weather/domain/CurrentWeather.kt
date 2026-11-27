@@ -21,8 +21,6 @@ data class CurrentWeather(
 )
 
 enum class RelativeArrivalTime {
-    Now,
-    VerySoon,
     Soon,
     Later
 }

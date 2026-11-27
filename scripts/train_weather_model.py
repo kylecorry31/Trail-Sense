@@ -1,5 +1,5 @@
 """
-Fits the learned weather forecast (LearnedWeatherCoefficients.kt) to the weather benchmark stations.
+Fits the weather forecast network (WeatherNetworkCoefficients.kt) to the weather benchmark stations.
 
 1. Download the stations: python3 scripts/download_weather_benchmark.py
 2. Export the app's climate temperatures for them:
@@ -11,6 +11,15 @@ condition's yes or no threshold maximizes HSS on stations the network was not tr
 held out predictions are also what the script reports: HSS for the yes or no forecast and the Brier skill score for the
 probability, relative to always forecasting the station's own observed rate (above 0 means more skill than knowing the
 local climate). The Brier skill is the median station, because a station that rarely sees a condition swings the mean.
+
+Each condition has an output for the next 3 hours and one for 3 to 12 hours, which the app shows as "within 3 hours"
+and "in 3-12 hours". The next 3 hours includes weather already happening. The 3 to 12 hour output means the condition
+starts then: it is not in the next 3 hours but is in 3 to 12 hours. For precipitation, storm, wind and thunderstorm
+being in a window means any report of it there; for clear and overcast, most sky reports there. Splitting off weather
+that is already happening was tested and made the next 3 hours worse, because pressure can't tell it from weather about
+to start. Thunderstorm has a single output for the next 12 hours, because the network could not
+tell whether thunder would come within 3 hours (held out HSS 0.02). Finer timing (1, 3, 12 and 24 hour onset windows) was tested and was no better than
+always guessing the most common one.
 
 The network size, L2 penalty and epochs scored best on held out sites and held out continents. Early stopping on held
 out sites stopped within a few epochs, with worse held out probabilities, so a fixed number of epochs is used instead.
@@ -28,15 +37,18 @@ import numpy as np
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 RESOURCES = os.path.join(ROOT, "app/src/test/resources/weather_benchmark")
 CLIMATE_FEATURES = os.path.join(ROOT, "app/build/reports/weather-benchmark/climate_features.csv")
-OUTPUT = os.path.join(ROOT, "app/src/main/java/com/kylecorry/trail_sense/tools/weather/domain/forecasting/learned/LearnedWeatherCoefficients.kt")
-GOLDEN = os.path.join(ROOT, "app/src/test/resources/weather_benchmark/learned_network_golden.csv")
+OUTPUT = os.path.join(ROOT, "app/src/main/java/com/kylecorry/trail_sense/tools/weather/domain/forecasting/model/WeatherNetworkCoefficients.kt")
+GOLDEN = os.path.join(ROOT, "app/src/test/resources/weather_benchmark/weather_network_golden.csv")
 PRECIPITATION_CODES = ("RA", "SN", "DZ", "PL", "GR", "GS", "UP", "SG", "IC")
 STANDARD_PRESSURE_HPA = 1013
+MINIMUM_CHANGE_HOURS = 2
+MINIMUM_FIT_READINGS = 3
 # WHY: Consecutive hours are nearly identical, so every third hour keeps the fit fast without losing information
 SAMPLE_HOURS = 3
 
 
 def tide(t, latitude, longitude):
+    """Must match Sol's Meteorology.getPressureTide"""
     ut = t.timestamp() / 3600 * 15
     local = ut + longitude
     c, s = math.cos(math.radians(latitude)), math.sin(math.radians(latitude))
@@ -52,6 +64,10 @@ def number(value):
 def majority(values):
     values = [v for v in values if v is not None]
     return (sum(values) * 2 > len(values)) if values else None
+
+
+def starts_later(soon, later):
+    return None if soon is None or later is None else (not soon and later)
 
 
 def load_rows():
@@ -85,6 +101,8 @@ def load_rows():
             if o["pressure_hpa"]:
                 hourly[round(t.timestamp() / 3600)] = (t, float(o["pressure_hpa"]) - tide(t, latitude, longitude))
 
+        events = (("precipitation", wet), ("storm", storm), ("wind", windy))
+        skies = (("clear", clear), ("overcast", overcast))
         keys = sorted(hourly)
         last = times[-1]
         for k in keys:
@@ -92,33 +110,41 @@ def load_rows():
             if k - keys[0] < 24 or t + timedelta(hours=24) > last or t.hour % SAMPLE_HOURS != 0:
                 continue
             past = [(h, hourly[k - h][1]) for h in range(1, 49) if (k - h) in hourly]
-            old_enough = [x for x in past if x[0] >= 2]
+            old_enough = [x for x in past if x[0] >= MINIMUM_CHANGE_HOURS]
             if not old_enough:
                 continue
 
             def change(window):
+                """Must match WeatherModel.getPressureChange"""
+                recent = [(0, p)] + [x for x in past if x[0] <= window]
+                if len(recent) >= MINIMUM_FIT_READINGS and recent[-1][0] >= MINIMUM_CHANGE_HOURS:
+                    ages = np.array([h for h, _ in recent], float)
+                    values = np.array([v for _, v in recent])
+                    return -np.polyfit(ages, values, 1)[0] * window
                 hours, value = min(old_enough, key=lambda x: abs(x[0] - window))
                 return (p - value) * window / hours
 
             window48 = [p] + [v for _, v in past]
             i0 = bisect.bisect_left(times, t)
-            i6, i12, i24 = (bisect.bisect_right(times, t + timedelta(hours=h)) for h in (6, 12, 24))
+            i3, i12, i24 = (bisect.bisect_right(times, t + timedelta(hours=h)) for h in (3, 12, 24))
             low, high = daily_temperatures[(sid, t.date().isoformat())]
             rows.append(dict(
                 station=sid, t=t, pressure=p, change_3h=change(3), change_12h=change(12), change_24h=change(24),
                 range_48h=max(window48) - min(window48),
                 low=low, high=high, precipitation_mm=precipitation[t.month], annual_precipitation_mm=annual_precipitation,
                 solar_hour=(t.hour + t.minute / 60 + longitude / 15) % 24,
-                precipitation=any(wet[i0:i12]), storm=any(storm[i0:i12]), wind=any(windy[i0:i12]),
-                thunderstorm=any(thunder[i0:i12]), clear=majority(clear[i0:i6]), overcast=majority(overcast[i0:i6]),
-                later_precipitation=any(wet[i12:i24]), later_clear=majority(clear[i12:i24]),
-                later_overcast=majority(overcast[i12:i24]),
+                **{f"{name}_next_3h": any(flags[i0:i3]) for name, flags in events},
+                **{f"{name}_3h_to_12h": not any(flags[i0:i3]) and any(flags[i3:i12]) for name, flags in events},
+                **{f"{name}_next_3h": majority(flags[i0:i3]) for name, flags in skies},
+                **{f"{name}_3h_to_12h": starts_later(majority(flags[i0:i3]), majority(flags[i3:i12])) for name, flags in skies},
+                thunderstorm_next_12h=any(thunder[i0:i12]), precipitation_12h_to_24h=any(wet[i12:i24]), clear_12h_to_24h=majority(clear[i12:i24]),
+                overcast_12h_to_24h=majority(overcast[i12:i24]),
             ))
     return rows
 
 
 def features(rows):
-    """Must match LearnedWeatherModel.getFeatures"""
+    """Must match WeatherModel.getFeatures"""
     column = lambda name: np.array([r[name] for r in rows], float)
     pressure_from_standard = column("pressure") - STANDARD_PRESSURE_HPA
     change_3h, change_12h, change_24h = column("change_3h"), column("change_12h"), column("change_24h")
@@ -160,8 +186,9 @@ PRESSURE_CURVES = ["pressure_from_standard_squared", "change_3h_squared", "chang
 CLIMATE = ["mean_temperature", "high_temperature", "temperature_range",
            "log_monthly_precipitation", "monthly_precipitation_share", "log_annual_precipitation"]
 FEATURES = CORE + PRESSURE_CURVES + CLIMATE
-CONDITIONS = ["precipitation", "storm", "wind", "thunderstorm", "clear", "overcast",
-              "later_precipitation", "later_clear", "later_overcast"]
+CONDITIONS = [f"{name}_{window}" for window in ("next_3h", "3h_to_12h")
+              for name in ("precipitation", "storm", "wind", "clear", "overcast")] + [
+    "thunderstorm_next_12h", "precipitation_12h_to_24h", "clear_12h_to_24h", "overcast_12h_to_24h"]
 HIDDEN_UNITS = 32
 L2_PENALTY = 1e-3
 EPOCHS = 60
@@ -286,17 +313,17 @@ def write_kotlin(network, thresholds):
     layer = lambda weights, bias: (f"NeuralNetwork.LayerWeights(\n{indent}{kotlin_matrix(weights.T, indent)},\n"
                                    f"{indent}{kotlin_matrix(bias[:, None], indent)}\n    )")
     with open(OUTPUT, "w") as f:
-        f.write(f"""package com.kylecorry.trail_sense.tools.weather.domain.forecasting.learned
+        f.write(f"""package com.kylecorry.trail_sense.tools.weather.domain.forecasting.model
 
 import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.classifiers.NeuralNetwork
 
 // WHY: Generated by scripts/train_weather_model.py, do not edit by hand
-internal enum class LearnedOutput(val threshold: Float) {{
+internal enum class WeatherOutput(val threshold: Float) {{
 {",\n".join(f"    {camel_case(c, True)}({t:.7g}f)" for c, t in zip(CONDITIONS, thresholds))}
 }}
 
-internal object LearnedWeatherCoefficients {{
+internal object WeatherNetworkCoefficients {{
     const val HIDDEN_UNITS = {HIDDEN_UNITS}
 
     val features = listOf(
@@ -350,9 +377,9 @@ def main():
         evaluated = [valid & (stations == s) for s in sorted(set(stations)) if (valid & (stations == s)).sum() > 100]
         station_hss = [hss(held_out[m, j] >= threshold, observed[m]) for m in evaluated]
         station_bss = [brier_skill_score(held_out[m, j], observed[m]) for m in evaluated]
+        brier = f"; station median Brier skill {np.median(station_bss):.3f}"
         print(f"{condition}: held out station mean HSS {np.mean(station_hss):.3f}, pooled "
-              f"{hss(held_out[valid, j] >= threshold, observed[valid]):.3f}; "
-              f"station median Brier skill {np.median(station_bss):.3f}", flush=True)
+              f"{hss(held_out[valid, j] >= threshold, observed[valid]):.3f}{brier}", flush=True)
 
     write_kotlin(network, thresholds)
     write_golden(network, X)

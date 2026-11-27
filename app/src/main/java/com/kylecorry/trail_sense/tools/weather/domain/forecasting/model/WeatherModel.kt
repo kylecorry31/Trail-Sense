@@ -1,11 +1,15 @@
-package com.kylecorry.trail_sense.tools.weather.domain.forecasting.learned
+package com.kylecorry.trail_sense.tools.weather.domain.forecasting.model
 
+import com.kylecorry.sol.math.Vector2
+import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
+import com.kylecorry.trail_sense.tools.weather.domain.ForecastCondition
 import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
+import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.LocalClimate
 import java.time.Duration
 import java.time.ZoneOffset
@@ -17,56 +21,68 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
 
-internal class LearnedWeatherModel(
+internal class WeatherModel(
     private val climate: LocalClimate,
     private val location: Coordinate,
     private val forecastSensitivity: ForecastSensitivity = ForecastSensitivity.Medium,
     private val stormSensitivity: ForecastSensitivity = ForecastSensitivity.Medium
 ) {
 
-    private val network = LearnedWeatherNetwork()
+    private val network = WeatherNetwork()
 
     /**
      * @param pressures sea level pressures with the atmospheric tide removed, oldest first
-     * @return the predicted conditions, each with its probability from 0 to 1
+     * @return null when the pressure history is too short
      */
-    fun getConditions(pressures: List<Reading<Pressure>>): Map<WeatherCondition, Float> {
-        val probabilities = getProbabilities(pressures) ?: return emptyMap()
-        val sky = getSky(probabilities, LearnedOutput.Clear, LearnedOutput.Overcast)
-        val weather = listOf(
-            WeatherCondition.Precipitation to LearnedOutput.Precipitation,
-            WeatherCondition.Storm to LearnedOutput.Storm,
-            WeatherCondition.Wind to LearnedOutput.Wind,
-            WeatherCondition.Thunderstorm to LearnedOutput.Thunderstorm
-        ).filter { (_, output) -> getMargin(probabilities, output) >= 0 }
-        return (listOfNotNull(sky) + weather).associate { (condition, output) ->
-            condition to probabilities.getValue(output)
-        }
+    fun predict(pressures: List<Reading<Pressure>>): WeatherModelPrediction? {
+        val probabilities = getProbabilities(pressures) ?: return null
+        return WeatherModelPrediction(getConditions(probabilities), getLaterConditions(probabilities))
     }
 
-    /**
-     * @param pressures sea level pressures with the atmospheric tide removed, oldest first
-     * @return the conditions expected 12 to 24 hours from now
-     */
-    fun getLaterConditions(pressures: List<Reading<Pressure>>): List<WeatherCondition> {
-        val probabilities = getProbabilities(pressures) ?: return emptyList()
-        val sky = getSky(probabilities, LearnedOutput.LaterClear, LearnedOutput.LaterOvercast)
+    private fun getConditions(probabilities: Map<WeatherOutput, Float>): List<ForecastCondition> {
+        val soonSky = getSky(probabilities, WeatherOutput.ClearNext3h, WeatherOutput.OvercastNext3h)
+        val sky = soonSky?.let { RelativeArrivalTime.Soon to it }
+            ?: getSky(probabilities, WeatherOutput.Clear3hTo12h, WeatherOutput.Overcast3hTo12h)
+                ?.let { RelativeArrivalTime.Later to it }
+        val skyCondition = sky?.let { (arrival, prediction) ->
+            ForecastCondition(prediction.first, probabilities.getValue(prediction.second), arrival)
+        }
+        val weather = EVENTS.mapNotNull { (condition, soon, later) ->
+            when {
+                getMargin(probabilities, soon) >= 0 ->
+                    ForecastCondition(condition, probabilities.getValue(soon), RelativeArrivalTime.Soon)
+
+                getMargin(probabilities, later) >= 0 ->
+                    ForecastCondition(condition, probabilities.getValue(later), RelativeArrivalTime.Later)
+
+                else -> null
+            }
+        }
+        val thunderstorm = ForecastCondition(
+            WeatherCondition.Thunderstorm,
+            probabilities.getValue(WeatherOutput.ThunderstormNext12h)
+        ).takeIf { getMargin(probabilities, WeatherOutput.ThunderstormNext12h) >= 0 }
+        return listOfNotNull(skyCondition) + weather + listOfNotNull(thunderstorm)
+    }
+
+    private fun getLaterConditions(probabilities: Map<WeatherOutput, Float>): List<WeatherCondition> {
+        val sky = getSky(probabilities, WeatherOutput.Clear12hTo24h, WeatherOutput.Overcast12hTo24h)
         return listOfNotNull(
             sky?.first,
-            WeatherCondition.Precipitation.takeIf { getMargin(probabilities, LearnedOutput.LaterPrecipitation) >= 0 }
+            WeatherCondition.Precipitation.takeIf { getMargin(probabilities, WeatherOutput.Precipitation12hTo24h) >= 0 }
         )
     }
 
-    private fun getProbabilities(pressures: List<Reading<Pressure>>): Map<LearnedOutput, Float>? {
+    private fun getProbabilities(pressures: List<Reading<Pressure>>): Map<WeatherOutput, Float>? {
         val features = getFeatures(pressures) ?: return null
         return network.predict(features)
     }
 
     private fun getSky(
-        probabilities: Map<LearnedOutput, Float>,
-        clear: LearnedOutput,
-        overcast: LearnedOutput
-    ): Pair<WeatherCondition, LearnedOutput>? {
+        probabilities: Map<WeatherOutput, Float>,
+        clear: WeatherOutput,
+        overcast: WeatherOutput
+    ): Pair<WeatherCondition, WeatherOutput>? {
         val clearMargin = getMargin(probabilities, clear)
         val overcastMargin = getMargin(probabilities, overcast)
         return when {
@@ -79,8 +95,8 @@ internal class LearnedWeatherModel(
     /**
      * @return the log odds of the output above its threshold, positive when the condition is predicted
      */
-    private fun getMargin(probabilities: Map<LearnedOutput, Float>, output: LearnedOutput): Float {
-        val sensitivity = if (output == LearnedOutput.Storm) stormSensitivity else forecastSensitivity
+    private fun getMargin(probabilities: Map<WeatherOutput, Float>, output: WeatherOutput): Float {
+        val sensitivity = if (output in STORM_OUTPUTS) stormSensitivity else forecastSensitivity
         val thresholdOdds = when (sensitivity) {
             ForecastSensitivity.Low -> logit(output.threshold) + SENSITIVITY_LOG_ODDS
             ForecastSensitivity.Medium -> logit(output.threshold)
@@ -144,16 +160,31 @@ internal class LearnedWeatherModel(
     companion object {
         private const val STANDARD_PRESSURE_HPA = 1013f
         private const val MIN_PROBABILITY = 1e-6f
+        private val EVENTS = listOf(
+            Triple(WeatherCondition.Precipitation, WeatherOutput.PrecipitationNext3h, WeatherOutput.Precipitation3hTo12h),
+            Triple(WeatherCondition.Storm, WeatherOutput.StormNext3h, WeatherOutput.Storm3hTo12h),
+            Triple(WeatherCondition.Wind, WeatherOutput.WindNext3h, WeatherOutput.Wind3hTo12h)
+        )
+        private val STORM_OUTPUTS = setOf(WeatherOutput.StormNext3h, WeatherOutput.Storm3hTo12h)
         private val SENSITIVITY_LOG_ODDS = ln(2f)
         private val SHORT_WINDOW = Duration.ofHours(3)
         private val LONG_WINDOW = Duration.ofHours(12)
         private val DAY_WINDOW = Duration.ofHours(24)
         private val RANGE_WINDOW = Duration.ofHours(48)
         private val MINIMUM_CHANGE_WINDOW = Duration.ofHours(2)
+        private const val MINIMUM_FIT_READINGS = 3
 
         // WHY: The model was trained on changes scaled to the full window, so a short history reads as if it covered it
         private fun getPressureChange(pressures: List<Reading<Pressure>>, window: Duration): Float? {
             val current = pressures.last()
+            val recent = pressures.filter { Duration.between(it.time, current.time) <= window }
+            val oldest = recent.first()
+            if (recent.size >= MINIMUM_FIT_READINGS && Duration.between(oldest.time, current.time) >= MINIMUM_CHANGE_WINDOW) {
+                val hourlyPressures = recent.map {
+                    Vector2(Duration.between(current.time, it.time).seconds / 3600f, it.value.hpa().value)
+                }
+                return Statistics.slope(hourlyPressures) * window.seconds / 3600f
+            }
             val past = pressures
                 .filter { Duration.between(it.time, current.time) >= MINIMUM_CHANGE_WINDOW }
                 .minByOrNull { abs(Duration.between(it.time, current.time).seconds - window.seconds) }

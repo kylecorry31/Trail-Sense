@@ -69,7 +69,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     private val formatService by lazy { FormatService.getInstance(requireContext()) }
 
     private var history by state<List<WeatherObservation>>(emptyList())
-    private var pressureForecast by state<List<Reading<Pressure>>>(emptyList())
     private var rawHistory by state<List<Reading<Pressure>>>(emptyList())
 
     private val weatherSubsystem by lazy { WeatherSubsystem.getInstance(requireContext()) }
@@ -219,12 +218,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
                 loadRawWeatherReadings()
 
                 weather = weatherSubsystem.getWeather()
-
-                if (prefs.weather.showPressureForecast) {
-                    pressureForecast = listOfNotNull(
-                        history.lastOrNull()?.pressureReading()
-                    ) + weatherSubsystem.getPressureForecast()
-                }
             }
         }
     }
@@ -232,8 +225,8 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
     override fun onUpdate() {
         super.onUpdate()
 
-        effect("chart", history, rawHistory, pressureForecast, lifecycleHookTrigger.onResume()) {
-            displayPressureChart(history, rawHistory, pressureForecast)
+        effect("chart", history, rawHistory, lifecycleHookTrigger.onResume()) {
+            displayPressureChart(history, rawHistory)
         }
 
         effect("list", weather, lifecycleHookTrigger.onResume()) {
@@ -266,17 +259,14 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
 
     private fun displayPressureChart(
         readings: List<WeatherObservation>,
-        rawReadings: List<Reading<Pressure>>,
-        forecast: List<Reading<Pressure>>
+        rawReadings: List<Reading<Pressure>>
     ) {
         val displayReadings =
             readings.map { it.pressureReading() }.map { it.copy(value = it.value.convertTo(units)) }
         if (displayReadings.isNotEmpty()) {
-            val displayForecast = forecast.map { it.copy(value = it.value.convertTo(units)) }
             chart.plot(
                 displayReadings,
-                rawReadings.map { it.copy(value = it.value.convertTo(units)) }.ifEmpty { null },
-                displayForecast
+                rawReadings.map { it.copy(value = it.value.convertTo(units)) }.ifEmpty { null }
             )
         }
     }
@@ -289,13 +279,14 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             binding.weatherTitle.title.text = formatService.formatWeather(prediction.primaryHourly)
             binding.weatherTitle.title.setOnClickListener {
                 if (prediction.hourly.isNotEmpty()) {
-                    val conditions = prediction.hourly.joinToString("\n") { (condition, probability) ->
+                    val conditions = prediction.hourly.joinToString("\n") { (condition, probability, arrival) ->
                         val name = formatService.formatWeather(condition)
-                        if (probability == null) {
-                            name
-                        } else {
-                            getString(R.string.parenthesized_pair, name, formatService.formatPercentage(probability * 100))
-                        }
+                        val timed = arrival?.let {
+                            getString(R.string.dash_separated_pair, name, formatService.formatWeatherArrival(it))
+                        } ?: name
+                        probability?.let {
+                            getString(R.string.parenthesized_pair, timed, formatService.formatPercentage(it * 100))
+                        } ?: timed
                     }
                     dialog(getString(R.string.weather), conditions, cancelText = null)
                 }

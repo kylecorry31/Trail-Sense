@@ -141,8 +141,6 @@
     <!--Weather Tab - Forecasts-->
     <string name="weather_no_change">No change</string>
     <string name="weather_storm">Storm</string>
-    <string name="very_soon">Very soon</string>
-    <string name="soon">Soon</string>
     <!--Astronomy Tab-->
     <string name="sun_does_not_set">does not set</string>
     <string name="sun_does_not_rise">does not rise</string>
@@ -994,9 +992,6 @@
     <string name="path_exported">Path exported</string>
     <string name="export_path_error">Could not export path</string>
     <string name="pick_file">Pick file</string>
-    <string name="low_amount">Low (%s)</string>
-    <string name="medium_amount">Medium (%s)</string>
-    <string name="high_amount">High (%s)</string>
     <string name="lunar_eclipses">Lunar eclipses</string>
     <string name="total">Total</string>
     <string name="partial">Partial (%s)</string>
@@ -1264,6 +1259,8 @@
     <string name="wind_speed">Wind speed</string>
     <!--As in, Precipitation Later-->
     <string name="later">Later</string>
+    <string name="weather_within_hours" tools:ignore="PluralsCandidate">within %d hours</string>
+    <string name="weather_in_hour_range">in %1$d to %2$d hours</string>
     <string name="now">Now</string>
     <string name="pref_show_map_previews" translatable="false">pref_show_map_previews</string>
     <string name="pref_show_map_previews_title">Show map previews</string>
@@ -1957,8 +1954,6 @@
     <string name="default_widget_theme">Default widget theme</string>
     <string name="navigation_cancelled">Navigation cancelled</string>
     <string name="elevation_value">Elevation: %s</string>
-    <string name="pref_show_pressure_forecast" translatable="false">pref_show_pressure_forecast</string>
-    <string name="show_pressure_forecast">Show pressure forecast on chart</string>
     <!--Minute of angle (for shooting)-->
     <string name="moa_amount">%s MOA</string>
     <!--mil (for shooting)-->

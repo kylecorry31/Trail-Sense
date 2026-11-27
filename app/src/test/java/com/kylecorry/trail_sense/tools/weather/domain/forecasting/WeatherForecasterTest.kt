@@ -1,6 +1,7 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting
 
 import com.kylecorry.sol.math.Range
+import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
@@ -12,7 +13,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
-import com.kylecorry.trail_sense.tools.weather.domain.PressureTide
+import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.ITemperatureService
@@ -101,8 +102,8 @@ internal class WeatherForecasterTest {
 
         val weather = forecaster().forecast(observations, emptyList(), equator)
 
-        val tideChange = PressureTide.getOffsetHpa(observations.last().time, equator) -
-            PressureTide.getOffsetHpa(observations.first().time, equator)
+        val tideChange = Meteorology.getPressureTide(observations.last().time, equator).hpa().value -
+            Meteorology.getPressureTide(observations.first().time, equator).hpa().value
         assertEquals(-tideChange, weather.pressureTendency.amount, 0.01f)
     }
 
@@ -189,6 +190,39 @@ internal class WeatherForecasterTest {
         val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
         assertNotNull(weather.prediction.hourlyArrival)
+    }
+
+    @Test
+    fun pressurePredictedWeatherArrivesSoonOrLaterRatherThanAtAnExactTime() = runBlocking {
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
+
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
+
+        val arrival = weather.prediction.hourlyArrival!!
+        assertFalse(arrival.isExact)
+        assertTrue(arrival.toRelative(Instant.now()) in listOf(RelativeArrivalTime.Soon, RelativeArrivalTime.Later))
+    }
+
+    @Test
+    fun everyPressurePredictedConditionIsSoonOrLaterExceptThunderstorms() = runBlocking {
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
+
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
+
+        val timed = weather.prediction.hourly.filter { it.condition != WeatherCondition.Thunderstorm }
+        assertTrue(timed.isNotEmpty())
+        assertTrue(timed.all { it.arrival in listOf(RelativeArrivalTime.Soon, RelativeArrivalTime.Later) }, timed.toString())
+        assertTrue(weather.prediction.hourly.filter { it.condition == WeatherCondition.Thunderstorm }.all { it.arrival == null })
+    }
+
+    @Test
+    fun theArrivalIsTheMainConditionsSoonOrLater() = runBlocking {
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
+
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
+
+        val main = weather.prediction.hourly.first { it.condition == weather.prediction.primaryHourly }
+        assertEquals(main.arrival, weather.prediction.hourlyArrival?.toRelative(Instant.now()))
     }
 
     @Test

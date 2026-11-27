@@ -5,9 +5,18 @@ Use the Weather tool to roughly predict the weather without an Internet connecti
 ## Read the weather prediction
 The weather prediction is shown at the top of the screen. It doesn't use the Internet. It uses the pressure history, historic temperatures and precipitation (the 30-year averages), and the clouds from the Clouds tool.
 
-To see all of the predicted conditions, tap the prediction. Conditions predicted from the pressure history show their chance of happening, such as "Precipitation (70%)".
+An estimate of when the weather will arrive is shown below the prediction. If the clouds you logged indicate a weather front, an approximate time is shown. Otherwise, it shows **within 3 hours** or **in 3–12 hours**.
 
-An estimate of when the weather will change is shown below the prediction. The accuracy of the time frame depends on whether the clouds indicate a weather front. If a front is detected, an approximate time is shown. Otherwise, the estimate is vaguer, such as "soon" or "later".
+To see all of the predicted conditions, tap the prediction. Each condition shows when it's expected and, if it was predicted from the pressure history, its chance of happening in that time, such as "Precipitation - within 3 hours (70%)". A thunderstorm shows only that it's likely in the next 12 hours, because the pressure history can't tell whether it will arrive within 3 hours or in 3–12 hours.
+
+The predicted conditions mean the following:
+
+- **Clear**: Mostly clear skies or a few clouds.
+- **Overcast**: Mostly cloudy skies.
+- **Precipitation**: Any rain, snow, drizzle, sleet or hail. Rain or snow is chosen from the historic temperatures.
+- **Wind**: Gusts of about 45 km/h (30 mph) or more, or steady wind of about 35 km/h (25 mph) or more.
+- **Storm**: Thunder, gusts of about 65 km/h (40 mph) or more, or heavy rain of about 6 mm (0.25 in) or more in an hour.
+- **Thunderstorm**: Thunder.
 
 To change how sensitive the prediction is, set **Settings > Weather > Forecast sensitivity**. Higher sensitivity can detect more patterns but might produce more false predictions.
 
@@ -54,6 +63,8 @@ To get a daily weather notification, do the following:
 1. Start the weather monitor. You don't receive the daily notification while the weather monitor is off.
 2. Enable **Settings > Weather > Daily weather notification**.
 3. Optional: Set the time of the notification in **Settings > Weather > Daily weather time**.
+
+A notification sent before 4:00 PM shows today's forecast, the prediction for the next 12 hours. A notification sent at 4:00 PM or later shows tomorrow's forecast, the prediction for 12 to 24 hours later.
 
 ## Get storm alerts
 If the weather monitor is on, Trail Sense can notify you of storms. To turn on storm alerts, do the following:
