@@ -13,6 +13,7 @@ import com.kylecorry.andromeda.fragments.inBackground
 import com.kylecorry.andromeda.fragments.observe
 import com.kylecorry.luna.concurrency.onIO
 import com.kylecorry.luna.concurrency.onMain
+import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.PressureUnits
 import com.kylecorry.sol.units.Reading
@@ -33,6 +34,7 @@ import com.kylecorry.trail_sense.tools.tools.infrastructure.getFeatureState
 import com.kylecorry.trail_sense.tools.tools.infrastructure.observe
 import com.kylecorry.trail_sense.tools.weather.WeatherToolRegistration
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
+import com.kylecorry.trail_sense.tools.weather.domain.ForecastCondition
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.infrastructure.WeatherLogger
 import com.kylecorry.trail_sense.tools.weather.infrastructure.commands.ChangeWeatherFrequencyCommand
@@ -279,7 +281,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             binding.weatherTitle.title.text = formatService.formatWeather(prediction.primaryHourly)
             binding.weatherTitle.title.setOnClickListener {
                 if (prediction.hourly.isNotEmpty()) {
-                    val conditions = prediction.hourly.joinToString("\n") { (condition, probability, arrival) ->
+                    val conditions = getDisplayedConditions(prediction.hourly).joinToString("\n") { (condition, probability, arrival) ->
                         val name = formatService.formatWeather(condition)
                         val timed = arrival?.let {
                             getString(R.string.dash_separated_pair, name, formatService.formatWeatherArrival(it))
@@ -343,6 +345,11 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         }
     }
 
+    private fun getDisplayedConditions(conditions: List<ForecastCondition>): List<ForecastCondition> {
+        val hasPrecipitationType = conditions.any { it.condition in PRECIPITATION_TYPES }
+        return conditions.filterNot { hasPrecipitationType && it.condition == WeatherCondition.Precipitation }
+    }
+
     private fun showTemperatureChart() {
         val readings = history.map {
             Reading(it.temperature.convertTo(temperatureUnits).value, it.time)
@@ -370,4 +377,7 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
         return ActivityWeatherBinding.inflate(layoutInflater, container, false)
     }
 
+    companion object {
+        private val PRECIPITATION_TYPES = setOf(WeatherCondition.Rain, WeatherCondition.Snow)
+    }
 }

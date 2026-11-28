@@ -6,6 +6,7 @@ import com.kylecorry.sol.science.meteorology.WeatherFront
 import com.kylecorry.sol.units.Reading
 import com.kylecorry.trail_sense.shared.commands.generic.Command
 import com.kylecorry.trail_sense.main.persistence.IReadingRepo
+import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.RawWeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction
@@ -44,7 +45,7 @@ internal class MonitorWeatherCommandTest {
                 emptyList(),
                 emptyList(),
                 WeatherFront.Warm,
-                WeatherArrivalTime(Instant.now(), false),
+                WeatherArrivalTime(Instant.now(), false, RelativeArrivalTime.Soon),
                 null,
                 emptyList()
             ),

@@ -4,6 +4,7 @@ import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.trail_sense.shared.alerts.IDismissibleAlerter
 import com.kylecorry.trail_sense.shared.preferences.Flag
+import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction
@@ -87,7 +88,7 @@ internal class StormAlertCommandTest {
                 emptyList(),
                 emptyList(),
                 null,
-                WeatherArrivalTime(Instant.now(), false),
+                WeatherArrivalTime(Instant.now(), false, RelativeArrivalTime.Soon),
                 null,
                 if (hasStorm) listOf(WeatherAlert.Storm) else emptyList()
             ),

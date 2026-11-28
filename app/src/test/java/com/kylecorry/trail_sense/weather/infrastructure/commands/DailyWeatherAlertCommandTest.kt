@@ -4,6 +4,7 @@ import com.kylecorry.andromeda.core.time.IZonedDateTimeProvider
 import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.trail_sense.shared.alerts.IValueAlerter
+import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
@@ -37,7 +38,7 @@ internal class DailyWeatherAlertCommandTest {
                 emptyList(),
                 emptyList(),
                 null,
-                WeatherArrivalTime(Instant.now(), false),
+                WeatherArrivalTime(Instant.now(), false, RelativeArrivalTime.Soon),
                 null,
                 emptyList()
             ),

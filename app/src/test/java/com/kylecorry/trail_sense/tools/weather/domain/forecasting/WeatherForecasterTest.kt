@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
+import org.mockito.kotlin.atLeastOnce
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.verify
@@ -34,6 +35,7 @@ import org.mockito.kotlin.whenever
 import java.time.Duration
 import java.time.Instant
 import java.time.Month
+import java.time.ZonedDateTime
 
 internal class WeatherForecasterTest {
 
@@ -46,6 +48,7 @@ internal class WeatherForecasterTest {
         prefs = mock()
         whenever(prefs.forecastSensitivity).thenReturn(ForecastSensitivity.Medium)
         whenever(prefs.stormSensitivity).thenReturn(ForecastSensitivity.Medium)
+        whenever(prefs.weatherUpdateFrequency).thenReturn(Duration.ofMinutes(30))
 
         setTemperatures(10f, 20f, 15f)
     }
@@ -201,7 +204,7 @@ internal class WeatherForecasterTest {
 
         val arrival = weather.prediction.hourlyArrival!!
         assertFalse(arrival.isExact)
-        assertTrue(arrival.toRelative(Instant.now()) in listOf(RelativeArrivalTime.Soon, RelativeArrivalTime.Later))
+        assertTrue(arrival.relative in listOf(RelativeArrivalTime.Soon, RelativeArrivalTime.Later))
     }
 
     @Test
@@ -223,7 +226,7 @@ internal class WeatherForecasterTest {
         val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
 
         val main = weather.prediction.hourly.first { it.condition == weather.prediction.primaryHourly }
-        assertEquals(main.arrival, weather.prediction.hourlyArrival?.toRelative(Instant.now()))
+        assertEquals(main.arrival, weather.prediction.hourlyArrival?.relative)
     }
 
     @Test
@@ -239,7 +242,7 @@ internal class WeatherForecasterTest {
 
         forecaster().forecast(observations, emptyList(), polarLocation)
 
-        verify(temperatureService).getTemperatureRange(any(), any())
+        verify(temperatureService, atLeastOnce()).getTemperatureRange(any(), any())
     }
 
     @Test
@@ -336,17 +339,84 @@ internal class WeatherForecasterTest {
     }
 
     @Test
-    fun withoutAClimateOnlyLoggedCloudsGiveConditions() = runBlocking {
-        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
+    fun withoutAClimateThePressureForecastFallsBackToSol() = runBlocking {
+        val observations = fallingPressure(Duration.ofHours(3), 1015f, 985f)
+        val forecaster = WeatherForecaster(temperatureService, prefs)
+
+        val weather = forecaster.forecast(observations, emptyList(), polarLocation)
+
+        assertTrue(WeatherCondition.Storm in weather.hourly, weather.hourly.toString())
+        assertTrue(weather.prediction.alerts.contains(WeatherAlert.Storm))
+        assertEquals(emptyMap<WeatherCondition, Float>(), weather.probabilities)
+    }
+
+    @Test
+    fun withoutAClimateALoggedCloudSetsTheSky() = runBlocking {
+        val observations = fallingPressure(Duration.ofHours(24), 1030f, 1030f, temperateLocation)
         val cloud = Reading<CloudGenus?>(CloudGenus.Stratus, now.minus(Duration.ofMinutes(30)))
         val forecaster = WeatherForecaster(temperatureService, prefs)
 
-        val withoutClouds = forecaster.forecast(observations, emptyList(), temperateLocation)
-        val withClouds = forecaster.forecast(observations, listOf(cloud), temperateLocation)
+        val weather = forecaster.forecast(observations, listOf(cloud), temperateLocation)
 
-        assertEquals(emptyList<WeatherCondition>(), withoutClouds.hourly)
-        assertTrue(WeatherCondition.Overcast in withClouds.hourly)
-        assertEquals(emptyMap<WeatherCondition, Float>(), withClouds.probabilities)
+        assertTrue(WeatherCondition.Overcast in weather.hourly)
+        assertFalse(WeatherCondition.Clear in weather.hourly)
+    }
+
+    @Test
+    fun theForecastIgnoresPressureReadingsOlderThanThreeHours() = runBlocking {
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation, Duration.ofHours(4))
+
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
+
+        assertEquals(emptyList<WeatherCondition>(), weather.hourly)
+        assertEquals(emptyList<WeatherCondition>(), weather.daily)
+    }
+
+    @Test
+    fun theForecastUsesReadingsWithinTwiceTheUpdateFrequency() = runBlocking {
+        whenever(prefs.weatherUpdateFrequency).thenReturn(Duration.ofHours(3))
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation, Duration.ofHours(5))
+
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
+
+        assertTrue(WeatherCondition.Precipitation in weather.hourly, weather.hourly.toString())
+    }
+
+    @Test
+    fun tomorrowsPrecipitationTypeUsesTomorrowsTemperatures() = runBlocking {
+        val tomorrow = now.plus(Duration.ofHours(12))
+        whenever(temperatureService.getTemperatureRange(any(), any())).thenAnswer {
+            val start = it.getArgument<ZonedDateTime>(0).toInstant()
+            if (start < tomorrow.minus(Duration.ofMinutes(1))) {
+                Range(Temperature.celsius(5f), Temperature.celsius(12f))
+            } else {
+                Range(Temperature.celsius(-10f), Temperature.celsius(-2f))
+            }
+        }
+        val observations = fallingPressure(Duration.ofHours(12), 1010f, 995f, temperateLocation)
+
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
+
+        assertTrue(WeatherCondition.Rain in weather.hourly, weather.hourly.toString())
+        assertTrue(WeatherCondition.Snow in weather.daily, weather.daily.toString())
+        assertFalse(WeatherCondition.Rain in weather.daily)
+    }
+
+    @Test
+    fun aThunderstormUsesTheEarliestArrivalOfTheOtherWeather() = runBlocking {
+        val weather = (0..60).firstNotNullOfOrNull { step ->
+            val observations = fallingPressure(Duration.ofHours(12), 1015f, 1015f - step / 2f, temperateLocation)
+            forecaster().forecast(observations, emptyList(), temperateLocation)
+                .takeIf { it.prediction.primaryHourly == WeatherCondition.Thunderstorm }
+        }
+
+        assertNotNull(weather, "Expected a fall to predict a thunderstorm")
+        val earliest = weather!!.prediction.hourly
+            .filter { it.condition != WeatherCondition.Thunderstorm }
+            .mapNotNull { it.arrival }
+            .minOrNull()
+        assertNotNull(earliest)
+        assertEquals(earliest, weather.prediction.hourlyArrival?.relative)
     }
 
     @Test
@@ -360,6 +430,9 @@ internal class WeatherForecasterTest {
 
     private val CurrentWeather.hourly: List<WeatherCondition>
         get() = prediction.hourly.map { it.condition }
+
+    private val CurrentWeather.daily: List<WeatherCondition>
+        get() = prediction.daily.map { it.condition }
 
     private val CurrentWeather.probabilities: Map<WeatherCondition, Float>
         get() = prediction.hourly.mapNotNull { (condition, probability) -> probability?.let { condition to it } }.toMap()
@@ -394,14 +467,15 @@ internal class WeatherForecasterTest {
         span: Duration,
         from: Float,
         to: Float,
-        location: Coordinate = polarLocation
+        location: Coordinate = polarLocation,
+        age: Duration = Duration.ZERO
     ): List<WeatherObservation> {
         val steps = 10
         return (0..steps).map {
             val percent = it / steps.toFloat()
             WeatherObservation(
                 it.toLong(),
-                now.minus(span).plus(Duration.ofMillis((span.toMillis() * percent).toLong())),
+                now.minus(age).minus(span).plus(Duration.ofMillis((span.toMillis() * percent).toLong())),
                 Pressure.hpa(from + (to - from) * percent),
                 Temperature.celsius(15f),
                 50f,

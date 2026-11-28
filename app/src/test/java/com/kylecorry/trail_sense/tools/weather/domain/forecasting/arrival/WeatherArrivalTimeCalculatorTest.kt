@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.EnumSource
 import java.time.Clock
 import java.time.Duration
@@ -42,6 +43,14 @@ internal class WeatherArrivalTimeCalculatorTest {
         assertTrue(arrival!!.isExact)
     }
 
+    @ParameterizedTest
+    @CsvSource("60, Soon", "180, Soon", "240, Later")
+    fun anExactArrivalIsSoonWithinThreeHours(minutes: Long, expected: RelativeArrivalTime) {
+        val arrival = calculator().getArrivalTime(now.plus(Duration.ofMinutes(minutes)), null)
+
+        assertEquals(expected, arrival?.relative)
+    }
+
     @Test
     fun returnsNullWhenThereIsNoForecastedTimeOrArrival() {
         assertNull(calculator().getArrivalTime(null, null))
@@ -52,7 +61,7 @@ internal class WeatherArrivalTimeCalculatorTest {
     fun usesTheConditionsArrivalWithoutAForecastedTime(expected: RelativeArrivalTime) {
         val arrival = calculator().getArrivalTime(null, expected)
 
-        assertEquals(expected, arrival?.toRelative(now))
+        assertEquals(expected, arrival?.relative)
         assertFalse(arrival!!.isExact)
     }
 

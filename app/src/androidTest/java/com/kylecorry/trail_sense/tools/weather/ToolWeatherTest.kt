@@ -147,6 +147,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
         hasTendency(0f)
         hasText("1020.0 hPa", exact = true)
+        doesNotHaveText(string(R.string.weather_storm), waitForTime = 0)
     }
 
     @Test
@@ -156,6 +157,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         // 6 hPa lost over 6 hours is a 3 hPa drop every 3 hours
         hasTendency(-3f)
         hasText("1012.0 hPa", exact = true)
+        doesNotHaveText(string(R.string.weather_storm), waitForTime = 0)
     }
 
     @Test
@@ -182,6 +184,7 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
 
         hasTendency(4f)
         hasText("1016.0 hPa", exact = true)
+        doesNotHaveText(string(R.string.weather_storm), waitForTime = 0)
     }
 
     @Test

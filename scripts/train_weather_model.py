@@ -303,7 +303,7 @@ def train_fold(args):
 
 
 def kotlin_floats(values):
-    return "floatArrayOf(" + ", ".join(f"{v:.7g}f" for v in values) + ")"
+    return "floatArrayOf(" + ", ".join(f"{v:.7g}f" if np.float32(v) != 0 else "0f" for v in values) + ")"
 
 
 def kotlin_matrix(rows, indent):

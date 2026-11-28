@@ -10,13 +10,14 @@ internal class WeatherArrivalTimeCalculator(
     private val clock: Clock = Clock.systemDefaultZone()
 ) : IWeatherArrivalTimeCalculator {
     override fun getArrivalTime(forecastedTime: Instant?, arrival: RelativeArrivalTime?): WeatherArrivalTime? {
+        val now = Instant.now(clock)
         if (forecastedTime != null) {
-            if (forecastedTime < Instant.now(clock)) {
-                return WeatherArrivalTime(forecastedTime, true)
+            if (forecastedTime < now) {
+                return WeatherArrivalTime.exact(now, forecastedTime)
             }
             val rounded = forecastedTime.toZonedDateTime().roundNearestMinute(15).toInstant()
-            return WeatherArrivalTime(rounded, true)
+            return WeatherArrivalTime.exact(now, rounded)
         }
-        return arrival?.let { WeatherArrivalTime.fromRelative(Instant.now(clock), it) }
+        return arrival?.let { WeatherArrivalTime.fromRelative(now, it) }
     }
 }

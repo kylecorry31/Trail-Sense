@@ -147,7 +147,11 @@ internal class WeatherModel(
             Triple(WeatherCondition.Storm, WeatherOutput.StormNext3h, WeatherOutput.Storm3hTo12h),
             Triple(WeatherCondition.Wind, WeatherOutput.WindNext3h, WeatherOutput.Wind3hTo12h)
         )
-        private val STORM_OUTPUTS = setOf(WeatherOutput.StormNext3h, WeatherOutput.Storm3hTo12h)
+        private val STORM_OUTPUTS = setOf(
+            WeatherOutput.StormNext3h,
+            WeatherOutput.Storm3hTo12h,
+            WeatherOutput.ThunderstormNext12h
+        )
         private val SENSITIVITY_LOG_ODDS = ln(2f)
         private val HISTORY_WINDOW = Duration.ofHours(48)
         private val MINIMUM_HISTORY = Duration.ofHours(2)

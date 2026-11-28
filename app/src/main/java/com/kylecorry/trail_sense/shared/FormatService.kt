@@ -103,7 +103,7 @@ class FormatService private constructor(private val context: Context) {
 
     fun formatWeatherArrival(arrival: WeatherArrivalTime?): String {
         if (arrival?.isExact != true) {
-            return arrival?.let { formatWeatherArrival(it.toRelative(Instant.now())) } ?: ""
+            return arrival?.let { formatWeatherArrival(it.relative) } ?: ""
         }
 
         val time = arrival.time
