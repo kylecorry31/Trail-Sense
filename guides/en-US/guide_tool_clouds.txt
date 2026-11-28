@@ -1,4 +1,4 @@
-Use the Clouds tool to identify clouds and log them to help predict the weather. If your phone has a barometer, Trail Sense combines your cloud observations with barometer readings to improve the weather prediction in the Weather tool.
+Use the Clouds tool to identify clouds and log them to help predict the weather. The Weather tool uses the clouds you logged in the past 4 hours in its prediction. If your phone has a barometer, it combines them with the pressure history.
 
 ## Log a cloud
 To log a cloud, tap the **+** button in the bottom-right corner, and then choose how to identify the cloud:

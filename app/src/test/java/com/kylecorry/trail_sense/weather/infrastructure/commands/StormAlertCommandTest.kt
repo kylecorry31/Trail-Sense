@@ -8,7 +8,6 @@ import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreferences
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -87,8 +86,7 @@ internal class StormAlertCommandTest {
             WeatherPrediction(
                 emptyList(),
                 emptyList(),
-                null,
-                WeatherArrivalTime(Instant.now(), false, RelativeArrivalTime.Soon),
+                RelativeArrivalTime.Soon,
                 null,
                 if (hasStorm) listOf(WeatherAlert.Storm) else emptyList()
             ),

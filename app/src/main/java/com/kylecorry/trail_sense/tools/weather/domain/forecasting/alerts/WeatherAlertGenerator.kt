@@ -1,15 +1,14 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting.alerts
 
-import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherAlert
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 
 internal class WeatherAlertGenerator : IWeatherAlertGenerator {
-    override fun getAlerts(weather: CurrentWeather): List<WeatherAlert> {
+    override fun getAlerts(weather: CurrentWeather, isStormAlert: Boolean): List<WeatherAlert> {
         val alerts = mutableListOf<WeatherAlert>()
 
-        if (weather.prediction.hourly.any { it.condition == WeatherCondition.Storm }) {
+        if (isStormAlert) {
             alerts.add(WeatherAlert.Storm)
         }
 

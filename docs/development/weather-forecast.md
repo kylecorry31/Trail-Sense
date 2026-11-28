@@ -1,136 +1,55 @@
 # Weather Forecast
 
-This documents the Sol weather forecast algorithm. It is a rule-based forecast derived from the pressure history and logged clouds.
+The weather forecast is a neural network trained on up to a year of hourly observations from 63 airports around the world, plus three hurricane landfalls. It runs on the device and doesn't need the Internet. The training script is `scripts/train_weather_model.py`.
 
-## Inputs and Output
+## Inputs
 
-Inputs:
+- **Pressure**: The sea level pressure minus 1013 hPa, and its change over the past 1, 2, 3, 4, 6, 8, 10, 12, 15, 18, 21, 24, 30, 36, 42 and 48 hours. The daily pressure tide is removed first.
+- **Has pressure**: 1 if there is a recent pressure history, otherwise 0. Without one, the pressure inputs are 0.
+- **Time**: The solar time of day and the time of year, each as a sine and cosine. The time of year is shifted by half a year in the southern hemisphere.
+- **Location**: The absolute latitude.
+- **Climate**: The historic low and high temperatures for the day, and the log of the historic monthly and annual precipitation.
+- **Logged clouds**: For the past hour and for 1 to 4 hours ago, the sky cover of the latest log (clear, partly cloudy or mostly cloudy) and each cloud type logged.
 
-- **Pressure readings**: Barometer readings over time.
-- **Cloud readings**: Logged clouds over time. A reading with no cloud genus means a clear sky.
-- **Daily temperature range**: The expected low and high for the next 24 hours (or less), if available.
-- **Time**: The time to forecast from.
-- **Pressure change threshold**: The pressure change rate (hPa/hr) at which pressure is considered rising or falling.
-- **Storm change threshold**: The pressure change rate (hPa/hr) at which a falling pressure is considered a storm.
+## Outputs
 
-Output is a list of two forecasts:
+Each output is the probability of a condition:
 
-1. **Now**: The conditions, front, pressure system, and pressure tendency, along with the time the conditions arrive (if known).
-2. **Later**: The conditions and pressure system expected after the current conditions.
+- Precipitation, storm, wind, clear and overcast in the next 3 hours.
+- Precipitation, storm, wind, clear and overcast starting in 3 to 12 hours.
+- Thunderstorm in the next 12 hours.
+- Precipitation, clear and overcast in 12 to 24 hours.
+- Snow (most precipitation is snow or ice) in the next 12 hours and in 12 to 24 hours.
 
-Conditions are a combination of clear, overcast, precipitation (with rain or snow, if known), storm, thunderstorm, and wind.
+A condition is forecast when its probability is above a threshold that maximizes HSS. The forecast sensitivity setting scales how often precipitation, storm, wind and thunderstorm are forecast.
 
-## Preparing the Observations
+## Architecture
 
-Only readings from the 48 hours before the forecast time are used, in time order.
+- 53 inputs, standardized.
+- Two hidden layers of 28 and 19 ReLU units.
+- 16 sigmoid outputs.
 
-Clouds are only used if at least one was logged in the last 24 hours. Otherwise, all clouds are ignored, so the forecast is based on pressure alone.
+It is trained with Adam on the cross entropy of each output, with L2 regularization. Training includes copies of each sample with a shorter, thinned and noisy pressure history, as a phone records it, and copies with no pressure history.
 
-## Forecast Factors
+## Accuracy
 
-### Pressure Tendency
+Heidke skill score (HSS) at stations held out of training (5 folds by station), pooled over all stations. 1 is perfect and 0 is no better than chance. Logged clouds are stood in for by each station's sky report and the cloud types it reports. Snow is only scored when there is precipitation.
 
-The tendency compares the latest pressure reading with the reading closest to 3 hours before it (not including the latest reading itself). The change rate is the pressure difference divided by the time between those two readings.
-
-| Characteristic | Change rate (hPa/hr)                   |
-|----------------|----------------------------------------|
-| Falling fast   | At most `-(threshold + 2/3)`           |
-| Falling        | At most `-threshold`                   |
-| Steady         | Between the falling and rising limits  |
-| Rising         | At least `threshold`                   |
-| Rising fast    | At least `threshold + 2/3`             |
-
-If there are fewer than two pressure readings, or both readings are at the same time, the tendency is steady with no change.
-
-### Pressure System
-
-Based on the latest pressure reading. There is no pressure system if there are no readings.
-
-- **High**: At least 1022.689 hPa.
-- **Low**: At most 1009.144 hPa.
-- Otherwise, neither.
-
-### Cloud Patterns
-
-The clouds are compared against sequences of cloud groups that indicate a front is approaching. The cloud history must match a pattern exactly to indicate a front. The most recent reading must be in the pattern's last group. Going backward in time, each reading must belong to the current group or the group before it. A reading that doesn't belong (including a clear sky) or a skipped group means there is no match. The oldest reading must be in the pattern's first group.
-
-The cloud groups are:
-
-- **Cirro**: Cirrus, cirrocumulus, cirrostratus.
-- **Alto**: Altocumulus, altostratus.
-- **Warm**: Stratus, nimbostratus.
-- **Cold**: Cumulus, cumulonimbus.
-
-| Pattern                    | Indicates   |
-|----------------------------|-------------|
-| Cirro, alto, warm          | Warm front  |
-| Nimbostratus               | Warm front  |
-| Cirro, alto, cold          | Cold front  |
-| Cumulonimbus               | Cold front  |
-| Cirro, alto                | A front (unknown type) |
-
-### Fronts
-
-A cold front is indicated by the clouds, or by the pressure rising (rising or rising fast). A warm front is indicated by the pressure falling (falling or falling fast) or by the clouds, but only if it is not already a cold front. If neither applies, there is no front.
-
-The forecast also tracks the front indicated by the clouds alone, which is used by the storm and wind predictions.
-
-### Current Cloud
-
-The most recent cloud reading, if it is within 3 hours of the forecast time. Stratus, nimbostratus, stratocumulus, and altostratus are overcast clouds.
-
-## Current Conditions
-
-Each condition is predicted independently, so there can be several at once.
-
-| Condition     | Likely when                                                                                                                                                                                  |
-|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Storm         | The pressure is not rising, and either the clouds indicate a cold front or the pressure is falling by at least the storm threshold (in hPa/hr).                                              |
-| Thunderstorm  | A storm is likely, the front is cold, and the daily high is above 55°F (about 12.8°C). Without a daily temperature range, this is never likely.                                              |
-| Precipitation | The pressure is not rising, and either there is a warm front or the clouds indicate any front.                                                                                               |
-| Wind          | The pressure is changing rapidly (rising fast or falling fast), or the clouds indicate a cold front and the pressure is not rising.                                                          |
-| Clear         | If there is a current cloud, and it is a clear sky. If there is no current cloud, the pressure system is high and the pressure is steady or rising. Never if the current cloud is overcast.  |
-| Overcast      | If there is a current cloud, and it is an overcast cloud. If there is no current cloud, the pressure system is low and the pressure is steady or falling.                                    |
-
-Some conditions imply others, which are then added:
-
-- A storm adds precipitation and wind.
-- Precipitation adds overcast, and a precipitation type if the daily temperature range is known: rain if the low is above 0°C, snow if the high is at most 0°C. If the range spans freezing, no type is added.
-
-## Later Conditions
-
-The later forecast is based on where the weather is heading. It has no front or tendency, and precipitation is never predicted.
-
-| Forecast        | Likely when                                                                                                                                                              |
-|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Clear later     | There is a cold front and the pressure system is not low, or the current cloud is a clear sky or overcast cloud with a high pressure system and steady pressure.         |
-| Overcast later  | There is a warm front and the pressure system is not high, or the current cloud is a clear sky or overcast cloud with a low pressure system and steady pressure.         |
-| High pressure   | There is a cold front and the pressure system is not low, or the pressure system is high and steady.                                                                     |
-| Low pressure    | There is a warm front and the pressure system is not high, or the pressure system is low and steady.                                                                     |
-
-The later pressure system is high if high pressure is likely, otherwise low if low pressure is likely, otherwise none.
-
-## Arrival Time
-
-The arrival time is the time the current conditions are expected to begin, or unknown.
-
-- If there is exactly one condition, and it is wind or a clear or overcast sky with steady pressure, the conditions are already here, so the arrival time is the forecast time.
-- If precipitation is not one of the conditions, the arrival time is unknown.
-- Otherwise, it is estimated from the clouds. Each cloud type is expected to be followed by precipitation after a delay from when it was logged.
-
-  | Cloud                       | Delay (hours) |
-  |-----------------------------|---------------|
-  | Cirrus                      | 12 to 24      |
-  | Cirrocumulus                | 8 to 12       |
-  | Cirrostratus                | 10 to 15      |
-  | Altocumulus                 | 0 to 12       |
-  | Altostratus                 | 0 to 8        |
-  | Stratus, cumulus            | 0 to 3        |
-  | Nimbostratus, cumulonimbus  | 0             |
-  | Stratocumulus, clear sky    | No estimate   |
-
-  Only the clouds in the first front pattern that matches are used, or all clouds if none matches (a match here does not need to be exact). Starting with the most recent cloud, each delay range (offset by the time the cloud was logged) is intersected with the others, stopping at the first range that doesn't overlap. The arrival time is the middle of the resulting range, or unknown if there is none.
-
-## Missing Current Conditions
-
-If no current conditions are predicted (ex. a steady pressure with no clouds), they are inferred from earlier forecasts. Starting with the most recent pressure or cloud reading before the forecast time, and moving back through the readings, the forecast is recalculated as of each reading's time. This stops once it reaches readings more than 8 hours old. The first earlier forecast with conditions is used, preferring its later conditions over its current ones. Those conditions replace the current conditions of the forecast. Everything else, including the arrival time, is unchanged.
+| Condition                    | Pressure, no clouds | Pressure and clouds | Clouds, no pressure |
+|------------------------------|---------------------|---------------------|---------------------|
+| Precipitation, next 3 h      | 0.26                | 0.41                | 0.38                |
+| Storm, next 3 h              | 0.14                | 0.26                | 0.19                |
+| Wind, next 3 h               | 0.21                | 0.19                | 0.04                |
+| Clear, next 3 h              | 0.28                | 0.71                | 0.70                |
+| Overcast, next 3 h           | 0.26                | 0.78                | 0.78                |
+| Precipitation, 3 to 12 h     | 0.09                | 0.11                | 0.08                |
+| Storm, 3 to 12 h             | 0.11                | 0.11                | 0.09                |
+| Wind, 3 to 12 h              | 0.13                | 0.13                | 0.09                |
+| Clear, 3 to 12 h             | 0.07                | 0.11                | 0.08                |
+| Overcast, 3 to 12 h          | 0.05                | 0.15                | 0.12                |
+| Thunderstorm, next 12 h      | 0.18                | 0.22                | 0.23                |
+| Precipitation, 12 to 24 h    | 0.27                | 0.31                | 0.28                |
+| Clear, 12 to 24 h            | 0.27                | 0.44                | 0.43                |
+| Overcast, 12 to 24 h         | 0.27                | 0.41                | 0.41                |
+| Snow, next 12 h              | 0.73                | 0.73                | 0.73                |
+| Snow, 12 to 24 h             | 0.73                | 0.72                | 0.73                |

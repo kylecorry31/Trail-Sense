@@ -43,7 +43,6 @@ import com.kylecorry.trail_sense.shared.domain.Probability
 import com.kylecorry.trail_sense.tools.paths.domain.hiking.HikingDifficulty
 import com.kylecorry.trail_sense.tools.offline_maps.domain.photo_maps.projections.MapProjectionType
 import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
@@ -89,40 +88,18 @@ class FormatService private constructor(private val context: Context) {
         }
     }
 
-    fun formatWeatherArrival(arrival: RelativeArrivalTime): String {
-        val soonHours = WeatherArrivalTime.SOON_WINDOW.toHours().toInt()
+    fun formatWeatherArrival(arrival: RelativeArrivalTime?): String {
+        val soonHours = RelativeArrivalTime.SOON_WINDOW.toHours().toInt()
         return when (arrival) {
             RelativeArrivalTime.Soon -> strings.getString(R.string.weather_within_hours, soonHours)
             RelativeArrivalTime.Later -> strings.getString(
                 R.string.weather_in_hour_range,
                 soonHours,
-                WeatherArrivalTime.LATER_WINDOW.toHours().toInt()
+                RelativeArrivalTime.LATER_WINDOW.toHours().toInt()
             )
+
+            null -> ""
         }
-    }
-
-    fun formatWeatherArrival(arrival: WeatherArrivalTime?): String {
-        if (arrival?.isExact != true) {
-            return arrival?.let { formatWeatherArrival(it.relative) } ?: ""
-        }
-
-        val time = arrival.time
-        val duration = Duration.between(Instant.now(), time)
-
-        if (duration < Duration.ofMinutes(1)) {
-            return strings.getString(R.string.now).lowercase()
-        }
-
-        if (duration > Duration.ofHours(20)) {
-            return strings.getString(R.string.later).lowercase()
-        }
-
-        val datetime = time.toZonedDateTime()
-
-        return strings.getString(
-            R.string.at_time,
-            formatTime(datetime.toLocalTime(), includeSeconds = false)
-        )
     }
 
     fun formatProbability(probability: Probability): String {

@@ -6,7 +6,6 @@ import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.*
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
@@ -27,7 +26,7 @@ internal class WeatherAlertGeneratorTest {
     ) {
         val weather = weather(conditions, high, low)
         val generator = WeatherAlertGenerator()
-        val actual = generator.getAlerts(weather)
+        val actual = generator.getAlerts(weather, WeatherCondition.Storm in conditions)
         assertEquals(alerts, actual)
     }
 
@@ -40,8 +39,7 @@ internal class WeatherAlertGeneratorTest {
             WeatherPrediction(
                 conditions.map { ForecastCondition(it) },
                 emptyList(),
-                null,
-                WeatherArrivalTime(Instant.now(), false, RelativeArrivalTime.Soon),
+                RelativeArrivalTime.Soon,
                 TemperaturePrediction(
                     Temperature.zero,
                     Temperature.celsius(high),

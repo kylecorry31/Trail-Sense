@@ -47,7 +47,6 @@ import com.kylecorry.trail_sense.tools.weather.ui.dialogs.ShowHighLowTemperature
 import com.kylecorry.trail_sense.tools.weather.ui.dialogs.ShowHistoricTemperatureDisclaimerCommand
 import com.kylecorry.trail_sense.tools.weather.ui.fields.AlertWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.CloudWeatherField
-import com.kylecorry.trail_sense.tools.weather.ui.fields.FrontWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.HistoricTemperatureRangeWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.HumidityWeatherField
 import com.kylecorry.trail_sense.tools.weather.ui.fields.PressureSystemWeatherField
@@ -200,7 +199,6 @@ class WeatherFragment : BoundFragment<ActivityWeatherBinding>() {
             CloudWeatherField(weather.clouds),
 
             PressureSystemWeatherField(weather.observation?.pressure),
-            FrontWeatherField(weather.prediction.front),
             LastUpdatedWeatherField(weather.observation?.time),
         )
         val items = fields.mapNotNull {

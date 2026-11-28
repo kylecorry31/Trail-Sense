@@ -1,6 +1,6 @@
 # Clouds
 
-Use the Clouds tool to identify clouds and log them to help predict the weather. If your phone has a barometer, Trail Sense combines your cloud observations with barometer readings to improve the weather prediction in the Weather tool. The user guide has the procedures. This file adds how to drive and prove them.
+Use the Clouds tool to identify clouds and log them to help predict the weather. The Weather tool uses the clouds you logged in the past 4 hours in its prediction. If your phone has a barometer, it combines them with the pressure history. The user guide has the procedures. This file adds how to drive and prove them.
 
 ## Sub-features
 
@@ -18,7 +18,7 @@ Preconditions:
 
 - `$T doctor` ends with `doctor: OK` after `$T app seed`.
 
-- **Log manually.** Create a log entry and pick a cloud type per Identify a cloud manually. Run `$T ui tap id=add_btn`, then `$T ui tap 'text=/^Manual$/'` (the speed dial offers File, Camera, Manual). The results screen (`id=cloud_list`) lists the cloud types. Tapping a row's text opens an info dialog (dismiss with `text=/^OK$/`); select a cloud with its checkbox, then save with `$T ui tap id=toolbar_right_button`. The entry appears in the cloud log. The list screen and the Manual results screen were driven on 2026-11-21; the save was not confirmed.
+- **Log manually.** Create a log entry and pick a cloud type per Identify a cloud manually. Run `$T ui tap id=add_btn`, then `$T ui tap 'text=/^Manual$/'` (the speed dial offers File, Camera, Manual). The results screen (`id=cloud_list`) lists the cloud types. Tapping a row's text opens an info dialog (dismiss with `text=/^OK$/`); select a cloud with its checkbox, then save with `$T ui tap id=toolbar_right_button`. The entry appears in the cloud log. Saving was proven on 2026-11-28: `db query "select * from clouds"` showed the row (genus 5 is Nimbostratus). The checkboxes have no text, so find the row's title with `ui find` and tap the `id=checkbox` at the same height with `ui tapxy`.
 - **Side effect.** Read the stored log. Run `$T db query "select * from clouds"`. A row with the chosen cloud.
 - **Proof.** Snap the log list and save the db query output.
 

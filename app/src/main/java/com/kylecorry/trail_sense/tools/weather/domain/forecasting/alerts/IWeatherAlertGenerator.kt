@@ -4,5 +4,5 @@ import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherAlert
 
 internal interface IWeatherAlertGenerator {
-    fun getAlerts(weather: CurrentWeather): List<WeatherAlert>
+    fun getAlerts(weather: CurrentWeather, isStormAlert: Boolean): List<WeatherAlert>
 }

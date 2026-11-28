@@ -80,6 +80,11 @@ SERIES = [
     ("ENTC", "isd", "01025099999", None, None, "Tromso, Norway: arctic coast mountains"),
     ("CYXY", "isd", "71964099999", None, None, "Whitehorse, Canada: Yukon subarctic"),
     ("CYYC", "isd", "71877099999", None, None, "Calgary, Canada: Rockies foothills, chinooks"),
+    ("CYYZ", "isd", "71624099999", None, None, "Toronto, Canada: Great Lakes"),
+    ("CYWG", "isd", "71852099999", None, None, "Winnipeg, Canada: continental prairie"),
+    ("CYHZ", "isd", "71395099999", None, None, "Halifax, Canada: Atlantic coastal storms"),
+    ("CYVR", "isd", "71892099999", None, None, "Vancouver, Canada: Pacific coast fronts"),
+    ("CYZV", "isd", "71811099999", None, None, "Sept-Iles, Canada: Gulf of St. Lawrence"),
     ("VNKT", "isd", "44454099999", None, None, "Kathmandu, Nepal: Himalayan foothills, monsoon"),
     ("SLLP", "isd", "85201099999", None, None, "La Paz, Bolivia: Andean altiplano"),
     ("SPZO", "isd", "84686099999", None, None, "Cusco, Peru: Andes, wet season storms"),
@@ -104,7 +109,7 @@ def download_asos(station, start, end):
               ("format", "onlycomma"), ("latlon", "yes"), ("elev", "yes"), ("missing", "M"), ("trace", "T"),
               ("report_type", "3"), ("report_type", "4")]
     params += [("data", d) for d in ("tmpc", "relh", "mslp", "p01m", "wxcodes", "gust", "sknt",
-                                     "skyc1", "skyc2", "skyc3", "skyc4")]
+                                     "skyc1", "skyc2", "skyc3", "skyc4", "metar")]
     url = "https://mesonet.agron.iastate.edu/cgi-bin/request/asos.py?" + urllib.parse.urlencode(params)
     with urllib.request.urlopen(url, timeout=600) as response:
         rows = list(csv.DictReader(io.StringIO(response.read().decode())))
@@ -122,6 +127,7 @@ def download_asos(station, start, end):
             "gust": clean(row["gust"]),
             "wind": clean(row["sknt"]),
             "sky": max(layers, key=SKY_ORDER.index) if layers else "",
+            "clouds": " ".join(metar_cloud_types(row["metar"])) if row["metar"] != "M" else "",
         })
     return observations, (rows[0]["lat"], rows[0]["lon"], rows[0]["elevation"])
 
@@ -188,6 +194,17 @@ METAR_WEATHER = re.compile(
     r"^(\+|-)?(MI|PR|BC|DR|BL|SH|TS|FZ){0,2}(DZ|RA|SN|SG|IC|PL|GR|GS|UP|BR|FG|FU|VA|DU|SA|HZ|PY|PO|SQ|FC|SS|DS){0,3}$"
 )
 METAR_SKY = re.compile(r"^(FEW|SCT|BKN|OVC|VV)(\d{3}|///)")
+METAR_LAYER_TYPE = re.compile(r"^(FEW|SCT|BKN|OVC|VV)(\d{3}|///)(CB|TCU)$")
+# WHY: Canadian METAR remarks list each layer's cloud type and oktas, such as SC4AC2; towering cumulus and cumulus
+# fractus are logged as cumulus in the app, and stratus fractus as stratus
+CANADIAN_CLOUD_TYPES = {"CI": "Cirrus", "CC": "Cirrocumulus", "CS": "Cirrostratus", "AC": "Altocumulus",
+                        "ACC": "Altocumulus", "AS": "Altostratus", "NS": "Nimbostratus", "SC": "Stratocumulus",
+                        "ST": "Stratus", "SF": "Stratus", "CU": "Cumulus", "CF": "Cumulus", "TCU": "Cumulus",
+                        "CB": "Cumulonimbus"}
+CANADIAN_CLOUD_REMARK = re.compile(r"\b(TCU|ACC|CI|CC|CS|AC|AS|NS|SC|ST|SF|CU|CF|CB)(\d)")
+ISD_CLOUD_TYPES = {"00": "Cirrus", "01": "Cirrocumulus", "02": "Cirrostratus", "03": "Altocumulus",
+                   "04": "Altostratus", "05": "Nimbostratus", "06": "Stratocumulus", "07": "Stratus", "08": "Cumulus",
+                   "09": "Cumulonimbus"}
 METAR_GUST = re.compile(r"^(\d{3}|VRB|///)\d{2,3}G(\d{2,3})(KT|MPS)$")
 METAR_END = ("RMK", "TEMPO", "BECMG", "NOSIG", "FCST")
 
@@ -222,6 +239,22 @@ def parse_metar(text):
         "sky": max(layers, key=SKY_ORDER.index) if layers else "",
         "gust": "" if gust is None else round(gust, 1),
     }
+
+
+def metar_cloud_types(text):
+    """The cloud types in a METAR: cumulonimbus from its cloud layers, and every type from Canadian remarks"""
+    report = re.search(r"(METAR|SPECI) (.*)", text)
+    body = report.group(2) if report else text
+    observed, _, remarks = body.partition(" RMK ")
+    types = {"Cumulonimbus" for token in observed.split()
+             if (layer := METAR_LAYER_TYPE.match(token)) and layer.group(3) == "CB"}
+    types |= {CANADIAN_CLOUD_TYPES[code] for code, _ in CANADIAN_CLOUD_REMARK.findall(remarks)}
+    return sorted(types)
+
+
+def isd_cloud_types(row):
+    layers = (row.get(f"GA{i}", "").split(",") for i in range(1, 7))
+    return {ISD_CLOUD_TYPES[layer[4]] for layer in layers if len(layer) > 4 and layer[4] in ISD_CLOUD_TYPES}
 
 
 def isd_pressure(row, use_sea_level_pressure):
@@ -269,6 +302,9 @@ def download_isd(station):
             gust = first(lambda row: isd_value(row.get("OC1", ""), 0, 10, "9999"))
             gust = "" if gust is None else round(gust * METERS_PER_SECOND_TO_KNOTS, 1)
         wind = first(lambda row: isd_value(row.get("WND", ""), 3, 10, "9999"))
+        clouds = set()
+        for row in group:
+            clouds |= isd_cloud_types(row) | set(metar_cloud_types(row.get("REM", "")))
         observations.append({
             "time": date + "Z",
             "pressure": "" if pressure is None else f"{pressure:.1f}",
@@ -279,6 +315,7 @@ def download_isd(station):
             "gust": gust,
             "wind": "" if wind is None else round(wind * METERS_PER_SECOND_TO_KNOTS, 1),
             "sky": sky,
+            "clouds": " ".join(sorted(clouds)),
         })
     first_row = rows[0]
     source = "SLP" if use_sea_level_pressure else "QNH"
@@ -328,7 +365,7 @@ for series_id, source, station, start, end, description in selected:
     with gzip.open(os.path.join(output_dir, f"{series_id}.csv.gz"), "wt", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["time", "pressure_hpa", "temperature_c", "humidity_percent", "precipitation_mm",
-                         "weather", "gust_kt", "wind_kt", "sky_cover"])
+                         "weather", "gust_kt", "wind_kt", "sky_cover", "cloud_types"])
         for i, observation in enumerate(observations):
             pressure = observation["pressure"]
             if pressure != "" and not is_plausible_pressure(observations, i):
@@ -336,7 +373,7 @@ for series_id, source, station, start, end, description in selected:
                 removed += 1
             writer.writerow([observation["time"], pressure, observation["temperature"], observation["humidity"],
                              observation["precipitation"], observation["weather"], observation["gust"],
-                             observation["wind"], observation["sky"]])
+                             observation["wind"], observation["sky"], observation["clouds"]])
     index[series_id] = [series_id, latitude, longitude, elevation, description]
     print(f"{series_id}: {len(observations)} observations, {removed} implausible pressures removed")
 

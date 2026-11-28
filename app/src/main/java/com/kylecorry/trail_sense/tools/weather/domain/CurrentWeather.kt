@@ -2,7 +2,6 @@ package com.kylecorry.trail_sense.tools.weather.domain
 
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
-import com.kylecorry.sol.science.meteorology.WeatherFront
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Pressure
@@ -10,7 +9,7 @@ import com.kylecorry.sol.units.Reading
 import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.shared.data.Identifiable
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.PrimaryWeatherSelector
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
+import java.time.Duration
 import java.time.Instant
 
 data class CurrentWeather(
@@ -22,7 +21,12 @@ data class CurrentWeather(
 
 enum class RelativeArrivalTime {
     Soon,
-    Later
+    Later;
+
+    companion object {
+        val SOON_WINDOW: Duration = Duration.ofHours(3)
+        val LATER_WINDOW: Duration = Duration.ofHours(12)
+    }
 }
 
 data class TemperaturePrediction(
@@ -35,16 +39,15 @@ data class TemperaturePrediction(
 data class WeatherPrediction(
     val hourly: List<ForecastCondition>,
     val daily: List<ForecastCondition>,
-    val front: WeatherFront?,
-    val hourlyArrival: WeatherArrivalTime?,
+    val hourlyArrival: RelativeArrivalTime?,
     val temperature: TemperaturePrediction?,
     val alerts: List<WeatherAlert>
 ) {
 
     private val primarySelector = PrimaryWeatherSelector()
 
-    val primaryHourly = primarySelector.getWeather(hourly.map { it.condition })
-    val primaryDaily = primarySelector.getWeather(daily.map { it.condition })
+    val primaryHourly = primarySelector.getWeather(hourly)
+    val primaryDaily = primarySelector.getWeather(daily)
 }
 
 data class WeatherObservation(

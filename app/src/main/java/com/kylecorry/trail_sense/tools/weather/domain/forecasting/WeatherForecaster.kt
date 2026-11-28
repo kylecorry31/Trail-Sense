@@ -1,15 +1,12 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting
 
-import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.science.meteorology.Meteorology
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
-import com.kylecorry.sol.science.meteorology.WeatherForecast
 import com.kylecorry.sol.science.meteorology.clouds.CloudGenus
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Pressure
 import com.kylecorry.sol.units.Reading
-import com.kylecorry.sol.units.Temperature
 import com.kylecorry.trail_sense.tools.weather.domain.CurrentWeather
 import com.kylecorry.trail_sense.tools.weather.domain.ForecastCondition
 import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
@@ -17,11 +14,10 @@ import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherObservation
 import com.kylecorry.trail_sense.tools.weather.domain.WeatherPrediction
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.alerts.WeatherAlertGenerator
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
-import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTimeCalculator
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.model.WeatherModel
+import com.kylecorry.trail_sense.tools.weather.domain.forecasting.model.LoggedSky
+import com.kylecorry.trail_sense.tools.weather.domain.forecasting.model.WeatherModelPrediction
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.temperatures.ITemperatureService
-import com.kylecorry.trail_sense.tools.weather.domain.get3hTendency
 import com.kylecorry.trail_sense.tools.weather.domain.getLastCloud
 import com.kylecorry.trail_sense.tools.weather.domain.getTemperaturePrediction
 import com.kylecorry.trail_sense.tools.weather.infrastructure.IWeatherPreferences
@@ -40,7 +36,6 @@ internal class WeatherForecaster(
     private val forecastSensitivity = prefs.forecastSensitivity
     private val stormSensitivity = prefs.stormSensitivity
     private val updateFrequency = prefs.weatherUpdateFrequency
-    private val arrivalCalculator = WeatherArrivalTimeCalculator(clock)
     private val alertGenerator = WeatherAlertGenerator()
     private val primarySelector = PrimaryWeatherSelector()
 
@@ -56,79 +51,68 @@ internal class WeatherForecaster(
         val weather = CurrentWeather(
             WeatherPrediction(
                 forecast.conditions,
-                forecast.laterConditions.map { ForecastCondition(it) },
-                forecast.pressure.front,
+                forecast.laterConditions,
                 forecast.arrival,
                 temperatureService.getTemperaturePrediction(ZonedDateTime.now(clock)),
                 emptyList()
             ),
-            forecast.pressure.get3hTendency() ?: PressureTendency.zero,
+            forecast.pressureTendency,
             last,
             lastCloud
         )
 
-        val alerts = alertGenerator.getAlerts(weather)
+        val alerts = alertGenerator.getAlerts(weather, forecast.isStormAlert)
 
         return weather.copy(prediction = weather.prediction.copy(alerts = alerts))
     }
 
-    private suspend fun getForecast(
+    private fun getForecast(
         readings: List<WeatherObservation>,
         clouds: List<Reading<CloudGenus?>>,
         location: Coordinate
     ): Forecast {
-        val pressures = if (!hasEnoughReadings(readings)) {
-            emptyList()
-        } else {
+        val pressures = if (hasEnoughReadings(readings)) {
             readings.map { removeTide(it.pressureReading(), it.location) }
-        }
-
-        val pressureForecast = getSolForecast(pressures, clouds, location)
-        val cloudForecast = if (clouds.isEmpty()) null else getSolForecast(emptyList(), clouds, location)
-        val pressureConditions = getPressureConditions(pressures, pressureForecast, location)
-        val conditions = combine(pressureConditions.first, cloudForecast?.first()?.conditions.orEmpty())
-        val laterConditions = combineLater(pressureConditions.second, cloudForecast?.last()?.conditions.orEmpty())
-        val primary = primarySelector.getWeather(conditions.map { it.condition })
-        val timedWeather = conditions.filter { it.condition in WEATHER_CONDITIONS }.mapNotNull { it.arrival }
-        val arrival = arrivalCalculator.getArrivalTime(
-            getCloudPrecipitationTime(conditions, cloudForecast?.first()),
-            conditions.firstOrNull { it.condition == primary }?.arrival ?: timedWeather.minOrNull()
-        )
-        val forecast = Forecast(pressureForecast.first(), conditions, laterConditions, arrival)
-
-        val precipitation = conditions.firstOrNull { it.condition == WeatherCondition.Precipitation }
-        val now = ZonedDateTime.now(clock)
-        val typedPrecipitation = precipitation?.let {
-            val arrivesIn = arrival?.let { Duration.between(now.toInstant(), it.time) } ?: Duration.ZERO
-            it.copy(condition = getPrecipitationType(getHighLowTemperature(now, arrivesIn, Duration.ofHours(6))))
-        }
-        val laterType = if (WeatherCondition.Precipitation in laterConditions) {
-            getPrecipitationType(getHighLowTemperature(now, LATER_START, LATER_DURATION))
         } else {
-            null
+            emptyList()
         }
-        return forecast.copy(
-            conditions = conditions + listOfNotNull(typedPrecipitation),
-            laterConditions = laterConditions + listOfNotNull(laterType)
+
+        val prediction = getPrediction(pressures, clouds, location)
+        val conditions = withPrecipitationOvercast(prediction?.conditions.orEmpty())
+        val laterConditions = withPrecipitationOvercast(prediction?.laterConditions.orEmpty())
+        val primary = primarySelector.getWeather(conditions)
+        val arrival = conditions.firstOrNull { it.condition == primary }?.arrival
+            ?: conditions.filter { it.condition in WEATHER_CONDITIONS }.mapNotNull { it.arrival }.minOrNull()
+
+        val precipitationType = prediction?.let {
+            getPrecipitationType(conditions, it.isPrecipitationSnow, it.snowChance)
+        }
+        val laterPrecipitationType = prediction?.let {
+            getPrecipitationType(laterConditions, it.isLaterPrecipitationSnow, it.laterSnowChance)
+        }
+
+        return Forecast(
+            WeatherModel.getTendency(pressures),
+            conditions + listOfNotNull(precipitationType),
+            laterConditions + listOfNotNull(laterPrecipitationType),
+            arrival,
+            prediction?.isStormAlert == true
         )
     }
 
     /**
-     * @return the conditions over the next 12 hours and the conditions 12 to 24 hours out
+     * @return null without a climate, or without a recent enough pressure history or logged sky
      */
-    private fun getPressureConditions(
+    private fun getPrediction(
         pressures: List<Reading<Pressure>>,
-        solForecast: List<WeatherForecast>,
+        clouds: List<Reading<CloudGenus?>>,
         location: Coordinate
-    ): Pair<List<ForecastCondition>, List<WeatherCondition>> {
-        if (climate == null) {
-            return solForecast.first().conditions.map { ForecastCondition(it) } to solForecast.last().conditions
-        }
-        if (!isRecent(pressures.lastOrNull())) {
-            return emptyList<ForecastCondition>() to emptyList()
-        }
-        val prediction = WeatherModel(climate, location, forecastSensitivity, stormSensitivity).predict(pressures)
-        return prediction?.conditions.orEmpty() to prediction?.laterConditions.orEmpty()
+    ): WeatherModelPrediction? {
+        climate ?: return null
+        val now = Instant.now(clock)
+        val recentPressures = if (isRecent(pressures.lastOrNull())) pressures else emptyList()
+        return WeatherModel(climate, location, forecastSensitivity, stormSensitivity)
+            .predict(recentPressures, LoggedSky.fromLoggedClouds(clouds, now), now)
     }
 
     private fun isRecent(reading: Reading<Pressure>?): Boolean {
@@ -137,50 +121,32 @@ internal class WeatherForecaster(
         return Duration.between(reading.time, Instant.now(clock)) <= maxAge
     }
 
-    private fun combine(
-        pressureConditions: List<ForecastCondition>,
-        cloudConditions: List<WeatherCondition>
-    ): List<ForecastCondition> {
-        val cloudSky = cloudConditions.filter { it in SKY_CONDITIONS }
-            .map { ForecastCondition(it, arrival = RelativeArrivalTime.Soon) }
-        val sky = cloudSky.ifEmpty { pressureConditions.filter { it.condition in SKY_CONDITIONS } }
-        val pressureWeather = pressureConditions.filter { it.condition in WEATHER_CONDITIONS }
-        val cloudWeather = cloudConditions
-            .filter { it in WEATHER_CONDITIONS && pressureWeather.none { weather -> weather.condition == it } }
-            .map { ForecastCondition(it, arrival = RelativeArrivalTime.Soon) }
-        val weather = pressureWeather + cloudWeather
-        val precipitation = weather.firstOrNull { it.condition == WeatherCondition.Precipitation }
-            ?: return sky + weather
-        return weather + ForecastCondition(WeatherCondition.Overcast, arrival = precipitation.arrival)
+    private fun withPrecipitationOvercast(conditions: List<ForecastCondition>): List<ForecastCondition> {
+        val precipitation = conditions.firstOrNull { it.condition == WeatherCondition.Precipitation }
+            ?: return conditions
+        val overcast = conditions.firstOrNull { it.condition == WeatherCondition.Overcast } ?: precipitation
+        return conditions.filter { it.condition !in SKY_CONDITIONS } + ForecastCondition(
+            WeatherCondition.Overcast,
+            overcast.probability,
+            precipitation.arrival,
+            overcast.relativeProbability
+        )
     }
 
-    private fun combineLater(
-        pressureConditions: List<WeatherCondition>,
-        cloudConditions: List<WeatherCondition>
-    ): List<WeatherCondition> {
-        val cloudSky = cloudConditions.filter { it in SKY_CONDITIONS }
-        val sky = cloudSky.ifEmpty { pressureConditions.filter { it in SKY_CONDITIONS } }
-        val weather = (pressureConditions + cloudConditions).filter { it in WEATHER_CONDITIONS }.distinct()
-        return if (WeatherCondition.Precipitation in weather) {
-            weather + WeatherCondition.Overcast
-        } else {
-            sky + weather
-        }
-    }
-
-    private fun getPrecipitationType(temperatures: Range<Temperature>): WeatherCondition {
-        val mean = (temperatures.start.celsius().value + temperatures.end.celsius().value) / 2
-        return if (mean <= SNOW_MEAN_TEMPERATURE_C) WeatherCondition.Snow else WeatherCondition.Rain
-    }
-
-    private fun getCloudPrecipitationTime(
+    /**
+     * @param snowChance the chance from 0 to 1 that the precipitation is mostly snow or ice
+     */
+    private fun getPrecipitationType(
         conditions: List<ForecastCondition>,
-        cloudForecast: WeatherForecast?
-    ): Instant? {
-        if (conditions.none { it.condition == WeatherCondition.Precipitation }) {
-            return null
-        }
-        return cloudForecast?.time?.takeIf { WeatherCondition.Precipitation in cloudForecast.conditions }
+        isSnow: Boolean,
+        snowChance: Float
+    ): ForecastCondition? {
+        val precipitation = conditions.firstOrNull { it.condition == WeatherCondition.Precipitation } ?: return null
+        val typeChance = if (isSnow) snowChance else 1 - snowChance
+        return precipitation.copy(
+            condition = if (isSnow) WeatherCondition.Snow else WeatherCondition.Rain,
+            probability = precipitation.probability?.times(typeChance)
+        )
     }
 
     private fun removeTide(reading: Reading<Pressure>, location: Coordinate): Reading<Pressure> {
@@ -190,55 +156,22 @@ internal class WeatherForecaster(
     }
 
     private fun hasEnoughReadings(readings: List<WeatherObservation>): Boolean {
-        val times = readings.map { it.time }
-        val start = times.minOrNull() ?: return false
-        val end = times.maxOrNull() ?: return false
-        return Duration.between(start, end) >= minDuration
-    }
-
-    // WHY: Sol's forecast still provides the pressure tendency, front and cloud conditions, and its thresholds set when the tendency counts as changing
-    private fun getSolForecast(
-        pressures: List<Reading<Pressure>>,
-        clouds: List<Reading<CloudGenus?>>,
-        location: Coordinate
-    ): List<WeatherForecast> {
-        return Meteorology.forecast(
-            pressures,
-            clouds,
-            null,
-            TENDENCY_CHANGE_HPA_PER_HOUR,
-            TENDENCY_STORM_HPA_PER_HOUR,
-            Instant.now(clock),
-            location
-        )
-    }
-
-    private suspend fun getHighLowTemperature(
-        startTime: ZonedDateTime,
-        start: Duration,
-        duration: Duration
-    ): Range<Temperature> {
-        return temperatureService.getTemperatureRange(
-            startTime.plus(start),
-            startTime.plus(start).plus(duration)
-        )
+        val start = readings.minOfOrNull { it.time } ?: return false
+        val end = readings.maxOf { it.time }
+        return Duration.between(start, end) >= MIN_DURATION
     }
 
     private data class Forecast(
-        val pressure: WeatherForecast,
+        val pressureTendency: PressureTendency,
         val conditions: List<ForecastCondition>,
-        val laterConditions: List<WeatherCondition>,
-        val arrival: WeatherArrivalTime?
+        val laterConditions: List<ForecastCondition>,
+        val arrival: RelativeArrivalTime?,
+        val isStormAlert: Boolean
     )
 
     companion object {
-        private val minDuration = Duration.ofMinutes(10)
+        private val MIN_DURATION = Duration.ofMinutes(10)
         private val MIN_MAX_READING_AGE = Duration.ofHours(3)
-        private val LATER_START = Duration.ofHours(12)
-        private val LATER_DURATION = Duration.ofHours(12)
-        private const val TENDENCY_CHANGE_HPA_PER_HOUR = 0.5f
-        private const val TENDENCY_STORM_HPA_PER_HOUR = 1.5f
-        private const val SNOW_MEAN_TEMPERATURE_C = 0f
         private val SKY_CONDITIONS = setOf(WeatherCondition.Clear, WeatherCondition.Overcast)
         private val WEATHER_CONDITIONS = setOf(
             WeatherCondition.Precipitation,

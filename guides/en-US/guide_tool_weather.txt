@@ -3,22 +3,22 @@ Use the Weather tool to roughly predict the weather without an Internet connecti
 **Warning:** The weather prediction is a best guess from the available sensor data, and it might not be accurate. If Trail Sense predicts clear weather but you see what look like storm clouds rolling in, trust your instincts. Storms can roll in with gradual changes in pressure. Seek shelter if you sense a storm approaching, regardless of what Trail Sense predicts.
 
 ## Read the weather prediction
-The weather prediction is shown at the top of the screen. It doesn't use the Internet. It uses the pressure history, historic temperatures and precipitation (the 30-year averages), and the clouds from the Clouds tool.
+The weather prediction is shown at the top of the screen. It doesn't use the Internet. It uses the pressure history, historic temperatures and precipitation (the 30-year averages), and the clouds you logged in the Clouds tool in the past 4 hours. If there's no recent pressure history, the prediction uses only the logged clouds.
 
-An estimate of when the weather will arrive is shown below the prediction. If the clouds you logged indicate a weather front, an approximate time is shown. Otherwise, it shows **within 3 hours** or **in 3–12 hours**.
+An estimate of when the weather will arrive is shown below the prediction: **within 3 hours** or **in 3–12 hours**.
 
-To see all of the predicted conditions, tap the prediction. Each condition shows when it's expected and, if it was predicted from the pressure history, its chance of happening in that time, such as "Precipitation - within 3 hours (70%)". A thunderstorm shows only that it's likely in the next 12 hours, because the pressure history can't tell whether it will arrive within 3 hours or in 3–12 hours.
+To see all of the predicted conditions, tap the prediction. Each condition shows when it's expected and its chance of happening, such as "Precipitation - within 3 hours (70%)". A condition expected in 3–12 hours shows its chance of happening within 12 hours, and rain or snow shows the chance of that type of precipitation. A thunderstorm shows only that it's likely in the next 12 hours, because the prediction can't tell whether it will arrive within 3 hours or in 3–12 hours.
 
 The predicted conditions mean the following:
 
 - **Clear**: Mostly clear skies or a few clouds.
 - **Overcast**: Mostly cloudy skies.
-- **Precipitation**: Any rain, snow, drizzle, sleet or hail. Rain or snow is chosen from the historic temperatures.
+- **Precipitation**: Any rain, snow, drizzle, sleet or hail. Rain or snow may be predicted based on the historic temperatures and the other inputs.
 - **Wind**: Gusts of about 45 km/h (30 mph) or more, or steady wind of about 35 km/h (25 mph) or more.
 - **Storm**: Thunder, gusts of about 65 km/h (40 mph) or more, or heavy rain of about 6 mm (0.25 in) or more in an hour.
 - **Thunderstorm**: Thunder.
 
-To change how sensitive the prediction is, set **Settings > Weather > Forecast sensitivity**. Higher sensitivity can detect more patterns but might produce more false predictions.
+To change how sensitive the prediction is, set **Settings > Weather > Forecast sensitivity**. Higher sensitivity predicts precipitation, wind, storms and thunderstorms more often, so it misses less weather but produces more false predictions. Lower sensitivity predicts them less often. Sensitivity doesn't change the predicted sky or the storm alerts.
 
 ## Record pressure history
 If the weather monitor is on, it records the pressure history automatically. Otherwise, the pressure updates only when you open the Weather tool. For accuracy, record the pressure every 30 minutes.
@@ -104,9 +104,6 @@ If your device has a humidity sensor, the current humidity is shown. To see a hu
 
 ### Clouds
 The last logged cloud type appears in the weather list. To see a description of the cloud type, tap it.
-
-### Weather front
-The current weather front appears in the weather list. Fronts typically indicate weather changes and are often associated with precipitation and wind. To see a description of the weather front, tap it.
 
 ### Last updated
 The time of the last weather update appears in the weather list.
