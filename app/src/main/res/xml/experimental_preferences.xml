@@ -25,14 +25,6 @@
             app:singleLineTitle="false"
             app:title="@string/tool_cliff_height_title" />
 
-        <SwitchPreferenceCompat
-            app:defaultValue="false"
-            app:iconSpaceReserved="false"
-            app:key="@string/pref_show_pressure_forecast"
-            app:singleLineTitle="false"
-            app:summary="@string/weather"
-            app:title="@string/show_pressure_forecast" />
-
     </PreferenceCategory>
 
     <PreferenceCategory

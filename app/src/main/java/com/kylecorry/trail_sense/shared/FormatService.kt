@@ -89,15 +89,21 @@ class FormatService private constructor(private val context: Context) {
         }
     }
 
+    fun formatWeatherArrival(arrival: RelativeArrivalTime): String {
+        val soonHours = WeatherArrivalTime.SOON_WINDOW.toHours().toInt()
+        return when (arrival) {
+            RelativeArrivalTime.Soon -> strings.getString(R.string.weather_within_hours, soonHours)
+            RelativeArrivalTime.Later -> strings.getString(
+                R.string.weather_in_hour_range,
+                soonHours,
+                WeatherArrivalTime.LATER_WINDOW.toHours().toInt()
+            )
+        }
+    }
+
     fun formatWeatherArrival(arrival: WeatherArrivalTime?): String {
         if (arrival?.isExact != true) {
-            return when (arrival?.toRelative(Instant.now())) {
-                RelativeArrivalTime.Now -> strings.getString(R.string.now)
-                RelativeArrivalTime.VerySoon -> strings.getString(R.string.very_soon)
-                RelativeArrivalTime.Soon -> strings.getString(R.string.soon)
-                RelativeArrivalTime.Later -> strings.getString(R.string.later)
-                null -> ""
-            }.lowercase()
+            return arrival?.let { formatWeatherArrival(it.relative) } ?: ""
         }
 
         val time = arrival.time

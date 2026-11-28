@@ -168,7 +168,8 @@ object TestData {
         age: Duration,
         altitudeMeters: Float = 0f,
         temperatureCelsius: Float = 15f,
-        humidity: Float? = null
+        humidity: Float? = null,
+        location: Coordinate = Coordinate.zero
     ) = runBlocking {
         WeatherRepo.getInstance(context).add(
             Reading(
@@ -177,7 +178,8 @@ object TestData {
                     pressureHpa,
                     altitudeMeters,
                     temperatureCelsius,
-                    humidity = humidity
+                    humidity = humidity,
+                    location = location
                 ),
                 Instant.now().minus(age)
             )
@@ -194,7 +196,8 @@ object TestData {
         duration: Duration,
         endAge: Duration = Duration.ofMinutes(1),
         interval: Duration = Duration.ofMinutes(15),
-        altitudeMeters: Float = 0f
+        altitudeMeters: Float = 0f,
+        location: Coordinate = Coordinate.zero
     ) {
         val steps = (duration.toMinutes() / interval.toMinutes()).toInt()
         for (i in 0..steps) {
@@ -202,7 +205,8 @@ object TestData {
             addWeatherReading(
                 startHpa + (endHpa - startHpa) * fraction,
                 endAge + interval.multipliedBy((steps - i).toLong()),
-                altitudeMeters
+                altitudeMeters,
+                location = location
             )
         }
     }

@@ -9,7 +9,7 @@ internal class WeatherAlertGenerator : IWeatherAlertGenerator {
     override fun getAlerts(weather: CurrentWeather): List<WeatherAlert> {
         val alerts = mutableListOf<WeatherAlert>()
 
-        if (weather.prediction.hourly.contains(WeatherCondition.Storm)) {
+        if (weather.prediction.hourly.any { it.condition == WeatherCondition.Storm }) {
             alerts.add(WeatherAlert.Storm)
         }
 

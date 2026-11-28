@@ -1,5 +1,6 @@
 package com.kylecorry.trail_sense.tools.weather.infrastructure
 
+import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -17,8 +18,8 @@ interface IWeatherPreferences {
     var barometerOffset: Float
     val pressureHistory: Duration
     val sendStormAlerts: Boolean
-    val hourlyForecastChangeThreshold: Float
-    val stormAlertThreshold: Float
+    val forecastSensitivity: ForecastSensitivity
+    val stormSensitivity: ForecastSensitivity
     var dailyWeatherLastSent: LocalDate
     val dailyWeatherIsForTomorrow: Boolean
     var dailyForecastTime: LocalTime

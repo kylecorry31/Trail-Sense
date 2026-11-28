@@ -1,6 +1,5 @@
 package com.kylecorry.trail_sense.tools.climate.infrastructure.temperatures
 
-import android.content.Context
 import com.kylecorry.luna.concurrency.onDefault
 import com.kylecorry.sol.math.Range
 import com.kylecorry.sol.time.Time
@@ -16,7 +15,10 @@ import java.time.ZonedDateTime
 import kotlin.math.max
 import kotlin.math.min
 
-internal class HistoricTemperatureRepo(private val context: Context) : ITemperatureRepo {
+internal class HistoricTemperatureRepo(
+    private val getMonthlyRanges: suspend (Coordinate) -> Map<Month, Range<Temperature>> =
+        HistoricMonthlyTemperatureRangeRepo::getMonthlyTemperatureRanges
+) : ITemperatureRepo {
 
     private val highInterpolator = MonthlyValueInterpolator()
     private val lowInterpolator = MonthlyValueInterpolator()
@@ -25,8 +27,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         year: Int,
         location: Coordinate
     ): List<Pair<LocalDate, Range<Temperature>>> = onDefault {
-        val monthly =
-            HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRanges(location)
+        val monthly = getMonthlyRanges(location)
 
         Time.getYearlyValues(year) {
             getDailyRange(location, it, monthly)
@@ -62,10 +63,7 @@ internal class HistoricTemperatureRepo(private val context: Context) : ITemperat
         date: LocalDate,
         monthlyRanges: Map<Month, Range<Temperature>>? = null
     ): Range<Temperature> = onDefault {
-        val months =
-            monthlyRanges ?: HistoricMonthlyTemperatureRangeRepo.getMonthlyTemperatureRanges(
-                location
-            )
+        val months = monthlyRanges ?: getMonthlyRanges(location)
 
         val lowMonths = months.mapValues {
             it.value.start.celsius().value

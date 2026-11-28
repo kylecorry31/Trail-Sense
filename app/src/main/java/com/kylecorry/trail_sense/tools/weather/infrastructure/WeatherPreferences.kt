@@ -9,6 +9,7 @@ import com.kylecorry.sol.math.Range
 import com.kylecorry.trail_sense.R
 import com.kylecorry.trail_sense.shared.preferences.PreferencesSubsystem
 import com.kylecorry.trail_sense.tools.tools.infrastructure.Tools
+import com.kylecorry.trail_sense.tools.weather.domain.ForecastSensitivity
 import com.kylecorry.trail_sense.tools.weather.domain.sealevel.LoessSeaLevelCalibrationStrategy
 import java.time.Duration
 import java.time.LocalDate
@@ -86,23 +87,19 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
     override val sendStormAlerts: Boolean
         get() = cache.getBoolean(context.getString(R.string.pref_send_storm_alert)) ?: true
 
-    override val hourlyForecastChangeThreshold: Float
-        get() {
-            return when (cache.getString(context.getString(R.string.pref_forecast_sensitivity))) {
-                "low" -> HPA_FORECAST_LOW
-                "high" -> HPA_FORECAST_HIGH
-                else -> HPA_FORECAST_MEDIUM
-            }
-        }
+    override val forecastSensitivity: ForecastSensitivity
+        get() = getSensitivity(R.string.pref_forecast_sensitivity)
 
-    override val stormAlertThreshold: Float
-        get() {
-            return when (cache.getString(context.getString(R.string.pref_storm_alert_sensitivity))) {
-                "low" -> HPA_STORM_LOW
-                "high" -> HPA_STORM_HIGH
-                else -> HPA_STORM_MEDIUM
-            }
+    override val stormSensitivity: ForecastSensitivity
+        get() = getSensitivity(R.string.pref_storm_alert_sensitivity)
+
+    private fun getSensitivity(key: Int): ForecastSensitivity {
+        return when (cache.getString(context.getString(key))) {
+            "low" -> ForecastSensitivity.Low
+            "high" -> ForecastSensitivity.High
+            else -> ForecastSensitivity.Medium
         }
+    }
 
     override var dailyWeatherLastSent: LocalDate
         get() {
@@ -151,12 +148,6 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
             return hours.contains(now)
         }
 
-    val showPressureForecast by BooleanPreference(
-        cache,
-        context.getString(R.string.pref_show_pressure_forecast),
-        false
-    )
-
     private val useAlarmForStormAlertInternal by BooleanPreference(
         cache,
         context.getString(R.string.pref_weather_use_alarm_for_storm_alert),
@@ -181,15 +172,5 @@ class WeatherPreferences(private val context: Context) : IWeatherPreferences {
                 Range(LocalTime.MIN, LocalTime.MAX)
             }
         }
-
-    companion object {
-        const val HPA_FORECAST_LOW = 2.5f
-        const val HPA_FORECAST_MEDIUM = 1.5f
-        const val HPA_FORECAST_HIGH = 0.5f
-
-        const val HPA_STORM_LOW = -6f
-        const val HPA_STORM_MEDIUM = -4.5f
-        const val HPA_STORM_HIGH = -3f
-    }
 
 }

@@ -4,6 +4,7 @@ import com.kylecorry.sol.science.meteorology.PressureCharacteristic
 import com.kylecorry.sol.science.meteorology.PressureTendency
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Temperature
+import com.kylecorry.trail_sense.tools.weather.domain.RelativeArrivalTime
 import com.kylecorry.trail_sense.tools.weather.domain.*
 import com.kylecorry.trail_sense.tools.weather.domain.forecasting.arrival.WeatherArrivalTime
 import com.kylecorry.trail_sense.tools.weather.infrastructure.subsystem.WeatherSubsystem
@@ -37,10 +38,10 @@ internal class WeatherAlertGeneratorTest {
     ): CurrentWeather {
         return CurrentWeather(
             WeatherPrediction(
-                conditions,
+                conditions.map { ForecastCondition(it) },
                 emptyList(),
                 null,
-                WeatherArrivalTime(Instant.now(), false),
+                WeatherArrivalTime(Instant.now(), false, RelativeArrivalTime.Soon),
                 TemperaturePrediction(
                     Temperature.zero,
                     Temperature.celsius(high),
