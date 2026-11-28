@@ -78,8 +78,8 @@ internal class WeatherForecaster(
         }
 
         val prediction = getPrediction(pressures, clouds, location)
-        val conditions = withPrecipitationOvercast(prediction?.conditions.orEmpty())
-        val laterConditions = withPrecipitationOvercast(prediction?.laterConditions.orEmpty())
+        val conditions = prediction?.conditions.orEmpty()
+        val laterConditions = prediction?.laterConditions.orEmpty()
         val primary = primarySelector.getWeather(conditions)
         val arrival = conditions.firstOrNull { it.condition == primary }?.arrival
             ?: conditions.filter { it.condition in WEATHER_CONDITIONS }.mapNotNull { it.arrival }.minOrNull()
@@ -121,18 +121,6 @@ internal class WeatherForecaster(
         return Duration.between(reading.time, Instant.now(clock)) <= maxAge
     }
 
-    private fun withPrecipitationOvercast(conditions: List<ForecastCondition>): List<ForecastCondition> {
-        val precipitation = conditions.firstOrNull { it.condition == WeatherCondition.Precipitation }
-            ?: return conditions
-        val overcast = conditions.firstOrNull { it.condition == WeatherCondition.Overcast } ?: precipitation
-        return conditions.filter { it.condition !in SKY_CONDITIONS } + ForecastCondition(
-            WeatherCondition.Overcast,
-            overcast.probability,
-            precipitation.arrival,
-            overcast.relativeProbability
-        )
-    }
-
     /**
      * @param snowChance the chance from 0 to 1 that the precipitation is mostly snow or ice
      */
@@ -172,7 +160,6 @@ internal class WeatherForecaster(
     companion object {
         private val MIN_DURATION = Duration.ofMinutes(10)
         private val MIN_MAX_READING_AGE = Duration.ofHours(3)
-        private val SKY_CONDITIONS = setOf(WeatherCondition.Clear, WeatherCondition.Overcast)
         private val WEATHER_CONDITIONS = setOf(
             WeatherCondition.Precipitation,
             WeatherCondition.Storm,

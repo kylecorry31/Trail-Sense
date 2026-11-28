@@ -6,72 +6,18 @@ Fits the weather forecast network (WeatherNetworkCoefficients.kt) to the weather
    .agents/skills/verify-trail-sense/scripts/tsctl test unit '*ClimateFeatureExport*'
 3. Fit and write the network: python3 scripts/train_weather_model.py
 
-The forecast is one network with a sigmoid output per condition, so each condition gets its own probability. Each
-condition's yes or no threshold maximizes HSS on stations the network was not trained on (5 folds by site). The app
-only looks at a 3 to 12 hour output when the next 3 hours output says no, so those thresholds are tuned on that decision.
-The script reports HSS for the yes or no forecast with thresholds picked without the reported fold, so picking them
-doesn't flatter the score, and the Brier skill score for the probability, relative to always forecasting the station's
-own observed rate (above 0 means more skill than knowing the local climate). The Brier skill is the median station,
-because a station that rarely sees a condition swings the mean.
+Inputs: the sea level pressure with the daily tide removed, its change over several past hours, the time of day and
+year, latitude, the local climate, and the clouds the user logged in the past hour and 1 to 4 hours ago. Training adds
+copies of each sample as a phone would record it (a short or patchy history, reading noise, a calibration offset and
+pressure jumps) and copies with only a logged sky and no pressure.
 
-The inputs are the sea level pressure, its difference from each of several hours ago, the time of day and year,
-latitude and the local climate, with no hand made trends or curves; two ReLU hidden layers learn those instead and
-scored better than one layer fed the hand made ones. Stations report every hour, but the app may have only a few hours
-of history, recorded at the user's chosen interval, so the network also trains on a copy of every sample with its
-history cut short and thinned, and with the reading noise, sea level calibration offset and occasional pressure jumps of
-a phone. A difference older than the history uses the oldest reading. Averaging several networks,
-two more years of the same stations, a history length input, a third layer and tanh were tested and were no better.
+Outputs: precipitation, storm and wind in the next 3 hours or starting in 3 to 12 hours, thunderstorm in 12 hours,
+precipitation in 12 to 24 hours, clear or overcast sky in the next 3 hours and in 12 to 24 hours, and whether the
+precipitation is mostly snow. Outputs that can't happen together share a softmax with a "none" case; the rest are
+sigmoids.
 
-Each condition has an output for the next 3 hours and one for 3 to 12 hours, which the app shows as "within 3 hours"
-and "in 3-12 hours". The next 3 hours includes weather already happening. The 3 to 12 hour output means the condition
-starts then: it is not in the next 3 hours but is in 3 to 12 hours. For precipitation, storm, wind and thunderstorm
-being in a window means any report of it there; for clear and overcast, most sky reports there. Splitting off weather
-that is already happening was tested and made the next 3 hours worse, because pressure can't tell it from weather about
-to start. Thunderstorm has a single output for the next 12 hours, because the network could not
-tell whether thunder would come within 3 hours (held out HSS 0.02). Finer timing (1, 3, 12 and 24 hour onset windows) was tested and was no better than
-always guessing the most common one.
-
-Snow has an output for the next 12 hours and one for 12 to 24 hours: whether most precipitation reported there is
-snow or ice, known only when there is precipitation. It decides rain or snow in place of a freezing temperature rule,
-which scores about the same.
-
-The forecast sensitivity setting changes how often precipitation, storm, wind and thunderstorm are forecast: High
-forecasts each 1.5 times as often as Medium and Low 2/3 as often. That kept HSS within about 0.02 of Medium, while
-shifting the odds by a fixed factor made rare conditions all but vanish on Low and show most of the time on High. Sky
-and snow stay at Medium, because a higher sensitivity would make both clear and overcast more likely. The storm alert
-is on the chance of a storm in the next 12 hours (the next 3 hours output plus the 3 to 12 hour output, which can't
-both happen) with Medium maximizing F0.5, because an alert interrupts the user, and the storm sensitivity setting
-scaling how often it fires the same way.
-
-The clouds the user logged in the clouds tool are inputs, in two windows: the past hour, and 1 to 4 hours ago. Each
-window has the sky cover of its latest log (clear, partly cloudy or mostly cloudy) and every cloud type logged in it.
-The app maps cloud types to the cover they usually form, since layered clouds (stratus, nimbostratus, altostratus,
-stratocumulus and cirrostratus) tend to cover most of the sky and the others tend to leave gaps. The stations stand in
-for it with their sky report (clear for no clouds, partly cloudy for few or scattered and mostly cloudy for broken or
-overcast) and the cloud types in their reports: cumulonimbus from METAR cloud layers, every type from Canadian METAR
-remarks and from the ISD cloud layer groups. US stations only report cumulonimbus. Most users don't log clouds, so
-each window is shown for only some samples. A log 1 to 4 hours old with nothing newer kept most of the gain of a log
-from the past hour; with both, the older log added nothing.
-
-The network also forecasts from logged clouds alone, with has_pressure 0 and the pressure inputs 0, for a user who logs
-clouds without a pressure history. It trains on copies of samples with a logged sky and no pressure, which left the
-forecast with pressure and no logged clouds as good as before. This replaced the app's cloud rules. On reports with
-cloud types, the rules scored a pooled HSS of 0.12 for precipitation in the next 3 hours (the network without pressure
-0.40), 0.26 for overcast (0.76), 0.48 for clear (0.63), 0.26 for storm (0.28), 0.08 for wind (0.05) and about 0 for
-the 12 to 24 hour forecast (0.27 to 0.38).
-
-A network for the actual current temperature and the next 24 hours' low and high, from the pressure, the historic
-daily low and high and the other inputs, was tested and was only about 0.25 C better than the historic temperatures
-for the current temperature and high and no better for the low, so the app doesn't use one. Gradient boosting with
-no size limit did no better, so the inputs don't hold more, and without pressure it gained about a third as much.
-
-Leaving the pressure tide in was tested and lowered HSS, most for the next 3 hours.
-
-Decoupled weight decay kept every hidden unit alive but scored worse at every strength, and smaller layers scored no
-better, so the network is trained with L2 and the units it shrinks to nothing are pruned.
-
-Early stopping on held out sites stopped within a few epochs, with worse held out probabilities, so a fixed number of
-epochs is used instead.
+Scores are held out by site (5 folds): station mean HSS with thresholds picked on the other folds, and median station
+Brier skill against the station's own rate. Seed noise is about 0.01 HSS.
 """
 import bisect
 import csv
@@ -134,10 +80,6 @@ def number(value):
 def majority(values):
     values = [v for v in values if v is not None]
     return (sum(values) * 2 > len(values)) if values else None
-
-
-def starts_later(soon, later):
-    return None if soon is None or later is None else (not soon and later)
 
 
 def mostly_frozen(wet, frozen):
@@ -203,7 +145,6 @@ def load_rows():
                 **{f"{name}_next_3h": any(flags[i0:i3]) for name, flags in events},
                 **{f"{name}_3h_to_12h": not any(flags[i0:i3]) and any(flags[i3:i12]) for name, flags in events},
                 **{f"{name}_next_3h": majority(flags[i0:i3]) for name, flags in skies},
-                **{f"{name}_3h_to_12h": starts_later(majority(flags[i0:i3]), majority(flags[i3:i12])) for name, flags in skies},
                 thunderstorm_next_12h=any(thunder[i0:i12]), precipitation_12h_to_24h=any(wet[i12:i24]), clear_12h_to_24h=majority(clear[i12:i24]),
                 overcast_12h_to_24h=majority(overcast[i12:i24]),
                 snow_next_12h=mostly_frozen(wet[i0:i12], frozen[i0:i12]),
@@ -339,14 +280,21 @@ FEATURES = ["pressure_from_standard"] + DIFFERENCES + ["has_pressure"] + [
     "low_temperature", "high_temperature", "log_monthly_precipitation", "log_annual_precipitation"] + [
     f"{window}_{name}" for window in LOGGED_SKY_WINDOWS
     for name in [f"{cover}_sky" for cover in SKY_COVER_NAMES] + [name.lower() for name in CLOUD_TYPES]]
-CONDITIONS = [f"{name}_{window}" for window in ("next_3h", "3h_to_12h")
-              for name in ("precipitation", "storm", "wind", "clear", "overcast")] + [
-    "thunderstorm_next_12h", "precipitation_12h_to_24h", "clear_12h_to_24h", "overcast_12h_to_24h",
-    "snow_next_12h", "snow_12h_to_24h"]
+EVENTS = ("precipitation", "storm", "wind")
+CONDITIONS = [f"{name}_{window}" for window in ("next_3h", "3h_to_12h") for name in EVENTS] + [
+    "clear_next_3h", "overcast_next_3h", "thunderstorm_next_12h", "precipitation_12h_to_24h", "clear_12h_to_24h",
+    "overcast_12h_to_24h", "snow_next_12h", "snow_12h_to_24h"]
+# Each group is a softmax over its outputs and the implicit case where none of them happen
+SOFTMAX_GROUPS = [[f"{name}_next_3h", f"{name}_3h_to_12h"] for name in EVENTS] + [
+    ["clear_next_3h", "overcast_next_3h"], ["clear_12h_to_24h", "overcast_12h_to_24h"]]
+GROUP_COLUMNS = [[CONDITIONS.index(c) for c in group] for group in SOFTMAX_GROUPS]
+SIGMOID_COLUMNS = [j for j in range(len(CONDITIONS)) if not any(j in group for group in GROUP_COLUMNS)]
+# The outputs the app compares to a threshold; the sky is the likeliest of clear, overcast and neither instead
+FORECASTS = [f"{name}_{window}" for window in ("next_3h", "3h_to_12h") for name in EVENTS] + [
+    "thunderstorm_next_12h", "precipitation_12h_to_24h", "snow_next_12h", "snow_12h_to_24h"]
+SKIES = [("clear_next_3h", "overcast_next_3h"), ("clear_12h_to_24h", "overcast_12h_to_24h")]
 SENSITIVITY_RATES = {"low": 2 / 3, "high": 1.5}
-SENSITIVE_CONDITIONS = [f"{name}_{window}" for window in ("next_3h", "3h_to_12h")
-                        for name in ("precipitation", "storm", "wind")] + [
-    "thunderstorm_next_12h", "precipitation_12h_to_24h"]
+SENSITIVE_FORECASTS = FORECASTS[:-2]
 STORM_ALERT_BETA = 0.5
 HIDDEN_LAYERS = [32, 32]
 L2_PENALTY = 1e-3
@@ -360,8 +308,20 @@ SEED = 0
 SITES = {"MSY_IDA_2021": "MSY"}
 
 
+def activate(logits):
+    """A sigmoid for each output outside SOFTMAX_GROUPS and a softmax over each group, matching WeatherNetwork.kt"""
+    probability = np.empty_like(logits)
+    probability[:, SIGMOID_COLUMNS] = 1 / (1 + np.exp(-logits[:, SIGMOID_COLUMNS]))
+    for group in GROUP_COLUMNS:
+        values = np.concatenate([np.zeros((len(logits), 1)), logits[:, group]], 1)
+        values = np.exp(values - values.max(1, keepdims=True))
+        probability[:, group] = (values / values.sum(1, keepdims=True))[:, 1:]
+    return probability
+
+
 class Network:
-    """ReLU hidden layers and a sigmoid output per condition, matching Sol's NeuralNetwork relu and sigmoid layers"""
+    """ReLU hidden layers and a linear output layer, matching Sol's NeuralNetwork relu and linear layers, then the
+    activation of each output"""
 
     def __init__(self, mean, scale, layers):
         self.mean, self.scale, self.layers = mean, scale, layers
@@ -371,7 +331,7 @@ class Network:
         for weights, bias in self.layers[:-1]:
             values = np.maximum(values @ weights + bias, 0)
         weights, bias = self.layers[-1]
-        return 1 / (1 + np.exp(-(values @ weights + bias)))
+        return activate(values @ weights + bias)
 
     def pruned(self):
         """The network without the hidden units L2 shrank to nothing, so the app doesn't compute them"""
@@ -392,16 +352,24 @@ class Network:
 
 
 def train(X, Y, known, seed=SEED):
-    """Adam on the cross entropy of the known labels, with He initialization for the ReLU layers"""
+    """Adam on the cross entropy of the known labels, with He initialization for the ReLU layers. A softmax group's
+    cross entropy has the same gradient as a sigmoid's, the probability minus the label, so only the activation differs.
+    A group is known only where all its labels are."""
     rng = np.random.default_rng(seed)
     mean, scale = X.mean(0), X.std(0) + 1e-9
     Z = (X - mean) / scale
+    known = known.copy()
+    for group in GROUP_COLUMNS:
+        known[:, group] = known[:, group].min(1, keepdims=True)
     rate = np.clip((Y * known).sum(0) / np.maximum(known.sum(0), 1), 1e-3, 1 - 1e-3)
+    initial_bias = np.log(rate / (1 - rate))
+    for group in GROUP_COLUMNS:
+        initial_bias[group] = np.log(rate[group] / np.clip(1 - rate[group].sum(), 1e-3, 1))
     sizes = [Z.shape[1]] + HIDDEN_LAYERS
     params = []
     for inputs, outputs in zip(sizes, sizes[1:]):
         params += [rng.normal(0, math.sqrt(2 / inputs), (inputs, outputs)), np.zeros(outputs)]
-    params += [rng.normal(0, math.sqrt(1 / sizes[-1]), (sizes[-1], Y.shape[1])), np.log(rate / (1 - rate))]
+    params += [rng.normal(0, math.sqrt(1 / sizes[-1]), (sizes[-1], Y.shape[1])), initial_bias]
     first_moment = [np.zeros_like(p) for p in params]
     second_moment = [np.zeros_like(p) for p in params]
     step = 0
@@ -413,7 +381,7 @@ def train(X, Y, known, seed=SEED):
             for i in range(0, len(params) - 2, 2):
                 pre_activations.append(activations[-1] @ params[i] + params[i + 1])
                 activations.append(np.maximum(pre_activations[-1], 0))
-            probability = 1 / (1 + np.exp(-(activations[-1] @ params[-2] + params[-1])))
+            probability = activate(activations[-1] @ params[-2] + params[-1])
             delta = (probability - Y[batch]) * known[batch] / max(known[batch].sum(), 1)
             gradients = [None] * len(params)
             for layer in range(len(params) // 2 - 1, -1, -1):
@@ -474,37 +442,92 @@ def threshold_for_share(probability, share):
     return np.quantile(probability, 1 - min(share, 1))
 
 
+def forecast_chance(probability, name):
+    """The chance of an output, or for an event's "<name>_next_12h" the sum of its two outputs, which can't both happen"""
+    event = name.removesuffix("_next_12h")
+    if event in EVENTS:
+        return probability[:, CONDITIONS.index(f"{event}_next_3h")] + probability[:, CONDITIONS.index(f"{event}_3h_to_12h")]
+    return probability[:, CONDITIONS.index(name)]
+
+
+def forecast_label(Y, known, name):
+    """Whether an output or an event's "<name>_next_12h" happened, and where that is known"""
+    event = name.removesuffix("_next_12h")
+    if event in EVENTS:
+        soon, later = CONDITIONS.index(f"{event}_next_3h"), CONDITIONS.index(f"{event}_3h_to_12h")
+        return (Y[:, soon] > 0) | (Y[:, later] > 0), known[:, soon]
+    j = CONDITIONS.index(name)
+    return Y[:, j] > 0, known[:, j]
+
+
+def later_gates(probability, thresholds):
+    """For each event's 3 to 12 hour output, the samples where the app looks at it: the next 3 hours output says no"""
+    return {f"{name}_3h_to_12h": probability[:, CONDITIONS.index(f"{name}_next_3h")] < thresholds[f"{name}_next_3h"]
+            for name in EVENTS}
+
+
+def best_thresholds(probability, Y, known):
+    """Thresholds that maximize HSS, with a 3 to 12 hour output's tuned on the samples where the app looks at it"""
+    thresholds = {}
+    for name in FORECASTS:
+        j = CONDITIONS.index(name)
+        thresholds[name] = best_threshold(probability[known[:, j], j], Y[known[:, j], j] > 0)
+    for name, gate in later_gates(probability, thresholds).items():
+        j = CONDITIONS.index(name)
+        thresholds[name] = best_threshold(np.where(gate, probability[:, j], -1.0)[known[:, j]], Y[known[:, j], j] > 0)
+    return thresholds
+
+
 def sensitivity_thresholds(probability, known, medium):
-    """For each sensitivity, thresholds that forecast each sensitive condition its rate times as often as Medium, with a
+    """For each sensitivity, thresholds that forecast each sensitive output its rate times as often as Medium, with a
     3 to 12 hour output's threshold picked after that sensitivity's next 3 hours thresholds decide when it is used"""
     medium_forecast = forecast(probability, medium)
-    column = {c: j for j, c in enumerate(CONDITIONS)}
     levels = {"medium": medium}
     for level, rate in SENSITIVITY_RATES.items():
-        thresholds = medium.copy()
-        for condition in [c for c in SENSITIVE_CONDITIONS if "3h_to_12h" not in c]:
-            j = column[condition]
+        thresholds = dict(medium)
+        for name in [n for n in SENSITIVE_FORECASTS if "3h_to_12h" not in n]:
+            j = CONDITIONS.index(name)
             share = medium_forecast[known[:, j], j].mean() * rate
-            thresholds[j] = threshold_for_share(probability[known[:, j], j], share)
-        gates = later_gates(probability, thresholds)
-        for condition in [c for c in SENSITIVE_CONDITIONS if "3h_to_12h" in c]:
-            j = column[condition]
-            gated = known[:, j] & gates[j]
+            thresholds[name] = threshold_for_share(probability[known[:, j], j], share)
+        for name, gate in later_gates(probability, thresholds).items():
+            j = CONDITIONS.index(name)
+            gated = known[:, j] & gate
             share = medium_forecast[known[:, j], j].sum() * rate / max(gated.sum(), 1)
-            thresholds[j] = threshold_for_share(probability[gated, j], share)
+            thresholds[name] = threshold_for_share(probability[gated, j], share)
         levels[level] = thresholds
     return levels
 
 
+def forecast(probability, thresholds):
+    """What the app shows for each output: an output at its threshold, with a 3 to 12 hour output only when its next 3
+    hours output says no, and the likeliest sky of clear, overcast and neither"""
+    predicted = np.zeros(probability.shape, bool)
+    for name in FORECASTS:
+        predicted[:, CONDITIONS.index(name)] = probability[:, CONDITIONS.index(name)] >= thresholds[name]
+    for name, gate in later_gates(probability, thresholds).items():
+        predicted[:, CONDITIONS.index(name)] &= gate
+    for clear, overcast in SKIES:
+        c, o = CONDITIONS.index(clear), CONDITIONS.index(overcast)
+        likeliest = np.argmax(np.column_stack([1 - probability[:, c] - probability[:, o], probability[:, c],
+                                               probability[:, o]]), 1)
+        predicted[:, c] = likeliest == 1
+        predicted[:, o] = likeliest == 2
+    return predicted
+
+
+def forecast_shown(predicted, name):
+    event = name.removesuffix("_next_12h")
+    if event in EVENTS:
+        return predicted[:, CONDITIONS.index(f"{event}_next_3h")] | predicted[:, CONDITIONS.index(f"{event}_3h_to_12h")]
+    return predicted[:, CONDITIONS.index(name)]
+
+
 def storm_chance(probability):
-    """The chance of a storm in the next 12 hours: the two storm outputs can't both happen"""
-    column = {c: j for j, c in enumerate(CONDITIONS)}
-    return np.clip(probability[:, column["storm_next_3h"]] + probability[:, column["storm_3h_to_12h"]], 0, 1)
+    return forecast_chance(probability, "storm_next_12h")
 
 
 def storm_happened(Y):
-    column = {c: j for j, c in enumerate(CONDITIONS)}
-    return (Y[:, column["storm_next_3h"]] > 0) | (Y[:, column["storm_3h_to_12h"]] > 0)
+    return forecast_label(Y, np.ones(Y.shape, bool), "storm_next_12h")[0]
 
 
 def storm_alert_thresholds(probability, Y):
@@ -537,8 +560,8 @@ def camel_case(name, capitalize=False):
     return head + "".join(word.capitalize() for word in words[1:])
 
 
-def kotlin_thresholds(levels, j=None):
-    value = lambda level: levels[level] if j is None else levels[level][j]
+def kotlin_thresholds(levels, name=None):
+    value = lambda level: levels[level] if name is None else levels[level][name]
     return f"SensitivityThresholds({value('low'):.7g}f, {value('medium'):.7g}f, {value('high'):.7g}f)"
 
 
@@ -547,6 +570,7 @@ def write_kotlin(network, thresholds, alert_thresholds):
     indent = "        "
     layer = lambda weights, bias: (f"    NeuralNetwork.LayerWeights(\n{indent}{kotlin_matrix(weights.T, indent)},\n"
                                    f"{indent}{kotlin_matrix(bias[:, None], indent)}\n    )")
+    output = lambda name: "WeatherOutput." + camel_case(name, True)
     with open(OUTPUT, "w") as f:
         f.write(f"""package com.kylecorry.trail_sense.tools.weather.domain.forecasting.model
 
@@ -554,12 +578,20 @@ import com.kylecorry.sol.math.algebra.Matrix
 import com.kylecorry.sol.math.classifiers.NeuralNetwork
 
 // WHY: Generated by scripts/train_weather_model.py, do not edit by hand
-internal enum class WeatherOutput(val thresholds: SensitivityThresholds) {{
-{",\n".join(f"    {camel_case(c, True)}({kotlin_thresholds(thresholds, j)})" for j, c in enumerate(CONDITIONS))}
+internal enum class WeatherOutput {{
+{",\n".join(f"    {camel_case(c, True)}" for c in CONDITIONS)}
+}}
+
+internal enum class WeatherForecast(val thresholds: SensitivityThresholds) {{
+{",\n".join(f"    {camel_case(name, True)}({kotlin_thresholds(thresholds, name)})" for name in FORECASTS)}
 }}
 
 internal object WeatherNetworkCoefficients {{
     val stormAlertThresholds = {kotlin_thresholds(alert_thresholds)}
+
+    val softmaxGroups = listOf(
+{",\n".join("        listOf(" + ", ".join(output(c) for c in group) + ")" for group in SOFTMAX_GROUPS)}
+    )
 
     val hiddenLayerSizes = listOf({", ".join(str(n) for n in hidden_layer_sizes)})
 
@@ -586,31 +618,6 @@ def write_golden(network, X):
             writer.writerow([f"{v:.7g}" for v in features] + [f"{v:.7g}" for v in outputs])
 
 
-def later_gates(probability, thresholds):
-    """For each 3 to 12 hour output, the samples where the app looks at it: nothing predicted for the next 3 hours"""
-    column = {c: j for j, c in enumerate(CONDITIONS)}
-    below = lambda condition: probability[:, column[condition]] < thresholds[column[condition]]
-    no_sky_soon = below("clear_next_3h") & below("overcast_next_3h")
-    gates = {column[f"{name}_3h_to_12h"]: below(f"{name}_next_3h") for name in ("precipitation", "storm", "wind")}
-    gates.update({column[f"{name}_3h_to_12h"]: no_sky_soon for name in ("clear", "overcast")})
-    return gates
-
-
-def best_thresholds(probability, Y, known):
-    thresholds = np.array([best_threshold(probability[known[:, j], j], Y[known[:, j], j] > 0) for j in range(len(CONDITIONS))])
-    for j, gate in later_gates(probability, thresholds).items():
-        gated = np.where(gate, probability[:, j], -1.0)[known[:, j]]
-        thresholds[j] = best_threshold(gated, Y[known[:, j], j] > 0)
-    return thresholds
-
-
-def forecast(probability, thresholds):
-    predicted = probability >= thresholds
-    for j, gate in later_gates(probability, thresholds).items():
-        predicted[:, j] &= gate
-    return predicted
-
-
 def held_out_predictions(fold_networks, X, fold):
     probability = np.zeros((len(X), len(CONDITIONS)))
     for k, fold_network in enumerate(fold_networks):
@@ -624,14 +631,22 @@ def report(name, held_out, Y, known, fold, stations):
         other = fold != k
         predicted[fold == k] = forecast(held_out[fold == k], best_thresholds(held_out[other], Y[other], known[other]))
     print(name, flush=True)
+    evaluated = lambda valid: [valid & (stations == s) for s in sorted(set(stations)) if (valid & (stations == s)).sum() > 100]
     for j, condition in enumerate(CONDITIONS):
         valid, observed = known[:, j], Y[:, j] > 0
-        evaluated = [valid & (stations == s) for s in sorted(set(stations)) if (valid & (stations == s)).sum() > 100]
-        station_hss = [hss(predicted[m, j], observed[m]) for m in evaluated]
-        station_bss = [brier_skill_score(held_out[m, j], observed[m]) for m in evaluated]
+        station_hss = [hss(predicted[m, j], observed[m]) for m in evaluated(valid)]
+        station_bss = [brier_skill_score(held_out[m, j], observed[m]) for m in evaluated(valid)]
         print(f"  {condition}: held out station mean HSS {np.mean(station_hss):.3f}, pooled "
               f"{hss(predicted[valid, j], observed[valid]):.3f}; station median Brier skill "
               f"{np.median(station_bss):.3f}", flush=True)
+    for event in EVENTS:
+        observed, valid = forecast_label(Y, known, f"{event}_next_12h")
+        shown = forecast_shown(predicted, f"{event}_next_12h")
+        chance = forecast_chance(held_out, f"{event}_next_12h")
+        print(f"  {event}_next_12h: held out station mean HSS "
+              f"{np.mean([hss(shown[m], observed[m]) for m in evaluated(valid)]):.3f}, pooled "
+              f"{hss(shown[valid], observed[valid]):.3f}; station median Brier skill "
+              f"{np.median([brier_skill_score(chance[m], observed[m]) for m in evaluated(valid)]):.3f}", flush=True)
 
 
 def report_with_thresholds(name, probability, held_out, Y, known, fold, rows):
@@ -672,11 +687,11 @@ def report_sensitivity(held_out, Y, known, fold):
         return (f"{forecasted.mean():.3f}, POD {hits / max(observed.sum(), 1):.2f}, "
                 f"FAR {1 - hits / max(forecasted.sum(), 1):.2f}")
 
-    for condition in SENSITIVE_CONDITIONS:
-        j = CONDITIONS.index(condition)
-        valid = known[:, j]
-        print(f"  {condition}: " + "; ".join(
-            f"{level} {scores(predicted[level][valid, j], Y[valid, j] > 0)}" for level in levels), flush=True)
+    for name in SENSITIVE_FORECASTS:
+        observed, valid = forecast_label(Y, known, name)
+        print(f"  {name}: " + "; ".join(
+            f"{level} {scores(forecast_shown(predicted[level], name)[valid], observed[valid])}" for level in levels),
+              flush=True)
     print("  storm alert: " + "; ".join(f"{level} {scores(alerted[level], storm_happened(Y))}" for level in levels))
 
 

@@ -165,7 +165,9 @@ class ToolWeatherTest : ToolTestBase(Tools.WEATHER) {
         openWithPressureTrend(1020f, 1010f, Duration.ofHours(3))
 
         hasText(R.id.weather_title) {
-            it.startsWith(string(R.string.precipitation_rain)) || it.startsWith(string(R.string.precipitation_snow))
+            it.startsWith(string(R.string.weather_storm)) ||
+                    it.startsWith(string(R.string.precipitation_rain)) ||
+                    it.startsWith(string(R.string.precipitation_snow))
         }
         hasText(R.id.weather_title, string(R.string.weather_within_hours, 3))
         hasTendency(-10f)

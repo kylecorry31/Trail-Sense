@@ -50,107 +50,92 @@ internal class WeatherModel(
             getLaterConditions(probabilities),
             probabilities.getValue(WeatherOutput.SnowNext12h),
             probabilities.getValue(WeatherOutput.Snow12hTo24h),
-            isPredicted(probabilities, WeatherOutput.SnowNext12h),
-            isPredicted(probabilities, WeatherOutput.Snow12hTo24h),
+            isPredicted(probabilities.getValue(WeatherOutput.SnowNext12h), WeatherForecast.SnowNext12h),
+            isPredicted(probabilities.getValue(WeatherOutput.Snow12hTo24h), WeatherForecast.Snow12hTo24h),
             isStormAlert(probabilities)
         )
     }
 
     private fun getConditions(probabilities: Map<WeatherOutput, Float>): List<ForecastCondition> {
-        val sky = getSkyCondition(
-            probabilities,
-            WeatherOutput.ClearNext3h,
-            WeatherOutput.OvercastNext3h
-        ) ?: getSkyCondition(
-            probabilities,
-            WeatherOutput.Clear3hTo12h,
-            WeatherOutput.Overcast3hTo12h,
-            soonClear = WeatherOutput.ClearNext3h,
-            soonOvercast = WeatherOutput.OvercastNext3h
-        )
-        val weather = EVENTS.mapNotNull { (condition, soon, later) ->
-            getCondition(probabilities, condition, soon, RelativeArrivalTime.Soon)
-                ?: getCondition(probabilities, condition, later, RelativeArrivalTime.Later, soon)
-        }
+        val sky = getSkyCondition(probabilities, WeatherOutput.ClearNext3h, WeatherOutput.OvercastNext3h)
+            ?.copy(arrival = RelativeArrivalTime.Soon)
+        val weather = EVENTS.mapNotNull { getEventCondition(probabilities, it) }
         val thunderstorm = getCondition(
             probabilities,
             WeatherCondition.Thunderstorm,
             WeatherOutput.ThunderstormNext12h,
-            arrival = null
+            WeatherForecast.ThunderstormNext12h
         )
         return listOfNotNull(sky) + weather + listOfNotNull(thunderstorm)
     }
 
     private fun getLaterConditions(probabilities: Map<WeatherOutput, Float>): List<ForecastCondition> {
-        val sky = getSkyCondition(
-            probabilities,
-            WeatherOutput.Clear12hTo24h,
-            WeatherOutput.Overcast12hTo24h
-        )?.copy(arrival = null)
+        val sky = getSkyCondition(probabilities, WeatherOutput.Clear12hTo24h, WeatherOutput.Overcast12hTo24h)
         val precipitation = getCondition(
             probabilities,
             WeatherCondition.Precipitation,
             WeatherOutput.Precipitation12hTo24h,
-            arrival = null
+            WeatherForecast.Precipitation12hTo24h
         )
         return listOfNotNull(sky, precipitation)
     }
 
     /**
-     * @param soon the next 3 hours output when [output] is a 3 to 12 hour output. The 3 to 12 hour output is the
-     * chance the condition starts then, so the two add up to the chance of it within 12 hours.
+     * @return the event within 3 hours when its next 3 hours output reaches its threshold, otherwise in 3 to 12 hours
+     * when that output does, with the chance it happens by the end of that window
      */
-    private fun getCondition(
-        probabilities: Map<WeatherOutput, Float>,
-        condition: WeatherCondition,
-        output: WeatherOutput,
-        arrival: RelativeArrivalTime?,
-        soon: WeatherOutput? = null
-    ): ForecastCondition? {
-        if (!isPredicted(probabilities, output)) {
-            return null
-        }
-        val soonProbability = soon?.let { probabilities.getValue(it) } ?: 0f
-        return ForecastCondition(
-            condition,
-            (probabilities.getValue(output) + soonProbability).coerceAtMost(1f),
-            arrival,
-            getRelativeProbability(probabilities, output)
-        )
-    }
-
-    private fun getSkyCondition(
-        probabilities: Map<WeatherOutput, Float>,
-        clear: WeatherOutput,
-        overcast: WeatherOutput,
-        soonClear: WeatherOutput? = null,
-        soonOvercast: WeatherOutput? = null
-    ): ForecastCondition? {
-        val clearMargin = getMargin(probabilities, clear)
-        val overcastMargin = getMargin(probabilities, overcast)
+    private fun getEventCondition(probabilities: Map<WeatherOutput, Float>, event: Event): ForecastCondition? {
+        val soonChance = probabilities.getValue(event.soon)
+        val laterChance = probabilities.getValue(event.later)
         return when {
-            clearMargin >= 0 && clearMargin > overcastMargin -> getCondition(
-                probabilities,
-                WeatherCondition.Clear,
-                clear,
-                getArrival(soonClear),
-                soonClear
+            isPredicted(soonChance, event.soonForecast) -> ForecastCondition(
+                event.condition,
+                soonChance,
+                RelativeArrivalTime.Soon,
+                soonChance / event.soonForecast.thresholds.medium
             )
 
-            overcastMargin >= 0 -> getCondition(
-                probabilities,
-                WeatherCondition.Overcast,
-                overcast,
-                getArrival(soonOvercast),
-                soonOvercast
+            isPredicted(laterChance, event.laterForecast) -> ForecastCondition(
+                event.condition,
+                soonChance + laterChance,
+                RelativeArrivalTime.Later,
+                laterChance / event.laterForecast.thresholds.medium
             )
 
             else -> null
         }
     }
 
-    private fun getArrival(soon: WeatherOutput?): RelativeArrivalTime {
-        return if (soon == null) RelativeArrivalTime.Soon else RelativeArrivalTime.Later
+    private fun getCondition(
+        probabilities: Map<WeatherOutput, Float>,
+        condition: WeatherCondition,
+        output: WeatherOutput,
+        forecast: WeatherForecast
+    ): ForecastCondition? {
+        val chance = probabilities.getValue(output)
+        if (!isPredicted(chance, forecast)) {
+            return null
+        }
+        return ForecastCondition(condition, chance, relativeProbability = chance / forecast.thresholds.medium)
+    }
+
+    private fun getSkyCondition(
+        probabilities: Map<WeatherOutput, Float>,
+        clear: WeatherOutput,
+        overcast: WeatherOutput
+    ): ForecastCondition? {
+        val clearChance = probabilities.getValue(clear)
+        val overcastChance = probabilities.getValue(overcast)
+        val neitherChance = 1 - clearChance - overcastChance
+        return when {
+            clearChance > overcastChance && clearChance > neitherChance ->
+                ForecastCondition(WeatherCondition.Clear, clearChance)
+
+            overcastChance >= clearChance && overcastChance > neitherChance ->
+                ForecastCondition(WeatherCondition.Overcast, overcastChance)
+
+            else -> null
+        }
     }
 
     private fun isStormAlert(probabilities: Map<WeatherOutput, Float>): Boolean {
@@ -159,24 +144,8 @@ internal class WeatherModel(
         return chance >= WeatherNetworkCoefficients.stormAlertThresholds.get(stormSensitivity)
     }
 
-    private fun isPredicted(probabilities: Map<WeatherOutput, Float>, output: WeatherOutput): Boolean {
-        return getMargin(probabilities, output) >= 0
-    }
-
-    /**
-     * @return the log odds of the output above its threshold, positive when the condition is predicted
-     */
-    private fun getMargin(probabilities: Map<WeatherOutput, Float>, output: WeatherOutput): Float {
-        return logit(probabilities.getValue(output)) - logit(output.thresholds.get(forecastSensitivity))
-    }
-
-    private fun getRelativeProbability(probabilities: Map<WeatherOutput, Float>, output: WeatherOutput): Float {
-        return probabilities.getValue(output) / output.thresholds.medium
-    }
-
-    private fun logit(probability: Float): Float {
-        val p = probability.coerceIn(MIN_PROBABILITY, 1 - MIN_PROBABILITY)
-        return ln(p / (1 - p))
+    private fun isPredicted(chance: Float, forecast: WeatherForecast): Boolean {
+        return chance >= forecast.thresholds.get(forecastSensitivity)
     }
 
     private fun getPressureFeatures(pressures: List<Reading<Pressure>>): Map<String, Float>? {
@@ -243,11 +212,28 @@ internal class WeatherModel(
         private const val TENDENCY_CHANGE_HPA = 1.5f
         private const val TENDENCY_FAST_CHANGE_HPA = 3.5f
         private const val STANDARD_PRESSURE_HPA = 1013f
-        private const val MIN_PROBABILITY = 1e-6f
         private val EVENTS = listOf(
-            Triple(WeatherCondition.Precipitation, WeatherOutput.PrecipitationNext3h, WeatherOutput.Precipitation3hTo12h),
-            Triple(WeatherCondition.Storm, WeatherOutput.StormNext3h, WeatherOutput.Storm3hTo12h),
-            Triple(WeatherCondition.Wind, WeatherOutput.WindNext3h, WeatherOutput.Wind3hTo12h)
+            Event(
+                WeatherCondition.Precipitation,
+                WeatherOutput.PrecipitationNext3h,
+                WeatherOutput.Precipitation3hTo12h,
+                WeatherForecast.PrecipitationNext3h,
+                WeatherForecast.Precipitation3hTo12h
+            ),
+            Event(
+                WeatherCondition.Storm,
+                WeatherOutput.StormNext3h,
+                WeatherOutput.Storm3hTo12h,
+                WeatherForecast.StormNext3h,
+                WeatherForecast.Storm3hTo12h
+            ),
+            Event(
+                WeatherCondition.Wind,
+                WeatherOutput.WindNext3h,
+                WeatherOutput.Wind3hTo12h,
+                WeatherForecast.WindNext3h,
+                WeatherForecast.Wind3hTo12h
+            )
         )
         private val HISTORY_WINDOW = Duration.ofHours(48)
         private val MINIMUM_HISTORY = Duration.ofHours(2)
@@ -304,4 +290,12 @@ internal class WeatherModel(
             return current.value.hpa().value - past
         }
     }
+
+    private data class Event(
+        val condition: WeatherCondition,
+        val soon: WeatherOutput,
+        val later: WeatherOutput,
+        val soonForecast: WeatherForecast,
+        val laterForecast: WeatherForecast
+    )
 }
