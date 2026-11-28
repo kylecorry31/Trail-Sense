@@ -184,12 +184,13 @@ internal class WeatherForecasterTest {
     }
 
     @Test
-    fun aStormArrivesAtAKnownTime() = runBlocking {
+    fun aStormIsExpectedWithinThreeHoursOfARapidFall() = runBlocking {
         val observations = fallingPressure(Duration.ofHours(3), 1015f, 985f)
 
         val weather = forecaster().forecast(observations, emptyList(), polarLocation)
 
-        assertNotNull(weather.prediction.hourlyArrival)
+        val storm = weather.prediction.hourly.first { it.condition == WeatherCondition.Storm }
+        assertEquals(RelativeArrivalTime.Soon, storm.arrival)
     }
 
     @Test
@@ -243,9 +244,9 @@ internal class WeatherForecasterTest {
 
     @Test
     fun steadyHighPressureIsClear() = runBlocking {
-        val observations = fallingPressure(Duration.ofHours(12), 1025f, 1025f)
+        val observations = fallingPressure(Duration.ofHours(12), 1025f, 1025f, temperateLocation)
 
-        val weather = forecaster().forecast(observations, emptyList(), polarLocation)
+        val weather = forecaster().forecast(observations, emptyList(), temperateLocation)
 
         assertEquals(listOf(WeatherCondition.Clear), weather.hourly)
     }

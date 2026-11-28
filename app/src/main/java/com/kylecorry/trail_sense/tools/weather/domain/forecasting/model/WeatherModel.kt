@@ -1,7 +1,5 @@
 package com.kylecorry.trail_sense.tools.weather.domain.forecasting.model
 
-import com.kylecorry.sol.math.Vector2
-import com.kylecorry.sol.math.statistics.Statistics
 import com.kylecorry.sol.science.meteorology.WeatherCondition
 import com.kylecorry.sol.units.Coordinate
 import com.kylecorry.sol.units.Distance
@@ -17,8 +15,6 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.ln
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.sin
 
 internal class WeatherModel(
@@ -112,45 +108,31 @@ internal class WeatherModel(
 
     private fun getFeatures(pressures: List<Reading<Pressure>>): Map<String, Float>? {
         val current = pressures.lastOrNull() ?: return null
-        val pressureFromStandard = current.value.hpa().value - STANDARD_PRESSURE_HPA
-        val change3h = getPressureChange(pressures, SHORT_WINDOW) ?: return null
-        val change12h = getPressureChange(pressures, LONG_WINDOW) ?: return null
-        val change24h = getPressureChange(pressures, DAY_WINDOW) ?: return null
-        val recent = pressures
-            .filter { Duration.between(it.time, current.time) <= RANGE_WINDOW }
-            .map { it.value.hpa().value }
+        val hasOldEnoughReading = pressures.any { Duration.between(it.time, current.time) >= MINIMUM_HISTORY }
+        if (!hasOldEnoughReading) {
+            return null
+        }
+        val recent = pressures.filter { Duration.between(it.time, current.time) <= HISTORY_WINDOW }
 
         val time = current.time.atZone(ZoneOffset.UTC)
-        val low = climate.dailyTemperatures.start.celsius().value
-        val high = climate.dailyTemperatures.end.celsius().value
         val monthPrecipitation = climate.monthlyPrecipitation[time.month]?.millimeters() ?: 0f
         val annualPrecipitation = climate.monthlyPrecipitation.values.sumOf { it.millimeters().toDouble() }.toFloat()
         val solarHour = ((time.hour + time.minute / 60f + location.longitude.toFloat() / 15f) % 24 + 24) % 24
+        val seasonDay = time.dayOfYear + if (location.latitude < 0) SOUTHERN_SEASON_OFFSET_DAYS else 0f
+        val season = 2 * PI.toFloat() * seasonDay / DAYS_PER_YEAR
 
         return mapOf(
-            "pressure_from_standard" to pressureFromStandard,
-            "change_3h" to change3h,
-            "change_12h" to change12h,
-            "change_24h" to change24h,
-            "range_48h" to recent.max() - recent.min(),
-            "pressure_from_standard_squared" to pressureFromStandard * pressureFromStandard,
-            "change_3h_squared" to change3h * change3h,
-            "change_12h_squared" to change12h * change12h,
-            "change_24h_squared" to change24h * change24h,
-            "pressure_from_standard_x_change_12h" to pressureFromStandard * change12h,
-            "pressure_from_standard_x_change_3h" to pressureFromStandard * change3h,
-            "change_3h_x_change_12h" to change3h * change12h,
-            "fall_3h" to min(change3h, 0f),
-            "fall_12h" to min(change12h, 0f),
-            "mean_temperature" to (low + high) / 2,
-            "high_temperature" to high,
-            "temperature_range" to high - low,
-            "log_monthly_precipitation" to ln(1 + monthPrecipitation),
-            "monthly_precipitation_share" to monthPrecipitation * 12 / max(annualPrecipitation, 1f),
-            "log_annual_precipitation" to ln(1 + annualPrecipitation),
+            "pressure_from_standard" to current.value.hpa().value - STANDARD_PRESSURE_HPA,
             "solar_hour_sine" to sin(2 * PI.toFloat() * solarHour / 24),
-            "solar_hour_cosine" to cos(2 * PI.toFloat() * solarHour / 24)
-        )
+            "solar_hour_cosine" to cos(2 * PI.toFloat() * solarHour / 24),
+            "season_sine" to sin(season),
+            "season_cosine" to cos(season),
+            "absolute_latitude" to abs(location.latitude.toFloat()),
+            "low_temperature" to climate.dailyTemperatures.start.celsius().value,
+            "high_temperature" to climate.dailyTemperatures.end.celsius().value,
+            "log_monthly_precipitation" to ln(1 + monthPrecipitation),
+            "log_annual_precipitation" to ln(1 + annualPrecipitation)
+        ) + DIFFERENCE_HOURS.associate { "pressure_difference_${it}h" to getPressureDifference(recent, it) }
     }
 
     private fun Distance.millimeters(): Float {
@@ -167,30 +149,31 @@ internal class WeatherModel(
         )
         private val STORM_OUTPUTS = setOf(WeatherOutput.StormNext3h, WeatherOutput.Storm3hTo12h)
         private val SENSITIVITY_LOG_ODDS = ln(2f)
-        private val SHORT_WINDOW = Duration.ofHours(3)
-        private val LONG_WINDOW = Duration.ofHours(12)
-        private val DAY_WINDOW = Duration.ofHours(24)
-        private val RANGE_WINDOW = Duration.ofHours(48)
-        private val MINIMUM_CHANGE_WINDOW = Duration.ofHours(2)
-        private const val MINIMUM_FIT_READINGS = 3
+        private val HISTORY_WINDOW = Duration.ofHours(48)
+        private val MINIMUM_HISTORY = Duration.ofHours(2)
+        private const val SOUTHERN_SEASON_OFFSET_DAYS = 182.5f
+        private const val DAYS_PER_YEAR = 365.25f
+        private val DIFFERENCE_HOURS = listOf(1, 2, 3, 4, 6, 8, 10, 12, 15, 18, 21, 24, 30, 36, 42, 48)
 
-        // WHY: The model was trained on changes scaled to the full window, so a short history reads as if it covered it
-        private fun getPressureChange(pressures: List<Reading<Pressure>>, window: Duration): Float? {
+        /**
+         * @param pressures readings oldest first
+         * @return the current pressure minus the pressure [hours] ago, interpolated between readings, or from the
+         * oldest reading when the history is shorter
+         */
+        private fun getPressureDifference(pressures: List<Reading<Pressure>>, hours: Int): Float {
             val current = pressures.last()
-            val recent = pressures.filter { Duration.between(it.time, current.time) <= window }
-            val oldest = recent.first()
-            if (recent.size >= MINIMUM_FIT_READINGS && Duration.between(oldest.time, current.time) >= MINIMUM_CHANGE_WINDOW) {
-                val hourlyPressures = recent.map {
-                    Vector2(Duration.between(current.time, it.time).seconds / 3600f, it.value.hpa().value)
-                }
-                return Statistics.slope(hourlyPressures) * window.seconds / 3600f
+            val time = current.time.minus(Duration.ofHours(hours.toLong()))
+            val nextIndex = pressures.indexOfFirst { !it.time.isBefore(time) }
+            val past = if (nextIndex <= 0) {
+                pressures.first().value.hpa().value
+            } else {
+                val before = pressures[nextIndex - 1]
+                val after = pressures[nextIndex]
+                val span = Duration.between(before.time, after.time).toMillis().toFloat()
+                val fraction = Duration.between(before.time, time).toMillis() / span
+                before.value.hpa().value + (after.value.hpa().value - before.value.hpa().value) * fraction
             }
-            val past = pressures
-                .filter { Duration.between(it.time, current.time) >= MINIMUM_CHANGE_WINDOW }
-                .minByOrNull { abs(Duration.between(it.time, current.time).seconds - window.seconds) }
-                ?: return null
-            val span = Duration.between(past.time, current.time).seconds.toFloat()
-            return (current.value.hpa().value - past.value.hpa().value) * window.seconds / span
+            return current.value.hpa().value - past
         }
     }
 }
